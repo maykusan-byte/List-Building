@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créateur de Liste Warhammer 40k</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #cbd5e1; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .modal-content { max-height: 85vh; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <header class="bg-slate-900 border-b border-slate-800 p-4 shadow-md flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-skull text-emerald-500 text-2xl"></i>
+            <h1 class="text-xl font-bold text-slate-100 tracking-wider uppercase">Warforge<span class="text-emerald-500">.40k</span></h1>
+        </div>
+        <div id="file-upload-container" class="flex items-center gap-4">
+            <label for="json-upload" class="cursor-pointer bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded shadow transition font-medium text-sm flex items-center gap-2">
+                <i class="fa-solid fa-database"></i> Charger la Base (JSON)
+            </label>
+            <input type="file" id="json-upload" accept=".json" class="hidden" onchange="handleFileLoad(event)">
+        </div>
+    </header>
+
+    <div id="welcome-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-slate-900/50">
+        <i class="fa-solid fa-server text-6xl text-slate-700 mb-6"></i>
+        <h2 class="text-2xl font-bold text-slate-300 mb-4">Initialisation Requise</h2>
+        <p class="text-slate-500 max-w-md mb-8">Veuillez charger votre base de données <span class="text-emerald-400 font-mono">master_warorgan.json</span> pour commencer à créer votre liste d'armée. Vos données restent locales et sécurisées.</p>
+        <label for="json-upload-big" class="cursor-pointer bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-lg shadow-lg transition font-bold text-lg flex items-center gap-3">
+            <i class="fa-solid fa-folder-open"></i> Parcourir mes fichiers
+        </label>
+        <input type="file" id="json-upload-big" accept=".json" class="hidden" onchange="handleFileLoad(event)">
+    </div>
+
+    <div id="main-workspace" class="flex-1 flex flex-col md:flex-row overflow-hidden hidden">
+        
+        <!-- Panel 1: Filters -->
+        <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <div class="p-4 border-b border-slate-800 bg-slate-800/50">
+                <h2 class="font-bold text-slate-200 uppercase tracking-wide text-sm flex items-center gap-2"><i class="fa-solid fa-filter text-emerald-500"></i> Filtres</h2>
+            </div>
+            <div class="p-4 overflow-y-auto flex-1 space-y-6">
+                <!-- Search -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Recherche</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-500"></i>
+                        <input type="text" id="search-input" oninput="applyFilters()" placeholder="Nom..." class="w-full bg-slate-950 border border-slate-700 rounded py-2 pl-9 pr-3 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                    </div>
+                </div>
+
+                <!-- Faction -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Faction</label>
+                    <select id="filter-faction" onchange="applyFilters()" class="w-full bg-slate-950 border border-slate-700 rounded py-2 px-3 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                        <option value="">Toutes les factions</option>
+                    </select>
+                </div>
+
+                <!-- Keywords -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Mots-clés (Rôle)</label>
+                    <select id="filter-keyword" onchange="applyFilters()" class="w-full bg-slate-950 border border-slate-700 rounded py-2 px-3 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                        <option value="">Tous les mots-clés</option>
+                    </select>
+                </div>
+
+                <!-- Max Points -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Coût Max (Points)</label>
+                    <input type="number" id="filter-points" oninput="applyFilters()" placeholder="Ex: 200" min="0" class="w-full bg-slate-950 border border-slate-700 rounded py-2 px-3 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                </div>
+
+                <!-- Core Abilities -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Aptitudes Core</label>
+                    <div class="space-y-2" id="filter-core-abilities">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Stats Filters -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Statistiques Min.</label>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300">Endurance (T) ></span>
+                            <span id="val-t" class="text-emerald-400 font-bold">1</span>
+                        </div>
+                        <input type="range" id="filter-t" min="1" max="16" value="1" class="w-full accent-emerald-500" oninput="updateRangeLabel('t', this.value); applyFilters()">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300">Points de Vie (W) ></span>
+                            <span id="val-w" class="text-emerald-400 font-bold">1</span>
+                        </div>
+                        <input type="range" id="filter-w" min="1" max="30" value="1" class="w-full accent-emerald-500" oninput="updateRangeLabel('w', this.value); applyFilters()">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300">Mouvement (M) ></span>
+                            <span id="val-m" class="text-emerald-400 font-bold">0"</span>
+                        </div>
+                        <input type="range" id="filter-m" min="0" max="20" value="0" class="w-full accent-emerald-500" oninput="updateRangeLabel('m', this.value + '&quot;'); applyFilters()">
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Panel 2: Library -->
+        <main class="flex-1 bg-[#0b1121] flex flex-col min-w-0">
+            <div class="p-4 border-b border-slate-800 bg-slate-900/80 flex justify-between items-center shrink-0">
+                <h2 class="font-bold text-slate-200 uppercase tracking-wide text-sm flex items-center gap-2"><i class="fa-solid fa-book-journal-whills text-emerald-500"></i> Bibliothèque d'Unités</h2>
+                <span class="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded font-mono" id="results-count">0 résultat(s)</span>
+            </div>
+            <!-- Grid -->
+            <div class="flex-1 overflow-y-auto p-4">
+                <div id="library-grid" class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 align-top">
+                    <!-- Cards will be injected here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Panel 3: Army Roster -->
+        <aside class="w-full md:w-80 bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 shadow-[-4px_0_15px_-3px_rgba(0,0,0,0.3)] z-10">
+            <div class="p-4 border-b border-slate-800 bg-slate-800/80 flex justify-between items-end shrink-0">
+                <div>
+                    <h2 class="font-bold text-slate-100 uppercase tracking-wide text-sm flex items-center gap-2"><i class="fa-solid fa-clipboard-list text-emerald-500"></i> Mon Armée</h2>
+                    <p class="text-xs text-slate-400 mt-1" id="roster-count">0 unité(s)</p>
+                </div>
+                <div class="text-right">
+                    <span class="block text-[10px] uppercase text-slate-500 font-bold mb-0.5">Total Points</span>
+                    <span class="text-2xl font-black text-emerald-400 tracking-tight" id="roster-total">0 <span class="text-sm font-normal text-emerald-600">pts</span></span>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-3 space-y-3" id="roster-list">
+                <!-- Roster items injected here -->
+                <div class="text-center text-slate-500 text-sm mt-10 italic">Votre liste est vide.<br>Ajoutez des unités depuis la bibliothèque.</div>
+            </div>
+            <div class="p-4 border-t border-slate-800 bg-slate-950 shrink-0 flex flex-col gap-2">
+                <!-- Export/Import Buttons -->
+                <div class="flex gap-2">
+                    <button onclick="exportRoster()" class="flex-1 bg-blue-900/40 hover:bg-blue-800/60 text-blue-400 border border-blue-800/50 rounded py-2 text-[11px] font-bold uppercase tracking-wider transition flex items-center justify-center">
+                        <i class="fa-solid fa-download mr-1.5"></i> Exporter
+                    </button>
+                    <label for="roster-upload" class="flex-1 cursor-pointer bg-purple-900/40 hover:bg-purple-800/60 text-purple-400 border border-purple-800/50 rounded py-2 text-[11px] font-bold uppercase tracking-wider transition flex items-center justify-center mb-0">
+                        <i class="fa-solid fa-upload mr-1.5"></i> Importer
+                    </label>
+                    <input type="file" id="roster-upload" accept=".json" class="hidden" onchange="importRoster(event)">
+                </div>
+                <!-- Clear Button -->
+                <button onclick="triggerClearRoster()" class="w-full bg-red-900/30 hover:bg-red-900/50 text-red-400 border border-red-800/50 rounded py-2 text-sm font-bold uppercase tracking-wider transition flex items-center justify-center">
+                    <i class="fa-solid fa-trash-can mr-2"></i> Vider la liste
+                </button>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Modal Unit Details -->
+    <div id="unit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 shadow-2xl rounded-lg w-full max-w-5xl max-h-full flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="modal-container">
+            <!-- Header -->
+            <div class="bg-slate-950 border-b border-slate-800 p-4 md:p-6 flex justify-between items-start shrink-0 relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-600 to-teal-900"></div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight" id="modal-title">UNIT NAME</h2>
+                    <p class="text-emerald-500 font-bold text-sm tracking-widest uppercase mt-1" id="modal-faction">Faction</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-full w-10 h-10 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <!-- Content -->
+            <div class="p-4 md:p-6 overflow-y-auto modal-content bg-[#0b1121]" id="modal-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Dialog Modal (Replaces Alerts/Confirms) -->
+    <div id="dialog-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 shadow-2xl rounded-lg w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="dialog-container">
+            <div class="p-6 text-center">
+                <i id="dialog-icon" class="fa-solid text-5xl mb-4"></i>
+                <h3 id="dialog-title" class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Titre</h3>
+                <p id="dialog-message" class="text-slate-400 text-sm mb-6 leading-relaxed">Message</p>
+                <div id="dialog-buttons" class="flex justify-center gap-3">
+                    <!-- Buttons injected dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allUnits = [];
+        let filteredUnits = [];
+        let myRoster = [];
+        let nextRosterId = 1;
+        
+        let availableCoreAbilities = new Set();
+        let availableFactions = new Set();
+        let availableKeywords = new Set();
+
+        // Fonction pour nettoyer le texte mal encodé
+        function cleanText(str) {
+            if (typeof str !== 'string') return str;
+            return str
+                .replace(/â€™/g, "'")
+                .replace(/â–ª/g, "•")
+                .replace(/â€œ/g, '"')
+                .replace(/â€/g, '"')
+                .replace(/â€‘/g, "-")
+                .replace(/â€/g, " ")
+                .replace(/Ã©/g, "é")
+                .replace(/Ã¨/g, "è")
+                .replace(/Ãª/g, "ê")
+                .replace(/Ã¢/g, "â")
+                .replace(/Ã®/g, "î")
+                .replace(/Ã¯/g, "ï")
+                .replace(/Ã´/g, "ô")
+                .replace(/Ã»/g, "û")
+                .replace(/Ã§/g, "ç")
+                .replace(/à›/g, "Û")
+                .replace(/Ã›/g, "Û")
+                .replace(/Ã/g, "à");
+        }
+
+        // Nettoyer récursivement l'objet JSON
+        function cleanData(data) {
+            if (Array.isArray(data)) {
+                return data.map(item => cleanData(item));
+            } else if (data !== null && typeof data === 'object') {
+                let cleaned = {};
+                for (let key in data) {
+                    cleaned[key] = cleanData(data[key]);
+                }
+                return cleaned;
+            } else {
+                return cleanText(data);
+            }
+        }
+
+        // Custom Dialog Logic (Replaces alert/confirm)
+        function showDialog(title, message, type = 'info', onConfirm = null) {
+            const modal = document.getElementById('dialog-modal');
+            const container = document.getElementById('dialog-container');
+            const titleEl = document.getElementById('dialog-title');
+            const messageEl = document.getElementById('dialog-message');
+            const iconEl = document.getElementById('dialog-icon');
+            const btnsEl = document.getElementById('dialog-buttons');
+
+            titleEl.innerText = title;
+            messageEl.innerText = message;
+
+            if (type === 'error') {
+                iconEl.className = 'fa-solid fa-circle-xmark text-5xl mb-4 text-red-500';
+            } else if (type === 'confirm') {
+                iconEl.className = 'fa-solid fa-triangle-exclamation text-5xl mb-4 text-amber-500';
+            } else {
+                iconEl.className = 'fa-solid fa-circle-info text-5xl mb-4 text-blue-500';
+            }
+
+            btnsEl.innerHTML = '';
+            if (type === 'confirm') {
+                const btnCancel = document.createElement('button');
+                btnCancel.className = 'px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded font-medium transition text-sm uppercase tracking-wide';
+                btnCancel.innerText = 'Annuler';
+                btnCancel.onclick = closeDialog;
+                btnsEl.appendChild(btnCancel);
+
+                const btnOk = document.createElement('button');
+                btnOk.className = 'px-5 py-2 bg-red-600 hover:bg-red-500 text-white rounded font-medium transition shadow text-sm uppercase tracking-wide';
+                btnOk.innerText = 'Confirmer';
+                btnOk.onclick = () => { closeDialog(); if (onConfirm) onConfirm(); };
+                btnsEl.appendChild(btnOk);
+            } else {
+                const btnOk = document.createElement('button');
+                btnOk.className = 'px-8 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded font-medium transition shadow text-sm uppercase tracking-wide';
+                btnOk.innerText = 'OK';
+                btnOk.onclick = closeDialog;
+                btnsEl.appendChild(btnOk);
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeDialog() {
+            const modal = document.getElementById('dialog-modal');
+            const container = document.getElementById('dialog-container');
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // LECTURE DU FICHIER DB
+        function handleFileLoad(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let rawJson = JSON.parse(e.target.result);
+                    let data = cleanData(rawJson); // Nettoyage de l'encodage post-parsing !
+
+                    allUnits = [];
+                    availableCoreAbilities.clear();
+                    availableFactions.clear();
+                    availableKeywords.clear();
+                    
+                    data.forEach(faction => {
+                        if (faction.Units) {
+                            faction.Units.forEach((unit, index) => {
+                                unit._factionName = faction.Name;
+                                unit._libraryId = `${faction.Name}_${index}_${unit.Name.replace(/\s+/g, '_')}`;
+                                allUnits.push(unit);
+
+                                // Index Factions
+                                availableFactions.add(faction.Name);
+
+                                // Index Core Abilities
+                                if (unit.CoreAbilities) {
+                                    unit.CoreAbilities.forEach(ab => availableCoreAbilities.add(ab));
+                                }
+
+                                // Index Keywords
+                                if (unit.Keywords) {
+                                    unit.Keywords.forEach(k => {
+                                        let cleanK = k.replace(/\|.*?: /g, '').trim();
+                                        if (cleanK) availableKeywords.add(cleanK);
+                                    });
+                                }
+                            });
+                        }
+                    });
+
+                    // Sort Alphabetically
+                    allUnits.sort((a, b) => a.Name.localeCompare(b.Name));
+                    filteredUnits = [...allUnits];
+
+                    // Setup UI
+                    document.getElementById('welcome-screen').classList.add('hidden');
+                    document.getElementById('main-workspace').classList.remove('hidden');
+                    document.getElementById('file-upload-container').classList.add('hidden');
+
+                    setupFilters();
+                    applyFilters();
+
+                } catch (error) {
+                    showDialog("Erreur de format", "Le fichier JSON n'a pas pu être lu. Vérifiez la structure de vos données.\nDétail : " + error.message, "error");
+                    console.error(error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // SETUP FILTERS
+        function setupFilters() {
+            // 1. Factions
+            const factionSelect = document.getElementById('filter-faction');
+            factionSelect.innerHTML = '<option value="">Toutes les factions</option>';
+            Array.from(availableFactions).sort().forEach(f => {
+                factionSelect.innerHTML += `<option value="${f}">${f}</option>`;
+            });
+
+            // 2. Keywords (Roles)
+            const keywordSelect = document.getElementById('filter-keyword');
+            keywordSelect.innerHTML = '<option value="">Tous les mots-clés</option>';
+            Array.from(availableKeywords).sort().forEach(k => {
+                keywordSelect.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+
+            // 3. Core Abilities
+            const container = document.getElementById('filter-core-abilities');
+            container.innerHTML = '';
+            
+            let basicAbilities = new Set();
+            availableCoreAbilities.forEach(ab => {
+                let base = ab.replace(/[0-9]+"/g, '').replace(/D[0-9]+/g, '').replace(/[0-9]+/g, '').trim();
+                if(base) basicAbilities.add(base);
+            });
+
+            Array.from(basicAbilities).sort().forEach(ab => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center';
+                div.innerHTML = `
+                    <input type="checkbox" id="chk_${ab}" value="${ab}" class="core-filter w-4 h-4 accent-emerald-500 bg-slate-800 border-slate-700 rounded" onchange="applyFilters()">
+                    <label for="chk_${ab}" class="ml-2 text-sm text-slate-300 cursor-pointer">${ab}</label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateRangeLabel(id, val) {
+            document.getElementById(`val-${id}`).innerText = val;
+        }
+
+        // APPLY FILTERS
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const selectedFaction = document.getElementById('filter-faction').value;
+            const selectedKeyword = document.getElementById('filter-keyword').value.toLowerCase();
+            const maxPointsStr = document.getElementById('filter-points').value;
+            const maxPoints = maxPointsStr ? parseInt(maxPointsStr) : null;
+            
+            const checkedCores = Array.from(document.querySelectorAll('.core-filter:checked')).map(cb => cb.value.toLowerCase());
+            
+            const minT = parseInt(document.getElementById('filter-t').value);
+            const minW = parseInt(document.getElementById('filter-w').value);
+            const minM = parseInt(document.getElementById('filter-m').value);
+
+            filteredUnits = allUnits.filter(unit => {
+                if (!unit.Name.toLowerCase().includes(searchTerm)) return false;
+                if (selectedFaction && unit._factionName !== selectedFaction) return false;
+
+                if (selectedKeyword) {
+                    if (!unit.Keywords) return false;
+                    const hasKeyword = unit.Keywords.some(k => k.toLowerCase().includes(selectedKeyword));
+                    if (!hasKeyword) return false;
+                }
+
+                if (maxPoints !== null && !isNaN(maxPoints)) {
+                    let baseCost = (unit.Points && unit.Points.length > 0) ? unit.Points[0].Cost : 0;
+                    if (baseCost > maxPoints) return false;
+                }
+
+                if (checkedCores.length > 0) {
+                    if (!unit.CoreAbilities) return false;
+                    const unitCores = unit.CoreAbilities.map(c => c.toLowerCase());
+                    const hasAllSelectedCores = checkedCores.every(filterCore => {
+                        return unitCores.some(uc => uc.includes(filterCore));
+                    });
+                    if (!hasAllSelectedCores) return false;
+                }
+
+                let highestT = 0, highestW = 0, highestM = 0;
+                if (unit.StatLines && unit.StatLines.length > 0) {
+                    unit.StatLines.forEach(stat => {
+                        let t = parseInt(stat.Toughness) || 0;
+                        let w = parseInt(stat.Wounds) || 0;
+                        let mStr = stat.Movement || "0";
+                        let m = parseInt(mStr.replace(/[^0-9]/g, '')) || 0;
+
+                        if (t > highestT) highestT = t;
+                        if (w > highestW) highestW = w;
+                        if (m > highestM) highestM = m;
+                    });
+                }
+
+                if (highestT < minT) return false;
+                if (highestW < minW) return false;
+                if (highestM < minM) return false;
+
+                return true;
+            });
+
+            renderLibrary();
+        }
+
+        // RENDER LIBRARY
+        function renderLibrary() {
+            const grid = document.getElementById('library-grid');
+            grid.innerHTML = '';
+            document.getElementById('results-count').innerText = `${filteredUnits.length} résultat(s)`;
+
+            filteredUnits.forEach(unit => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900 border border-slate-700 rounded-lg shadow hover:border-emerald-500/50 transition duration-200 flex flex-col overflow-hidden';
+                
+                let pointsStr = '-- pts';
+                if (unit.Points && unit.Points.length > 0) {
+                    pointsStr = `${unit.Points[0].Cost} pts`;
+                }
+
+                let statBar = '';
+                if(unit.StatLines && unit.StatLines.length > 0) {
+                    let s = unit.StatLines[0];
+                    statBar = `
+                        <div class="grid grid-cols-6 divide-x divide-slate-700/50 border-y border-slate-700/50 bg-slate-950/50 text-center text-[10px] sm:text-xs">
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">M</span><span class="font-bold text-slate-200">${s.Movement || '-'}</span></div>
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">T</span><span class="font-bold text-slate-200">${s.Toughness || '-'}</span></div>
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">SV</span><span class="font-bold text-slate-200">${s.Save || '-'}</span></div>
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">W</span><span class="font-bold text-slate-200">${s.Wounds || '-'}</span></div>
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">LD</span><span class="font-bold text-slate-200">${s.Leadership || '-'}</span></div>
+                            <div class="py-1.5"><span class="block text-slate-500 uppercase tracking-tighter text-[9px]">OC</span><span class="font-bold text-slate-200">${s.OC || '-'}</span></div>
+                        </div>
+                    `;
+                }
+
+                let cores = unit.CoreAbilities ? unit.CoreAbilities.join(', ') : '';
+
+                card.innerHTML = `
+                    <div class="p-3 bg-slate-800 flex justify-between items-start">
+                        <div class="overflow-hidden">
+                            <h3 class="font-bold text-white text-lg leading-tight uppercase truncate" title="${unit.Name}">${unit.Name}</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 truncate">${unit._factionName}</p>
+                        </div>
+                        <span class="bg-emerald-600/20 text-emerald-400 font-bold border border-emerald-700/50 px-2 py-1 rounded text-sm shrink-0 shadow-inner">${pointsStr}</span>
+                    </div>
+                    ${statBar}
+                    <div class="p-3 flex-1 flex flex-col justify-between gap-3">
+                        ${cores ? `<p class="text-[11px] text-slate-300 leading-snug"><span class="text-emerald-500 font-bold">CORE:</span> ${cores}</p>` : '<div></div>'}
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button onclick="showUnitDetails('${unit._libraryId}')" class="bg-slate-700 hover:bg-slate-600 text-white rounded py-2 px-3 text-sm font-medium transition shadow flex items-center justify-center" title="Voir les détails complets">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                            <button onclick="addToRoster('${unit._libraryId}')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded py-2 px-3 text-sm font-bold uppercase tracking-wider transition shadow flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Ajouter
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // WARGEAR HELPER FUNCTIONS
+        function getUnitWargearOptions(unit) {
+            let options = [];
+            if(unit.UnitComposition && unit.UnitComposition.ModelCompositions) {
+                unit.UnitComposition.ModelCompositions.forEach((comp, compIdx) => {
+                    let modelName = comp.ModelName || 'Modèle';
+                    if(comp.Wargear) {
+                        comp.Wargear.forEach((wg, wgIdx) => {
+                            if(wg.Options) {
+                                wg.Options.forEach((opt, optIdx) => {
+                                    let max = opt.Max || 1;
+                                    for(let i = 0; i < max; i++) {
+                                        options.push({
+                                            id: `${compIdx}_${wgIdx}_${optIdx}_${i}`,
+                                            modelName: modelName,
+                                            replaces: opt.Replaces ? opt.Replaces.join(', ') : null,
+                                            choices: opt.Options || [],
+                                            indexLabel: max > 1 ? ` #${i+1}` : ''
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            return options;
+        }
+
+        function getWargearCost(unit, wargearName) {
+            if(!unit.UnitComposition || !unit.UnitComposition.WargearDefinitions) return 0;
+            const def = unit.UnitComposition.WargearDefinitions.find(d => d.Key === wargearName);
+            return def && def.Cost ? def.Cost : 0;
+        }
+
+        // ROSTER MANAGEMENT
+        function addToRoster(libraryId) {
+            const unitDef = allUnits.find(u => u._libraryId === libraryId);
+            if (!unitDef) return;
+
+            const rosterUnit = {
+                uid: 'r_' + nextRosterId++,
+                ref: unitDef,
+                selectedPointIndex: 0,
+                wargearSelections: {},
+                showWargear: false
+            };
+
+            myRoster.push(rosterUnit);
+            renderRoster();
+        }
+
+        function removeFromRoster(uid) {
+            myRoster = myRoster.filter(u => u.uid !== uid);
+            renderRoster();
+        }
+
+        function updateRosterItemCost(uid, index) {
+            const item = myRoster.find(u => u.uid === uid);
+            if(item) {
+                item.selectedPointIndex = parseInt(index);
+                renderRoster();
+            }
+        }
+        
+        function toggleWargear(uid) {
+            const item = myRoster.find(u => u.uid === uid);
+            if(item) {
+                item.showWargear = !item.showWargear;
+                renderRoster();
+            }
+        }
+
+        function updateRosterWargear(uid, optId, value) {
+            const item = myRoster.find(u => u.uid === uid);
+            if(item) {
+                item.wargearSelections[optId] = value;
+                renderRoster();
+            }
+        }
+
+        function triggerClearRoster() {
+            if (myRoster.length === 0) return;
+            showDialog(
+                "Vider la liste", 
+                "Êtes-vous sûr de vouloir vider l'intégralité de votre armée ?", 
+                "confirm", 
+                () => {
+                    myRoster = [];
+                    renderRoster();
+                }
+            );
+        }
+
+        // EXPORT / IMPORT
+        function exportRoster() {
+            if (myRoster.length === 0) {
+                showDialog("Export impossible", "Votre liste d'armée est vide. Ajoutez d'abord des unités.", "info");
+                return;
+            }
+            
+            // On n'exporte que les données essentielles pour alléger le fichier
+            const exportData = myRoster.map(item => ({
+                libraryId: item.ref._libraryId,
+                selectedPointIndex: item.selectedPointIndex,
+                wargearSelections: item.wargearSelections
+            }));
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "ma_liste_warforge.json");
+            document.body.appendChild(downloadAnchorNode); // Required for Firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importRoster(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let importedData = JSON.parse(e.target.result);
+                    if (!Array.isArray(importedData)) {
+                        throw new Error("Structure non reconnue.");
+                    }
+
+                    // Reset
+                    myRoster = [];
+                    nextRosterId = 1;
+                    let missingUnits = 0;
+
+                    importedData.forEach(item => {
+                        const unitDef = allUnits.find(u => u._libraryId === item.libraryId);
+                        if (unitDef) {
+                            myRoster.push({
+                                uid: 'r_' + nextRosterId++,
+                                ref: unitDef,
+                                selectedPointIndex: item.selectedPointIndex || 0,
+                                wargearSelections: item.wargearSelections || {},
+                                showWargear: false
+                            });
+                        } else {
+                            missingUnits++;
+                        }
+                    });
+
+                    renderRoster();
+
+                    if(missingUnits > 0) {
+                        showDialog("Importation Partielle", `La liste a été chargée, mais ${missingUnits} unité(s) sont introuvables dans la base de données actuelle.`, "info");
+                    } else {
+                        showDialog("Importation Réussie", "Votre liste d'armée a bien été restaurée.", "info");
+                    }
+
+                } catch (error) {
+                    showDialog("Erreur d'importation", "Le fichier sélectionné ne semble pas être une liste valide Warforge.40k.", "error");
+                    console.error(error);
+                }
+                event.target.value = ''; // Reset l'input
+            };
+            reader.readAsText(file);
+        }
+
+        function renderRoster() {
+            const rosterContainer = document.getElementById('roster-list');
+            const totalPointsDisplay = document.getElementById('roster-total');
+            const rosterCountDisplay = document.getElementById('roster-count');
+            
+            rosterContainer.innerHTML = '';
+            let totalPoints = 0;
+
+            if (myRoster.length === 0) {
+                rosterContainer.innerHTML = '<div class="text-center text-slate-500 text-sm mt-10 italic">Votre liste est vide.<br>Ajoutez des unités depuis la bibliothèque.</div>';
+                totalPointsDisplay.innerHTML = '0 <span class="text-sm font-normal text-emerald-600">pts</span>';
+                rosterCountDisplay.innerText = '0 unité(s)';
+                return;
+            }
+
+            rosterCountDisplay.innerText = `${myRoster.length} unité(s)`;
+
+            myRoster.forEach(item => {
+                const unit = item.ref;
+                const pointsArr = unit.Points || [];
+                
+                if(item.selectedPointIndex >= pointsArr.length) item.selectedPointIndex = 0;
+                
+                const currentOpt = pointsArr[item.selectedPointIndex];
+                let baseCost = currentOpt ? (currentOpt.Cost || 0) : 0;
+                
+                let wgCost = 0;
+                for(let key in item.wargearSelections) {
+                    let choice = item.wargearSelections[key];
+                    if(choice) {
+                        wgCost += getWargearCost(unit, choice);
+                    }
+                }
+                
+                let itemTotalCost = baseCost + wgCost;
+                totalPoints += itemTotalCost;
+
+                let optionsHtml = '';
+                if (pointsArr.length > 0) {
+                    optionsHtml = `<select onchange="updateRosterItemCost('${item.uid}', this.value)" class="bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded px-2 py-1 focus:outline-none focus:border-emerald-500 w-full mt-2">`;
+                    pointsArr.forEach((p, idx) => {
+                        const countLabel = p.ModelCount ? `${p.ModelCount} figs` : (p.UnitCount ? `${p.UnitCount} unités` : 'Taille standard');
+                        const selected = idx === item.selectedPointIndex ? 'selected' : '';
+                        optionsHtml += `<option value="${idx}" ${selected}>${countLabel} - ${p.Cost} pts</option>`;
+                    });
+                    optionsHtml += `</select>`;
+                } else {
+                    optionsHtml = `<div class="text-xs text-slate-500 mt-2 italic">Coût inconnu</div>`;
+                }
+
+                const wgOptions = getUnitWargearOptions(unit);
+                let wgButtonHtml = '';
+                let wgHtml = '';
+                
+                if(wgOptions.length > 0) {
+                    wgButtonHtml = `<button onclick="toggleWargear('${item.uid}')" class="w-full mt-2 bg-slate-700/50 hover:bg-slate-600 text-slate-300 text-xs py-1.5 rounded transition border border-slate-600"><i class="fa-solid fa-gears mr-1"></i> Équipement & Options</button>`;
+                    wgHtml = `<div class="mt-2 p-2 bg-slate-900/80 rounded border border-slate-700 space-y-2 ${item.showWargear ? 'block' : 'hidden'}" id="wg_${item.uid}">`;
+                    
+                    wgOptions.forEach(opt => {
+                        let selectOptions = `<option value="">-- Conserver base / Aucun --</option>`;
+                        opt.choices.forEach(choice => {
+                            let cost = getWargearCost(unit, choice);
+                            let costStr = cost > 0 ? ` (+${cost} pts)` : '';
+                            let selected = item.wargearSelections[opt.id] === choice ? 'selected' : '';
+                            let safeChoice = choice.replace(/"/g, '&quot;');
+                            selectOptions += `<option value="${safeChoice}" ${selected}>${choice}${costStr}</option>`;
+                        });
+                        let label = opt.replaces ? `Remplace: ${opt.replaces}` : `Option ajoutée`;
+                        wgHtml += `
+                            <div class="flex flex-col">
+                                <label class="text-[9px] text-slate-400 uppercase tracking-wider mb-0.5 truncate" title="${label}">${opt.modelName}${opt.indexLabel} - ${label}</label>
+                                <select onchange="updateRosterWargear('${item.uid}', '${opt.id}', this.value)" class="bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded p-1 focus:outline-none focus:border-amber-500 w-full">
+                                    ${selectOptions}
+                                </select>
+                            </div>
+                        `;
+                    });
+                    wgHtml += `</div>`;
+                }
+
+                const el = document.createElement('div');
+                el.className = 'bg-slate-800 border-l-4 border-emerald-500 rounded p-3 shadow-md relative group';
+                el.innerHTML = `
+                    <button onclick="removeFromRoster('${item.uid}')" class="absolute top-2 right-2 text-slate-400 hover:text-red-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 rounded w-6 h-6 flex items-center justify-center transition shadow z-10" title="Supprimer cette unité">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                    <div class="pr-8 flex justify-between items-start">
+                        <div class="overflow-hidden pr-2">
+                            <h4 class="font-bold text-slate-100 text-sm leading-tight uppercase truncate" title="${unit.Name}">${unit.Name}</h4>
+                            <p class="text-[10px] text-slate-400 mt-0.5 truncate">${unit._factionName}</p>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-sm bg-slate-900 px-2 py-1 rounded shrink-0 border border-emerald-900/50 shadow-inner">${itemTotalCost} pts</span>
+                    </div>
+                    ${optionsHtml}
+                    ${wgButtonHtml}
+                    ${wgHtml}
+                `;
+                rosterContainer.appendChild(el);
+            });
+
+            totalPointsDisplay.innerHTML = `${totalPoints} <span class="text-sm font-normal text-emerald-600">pts</span>`;
+        }
+
+        // MODAL MANAGEMENT
+        function showUnitDetails(libraryId) {
+            const unit = allUnits.find(u => u._libraryId === libraryId);
+            if (!unit) return;
+
+            const modal = document.getElementById('unit-modal');
+            const title = document.getElementById('modal-title');
+            const faction = document.getElementById('modal-faction');
+            const content = document.getElementById('modal-content');
+
+            title.innerText = unit.Name;
+            faction.innerText = unit._factionName;
+
+            // 1. Statistiques
+            let statsHtml = '';
+            if (unit.StatLines && unit.StatLines.length > 0) {
+                statsHtml += `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">`;
+                unit.StatLines.forEach(stat => {
+                    let invulnHtml = '';
+                    if (stat.InvulSave && stat.InvulSave.Save) {
+                        invulnHtml = `<div class="bg-indigo-900/30 p-2 text-center rounded border border-indigo-500/30"><span class="block text-indigo-400 text-[10px] uppercase font-bold tracking-wider">Invulnérable</span><span class="text-indigo-200 font-bold text-lg">${stat.InvulSave.Save}</span></div>`;
+                    }
+                    
+                    statsHtml += `
+                    <div class="bg-slate-800 rounded shadow border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-700 px-3 py-1.5 border-b border-slate-600">
+                            <span class="font-bold text-xs uppercase tracking-wider text-slate-200">${stat.StatName || 'Profil Standard'}</span>
+                        </div>
+                        <div class="grid grid-cols-6 divide-x divide-slate-700/50 bg-slate-800 text-center">
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">M</span><span class="font-bold text-white text-lg">${stat.Movement || '-'}</span></div>
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">T</span><span class="font-bold text-white text-lg">${stat.Toughness || '-'}</span></div>
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">SV</span><span class="font-bold text-white text-lg">${stat.Save || '-'}</span></div>
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">W</span><span class="font-bold text-white text-lg">${stat.Wounds || '-'}</span></div>
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">LD</span><span class="font-bold text-white text-lg">${stat.Leadership || '-'}</span></div>
+                            <div class="py-2"><span class="block text-slate-400 uppercase tracking-tighter text-[10px]">OC</span><span class="font-bold text-white text-lg">${stat.OC || '-'}</span></div>
+                        </div>
+                        ${invulnHtml ? `<div class="p-2 border-t border-slate-700/50">${invulnHtml}</div>` : ''}
+                    </div>`;
+                });
+                statsHtml += `</div>`;
+            }
+
+            // 2. Armes
+            let weaponsHtml = '';
+            if (unit.Weapons && unit.Weapons.length > 0) {
+                unit.Weapons.forEach(group => {
+                    const icon = group.IsMelee ? '<i class="fa-solid fa-khanda text-red-500 mr-2"></i>' : '<i class="fa-solid fa-crosshairs text-blue-400 mr-2"></i>';
+                    weaponsHtml += `
+                    <h4 class="font-bold text-slate-100 mt-6 mb-2 uppercase text-xs tracking-wider bg-slate-800 p-2 rounded">${icon}${group.Name}</h4>
+                    <div class="overflow-x-auto rounded border border-slate-700 mb-4 shadow-sm">
+                        <table class="w-full text-sm text-left text-slate-300">
+                            <thead class="text-[10px] text-slate-400 uppercase bg-slate-900 border-b border-slate-700">
+                                <tr>
+                                    <th class="p-2">Arme</th>
+                                    <th class="p-2 text-center w-16">Portée</th>
+                                    <th class="p-2 text-center w-12">A</th>
+                                    <th class="p-2 text-center w-16">CT/CC</th>
+                                    <th class="p-2 text-center w-12">F</th>
+                                    <th class="p-2 text-center w-12">PA</th>
+                                    <th class="p-2 text-center w-12">D</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800 bg-slate-800/50">`;
+                    if(group.Weapons) {
+                        group.Weapons.forEach(w => {
+                            weaponsHtml += `
+                            <tr class="hover:bg-slate-800/80 transition-colors">
+                                <td class="p-2">
+                                    <span class="font-bold text-slate-100">${w.Name}</span>
+                                    ${w.Keywords ? `<div class="text-[10px] text-amber-500/90 italic mt-0.5 uppercase tracking-wide">${w.Keywords}</div>` : ''}
+                                </td>
+                                <td class="p-2 text-center whitespace-nowrap">${w.Range || '-'}</td>
+                                <td class="p-2 text-center font-medium">${w.Attacks || '-'}</td>
+                                <td class="p-2 text-center font-medium">${w.ToHit || '-'}</td>
+                                <td class="p-2 text-center font-medium">${w.Strength || '-'}</td>
+                                <td class="p-2 text-center font-medium">${w.AP || '-'}</td>
+                                <td class="p-2 text-center font-bold text-white">${w.Damage || '-'}</td>
+                            </tr>`;
+                        });
+                    }
+                    weaponsHtml += `</tbody></table></div>`;
+                });
+            }
+
+            // 3. Composition & Equipement
+            let compHtml = '';
+            if (unit.UnitComposition && unit.UnitComposition.ModelCompositions) {
+                compHtml += `<h4 class="font-bold text-slate-100 mt-6 mb-3 uppercase text-xs tracking-wider bg-slate-800 p-2 rounded"><i class="fa-solid fa-gears text-amber-500 mr-2"></i>Composition & Équipement</h4>`;
+                compHtml += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 text-sm text-slate-300">`;
+                
+                unit.UnitComposition.ModelCompositions.forEach(comp => {
+                    let limit = '';
+                    if(comp.Limit) {
+                        if(comp.Limit.Min === comp.Limit.Max) limit = `(${comp.Limit.Min})`;
+                        else limit = `(${comp.Limit.Min} - ${comp.Limit.Max})`;
+                    }
+                    compHtml += `<div class="bg-slate-800/40 p-3 rounded border border-slate-700/50 shadow-inner">`;
+                    compHtml += `<span class="font-bold text-amber-500 block mb-2 border-b border-slate-700/50 pb-1.5 uppercase text-xs tracking-wider">${comp.ModelName} ${limit}</span>`;
+                    
+                    if(comp.Wargear && comp.Wargear.length > 0) {
+                        comp.Wargear.forEach(wg => {
+                            if(wg.InitalWargear && wg.InitalWargear.length > 0) {
+                                compHtml += `<p class="mb-3 leading-relaxed"><span class="text-slate-500 text-[10px] uppercase font-bold block mb-0.5">Équipement de base :</span><span class="text-emerald-400 font-medium">${wg.InitalWargear.join('</span> <span class="text-slate-600 mx-1">+</span> <span class="text-emerald-400 font-medium">')}</span></p>`;
+                            }
+                            if(wg.Options && wg.Options.length > 0) {
+                                compHtml += `<div class="pl-2 border-l-2 border-amber-500/30 mt-2 space-y-2.5 text-[11px] bg-slate-900/30 p-2 rounded-r">`;
+                                wg.Options.forEach(opt => {
+                                    let prefix = opt.Replaces ? `Remplace <span class="text-red-400/80 line-through">${opt.Replaces.join(', ')}</span> par :` : `Peut prendre :`;
+                                    let maxInfo = opt.Max ? ` <span class="text-emerald-400/80 font-bold bg-emerald-900/30 px-1 rounded">(Max ${opt.Max})</span>` : '';
+                                    compHtml += `<div>${prefix}${maxInfo}<br><span class="text-slate-200 font-medium block mt-1 pl-1 border-l border-slate-600">${opt.Options.join(' <span class="text-amber-500 font-black mx-1 text-[10px]">OU</span> ')}</span></div>`;
+                                });
+                                compHtml += `</div>`;
+                            }
+                        });
+                    } else {
+                        compHtml += `<p class="text-xs text-slate-500 italic">Aucun équipement spécifique.</p>`;
+                    }
+                    compHtml += `</div>`;
+                });
+                compHtml += `</div>`;
+            }
+
+            // 4. Aptitudes
+            let abilitiesHtml = '';
+            if ((unit.CoreAbilities && unit.CoreAbilities.length > 0) || (unit.UnitAbilities && unit.UnitAbilities.length > 0)) {
+                abilitiesHtml += `<h4 class="font-bold text-slate-100 mt-6 mb-3 uppercase text-xs tracking-wider bg-slate-800 p-2 rounded"><i class="fa-solid fa-bolt text-purple-400 mr-2"></i>Aptitudes</h4>`;
+                abilitiesHtml += `<div class="space-y-3 mb-6">`;
+                
+                if (unit.CoreAbilities && unit.CoreAbilities.length > 0) {
+                    abilitiesHtml += `<div class="bg-slate-900 p-3 rounded border border-slate-700 shadow-sm"><span class="font-bold text-emerald-500 text-xs uppercase tracking-wide block mb-1">Core</span><p class="text-sm text-slate-200 font-medium">${unit.CoreAbilities.join(', ')}</p></div>`;
+                }
+
+                if (unit.UnitAbilities) {
+                    unit.UnitAbilities.forEach(ab => {
+                        abilitiesHtml += `
+                        <div class="bg-slate-800/60 p-3 rounded border border-slate-700/60 shadow-sm">
+                            <span class="font-bold text-purple-400 text-sm block mb-1">${ab.Title}</span>
+                            <p class="text-sm text-slate-300 leading-relaxed">${ab.Text.replace(/\n/g, '<br>')}</p>
+                        </div>`;
+                    });
+                }
+                abilitiesHtml += `</div>`;
+            }
+
+            // 5. Mots-clés
+            let keywordsHtml = '';
+            if (unit.Keywords && unit.Keywords.length > 0) {
+                keywordsHtml += `
+                <div class="mt-8 pt-4 border-t border-slate-800">
+                    <span class="font-bold text-slate-500 text-[10px] uppercase tracking-wider block mb-2"><i class="fa-solid fa-tags mr-1"></i> Mots-clés</span>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${unit.Keywords.map(k => `<span class="bg-slate-950 px-2.5 py-1 rounded-sm text-[10px] text-slate-300 border border-slate-700 shadow-sm uppercase tracking-wide">${k}</span>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            content.innerHTML = statsHtml + weaponsHtml + compHtml + abilitiesHtml + keywordsHtml;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                document.getElementById('modal-container').classList.remove('scale-95');
+                document.getElementById('modal-container').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('unit-modal');
+            modal.classList.add('opacity-0');
+            document.getElementById('modal-container').classList.remove('scale-100');
+            document.getElementById('modal-container').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('unit-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        
+    </script>
+</body>
+</html>
