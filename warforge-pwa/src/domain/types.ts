@@ -11,7 +11,34 @@ export interface RawWargearDefinition {
 }
 
 export interface RawWargearOptionGroup {
-  Options?: Array<{ Options?: string[]; Max?: number; Replaces?: string } | string>;
+  InitalWargear?: string[];
+  Options?: Array<RawWargearOption | string>;
+}
+
+export interface RawWargearOption {
+  Options?: string[];
+  Max?: number;
+  PerXModels?: number;
+  Replaces?: string[];
+  RequiredDettachment?: string;
+}
+
+export interface RawWeaponProfile {
+  Name?: string;
+  Range?: string;
+  Attacks?: string;
+  ToHit?: string;
+  Strength?: string;
+  AP?: string;
+  Damage?: string;
+  Keywords?: string;
+  NeverFilter?: boolean;
+}
+
+export interface RawWeaponGroup {
+  Name?: string;
+  IsMelee?: boolean;
+  Weapons?: RawWeaponProfile[];
 }
 
 export interface RawUnit {
@@ -23,7 +50,7 @@ export interface RawUnit {
   UnitAbilities?: Array<{ Title?: string; Text?: string }>;
   Infos?: Array<{ Title?: string; Text?: string }>;
   StatLines?: Array<Record<string, unknown>>;
-  Weapons?: Array<{ Name?: string; IsMelee?: boolean; Weapons?: Array<Record<string, unknown>> }>;
+  Weapons?: RawWeaponGroup[];
   Points?: RawPointOption[];
   UnitComposition?: {
     ModelCompositions?: Array<{
@@ -162,11 +189,18 @@ export interface EnhancementSelection {
   enhancementIndex: number;
 }
 
+export type WargearSelectionCounts = Record<string, Record<string, number>>;
+
 export interface RosterItem {
   id: string;
   unitId: string;
   pointIndex: number;
+  /** Legacy v1 summary, retained so older exports remain readable. */
   wargearSelections: Record<string, string>;
+  /** Quantities for every selectable wargear option. */
+  wargearSelectionCounts?: WargearSelectionCounts;
+  /** Selected number of models for each composition entry. */
+  modelCounts?: Record<string, number>;
   enhancement?: EnhancementSelection;
 }
 

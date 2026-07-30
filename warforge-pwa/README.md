@@ -107,7 +107,8 @@ CSV V11. Les fiches disparues du catalogue sont conservées séparément dans
 1. Choisir le format de bataille et la faction, puis ajouter les détachements dans la limite des points de détachement.
 2. Choisir un scénario proposé par au moins un des détachements sélectionnés. Avec plusieurs détachements, les scénarios disponibles sont la réunion de leurs scénarios liés.
 3. Rechercher les unités, choisir leur taille, leur équipement et les améliorations éligibles. Les alliés autorisés sont affichés dans la bibliothèque avec un badge, mais leurs détachements ne sont jamais proposés.
-4. Vérifier le panneau de validation, sauvegarder localement ou exporter une liste au format `warforge-list/v1`.
+4. Ouvrir « Détails » pour consulter tous les profils d’armes. Dans la liste, configurer l’armement et l’équipement par type de figurine : les limites structurées (`Max`, `PerXModels`, remplacements et détachement requis) sont appliquées et les cas ambigus sont signalés.
+5. Vérifier le panneau de validation, sauvegarder localement ou exporter une liste au format `warforge-list/v1`.
 
 Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jour la base » permet de charger une base JSON historique pour la session. Les sauvegardes/favoris du catalogue V11 sont isolés des identifiants historiques.
 

@@ -2,6 +2,7 @@ import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getEnhance
 import { isUnitAvailableToFaction } from './catalog';
 import { scenarioIsSelectable } from './scenarios';
 import type { NormalizedDatabase, RosterDraft, ValidationIssue } from './types';
+import { resolveWargear } from './wargear';
 
 export function validateDraft(database: NormalizedDatabase, draft: RosterDraft): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
@@ -62,6 +63,9 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
     }
     calculateItemCost(database, item, draft.items, draft.detachmentIds).notices.forEach((notice, noticeIndex) => {
       issues.push({ id: `cost-${item.id}-${noticeIndex}`, level: 'warning', message: `${unit.displayName} : ${notice}` });
+    });
+    resolveWargear(unit, item, detachments.map((detachment) => detachment.displayName)).warnings.forEach((warning, warningIndex) => {
+      issues.push({ id: `wargear-${item.id}-${warningIndex}`, level: 'warning', message: `${unit.displayName} : ${warning}` });
     });
   });
 

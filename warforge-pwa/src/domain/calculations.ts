@@ -6,9 +6,9 @@ import type {
   NormalizedUnit,
   RawEnhancement,
   RawPointOption,
-  RawWargearDefinition,
   RosterItem
 } from './types';
+import { wargearCost as calculateWargearCost } from './wargear';
 
 export interface WargearChoiceGroup {
   id: string;
@@ -104,11 +104,6 @@ export function getWargearChoiceGroups(unit: NormalizedUnit): WargearChoiceGroup
   return groups;
 }
 
-function wargearCost(definitions: RawWargearDefinition[] | undefined, selected: string | undefined): number {
-  if (!selected) return 0;
-  return definitions?.find((definition) => normalized(definition.Key) === normalized(selected))?.Cost ?? 0;
-}
-
 export function enhancementIsEligible(unit: NormalizedUnit, enhancement: RawEnhancement): boolean {
   const keywords = new Set([...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? []), unit.Faction, unit.factionName]
     .filter(Boolean).map((keyword) => normalized(keyword)));
@@ -145,7 +140,7 @@ export function calculateItemCost(database: NormalizedDatabase, item: RosterItem
   const notices: string[] = [];
   if (overrides.length > 1) notices.push('Plusieurs surcharges de coût correspondent : la première est utilisée.');
   const pointOverride = overrides[0]?.cost;
-  const wargear = Object.values(item.wargearSelections).reduce((total, selected) => total + wargearCost(unit.UnitComposition?.WargearDefinitions, selected), 0);
+  const wargear = calculateWargearCost(unit, item);
   const enhancement = getEnhancement(database, item.enhancement);
   const enhancementCost = enhancement?.enhancement.Cost ?? 0;
   if (enhancement && !enhancementIsEligible(unit, enhancement.enhancement)) notices.push('L’amélioration sélectionnée n’est plus éligible.');

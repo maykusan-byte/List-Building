@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, getWargearChoiceGroups, occurrenceForItem, resolvePointOption } from './domain/calculations';
+import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
@@ -8,6 +8,8 @@ import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, r
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
+import { normalizeRosterItemWargear, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
+import type { SelectedWeaponProfile } from './domain/wargear';
 import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
@@ -105,6 +107,134 @@ function UnitProfile({ line }: { line: Record<string, unknown> }): React.JSX.Ele
   );
 }
 
+function WeaponTable({ profiles, compact = false }: { profiles: SelectedWeaponProfile[]; compact?: boolean }): React.JSX.Element | null {
+  if (profiles.length === 0) return null;
+  const groups = new Map<string, SelectedWeaponProfile[]>();
+  profiles.forEach((entry) => {
+    const values = groups.get(entry.group) ?? [];
+    values.push(entry);
+    groups.set(entry.group, values);
+  });
+  return (
+    <div className={`weapon-tables ${compact ? 'compact' : ''}`}>
+      {[...groups.entries()].map(([group, entries]) => (
+        <section className="weapon-table-section" key={group}>
+          <h4>{group}</h4>
+          <div className="weapon-table-scroll">
+            <table>
+              <thead><tr><th>Arme</th><th>Portée</th><th>A</th><th>{entries[0].melee ? 'CC' : 'CT'}</th><th>F</th><th>PA</th><th>D</th><th>Aptitudes</th></tr></thead>
+              <tbody>
+                {entries.map(({ profile }, index) => (
+                  <tr key={`${profile.Name ?? 'arme'}-${index}`}>
+                    <th scope="row">{profile.Name || 'Arme'}</th>
+                    <td>{profile.Range || '—'}</td><td>{profile.Attacks || '—'}</td><td>{profile.ToHit || '—'}</td>
+                    <td>{profile.Strength || '—'}</td><td>{profile.AP || '—'}</td><td>{profile.Damage || '—'}</td><td>{profile.Keywords || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function WargearEditor({
+  unit,
+  item,
+  detachmentNames,
+  onChange
+}: {
+  unit: NormalizedUnit;
+  item: RosterItem;
+  detachmentNames: string[];
+  onChange: (item: RosterItem) => void;
+}): React.JSX.Element | null {
+  const wargear = resolveWargear(unit, item, detachmentNames);
+  const sourceProfiles = weaponProfiles(unit);
+  if (wargear.rules.length === 0 && wargear.arsenal.length === 0 && sourceProfiles.length === 0) return null;
+  const detachmentAvailable = (name: string | undefined) => !name || detachmentNames.some((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase());
+  return (
+    <section className="wargear-editor">
+      <div className="wargear-heading"><h4>Armement et équipement</h4><span>{wargear.totalModels} figurine(s)</span></div>
+      {wargear.compositions.some((composition) => composition.editable) && (
+        <div className="composition-editor">
+          <strong>Composition</strong>
+          {wargear.compositions.map((composition) => (
+            <label key={composition.id}>
+              {composition.label} <small>{composition.min}–{composition.max}</small>
+              <input
+                type="number"
+                min={composition.min}
+                max={composition.max}
+                disabled={!composition.editable}
+                value={composition.count}
+                onChange={(event) => onChange(updateModelCount(unit, item, composition.id, Number(event.target.value)))}
+              />
+            </label>
+          ))}
+        </div>
+      )}
+      {wargear.compositions.map((composition) => {
+        const rules = wargear.rules.filter((rule) => rule.compositionId === composition.id);
+        if (rules.length === 0) return null;
+        return (
+          <section className="model-wargear" key={composition.id}>
+            <h5>{composition.label} <span>×{composition.count}</span></h5>
+            {rules.map((rule) => {
+              const selected = wargear.selections[rule.id] ?? {};
+              const selectedTotal = Object.values(selected).reduce((sum, count) => sum + count, 0);
+              const maximum = ruleLimit(rule, composition.count, wargear.totalModels);
+              const required = detachmentAvailable(rule.requiredDetachment);
+              return (
+                <div className="wargear-rule" key={rule.id}>
+                  <div className="wargear-rule-heading">
+                    <span>{rule.replaces.length > 0 ? `Remplace ${rule.replaces.join(' + ')}` : 'Équipement additionnel'}</span>
+                    <small>{selectedTotal}/{maximum}{rule.perXModels ? ` · 1 par ${rule.perXModels} fig.` : ''}</small>
+                  </div>
+                  {rule.requiredDetachment && <p className={required ? 'wargear-requirement' : 'wargear-requirement warning'}>Requiert : {rule.requiredDetachment}</p>}
+                  <div className="wargear-options">
+                    {rule.options.map((option) => {
+                      const quantity = selectionQuantity(item, rule.id, option);
+                      const addDisabled = !required || selectedTotal >= maximum;
+                      return (
+                        <div className="wargear-option" key={option}>
+                          <span>{option}</span>
+                          <div className="quantity-control">
+                            <button type="button" className="secondary" aria-label={`Retirer ${option}`} disabled={quantity === 0} onClick={() => onChange(updateWargearQuantity(item, rule.id, option, quantity - 1))}>−</button>
+                            <strong>{quantity}</strong>
+                            <button type="button" aria-label={`Ajouter ${option}`} disabled={addDisabled} onClick={() => onChange(updateWargearQuantity(item, rule.id, option, quantity + 1))}>+</button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+        );
+      })}
+      {wargear.arsenal.length > 0 && (
+        <section className="selected-arsenal">
+          <h5>Arsenal sélectionné</h5>
+          <div className="tag-row">{wargear.arsenal.map((entry) => <span className={entry.hasProfile ? '' : 'non-profile'} key={entry.name}>×{entry.count} {entry.name}</span>)}</div>
+          {wargear.arsenal.some((entry) => entry.grantsAbilities.length > 0) && <p className="muted">Aptitudes accordées : {wargear.arsenal.flatMap((entry) => entry.grantsAbilities).join(', ')}.</p>}
+          {wargear.nonProfileEquipment.length > 0 && <p className="muted">Équipement sans profil : {wargear.nonProfileEquipment.map((entry) => entry.name).join(', ')}.</p>}
+          <WeaponTable profiles={wargear.profiles} compact />
+        </section>
+      )}
+      {wargear.arsenal.length === 0 && sourceProfiles.length > 0 && (
+        <section className="selected-arsenal">
+          <h5>Profils de l’unité</h5>
+          <WeaponTable profiles={sourceProfiles} compact />
+        </section>
+      )}
+    </section>
+  );
+}
+
 function CompactRule({ detachment }: { detachment: NormalizedDetachment }): React.JSX.Element {
   return (
     <details className="rule-details">
@@ -146,7 +276,6 @@ function RosterCard({ database, item, draft, inventoryReservation, onChange, onR
   if (!unit) return null;
   const occurrence = occurrenceForItem(draft.items, item);
   const breakdown = calculateItemCost(database, item, draft.items, draft.detachmentIds);
-  const groups = getWargearChoiceGroups(unit);
   const selectedDetachments = database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id));
   const enhancementOptions = selectedDetachments.flatMap((detachment) =>
     (detachment.Enhancements ?? []).map((enhancement, enhancementIndex) => ({ detachment, enhancement, enhancementIndex }))
@@ -164,21 +293,7 @@ function RosterCard({ database, item, draft, inventoryReservation, onChange, onR
           {getPointSizes(unit).map((_, index) => <option key={index} value={index}>{pointLabel(unit, index, occurrence)}</option>)}
         </select>
       </label>
-      {groups.map((group) => (
-        <label key={group.id}>
-          {group.label}
-          <select
-            value={item.wargearSelections[group.id] ?? ''}
-            onChange={(event) => onChange({
-              ...item,
-              wargearSelections: { ...item.wargearSelections, [group.id]: event.target.value }
-            })}
-          >
-            <option value="">Conserver l’équipement de base</option>
-            {group.options.map((option) => <option key={option} value={option}>{option}</option>)}
-          </select>
-        </label>
-      ))}
+      <WargearEditor unit={unit} item={item} detachmentNames={selectedDetachments.map((detachment) => detachment.displayName)} onChange={onChange} />
       {enhancementOptions.length > 0 && (
         <label>
           Amélioration
@@ -239,7 +354,10 @@ export default function App(): React.JSX.Element {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
-  const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts());
+  const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts().map((saved) => ({
+    ...saved,
+    draft: { ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear) }
+  })));
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
   const [visibleUnits, setVisibleUnits] = useState(60);
   const [notice, setNotice] = useState<string | null>(null);
@@ -485,7 +603,7 @@ export default function App(): React.JSX.Element {
       const importedDetachments = database.detachments.filter((detachment) => validDetachments.includes(detachment.id));
       const scenario = keepSelectableScenario(importedDetachments, payload.draft.scenario);
       const wasScenarioAdjusted = scenario !== payload.draft.scenario;
-      setDraft({ ...payload.draft, scenario, detachmentIds: validDetachments, items: validItems, id: crypto.randomUUID() });
+      setDraft({ ...payload.draft, scenario, detachmentIds: validDetachments, items: validItems.map(normalizeRosterItemWargear), id: crypto.randomUUID() });
       setNotice(wasScenarioAdjusted ? 'Liste importée ; le scénario a été ajusté aux détachements.' : 'Liste importée.');
     } catch (importError) {
       setError(importError instanceof Error ? importError.message : 'Import impossible.');
@@ -729,7 +847,7 @@ export default function App(): React.JSX.Element {
             <div className="saved-panel">
               <h3>Listes sauvegardées</h3>
               {savedDrafts.slice(0, 4).map((saved) => (
-                <button className="saved-list" key={saved.id} onClick={() => setDraft({ ...saved.draft, id: crypto.randomUUID() })}>{saved.name}<small>{new Date(saved.updatedAt).toLocaleString('fr-FR')}</small></button>
+                <button className="saved-list" key={saved.id} onClick={() => setDraft({ ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear), id: crypto.randomUUID() })}>{saved.name}<small>{new Date(saved.updatedAt).toLocaleString('fr-FR')}</small></button>
               ))}
             </div>
           )}
@@ -748,6 +866,7 @@ export default function App(): React.JSX.Element {
                 {['Movement', 'Toughness', 'Save', 'Wounds', 'Leadership', 'OC'].map((key) => <div key={key}><dt>{key}</dt><dd>{String(line[key] ?? '—')}</dd></div>)}
               </dl>
             ))}
+            {(selectedUnit.Weapons?.length ?? 0) > 0 && <><h3>Armes</h3><WeaponTable profiles={weaponProfiles(selectedUnit)} /></>}
             {(selectedUnit.UnitAbilities?.length ?? 0) > 0 && <h3>Aptitudes</h3>}
             {selectedUnit.UnitAbilities?.map((ability, index) => <p key={index}><strong>{ability.Title}</strong> {ability.Text}</p>)}
             <button onClick={() => { updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(selectedUnit.id)] })); setSelectedUnitId(null); }}>Ajouter à la liste</button>
