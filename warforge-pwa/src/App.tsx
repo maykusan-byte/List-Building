@@ -10,6 +10,7 @@ import { validateDraft } from './domain/validation';
 import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
+const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
 function newDraft(database: NormalizedDatabase): RosterDraft {
   const format = database.battleSizes.find((size) => size.PointsTotal === 2000) ?? database.battleSizes[0];
@@ -229,7 +230,7 @@ export default function App(): React.JSX.Element {
   useEffect(() => {
     void (async () => {
       try {
-        const response = await fetch('/data/master_warorgan.json');
+        const response = await fetch(`${DATA_BASE_URL}master_warorgan.json`);
         if (!response.ok) throw new Error('La base intégrée est indisponible.');
         await installDatabase(await normalizeWithWorker(await response.text()), 'Base intégrée');
       } catch (loadError) {
@@ -264,7 +265,7 @@ export default function App(): React.JSX.Element {
       }
 
       try {
-        const response = await fetch('/data/datasheet_x_figs.csv');
+        const response = await fetch(`${DATA_BASE_URL}datasheet_x_figs.csv`);
         if (!response.ok) throw new Error('Le CSV d’inventaire intégré est indisponible.');
         const parsed = parseInventoryCsv(await response.text(), database, 'Inventaire intégré', 'bundled');
         if (!active) return;

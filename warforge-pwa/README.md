@@ -51,6 +51,20 @@ pnpm preview
 
 Le dossier `dist/` contient l’application statique distribuable. La base JSON est incluse dans le build et pré-cachée par le service worker : l’application peut donc fonctionner hors ligne après son premier chargement.
 
+Les ressources statiques utilisées par l’application, notamment les images futures,
+doivent être placées dans `public/data/` (par exemple `public/data/img/`). Le dossier
+`dist/` est généré et est remplacé à chaque build.
+
+## Déploiement GitHub Pages
+
+Chaque envoi sur la branche `master` déclenche le workflow
+`.github/workflows/deploy-pages.yml`. Il installe les dépendances, copie la base et
+l’inventaire depuis la racine, compile la PWA et publie `dist/` sur GitHub Pages.
+
+Le workflow utilise automatiquement le chemin du dépôt GitHub : les données,
+l’inventaire et les ressources publiques restent donc accessibles sous l’URL publique
+du projet.
+
 ## Inventaire
 
 L’inventaire par défaut est le fichier `../datasheet_x_figs.csv`. Il est copié avec
@@ -89,6 +103,6 @@ Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jo
 
 ## Validation des règles
 
-L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Les coûts de détachement absents du JSON ainsi que les restrictions uniquement rédigées en texte sont affichés comme avertissements : ils demandent une vérification dans les règles sources.
+L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Un coût de détachement absent du JSON représente le coût standard de 1 DP. Les restrictions uniquement rédigées en texte restent des avertissements à vérifier dans les règles sources.
 
 Les anciennes exportations de `cr_ateur_de_liste_warhammer_40k(5).html` ne sont volontairement pas importées, car leurs identifiants d’unités peuvent être ambigus. Utiliser les nouveaux exports versionnés de Warforge 40k.

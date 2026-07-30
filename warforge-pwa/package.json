@@ -11,6 +11,7 @@
     "prebuild": "pnpm sync-data",
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "pnpm sync-data && tsc -b && vite build --mode github-pages",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
