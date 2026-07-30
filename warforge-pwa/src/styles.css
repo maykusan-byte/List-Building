@@ -62,10 +62,12 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .detachment-scenario strong { color: var(--gold-dark); }
 .card-title-row, .cost-line { align-items: start; display: flex; gap: 0.5rem; justify-content: space-between; }
 .card-title-row strong, .cost-line strong { color: var(--gold-dark); white-space: nowrap; }
-.tag-row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.65rem 0; }
-.tag-row span { background: #fff4cf; border: 1px solid #ead28d; border-radius: 999px; color: #5d450f; font-size: 0.66rem; font-weight: 800; padding: 0.18rem 0.42rem; }
-.rule-details { color: var(--ink-soft); font-size: 0.78rem; margin-top: 0.75rem; }
-.rule-details summary { color: var(--ink); cursor: pointer; font-weight: 900; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.75rem 0; }
+.tag-row span { align-items: center; background: #fffdfa; border: 1px solid #cfc2ad; border-radius: 999px; color: #2c261f; display: inline-flex; font-size: 0.75rem; font-weight: 650; letter-spacing: 0.01em; line-height: 1.35; padding: 0.3rem 0.58rem; }
+.rule-details { color: var(--ink-soft); font-size: 0.8rem; margin-top: 0.85rem; }
+.rule-details summary { background: #f8f4eb; border: 1px solid #d9cdbb; border-radius: 0.65rem; color: #2c261f; cursor: pointer; font-size: 0.82rem; font-weight: 700; padding: 0.55rem 0.65rem; }
+.rule-details summary::marker { color: var(--gold-dark); }
+.rule-details[open] summary { background: #fff4cf; border-color: #d7a527; margin-bottom: 0.75rem; }
 .rule-details p { font-size: 0.75rem; white-space: pre-line; }
 .mini-list { display: grid; gap: 0.25rem; margin-top: 0.7rem; }
 .mini-list span { font-size: 0.74rem; }
