@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateItemCost, enhancementIsEligible, getDetachmentCost } from './calculations';
+import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getSelectedDetachments } from './calculations';
 import { normalizeDatabase } from './normalize';
 import type { RosterDraft } from './types';
 import { validateDraft } from './validation';
@@ -26,7 +26,7 @@ const rawDatabase = JSON.stringify([
     Name: 'Test Faction',
     Units: [{ Name: 'TEST WARRIORS', Points: [{ ModelCount: 5, Cost: 110 }] }],
     Dettachments: [{
-      Name: 'TEST RAID',
+      Name: 'WRATH OF THE ROCK',
       Cost: 1,
       ForceDispositions: ['PURGE THE FOE']
     }]
@@ -86,6 +86,13 @@ describe('Warforge data engine', () => {
       id: 'detachment-budget',
       message: 'Budget de détachements dépassé : 3/2 DP.'
     }));
+  });
+
+  it('keeps WRATH OF THE ROCK in the selected detachment list', () => {
+    const { database } = makeDraft();
+    const wrathOfTheRock = database.detachments[1];
+
+    expect(getSelectedDetachments(database, [wrathOfTheRock.id])).toEqual([wrathOfTheRock]);
   });
 
   it('allows any scenario linked to one of the selected detachments', () => {

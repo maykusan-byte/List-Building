@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
+import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getEnhancement, getPointOption, getSelectedDetachments, getWargearChoiceGroups } from './domain/calculations';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
@@ -194,6 +194,7 @@ export default function App(): React.JSX.Element {
   const [roleFilter, setRoleFilter] = useState('');
   const [favouritesOnly, setFavouritesOnly] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
   const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts());
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
@@ -313,7 +314,10 @@ export default function App(): React.JSX.Element {
   );
   const hasBlockingIssue = issues.some((issue) => issue.level === 'error');
   const battleSize = database && draft ? database.battleSizes.find((size) => size.PointsTotal === draft.battleSizePoints) : undefined;
-  const selectedDetachments = database && draft ? database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)) : [];
+  const selectedDetachments = useMemo(
+    () => database && draft ? getSelectedDetachments(database, draft.detachmentIds) : [],
+    [database, draft]
+  );
   const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   const rosterTotal = database && draft ? calculateRosterTotal(database, draft.items, draft.detachmentIds) : 0;
 
@@ -353,6 +357,22 @@ export default function App(): React.JSX.Element {
 
   const updateDraft = (updater: (current: RosterDraft) => RosterDraft): void => {
     setDraft((current) => current ? updater(current) : current);
+  };
+
+  const toggleDetachment = (detachmentId: string): void => {
+    if (!database) return;
+    updateDraft((current) => {
+      const selected = current.detachmentIds.includes(detachmentId);
+      const detachmentIds = selected
+        ? current.detachmentIds.filter((id) => id !== detachmentId)
+        : [...current.detachmentIds, detachmentId];
+      const nextDetachments = database.detachments.filter((candidate) => detachmentIds.includes(candidate.id));
+      return {
+        ...current,
+        detachmentIds,
+        scenario: keepSelectableScenario(nextDetachments, current.scenario)
+      };
+    });
   };
 
   const changeFaction = (nextFaction: string): void => {
@@ -518,10 +538,21 @@ export default function App(): React.JSX.Element {
       <section className="detachment-section">
         <div className="section-heading">
           <div><span className="eyebrow">DÉTACHEMENTS</span><h2>Forces de la faction</h2></div>
-          <p>{selectedDetachments.length} sélectionné(s) · ils déterminent les scénarios autorisés.</p>
+          <div className="detachment-heading-actions">
+            <p>{selectedDetachments.length} sélectionné(s) · ils déterminent les scénarios autorisés.</p>
+            <button
+              className="secondary"
+              aria-controls="detachment-catalog"
+              aria-expanded={detachmentCatalogExpanded}
+              onClick={() => setDetachmentCatalogExpanded((expanded) => !expanded)}
+            >
+              {detachmentCatalogExpanded ? 'Réduire le catalogue' : 'Afficher le catalogue'}
+            </button>
+          </div>
         </div>
-        <div className="detachment-grid">
-          {factionDetachments.map((detachment) => {
+        <div id="detachment-catalog" hidden={!detachmentCatalogExpanded}>
+          <div className="detachment-grid">
+            {factionDetachments.map((detachment) => {
             const selected = draft.detachmentIds.includes(detachment.id);
             return (
               <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
@@ -531,27 +562,15 @@ export default function App(): React.JSX.Element {
                   Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>
                 </p>
                 <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{tag}</span>)}</div>
-                <button
-                  className={selected ? 'secondary' : ''}
-                  onClick={() => updateDraft((current) => {
-                    const detachmentIds = selected
-                      ? current.detachmentIds.filter((id) => id !== detachment.id)
-                      : [...current.detachmentIds, detachment.id];
-                    const nextDetachments = database.detachments.filter((candidate) => detachmentIds.includes(candidate.id));
-                    return {
-                      ...current,
-                      detachmentIds,
-                      scenario: keepSelectableScenario(nextDetachments, current.scenario)
-                    };
-                  })}
-                >
+                <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
                   {selected ? 'Retirer' : 'Ajouter'}
                 </button>
                 <CompactRule detachment={detachment} />
               </article>
             );
-          })}
-        </div>
+            })}
+          </div>
+          </div>
       </section>
 
       <section className="workspace">
@@ -610,6 +629,26 @@ export default function App(): React.JSX.Element {
             <div><span className="eyebrow">LISTE</span><h2>{draft.name || 'Liste sans nom'}</h2></div>
             <strong className={rosterTotal > (battleSize?.PointsTotal ?? Infinity) ? 'bad-total' : ''}>{rosterTotal}/{battleSize?.PointsTotal ?? '?'} pts</strong>
           </div>
+          {selectedDetachments.length > 0 && (
+            <section className="selected-detachments" aria-label="Détachements sélectionnés">
+              <h3>Détachements</h3>
+              {selectedDetachments.map((detachment) => (
+                <article className="roster-card detachment-roster-card" key={detachment.id}>
+                  <button
+                    className="icon-button danger"
+                    aria-label={`Retirer le détachement ${detachment.displayName}`}
+                    onClick={() => toggleDetachment(detachment.id)}
+                  >
+                    ×
+                  </button>
+                  <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
+                  <p className="detachment-scenario">
+                    Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>
+                  </p>
+                </article>
+              ))}
+            </section>
+          )}
           {draft.items.length === 0 ? <p className="empty-state">Ajoutez des unités depuis la bibliothèque.</p> : draft.items.map((item) => (
             <RosterCard
               key={item.id}

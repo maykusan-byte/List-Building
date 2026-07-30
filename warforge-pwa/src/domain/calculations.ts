@@ -37,6 +37,14 @@ export function getDetachmentCost(detachment: Pick<NormalizedDetachment, 'Cost'>
   return typeof detachment.Cost === 'number' && Number.isFinite(detachment.Cost) ? detachment.Cost : 1;
 }
 
+export function getSelectedDetachments(database: NormalizedDatabase, detachmentIds: readonly string[]): NormalizedDetachment[] {
+  const detachmentsById = new Map(database.detachments.map((detachment) => [detachment.id, detachment]));
+  return detachmentIds.flatMap((id) => {
+    const detachment = detachmentsById.get(id);
+    return detachment ? [detachment] : [];
+  });
+}
+
 export function getWargearChoiceGroups(unit: NormalizedUnit): WargearChoiceGroup[] {
   const groups: WargearChoiceGroup[] = [];
   unit.UnitComposition?.ModelCompositions?.forEach((composition, compositionIndex) => {
