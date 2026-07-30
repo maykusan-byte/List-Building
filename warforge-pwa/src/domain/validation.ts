@@ -33,7 +33,7 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
     });
   }
 
-  const total = draft.items.reduce((sum, { item }) => sum + calculateItemCost(database, item, draft.detachmentIds).total, 0);
+  const total = draft.items.reduce((sum, item) => sum + calculateItemCost(database, item, draft.detachmentIds).total, 0);
   if (battleSize && total > battleSize.PointsTotal) {
     issues.push({ id: 'points-budget', level: 'error', message: `Budget d’armée dépassé : ${total}/${battleSize.PointsTotal} pts.` });
   }

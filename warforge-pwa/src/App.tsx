@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { registerSW } from 'virtual:pwa-register';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
 import { normalizeDatabase } from './domain/normalize';
 import { SCENARIOS, scenarioLabel } from './domain/scenarios';
@@ -7,8 +6,6 @@ import { cacheDatabase, getCachedDatabase, readFavorites, readSavedDrafts, write
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import './styles.css';
-
-registerSW({ immediate: true });
 
 const NEW_SCHEMA = 'warforge-list/v1';
 

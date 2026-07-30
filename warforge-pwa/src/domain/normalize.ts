@@ -83,7 +83,12 @@ export function normalizeDatabase(raw: string): NormalizedDatabase {
       faction.detachmentCount += 1;
     });
 
-    factionMap.set(name, faction);
+    // Some source blocks only carry global metadata. They are useful for
+    // preserving source positions, but must not become a selectable empty
+    // faction in the roster builder.
+    if ((book.Units?.length ?? 0) > 0 || (book.Dettachments?.length ?? 0) > 0) {
+      factionMap.set(name, faction);
+    }
     return { id, index, name, version: book.Version, publishDate: book.PublishDate };
   });
 
