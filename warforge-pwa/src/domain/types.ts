@@ -28,6 +28,7 @@ export interface RawUnit {
   UnitComposition?: {
     ModelCompositions?: Array<{
       ModelName?: string;
+      Limit?: { Min?: number; Max?: number };
       Wargear?: RawWargearOptionGroup[];
     }>;
     WargearDefinitions?: RawWargearDefinition[];

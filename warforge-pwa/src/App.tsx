@@ -64,6 +64,42 @@ function makeRosterItem(unitId: string): RosterItem {
   return { id: crypto.randomUUID(), unitId, pointIndex: 0, wargearSelections: {} };
 }
 
+const PROFILE_STATS = [
+  { key: 'Movement', label: 'M', description: 'Mouvement' },
+  { key: 'Toughness', label: 'E', description: 'Endurance' },
+  { key: 'Save', label: 'Svg', description: 'Sauvegarde' },
+  { key: 'Wounds', label: 'PV', description: 'Points de vie' },
+  { key: 'Leadership', label: 'Cd', description: 'Commandement' },
+  { key: 'OC', label: 'OC', description: 'Contrôle d’objectif' }
+] as const;
+
+function compositionLabel(model: { ModelName?: string; Limit?: { Min?: number; Max?: number } }): string {
+  const name = model.ModelName?.trim() || 'Figurine';
+  const min = model.Limit?.Min;
+  const max = model.Limit?.Max;
+  if (typeof min === 'number' && typeof max === 'number') return min === max ? `x${min} ${name}` : `${min}–${max} ${name}`;
+  if (typeof min === 'number') return `min. ${min} ${name}`;
+  if (typeof max === 'number') return `max. ${max} ${name}`;
+  return name;
+}
+
+function UnitProfile({ line }: { line: Record<string, unknown> }): React.JSX.Element {
+  const profileName = typeof line.StatName === 'string' ? line.StatName.trim() : '';
+  return (
+    <section className="unit-profile">
+      {profileName && <h4>{profileName}</h4>}
+      <dl className="unit-stat-grid">
+        {PROFILE_STATS.map(({ key, label, description }) => (
+          <div key={key}>
+            <dt aria-label={description}>{label}</dt>
+            <dd>{String(line[key] ?? '—')}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 function CompactRule({ detachment }: { detachment: NormalizedDetachment }): React.JSX.Element {
   return (
     <details className="rule-details">
@@ -603,20 +639,32 @@ export default function App(): React.JSX.Element {
               return (
               <article className="unit-card" key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={`Favori ${unit.displayName}`}>★</button>
-                <h3>{unit.displayName}</h3>
-                <p className="muted">{unit.Faction || unit.factionName}</p>
-                <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
-                <strong>{unit.Points?.[0]?.Cost ?? '?'} pts <small>à partir de</small></strong>
-                {availability && (
-                  <p className={`inventory-stock ${availability.hasCatalogEntry ? '' : 'unlisted'}`}>
-                    {availability.hasCatalogEntry
-                      ? <>Stock libre : {availability.real} réel · {availability.proxy} proxy</>
-                      : 'Inventaire non renseigné'}
-                  </p>
-                )}
-                <div className="card-actions">
-                  <button className="secondary" onClick={() => setSelectedUnitId(unit.id)}>Détails</button>
-                  <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id)] }))}>Ajouter</button>
+                <div className="unit-card-layout">
+                  <div className="unit-thumbnail" aria-hidden="true" />
+                  <div className="unit-card-content">
+                    <h3>{unit.displayName}</h3>
+                    <p className="muted">{unit.Faction || unit.factionName}</p>
+                    <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
+                    {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} />)}
+                    {(unit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
+                      <section className="unit-composition">
+                        <h4>Composition</h4>
+                        <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model)}</li>)}</ul>
+                      </section>
+                    )}
+                    <strong className="unit-card-price">{unit.Points?.[0]?.Cost ?? '?'} pts <small>à partir de</small></strong>
+                    {availability && (
+                      <p className={`inventory-stock ${availability.hasCatalogEntry ? '' : 'unlisted'}`}>
+                        {availability.hasCatalogEntry
+                          ? <>Stock libre : {availability.real} réel · {availability.proxy} proxy</>
+                          : 'Inventaire non renseigné'}
+                      </p>
+                    )}
+                    <div className="card-actions">
+                      <button className="secondary" onClick={() => setSelectedUnitId(unit.id)}>Détails</button>
+                      <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id)] }))}>Ajouter</button>
+                    </div>
+                  </div>
                 </div>
               </article>
               );
