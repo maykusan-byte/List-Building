@@ -1,8 +1,10 @@
+import type { InventoryDataset } from './inventory';
 import type { NormalizedDatabase, SavedDraft } from './types';
 
 const DATABASE_NAME = 'warforge-40k';
-const DATABASE_VERSION = 1;
+const DATABASE_VERSION = 2;
 const DATA_STORE = 'datasets';
+const INVENTORY_STORE = 'inventory';
 const DRAFTS_KEY = 'warforge.saved-drafts.v1';
 const FAVORITES_KEY = 'warforge.favourites.v1';
 
@@ -11,6 +13,7 @@ function openDatabase(): Promise<IDBDatabase> {
     const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
     request.onupgradeneeded = () => {
       if (!request.result.objectStoreNames.contains(DATA_STORE)) request.result.createObjectStore(DATA_STORE);
+      if (!request.result.objectStoreNames.contains(INVENTORY_STORE)) request.result.createObjectStore(INVENTORY_STORE);
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
@@ -33,6 +36,28 @@ export async function getCachedDatabase(): Promise<NormalizedDatabase | null> {
   const result = await new Promise<NormalizedDatabase | null>((resolve, reject) => {
     const request = connection.transaction(DATA_STORE, 'readonly').objectStore(DATA_STORE).get('latest');
     request.onsuccess = () => resolve((request.result as NormalizedDatabase | undefined) ?? null);
+    request.onerror = () => reject(request.error);
+  });
+  connection.close();
+  return result;
+}
+
+export async function cacheInventory(inventory: InventoryDataset): Promise<void> {
+  const connection = await openDatabase();
+  await new Promise<void>((resolve, reject) => {
+    const transaction = connection.transaction(INVENTORY_STORE, 'readwrite');
+    transaction.objectStore(INVENTORY_STORE).put(inventory, 'latest');
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  connection.close();
+}
+
+export async function getCachedInventory(): Promise<InventoryDataset | null> {
+  const connection = await openDatabase();
+  const result = await new Promise<InventoryDataset | null>((resolve, reject) => {
+    const request = connection.transaction(INVENTORY_STORE, 'readonly').objectStore(INVENTORY_STORE).get('latest');
+    request.onsuccess = () => resolve((request.result as InventoryDataset | undefined) ?? null);
     request.onerror = () => reject(request.error);
   });
   connection.close();

@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['data/master_warorgan.json'],
+      includeAssets: ['data/master_warorgan.json', 'data/datasheet_x_figs.csv'],
       manifest: {
         name: 'Warforge 40k',
         short_name: 'Warforge',
@@ -18,7 +18,7 @@ export default defineConfig({
         lang: 'fr'
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,csv}'],
         maximumFileSizeToCacheInBytes: 45 * 1024 * 1024
       }
     })

@@ -24,6 +24,7 @@ p { color: #b4c3d4; line-height: 1.5; }
 .topbar, .configuration, .scenario-guide, .detachment-section, .library-panel, .roster-panel { background: rgba(10, 24, 41, 0.92); border: 1px solid #25405e; border-radius: 1rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18); }
 .topbar { align-items: center; display: flex; gap: 1rem; justify-content: space-between; padding: 1.35rem; }
 .topbar p { font-size: 0.78rem; margin: 0; overflow-wrap: anywhere; }
+.inventory-status { color: #9cc8ac !important; margin-top: 0.3rem !important; }
 .topbar-actions, .configuration-actions, .card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .eyebrow { color: #e9b653; display: block; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.15em; margin-bottom: 0.35rem; }
 .configuration { display: grid; gap: 0.85rem; grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: 1rem; padding: 1rem; }
@@ -55,13 +56,15 @@ p { color: #b4c3d4; line-height: 1.5; }
 .notice-text { color: #f1c870; }
 .workspace { align-items: start; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.7fr) minmax(21rem, 0.9fr); margin-top: 1rem; }
 .library-panel, .roster-panel { padding: 1rem; }
-.filters { display: grid; gap: 0.55rem; grid-template-columns: minmax(14rem, 1.5fr) minmax(9rem, 1fr) minmax(7rem, 0.45fr) auto; margin-bottom: 1rem; }
+.filters { display: grid; gap: 0.55rem; grid-template-columns: minmax(14rem, 1.5fr) minmax(9rem, 1fr) minmax(7rem, 0.45fr) auto auto; margin-bottom: 1rem; }
 .checkbox-label { align-items: center; display: flex; grid-auto-flow: column; white-space: nowrap; }
 .checkbox-label input { min-height: 0; width: auto; }
 .unit-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .unit-card { min-height: 12rem; position: relative; }
 .unit-card > strong { display: block; margin: 0.8rem 0; }
 .unit-card small { color: #8da4bd; font-weight: 600; }
+.inventory-stock { color: #8fd3a8; font-size: 0.75rem; font-weight: 800; margin: -0.4rem 0 0.8rem; }
+.inventory-stock.unlisted { color: #8da4bd; font-weight: 600; }
 .favorite { background: transparent; color: #58738f; font-size: 1.2rem; padding: 0.1rem; position: absolute; right: 0.55rem; top: 0.45rem; }
 .favorite:hover, .favorite.active { background: transparent; color: #f1c870; }
 .load-more { display: block; margin: 1rem auto 0; }
@@ -73,6 +76,8 @@ p { color: #b4c3d4; line-height: 1.5; }
 .icon-button:hover { background: #3d5976; }
 .muted { color: #8da4bd; font-size: 0.75rem; }
 .cost-line { border-top: 1px solid #294562; margin-top: 0.8rem; padding-top: 0.7rem; }
+.inventory-reservation { color: #9cc8ac; font-size: 0.76rem; margin: 0.65rem 0 0; }
+.inventory-warning { color: #f1c870; }
 .bad-total { color: #ff8c8c; }
 .empty-state { border: 1px dashed #365b80; border-radius: 0.7rem; padding: 1rem; text-align: center; }
 .validation-panel, .saved-panel { border-top: 1px solid #294562; margin-top: 1rem; padding-top: 1rem; }

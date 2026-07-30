@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
+    "inventory:index": "node scripts/export-catalog-unit-index.mjs",
+    "inventory:migrate": "node scripts/migrate-inventory-csv.mjs",
     "predev": "pnpm sync-data",
     "prebuild": "pnpm sync-data",
     "dev": "vite",

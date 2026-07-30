@@ -51,6 +51,33 @@ pnpm preview
 
 Le dossier `dist/` contient l’application statique distribuable. La base JSON est incluse dans le build et pré-cachée par le service worker : l’application peut donc fonctionner hors ligne après son premier chargement.
 
+## Inventaire
+
+L’inventaire par défaut est le fichier `../datasheet_x_figs.csv`. Il est copié avec
+la base, pré-caché par la PWA et peut être remplacé localement depuis le bouton
+« Importer un inventaire CSV ».
+
+Les quatre colonnes contractuelles sont :
+
+```text
+DatabaseFingerprint,UnitId,ID_figurine,Type
+```
+
+- `UnitId` est le seul lien vers le catalogue ; il doit être exact.
+- `Type` vaut strictement `real` ou `proxy`.
+- `DatabaseFingerprint` doit correspondre à la base chargée, sinon le CSV est refusé.
+- `Nom_datasheet`, s’il est présent, et toute autre colonne sont purement documentaires : l’application ne les lit, ne les valide et ne les affiche jamais.
+
+Pour préparer un nouveau CSV avec les identifiants de la base actuelle :
+
+```powershell
+pnpm inventory:index ..\catalog_unit_index.csv
+```
+
+Une mise à jour de la base qui change son empreinte impose de régénérer et de
+valider humainement l’inventaire. Les réservations sont recalculées depuis la
+liste et l’inventaire local ; elles ne modifient pas le format d’export v1.
+
 ## Utilisation
 
 1. Choisir le format de bataille et la faction, puis ajouter les détachements dans la limite des points de détachement.

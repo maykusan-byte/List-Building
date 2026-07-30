@@ -1,8 +1,10 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
+import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
-import { cacheDatabase, getCachedDatabase, readFavorites, readSavedDrafts, writeFavorites, writeSavedDrafts } from './domain/storage';
+import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readFavorites, readSavedDrafts, writeFavorites, writeSavedDrafts } from './domain/storage';
+import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import './styles.css';
@@ -92,11 +94,12 @@ interface RosterCardProps {
   database: NormalizedDatabase;
   item: RosterItem;
   draft: RosterDraft;
+  inventoryReservation?: InventoryReservation;
   onChange: (item: RosterItem) => void;
   onRemove: () => void;
 }
 
-function RosterCard({ database, item, draft, onChange, onRemove }: RosterCardProps): React.JSX.Element | null {
+function RosterCard({ database, item, draft, inventoryReservation, onChange, onRemove }: RosterCardProps): React.JSX.Element | null {
   const unit = database.units.find((candidate) => candidate.id === item.unitId);
   if (!unit) return null;
   const breakdown = calculateItemCost(database, item, draft.detachmentIds);
@@ -169,6 +172,12 @@ function RosterCard({ database, item, draft, onChange, onRemove }: RosterCardPro
       {(breakdown.wargear > 0 || breakdown.enhancement > 0) && (
         <p className="muted">Équipement {breakdown.wargear} · Amélioration {breakdown.enhancement}</p>
       )}
+      {inventoryReservation?.hasCatalogEntry && (
+        <p className="inventory-reservation">
+          Réservées : {inventoryReservation.realFigureIds.length} réelle(s) · {inventoryReservation.proxyFigureIds.length} proxy
+          {inventoryReservation.missing > 0 && <strong className="inventory-warning"> · Manque {inventoryReservation.missing} fig.</strong>}
+        </p>
+      )}
     </article>
   );
 }
@@ -176,18 +185,22 @@ function RosterCard({ database, item, draft, onChange, onRemove }: RosterCardPro
 export default function App(): React.JSX.Element {
   const [database, setDatabase] = useState<NormalizedDatabase | null>(null);
   const [draft, setDraft] = useState<RosterDraft | null>(null);
+  const [inventory, setInventory] = useState<InventoryDataset | null>(null);
+  const [inventoryStatus, setInventoryStatus] = useState('Inventaire en attente de la base.');
   const [status, setStatus] = useState('Chargement de la base intégrée…');
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [maxCost, setMaxCost] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [favouritesOnly, setFavouritesOnly] = useState(false);
+  const [inStockOnly, setInStockOnly] = useState(false);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
   const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts());
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
   const [visibleUnits, setVisibleUnits] = useState(60);
   const [notice, setNotice] = useState<string | null>(null);
   const databaseInputRef = useRef<HTMLInputElement>(null);
+  const inventoryInputRef = useRef<HTMLInputElement>(null);
   const listInputRef = useRef<HTMLInputElement>(null);
 
   const installDatabase = async (nextDatabase: NormalizedDatabase, source: string): Promise<void> => {
@@ -199,6 +212,16 @@ export default function App(): React.JSX.Element {
       await cacheDatabase(nextDatabase);
     } catch {
       setNotice('La base est chargée, mais le cache local n’a pas pu être mis à jour.');
+    }
+  };
+
+  const installInventory = async (nextInventory: InventoryDataset): Promise<void> => {
+    setInventory(nextInventory);
+    setInventoryStatus(`${nextInventory.sourceLabel} · ${nextInventory.entries.length.toLocaleString('fr-FR')} association(s)`);
+    try {
+      await cacheInventory(nextInventory);
+    } catch {
+      setNotice('Inventaire chargé, mais le cache local n’a pas pu être mis à jour.');
     }
   };
 
@@ -221,8 +244,73 @@ export default function App(): React.JSX.Element {
     })();
   }, []);
 
+  useEffect(() => {
+    if (!database) return;
+    let active = true;
+
+    void (async () => {
+      let cached: InventoryDataset | null = null;
+      try {
+        cached = await getCachedInventory();
+      } catch {
+        // A missing IndexedDB cache must not prevent loading the bundled CSV.
+      }
+      if (!active) return;
+      if (cached?.sourceKind === 'local' && cached.databaseFingerprint === database.fingerprint) {
+        setInventory(cached);
+        setInventoryStatus(`${cached.sourceLabel} · ${cached.entries.length.toLocaleString('fr-FR')} association(s)`);
+        return;
+      }
+
+      try {
+        const response = await fetch('/data/datasheet_x_figs.csv');
+        if (!response.ok) throw new Error('Le CSV d’inventaire intégré est indisponible.');
+        const parsed = parseInventoryCsv(await response.text(), database, 'Inventaire intégré', 'bundled');
+        if (!active) return;
+        await installInventory(parsed);
+      } catch (inventoryError) {
+        if (!active) return;
+        if (cached?.databaseFingerprint === database.fingerprint) {
+          setInventory(cached);
+          setInventoryStatus(`${cached.sourceLabel} · ${cached.entries.length.toLocaleString('fr-FR')} association(s), depuis le cache local`);
+          return;
+        }
+        setInventory(null);
+        setInventoryStatus(inventoryError instanceof Error ? `Inventaire indisponible : ${inventoryError.message}` : 'Inventaire indisponible.');
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [database]);
+
+  useEffect(() => {
+    if (!inventory) setInStockOnly(false);
+  }, [inventory]);
+
   const selectedUnit = database?.units.find((unit) => unit.id === selectedUnitId) ?? null;
-  const issues = useMemo(() => database && draft ? validateDraft(database, draft) : [], [database, draft]);
+  const inventoryAllocation = useMemo(
+    () => database && draft ? allocateInventory(database, draft.items, inventory) : { reservationsByItemId: new Map(), reservedFigureIds: new Set<number>() },
+    [database, draft, inventory]
+  );
+  const inventoryIssues = useMemo(() => {
+    if (!database || !draft || !inventory) return [];
+    return draft.items.flatMap((item) => {
+      const reservation = inventoryAllocation.reservationsByItemId.get(item.id);
+      if (!reservation?.hasCatalogEntry || reservation.missing === 0) return [];
+      const unit = database.units.find((candidate) => candidate.id === item.unitId);
+      return [{
+        id: `inventory-${item.id}`,
+        level: 'warning' as const,
+        message: `${unit?.displayName ?? 'Unité'} : il manque ${reservation.missing} figurine(s) dans l’inventaire.`
+      }];
+    });
+  }, [database, draft, inventory, inventoryAllocation]);
+  const issues = useMemo(
+    () => database && draft ? [...validateDraft(database, draft), ...inventoryIssues] : [],
+    [database, draft, inventoryIssues]
+  );
   const hasBlockingIssue = issues.some((issue) => issue.level === 'error');
   const battleSize = database && draft ? database.battleSizes.find((size) => size.PointsTotal === draft.battleSizePoints) : undefined;
   const selectedDetachments = database && draft ? database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)) : [];
@@ -236,6 +324,7 @@ export default function App(): React.JSX.Element {
     return database.units.filter((unit) => {
       if (unit.factionName !== draft.primaryFaction) return false;
       if (favouritesOnly && !favorites.includes(unit.id)) return false;
+      if (inStockOnly && !hasFreeInventory(inventory, inventoryAllocation, unit.id)) return false;
       if (roleFilter && !(unit.Keywords ?? []).some((keyword) => keyword.toLocaleLowerCase().includes(roleFilter.toLocaleLowerCase()))) return false;
       if (searchText) {
         const corpus = [unit.displayName, ...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? [])].join(' ').toLocaleLowerCase();
@@ -244,7 +333,7 @@ export default function App(): React.JSX.Element {
       if (ceiling !== undefined && (unit.Points?.[0]?.Cost ?? 0) > ceiling) return false;
       return true;
     });
-  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites]);
+  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation]);
 
   const roles = useMemo(() => {
     if (!database || !draft) return [];
@@ -283,6 +372,20 @@ export default function App(): React.JSX.Element {
       setNotice('La base importée est maintenant celle utilisée par la session.');
     } catch (importError) {
       setError(importError instanceof Error ? importError.message : 'Ce fichier ne peut pas être lu comme base Warforge.');
+    } finally {
+      event.target.value = '';
+    }
+  };
+
+  const loadExternalInventory = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const file = event.target.files?.[0];
+    if (!file || !database) return;
+    try {
+      const parsed = parseInventoryCsv(await file.text(), database, `Inventaire importé : ${file.name}`, 'local');
+      await installInventory(parsed);
+      setNotice('Inventaire local remplacé pour cette base.');
+    } catch (importError) {
+      setError(importError instanceof Error ? importError.message : 'Ce fichier ne peut pas être lu comme inventaire Warforge.');
     } finally {
       event.target.value = '';
     }
@@ -354,12 +457,15 @@ export default function App(): React.JSX.Element {
           <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
           <h1>Commandement de liste</h1>
           <p>{status} · Empreinte {database.fingerprint}</p>
+          <p className="inventory-status">{inventoryStatus}</p>
         </div>
         <div className="topbar-actions">
           <button className="secondary" onClick={() => databaseInputRef.current?.click()}>Mettre à jour la base</button>
           <button className="secondary" onClick={() => listInputRef.current?.click()}>Importer une liste v1</button>
+          <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>Importer un inventaire CSV</button>
           <button className="secondary" onClick={() => window.print()}>Imprimer</button>
           <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
+          <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />
           <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
         </div>
       </header>
@@ -462,21 +568,39 @@ export default function App(): React.JSX.Element {
             </select>
             <input type="number" min="0" placeholder="Coût max" value={maxCost} onChange={(event) => { setMaxCost(event.target.value); setVisibleUnits(60); }} />
             <label className="checkbox-label"><input type="checkbox" checked={favouritesOnly} onChange={(event) => setFavouritesOnly(event.target.checked)} /> Favoris</label>
+            <label className="checkbox-label" title={inventory ? undefined : 'Chargez un inventaire compatible pour filtrer le stock.'}>
+              <input
+                type="checkbox"
+                checked={inStockOnly}
+                disabled={!inventory}
+                onChange={(event) => { setInStockOnly(event.target.checked); setVisibleUnits(60); }}
+              /> En stock
+            </label>
           </div>
           <div className="unit-grid">
-            {factionUnits.slice(0, visibleUnits).map((unit) => (
+            {factionUnits.slice(0, visibleUnits).map((unit) => {
+              const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
+              return (
               <article className="unit-card" key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={`Favori ${unit.displayName}`}>★</button>
                 <h3>{unit.displayName}</h3>
                 <p className="muted">{unit.Faction || unit.factionName}</p>
                 <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
                 <strong>{unit.Points?.[0]?.Cost ?? '?'} pts <small>à partir de</small></strong>
+                {availability && (
+                  <p className={`inventory-stock ${availability.hasCatalogEntry ? '' : 'unlisted'}`}>
+                    {availability.hasCatalogEntry
+                      ? <>Stock libre : {availability.real} réel · {availability.proxy} proxy</>
+                      : 'Inventaire non renseigné'}
+                  </p>
+                )}
                 <div className="card-actions">
                   <button className="secondary" onClick={() => setSelectedUnitId(unit.id)}>Détails</button>
                   <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id)] }))}>Ajouter</button>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
           {factionUnits.length > visibleUnits && <button className="load-more" onClick={() => setVisibleUnits((current) => current + 60)}>Afficher 60 unités de plus</button>}
         </div>
@@ -492,6 +616,7 @@ export default function App(): React.JSX.Element {
               database={database}
               item={item}
               draft={draft}
+              inventoryReservation={inventoryAllocation.reservationsByItemId.get(item.id)}
               onChange={(nextItem) => updateDraft((current) => ({ ...current, items: current.items.map((candidate) => candidate.id === nextItem.id ? nextItem : candidate) }))}
               onRemove={() => updateDraft((current) => ({ ...current, items: current.items.filter((candidate) => candidate.id !== item.id) }))}
             />
