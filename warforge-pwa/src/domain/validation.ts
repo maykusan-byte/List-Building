@@ -1,4 +1,4 @@
-import { calculateItemCost, enhancementIsEligible, getEnhancement } from './calculations';
+import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getEnhancement } from './calculations';
 import { scenarioIsSelectable } from './scenarios';
 import type { NormalizedDatabase, RosterDraft, ValidationIssue } from './types';
 
@@ -13,7 +13,7 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
   if (!draft.scenario) issues.push({ id: 'scenario', level: 'error', message: 'Choisissez un scénario.' });
   if (detachments.length === 0) issues.push({ id: 'detachment-none', level: 'warning', message: 'La liste ne contient aucun détachement.' });
 
-  const knownDetachmentCost = detachments.reduce((total, detachment) => total + (typeof detachment.Cost === 'number' ? detachment.Cost : 0), 0);
+  const detachmentCost = detachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   if (detachments.length > 0 && !scenarioIsSelectable(detachments, draft.scenario)) {
     issues.push({
       id: 'scenario-detachments',
@@ -23,19 +23,16 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
   }
 
   detachments.forEach((detachment) => {
-    if (typeof detachment.Cost !== 'number') {
-      issues.push({ id: `cost-${detachment.id}`, level: 'warning', message: `${detachment.displayName} n’a pas de coût de détachement renseigné.` });
-    }
     if (detachment.Rule?.Restrictions) {
       issues.push({ id: `restriction-${detachment.id}`, level: 'info', message: `${detachment.displayName} : ${detachment.Rule.Restrictions}` });
     }
   });
 
-  if (battleSize && knownDetachmentCost > battleSize.DetachmentPoints) {
+  if (battleSize && detachmentCost > battleSize.DetachmentPoints) {
     issues.push({
       id: 'detachment-budget',
       level: 'error',
-      message: `Budget de détachements dépassé : ${knownDetachmentCost}/${battleSize.DetachmentPoints} DP connus.`
+      message: `Budget de détachements dépassé : ${detachmentCost}/${battleSize.DetachmentPoints} DP.`
     });
   }
 

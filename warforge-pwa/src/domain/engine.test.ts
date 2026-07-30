@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateItemCost, enhancementIsEligible } from './calculations';
+import { calculateItemCost, enhancementIsEligible, getDetachmentCost } from './calculations';
 import { normalizeDatabase } from './normalize';
 import type { RosterDraft } from './types';
 import { validateDraft } from './validation';
@@ -74,6 +74,18 @@ describe('Warforge data engine', () => {
     const { database, draft } = makeDraft();
     const calculation = calculateItemCost(database, draft.items[0], draft.detachmentIds);
     expect(calculation).toMatchObject({ base: 100, pointOverride: 120, wargear: 15, enhancement: 10, total: 145 });
+  });
+
+  it('treats a missing detachment cost as the standard 1 DP', () => {
+    const { database, draft } = makeDraft();
+    const onePointDetachment = database.detachments[1];
+    const withBothDetachments = { ...draft, detachmentIds: database.detachments.map((detachment) => detachment.id) };
+
+    expect(getDetachmentCost(onePointDetachment)).toBe(1);
+    expect(validateDraft(database, withBothDetachments)).toContainEqual(expect.objectContaining({
+      id: 'detachment-budget',
+      message: 'Budget de détachements dépassé : 3/2 DP.'
+    }));
   });
 
   it('allows any scenario linked to one of the selected detachments', () => {

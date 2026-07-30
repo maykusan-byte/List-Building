@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
+import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
@@ -314,7 +314,7 @@ export default function App(): React.JSX.Element {
   const hasBlockingIssue = issues.some((issue) => issue.level === 'error');
   const battleSize = database && draft ? database.battleSizes.find((size) => size.PointsTotal === draft.battleSizePoints) : undefined;
   const selectedDetachments = database && draft ? database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)) : [];
-  const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + (detachment.Cost ?? 0), 0);
+  const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   const rosterTotal = database && draft ? calculateRosterTotal(database, draft.items, draft.detachmentIds) : 0;
 
   const factionUnits = useMemo(() => {
@@ -525,7 +525,7 @@ export default function App(): React.JSX.Element {
             const selected = draft.detachmentIds.includes(detachment.id);
             return (
               <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
-                <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{detachment.Cost ?? '?'} DP</strong></div>
+                <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
                 <p>{detachment.Rule?.Title || 'Règle de détachement'}</p>
                 <p className="detachment-scenario">
                   Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>

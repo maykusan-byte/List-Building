@@ -31,6 +31,12 @@ export function getPointOption(unit: NormalizedUnit, pointIndex: number): RawPoi
   return unit.Points?.[pointIndex] ?? unit.Points?.[0];
 }
 
+// In the source data, a missing detachment cost denotes the standard 1 DP cost.
+// Keep the interpretation here so display and validation cannot diverge.
+export function getDetachmentCost(detachment: Pick<NormalizedDetachment, 'Cost'>): number {
+  return typeof detachment.Cost === 'number' && Number.isFinite(detachment.Cost) ? detachment.Cost : 1;
+}
+
 export function getWargearChoiceGroups(unit: NormalizedUnit): WargearChoiceGroup[] {
   const groups: WargearChoiceGroup[] = [];
   unit.UnitComposition?.ModelCompositions?.forEach((composition, compositionIndex) => {
