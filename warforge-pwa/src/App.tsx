@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getEnhancement, getPointOption, getWargearChoiceGroups } from './domain/calculations';
 import { normalizeDatabase } from './domain/normalize';
-import { SCENARIOS, scenarioLabel } from './domain/scenarios';
+import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, getCachedDatabase, readFavorites, readSavedDrafts, writeFavorites, writeSavedDrafts } from './domain/storage';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
@@ -252,12 +252,15 @@ export default function App(): React.JSX.Element {
       .sort((left, right) => left.localeCompare(right, 'fr'));
   }, [database, draft]);
 
-  const compatibleDetachments = useMemo(() => {
+  const factionDetachments = useMemo(() => {
     if (!database || !draft) return [];
-    return database.detachments.filter((detachment) =>
-      detachment.factionName === draft.primaryFaction && detachment.ForceDispositions?.includes(draft.scenario)
-    );
+    return database.detachments.filter((detachment) => detachment.factionName === draft.primaryFaction);
   }, [database, draft]);
+
+  const availableScenarios = useMemo(
+    () => selectableScenarios(selectedDetachments),
+    [selectedDetachments]
+  );
 
   const updateDraft = (updater: (current: RosterDraft) => RosterDraft): void => {
     setDraft((current) => current ? updater(current) : current);
@@ -309,8 +312,11 @@ export default function App(): React.JSX.Element {
       const validDetachments = payload.draft.detachmentIds.filter((id) => database.detachments.some((detachment) => detachment.id === id));
       const validItems = payload.draft.items.filter((item) => database.units.some((unit) => unit.id === item.unitId));
       const wasTrimmed = validDetachments.length !== payload.draft.detachmentIds.length || validItems.length !== payload.draft.items.length;
-      setDraft({ ...payload.draft, detachmentIds: validDetachments, items: validItems, id: crypto.randomUUID() });
-      setNotice(wasTrimmed || payload.databaseFingerprint !== database.fingerprint
+      const importedDetachments = database.detachments.filter((detachment) => validDetachments.includes(detachment.id));
+      const scenario = keepSelectableScenario(importedDetachments, payload.draft.scenario);
+      const wasScenarioAdjusted = scenario !== payload.draft.scenario;
+      setDraft({ ...payload.draft, scenario, detachmentIds: validDetachments, items: validItems, id: crypto.randomUUID() });
+      setNotice(wasTrimmed || wasScenarioAdjusted || payload.databaseFingerprint !== database.fingerprint
         ? 'Liste importée avec rapprochement : vérifiez les avertissements avant de la valider.'
         : 'Liste importée.');
     } catch (importError) {
@@ -381,7 +387,7 @@ export default function App(): React.JSX.Element {
         <label>
           Scénario
           <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
-            {SCENARIOS.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}
+            {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}
           </select>
         </label>
         <div className="configuration-actions">
@@ -397,7 +403,7 @@ export default function App(): React.JSX.Element {
           <p>{SCENARIOS.find((scenario) => scenario.id === draft.scenario)?.guide}</p>
         </div>
         <dl>
-          <div><dt>Détachements compatibles</dt><dd>{compatibleDetachments.length}</dd></div>
+          <div><dt>Scénarios autorisés</dt><dd>{availableScenarios.length}</dd></div>
           <div><dt>Budget de détachements</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
           <div><dt>Limite d’améliorations</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
         </dl>
@@ -405,23 +411,33 @@ export default function App(): React.JSX.Element {
 
       <section className="detachment-section">
         <div className="section-heading">
-          <div><span className="eyebrow">DÉTACHEMENTS</span><h2>Force liée au scénario</h2></div>
-          <p>{selectedDetachments.length} sélectionné(s) · les coûts inconnus restent visibles comme avertissements.</p>
+          <div><span className="eyebrow">DÉTACHEMENTS</span><h2>Forces de la faction</h2></div>
+          <p>{selectedDetachments.length} sélectionné(s) · ils déterminent les scénarios autorisés.</p>
         </div>
         <div className="detachment-grid">
-          {compatibleDetachments.map((detachment) => {
+          {factionDetachments.map((detachment) => {
             const selected = draft.detachmentIds.includes(detachment.id);
             return (
               <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
                 <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{detachment.Cost ?? '?'} DP</strong></div>
                 <p>{detachment.Rule?.Title || 'Règle de détachement'}</p>
+                <p className="detachment-scenario">
+                  Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>
+                </p>
                 <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{tag}</span>)}</div>
                 <button
                   className={selected ? 'secondary' : ''}
-                  onClick={() => updateDraft((current) => ({
-                    ...current,
-                    detachmentIds: selected ? current.detachmentIds.filter((id) => id !== detachment.id) : [...current.detachmentIds, detachment.id]
-                  }))}
+                  onClick={() => updateDraft((current) => {
+                    const detachmentIds = selected
+                      ? current.detachmentIds.filter((id) => id !== detachment.id)
+                      : [...current.detachmentIds, detachment.id];
+                    const nextDetachments = database.detachments.filter((candidate) => detachmentIds.includes(candidate.id));
+                    return {
+                      ...current,
+                      detachmentIds,
+                      scenario: keepSelectableScenario(nextDetachments, current.scenario)
+                    };
+                  })}
                 >
                   {selected ? 'Retirer' : 'Ajouter'}
                 </button>

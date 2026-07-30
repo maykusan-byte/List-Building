@@ -41,6 +41,8 @@ p { color: #b4c3d4; line-height: 1.5; }
 .detachment-grid { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); max-height: 34rem; overflow: auto; padding-right: 0.25rem; }
 .detachment-card, .unit-card, .roster-card { background: #0b1b2e; border: 1px solid #294562; border-radius: 0.75rem; padding: 0.85rem; }
 .detachment-card.selected { border-color: #e5a73b; box-shadow: inset 0 0 0 1px #e5a73b; }
+.detachment-scenario { color: #b9cbe0; font-size: 0.82rem; margin: 0.45rem 0; }
+.detachment-scenario strong { color: #f1c870; }
 .card-title-row, .cost-line { align-items: start; display: flex; gap: 0.5rem; justify-content: space-between; }
 .card-title-row strong, .cost-line strong { color: #f1c870; white-space: nowrap; }
 .tag-row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.65rem 0; }

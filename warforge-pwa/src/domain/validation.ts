@@ -1,4 +1,5 @@
 import { calculateItemCost, enhancementIsEligible, getEnhancement } from './calculations';
+import { scenarioIsSelectable } from './scenarios';
 import type { NormalizedDatabase, RosterDraft, ValidationIssue } from './types';
 
 export function validateDraft(database: NormalizedDatabase, draft: RosterDraft): ValidationIssue[] {
@@ -13,10 +14,15 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
   if (detachments.length === 0) issues.push({ id: 'detachment-none', level: 'warning', message: 'La liste ne contient aucun détachement.' });
 
   const knownDetachmentCost = detachments.reduce((total, detachment) => total + (typeof detachment.Cost === 'number' ? detachment.Cost : 0), 0);
+  if (detachments.length > 0 && !scenarioIsSelectable(detachments, draft.scenario)) {
+    issues.push({
+      id: 'scenario-detachments',
+      level: 'error',
+      message: `Aucun détachement sélectionné n’est lié à ${draft.scenario}.`
+    });
+  }
+
   detachments.forEach((detachment) => {
-    if (!detachment.ForceDispositions?.includes(draft.scenario)) {
-      issues.push({ id: `scenario-${detachment.id}`, level: 'error', message: `${detachment.displayName} n’est pas lié à ${draft.scenario}.` });
-    }
     if (typeof detachment.Cost !== 'number') {
       issues.push({ id: `cost-${detachment.id}`, level: 'warning', message: `${detachment.displayName} n’a pas de coût de détachement renseigné.` });
     }

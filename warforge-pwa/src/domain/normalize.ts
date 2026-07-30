@@ -6,6 +6,7 @@ import type {
   RawBattleSizeDefinition,
   RawBook
 } from './types';
+import { repairImportedText } from './text';
 
 function slug(value: string): string {
   return value
@@ -49,6 +50,7 @@ export function normalizeDatabase(raw: string): NormalizedDatabase {
     throw new Error('La base doit être un tableau de livres de faction.');
   }
 
+  repairImportedText(parsed);
   const books = parsed as RawBook[];
   const units: NormalizedUnit[] = [];
   const detachments: NormalizedDetachment[] = [];

@@ -53,8 +53,8 @@ Le dossier `dist/` contient l’application statique distribuable. La base JSON 
 
 ## Utilisation
 
-1. Choisir le format de bataille, la faction et le scénario.
-2. Ajouter les détachements compatibles avec le scénario, dans la limite des points de détachement.
+1. Choisir le format de bataille et la faction, puis ajouter les détachements dans la limite des points de détachement.
+2. Choisir un scénario proposé par au moins un des détachements sélectionnés. Avec plusieurs détachements, les scénarios disponibles sont la réunion de leurs scénarios liés.
 3. Rechercher les unités, choisir leur taille, leur équipement et les améliorations éligibles.
 4. Vérifier le panneau de validation, sauvegarder localement ou exporter une liste au format `warforge-list/v1`.
 
@@ -62,6 +62,6 @@ Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jo
 
 ## Validation des règles
 
-L’application bloque les incohérences certaines présentes dans les données : scénario incompatible, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Les coûts de détachement absents du JSON ainsi que les restrictions uniquement rédigées en texte sont affichés comme avertissements : ils demandent une vérification dans les règles sources.
+L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Les coûts de détachement absents du JSON ainsi que les restrictions uniquement rédigées en texte sont affichés comme avertissements : ils demandent une vérification dans les règles sources.
 
 Les anciennes exportations de `cr_ateur_de_liste_warhammer_40k(5).html` ne sont volontairement pas importées, car leurs identifiants d’unités peuvent être ambigus. Utiliser les nouveaux exports versionnés de Warforge 40k.

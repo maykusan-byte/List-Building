@@ -25,7 +25,11 @@ const rawDatabase = JSON.stringify([
   {
     Name: 'Test Faction',
     Units: [{ Name: 'TEST WARRIORS', Points: [{ ModelCount: 5, Cost: 110 }] }],
-    Dettachments: []
+    Dettachments: [{
+      Name: 'TEST RAID',
+      Cost: 1,
+      ForceDispositions: ['PURGE THE FOE']
+    }]
   }
 ]);
 
@@ -61,16 +65,25 @@ describe('Warforge data engine', () => {
     expect(database.factions[0]).toMatchObject({ name: 'Test Faction', unitCount: 2 });
   });
 
+  it('repairs Windows-1252 mojibake while importing database text', () => {
+    const encodedDatabase = rawDatabase.replace('TEST FORCE', 'LIONâ€™S BLADE TASK FORCE');
+    expect(normalizeDatabase(encodedDatabase).detachments[0].displayName).toBe('LION’S BLADE TASK FORCE');
+  });
+
   it('uses a matching detachment override before paid wargear and enhancement', () => {
     const { database, draft } = makeDraft();
     const calculation = calculateItemCost(database, draft.items[0], draft.detachmentIds);
     expect(calculation).toMatchObject({ base: 100, pointOverride: 120, wargear: 15, enhancement: 10, total: 145 });
   });
 
-  it('validates scenario compatibility and enhancement eligibility', () => {
+  it('allows any scenario linked to one of the selected detachments', () => {
     const { database, draft } = makeDraft();
     expect(enhancementIsEligible(database.units[0], database.detachments[0].Enhancements![0])).toBe(true);
+    const selectedDetachments = [...draft.detachmentIds, database.detachments[1].id];
+    const compatible = { ...draft, detachmentIds: selectedDetachments, scenario: 'PURGE THE FOE' };
+    expect(validateDraft(database, compatible).some((issue) => issue.id === 'scenario-detachments' && issue.level === 'error')).toBe(false);
+
     const incompatible = { ...draft, scenario: 'PURGE THE FOE' };
-    expect(validateDraft(database, incompatible).some((issue) => issue.id.startsWith('scenario-') && issue.level === 'error')).toBe(true);
+    expect(validateDraft(database, incompatible).some((issue) => issue.id === 'scenario-detachments' && issue.level === 'error')).toBe(true);
   });
 });
