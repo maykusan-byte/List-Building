@@ -1,6 +1,6 @@
 # Warforge 40k
 
-PWA locale de création de listes Warhammer 40,000. Elle utilise la base `../master_warorgan.json`, prend en compte la faction, le format de bataille, le scénario, les détachements, les coûts d’unités, l’équipement et les améliorations.
+PWA locale de création de listes Warhammer 40,000. Elle génère son catalogue intégré V11 depuis `data/units/` (version des données portée par `DataInfo.json`), prend en compte la faction, les alliés déclarés, le format de bataille, le scénario, les détachements, les coûts d’unités, l’équipement et les améliorations.
 
 ## Prérequis
 
@@ -29,7 +29,7 @@ pnpm --version
 Fermez ensuite ce terminal et ouvrez-en un nouveau. Si le problème persiste,
 ajoutez le dossier affiché par `npm prefix --global` à la variable
 d'environnement utilisateur `Path` de Windows.
-- Le fichier `master_warorgan.json` à la racine du projet `List Building`
+- Les 36 fichiers de faction, `DataInfo.json` et `FactionInfoData.json` dans `data/units/`
 
 ## Lancer en développement
 
@@ -40,7 +40,7 @@ pnpm install
 pnpm dev
 ```
 
-Ouvrir ensuite l’adresse affichée par Vite (habituellement `http://localhost:5173`). Avant chaque démarrage, `pnpm` copie automatiquement la base vers `public/data/`. Cette copie est générée et n’est pas une seconde source de vérité.
+Ouvrir ensuite l’adresse affichée par Vite (habituellement `http://localhost:5173`). Avant chaque démarrage, `pnpm` génère `public/data/catalog.json`. Cette copie est générée et n’est pas une seconde source de vérité. `master_warorgan.json` reste inchangé pour les anciennes applications locales.
 
 ## Compiler la PWA
 
@@ -49,7 +49,7 @@ pnpm build
 pnpm preview
 ```
 
-Le dossier `dist/` contient l’application statique distribuable. La base JSON est incluse dans le build et pré-cachée par le service worker : l’application peut donc fonctionner hors ligne après son premier chargement.
+Le dossier `dist/` contient l’application statique distribuable. Le catalogue V11 et l’inventaire sont inclus dans le build et pré-cachés par le service worker : l’application peut donc fonctionner hors ligne après son premier chargement.
 
 Les ressources statiques utilisées par l’application, notamment les images futures,
 doivent être placées dans `public/data/` (par exemple `public/data/img/`). Le dossier
@@ -58,8 +58,8 @@ doivent être placées dans `public/data/` (par exemple `public/data/img/`). Le 
 ## Déploiement GitHub Pages
 
 Chaque envoi sur la branche `master` déclenche le workflow
-`.github/workflows/deploy-pages.yml`. Il installe les dépendances, copie la base et
-l’inventaire depuis la racine, compile la PWA et publie `dist/` sur GitHub Pages.
+`.github/workflows/deploy-pages.yml`. Il installe les dépendances, génère le catalogue,
+copie l’inventaire depuis la racine, compile la PWA et publie `dist/` sur GitHub Pages.
 
 Le workflow utilise automatiquement le chemin du dépôt GitHub : les données,
 l’inventaire et les ressources publiques restent donc accessibles sous l’URL publique
@@ -92,17 +92,27 @@ Une mise à jour de la base qui change son empreinte impose de régénérer et d
 valider humainement l’inventaire. Les réservations sont recalculées depuis la
 liste et l’inventaire local ; elles ne modifient pas le format d’export v1.
 
+Pour préparer la migration depuis l’ancienne base, lancez d’abord le contrôle :
+
+```powershell
+pnpm inventory:rebase --check
+```
+
+Après validation, `pnpm inventory:rebase --apply --exclude-unavailable` écrit le
+CSV V11. Les fiches disparues du catalogue sont conservées séparément dans
+`data/inventory-v11-unavailable.csv`; ce script n’utilise jamais `Nom_datasheet`.
+
 ## Utilisation
 
 1. Choisir le format de bataille et la faction, puis ajouter les détachements dans la limite des points de détachement.
 2. Choisir un scénario proposé par au moins un des détachements sélectionnés. Avec plusieurs détachements, les scénarios disponibles sont la réunion de leurs scénarios liés.
-3. Rechercher les unités, choisir leur taille, leur équipement et les améliorations éligibles.
+3. Rechercher les unités, choisir leur taille, leur équipement et les améliorations éligibles. Les alliés autorisés sont affichés dans la bibliothèque avec un badge, mais leurs détachements ne sont jamais proposés.
 4. Vérifier le panneau de validation, sauvegarder localement ou exporter une liste au format `warforge-list/v1`.
 
-Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jour la base » permet de charger une version JSON plus récente pour la session et le cache local.
+Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jour la base » permet de charger une base JSON historique pour la session. Les sauvegardes/favoris du catalogue V11 sont isolés des identifiants historiques.
 
 ## Validation des règles
 
-L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Un coût de détachement absent du JSON représente le coût standard de 1 DP. Les restrictions uniquement rédigées en texte restent des avertissements à vérifier dans les règles sources.
+L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Un coût de détachement absent du JSON représente le coût standard de 1 DP. Les lignes de points sont regroupées par taille : `UnitCount` détermine le palier de coût selon le rang d’occurrence du même `UnitId`, même si les tailles choisies diffèrent. Les restrictions d’alliés uniquement rédigées en texte restent des avertissements à vérifier dans les règles sources.
 
 Les anciennes exportations de `cr_ateur_de_liste_warhammer_40k(5).html` ne sont volontairement pas importées, car leurs identifiants d’unités peuvent être ambigus. Utiliser les nouveaux exports versionnés de Warforge 40k.

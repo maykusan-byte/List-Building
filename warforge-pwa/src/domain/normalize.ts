@@ -4,7 +4,10 @@ import type {
   NormalizedDetachment,
   NormalizedUnit,
   RawBattleSizeDefinition,
-  RawBook
+  RawBook,
+  RawCatalogBundle,
+  RawFactionInfo,
+  SourceBook
 } from './types';
 import { repairImportedText } from './text';
 
@@ -44,33 +47,33 @@ function completeBattleSize(value: RawBattleSizeDefinition): Required<RawBattleS
   };
 }
 
-export function normalizeDatabase(raw: string): NormalizedDatabase {
-  const parsed: unknown = JSON.parse(raw.replace(/^\uFEFF/, ''));
-  if (!Array.isArray(parsed)) {
-    throw new Error('La base doit être un tableau de livres de faction.');
-  }
+function isCatalogBundle(value: unknown): value is RawCatalogBundle {
+  return typeof value === 'object' && value !== null && Array.isArray((value as RawCatalogBundle).Books);
+}
 
-  repairImportedText(parsed);
-  const books = parsed as RawBook[];
+function normalizedBooks(books: RawBook[], catalog: boolean): {
+  books: SourceBook[];
+  units: NormalizedUnit[];
+  detachments: NormalizedDetachment[];
+} {
   const units: NormalizedUnit[] = [];
   const detachments: NormalizedDetachment[] = [];
-  const factionMap = new Map<string, FactionSummary>();
   const sourceBooks = books.map((book, index) => {
     const name = book.Name?.trim() || 'Faction inconnue';
-    const id = `book-${index}-${slug(book.Id?.trim() || name)}`;
-    const faction = factionMap.get(name) ?? { name, bookIds: [], unitCount: 0, detachmentCount: 0 };
-    faction.bookIds.push(id);
+    const sourceKey = book.SourceKey?.trim() || book.Id?.trim() || name;
+    const id = catalog ? `book-${slug(sourceKey)}` : `book-${index}-${slug(sourceKey)}`;
+    const sourceLabel = book.SourceLabel?.trim() || name;
 
     (book.Units ?? []).forEach((unit, unitIndex) => {
       units.push({
         ...unit,
         id: `${id}:unit:${unitIndex}`,
         bookId: id,
+        sourceKey,
         factionName: name,
         sourceIndex: unitIndex,
         displayName: unit.Name?.trim() || 'Unité inconnue'
       });
-      faction.unitCount += 1;
     });
 
     (book.Dettachments ?? []).forEach((detachment, detachmentIndex) => {
@@ -78,42 +81,116 @@ export function normalizeDatabase(raw: string): NormalizedDatabase {
         ...detachment,
         id: `${id}:detachment:${detachmentIndex}`,
         bookId: id,
+        sourceKey,
         factionName: name,
         sourceIndex: detachmentIndex,
         displayName: detachment.Name?.trim() || 'Détachement inconnu'
       });
-      faction.detachmentCount += 1;
     });
 
-    // Some source blocks only carry global metadata. They are useful for
-    // preserving source positions, but must not become a selectable empty
-    // faction in the roster builder.
-    if ((book.Units?.length ?? 0) > 0 || (book.Dettachments?.length ?? 0) > 0) {
-      factionMap.set(name, faction);
-    }
-    return { id, index, name, version: book.Version, publishDate: book.PublishDate };
+    return { id, index, name, sourceKey, sourceLabel, version: book.Version, publishDate: book.PublishDate };
   });
 
-  const battleSizeMap = new Map<number, Required<RawBattleSizeDefinition>>();
-  books.flatMap((book) => book.BattleSizeDefinitions ?? []).forEach((size) => {
-    const complete = completeBattleSize(size);
-    if (complete && !battleSizeMap.has(complete.PointsTotal)) {
-      battleSizeMap.set(complete.PointsTotal, complete);
-    }
+  return { books: sourceBooks, units, detachments };
+}
+
+function legacyFactions(sourceBooks: SourceBook[], units: NormalizedUnit[], detachments: NormalizedDetachment[]): FactionSummary[] {
+  const factionMap = new Map<string, FactionSummary>();
+  sourceBooks.forEach((book) => {
+    const unitCount = units.filter((unit) => unit.bookId === book.id).length;
+    const detachmentCount = detachments.filter((detachment) => detachment.bookId === book.id).length;
+    if (unitCount === 0 && detachmentCount === 0) return;
+    const faction = factionMap.get(book.name) ?? {
+      id: book.name,
+      name: book.name,
+      sourceKey: book.sourceKey,
+      bookIds: [],
+      unitCount: 0,
+      detachmentCount: 0
+    };
+    faction.bookIds.push(book.id);
+    faction.unitCount += unitCount;
+    faction.detachmentCount += detachmentCount;
+    factionMap.set(book.name, faction);
+  });
+  return [...factionMap.values()].sort((left, right) => left.name.localeCompare(right.name, 'fr'));
+}
+
+function catalogFactions(
+  factionInfo: RawFactionInfo[] | undefined,
+  sourceBooks: SourceBook[],
+  units: NormalizedUnit[],
+  detachments: NormalizedDetachment[]
+): { factions: FactionSummary[]; alliesByFaction: Record<string, string[]> } {
+  const bySourceKey = new Map(sourceBooks.map((book) => [book.sourceKey, book]));
+  const factions: FactionSummary[] = [];
+  const alliesByFaction: Record<string, string[]> = {};
+
+  (factionInfo ?? []).forEach((info) => {
+    const id = info.Name?.trim();
+    if (!id) return;
+    const book = bySourceKey.get(id);
+    if (!book) return;
+    const allies = [...new Set((info.Allies ?? []).flatMap((ally) => {
+      const target = ally.FactionKeyword?.trim();
+      if (!target) return [];
+      if (bySourceKey.has(target)) return [target];
+      const faction = (factionInfo ?? []).find((candidate) =>
+        candidate.FactionKeyword?.trim() === target || (candidate.AdditionalFactionKeywords ?? []).some((keyword) => keyword.trim() === target)
+      );
+      return faction?.Name && bySourceKey.has(faction.Name) ? [faction.Name] : [];
+    }))];
+    alliesByFaction[id] = allies;
+    factions.push({
+      id,
+      name: info.Name?.trim() || book.name,
+      sourceKey: book.sourceKey,
+      bookIds: [book.id],
+      unitCount: units.filter((unit) => unit.bookId === book.id).length,
+      detachmentCount: detachments.filter((detachment) => detachment.bookId === book.id).length
+    });
   });
 
-  const battleSizes = [...battleSizeMap.values()].sort((left, right) => left.PointsTotal - right.PointsTotal);
-  if (battleSizes.length === 0) {
-    throw new Error('Aucun format de bataille exploitable n’a été trouvé.');
+  if (factions.length === 0) {
+    return { factions: legacyFactions(sourceBooks, units, detachments), alliesByFaction };
   }
+  return { factions: factions.sort((left, right) => left.name.localeCompare(right.name, 'fr')), alliesByFaction };
+}
+
+function battleSizesFrom(values: RawBattleSizeDefinition[]): Required<RawBattleSizeDefinition>[] {
+  const battleSizeMap = new Map<number, Required<RawBattleSizeDefinition>>();
+  values.forEach((size) => {
+    const complete = completeBattleSize(size);
+    if (complete && !battleSizeMap.has(complete.PointsTotal)) battleSizeMap.set(complete.PointsTotal, complete);
+  });
+  return [...battleSizeMap.values()].sort((left, right) => left.PointsTotal - right.PointsTotal);
+}
+
+export function normalizeDatabase(raw: string): NormalizedDatabase {
+  const parsed: unknown = JSON.parse(raw.replace(/^\uFEFF/, ''));
+  if (!Array.isArray(parsed) && !isCatalogBundle(parsed)) {
+    throw new Error('La base doit être un tableau de livres de faction ou un catalogue Warforge v2.');
+  }
+
+  repairImportedText(parsed);
+  const catalog = isCatalogBundle(parsed) ? parsed : undefined;
+  const books = catalog?.Books ?? (parsed as RawBook[]);
+  const normalized = normalizedBooks(books, Boolean(catalog));
+  const factionData = catalog
+    ? catalogFactions(catalog.FactionInfo?.Factions, normalized.books, normalized.units, normalized.detachments)
+    : { factions: legacyFactions(normalized.books, normalized.units, normalized.detachments), alliesByFaction: {} };
+  const battleSizes = battleSizesFrom(catalog?.BattleSizeDefinitions ?? books.flatMap((book) => book.BattleSizeDefinitions ?? []));
+  if (battleSizes.length === 0) throw new Error('Aucun format de bataille exploitable n’a été trouvé.');
 
   return {
     fingerprint: fingerprintRaw(raw),
     loadedAt: new Date().toISOString(),
-    books: sourceBooks,
-    factions: [...factionMap.values()].sort((left, right) => left.name.localeCompare(right.name, 'fr')),
-    units,
-    detachments,
+    books: normalized.books,
+    factions: factionData.factions,
+    alliesByFaction: factionData.alliesByFaction,
+    dataInfo: catalog?.DataInfo,
+    units: normalized.units,
+    detachments: normalized.detachments,
     battleSizes
   };
 }

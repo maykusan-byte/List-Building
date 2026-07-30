@@ -83,6 +83,8 @@ export interface RawBattleSizeDefinition {
 
 export interface RawBook {
   Id?: string;
+  SourceKey?: string;
+  SourceLabel?: string;
   Name?: string;
   Version?: string;
   PublishDate?: string;
@@ -91,9 +93,25 @@ export interface RawBook {
   Dettachments?: RawDetachment[];
 }
 
+export interface RawFactionInfo {
+  Name?: string;
+  FactionKeyword?: string;
+  AdditionalFactionKeywords?: string[];
+  Allies?: Array<{ FactionKeyword?: string; AdditionalFactionKeywords?: string[] }>;
+}
+
+export interface RawCatalogBundle {
+  SchemaVersion?: 'warforge-catalog/v2';
+  DataInfo?: { Id?: string; Version?: string; MinAppVersion?: string; PublishDate?: string };
+  FactionInfo?: { Factions?: RawFactionInfo[] };
+  BattleSizeDefinitions?: RawBattleSizeDefinition[];
+  Books?: RawBook[];
+}
+
 export interface NormalizedUnit extends RawUnit {
   id: string;
   bookId: string;
+  sourceKey: string;
   factionName: string;
   sourceIndex: number;
   displayName: string;
@@ -102,6 +120,7 @@ export interface NormalizedUnit extends RawUnit {
 export interface NormalizedDetachment extends RawDetachment {
   id: string;
   bookId: string;
+  sourceKey: string;
   factionName: string;
   sourceIndex: number;
   displayName: string;
@@ -111,12 +130,16 @@ export interface SourceBook {
   id: string;
   index: number;
   name: string;
+  sourceKey: string;
+  sourceLabel: string;
   version?: string;
   publishDate?: string;
 }
 
 export interface FactionSummary {
+  id: string;
   name: string;
+  sourceKey: string;
   bookIds: string[];
   unitCount: number;
   detachmentCount: number;
@@ -127,6 +150,8 @@ export interface NormalizedDatabase {
   loadedAt: string;
   books: SourceBook[];
   factions: FactionSummary[];
+  alliesByFaction: Record<string, string[]>;
+  dataInfo?: RawCatalogBundle['DataInfo'];
   units: NormalizedUnit[];
   detachments: NormalizedDetachment[];
   battleSizes: Required<RawBattleSizeDefinition>[];

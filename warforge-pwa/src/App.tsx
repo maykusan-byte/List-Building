@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getEnhancement, getPointOption, getSelectedDetachments, getWargearChoiceGroups } from './domain/calculations';
+import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, getWargearChoiceGroups, occurrenceForItem, resolvePointOption } from './domain/calculations';
+import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
@@ -17,7 +18,7 @@ function newDraft(database: NormalizedDatabase): RosterDraft {
   return {
     id: crypto.randomUUID(),
     name: 'Nouvelle liste',
-    primaryFaction: database.factions[0]?.name ?? '',
+    primaryFaction: database.factions[0]?.id ?? '',
     battleSizePoints: format?.PointsTotal ?? 2000,
     scenario: 'TAKE AND HOLD',
     detachmentIds: [],
@@ -41,13 +42,17 @@ function normalizeWithWorker(raw: string): Promise<NormalizedDatabase> {
   });
 }
 
-function pointLabel(unit: NormalizedUnit, index: number): string {
-  const option = getPointOption(unit, index);
+function pointLabel(unit: NormalizedUnit, index: number, occurrence = 1): string {
+  const option = resolvePointOption(unit, index, occurrence);
   if (!option) return 'Profil sans coût';
-  const quantity = [option.UnitCount ? `${option.UnitCount} unité(s)` : '', option.ModelCount ? `${option.ModelCount} fig.` : '']
-    .filter(Boolean)
-    .join(' · ');
-  return `${quantity || 'Format standard'} — ${option.Cost ?? '?'} pts`;
+  return `${option.modelCount} fig. — ${option.cost} pts`;
+}
+
+function minimumPointCost(unit: NormalizedUnit, occurrence: number): number | null {
+  const costs = getPointSizes(unit)
+    .map((_, index) => resolvePointOption(unit, index, occurrence)?.cost)
+    .filter((cost): cost is number => typeof cost === 'number');
+  return costs.length > 0 ? Math.min(...costs) : null;
 }
 
 function downloadJson(filename: string, content: unknown): void {
@@ -139,7 +144,8 @@ interface RosterCardProps {
 function RosterCard({ database, item, draft, inventoryReservation, onChange, onRemove }: RosterCardProps): React.JSX.Element | null {
   const unit = database.units.find((candidate) => candidate.id === item.unitId);
   if (!unit) return null;
-  const breakdown = calculateItemCost(database, item, draft.detachmentIds);
+  const occurrence = occurrenceForItem(draft.items, item);
+  const breakdown = calculateItemCost(database, item, draft.items, draft.detachmentIds);
   const groups = getWargearChoiceGroups(unit);
   const selectedDetachments = database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id));
   const enhancementOptions = selectedDetachments.flatMap((detachment) =>
@@ -151,11 +157,11 @@ function RosterCard({ database, item, draft, inventoryReservation, onChange, onR
     <article className="roster-card">
       <button className="icon-button danger" aria-label={`Retirer ${unit.displayName}`} onClick={onRemove}>×</button>
       <h3>{unit.displayName}</h3>
-      <p className="muted">{unit.factionName} · {pointLabel(unit, item.pointIndex)}</p>
+      <p className="muted">{unit.factionName} · {pointLabel(unit, item.pointIndex, occurrence)} · occurrence {occurrence}</p>
       <label>
         Taille / coût de base
         <select value={item.pointIndex} onChange={(event) => onChange({ ...item, pointIndex: Number(event.target.value) })}>
-          {(unit.Points ?? []).map((_, index) => <option key={index} value={index}>{pointLabel(unit, index)}</option>)}
+          {getPointSizes(unit).map((_, index) => <option key={index} value={index}>{pointLabel(unit, index, occurrence)}</option>)}
         </select>
       </label>
       {groups.map((group) => (
@@ -266,9 +272,9 @@ export default function App(): React.JSX.Element {
   useEffect(() => {
     void (async () => {
       try {
-        const response = await fetch(`${DATA_BASE_URL}master_warorgan.json`);
+        const response = await fetch(`${DATA_BASE_URL}catalog.json`);
         if (!response.ok) throw new Error('La base intégrée est indisponible.');
-        await installDatabase(await normalizeWithWorker(await response.text()), 'Base intégrée');
+        await installDatabase(await normalizeWithWorker(await response.text()), 'Catalogue V11 intégré');
       } catch (loadError) {
         try {
           const cached = await getCachedDatabase();
@@ -363,7 +369,7 @@ export default function App(): React.JSX.Element {
     const searchText = search.trim().toLocaleLowerCase();
     const ceiling = maxCost ? Number(maxCost) : undefined;
     return database.units.filter((unit) => {
-      if (unit.factionName !== draft.primaryFaction) return false;
+      if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) return false;
       if (favouritesOnly && !favorites.includes(unit.id)) return false;
       if (inStockOnly && !hasFreeInventory(inventory, inventoryAllocation, unit.id)) return false;
       if (roleFilter && !(unit.Keywords ?? []).some((keyword) => keyword.toLocaleLowerCase().includes(roleFilter.toLocaleLowerCase()))) return false;
@@ -371,20 +377,23 @@ export default function App(): React.JSX.Element {
         const corpus = [unit.displayName, ...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? [])].join(' ').toLocaleLowerCase();
         if (!corpus.includes(searchText)) return false;
       }
-      if (ceiling !== undefined && (unit.Points?.[0]?.Cost ?? 0) > ceiling) return false;
+      const nextOccurrence = draft.items.filter((item) => item.unitId === unit.id).length + 1;
+      const minimumCost = minimumPointCost(unit, nextOccurrence);
+      if (ceiling !== undefined && minimumCost !== null && minimumCost > ceiling) return false;
       return true;
     });
   }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation]);
 
   const roles = useMemo(() => {
     if (!database || !draft) return [];
-    return [...new Set(database.units.filter((unit) => unit.factionName === draft.primaryFaction).flatMap((unit) => unit.Keywords ?? []))]
+    return [...new Set(database.units.filter((unit) => isUnitAvailableToFaction(database, draft.primaryFaction, unit)).flatMap((unit) => unit.Keywords ?? []))]
       .sort((left, right) => left.localeCompare(right, 'fr'));
   }, [database, draft]);
 
   const factionDetachments = useMemo(() => {
     if (!database || !draft) return [];
-    return database.detachments.filter((detachment) => detachment.factionName === draft.primaryFaction);
+    const faction = database.factions.find((candidate) => candidate.id === draft.primaryFaction);
+    return faction ? database.detachments.filter((detachment) => detachment.sourceKey === faction.sourceKey) : [];
   }, [database, draft]);
 
   const availableScenarios = useMemo(
@@ -469,16 +478,15 @@ export default function App(): React.JSX.Element {
     try {
       const payload = JSON.parse(await file.text()) as Partial<ExportedList>;
       if (payload.schemaVersion !== NEW_SCHEMA || !payload.draft) throw new Error('Ce fichier ne correspond pas au format Warforge v1.');
+      if (payload.databaseFingerprint !== database.fingerprint) throw new Error('Cette liste a été exportée avec une base incompatible et ne peut pas être rapprochée automatiquement.');
       const validDetachments = payload.draft.detachmentIds.filter((id) => database.detachments.some((detachment) => detachment.id === id));
       const validItems = payload.draft.items.filter((item) => database.units.some((unit) => unit.id === item.unitId));
-      const wasTrimmed = validDetachments.length !== payload.draft.detachmentIds.length || validItems.length !== payload.draft.items.length;
+      if (validDetachments.length !== payload.draft.detachmentIds.length || validItems.length !== payload.draft.items.length) throw new Error('Cette liste est incomplète pour la base chargée.');
       const importedDetachments = database.detachments.filter((detachment) => validDetachments.includes(detachment.id));
       const scenario = keepSelectableScenario(importedDetachments, payload.draft.scenario);
       const wasScenarioAdjusted = scenario !== payload.draft.scenario;
       setDraft({ ...payload.draft, scenario, detachmentIds: validDetachments, items: validItems, id: crypto.randomUUID() });
-      setNotice(wasTrimmed || wasScenarioAdjusted || payload.databaseFingerprint !== database.fingerprint
-        ? 'Liste importée avec rapprochement : vérifiez les avertissements avant de la valider.'
-        : 'Liste importée.');
+      setNotice(wasScenarioAdjusted ? 'Liste importée ; le scénario a été ajusté aux détachements.' : 'Liste importée.');
     } catch (importError) {
       setError(importError instanceof Error ? importError.message : 'Import impossible.');
     } finally {
@@ -544,7 +552,7 @@ export default function App(): React.JSX.Element {
         <label>
           Faction
           <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
-            {database.factions.map((faction) => <option key={faction.name} value={faction.name}>{faction.name} · {faction.unitCount} unités</option>)}
+            {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{faction.name} · {faction.unitCount} unités</option>)}
           </select>
         </label>
         <label>
@@ -637,13 +645,13 @@ export default function App(): React.JSX.Element {
             {factionUnits.slice(0, visibleUnits).map((unit) => {
               const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
               return (
-              <article className="unit-card" key={unit.id}>
+              <article className={`unit-card ${isAlliedUnit(database, draft.primaryFaction, unit) ? 'allied-unit' : ''}`} key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={`Favori ${unit.displayName}`}>★</button>
                 <div className="unit-card-layout">
                   <div className="unit-thumbnail" aria-hidden="true" />
                   <div className="unit-card-content">
                     <h3>{unit.displayName}</h3>
-                    <p className="muted">{unit.Faction || unit.factionName}</p>
+                    <p className="muted">{unit.Faction || unit.factionName}{isAlliedUnit(database, draft.primaryFaction, unit) && <span className="ally-label">Allié · {sourceLabel(database, unit.sourceKey)}</span>}</p>
                     <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
                     {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} />)}
                     {(unit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
@@ -652,7 +660,7 @@ export default function App(): React.JSX.Element {
                         <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model)}</li>)}</ul>
                       </section>
                     )}
-                    <strong className="unit-card-price">{unit.Points?.[0]?.Cost ?? '?'} pts <small>à partir de</small></strong>
+                    <strong className="unit-card-price">{minimumPointCost(unit, draft.items.filter((item) => item.unitId === unit.id).length + 1) ?? '?'} pts <small>à partir de</small></strong>
                     {availability && (
                       <p className={`inventory-stock ${availability.hasCatalogEntry ? '' : 'unlisted'}`}>
                         {availability.hasCatalogEntry

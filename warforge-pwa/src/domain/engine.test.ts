@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getSelectedDetachments } from './calculations';
+import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, resolvePointOption } from './calculations';
+import { isUnitAvailableToFaction } from './catalog';
 import { normalizeDatabase } from './normalize';
 import type { RosterDraft } from './types';
 import { validateDraft } from './validation';
@@ -72,7 +73,7 @@ describe('Warforge data engine', () => {
 
   it('uses a matching detachment override before paid wargear and enhancement', () => {
     const { database, draft } = makeDraft();
-    const calculation = calculateItemCost(database, draft.items[0], draft.detachmentIds);
+    const calculation = calculateItemCost(database, draft.items[0], draft.items, draft.detachmentIds);
     expect(calculation).toMatchObject({ base: 100, pointOverride: 120, wargear: 15, enhancement: 10, total: 145 });
   });
 
@@ -104,5 +105,31 @@ describe('Warforge data engine', () => {
 
     const incompatible = { ...draft, scenario: 'PURGE THE FOE' };
     expect(validateDraft(database, incompatible).some((issue) => issue.id === 'scenario-detachments' && issue.level === 'error')).toBe(true);
+  });
+
+  it('keeps allied sources distinct and resolves UnitCount as an occurrence threshold', () => {
+    const database = normalizeDatabase(JSON.stringify({
+      SchemaVersion: 'warforge-catalog/v2',
+      BattleSizeDefinitions: [{ PointsTotal: 1000, DetachmentPoints: 2, EnhancementLimit: 2, UnitLimit: 2 }],
+      FactionInfo: { Factions: [{ Name: 'Main', FactionKeyword: 'Main', Allies: [{ FactionKeyword: 'Allies' }] }, { Name: 'Allies', FactionKeyword: 'Allies' }] },
+      Books: [
+        { Name: 'Main', SourceKey: 'Main', Units: [{ Name: 'THRESHOLD UNIT', Points: [{ ModelCount: 5, UnitCount: 2, Cost: 75 }, { ModelCount: 5, UnitCount: 3, Cost: 85 }, { ModelCount: 10, UnitCount: 2, Cost: 150 }, { ModelCount: 10, UnitCount: 3, Cost: 170 }] }], Dettachments: [{ Name: 'MAIN FORCE', ForceDispositions: ['TAKE AND HOLD'], Effects: [{ AffectedUnits: ['THRESHOLD UNIT'], PointsOverride: [{ ModelCount: 5, UnitCount: 2, Cost: 95 }, { ModelCount: 5, UnitCount: 3, Cost: 105 }] }] }] },
+        { Name: 'Allies', SourceKey: 'Allies', Units: [{ Name: 'ALLY UNIT', Points: [{ ModelCount: 1, Cost: 50 }] }], Dettachments: [{ Name: 'ALLY FORCE' }] }
+      ]
+    }));
+    const main = database.units.find((unit) => unit.displayName === 'THRESHOLD UNIT')!;
+    const ally = database.units.find((unit) => unit.displayName === 'ALLY UNIT')!;
+    const items = [0, 1, 2, 3].map((index) => ({ id: `copy-${index}`, unitId: main.id, pointIndex: index === 1 ? 1 : 0, wargearSelections: {} }));
+
+    expect(database.detachments.filter((detachment) => detachment.sourceKey === 'Main')).toHaveLength(1);
+    expect(isUnitAvailableToFaction(database, 'Main', ally)).toBe(true);
+    expect(getPointSizes(main)).toHaveLength(2);
+    expect(resolvePointOption(main, 0, 1)?.cost).toBe(75);
+    expect(resolvePointOption(main, 0, 2)?.cost).toBe(75);
+    expect(resolvePointOption(main, 0, 3)?.cost).toBe(85);
+    expect(resolvePointOption(main, 0, 4)?.cost).toBe(85);
+    expect(calculateItemCost(database, items[1], items, []).base).toBe(150);
+    expect(calculateItemCost(database, items[2], items, []).base).toBe(85);
+    expect(calculateItemCost(database, items[2], items, [database.detachments[0].id])).toMatchObject({ pointOverride: 105, total: 105 });
   });
 });

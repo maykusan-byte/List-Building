@@ -11,12 +11,13 @@ const database: NormalizedDatabase = {
   loadedAt: '2026-07-30T00:00:00.000Z',
   books: [],
   factions: [],
+  alliesByFaction: {},
   detachments: [],
   battleSizes: [],
   units: [
-    { id: unitA, bookId: 'book-0-test', factionName: 'Test', sourceIndex: 0, displayName: 'Alpha', Points: [{ ModelCount: 2, Cost: 100 }] },
-    { id: unitB, bookId: 'book-0-test', factionName: 'Test', sourceIndex: 1, displayName: 'Beta', Points: [{ ModelCount: 1, Cost: 50 }] },
-    { id: unitC, bookId: 'book-0-test', factionName: 'Test', sourceIndex: 2, displayName: 'Gamma', Points: [{ ModelCount: 1, Cost: 50 }] }
+    { id: unitA, bookId: 'book-0-test', sourceKey: 'Test', factionName: 'Test', sourceIndex: 0, displayName: 'Alpha', Points: [{ ModelCount: 2, Cost: 100 }] },
+    { id: unitB, bookId: 'book-0-test', sourceKey: 'Test', factionName: 'Test', sourceIndex: 1, displayName: 'Beta', Points: [{ ModelCount: 1, Cost: 50 }] },
+    { id: unitC, bookId: 'book-0-test', sourceKey: 'Test', factionName: 'Test', sourceIndex: 2, displayName: 'Gamma', Points: [{ ModelCount: 1, Cost: 50 }] }
   ]
 };
 

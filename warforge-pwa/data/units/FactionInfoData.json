@@ -1,0 +1,1342 @@
+{
+  "Factions": [
+    {
+      "Name": "Adepta Sororitas",
+      "MainColor": "#5D0300",
+      "DarkColor": "#800400",
+      "FactionKeyword": "Adepta Sororitas",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Adeptus Custodes",
+      "MainColor": "#755C42",
+      "DarkColor": "#8F7051",
+      "FactionKeyword": "Adeptus Custodes",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Adeptus Mechanicus",
+      "MainColor": "#9F322A",
+      "DarkColor": "#A8352C",
+      "FactionKeyword": "Adeptus Mechanicus",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Adeptus Titanicus",
+      "MainColor": "#003454",
+      "DarkColor": "#0054A1",
+      "FactionKeyword": "Adeptus Titanicus",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Aeldari",
+      "MainColor": "#1F767E",
+      "DarkColor": "#23838C",
+      "FactionKeyword": "Aeldari",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": [
+        "Asuryani",
+        "Harlequins"
+      ]
+    },
+    {
+      "Name": "Astra Militarum",
+      "MainColor": "#33513E",
+      "DarkColor": "#4B785C",
+      "FactionKeyword": "Astra Militarum",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Black Templars",
+      "MainColor": "#002E40",
+      "DarkColor": "#004661",
+      "FactionKeyword": "Black Templars",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true,
+          "UnitIncludeRules": [
+            {
+              "ExcludeKeywordFilter": [
+                "Psyker",
+                "Gladiator Lancer",
+                "Gladiator Reaper",
+                "Gladiator Valiant",
+                "Impulsor",
+                "Land Raider Crusader",
+                "Repulsor",
+                "Repulsor Executioner",
+                "Sternguard Veteran Squad",
+                "Terminator Squad"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Blood Angels",
+      "MainColor": "#751017",
+      "DarkColor": "#96151E",
+      "FactionKeyword": "Blood Angels",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        },
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Chaos Daemons",
+      "MainColor": "#3D4149",
+      "DarkColor": "#606673",
+      "FactionKeyword": "Legiones Daemonica",
+      "Category": "Chaos",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Heretic Astartes",
+          "ArmyPercentageRestriction": 0.5,
+          "AllowedDetachments": [
+            "SHADOW LEGION"
+          ],
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Chaos Lord",
+                "Chaos Terminator Squad",
+                "Chosen",
+                "Damned",
+                "Dark Apostle",
+                "Havocs",
+                "Legionaries",
+                "Master of Possession",
+                "Possessed",
+                "Raptors",
+                "Sorcerer",
+                "Sorcerer in Terminator Armour",
+                "Warp Talons"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Chaos Knights",
+      "MainColor": "#3E5C58",
+      "DarkColor": "#547D78",
+      "FactionKeyword": "Chaos Knights",
+      "Category": "Chaos",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Legiones Daemonica",
+          "ArmyPercentageRestriction": 0.25
+        },
+        {
+          "FactionKeyword": "Chaos Space Marines",
+          "AdditionalFactionKeywords": [
+            "Heretic Astartes"
+          ],
+          "ArmyPercentageRestriction": 0.25,
+          "AllowedDetachments": [
+            "ICONOCLAST FIEFDOM"
+          ],
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Damned"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Chaos Space Marines",
+      "MainColor": "#1A3037",
+      "DarkColor": "#2F5763",
+      "FactionKeyword": "Heretic Astartes",
+      "Category": "Chaos",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Legiones Daemonica",
+          "ArmyPercentageRestriction": 0.25
+        },
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "World Eaters",
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Khorne",
+                "Berzerkers"
+              ],
+              "ReplaceFactionKeywords": [
+                "Heretic Astartes"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Thousand Sons",
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Rubric Marines"
+              ],
+              "ReplaceFactionKeywords": [
+                "Heretic Astartes"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Death Guard",
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Plague Marines"
+              ],
+              "ReplaceFactionKeywords": [
+                "Heretic Astartes"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Emperor's Children",
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Noise Marines"
+              ],
+              "ReplaceFactionKeywords": [
+                "Heretic Astartes"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Dark Angels",
+      "MainColor": "#004318",
+      "DarkColor": "#006324",
+      "FactionKeyword": "Dark Angels",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true,
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Mounted"
+              ],
+              "AddedKeywords": [
+                "Ravenwing"
+              ]
+            },
+            {
+              "AllKeywordFilter": [
+                "Vehicle",
+                "Fly"
+              ],
+              "AddedKeywords": [
+                "Ravenwing"
+              ]
+            },
+            {
+              "AnyKeywordFilter": [
+                "Terminator",
+                "Bladeguard Ancient",
+                "Bladeguard Veteran Squad",
+                "Sternguard Veteran Squad",
+                "Vanguard Veteran Squad with Jump Packs",
+                "Land Raider",
+                "Land Raider Crusader",
+                "Land Raider Redeemer",
+                "Repulsor",
+                "Repulsor Executioner",
+                "Dreadnought"
+              ],
+              "AddedKeywords": [
+                "Deathwing"
+              ]
+            },
+            {}
+          ]
+        },
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Death Guard",
+      "MainColor": "#565F0F",
+      "DarkColor": "#738014",
+      "FactionKeyword": "Death Guard",
+      "Category": "Chaos",
+      "Allies": [
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Chaos Daemons",
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Plague Legions"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Deathwatch",
+      "MainColor": "#41494E",
+      "DarkColor": "#73818A",
+      "FactionKeyword": "Deathwatch",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true,
+          "UnitIncludeRules": [
+            {
+              "ExcludeKeywordFilter": [
+                "Assault Squad",
+                "Assault Squad With Jump Packs",
+                "Attack Bike Squad",
+                "Devastator Squad",
+                "Land Speed Storm",
+                "Relic Terminator Squad",
+                "Scout Bike Squad",
+                "Scout Squad",
+                "Scout Sniper Squad",
+                "Tactical Squad",
+                "Terminator Assault Squad",
+                "Terminator Squad"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Drukhari",
+      "MainColor": "#004950",
+      "DarkColor": "#006670",
+      "FactionKeyword": "Drukhari",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Aeldari",
+          "AdditionalFactionKeywords": [
+            "Harlequins",
+            "Asuryani"
+          ],
+          "ArmyPercentageRestriction": 0.25,
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Harlequins",
+                "Anhrathe"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Emperor's Children",
+      "MainColor": "#753782",
+      "DarkColor": "#9847A8",
+      "FactionKeyword": "Emperor's Children",
+      "Category": "Chaos",
+      "Allies": [
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Chaos Daemons",
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Legions of Excess"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Genestealer Cults",
+      "MainColor": "#3F1031",
+      "DarkColor": "#691B51",
+      "FactionKeyword": "Genestealer Cults",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Astra Militarum",
+          "ArmyPercentageRestriction": 0.5,
+          "AllowedDetachments": [
+            "BROOD BROTHERS AUXILIA"
+          ],
+          "UnitIncludeRules": [
+            {
+              "ExcludeKeywordFilter": [
+                "Epic Hero",
+                "Ogryn",
+                "Ratling",
+                "Militarum Tempestus",
+                "Commissar",
+                "Regimental Preacher",
+                "Regimental Enginseer",
+                "Munitorum Servitors",
+                "Aircraft"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Tyranids",
+          "ArmyPercentageRestriction": 0.5,
+          "AllowedDetachments": [
+            "FINAL DAY"
+          ],
+          "UnitIncludeRules": [
+            {
+              "AllKeywordFilter": [
+                "Vanguard Invader"
+              ],
+              "ExcludeKeywordFilter": [
+                "Aircraft",
+                "Broodlord",
+                "Genestealers"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Grey Knights",
+      "MainColor": "#4A6570",
+      "DarkColor": "#597A87",
+      "FactionKeyword": "Grey Knights",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Imperial Agents",
+      "MainColor": "#095374",
+      "DarkColor": "#0B668F",
+      "FactionKeyword": "Agents of the Imperium",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Imperial Fists",
+      "MainColor": "#D4AA00",
+      "DarkColor": "#9E7F00",
+      "FactionKeyword": "Imperial Fists",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "Imperial Knights",
+      "MainColor": "#3E5C58",
+      "DarkColor": "#547D78",
+      "FactionKeyword": "Imperial Knights",
+      "Category": "Imperium",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Mechanicus",
+          "ArmyPercentageRestriction": 0.25,
+          "AllowedDetachments": [
+            "QUESTOR FORGEPACT"
+          ],
+          "UnitIncludeRules": [
+            {
+              "AffectedUnitsFilter": [
+                "TECH-PRIEST DOMINUS",
+                "TECH-PRIEST MANIPULUS"
+              ]
+            },
+            {
+              "AnyKeywordFilter": [
+                "Marshal",
+                "Rangers",
+                "Vanguard"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Iron Hands",
+      "MainColor": "#1E1E1E",
+      "DarkColor": "#3A3A3A",
+      "FactionKeyword": "Iron Hands",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "Leagues of Votann",
+      "MainColor": "#3D544A",
+      "DarkColor": "#517063",
+      "FactionKeyword": "Leagues of Votann",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": []
+    },
+    {
+      "Name": "Necrons",
+      "MainColor": "#00592E",
+      "DarkColor": "#00783E",
+      "FactionKeyword": "Necrons",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": []
+    },
+    {
+      "Name": "Orks",
+      "MainColor": "#4D6320",
+      "DarkColor": "#65822A",
+      "FactionKeyword": "Orks",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": []
+    },
+    {
+      "Name": "Raven Guard",
+      "MainColor": "#0F1418",
+      "DarkColor": "#1F2A30",
+      "FactionKeyword": "Raven Guard",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "Salamanders",
+      "MainColor": "#0B5D3B",
+      "DarkColor": "#137A4E",
+      "FactionKeyword": "Salamanders",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "Space Marines",
+      "MainColor": "#516765",
+      "DarkColor": "#627D7B",
+      "FactionKeyword": "Adeptus Astartes",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Space Wolves",
+      "MainColor": "#40666D",
+      "DarkColor": "#4E7C85",
+      "FactionKeyword": "Space Wolves",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true,
+          "UnitIncludeRules": [
+            {
+              "ExcludeKeywordFilter": [
+                "Apothecary",
+                "Apothecary Biologis",
+                "Devastator Squad"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        }
+      ]
+    },
+    {
+      "Name": "Tau Empire",
+      "MainColor": "#186071",
+      "DarkColor": "#1D7387",
+      "FactionKeyword": "Tau Empire",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": []
+    },
+    {
+      "Name": "Thousand Sons",
+      "MainColor": "#005D66",
+      "DarkColor": "#00727D",
+      "FactionKeyword": "Thousand Sons",
+      "Category": "Chaos",
+      "Allies": [
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Chaos Daemons",
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Scintillating Legions"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Tyranids",
+      "MainColor": "#3E1844",
+      "DarkColor": "#702B7A",
+      "FactionKeyword": "Tyranids",
+      "Category": "Xenos",
+      "AdditionalFactionKeywords": []
+    },
+    {
+      "Name": "Ultramarines",
+      "MainColor": "#0070D9",
+      "DarkColor": "#0070D9",
+      "FactionKeyword": "Ultramarines",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "White Scars",
+      "MainColor": "#8F9591",
+      "DarkColor": "#6F7471",
+      "FactionKeyword": "White Scars",
+      "Category": "Space Marines",
+      "AdditionalFactionKeywords": [
+        "Adeptus Astartes"
+      ],
+      "Allies": [
+        {
+          "FactionKeyword": "Imperial Knights"
+        },
+        {
+          "FactionKeyword": "Imperial Agents Allies",
+          "AdditionalFactionKeywords": [
+            "Agents of the Imperium"
+          ]
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Adeptus Astartes",
+          "IsIncludedInPrimaryRoster": true
+        }
+      ]
+    },
+    {
+      "Name": "World Eaters",
+      "MainColor": "#531415",
+      "DarkColor": "#751C1E",
+      "FactionKeyword": "World Eaters",
+      "Category": "Chaos",
+      "Allies": [
+        {
+          "FactionKeyword": "Chaos Knights"
+        },
+        {
+          "FactionKeyword": "Adeptus Titanicus"
+        },
+        {
+          "FactionKeyword": "Heretic Astartes",
+          "IsIncludedInPrimaryRoster": true,
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Kytan Ravager",
+                "Greater Brass Scorpion"
+              ],
+              "ReplaceFactionKeywords": [
+                "World Eaters"
+              ]
+            }
+          ]
+        },
+        {
+          "FactionKeyword": "Chaos Daemons",
+          "UnitIncludeRules": [
+            {
+              "AnyKeywordFilter": [
+                "Blood Legions"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "CoreAbilities": [
+    {
+      "Regex": "Deadly Demise (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time a model in this unit is destroyed, after the units embarked within it (if any) have made their emergency disembark moves, roll one D6. On a 6, that model suffers a deadly demise; each unit within 6\" of that model suffers {value} mortal wounds (if this is a random number, roll separately for each unit within 6\")."
+    },
+    {
+      "Regex": "Deep Strike",
+      "Description": "Each time this unit makes an ingress move, if every model in this unit has this ability, it can be set up anywhere on the battlefield that is more than 8\" horizontally from all enemy units, even if that is within your opponent’s deployment zone."
+    },
+    {
+      "Regex": "Feel No Pain (?<value>\\d+\\+)",
+      "Description": "Each time a model with this ability would lose a wound, roll one D6: on a {value}, that wound is not lost."
+    },
+    {
+      "Regex": "Fights First",
+      "Description": "While every model in a unit has this ability, that unit is a Fights First unit. See the Resolve Fights First Combats step in the Fight phase."
+    },
+    {
+      "Regex": "Firing Deck (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "In your Shooting phase, each time this Transport is selected to shoot, if one or more units are embarked within it, resolve the following sequence:\r\n1. Select up to {value} models embarked within this Transport (excluding models whose units have already been selected to shoot this phase).\r\n2. For each selected model, select one of its ranged weapons (excluding [ONE SHOT] weapons).\r\n3. Until this Transport has resolved all of its attacks, it has all of those selected weapons in addition to its other weapons.\r\n4. Until the end of the turn, units embarked within this Transport are not eligible to shoot."
+    },
+    {
+      "Regex": "Hover",
+      "Description": "Each time this unit takes to the skies, do not subtract 2\" from the maximum distance."
+    },
+    {
+      "Regex": "Infiltrators",
+      "Description": "During deployment, if every model in a unit has this ability, it can be set up anywhere on the battlefield that is more than 8\" horizontally from your opponent’s deployment zone and all enemy units."
+    },
+    {
+      "Regex": "Leader",
+      "Description": "Before the battle, in the Muster Armies step, this unit can be selected to lead one friendly Bodyguard unit it is able to lead, forming an Attached unit with it for the battle. Unless otherwise stated, each Bodyguard unit can only have one Leader unit attached to it. An Attached unit is a single unit for all rules purposes and has all of the keywords of its component units."
+    },
+    {
+      "Regex": "Lone Operative",
+      "Description": "Unless part of an attached unit, this unit is not visible to enemy models unless they are within 12\" of this unit, and it cannot be targeted by [INDIRECT FIRE] weapons unless the attacking model is within 12\" of this unit."
+    },
+    {
+      "Regex": "Lone Operative (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))\"?",
+      "Description": "Unless part of an attached unit, this unit is not visible to enemy models unless they are within {value}\" of this unit, and it cannot be targeted by [INDIRECT FIRE] weapons unless the attacking model is within {value}\" of this unit."
+    },
+    {
+      "Regex": "Scouts (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))\"?",
+      "Description": "In the Resolve Pre-battle Abilities step, if every model in a unit has this ability, you can do one of the following:\r\n▪ If that unit is in Strategic Reserves, you can set up that unit anywhere that is wholly within your deployment zone.\r\n▪ If that unit is wholly within your deployment zone, it can make a scout move.\r\n▪ If that unit is embarked within a Dedicated Transport that is wholly within your deployment zone, and if every model embarked within that Dedicated Transport has the Scouts ability, that Dedicated Transport can make a scout move.\r\nScout move maximum distance: {value}\". After moving, your unit must be more than 8\" horizontally from all enemy units."
+    },
+    {
+      "Regex": "Stealth",
+      "Description": "If every model in a unit has this ability, each time a ranged attack targets that unit, that unit has the Benefit of Cover against that attack."
+    },
+    {
+      "Regex": "Support",
+      "Description": "Before the battle, in the Muster Armies step, this unit can be selected to lead one friendly Bodyguard unit it is able to lead, forming an Attached unit with it for the battle. Unless otherwise stated, each Bodyguard unit can only have one Support unit attached to it. An Attached unit is a single unit for all rules purposes and has all of the keywords of its component units."
+    },
+    {
+      "Regex": "Super-Heavy Walker",
+      "Description": "Each time a unit with this ability makes a Normal, Advance or Fall Back move:\r\n▪ Models in that unit can move through models (including Monster/Vehicle models, but excluding Titanic models) and can move horizontally through sections of terrain features that are 4\" or less in height.\r\n▪ Before moving that unit, you can select for all models in that unit to have the Mobile keyword until that move ends. If you do, when that move ends, roll one D6: on a 1, that unit is Battle-shocked."
+    },
+    {
+      "Regex": "Deadly Strike",
+      "Description": "Don't know what this does?"
+    },
+    {
+      "Regex": "Crucible",
+      "Description": "A Character created using these rules has the Crucible ability. Your army may include up to three units with the Crucible ability and these units cannot be give Enhancements."
+    }
+  ],
+  "WeaponAbilities": [
+    {
+      "Regex": "ANTI-(?<keyword>[\\w\\s-]+)\\s+(?<value>\\d+\\+)",
+      "Description": "Each time an attack is made with this weapon, if the target unit has the {keyword} keyword, an unmodified Wound roll of {value} is a Critical Wound."
+    },
+    {
+      "Regex": "ANTI:\\s*(?<keyword>[\\w\\s-]+(?:\\s*/\\s*[\\w\\s-]+)*)\\s+(?<value>\\d+\\+)",
+      "Description": "Each time an attack is made with this weapon, if the target unit has one or more of the following keywords: {keyword}, an unmodified Wound roll of {value} is a Critical Wound."
+    },
+    {
+      "Regex": "ANTI:\\s*non-(?<keyword>[\\w\\s-]+(?:\\s*/\\s*[\\w\\s-]+)*)\\s+(?<value>\\d+\\+)",
+      "Description": "Each time an attack is made with this weapon, if the target unit does not have any of the following keywords: {keyword}, an unmodified Wound roll of {value} is a Critical Wound."
+    },
+    {
+      "Regex": "ASSAULT",
+      "Description": "Units containing one or more models with an [ASSAULT] weapon can shoot using assault shooting."
+    },
+    {
+      "Regex": "BLAST",
+      "Description": "Each time you gather attack dice for this weapon, add one additional attack dice for every five models that were in the target unit in the Select Targets step (rounding down)."
+    },
+    {
+      "Regex": "BLAST (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time you gather attack dice for this weapon, add {value} additional attack dice for every five models that were in the target unit in the Select Targets step (rounding down) instead."
+    },
+    {
+      "Regex": "CLEAVE (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time you gather attack dice for this weapon, if you only selected one target for all of that weapon’s attacks, add {value} additional attack dice for every five models that were in the target unit in the Select Targets step (rounding down)."
+    },
+    {
+      "Regex": "CLOSE-QUARTERS",
+      "Description": "Units containing one or more models with a [CLOSE-QUARTERS] weapon can shoot using close-quarters shooting. When using another shooting type, for each model in that unit (excluding Monster/Vehicle models), you can only select one of the following to make attacks with:\r\n▪ One or more of its [CLOSE-QUARTERS] weapons.\r\n▪ One or more of its other ranged weapons."
+    },
+    {
+      "Regex": "DEVASTATING WOUNDS",
+      "Description": "Each time an attack made with this weapon results in a Critical Wound, the attack sequence for that attack ends and the target unit suffers a number of mortal wounds equal to the Damage characteristic of that weapon. These are inflicted after resolving any normal damage inflicted by those attacks. Mortal wounds inflicted by [DEVASTATING WOUNDS] weapons can damage a maximum of one model for each Critical Wound; any remaining mortal wounds inflicted by that attack are lost."
+    },
+    {
+      "Regex": "EXTRA ATTACKS",
+      "Description": "Each time a unit containing one or more models with an [EXTRA ATTACKS] weapon fights, those models will make attacks with those weapons in addition to any others. In the Select Weapons step, for each of those models, you must select:\r\n▪ All of that model’s [EXTRA ATTACKS] weapons.\r\n▪ One of that model’s other melee weapons, if possible."
+    },
+    {
+      "Regex": "HAZARDOUS",
+      "Description": "Each time a unit is selected to shoot or selected to fight, after that unit has resolved all of its attacks, make a number of hazard rolls for that unit equal to the number of [HAZARDOUS] weapons you selected in the Select Weapons step."
+    },
+    {
+      "Regex": "HEAVY",
+      "Description": "In your Shooting phase, each time an attack is made with a [HEAVY] weapon, add 1 to the Hit roll if all of the following apply to the attacking unit:\r\n▪ That unit is unengaged.\r\n▪ That unit was not set up on the battlefield this turn.\r\n▪ No model in that unit has moved more than 3\" this turn."
+    },
+    {
+      "Regex": "IGNORES COVER",
+      "Description": "Each time an attack is made with an [IGNORES COVER] weapon, the target cannot have the Benefit of Cover against that attack, including from rules that give a model or unit the Benefit of Cover."
+    },
+    {
+      "Regex": "INDIRECT FIRE",
+      "Description": "Units containing one or more models with an [INDIRECT FIRE] weapon can shoot using indirect shooting."
+    },
+    {
+      "Regex": "LANCE",
+      "Description": "Each time an attack is made with a [LANCE] weapon, if the attacking model’s unit made a Charge move this turn, add 1 to the Wound roll."
+    },
+    {
+      "Regex": "LETHAL HITS",
+      "Description": "Each time an attack made with a [LETHAL HITS] weapon results in a Critical Hit, you can choose for that attack to automatically wound the target."
+    },
+    {
+      "Regex": "MELTA (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time a model makes an attack with a [MELTA] weapon, if the target unit was within half range of that weapon in the Select Targets step, until the attacking unit’s attacks have been resolved, add {value} to that weapon’s Damage characteristic."
+    },
+    {
+      "Regex": "ONE SHOT",
+      "Description": "Each weapon with this ability can only be selected to make attacks with once per battle. If a destroyed model is returned to a unit, all of its [ONE SHOT] weapons that have already been selected to make attacks with during the battle cannot be selected to make attacks with again. If a new unit is added to an army, all [ONE SHOT] weapons in that unit can be selected to make attacks with once per battle."
+    },
+    {
+      "Regex": "PISTOL",
+      "Description": "Units containing one or more models with a [PISTOL] weapon can shoot using close-quarters shooting. When using another shooting type, for each model in that unit (excluding Monster/Vehicle models), you can only select one of the following to make attacks with:\r\n▪ One or more of its [PISTOL] weapons.\r\n▪ One or more of its other ranged weapons."
+    },
+    {
+      "Regex": "PRECISION",
+      "Description": "While resolving attacks made with one or more [PRECISION] weapons, at the start of the Allocation Order step, if the target unit contains one or more Character models visible to one or more of the attacking models, the active player can select one allocation group that contains one of those visible Character models. If they do, until those attacks are resolved, or until that Character group is destroyed (whichever happens first), that Character group is the current allocation group."
+    },
+    {
+      "Regex": "PSYCHIC",
+      "Description": "Each time an attack is made with a [PSYCHIC] weapon, you can ignore any or all modifiers to that attack’s Ballistic Skill or Weapon Skill characteristic and any or all modifiers to the Hit roll. Attacks made with [PSYCHIC] weapons are known as psychic attacks."
+    },
+    {
+      "Regex": "RAPID FIRE (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time you gather attack dice for a [RAPID FIRE] weapon, add {value} additional attack dice if the target unit was within half range of that weapon in the Select Targets step."
+    },
+    {
+      "Regex": "SUSTAINED HITS (?<value>(?:D\\d+(?: \\+ \\d+)?|\\d+))",
+      "Description": "Each time an attack made with a [SUSTAINED HITS] weapon results in a Critical Hit, that attack results in {value} additional hits on the target."
+    },
+    {
+      "Regex": "TORRENT",
+      "Description": "Each time an attack is made with a [TORRENT] weapon, that attack automatically hits the target."
+    },
+    {
+      "Regex": "TWIN-LINKED",
+      "Description": "Each time an attack is made with a [TWIN-LINKED] weapon, you can re-roll the Wound roll."
+    },
+    {
+      "Regex": "LINKED FIRE",
+      "Description": "When selecting targets for this weapon, you can measure range and determine visibility from another friendly FIRE PRISM model that is visible to the bearer. When doing so, this weapon has an Attacks characteristic of 1."
+    },
+    {
+      "Regex": "PLASMA WARHEAD",
+      "Description": "The bearer can only shoot with this weapon in your Shooting phase, and only if it Remained Stationary this turn and you did not use its Deathstrike Missile ability to Designate Target or Adjust Target this phase. When the bearer shoots with this weapon, do not select a target. Instead, resolve this weapon’s attacks, rolling for each unit within 6\" of the centre of its Deathstrike Target marker individually."
+    },
+    {
+      "Regex": "REVERBERATING SUMMONS",
+      "Description": "Each time a model is destroyed by this weapon, you can select one friendly Plaguebearers unit within 12\" of the bearer and return 1 destroyed Plaguebearer model to that unit."
+    },
+    {
+      "Regex": "CONVERSION",
+      "Description": "Each time an attack is made with this weapon, if the target is more than 12\" from the bearer, an unmodified successful Hit roll of 4+ scores a Critical Hit."
+    },
+    {
+      "Regex": "PSYCHIC ASSASSIN",
+      "Description": "Each time you select a PSYKER unit as the target for this weapon, until those attacks are resolved, change the Attacks characteristic of this weapon to 6."
+    },
+    {
+      "Regex": "OVERCHARGE",
+      "Description": "Each time the bearer takes a Hazardous test for this weapon profile, subtract 2 from the result."
+    },
+    {
+      "Regex": "DEAD CHOPPY",
+      "Description": "The Attacks characteristic of this weapon is increased by 1 for each additional dread klaw this model is equipped with."
+    },
+    {
+      "Regex": "SNAGGED",
+      "Description": "Each time this weapon scores a hit against a Monster or Vehicle unit, until the end of the turn, if the bearer selects that unit as a target of a charge, add 2 to Charge rolls made for the bearer and enemy units cannot use the Fire Overwatch Stratagem to shoot at the bearer."
+    },
+    {
+      "Regex": "BUBBLECHUKKA",
+      "Description": "Before selecting targets for one or more models equipped with this weapon, roll one D6 to determine which profile models equipped with this weapon will make attacks with, comparing the result with the numbers shown on the left."
+    },
+    {
+      "Regex": "HIVE DEFENCES",
+      "Description": "Each time an enemy unit is set up or ends a Normal, Advance or Fall Back move within range of this weapon, if that enemy unit is an eligible target, the bearer can shoot with this weapon at that unit as if it were your Shooting phase (the bearer can do so up to four times per phase)."
+    },
+    {
+      "Regex": "HARPOONED",
+      "Description": "After the bearer has shot with this weapon, select one enemy Monster or Vehicle unit hit by one or more of those attacks. Until the end of the turn, each time the bearer selects that unit as a target of a charge, add 2 to the Charge roll."
+    },
+    {
+      "Regex": "IMPALED",
+      "Description": "Each time this weapon scores a hit against an enemy Monster or Vehicle unit, until the end of the turn, if the bearer selects that unit as a target of a charge, add 2 to Charge rolls made for the bearer."
+    },
+    {
+      "Regex": "HOOKED",
+      "Description": "Each time the bearer makes an attack with this weapon that targets a Monster or Vehicle unit, if a hit is scored, until the end of the turn, if the bearer selects that unit as a target of a charge, add 2 to Charge rolls made for the bearer and enemy units cannot use the Fire Overwatch Stratagem to shoot at the bearer."
+    },
+    {
+      "Regex": "PLASMA",
+      "Description": "Dark Age Arsenal: Invocations of Ancient Fury: Plasma weapon profiles have +1 S."
+    }
+  ],
+  "CoreStratagems": [
+    {
+      "Name": "Command Re-Roll",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "any",
+      "When": "Any phase, just after you make one of the following rolls for a friendly unit or model: Advance roll, Charge roll, Damage roll, Hazard roll, Hit roll, Save roll, Wound roll, A roll to determine the number of attacks generated with a weapon.",
+      "Target": "That unit or model.",
+      "Effect": "You re-roll that roll. If you are rolling more than one dice together, select one of those dice to re-roll (excluding charge rolls, which you must re-roll in full)."
+    },
+    {
+      "Name": "Epic Challenge",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "any",
+      "When": "Fight phase, just after a friendly CHARACTER unit is selected to fight.",
+      "Target": "That CHARACTER unit.",
+      "Effect": "Select one CHARACTER model in your unit. Until the end of the phase, that model’s melee weapons have the [PRECISION] ability."
+    },
+    {
+      "Name": "Insane Bravery",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "friendly",
+      "When": "Battle-shock step of your Command phase, just before you make a battle-shock roll for a friendly unit.",
+      "Target": "That unit.",
+      "Effect": "That battle-shock roll is automatically successful.",
+      "Restrictions": "You cannot use this Stratagem more than once per battle."
+    },
+    {
+      "Name": "Explosives",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "friendly",
+      "When": "Your Shooting phase.",
+      "Target": "One friendly unengaged EXPLOSIVES/GRENADES unit that is eligible to shoot and did not make an advance move this turn.",
+      "Effect": "Resolve the following sequence:\r\n 1. Select one EXPLOSIVES/GRENADES model in your unit.\r\n 2. Select one unengaged enemy unit within 8\" of and visible to that model.\r\n 3. Roll six D6: for each 4+, that enemy unit suffers 1 mortal wound (06.02)."
+    },
+    {
+      "Name": "Crushing Impact",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "friendly",
+      "When": "Your Charge phase, just after a friendly MONSTER/VEHICLE unit ends a charge move.",
+      "Target": "That MONSTER/VEHICLE unit.",
+      "Effect": "Resolve the following sequence:\r\n 1. Select one enemy unit engaged with your unit.\r\n 2. Select one model in your unit engaged with that enemy unit.\r\n 3. Roll a number of D6 equal to the T characteristic of that model: for each 1, your unit suffers 1 mortal wound; for each 5+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds per unit)."
+    },
+    {
+      "Name": "Rapid Ingress",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "opponent",
+      "When": "End of your opponent’s Movement phase.",
+      "Target": "One friendly unit that is in strategic reserves (excluding AIRCRAFT).",
+      "Effect": "Your unit makes an ingress move (20.04).",
+      "Restrictions": "You cannot use this Stratagem during the first battle round."
+    },
+    {
+      "Name": "Fire Overwatch",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "opponent",
+      "When": "End of your opponent’s Movement phase.",
+      "Target": "One friendly unengaged unit (excluding TITANIC units).",
+      "Effect": "Your unit shoots using snap shooting."
+    },
+    {
+      "Name": "Smokescreen",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "opponent",
+      "When": "Start of your opponent’s Shooting phase.",
+      "Target": "One friendly SMOKE unit.",
+      "Effect": "Until the end of the phase, each time an attack targets either your SMOKE unit, or a unit that is not fully visible to the attacking model because of one or more models in your SMOKE unit, the target has the benefit of cover against that attack (13.08)."
+    },
+    {
+      "Name": "Heroic Intervention",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 1,
+      "Phase": "opponent",
+      "When": "End of your opponent’s Charge phase.",
+      "Target": "One friendly unengaged unit within 12\" of one or more enemy units. You can only select a VEHICLE unit if it is a CHARACTER/WALKER unit.",
+      "Effect": "Resolve a charge with your unit (11.02). While doing so, before making the charge roll, you must select the following mode:",
+      "Options": [
+        {
+          "Title": "Leap to Defend",
+          "Text": "When selecting charge targets, you can only select enemy units that made a charge move this phase and are within the maximum distance."
+        },
+        {
+          "Title": "Into the Fray",
+          "Text": "When making the charge roll, if the result is greater than 6 (after modifiers), change it to 6.\r\nWhen selecting charge targets, you can select any enemy units that are within 6\" of your unit and within the maximum distance.",
+          "CPCost": 1
+        }
+      ]
+    },
+    {
+      "Name": "Counteroffensive",
+      "Category": "CORE STRATAGEM",
+      "CPCost": 2,
+      "Phase": "opponent",
+      "When": "Fight step of your opponent’s Fight phase, just after an enemy unit has resolved its attacks.",
+      "Target": "One friendly unit that is eligible to fight.",
+      "Effect": "Until the end of the phase, your unit has the Fights First ability and it must be the next unit you select to fight (12.04)."
+    }
+  ],
+  "BattleSizeDefinitions": [
+    {
+      "PointsTotal": 1000,
+      "DetachmentPoints": 2,
+      "EnhancementLimit": 2,
+      "UnitLimit": 2
+    },
+    {
+      "PointsTotal": 2000,
+      "DetachmentPoints": 3,
+      "EnhancementLimit": 4,
+      "UnitLimit": 3
+    },
+    {
+      "PointsTotal": 3000,
+      "DetachmentPoints": 4,
+      "EnhancementLimit": 6,
+      "UnitLimit": 4
+    }
+  ]
+}

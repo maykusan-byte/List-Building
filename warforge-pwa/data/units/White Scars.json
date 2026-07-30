@@ -1,0 +1,438 @@
+{
+  "Name": "White Scars",
+  "Units": [
+    {
+      "Name": "KOR’SARRO KHAN",
+      "Faction": "Oath of Moment",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Kor’sarro Khan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "bolt pistol",
+                  "Moonfang"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "For the Khan!",
+          "Text": "While this model is leading a unit, ranged weapons equipped by models in that unit have the [ASSAULT] ability and melee weapons equipped by models in that unit have the [LANCE] ability."
+        },
+        {
+          "Title": "Trophy Taker",
+          "Text": "Each time this model destroys an enemy Character model, you gain 1CP."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "ASSAULT INTERCESSOR SQUAD",
+          "ASSAULT SQUAD",
+          "BLADEGUARD VETERAN SQUAD",
+          "COMMAND SQUAD",
+          "COMPANY HEROES",
+          "INTERCESSOR SQUAD",
+          "STERNGUARD VETERAN SQUAD",
+          "TACTICAL SQUAD",
+          "VANGUARD VETERAN SQUAD"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "For the Khan!",
+            "StatAdjustments": [],
+            "WeaponStatAdjustments": [
+              {
+                "Value": "ASSAULT",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Target": "Keywords",
+                "WeaponScope": "Ranged"
+              },
+              {
+                "Value": "LANCE",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Target": "Keywords"
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [
+        {
+          "Title": "Inspiring Commander",
+          "Text": "If you include this model in your army, until the end of the battle, non-Character models in Outrider Squad units from your army have an Objective Control characteristic of 3 while they are not Battle-shocked."
+        }
+      ],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Epic Hero",
+        "Imperium",
+        "Tacticus",
+        "Captain",
+        "Kor’sarro Khan"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Adeptus Astartes",
+        "White Scars"
+      ],
+      "StatLines": [
+        {
+          "Movement": "6\"",
+          "Toughness": "4",
+          "Save": "3+",
+          "Wounds": "5",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bolt pistol",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Moonfang",
+              "Keywords": "DEVASTATING WOUNDS, PRECISION",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 55
+        }
+      ]
+    },
+    {
+      "Name": "SUBODEN KHAN",
+      "Faction": "Oath of Moment",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Suboden Khan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "heavy bolt pistol",
+                  "onslaught gatling cannon",
+                  "Stormtooth",
+                  "power sword"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Spear of Chogoris",
+          "Text": "This model’s unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back. If that unit is already eligible to shoot and declare a charge in a turn in which it Advanced, add 1 to Advance and Charge rolls made for that unit instead."
+        },
+        {
+          "Title": "Skilled Riders",
+          "Text": "Each time a model in this model’s unit makes a Normal, Advance, Fall Back or Charge move, it can move horizontally through terrain features."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "BIKE SQUAD",
+          "COMPANY VETERANS ON BIKES",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Mounted",
+        "Character",
+        "Epic Hero",
+        "Imperium",
+        "Grenades",
+        "Captain",
+        "Suboden Khan"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Adeptus Astartes",
+        "White Scars"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "5",
+          "Save": "3+",
+          "Wounds": "8",
+          "Leadership": "6+",
+          "OC": "2",
+          "BaseInfo": {
+            "Size": "90x52.5",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Heavy bolt pistol",
+              "Keywords": "PISTOL",
+              "Range": "18\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Onslaught gatling cannon",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "24\"",
+              "Attacks": "8",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Stormtooth",
+              "Keywords": "LANCE, ANTI-MONSTER 4+, ANTI-VEHICLE 4+",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Power sword",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 90
+        }
+      ]
+    }
+  ],
+  "Dettachments": [
+    {
+      "Name": "SPEARPOINT TASK FORCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "Your army can include White Scars units, but it cannot include any Adeptus Astartes units drawn from any other Chapter.",
+        "Title": "STORM-SWIFT ONSLAUGHT",
+        "Text": "Adeptus Astartes units from your army are eligible to declare a charge in a turn in which they Advanced or Fell Back.\n\nWRATH OF THE FIRST KHAN\nAt the end of the Fight phase, if a Suboden Khan unit from your army destroyed one or more enemy units this phase and is not within Engagement Range of one or more enemy units, that unit can make a Normal move of up to 6\"."
+      },
+      "ForceDispositions": [
+        "DISRUPTION"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Armour Of Contempt",
+          "Category": "SPEARPOINT TASK FORCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Adeptus Astartes unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Name": "Spear Thrust And Sabre Swing",
+          "Category": "SPEARPOINT TASK FORCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Adeptus Astartes unit from your army that has not been selected to fight this phase.",
+          "Effect": "Select either the [Lance] or [Lethal Hits] ability. Until the end of the phase, melee weapons equipped by models in your unit have the selected ability. If it is a Mounted unit, until the end of the phase, melee weapons equipped by models in your unit have the [Lance] and [Lethal Hits] abilities instead."
+        },
+        {
+          "Name": "Mobile Lethality",
+          "Category": "SPEARPOINT TASK FORCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase.",
+          "Target": "One Adeptus Astartes unit from your army.",
+          "Effect": "Until the end of the turn, your unit is eligible to shoot in a turn in which it Advanced or Fell Back."
+        },
+        {
+          "Name": "Hunter’s Instincts",
+          "Category": "SPEARPOINT TASK FORCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+          "Target": "One Adeptus Astartes Infantry unit or Adeptus Astartes Mounted unit from your army that is within 8\" of that enemy unit. You cannot target a unit that is within Engagement Range of one or more enemy units.",
+          "Effect": "Your unit can make a Normal move of up to 6\"."
+        },
+        {
+          "Name": "Evasive Manoeuvres",
+          "Category": "SPEARPOINT TASK FORCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Adeptus Astartes Mounted or Adeptus Astartes Fly Vehicle unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Wound roll."
+        },
+        {
+          "Name": "Withdraw And Regroup",
+          "Category": "SPEARPOINT TASK FORCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "End of your opponent’s Fight phase.",
+          "Target": "One Adeptus Astartes Mounted or Adeptus Astartes Fly Vehicle unit from your army that is not within Engagement Range of one or more enemy units.",
+          "Effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Spearpoint Paragon",
+          "Description": "Adeptus Astartes model only. Improve the Strength and Armour Penetration characteristics of the bearer’s melee weapons by 1. Each time the bearer ends a Charge move, until the end of the turn, improve the Strength and Armour Penetration characteristics of the bearer’s melee weapons by 2 instead.",
+          "Cost": 25,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Target": "Strength"
+            },
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Target": "AP"
+            }
+          ],
+          "RequiredKeywords": [
+            "Adeptus Astartes"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Stormseers’ Wisdom",
+          "Description": "Adeptus Astartes model only. While the bearer is leading a unit, you can re-roll Advance rolls made for that unit.",
+          "Cost": 15,
+          "Features": "IsLeaderEnhancement",
+          "RequiredKeywords": [
+            "Adeptus Astartes"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Hunter’s Eye",
+          "Description": "Adeptus Astartes model only. Ranged weapons equipped by models in the bearer’s unit have the [SUSTAINED HITS 1] and [IGNORES COVER] abilities.",
+          "Cost": 20,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "SUSTAINED HITS 1",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Target": "Keywords",
+              "WeaponScope": "Ranged"
+            },
+            {
+              "Value": "IGNORES COVER",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Target": "Keywords",
+              "WeaponScope": "Ranged"
+            }
+          ],
+          "RequiredKeywords": [
+            "Adeptus Astartes"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Chogorian Huntmaster",
+          "Description": "Adeptus Astartes Mounted model only. If the bearer’s unit is in Strategic Reserves, for the purposes of setting up that unit on the battlefield, treat the current battle round number as being one higher than it actually is.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Adeptus Astartes",
+            "Mounted"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    }
+  ],
+  "ArmyRules": [
+    {
+      "Title": "OATH OF MOMENT",
+      "Text": "If your Army Faction is Adeptus Astartes, at the start of your Command phase, select one unit from your opponent’s army. Until the start of your next Command phase, that enemy unit is your Oath of Moment target. Each time a model with this ability makes an attack that targets your Oath of Moment target:\n\t▪ You can re-roll the Hit roll.\n\t▪ If you are using a Codex: Space Marines Detachment and your army does not include one or more units with the Blood Angels, Dark Angels, Deathwatch or Space Wolves keywords, add 1 to the Wound roll as well."
+    },
+    {
+      "Title": "SPACE MARINE CHAPTERS",
+      "Text": "\t▪ If an Adeptus Astartes unit has a second Faction keyword on its datasheet, that Faction keyword is the name of that unit’s Chapter. For example, Marneus Calgar has both the Adeptus Astartes and Ultramarines Faction keywords, and is therefore from the Ultramarines Chapter.\n\n\t▪ You cannot include units from more than one Chapter in your army.\n\n\t▪ If your army includes one or more Black Templars units, it cannot include any Adeptus Astartes Psyker models, and cannot include any of the following models that do not have the Black Templars keyword: Gladiator Lancer; Gladiator Reaper; Gladiator Valiant; Impulsor; Repulsor; Repulsor Executioner.\n\n\t▪ If your army includes one or more Space Wolves units, it cannot include any of the following units: Apothecary; Devastator Squad; Tactical Squad.\n\nDeathwatch\n\t▪ Your army can include Adeptus Astartes Deathwatch units, but it cannot include any Adeptus Astartes units drawn from any other Chapter.\n\n\t▪ With the exception of Kill Team Cassius (see Legends: Agents of the Imperium), your army cannot include any Agents of the Imperium Deathwatch units.\n\n\t▪ Your army cannot include any of the following units: Assault Squad; Assault Squad with Jump Packs; Attack Bike Squad; Devastator Squad; Land Speeder Storm; Relic Terminator Squad; Scout Bike Squad; Scout Squad; Scout Sniper Squad; Tactical Squad; Terminator Assault Squad; Terminator Squad."
+    }
+  ]
+}

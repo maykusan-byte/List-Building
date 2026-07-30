@@ -1,0 +1,6289 @@
+{
+  "Name": "Death Guard",
+  "Units": [
+    {
+      "Name": "MORTARION",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "Flags": 2,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Mortarion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Lantern",
+                  "Rotwind",
+                  "Silence"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Lord of the Death Guard",
+          "Text": "Once per turn, this model can use one of the Lord of the Death Guard abilities."
+        },
+        {
+          "Title": "Host of Plagues",
+          "Text": "At the end of your Movement phase, roll one D6 for each enemy unit within 6\" of this model, adding 1 to the result if that enemy unit is Afflicted: on a 3+, that enemy unit suffers D3 mortal wounds."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED",
+          "Text": "1-6 WOUNDS REMAINING While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        },
+        {
+          "Title": "SUPREME COMMANDER",
+          "Text": "If this model is in your army, it must be your Warlord."
+        }
+      ],
+      "SpecialAbility": {
+        "Name": "LORD OF THE DEATH GUARD",
+        "Sections": [
+          {
+            "Title": "Diseased Influence",
+            "Text": "Just after an enemy unit ends a Normal, Advance or Fall Back move within 8\" of a friendly Death Guard unit that is within 6\" of this model, if that Death Guard unit is not within Engagement Range of one or more enemy units, it can make a Normal move of up to 5\"."
+          },
+          {
+            "Title": "Boon of Death",
+            "Text": "In the Fight phase, when a friendly Death Guard unit within 6\" of this model is selected as the target of an attack, this model can use this ability. If it does, until the end of the phase, each time a model in that Death Guard unit is destroyed by a melee attack, if that model has not fought this phase, roll one D6. On a 2+, do not remove it from play; that destroyed model can fight after the attacking unit has finished making its attacks, and it is then removed from play."
+          },
+          {
+            "Title": "Inflamed Reprisal",
+            "Text": "In your opponent’s Shooting phase, when a friendly Death Guard unit within 6\" of this model is selected as the target of an attack, this model can use this ability. If it does, after the attacking unit has finished making its attacks, that Death Guard unit can shoot as if it were your Shooting phase, but when resolving those attacks, worsen the BS characteristic of that attack by 1 and it can only target that enemy unit (and only if it is an eligible target)."
+          }
+        ]
+      },
+      "Keywords": [
+        "Monster",
+        "Character",
+        "Psyker",
+        "Fly",
+        "Epic Hero",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Primarch",
+        "Mortarion"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6",
+        "Deep Strike",
+        "Feel No Pain 5+"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "12",
+          "Save": "2+",
+          "Wounds": "16",
+          "Leadership": "5+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Lantern",
+              "Keywords": "PISTOL, SUSTAINED HITS D3",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Rotwind",
+              "Keywords": "BLAST, DEVASTATING WOUNDS, LETHAL HITS, PSYCHIC",
+              "Range": "24\"",
+              "Attacks": "D6+3",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Silence – strike",
+              "Keywords": "DEVASTATING WOUNDS, LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Silence – sweep",
+              "Keywords": "LETHAL HITS, SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "15",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 390
+        }
+      ]
+    },
+    {
+      "Name": "TYPHUS",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Typhus",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Lakrimae"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "The Destroyer Hive",
+          "Text": "While this model is leading a unit, each time a melee attack targets that unit, subtract 1 from the Hit roll."
+        },
+        {
+          "Title": "Eater Plague (Psychic)",
+          "Text": "In your Shooting phase, you can select one enemy unit within 18\" of and visible to this Psyker (excluding units with the Lone Operative ability that are not part of an Attached unit and are not within 12\" of this Psyker) and roll one D6: on a 1, this Psyker’s unit suffers D3 mortal wounds; on a 2-5, that enemy unit suffers D6 mortal wounds; on a 6, that enemy unit suffers D3+3 mortal wounds."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "BLIGHTLORD TERMINATORS",
+          "DEATHSHROUD TERMINATORS",
+          "POXWALKERS"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "The Destroyer Hive"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Psyker",
+        "Epic Hero",
+        "Chaos",
+        "Nurgle",
+        "Terminator",
+        "Typhus"
+      ],
+      "CoreAbilities": [
+        "Deep Strike",
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "7",
+          "Save": "2+",
+          "Wounds": "6",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "50"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Lakrimae – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Lakrimae – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 100
+        }
+      ]
+    },
+    {
+      "Name": "DAEMON PRINCE OF NURGLE",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Daemon Prince of Nurgle",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "infernal cannon",
+                  "hellforged weapons"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Death Guard Defenders",
+          "Text": "While this model is within 3\" of one or more friendly Death Guard Infantry units, this model has the Lone Operative ability."
+        },
+        {
+          "Title": "Fevered Strategist",
+          "Text": "Once per battle round, one model from your army with this ability can use it when a friendly Death Guard unit within 12\" of that model is targeted with a Stratagem. If it does, reduce the CP cost of that usage of that Stratagem by 1CP."
+        },
+        {
+          "Title": "Miasma of Pestilence (Aura)",
+          "Text": "While a friendly Death Guard unit is within 6\" of this model, each time a ranged attack targets that unit, models in that unit have the Benefit of Cover against that attack."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Monster",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Daemon Prince"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "12",
+          "Save": "2+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Infernal cannon",
+              "Keywords": "LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "3",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hellforged weapons – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "7",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Hellforged weapons – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "14",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 195
+        }
+      ]
+    },
+    {
+      "Name": "DAEMON PRINCE OF NURGLE WITH WINGS",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Daemon Prince of Nurgle with Wings",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "infernal cannon",
+                  "hellforged weapons"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Horrifying Visage",
+          "Text": "Each time this model ends a Charge move, select one enemy unit within Engagement Range of it. That unit must take a Battle-shock test, subtracting 1 from that test."
+        },
+        {
+          "Title": "Enfeebling Miasma (Aura)",
+          "Text": "While an enemy unit (excluding Monsters and Vehicles) is within 6\" of this model, each time that unit is selected to Fall Back, models in that enemy unit must take Desperate Escape tests. When doing so, if that enemy unit is Battle-shocked, subtract 1 from each of those Desperate Escape tests."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Monster",
+        "Character",
+        "Fly",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Daemon Prince with Wings"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3",
+        "Deep Strike"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "2+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Infernal cannon",
+              "Keywords": "LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "3",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hellforged weapons – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "7",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Hellforged weapons – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "14",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 170
+        }
+      ]
+    },
+    {
+      "Name": "LORD OF VIRULENCE",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Lord of Virulence",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "twin plague spewer",
+                  "power fist"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Virulent Aura",
+          "Text": "While this model is leading a unit, each time a model in that unit makes a ranged attack, you can re-roll the Wound roll."
+        },
+        {
+          "Title": "Blight Bombardment",
+          "Text": "At the start of your Shooting phase, select one enemy unit within 30\" of and visible to this model. Until the end of the phase, each time a friendly Death Guard model makes a ranged attack that targets that unit, re-roll a Hit roll of 1 (if that attack is made with a Blast weapon, you can re-roll the Hit roll instead)."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "BLIGHTLORD TERMINATORS",
+          "DEATHSHROUD TERMINATORS"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "Virulent Aura"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Terminator",
+        "Lord of Virulence"
+      ],
+      "CoreAbilities": [
+        "Deep Strike",
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "7",
+          "Save": "2+",
+          "Wounds": "6",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "50"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Twin plague spewer",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Power fist",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 100
+        }
+      ]
+    },
+    {
+      "Name": "LORD OF POXES",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Lord of Poxes",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plasma pistol",
+                  "great plague blade"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Gift of Poxes",
+          "Text": "Add 3\" to the range of this model's Contagion Range."
+        },
+        {
+          "Title": "Shroud of Disease",
+          "Text": "While this model is leading a unit, that unit cannot be targeted by ranged attacks unless the attacking model is within 18\"."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "Shroud of Disease"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Lord of Poxes"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "5",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plasma pistol – standard",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma pistol – supercharge",
+              "Keywords": "HAZARDOUS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Great plague blade",
+              "Keywords": "DEVASTATING WOUNDS, LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 65
+        }
+      ]
+    },
+    {
+      "Name": "LORD OF CONTAGION",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Lord of Contagion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "manreaper"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Vector of Disease",
+          "Text": "While this model is leading a unit, melee weapons equipped by models in that unit have the [SUSTAINED HITS 1] and [LANCE] abilities."
+        },
+        {
+          "Title": "Unholy Resilience",
+          "Text": "The first time a model with this ability is destroyed in a battle round, roll one D6 at the end of the phase. On a 2+, set that model back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy units, with 3 wounds remaining. Each model can only be set up in this way once per battle."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "BLIGHTLORD TERMINATORS",
+          "DEATHSHROUD TERMINATORS"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "Vector of Disease",
+            "StatAdjustments": [],
+            "WeaponStatAdjustments": [
+              {
+                "Value": "SUSTAINED HITS 1",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Target": "Keywords"
+              },
+              {
+                "Value": "LANCE",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Target": "Keywords"
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Terminator",
+        "Lord of Contagion"
+      ],
+      "CoreAbilities": [
+        "Deep Strike",
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "7",
+          "Save": "2+",
+          "Wounds": "6",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Manreaper – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Manreaper – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 120
+        }
+      ]
+    },
+    {
+      "Name": "MALIGNANT PLAGUECASTER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Malignant Plaguecaster",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "bolt pistol",
+                  "Plague Wind",
+                  "corrupted staff"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Gift of Contagion (Psychic)",
+          "Text": "While this model is leading a unit, each time a model in that unit makes an attack that targets a unit that is Afflicted, that attack has the [SUSTAINED HITS 1] ability."
+        },
+        {
+          "Title": "Pestilent Fallout (Psychic)",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy Infantry unit hit by one or more of those attacks made with its Plague Wind. Until the end of your opponent’s next turn, that unit is enfeebled. While a unit is enfeebled, subtract 2\" from the Move characteristic of models in that unit."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES",
+          "POXWALKERS"
+        ],
+        "Abilities": [
+          {
+            "AbilityId": "Gift of Contagion (Psychic)"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Psyker",
+        "Chaos",
+        "Nurgle",
+        "Malignant Plaguecaster"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "32"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bolt pistol",
+              "Keywords": "LETHAL HITS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plague Wind – witchfire",
+              "Keywords": "PSYCHIC, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "D3"
+            },
+            {
+              "Name": "Plague Wind – focused witchfire",
+              "Keywords": "HAZARDOUS, PSYCHIC, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6+3",
+              "ToHit": "N/A",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "D3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Corrupted staff",
+              "Keywords": "LETHAL HITS, PSYCHIC",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "D3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 60
+        }
+      ]
+    },
+    {
+      "Name": "NOXIOUS BLIGHTBRINGER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Noxious Blightbringer",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plasma pistol",
+                  "cursed plague bell"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Sickening Vitality",
+          "Text": "While this model is leading a unit, add 1\" to the Move characteristic of models in that unit and you can re-roll Advance and Charge rolls made for that unit."
+        },
+        {
+          "Title": "Tocsin of Misery (Aura)",
+          "Text": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 9\" of this model, that enemy unit must take a Battle-shock test, subtracting 1 from that test if it is a Psyker unit."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES",
+          "POXWALKERS"
+        ],
+        "Description": "You can attach this model to a Plague Marines or Poxwalkers unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths.",
+        "Abilities": [
+          {
+            "AbilityId": "Sickening Vitality",
+            "StatAdjustments": [
+              {
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Value": "1\""
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Noxious Blightbringer"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plasma pistol – standard",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma pistol – supercharge",
+              "Keywords": "PISTOL, HAZARDOUS",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Cursed plague bell",
+              "Keywords": "ANTI-PSYKER 2+, LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 60
+        }
+      ]
+    },
+    {
+      "Name": "FOUL BLIGHTSPAWN",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Foul Blightspawn",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plague sprayer",
+                  "close combat weapon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Blinding Spray",
+          "Text": "In the Fight phase, you can select one model from your army with this ability to use this ability. If you do, until the end of the phase, that model’s unit has the Fights First ability. Each model can only be selected for this ability once per battle."
+        },
+        {
+          "Title": "Putrefying Stink",
+          "Text": "Enemy models cannot start or end an Advance move within 9\" of this model."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Description": "You can attach this model to a Plague Marines unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths."
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Foul Blightspawn"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plague sprayer",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Close combat weapon",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 65
+        }
+      ]
+    },
+    {
+      "Name": "BIOLOGUS PUTRIFIER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Biologus Putrifier",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "hyper blight grenades",
+                  "injector pistol",
+                  "plague knives"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Foul Infusion",
+          "Text": "While this model is leading a unit, weapons equipped by models in that unit have the [LETHAL HITS] ability. In addition, each time a model in that unit makes an attack, a Critical Hit is scored on an unmodified Hit roll of 5+, instead of only a 6."
+        },
+        {
+          "Title": "Extraction of Fresh Disease",
+          "Text": "The first time this model’s unit destroys an enemy unit as the result of a melee attack, until the end of the battle, add 6 to the Objective Control characteristic of this model."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Description": "You can attach this model to a Plague Marines unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths.",
+        "Abilities": [
+          {
+            "AbilityId": "Foul Infusion",
+            "WeaponStatAdjustments": [
+              {
+                "Value": "LETHAL HITS",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Target": "Keywords",
+                "WeaponScope": "All"
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Biologus Putrifier"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 1",
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hyper blight grenades",
+              "Keywords": "ASSAULT, BLAST, LETHAL HITS",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Injector pistol",
+              "Keywords": "ANTI-INFANTRY 2+, PISTOL, PRECISION",
+              "Range": "3\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plague knives",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 60
+        }
+      ]
+    },
+    {
+      "Name": "TALLYMAN",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Tallyman",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plasma pistol",
+                  "close combat weapon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Malicious Calculations",
+          "Text": "While this model is leading a unit, each time a model in that unit makes an attack, you can ignore any or all modifiers to that attack’s Ballistic Skill or Weapon Skill characteristics and/or any or all modifiers to the Hit roll."
+        },
+        {
+          "Title": "Sevenfold Chant",
+          "Text": "In your Command phase, if this model is on the battlefield, roll 2D6: on a 7+, you gain 1CP."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Description": "You can attach this model to a Plague Marines unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths.",
+        "Abilities": [
+          {
+            "AbilityId": "Malicious Calculations"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Tallyman"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plasma pistol – standard",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma pistol – supercharge",
+              "Keywords": "HAZARDOUS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Close combat weapon",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 60
+        }
+      ]
+    },
+    {
+      "Name": "PLAGUE SURGEON",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Plague Surgeon",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "bolt pistol",
+                  "balesword"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Tainted Narthecium",
+          "Text": "While this model is leading a unit, in your Command phase, you can return 1 destroyed Bodyguard model to that unit."
+        },
+        {
+          "Title": "Inflamed Infections",
+          "Text": "At the start of the Fight phase, select one enemy unit within Engagement Range of this model. Until the end of the phase, each time this model makes an attack that targets that unit, an unmodified Hit roll of 5+ scores a Critical Hit. If that unit is Below Half-strength, an unmodified Hit roll of 4+ scores a Critical Hit instead."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Description": "You can attach this model to a Plague Marines unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths.",
+        "Abilities": [
+          {
+            "AbilityId": "Tainted Narthecium"
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Plague Surgeon"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bolt pistol",
+              "Keywords": "LETHAL HITS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Balesword",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 50
+        }
+      ]
+    },
+    {
+      "Name": "POXWALKERS",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "Limit": {
+              "Min": 10,
+              "Max": 20
+            },
+            "ModelName": "Poxwalkers",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "improvised weapon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Curse of the Walking Pox",
+          "Text": "Each time a Poxwalker model in this unit makes an attack that destroys an enemy model (excluding Monster and Vehicle models), after this unit has resolved its attacks, you can return one destroyed Poxwalker model to this unit.\n\nWhile Typhus is leading this unit enemy models destroyed as a result of Typhus’s Eater Plague ability count as enemy models destroyed by an attack made by a Poxwalker model in this unit for the purposes of Curse of the Walking Pox."
+        }
+      ],
+      "AttachedUnitInfo": {
+        "MaxLeaders": [
+          {
+            "MaxLeaderOverride": 2,
+            "RequiresOneOfLeaders": [
+              "Noxious Blightbringer"
+            ],
+            "PreventDuplicates": [
+              "Noxious Blightbringer"
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Chaos",
+        "Nurgle",
+        "Poxwalkers"
+      ],
+      "CoreAbilities": [
+        "Infiltrators",
+        "Feel No Pain 5+"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "4",
+          "Save": "7+",
+          "Wounds": "1",
+          "Leadership": "8+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "25"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Improvised weapon",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "2",
+              "ToHit": "5+",
+              "Strength": "3",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 10,
+          "Cost": 65
+        },
+        {
+          "ModelCount": 20,
+          "Cost": 130
+        }
+      ]
+    },
+    {
+      "Name": "ICON BEARER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Icon Bearer",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "boltgun",
+                  "plague knife"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Unclean Icon",
+          "Text": "While this model is leading a unit, add 1 to the Objective Control characteristic of models in that unit."
+        },
+        {
+          "Title": "Blessed Icon of Disease",
+          "Text": "Once per battle, at the start of any phase, you can select one friendly Death Guard unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [
+          "PLAGUE MARINES"
+        ],
+        "Description": "You can attach this model to a Plague Marines unit, even if one other Leader unit has already been attached to it (you cannot attach more than one of the same Leader to the same unit). If you do, and that Bodyguard unit is destroyed, the Leader units attached to it become separate units, with their original Starting Strengths.",
+        "Abilities": [
+          {
+            "AbilityId": "Unclean Icon",
+            "StatAdjustments": [
+              {
+                "Target": "OC",
+                "Type": "Add",
+                "Scope": "AttachedUnit",
+                "Value": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Chaos",
+        "Nurgle",
+        "Grenades",
+        "Icon Bearer"
+      ],
+      "CoreAbilities": [
+        "Leader"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "4",
+          "Leadership": "5+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "32"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Boltgun",
+              "Keywords": "LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plague knife",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 45
+        }
+      ]
+    },
+    {
+      "Name": "PLAGUE MARINES",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Plague Champion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "boltgun",
+                  "plague knives"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "bolt pistol",
+                      "plasma gun ",
+                      "plasma pistol"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "plague knives"
+                    ],
+                    "Options": [
+                      "bubotic weapons ",
+                      "power fist"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Limit": {
+              "Min": 4,
+              "Max": 9
+            },
+            "ModelName": "Plague Marines",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "boltgun",
+                  "plague knives"
+                ],
+                "Options": [
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "blight launcher"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "plague spewer"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "meltagun",
+                      "plague belcher",
+                      "plasma gun"
+                    ]
+                  },
+                  {
+                    "Max": 2,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "bubotic weapons"
+                    ]
+                  },
+                  {
+                    "Max": 2,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "heavy plague weapon"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "Replaces": [
+                      "boltgun"
+                    ],
+                    "Options": [
+                      "boltgun and icon of despair"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Infused with the Blessings of Nurgle",
+          "Text": "In your Shooting phase, each time this unit is selected to shoot, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next turn, that enemy unit is Afflicted."
+        },
+        {
+          "Title": "Icon of Despair (Aura)",
+          "Text": "While an enemy unit is within 6\" of the bearer, worsen the Leadership characteristic of models in that unit by 1."
+        }
+      ],
+      "AttachedUnitInfo": {
+        "MaxLeaders": [
+          {
+            "MaxLeaderOverride": 2,
+            "RequiresOneOfLeaders": [
+              "Noxious Blightbringer",
+              "Foul Blightspawn",
+              "Biologus Putrifier",
+              "Tallyman",
+              "Plague Surgeon",
+              "Icon Bearer"
+            ],
+            "PreventDuplicates": [
+              "Noxious Blightbringer",
+              "Foul Blightspawn",
+              "Biologus Putrifier",
+              "Tallyman",
+              "Plague Surgeon",
+              "Icon Bearer"
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Battleline",
+        "Grenades",
+        "Chaos",
+        "Nurgle",
+        "Plague Marines"
+      ],
+      "CoreAbilities": [],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "6",
+          "Save": "3+",
+          "Wounds": "2",
+          "Leadership": "6+",
+          "OC": "2",
+          "BaseInfo": {
+            "Size": "32"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Blight launcher",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Boltgun",
+              "Keywords": "LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Bolt pistol",
+              "Keywords": "LETHAL HITS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Plague belcher",
+              "Keywords": "ANTI-INFANTRY 4+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plague spewer",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma gun – standard",
+              "Keywords": "RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma gun – supercharge",
+              "Keywords": "HAZARDOUS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plasma pistol – standard",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plasma pistol – supercharge",
+              "Keywords": "HAZARDOUS, PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bubotic weapons",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy plague weapon",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plague knives",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Power fist",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 5,
+          "Cost": 90
+        },
+        {
+          "ModelCount": 7,
+          "Cost": 125
+        },
+        {
+          "ModelCount": 10,
+          "Cost": 180
+        }
+      ]
+    },
+    {
+      "Name": "BLIGHTLORD TERMINATORS",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Blightlord Champion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "combi-bolter",
+                  "bubotic blade"
+                ],
+                "Options": [
+                  {
+                    "Max": 3,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter"
+                    ],
+                    "Options": [
+                      "combi-weapon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Limit": {
+              "Min": 2,
+              "Max": 9
+            },
+            "ModelName": "Blightlord Terminators",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "combi-bolter",
+                  "bubotic blade"
+                ],
+                "Options": [
+                  {
+                    "Max": 3,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter"
+                    ],
+                    "Options": [
+                      "combi-weapon"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter",
+                      "bubotic blade"
+                    ],
+                    "Options": [
+                      "flail of corruption"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter"
+                    ],
+                    "Options": [
+                      "blight launcher"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter"
+                    ],
+                    "Options": [
+                      "reaper autocannon"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "PerXModels": 5,
+                    "Replaces": [
+                      "combi-bolter"
+                    ],
+                    "Options": [
+                      "plague spewer"
+                    ]
+                  },
+                  {
+                    "Max": 1,
+                    "Replaces": [
+                      "combi-bolter",
+                      "bubotic blade"
+                    ],
+                    "Options": [
+                      "plague spewer and close combat weapon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Blistering Fusillade",
+          "Text": "If this unit has a Starting Strength of 5 or more, or if a Character is leading this unit, then each time a model in this unit makes a ranged attack that targets an Afflicted unit, improve the Strength and Armour Penetration characteristics of that attack by 1."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Chaos",
+        "Nurgle",
+        "Terminator",
+        "Blightlord Terminators"
+      ],
+      "CoreAbilities": [
+        "Deep Strike"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "7",
+          "Save": "2+",
+          "Wounds": "3",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Blight launcher",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Combi-weapon",
+              "Keywords": "ANTI-INFANTRY 4+, DEVASTATING WOUNDS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plague spewer",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Reaper autocannon",
+              "Keywords": "DEVASTATING WOUNDS, SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bubotic blade",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Close combat weapon",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Flail of corruption",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 3,
+          "Cost": 115
+        },
+        {
+          "ModelCount": 5,
+          "Cost": 185
+        },
+        {
+          "ModelCount": 10,
+          "Cost": 370
+        }
+      ]
+    },
+    {
+      "Name": "DEATHSHROUD TERMINATORS",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Deathshroud Champion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plaguespurt gauntlet",
+                  "manreaper"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "additional plaguespurt gauntlet"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "icon of despair"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Limit": {
+              "Min": 2,
+              "Max": 5
+            },
+            "ModelName": "Deathshroud Terminators",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plaguespurt gauntlet",
+                  "manreaper"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "additional plaguespurt gauntlet",
+            "GrantsWeapons": [
+              "Plaguespurt gauntlet"
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Silent Bodyguard",
+          "Text": "While a Character model is leading this unit, that Character model has the Feel No Pain 4+ ability."
+        },
+        {
+          "Title": "Death Approaches",
+          "Text": "In your Movement phase, each time this unit is set up on the battlefield using the Deep Strike ability, it can be set up anywhere on the battlefield that is more than 6\" horizontally away from all Afflicted enemy units, and more than 8\" horizontally away from all other enemy units."
+        },
+        {
+          "Title": "Icon of Despair (Aura)",
+          "Text": "While an enemy unit is within 6\" of the bearer, worsen the Leadership characteristic of models in that unit by 1."
+        }
+      ],
+      "LeaderInfo": {
+        "UnitNames": [],
+        "Abilities": [
+          {
+            "AbilityId": "Silent Bodyguard",
+            "DatasheetAdjustments": [
+              {
+                "Target": "CoreAbilities",
+                "Type": "Add",
+                "Scope": "LeaderUnitsOnly",
+                "Values": [
+                  "Feel No Pain 4+"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Chaos",
+        "Nurgle",
+        "Terminator",
+        "Deathshroud Terminators"
+      ],
+      "CoreAbilities": [
+        "Deep Strike"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "7",
+          "Save": "2+",
+          "Wounds": "4",
+          "Leadership": "6+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plaguespurt gauntlet",
+              "Keywords": "ANTI-INFANTRY 4+, IGNORES COVER, PISTOL, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "3",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Manreaper – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Manreaper – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 3,
+          "Cost": 160
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 6,
+          "Cost": 305
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 3,
+          "Cost": 170
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 6,
+          "Cost": 315
+        }
+      ]
+    },
+    {
+      "Name": "HELBRUTE",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Helbrute",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "multi-melta",
+                  "Helbrute fist",
+                  "close combat weapon"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "multi-melta"
+                    ],
+                    "Options": [
+                      "plasma cannon",
+                      "twin autocannon",
+                      "twin lascannon",
+                      "twin heavy bolter",
+                      "Helbrute fist",
+                      "Helbrute fist and combi-bolter",
+                      "Helbrute fist and heavy flamer"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Helbrute fist"
+                    ],
+                    "Options": [
+                      "missile launcher",
+                      "Helbrute hammer",
+                      "power scourge",
+                      "Helbrute fist and combi-bolter ",
+                      "Helbrute fist and heavy flamer "
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Diseased Malice",
+          "Text": "Each time this model makes an attack that targets an Afflicted unit, add 1 to the Wound roll."
+        },
+        {
+          "Title": "Froth-spattered Frenzy",
+          "Text": "If this model is equipped with two melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristic of those two weapons."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "Nurgle",
+        "Helbrute"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 1"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "7\"",
+          "Toughness": "9",
+          "Save": "2+",
+          "Wounds": "8",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy flamer",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Missile launcher – frag",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Missile launcher – krak",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Multi-melta",
+              "Keywords": "MELTA 2, LETHAL HITS",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Plasma cannon",
+              "Keywords": "BLAST, HAZARDOUS, LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Twin autocannon",
+              "Keywords": "TWIN-LINKED, LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Twin heavy bolter",
+              "Keywords": "LETHAL HITS, SUSTAINED HITS 1, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin lascannon",
+              "Keywords": "TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Close combat weapon",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Helbrute fist",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Helbrute hammer",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Power scourge",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 110
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS SPAWN",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "Limit": {
+              "Min": 2,
+              "Max": 2
+            },
+            "ModelName": "Chaos Spawn",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "hideous mutations"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Lethal Ichor",
+          "Text": "Each time a melee attack is allocated to a model in this unit, after the attacking unit has finished making its attacks, roll one D6 (to a maximum of six D6 per attacking unit): for each 4+, the attacking unit suffers 1 mortal wound."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Beast",
+        "Chaos",
+        "Nurgle",
+        "Chaos Spawn"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 1",
+        "Feel No Pain 5+",
+        "Scouts 6\""
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "7",
+          "Save": "4+",
+          "Wounds": "4",
+          "Leadership": "7+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "50"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hideous mutations",
+              "Range": "Melee",
+              "Attacks": "D6+2",
+              "ToHit": "4+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 2,
+          "Cost": 80
+        }
+      ]
+    },
+    {
+      "Name": "MYPHITIC BLIGHT-HAULER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "Limit": {
+              "Min": 1,
+              "Max": 2
+            },
+            "ModelName": "Myphitic Blight-hauler",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "bile spurt",
+                  "missile launcher",
+                  "multi-melta",
+                  "gnashing maw"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Tank Hunters",
+          "Text": "In your Shooting phase, each time a model in this unit makes an attack that targets a Monster or Vehicle unit, add 1 to the Hit roll and add 1 to the Wound roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Smoke",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Myphitic Blight-Hauler"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "80"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bile spurt",
+              "Keywords": "LETHAL HITS",
+              "Range": "12\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Missile launcher – frag",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Missile launcher – krak",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Multi-melta",
+              "Keywords": "MELTA 2, LETHAL HITS",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Gnashing maw",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 100
+        },
+        {
+          "ModelCount": 2,
+          "Cost": 200
+        }
+      ]
+    },
+    {
+      "Name": "FOETID BLOAT-DRONE",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Foetid Bloat-drone",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "fleshmower",
+                  "plague probe"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "fleshmower"
+                    ],
+                    "Options": [
+                      "2 plaguespitter"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Hovering Death",
+          "Text": "This model is eligible to shoot and declare a charge in a turn in which it Fell Back."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Fly",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Foetid Bloat-drone"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plaguespitter",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Fleshmower",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plague probe",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 100
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 110
+        }
+      ]
+    },
+    {
+      "Name": "FOETID BLOAT-DRONE WITH HEAVY BLIGHT LAUNCHER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Foetid Bloat-drone with Heavy Blight Launcher",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "heavy blight launcher",
+                  "plague probe"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Explosive Blight",
+          "Text": "In your Shooting phase, each time this model makes an attack that destroys an enemy unit, before removing the last model in that unit from play, roll a D6, adding 1 to the result if that unit is Afflicted - on a 5+, each enemy unit within 6\" of that model is Afflicted until the start of your next turn."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Fly",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Foetid Bloat-drone with Heavy Blight Launcher"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Heavy blight launcher",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "D6+2",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plague probe",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 125
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 135
+        }
+      ]
+    },
+    {
+      "Name": "PLAGUEBURST CRAWLER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Plagueburst Crawler",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 entropy cannon",
+                  "heavy slugger",
+                  "Plagueburst mortar",
+                  "armoured tracks"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 entropy cannon"
+                    ],
+                    "Options": [
+                      "2 plaguespitter"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "heavy slugger"
+                    ],
+                    "Options": [
+                      "rothail volley gun"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Spore-laced Shock Waves",
+          "Text": "In your Shooting phase, each time you select a target for this model’s Plagueburst mortar, roll one D6 for the target unit and every other enemy unit within 3\" of the target unit, adding 1 to that roll if the unit being rolled for is Afflicted. On a 6+, the unit being rolled for is struck by spores; after resolving all of this model’s attacks against the target unit, each unit struck by spores suffers D3 mortal wounds."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-4 WOUNDS REMAINING",
+          "Text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Plagueburst Crawler",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "10",
+          "Save": "2+",
+          "Wounds": "12",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Entropy cannon",
+              "Keywords": "LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Heavy slugger",
+              "Keywords": "LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Plagueburst mortar",
+              "Keywords": "BLAST, INDIRECT FIRE, LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plaguespitter",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Rothail volley gun",
+              "Keywords": "LETHAL HITS, RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured tracks",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "4+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 185
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 210
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS PREDATOR ANNIHILATOR",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Predator Annihilator",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Predator twin lascannon",
+                  "armoured tracks"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "2 heavy bolters",
+                      "2 lascannons"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "combi-bolter",
+                      "combi-weapon"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "havoc launcher"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Metalophagic Infection",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy Monster or Vehicle unit hit by one or more of those attacks. Roll one D6, adding 1 to the result if that unit is Afflicted; on a 5+, that unit suffers D3 mortal wounds."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-4 WOUNDS REMAINING",
+          "Text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Smoke",
+        "Chaos",
+        "Nurgle",
+        "Predator Annihilator",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "10",
+          "Save": "3+",
+          "Wounds": "11",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Type": 2
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Combi-weapon",
+              "Keywords": "ANTI-INFANTRY 4+, DEVASTATING WOUNDS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy bolter",
+              "Keywords": "LETHAL HITS, SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Havoc launcher",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Lascannon",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Predator twin lascannon",
+              "Keywords": "TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "D6+1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured tracks",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "4+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 135
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 145
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS PREDATOR DESTRUCTOR",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Predator Destructor",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Predator autocannon",
+                  "armoured tracks"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "2 heavy bolters",
+                      "2 lascannons"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "combi-bolter",
+                      "combi-weapon"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "havoc launcher"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Hail of Corrosive Disease",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit (excluding Monsters and Vehicles) hit by one or more of those attacks. Until the end of the phase, each time a friendly Death Guard unit makes a ranged attack that targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1. The same enemy unit can only be affected by this ability once per phase."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-4 WOUNDS REMAINING",
+          "Text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Smoke",
+        "Chaos",
+        "Nurgle",
+        "Predator Destructor",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "10",
+          "Save": "3+",
+          "Wounds": "11",
+          "Leadership": "6+",
+          "OC": "3",
+          "BaseInfo": {
+            "Type": 2
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Combi-weapon",
+              "Keywords": "ANTI-INFANTRY 4+, DEVASTATING WOUNDS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc launcher",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy bolter",
+              "Keywords": "LETHAL HITS, SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Lascannon",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Predator autocannon",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "48\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured tracks",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "4+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 145
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 155
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS LAND RAIDER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Land Raider",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 soulshatter lascannons",
+                  "twin heavy bolter",
+                  "armoured tracks"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "combi-bolter",
+                      "combi-weapon"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "havoc launcher"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Assault Ramp",
+          "Text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "TRANSPORT",
+          "Text": "This model has a transport capacity of 14 Death Guard Infantry models. Each Terminator model takes the space of 2 models."
+        },
+        {
+          "Title": "DAMAGED: 1-5 WOUNDS REMAINING",
+          "Text": "While this model has 1-5 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Transport",
+        "Smoke",
+        "Chaos",
+        "Nurgle",
+        "Land Raider",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "12",
+          "Save": "2+",
+          "Wounds": "16",
+          "Leadership": "6+",
+          "OC": "5",
+          "BaseInfo": {
+            "Type": 2
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Combi-weapon",
+              "Keywords": "ANTI-INFANTRY 4+, DEVASTATING WOUNDS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc launcher",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Soulshatter lascannon",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Twin heavy bolter",
+              "Keywords": "LETHAL HITS, SUSTAINED HITS 1, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured tracks",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 220
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 240
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS RHINO",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Rhino",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "combi-bolter",
+                  "armoured tracks"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "combi-bolter",
+                      "combi-weapon"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "havoc launcher"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Fire Support",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this transport this turn makes an attack that targets that enemy unit, you can re-roll the Wound roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "TRANSPORT",
+          "Text": "This model has a transport capacity of 12 Death Guard Infantry models. It cannot transport Terminator models."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Smoke",
+        "Chaos",
+        "Nurgle",
+        "Transport",
+        "Dedicated Transport",
+        "Rhino",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3",
+        "Firing Deck 2"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "10",
+          "Leadership": "6+",
+          "OC": "2",
+          "BaseInfo": {
+            "Type": 2
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Combi-bolter",
+              "Keywords": "LETHAL HITS, RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Combi-weapon",
+              "Keywords": "ANTI-INFANTRY 4+, DEVASTATING WOUNDS, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc launcher",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured tracks",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "4+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 75
+        },
+        {
+          "UnitCount": 4,
+          "ModelCount": 1,
+          "Cost": 85
+        }
+      ]
+    },
+    {
+      "Name": "MIASMIC MALIGNIFIER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Miasmic Malignifier",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "miasmic gouts"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Putrescent Fog (Aura)",
+          "Text": "Enemy units that are set up on the battlefield as Reinforcements cannot be set up within 12\" of this model."
+        },
+        {
+          "Title": "Diseased Cover",
+          "Text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to the attacking unit because of this Fortification, that model has the Benefit of Cover against that attack."
+        },
+        {
+          "Title": "Fortification",
+          "Text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army:\n\t▪ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll.\n\t▪ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DEPLOYMENT",
+          "Text": "Both parts of this Fortification must be set up within 1\" of each other. Both parts are then treated as a single model for all rules purposes."
+        }
+      ],
+      "Keywords": [
+        "Fortification",
+        "Chaos",
+        "Nurgle",
+        "Miasmic Malignifier",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "-",
+          "Toughness": "10",
+          "Save": "3+",
+          "Wounds": "12",
+          "Leadership": "6+",
+          "OC": "0",
+          "BaseInfo": {
+            "Type": 2
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Miasmic gouts",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "9\"",
+              "Attacks": "2D6",
+              "ToHit": "N/A",
+              "Strength": "3",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 105
+        }
+      ]
+    },
+    {
+      "Name": "ROTIGUS",
+      "Faction": "Pact of Decay",
+      "Flags": 1,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Rotigus",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "streams of brackish filth",
+                  "gnarlrod"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Virulent Blessing (Psychic)",
+          "Text": "At the start of the Fight phase, you can select one enemy unit within 24\" and visible to this model. Until the end of the phase, each time an attack made by a Plague Legions model is allocated to a model in that unit, add 1 to the Damage characteristic of that attack."
+        },
+        {
+          "Title": "Deluge of Nurgle (Aura)",
+          "Text": "While an enemy unit is within 6\" of this model, subtract 2 from the Move characteristic and subtract 1 from the Objective Control characteristic of models in that unit."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-7 WOUNDS REMAINING",
+          "Text": "While this model has 1-7 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Monster",
+        "Character",
+        "Epic Hero",
+        "Psyker",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Rotigus"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6",
+        "Deep Strike",
+        "Feel No Pain 6+"
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "7\"",
+          "Toughness": "12",
+          "Save": "5+",
+          "Wounds": "22",
+          "Leadership": "6+",
+          "OC": "5",
+          "BaseInfo": {
+            "Size": "130"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Streams of brackish filth",
+              "Keywords": "DEVASTATING WOUNDS, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "2D6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Gnarlrod – strike",
+              "Keywords": "LETHAL HITS, PSYCHIC",
+              "Range": "Melee",
+              "Attacks": "7",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Gnarlrod – sweep",
+              "Keywords": "LETHAL HITS, PSYCHIC",
+              "Range": "Melee",
+              "Attacks": "14",
+              "ToHit": "2+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 280
+        }
+      ]
+    },
+    {
+      "Name": "GREAT UNCLEAN ONE",
+      "Faction": "Plague Legions",
+      "Flags": 1,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Great Unclean One",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plague flail",
+                  "putrid vomit",
+                  "bilesword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "plague flail"
+                    ],
+                    "Options": [
+                      "bileblade"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "bilesword"
+                    ],
+                    "Options": [
+                      "doomsday bell"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Daemon Lord of Nurgle (Aura)",
+          "Text": "While a friendly Plague Legions unit is within 6\" of this model, add 1 to the Toughness characteristic of models in that unit."
+        },
+        {
+          "Title": "Nurgle’s Rot (Psychic)",
+          "Text": "At the end of your Movement phase, you can select one enemy unit within 12\" of this model. Until the start of your next Movement phase, that unit is Rotted. While a unit is Rotted, subtract 1 from the Toughness characteristic of models in that unit."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-7 WOUNDS REMAINING",
+          "Text": "While this model has 1-7 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Monster",
+        "Character",
+        "Psyker",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Great Unclean One"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6",
+        "Deep Strike",
+        "Feel No Pain 6+"
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "7\"",
+          "Toughness": "12",
+          "Save": "5+",
+          "Wounds": "20",
+          "Leadership": "6+",
+          "OC": "5",
+          "BaseInfo": {
+            "Size": "130"
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plague flail",
+              "Range": "6\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Putrid vomit",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6+3",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bileblade",
+              "Keywords": "EXTRA ATTACKS, LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Bilesword – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Bilesword – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Doomsday bell",
+              "Keywords": "LETHAL HITS, REVERBERATING SUMMONS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 265
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 280
+        }
+      ]
+    },
+    {
+      "Name": "PLAGUEBEARERS",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Plagueridden",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plaguesword"
+                ],
+                "Options": []
+              }
+            ]
+          },
+          {
+            "Limit": {
+              "Min": 9,
+              "Max": 9
+            },
+            "ModelName": "Plaguebearers",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plaguesword"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "instrument of Chaos"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "daemonic icon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "daemonic icon",
+            "GrantsAbilities": [
+              "Daemonic Icon"
+            ],
+            "StatAdjustments": [
+              {
+                "Target": "Leadership",
+                "Scope": "Unit",
+                "Value": "6+"
+              }
+            ]
+          },
+          {
+            "Key": "instrument of Chaos",
+            "GrantsAbilities": [
+              "Instrument of Chaos"
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Infectious Outbreak",
+          "Text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+        },
+        {
+          "Title": "Daemonic Icon",
+          "Text": "Models in the bearer’s unit have a Leadership characteristic of 6+."
+        },
+        {
+          "Title": "Instrument of Chaos",
+          "Text": "Add 1 to Charge rolls made for the bearer’s unit."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Infantry",
+        "Battleline",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Plaguebearers"
+      ],
+      "CoreAbilities": [
+        "Deep Strike"
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "5",
+          "Save": "7+",
+          "Wounds": "2",
+          "Leadership": "7+",
+          "OC": "2",
+          "BaseInfo": {
+            "Size": "32"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plaguesword",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 10,
+          "Cost": 115
+        }
+      ]
+    },
+    {
+      "Name": "PLAGUE DRONES",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Plaguebringer",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "death's heads",
+                  "foul mouthparts",
+                  "plaguesword"
+                ],
+                "Options": []
+              }
+            ]
+          },
+          {
+            "Limit": {
+              "Min": 2,
+              "Max": 5
+            },
+            "ModelName": "Plague Drones",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "death's heads",
+                  "foul mouthparts",
+                  "plaguesword"
+                ],
+                "Options": [
+                  {
+                    "Options": [
+                      "instrument of chaos"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "daemonic icon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "death's heads",
+            "GrantsAbilities": [
+              "Death's Heads"
+            ]
+          },
+          {
+            "Key": "daemonic icon",
+            "GrantsAbilities": [
+              "Daemonic Icon"
+            ],
+            "StatAdjustments": [
+              {
+                "Target": "Leadership",
+                "Scope": "Unit",
+                "Value": "6+"
+              }
+            ]
+          },
+          {
+            "Key": "instrument of chaos",
+            "GrantsAbilities": [
+              "Instrument of Chaos"
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Death's Heads",
+          "Text": "In your Shooting phase, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the end of the turn, each time a friendly Plague Legions unit makes an attack that targets that unit, you can re-roll the Wound roll."
+        },
+        {
+          "Title": "Daemonic Icon",
+          "Text": "Models in the bearer’s unit have a Leadership characteristic of 6+."
+        },
+        {
+          "Title": "Instrument of Chaos",
+          "Text": "Add 1 to Charge rolls made for the bearer’s unit."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Mounted",
+        "Fly",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Plague Drones"
+      ],
+      "CoreAbilities": [
+        "Deep Strike"
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "8",
+          "Save": "6+",
+          "Wounds": "5",
+          "Leadership": "7+",
+          "OC": "2",
+          "BaseInfo": {
+            "Type": 4
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Death's heads",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "12\"",
+              "Attacks": "D3",
+              "ToHit": "4+",
+              "Strength": "4",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Foul mouthparts",
+              "Keywords": "EXTRA ATTACKS, LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "2",
+              "ToHit": "4+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plaguesword",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 3,
+          "Cost": 110
+        },
+        {
+          "ModelCount": 6,
+          "Cost": 220
+        }
+      ]
+    },
+    {
+      "Name": "BEASTS OF NURGLE",
+      "Faction": "Pact of Decay",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "Limit": {
+              "Min": 1,
+              "Max": 2
+            },
+            "ModelName": "Beast of Nurgle",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "putrid appendages"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Grotesque Regeneration",
+          "Text": "At the end of each phase, if a Beasts of Nurgle model in this unit has lost any wounds but is not destroyed, that model regains all of its lost wounds."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Beast",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Beasts of Nurgle"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 1",
+        "Deep Strike",
+        "Scouts 6\""
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "6\"",
+          "Toughness": "9",
+          "Save": "6+",
+          "Wounds": "7",
+          "Leadership": "7+",
+          "OC": "3",
+          "BaseInfo": {
+            "Size": "60"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "putrid appendages",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 70
+        },
+        {
+          "ModelCount": 2,
+          "Cost": 140
+        }
+      ]
+    },
+    {
+      "Name": "NURGLINGS",
+      "Faction": "Pact of Decay",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "Limit": {
+              "Min": 3,
+              "Max": 6
+            },
+            "ModelName": "Nurgling Swarm",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "diseased claws & teeth"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Mischief Makers",
+          "Text": "Each time an enemy unit (excluding Titanic units) within Engagement Range of one or more units with this ability is selected to fight, until the end of the phase, each time a model in that enemy unit makes a melee attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Swarm",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Summoned",
+        "Nurglings"
+      ],
+      "CoreAbilities": [
+        "Deep Strike",
+        "Infiltrators"
+      ],
+      "FactionKeywords": [
+        "Plague Legions"
+      ],
+      "StatLines": [
+        {
+          "Movement": "5\"",
+          "Toughness": "3",
+          "Save": "7+",
+          "Wounds": "4",
+          "Leadership": "8+",
+          "OC": "0",
+          "BaseInfo": {
+            "Size": "40"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Diseased claws & teeth",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "5+",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 3,
+          "Cost": 45
+        },
+        {
+          "ModelCount": 6,
+          "Cost": 90
+        }
+      ]
+    },
+    {
+      "Name": "DEFILER",
+      "Faction": "Nurgle’s Gift (Aura)",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Defiler",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Hades battle cannon",
+                  "excruciator cannon",
+                  "excruciator cannon",
+                  "heavy missile launcher",
+                  "heavy baleflamer",
+                  "shearing claws"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Hades battle cannon"
+                    ],
+                    "Options": [
+                      "ectoplasma destructor"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "excruciator cannon",
+                      "excruciator cannon"
+                    ],
+                    "Options": [
+                      "2 magma cutters"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "heavy baleflamer"
+                    ],
+                    "Options": [
+                      "Hades lascannon",
+                      "heavy reaper autocannon",
+                      "electroscourge"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "heavy missile launcher"
+                    ],
+                    "Options": [
+                      "Hades lascannon",
+                      "heavy reaper autocannon",
+                      "electroscourge"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "heavy reaper autocannon",
+            "Cost": 15
+          },
+          {
+            "Key": "Hades lascannon",
+            "Cost": 15
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Scuttling Walker",
+          "Text": "Each time this unit makes a Normal, Advance or Fall Back move, it can move through models (excluding Titanic models) and terrain features. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
+        },
+        {
+          "Title": "Barrage of Filth",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, that unit cannot have the Benefit of Cover."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-6 WOUNDS REMAINING",
+          "Text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "Nurgle",
+        "Daemon",
+        "Defiler"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Death Guard"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "18",
+          "Leadership": "6+",
+          "OC": "5",
+          "BaseInfo": {
+            "Size": "160"
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Ectoplasma destructor",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Excruciator cannon",
+              "Keywords": "LETHAL HITS",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Hades battle cannon",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Hades lascannon",
+              "Keywords": "LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Heavy baleflamer",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6+3",
+              "ToHit": "N/A",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Heavy missile launcher – krak",
+              "Keywords": "LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Heavy missile launcher – frag",
+              "Keywords": "BLAST, LETHAL HITS",
+              "Range": "48\"",
+              "Attacks": "2D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy reaper autocannon",
+              "Keywords": "DEVASTATING WOUNDS, LETHAL HITS, SUSTAINED HITS 1",
+              "Range": "48\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Magma cutters",
+              "Keywords": "LETHAL HITS, MELTA 2",
+              "Range": "12\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Electroscourge",
+              "Keywords": "EXTRA ATTACKS, SUSTAINED HITS 2",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Shearing claws – strike",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Shearing claws – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 300
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 340
+        }
+      ]
+    }
+  ],
+  "Dettachments": [
+    {
+      "Name": "CONTAGION ENGINES",
+      "Rule": {
+        "Restrictions": "This detachment has the ENGINES tag and cannot be taken with another ENGINES detachment.",
+        "Title": "WARPED AND RUSTED ANIMUS",
+        "Text": "▪ Friendly Foetid Bloat-drone/Foetid Bloat-drone with Heavy Blight Launcher/Helbrute/Myphitic Blight-Hauler units have Contagion Engine.\n▪ Friendly Contagion Engine units’ ranged attacks have [ASSAULT]."
+      },
+      "Tags": [
+        "ENGINES"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Fresh Vectors",
+          "Category": "CONTAGION ENGINES",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase, when a friendly Contagion Engine unit is selected to attack.",
+          "Target": "That Contagion Engine unit.",
+          "Effect": "Your unit’s attacks can re-roll wound rolls of 1."
+        },
+        {
+          "Name": "Bloodrust Deluge",
+          "Category": "CONTAGION ENGINES",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Contagion Engine unit is selected to shoot.",
+          "Target": "That Contagion Engine unit.",
+          "Effect": "Select one visible enemy unit. That enemy unit is Afflicted until your unit has attacked."
+        },
+        {
+          "Name": "Soulrot Flux",
+          "Category": "CONTAGION ENGINES",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Movement phase, when an enemy unit is selected to make a fall-back move, if that enemy unit is engaged with a friendly Contagion Engine unit.",
+          "Target": "That Contagion Engine unit.",
+          "Effect": "When an enemy unit engaged with your unit is selected to make a fall-back move, roll one D6:\n▪ On a 1, that enemy unit suffers 1 mortal wound.\n▪ On a 2-5, that enemy unit suffers D3 mortal wounds.\n▪ On a 6, that enemy unit suffers 3 mortal wounds."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Parasitic Woe-reaper",
+          "Description": "Contagion Engine unit only. When this unit has fought, one model in this unit heals D3 wounds.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "RequiredKeywords": [
+            "Contagion Engine"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Lancet of the Worldsore",
+          "Description": "Friendly Helbrute or Myphitic Blight-Hauler unit only. This unit has Mobile.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Values": [
+                "Mobile"
+              ]
+            }
+          ],
+          "RequiredKeywords": [],
+          "RequiredOneOfKeywords": [
+            "Helbrute",
+            "Myphitic Blight-Hauler"
+          ],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [
+            "FOETID BLOAT-DRONE",
+            "FOETID BLOAT-DRONE WITH HEAVY BLIGHT LAUNCHER",
+            "HELBRUTE",
+            "MYPHITIC BLIGHT-HAULER"
+          ],
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Values": [
+                "Contagion Engine"
+              ]
+            }
+          ],
+          "WeaponStatAdjustments": [
+            {
+              "Value": "ASSAULT",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Target": "Keywords",
+              "WeaponScope": "Ranged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "FLYBLOWN HOST",
+      "Rule": {
+        "Restrictions": "This detachment has the FLYBLOWN tag and cannot be taken with another FLYBLOWN detachment.",
+        "Title": "VERMINOUS HAZE",
+        "Text": "In the Declare Battle Formations step, you can select up to two friendly Plague Marines units. Those units have Infiltrators."
+      },
+      "Tags": [
+        "FLYBLOWN"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Nauseating Paroxysms",
+          "Category": "FLYBLOWN HOST",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of the Fight phase.",
+          "Target": "One friendly engaged Plague Marines unit.",
+          "Effect": "Select one enemy unit engaged with your unit. That enemy unit makes a battle-shock roll, with -1 to that battle-shock roll."
+        },
+        {
+          "Name": "Droning Horror",
+          "Category": "FLYBLOWN HOST",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Plague Marines unit is selected to shoot.",
+          "Target": "That Plague Marines unit.",
+          "Effect": "Your unit’s ranged attacks:\n▪ Can re-roll hit rolls of 1.\n▪ That target a unit within half range, can re-roll wound rolls of 1."
+        },
+        {
+          "Name": "Eye of the Swarm",
+          "Category": "FLYBLOWN HOST",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Plague Marines unit is selected to shoot.",
+          "Target": "That Plague Marines unit.",
+          "Effect": "Your unit’s ranged attacks have [CLOSE-QUARTERS]."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Insectile Murmuration",
+          "Description": "Plague Marines unit only. When this unit’s attacks target a unit within Contagion Range of a friendly unit, those attacks can re-roll wound rolls of 1.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "RequiredKeywords": [
+            "Plague Marines"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Plagueveil",
+          "Description": "Plague Marines unit only. This unit has -3\" detection range.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "RequiredKeywords": [
+            "Plague Marines"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [
+            "PLAGUE MARINES"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Verminous Haze",
+              "Text": "In the Declare Battle Formations step, you can select up to two friendly Plague Marines units. Those units have Infiltrators."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "PARAGONS OF PUTRESCENCE",
+      "Rule": {
+        "Restrictions": "",
+        "Title": "HYPERVIRULENT STRAINS",
+        "Text": "Friendly Death Guard Character units have +3\" to their Contagion Range (to a maximum of 12\")."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Territorial Infection",
+          "Category": "PARAGONS OF PUTRESCENCE",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of the Command phase.",
+          "Target": "One friendly Death Guard Character unit.",
+          "Effect": "Your unit has +1 OC until the end of the turn."
+        },
+        {
+          "Name": "Aggravus Spasms",
+          "Category": "PARAGONS OF PUTRESCENCE",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Shooting phase.",
+          "Target": "One friendly Death Guard Character unit.",
+          "Effect": "Select one visible enemy unit within Contagion Range of your unit. That enemy unit has +6\" detection range."
+        },
+        {
+          "Name": "Simultaneous Contamination",
+          "Category": "PARAGONS OF PUTRESCENCE",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Death Guard Character unit starts an action.",
+          "Target": "That Death Guard Character unit.",
+          "Effect": "That action does not prevent your unit from being eligible to shoot."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Rejuvenating Swarm",
+          "Description": "Death Guard Infantry model only (excluding Terminator models). Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Death Guard",
+            "Infantry"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [
+            "Terminator"
+          ],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Host of the Hybridised Pox",
+          "Description": "Death Guard Infantry model only. (Once per battle, per army) In your Command phase, you can use this ability. If you do, select one of the Plagues listed in Nurgle’s Gift (see Codex: Death Guard). Enemy units within Contagion Range of this unit also have the effect of that Plague in addition to your army’s chosen Plague until the end of the battle.",
+          "Cost": 40,
+          "RequiredKeywords": [
+            "Death Guard",
+            "Infantry"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "DEATH LORD'S CHOSEN",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "DEADLY VECTORS",
+        "Text": "In your opponent’s Command phase, roll 2D6 for each Afflicted enemy unit, subtracting 1 from the result if that unit is Below Half-strength. If the result is 6 or less, that enemy unit suffers D3 mortal wounds."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Blooming Pestilence",
+          "Category": "DEATH LORD'S CHOSEN - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of any phase.",
+          "Target": "One Terminator unit from your army.",
+          "Effect": "Until the end of the phase, add 3\" to the Contagion Range of models in your unit."
+        },
+        {
+          "Name": "Grim Reapers",
+          "Category": "DEATH LORD'S CHOSEN - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Terminator unit from your army that has not been selected to fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit (excluding Monsters and Vehicles) you can re-roll the Hit roll."
+        },
+        {
+          "Name": "Undying Spite",
+          "Category": "DEATH LORD'S CHOSEN - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Terminator unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6. On a 4+, do not remove the destroyed model from play; it can fight after the attacking unit has finished making its attacks, and is then removed from play."
+        },
+        {
+          "Name": "Signal Pox",
+          "Category": "DEATH LORD'S CHOSEN - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "One Lord of Virulence model from your army.",
+          "Effect": "Select one objective marker within 30\" of and visible to your model. Until the start of your next turn, while an enemy unit is within range of that objective marker, that unit is Afflicted."
+        },
+        {
+          "Name": "Mortarion’s Teachings",
+          "Category": "DEATH LORD'S CHOSEN - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Terminator unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [ASSAULT] and [HEAVY] abilities."
+        },
+        {
+          "Name": "Sickening Impact",
+          "Category": "DEATH LORD'S CHOSEN - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Charge phase, just after a Terminator unit from your army ends a Charge move.",
+          "Target": "That Terminator unit.",
+          "Effect": "Select one enemy unit within Engagement Range of your unit, then roll one D6 for each model in your unit that is within Engagement Range of that enemy unit: for each 2+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds)."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Face of Death",
+          "Description": "Terminator model only. At the start of the Fight phase, each enemy unit within Engagement Range of the bearer's unit must take a Battle-shock test.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Terminator"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Vile Vigour",
+          "Description": "Terminator model only. While the bearer is leading a unit, add 1\" to the Movement characteristic of models in that unit and you can re-roll Advance rolls made for that unit.",
+          "Cost": 15,
+          "Features": "IsLeaderEnhancement",
+          "StatAdjustments": [
+            {
+              "Type": "Add",
+              "Scope": "AttachedUnit",
+              "Value": "1\""
+            }
+          ],
+          "RequiredKeywords": [
+            "Terminator"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Warprot Talisman",
+          "Description": "Terminator model only. Once per battle, at the end of your opponent’s turn, if the bearer’s unit is not within Engagement Range of one or more enemy units, you can remove it from the battlefield and place it into Strategic Reserves.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Terminator"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Helm of the Fly King",
+          "Description": "Terminator model only. While the bearer is leading a unit, models in that unit cannot be targeted by ranged attacks unless the attacking model is within 18\".",
+          "Cost": 20,
+          "Features": "IsLeaderEnhancement",
+          "RequiredKeywords": [
+            "Terminator"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "SHAMBLEROT VECTORIUM",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "Poxwalkers units from your army gain the Battleline keyword.",
+        "Title": "NUMBERLESS HORDE",
+        "Text": "In your Command phase in each of the following battle rounds, depending on your chosen battle size, add a new Poxwalkers unit with a Starting Strength of 10 to your army, in Strategic Reserves.\n\n\t▪ Incursion - Battle rounds: 2,3\n\t▪ Strike Force - Battle rounds: 2,3,4\n\t▪ Onslaught - Battle rounds: 2,3,4,5"
+      },
+      "ForceDispositions": [
+        "DISRUPTION"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Grip of the Walking Pox",
+          "Category": "SHAMBLEROT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Poxwalkers unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "After the attacking unit has fought, roll one D6 for each model from your unit that was destroyed as a result of those attacks: on a 6, the attacking unit suffers 1 mortal wound. If your unit is not destroyed after the attacking unit has fought, enemy models destroyed as a result of this Stratagem count as enemy models destroyed by an attack made by a model in your unit for the purposes of the Curse of the Walking Pox ability."
+        },
+        {
+          "Name": "Smeared with Filth",
+          "Category": "SHAMBLEROT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Poxwalkers unit from your army that was just destroyed. You can target that unit with this Stratagem even though it was just destroyed.",
+          "Effect": "Select one enemy unit that made one or more attacks that targeted your unit this phase. Until the end of the battle, that enemy unit is Afflicted."
+        },
+        {
+          "Name": "Gnawing Hunger",
+          "Category": "SHAMBLEROT VECTORIUM - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "One Poxwalkers unit from your army.",
+          "Effect": "Until the end of the turn, add 1 to the Move characteristic of models in your unit, and add 1 to the Attacks and Strength characteristics of melee weapons equipped by models in your unit."
+        },
+        {
+          "Name": "Hidden Amongst the Dead",
+          "Category": "SHAMBLEROT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "The Reinforcements step of your Movement phase.",
+          "Target": "One Poxwalkers unit from your army that is in Strategic Reserves and that is not an Attached unit.",
+          "Effect": "Until the end of the phase, models in that unit have the Deep Strike ability."
+        },
+        {
+          "Name": "Shock and Horror",
+          "Category": "SHAMBLEROT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Charge phase, just after a Death Guard unit from your army ends a Charge move.",
+          "Target": "That Death Guard unit.",
+          "Effect": "Each enemy unit within Engagement Range of your unit must take a Battle-shock test, subtracting 1 from that test."
+        },
+        {
+          "Name": "Shambling Wall",
+          "Category": "SHAMBLEROT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Death Guard unit from your army that was selected as the target of one or more of the attacking unit’s attacks, and one friendly Poxwalkers unit within 3\" of your model and visible to both your unit and the attacking unit.",
+          "Effect": "Until the end of the phase, each time an enemy model allocates an attack to a model in your Death Guard unit, if your Poxwalkers unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of Poxwalkers from your Poxwalkers unit equal to that Damage characteristic of that attack are destroyed."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Witherbone Pipes",
+          "Description": "Noxious Blightbringer only. While the bearer is leading a Poxwalkers unit, add 1 to the Objective Control characteristic of models in that unit, and each time that unit takes a Battle-shock or Leadership test, add 1 to that test.",
+          "Cost": 25,
+          "Features": "IsLeaderEnhancement",
+          "StatAdjustments": [
+            {
+              "Target": "OC",
+              "Type": "Add",
+              "Scope": "AttachedUnit",
+              "Value": "1"
+            }
+          ],
+          "RequiredAttachedUnitKeywords": [
+            "Poxwalkers"
+          ],
+          "RequiredKeywords": [
+            "Noxious Blightbringer"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Lord of the Walking Pox",
+          "Description": "Death Guard model only. If the bearer is leading a Poxwalker unit, and is in Strategic Reserves, for the purposes of setting it up on the battlefield, treat the current battle round as the third battle round.",
+          "Cost": 15,
+          "Features": "IsLeaderEnhancement",
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Sorrowsyphon",
+          "Description": "Malignant Plaguecaster only. While the bearer is leading a Poxwalkers unit, add 1 to the Damage characteristic of the bearer’s Plague Wind weapon. Each time the bearer makes one or more attacks with a Plague Wind weapon, after the bearer’s unit has resolved its attacks, D3 Bodyguard models from the bearer’s unit are destroyed.",
+          "Cost": 10,
+          "Features": "IsLeaderEnhancement",
+          "StatAdjustments": [],
+          "WeaponStatAdjustments": [
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Scope": "ModelWhileLeading",
+              "Target": "Damage",
+              "WeaponScope": "All",
+              "NameFilter": [
+                "Plague Wind"
+              ]
+            }
+          ],
+          "RequiredAttachedUnitKeywords": [
+            "Poxwalkers"
+          ],
+          "RequiredKeywords": [
+            "Malignant Plaguecaster"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Talisman of Burgeoning",
+          "Description": "Death Guard model only. While the bearer is leading a unit, add 1 to the Toughness characteristic of Poxwalkers models in that unit.",
+          "Cost": 25,
+          "Features": "IsLeaderEnhancement",
+          "StatAdjustments": [
+            {
+              "Target": "Toughness",
+              "Type": "Add",
+              "Scope": "AttachedUnit",
+              "Value": "1",
+              "NameFilter": [
+                "Poxwalkers"
+              ]
+            }
+          ],
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [
+            "POXWALKERS"
+          ],
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Values": [
+                "Battleline"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "TALLYBAND SUMMONERS",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "REVERBERANT RANCIDITY",
+        "Text": "While a Plague Legions unit from your army is within 7\" of one or more Death Guard units from your army, that Plague Legions unit has the Nurgle’s Gift (Aura) ability.\n\nWhile a Death Guard unit from your army is within 7\" of one or more Plague Legions units from your army, add 3\" to that Death Guard unit’s Contagion Range.\n\nPlague Legions\nYou can include Plague Legions units in your army, even though they do not have the Death Guard Faction keyword. The combined points cost of such units you can include in your army is:\n\t▪ Incursion - Up to 500 pts\n\t▪ Strike Force - Up to 1000 pts\n\t▪ Onslaught - Up to 1500 pts\n\nNo Plague Legions models from your army can be your Warlord."
+      },
+      "ForceDispositions": [
+        "DISRUPTION"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Persistent Pests",
+          "Category": "TALLYBAND SUMMONERS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase.",
+          "Target": "One Nurglings unit from your army that was just destroyed. You can target that unit with this Stratagem even though it was just destroyed.",
+          "Effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength and with its full wounds remaining.",
+          "Restrictions": "You can only use this Stratagem once per battle."
+        },
+        {
+          "Name": "Clutching Corruption",
+          "Category": "TALLYBAND SUMMONERS - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Death Guard unit from your army that has not been selected to fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit that is within Engagement Range of one or more Plague Legions units from your army, you can re-roll the Hit roll."
+        },
+        {
+          "Name": "All is Rot",
+          "Category": "TALLYBAND SUMMONERS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Plague Legions unit from your army that is within Engagement Range of one or more enemy units.",
+          "Effect": "Until the end of the phase, enemy units are not considered to be within Engagement Range of your unit for the purposes of selecting targets of your ranged weapons. Until the end of the phase, each time an enemy model loses a wound, while that enemy model’s unit is within Engagement Range of your unit, roll one D6: on a 5+, your unit suffers 1 mortal wound after the attacking unit has finished its attacks."
+        },
+        {
+          "Name": "Fleshy Avalanche",
+          "Category": "TALLYBAND SUMMONERS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase or your Charge phase.",
+          "Target": "One Plague Legions Monster unit from your army that has not been selected to move or charge this phase.",
+          "Effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, it can move horizontally through terrain features."
+        },
+        {
+          "Name": "Avatars of Decay",
+          "Category": "TALLYBAND SUMMONERS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Plague Legions unit from your army.",
+          "Effect": "Until the end of the phase, while an enemy unit is within 6\" of your unit, that enemy unit is Afflicted."
+        },
+        {
+          "Name": "Mireslick",
+          "Category": "TALLYBAND SUMMONERS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Movement phase, when an enemy unit (excluding Monsters and Vehicles) is selected to Fall Back.",
+          "Target": "One Plague Legions unit from your army that is within Engagement Range of that enemy unit.",
+          "Effect": "Until the end of the phase, while an enemy unit is within Engagement Range of your unit, each time that unit is selected to Fall Back, it must take a Leadership test. If that test is failed, that unit must Remain Stationary this phase instead."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Beckoning Blight",
+          "Description": "Death Guard model only. Each time a Plague Legions unit from your army is set up on the battlefield using the Deep Strike ability, if it is set up wholly within 12\" of the bearer, it can be set up anywhere that is more than 6\" horizontally away from all enemy models, instead of more than 8\".",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Fell Harvester",
+          "Description": "Death Guard model only. Add 2 to the Attacks characteristic of the bearer’s melee weapons.",
+          "Cost": 10,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "2",
+              "Type": "Add",
+              "Target": "Attacks"
+            }
+          ],
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Entropic Knell",
+          "Description": "Great Unclean One only. In the Battle-shock step of your opponent’s Command phase, each enemy unit within 6\" of the bearer that is below its Starting Strength must take a Battle-shock test, subtracting 1 from that test.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Great Unclean One"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Tome of Bounteous Blessings",
+          "Description": "Malignant Plaguecaster only. Each time a Plague Legions unit within 12\" of the bearer takes a Battle-shock test, add 1 to that test and, if that test is passed, one model in that unit regains up to D3 lost wounds (if that unit is a Battleline unit and that test is passed, up to D3 destroyed models can be returned to that unit instead).",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Malignant Plaguecaster"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [],
+      "AdditionalFactionKeywords": [
+        "Plague Legions"
+      ]
+    },
+    {
+      "Name": "CHAMPIONS OF CONTAGION",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "MANIFOLD MALADIES",
+        "Text": "At the start of the battle round, you can select one of the Plagues listed in Nurgle’s Gift. Until the end of the battle, that is your chosen Plague instead of any previously chosen Plague."
+      },
+      "Tags": [
+        "FLYBLOWN"
+      ],
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Blessings of Filth",
+          "Category": "CHAMPIONS OF CONTAGION - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Death Guard Attached unit from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit."
+        },
+        {
+          "Name": "Malignance Magnified",
+          "Category": "CHAMPIONS OF CONTAGION - BATTLE TACTIC STRATAGEM",
+          "CPCost": 2,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Death Guard Attached unit from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is below its Starting Strength, you can re-roll the Hit roll and you can re-roll the Wound roll."
+        },
+        {
+          "Name": "Grotesque Fortitude",
+          "Category": "CHAMPIONS OF CONTAGION - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Death Guard Attached unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, add 2 to the Toughness characteristic of models in your unit."
+        },
+        {
+          "Name": "Rabid Infusion",
+          "Category": "CHAMPIONS OF CONTAGION - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of the Fight phase.",
+          "Target": "One Death Guard unit from your army that includes two Character models.",
+          "Effect": "Until the end of the phase, your unit has the Fights First ability."
+        },
+        {
+          "Name": "Mobile Vector",
+          "Category": "CHAMPIONS OF CONTAGION - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of the Reinforcements step of your Movement phase.",
+          "Target": "One Death Guard Character unit from your army that is not leading a unit.",
+          "Effect": "Select one other friendly Death Guard unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your Character units leading it) within 2\" horizontally and 5\" vertically of your unit that your unit can lead (as described in the Leader section of its datasheet). Your unit attaches to that unit as a Leader. Change that unit’s Starting Strength accordingly."
+        },
+        {
+          "Name": "Death’s Heads",
+          "Category": "CHAMPIONS OF CONTAGION - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Biologus Putrifier unit from your army that is not within Engagement Range of one or more enemy units and has not been selected to shoot this phase.",
+          "Effect": "Select one enemy unit (excluding Vehicles) that is within 8\" of and visible to your unit. Until the start of your next turn, that unit has the effect of all Plagues (see Nurgle’s Gift)."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Final Ingredient",
+          "Description": "Biologus Putrifier only. Once per battle, after the bearer’s unit has fought, if one or more Character models were destroyed as a result of those attacks, select one Plague. Until the end of the battle, while an enemy unit is Afflicted, that unit has the effect of the selected Plague in addition to any other.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Biologus Putrifier"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Visions of Virulence",
+          "Description": "Malignant Plaguecaster only. While an enemy unit is enfeebled by the bearer’s Pestilent Fallout ability, that unit is also Afflicted.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Malignant Plaguecaster"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Needle of Nurgle",
+          "Description": "Plague Surgeon only. Each time the bearer uses its Tainted Narthecium ability, you can return up to D3 destroyed models to the bearer’s unit (instead of 1).",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Plague Surgeon"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Cornucophagus",
+          "Description": "Lord of Poxes only. In the Declare Battle Formations step select one Plague. Until the end of the battle, while an enemy unit is within Contagion Range of the bearer, that enemy unit has the effect of that Plague in addition to any other.",
+          "Cost": 35,
+          "RequiredKeywords": [
+            "Lord of Poxes"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "MORTARION'S HAMMER",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "MIASMIC BOMBARDMENT",
+        "Text": "At the start of the battle round, select a number of enemy units more than 12\" away from every model from your army that is on the battlefield. Until the end of the battle round, those enemy units are Afflicted. The maximum number of units you can select in this way depends on the battle size, as shown below:\n\n\t▪ Incursion - 1\n\t▪ Strike Force - 2\n\t▪ Onslaught: 3"
+      },
+      "Tags": [
+        "ENGINES"
+      ],
+      "ForceDispositions": [
+        "PURGE THE FOE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Blighted Land",
+          "Category": "MORTARION'S HAMMER - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 2,
+          "Phase": "friendly",
+          "When": "End of your Movement phase.",
+          "Target": "One Death Guard Vehicle unit from your army.",
+          "Effect": "Select one terrain feature within 24\" of and visible to your unit. Until the start of your next turn, enemy units are Afflicted while they are within 3\" of that terrain feature."
+        },
+        {
+          "Name": "Relentless Grind",
+          "Category": "MORTARION'S HAMMER - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase or your Charge phase.",
+          "Target": "One Death Guard Vehicle unit from your army that has not been selected to move this phase.",
+          "Effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, it can move horizontally through terrain features."
+        },
+        {
+          "Name": "Drawn to Despair",
+          "Category": "MORTARION'S HAMMER - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Death Guard unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a visible enemy unit (excluding Aircraft) within your opponent’s deployment zone, you can re-roll the Hit roll."
+        },
+        {
+          "Name": "Font of Filth",
+          "Category": "MORTARION'S HAMMER - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Death Guard Vehicle unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [ASSAULT] ability."
+        },
+        {
+          "Name": "Eyestinger Storm",
+          "Category": "MORTARION'S HAMMER - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Command phase.",
+          "Target": "One Death Guard Vehicle unit from your army.",
+          "Effect": "Select one objective marker visible to one or more models in your unit. Each Afflicted enemy unit within range of that objective marker must take a Battle-shock test. Enemy units affected by this Stratagem do not need to take any other Battle-shock tests in the same phase."
+        },
+        {
+          "Name": "Stinking Mire",
+          "Category": "MORTARION'S HAMMER - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Start of your opponent’s Charge phase.",
+          "Target": "One Death Guard Vehicle unit from your army.",
+          "Effect": "Until the end of the phase, each time an enemy unit selects your unit as the target of a Charge, subtract 2 from the Charge roll (this is not cumulative with any other negative modifiers to that Charge roll)."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Eye of Affliction",
+          "Description": "Death Guard model only. Ranged weapons equipped by models in the bearer's unit have the [IGNORES COVER] ability while targeting an Afflicted enemy unit.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bilemaw Blight",
+          "Description": "Malignant Plaguecaster only. At the start of your Shooting phase, until the end of the phase, add 12\" to the Range characteristics of the bearer’s Plague Wind weapon.",
+          "Cost": 10,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "12\"",
+              "Type": "Add",
+              "WeaponScope": "Ranged",
+              "NameFilter": [
+                "plague wind"
+              ]
+            }
+          ],
+          "RequiredKeywords": [
+            "Malignant Plaguecaster"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Shriekworm Familiar",
+          "Description": "Death Guard model only. Once per battle round, you can target the bearer’s unit with the Fire Overwatch Stratagem for 0CP.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Tendrilous Emissions",
+          "Description": "Lord of Virulence only. While the bearer is within 3\" of one or more friendly Death Guard Vehicle units, the bearer has the Lone Operative ability, and each time one of those Vehicle units makes a ranged attack that targets an enemy unit visible to the bearer, re-roll a Wound roll of 1.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Lord of Virulence"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "VIRULENT VECTORIUM",
+      "Cost": 3,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "WORLDBLIGHT",
+        "Text": "At the end of your Command phase, if a friendly Death Guard unit is controlling an objective, that objective is secured. Until you lose control of that objective, while an enemy unit is within range of that objective, that enemy unit is Afflicted (pg 71)."
+      },
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Putrid Detonation",
+          "Category": "VIRULENT VECTORIUM - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase.",
+          "Target": "One Death Guard Vehicle or Death Guard Monster model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+          "Effect": "Do not roll one D6 to determine whether mortal wounds are inflicted by your model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted. In addition, any enemy units that suffer mortal wounds as a result of this Stratagem are Afflicted until the start of your next turn."
+        },
+        {
+          "Name": "Disgustingly Resilient",
+          "Category": "VIRULENT VECTORIUM - BATTLE TACTIC STRATAGEM",
+          "CPCost": 2,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Death Guard unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack."
+        },
+        {
+          "Name": "Plaguesurge",
+          "Category": "VIRULENT VECTORIUM - EPIC DEED STRATAGEM",
+          "CPCost": 2,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "Your Death Guard Warlord that is on the battlefield.",
+          "Effect": "Until the start of your next Command phase, add 3\" to the Contagion Range of models from your army."
+        },
+        {
+          "Name": "Leechspore Eruption",
+          "Category": "VIRULENT VECTORIUM - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "One Death Guard model from your army that has lost one or more wounds.",
+          "Effect": "Select one enemy unit within 3\" of your model. Roll a number of D6 equal to the number of wounds your model has lost: for each 5+, that enemy unit suffers one mortal wound (to a maximum of 6 mortal wounds) and your model regains 1 lost wound (to a maximum of 6 lost wounds)."
+        },
+        {
+          "Name": "Overwhelming Generosity",
+          "Category": "VIRULENT VECTORIUM - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Shooting phase.",
+          "Target": "One Death Guard Character unit from your army.",
+          "Effect": "Select one enemy unit visible to your unit. Until the end of the phase, each time a Death Guard unit from your army selects that enemy unit as the target of any ranged attacks, you can re-roll the dice to determine how many attacks a weapon equipped by a model in that unit makes."
+        },
+        {
+          "Name": "Creeping Blight",
+          "Category": "VIRULENT VECTORIUM - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Death Guard Infantry unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an Afflicted unit, you can re-roll the Hit roll and you can re-roll the Wound roll."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Daemon Weapon of Nurgle",
+          "Description": "Death Guard model only. Each time the bearer makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Furnace of Plagues",
+          "Description": "Death Guard model only. Add 1 to the Strength and Attacks characteristics of the bearer’s melee weapons, and the bearer’s melee weapons have the [DEVASTATING WOUNDS] ability.",
+          "Cost": 25,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Target": "Strength"
+            },
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Target": "Attacks"
+            },
+            {
+              "Value": "DEVASTATING WOUNDS",
+              "Type": "Add",
+              "Target": "Keywords"
+            }
+          ],
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Arch Contaminator",
+          "Description": "Death Guard model only. While the bearer’s unit is within range of an objective marker you control, each time a model in the bearer’s unit makes an attack, you can re-roll the Wound roll.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Revolting Regeneration",
+          "Description": "Death Guard model only. The bearer has the Feel No Pain 5+ ability.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Death Guard"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    }
+  ],
+  "ArmyRules": [
+    {
+      "Title": "NURGLE’S GIFT (AURA)",
+      "Text": "If your Army Faction is Death Guard, while an enemy unit is within Contagion Range of one or more Death Guard models from your army, it is Afflicted.\n\nCONTAGION RANGE\nContagion Range changes over the course of the battle:\n1st Battle Round: Contagion Range = 3\"\n2nd Battle Round: Contagion Range = 6\"\n3rd Battle Round Onwards: Contagion Range = 9\"\nContagion Range cannot be greater than 12\" after modifiers.\n\nAFFLICTED\nDuring the Declare Battle Formations step, select one of the Plagues below. Until the end of the battle, while an enemy unit is Afflicted, subtract 1 from the Toughness characteristic of models in that unit, and that unit has the effect of your chosen Plague.\n\nSkullsquirm Blight\nEach time a model in this unit makes a melee attack, subtract 1 from  the Hit roll.\n\nRattlejoint Ague\nWorsen the Save characteristic of models in this unit by 1.\n\nScabrous Soulrot\nWorsen the Move, Leadership, and Objective Control characteristics of models in this unit by 1 (this rule can only worsen a model's Objective Control characteristic to a minimum, of 1)."
+    },
+    {
+      "Title": "PACT OF DECAY",
+      "Text": "When mustering your army, unless specifically stated otherwise, you cannot select Plague Legions as your Army Faction."
+    }
+  ]
+}

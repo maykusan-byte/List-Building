@@ -1,4 +1,4 @@
-import { getPointOption } from './calculations';
+import { getPointSizes } from './calculations';
 import type { NormalizedDatabase, RosterItem } from './types';
 
 export type FigureType = 'real' | 'proxy';
@@ -177,7 +177,7 @@ export function allocateInventory(
     const reservation: InventoryReservation = {
       itemId: item.id,
       unitId: item.unitId,
-      required: getPointOption(unit, item.pointIndex)?.ModelCount ?? 0,
+      required: getPointSizes(unit)[item.pointIndex]?.modelCount ?? getPointSizes(unit)[0]?.modelCount ?? 0,
       realFigureIds: [],
       proxyFigureIds: [],
       missing: 0,

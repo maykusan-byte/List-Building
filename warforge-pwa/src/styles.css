@@ -79,6 +79,8 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .checkbox-label input { min-height: 0; width: auto; }
 .unit-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr)); }
 .unit-card { position: relative; }
+.unit-card.allied-unit { border-color: #c59b1f; }
+.ally-label { display: inline-block; margin-left: 0.45rem; color: #6b5000; font-size: 0.72rem; font-weight: 800; }
 .unit-card-layout { display: grid; gap: 0.9rem; grid-template-columns: 150px minmax(0, 1fr); }
 .unit-thumbnail { background: linear-gradient(145deg, #f9f5ec, #eee5d6); border: 1px solid #d9cdbb; border-radius: 0.65rem; height: 150px; width: 150px; }
 .unit-card-content { min-width: 0; padding-right: 1.65rem; }

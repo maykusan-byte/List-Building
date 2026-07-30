@@ -1,0 +1,4172 @@
+{
+  "Name": "Chaos Knights",
+  "Units": [
+    {
+      "Name": "KNIGHT TYRANT",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Tyrant",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "brimstone volcano lance",
+                  "ectoplasma decimator",
+                  "2 gheiststrike missile launchers",
+                  "2 twin daemonbreath meltaguns",
+                  "twin Desecrator cannon",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 gheiststrike missile launchers",
+                      "twin Desecrator cannon"
+                    ],
+                    "Options": [
+                      "gheiststrike missile launcher and 2 twin Desecrator cannons"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "brimstone volcano lance",
+                      "ectoplasma decimator"
+                    ],
+                    "Options": [
+                      "darkflame cannon and warpshock harpoon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Infernal Aegis (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, that War Dog model has the Benefit of Cover."
+        },
+        {
+          "Title": "Bastion of Corruption",
+          "Text": "Enemy units that are set up on the battlefield as Reinforcements cannot be set up within 12\" of this model."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Character",
+        "Chaos",
+        "Knight Tyrant"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "12",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Brimstone volcano lance",
+              "Keywords": "BLAST",
+              "Range": "60\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-5",
+              "Damage": "D6+8"
+            },
+            {
+              "Name": "Darkflame cannon",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "18\"",
+              "Attacks": "3D6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ectoplasma decimator – standard",
+              "Keywords": "BLAST",
+              "Range": "36\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ectoplasma decimator – supercharge",
+              "Keywords": "BLAST, HAZARDOUS",
+              "Range": "36\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "3"
+            },
+            {
+              "Name": "Gheiststrike missile launcher",
+              "Keywords": "ANTI-TITANIC 4+, DEVASTATING WOUNDS",
+              "Range": "72\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-6",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Twin daemonbreath meltagun",
+              "Keywords": "MELTA 2, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Twin Desecrator cannon",
+              "Keywords": "BLAST, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Warpshock harpoon",
+              "Keywords": "BLAST, DEVASTATING WOUNDS",
+              "Range": "12\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "24",
+              "AP": "-6",
+              "Damage": "12"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 400
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 420
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT DESPOILER",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Despoiler",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "daemonbreath meltagun",
+                  "reaper chainsword",
+                  "titanic feet",
+                  "warpstrike claw"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "daemonbreath meltagun"
+                    ],
+                    "Options": [
+                      "diabolus heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "daemonbreath thermal cannon",
+                      "despoiler gatling cannon and heavy darkflamer",
+                      "despoiler battle cannon and diabolus heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "warpstrike claw"
+                    ],
+                    "Options": [
+                      "daemonbreath thermal cannon",
+                      "despoiler gatling cannon and heavy darkflamer",
+                      "despoiler battle cannon and diabolus heavy stubber"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "havoc missile pod",
+                      "ruinspear rocket pod",
+                      "hellstorm autocannons"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "despoiler gatling cannon and heavy darkflamer",
+            "Cost": 25
+          },
+          {
+            "Key": "despoiler battle cannon and diabolus heavy stubber",
+            "Cost": 15
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Dread Dominion (Aura)",
+          "Text": "While a friendly War Dog model is within 9\" of this model, improve that War Dog model’s Leadership and Objective Control characteristics by 1."
+        },
+        {
+          "Title": "Seething Hatred",
+          "Text": "Each time this model is selected to shoot or fight, you can re-roll one Hit roll or you can re-roll one Wound roll when resolving those attacks."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Abhorrent",
+        "Character",
+        "Chaos",
+        "Knight Despoiler"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Daemonbreath meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Daemonbreath thermal cannon",
+              "Keywords": "BLAST, MELTA 6",
+              "Range": "24\"",
+              "Attacks": "2D3",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Despoiler battle cannon",
+              "Keywords": "BLAST, RAPID FIRE D6+3",
+              "Range": "72\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Despoiler gatling cannon",
+              "Range": "36\"",
+              "Attacks": "18",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Heavy darkflamer",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Hellstorm autocannons",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ruinspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Warpstrike claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Warpstrike claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 380
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 400
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT ABOMINANT",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Abominant",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "diabolus heavy stubber",
+                  "volkite combustor",
+                  "balemace",
+                  "electroscourge"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Vortex Terrors (Psychic)",
+          "Text": "At the start of your Shooting phase, select one enemy unit within 24\" of and visible to this model. That enemy unit must take a Battle-shock test."
+        },
+        {
+          "Title": "Warp Storms (Psychic)",
+          "Text": "At the end of your Movement phase, roll one D6 for each enemy unit within 9\" of one or more models with this ability: on a 3+, that enemy unit suffers D3 mortal wounds."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Abhorrent",
+        "Psyker",
+        "Character",
+        "Chaos",
+        "Knight Abominant"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volkite combustor",
+              "Keywords": "IGNORES COVER, DEVASTATING WOUNDS",
+              "Range": "30\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "0",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Balemace",
+              "Keywords": "EXTRA ATTACKS",
+              "Range": "Melee",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Electroscourge",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "9",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 355
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 370
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT RUINATOR",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Ruinator",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "darkflame lance",
+                  "terrorpulse missiles",
+                  "fellbore"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Methodical Destruction",
+          "Text": "At the start of the first battle round, select one unit from your opponent’s army to be this model’s victim. Each time this model makes an attack that targets its victim, you can re-roll the Wound roll. Each time this model’s victim is destroyed, select one new enemy unit to be this model’s victim."
+        },
+        {
+          "Title": "Close-range Killers (Aura)",
+          "Text": "While a friendly War Dog model is within 9\" of this model, each time that War Dog model makes an attack that targets the closest enemy unit, improve the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Abhorrent",
+        "Character",
+        "Chaos",
+        "Knight Ruinator"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Darkflame lance",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "18\"",
+              "Attacks": "D6+6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Terrorpulse missiles",
+              "Keywords": "BLAST",
+              "Range": "36\"",
+              "Attacks": "D6+6",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Fellbore – strike",
+              "Keywords": "ANTI-MONSTER 2+, ANTI-VEHICLE 2+",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "6"
+            },
+            {
+              "Name": "Fellbore – sweep",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 340
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 355
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT DESECRATOR",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Desecrator",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "desecrator laser destructor",
+                  "diabolus heavy stubber",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "warpstrike claw"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Obsessive Ruthlessness",
+          "Text": "This unit’s ranged attacks that target a Monster/Vehicle unit can ignore modifiers to this unit’s:\n▪ BS.\n▪ Hit rolls and wound rolls."
+        },
+        {
+          "Title": "Taskmaster (Aura)",
+          "Text": "While a friendly War Dog model is within 9\" of this model, each time that War Dog model makes a ranged attack, re-roll a Hit roll of 1."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Abhorrent",
+        "Character",
+        "Chaos",
+        "Knight Desecrator"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Desecrator laser destructor",
+              "Keywords": "DEVASTATING WOUNDS: MONSTER/VEHICLE",
+              "Range": "72\"",
+              "Attacks": "3",
+              "ToHit": "2+",
+              "Strength": "18",
+              "AP": "-4",
+              "Damage": "D6+3"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Warpstrike claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Warpstrike claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 355
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 370
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT RAMPAGER",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Rampager",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "diabolus heavy stubber",
+                  "reaper chainsword",
+                  "warpstrike claw"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Bloodlust",
+          "Text": "Each time this model makes a Charge move, until the end of the turn, its melee weapons have the [DEVASTATING WOUNDS] ability."
+        },
+        {
+          "Title": "Frenzied Rampage (Aura)",
+          "Text": "While a friendly War Dog model is within 9\" of this model, each time that War Dog model makes a melee attack, re-roll a Hit roll of 1."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Abhorrent",
+        "Character",
+        "Chaos",
+        "Knight Rampager"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "18",
+              "ToHit": "2+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Warpstrike claw – strike",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Warpstrike claw – sweep",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 365
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 380
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG HUNTSMAN",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Huntsman",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "daemonbreath spear",
+                  "diabolus heavy stubber",
+                  "reaper chain talon"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "diabolus heavy stubber"
+                    ],
+                    "Options": [
+                      "daemonbreath meltagun"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "Houndpack Lance Character"
+                    ],
+                    "RequiredDettachment": "HOUNDPACK LANCE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "Houndpack Lance Character",
+            "DatasheetAdjustments": [
+              {
+                "Target": "Keywords",
+                "Type": "Add",
+                "Values": [
+                  "Character"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Huntsman",
+          "Text": "Each time this model makes an attack that targets a Monster or Vehicle unit, you can re-roll the Wound roll."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Huntsman"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Daemonbreath meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Daemonbreath spear",
+              "Keywords": "MELTA 4",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chain talon – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chain talon – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 135
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG EXECUTIONER",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Executioner",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "diabolus heavy stubber",
+                  "2 War Dog autocannons",
+                  "armoured feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "diabolus heavy stubber"
+                    ],
+                    "Options": [
+                      "daemonbreath meltagun"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "Houndpack Lance Character"
+                    ],
+                    "RequiredDettachment": "HOUNDPACK LANCE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "Houndpack Lance Character",
+            "DatasheetAdjustments": [
+              {
+                "Target": "Keywords",
+                "Type": "Add",
+                "Values": [
+                  "Character"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Executioner",
+          "Text": "Each time this model makes an attack that targets a unit Below Half-strength, add 1 to the Hit roll. Each time an enemy unit is destroyed as the result of this model’s attacks, before removing the last model in that unit from the battlefield, each unit from your opponent’s army that is within 3\" of it must take a Battle-shock test."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Executioner"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Daemonbreath meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "War Dog autocannon",
+              "Range": "48\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 130
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG BRIGAND",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Brigand",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "avenger chaincannon",
+                  "daemonbreath spear",
+                  "diabolus heavy stubber",
+                  "armoured feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "diabolus heavy stubber"
+                    ],
+                    "Options": [
+                      "havoc multi-launcher"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "Houndpack Lance Character"
+                    ],
+                    "RequiredDettachment": "HOUNDPACK LANCE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "Houndpack Lance Character",
+            "DatasheetAdjustments": [
+              {
+                "Target": "Keywords",
+                "Type": "Add",
+                "Values": [
+                  "Character"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Brigand",
+          "Text": "Each time this model makes a ranged attack that targets a unit that is within range of one or more objective markers, that attack has the [IGNORES COVER] ability."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Brigand"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Avenger chaincannon",
+              "Range": "24\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Daemonbreath spear",
+              "Keywords": "MELTA 4",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc multi-launcher",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 140
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG STALKER",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Stalker",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "avenger chaincannon",
+                  "diabolus heavy stubber",
+                  "slaughterclaw"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "avenger chaincannon"
+                    ],
+                    "Options": [
+                      "daemonbreath spear"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "diabolus heavy stubber"
+                    ],
+                    "Options": [
+                      "havoc multi-launcher"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "slaughterclaw"
+                    ],
+                    "Options": [
+                      "reaper chaintalon"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "Houndpack Lance Character"
+                    ],
+                    "RequiredDettachment": "HOUNDPACK LANCE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "Houndpack Lance Character",
+            "DatasheetAdjustments": [
+              {
+                "Target": "Keywords",
+                "Type": "Add",
+                "Values": [
+                  "Character"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Stalker",
+          "Text": "Each time this model makes an attack that targets an enemy unit, if there are no other units from your opponent’s army within 6\" of that target, add 1 to the Wound roll."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Stalker"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3",
+        "Scouts 6\""
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Avenger chaincannon",
+              "Range": "24\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Daemonbreath spear",
+              "Keywords": "MELTA 4",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc multi-launcher",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chaintalon – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chaintalon – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Slaughterclaw",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 135
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG KARNIVORE",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Karnivore",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "diabolus heavy stubber",
+                  "reaper chaintalon",
+                  "slaughterclaw"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "diabolus heavy stubber"
+                    ],
+                    "Options": [
+                      "havoc multi-launcher"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "Houndpack Lance Character"
+                    ],
+                    "RequiredDettachment": "HOUNDPACK LANCE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "Houndpack Lance Character",
+            "DatasheetAdjustments": [
+              {
+                "Target": "Keywords",
+                "Type": "Add",
+                "Values": [
+                  "Character"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Karnivore",
+          "Text": "You can re-roll Advance and Charge rolls made for this model."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Karnivore"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "14\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Diabolus heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Havoc multi-launcher",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chaintalon",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "1"
+            },
+            {
+              "Name": "Slaughterclaw",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 155
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS ACASTUS KNIGHT ASTERIUS",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Acastus Knight Asterius",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 Asterius volkite culverins",
+                  "karacnos mortar battery",
+                  "2 twin conversion beam cannons",
+                  "titanic feet"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Sunderer of Fortresses",
+          "Text": "Each time this model makes an attack that targets a Vehicle, improve the Strength and Damage characteristics of that attack by 1 (if that attack targets a Fortification, improve the Strength and Damage characteristics of that attack by 2 instead)."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "RANGED WEAPONS",
+          "Text": "* Against ranged attacks only"
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Acastus",
+        "Knight Asterius"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "13",
+          "Save": "2+",
+          "Wounds": "30",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Asterius volkite culverin",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "24\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "2"
+            },
+            {
+              "Name": "Karacnos mortar battery",
+              "Keywords": "ANTI-INFANTRY 2+, BLAST, IGNORES COVER, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Twin conversion beam cannon",
+              "Keywords": "CONVERSION, TWIN-LINKED, SUSTAINED HITS D3",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-2",
+              "Damage": "6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 785
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 860
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS ACASTUS KNIGHT PORPHYRION",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Acastus Knight Porphyrion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 Acastus autocannons",
+                  "Acastus ironstorm missile pod",
+                  "2 twin magna lascannons",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 Acastus autocannons"
+                    ],
+                    "Options": [
+                      "2 lascannons",
+                      "1 Acastus autocannon and 1 lascannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Acastus ironstorm missile pod"
+                    ],
+                    "Options": [
+                      "helios defence missiles"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Bastion of Firepower",
+          "Text": "Each time this model Remains Stationary, until the end of the turn, ranged weapons equipped by this model have the [LETHAL HITS] ability."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Acastus",
+        "Knight Porphyrion"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "13",
+          "Save": "2+",
+          "Wounds": "30",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Acastus autocannon",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Acastus ironstorm missile pod",
+              "Keywords": "BLAST, HEAVY, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Helios defence missiles",
+              "Keywords": "ANTI-FLY 2+, HEAVY",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Lascannon",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Twin magna lascannon",
+              "Keywords": "BLAST, TWIN-LINKED",
+              "Range": "72\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "18",
+              "AP": "-4",
+              "Damage": "D6+6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 725
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 800
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS CERASTUS KNIGHT LANCER",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Cerastus Knight Lancer",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Cerastus shock lance"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Shock Charge",
+          "Text": "You can target this model with the Tank Shock Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase."
+        },
+        {
+          "Title": "Dark Fervour (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, ranged weapons equipped by that War Dog model have the [ASSAULT] ability."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Cerastus",
+        "Knight Lancer"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "14\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Cerastus shock lance",
+              "Keywords": "ASSAULT, SUSTAINED HITS 2",
+              "Range": "12\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Cerastus shock lance – strike",
+              "Keywords": "LANCE",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Cerastus shock lance – sweep",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 395
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 415
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS CERASTUS KNIGHT CASTIGATOR",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Cerastus Knight Castigator",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Castigator bolt cannon",
+                  "tempest warblade"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Storm of Bolts",
+          "Text": "In your Shooting phase, after this model has shot, select one unit (excluding Monsters and Vehicles) hit by one or more of those attacks. Until the start of your next turn, while this model is on the battlefield, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll."
+        },
+        {
+          "Title": "Offerings for the Dark Gods (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, ranged weapons equipped by that War Dog model have the [SUSTAINED HITS 1] ability."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Cerastus",
+        "Knight Castigator"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Castigator bolt cannon",
+              "Keywords": "TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "18",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Tempest warblade – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Tempest warblade – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 370
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 385
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS CERASTUS KNIGHT ACHERON",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Cerastus Knight Acheron",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Acheron flame cannon",
+                  "twin heavy bolter",
+                  "reaper chainfist"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Searing Flames",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks made with an Acheron flame cannon. Until the end of the phase, that enemy unit cannot have the Benefit of Cover."
+        },
+        {
+          "Title": "Unrestrained Terror (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, it is affected by this ability. At the start of the Fight phase, each enemy unit within Engagement Range of one or more War Dog units affected by this ability must take a Battle-shock test."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Cerastus",
+        "Knight Acheron"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Acheron flame cannon",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "18\"",
+              "Attacks": "2D6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin heavy bolter",
+              "Keywords": "SUSTAINED HITS 1, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainfist – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainfist – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 370
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 385
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS CERASTUS KNIGHT ATRAPOS",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Cerastus Knight Atrapos",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Atrapos lascutter",
+                  "graviton singularity cannon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Macro-extinction Protocols",
+          "Text": "Each time this model makes an attack that targets a Monster or Vehicle unit, add 1 to the Hit roll. If that target is Titanic or Towering, add 1 to the Wound roll as well."
+        },
+        {
+          "Title": "Consumed with Hunger (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, each time that War Dog model makes an attack that targets a Titanic or Towering unit, you can re-roll the Hit roll."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-10 WOUNDS REMAINING While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Cerastus",
+        "Knight Atrapos"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Atrapos lascutter – low intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "2D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Atrapos lascutter – high intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            },
+            {
+              "Name": "Graviton singularity cannon – contained",
+              "Keywords": "BLAST",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Graviton singularity cannon – singularity",
+              "Keywords": "BLAST, DEVASTATING WOUNDS, HAZARDOUS",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "D6+1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Atrapos lascutter – low intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Atrapos lascutter – high intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 395
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 415
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS QUESTORIS KNIGHT MAGAERA",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Questoris Knight Magaera",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "lightning cannon",
+                  "phased plasma-fusil",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "hekaton siege claw and twin rad cleanser"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Huntmaster (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, ranged weapons equipped by that War Dog model have the [ASSAULT] ability."
+        },
+        {
+          "Title": "Repair Auto-simulacra",
+          "Text": "At the end of your Command phase, this model regains up to D3 lost wounds."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Abhorrent",
+        "Knight Magaera"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Lightning cannon",
+              "Keywords": "SUSTAINED HITS 2",
+              "Range": "48\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "0",
+              "Damage": "2"
+            },
+            {
+              "Name": "Phased plasma-fusil",
+              "Keywords": "RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin rad cleanser",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hekaton siege claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Hekaton siege claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 375
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 390
+        }
+      ]
+    },
+    {
+      "Name": "CHAOS QUESTORIS KNIGHT STYRIX",
+      "Faction": "Harbingers of Dread, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Chaos Questoris Knight Styrix",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "graviton crusher",
+                  "volkite chierovile",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "hekaton siege claw and twin rad cleanser"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Preysight (Aura)",
+          "Text": "While a friendly War Dog model is within 6\" of this model, ranged weapons equipped by that War Dog model have the [IGNORES COVER] ability."
+        },
+        {
+          "Title": "Grav-pinned",
+          "Text": "In your Shooting phase, after this model has shot, if an enemy Infantry unit was hit by one or more of those attacks made with a graviton crusher, until the end of your opponent’s next turn, that enemy unit is grav-pinned. While a unit is grav-pinned, subtract 2 from that unit’s Move characteristic and subtract 2 from Charge rolls made for that unit."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-9 WOUNDS REMAINING While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Chaos",
+        "Abhorrent",
+        "Knight Styrix"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Graviton crusher",
+              "Keywords": "ANTI-VEHICLE 2+, BLAST",
+              "Range": "18\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin rad cleanser",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volkite chierovile",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "30\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "0",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hekaton siege claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Hekaton siege claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 365
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 380
+        }
+      ]
+    },
+    {
+      "Name": "WAR DOG MOIRAX",
+      "Faction": "Harbingers of Dread",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "War Dog Moirax",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "graviton pulsar",
+                  "volkite veuglaire",
+                  "armoured feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "volkite veuglaire"
+                    ],
+                    "Options": [
+                      "siege claw and rad cleanser",
+                      "graviton pulsar",
+                      "lightning lock",
+                      "conversion beam cannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "graviton pulsar"
+                    ],
+                    "Options": [
+                      "siege claw and rad cleanser",
+                      "lightning lock",
+                      "conversion beam cannon",
+                      "volkite veuglaire"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Protection Protocols",
+          "Text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do:\n▪ That use is -1 CP.\n▪ That use does not prevent any uses of that stratagem on other units this phase."
+        },
+        {
+          "Title": "DAMAGED",
+          "Text": "1-5 WOUNDS REMAINING While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Chaos",
+        "War Dog",
+        "Moirax"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Chaos Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Conversion beam cannon",
+              "Keywords": "CONVERSION, SUSTAINED HITS D3",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Graviton pulsar",
+              "Keywords": "ANTI-VEHICLE 2+, BLAST",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Lightning lock",
+              "Keywords": "SUSTAINED HITS 2",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Rad cleanser",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volkite veuglaire",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "0",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Siege claw",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 150
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 160
+        }
+      ]
+    }
+  ],
+  "Dettachments": [
+    {
+      "Name": "BASTIONS OF TYRANNY",
+      "Rule": {
+        "Restrictions": "",
+        "Title": "ANNIHILATE THE UNWORTHY",
+        "Text": "Friendly Knight Tyrant units’ attacks that target a battle-shocked unit have +1 to the hit roll."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Rune-cursed Stronghold",
+          "Category": "BASTIONS OF TYRANNY",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, when a friendly Knight Tyrant unit suffers a mortal wound.",
+          "Target": "That Knight Tyrant unit.",
+          "Effect": "Your unit has Feel No Pain 5+ against mortal wounds."
+        },
+        {
+          "Name": "Pitiless Focus",
+          "Category": "BASTIONS OF TYRANNY",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, when a friendly Knight Tyrant unit is selected to make a fall-back move.",
+          "Target": "That Knight Tyrant unit.",
+          "Effect": "That move does not prevent your unit from being eligible to shoot."
+        },
+        {
+          "Name": "Intimidating Reminder",
+          "Category": "BASTIONS OF TYRANNY",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Knight Tyrant unit has shot.",
+          "Target": "That Knight Tyrant unit.",
+          "Effect": "Select one enemy unit hit by those attacks. That enemy unit is suppressed until the start of your next Command phase:\n▪ While a unit is suppressed, that unit’s attacks have -1 to hit rolls."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Pterrorshade Rookery",
+          "Description": "Knight Tyrant model only. When this unit is selected to shoot, select one enemy unit within 24\" of this unit. That enemy unit has +6\" detection range until this unit has shot.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Knight Tyrant"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Hate-filled Dominion",
+          "Description": "Knight Tyrant model only. This unit can re-roll rolls to determine the A of a weapon.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Knight Tyrant"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "HUNTING WARPACK",
+      "Rule": {
+        "Restrictions": "This detachment has the WAR DOGS tag and cannot be taken with another WAR DOGS detachment.",
+        "Title": "SCENTING FEAR",
+        "Text": "(Once per battle round, per army) In your Shooting phase, you can select one visible enemy unit within 12\" of a friendly War Dog unit. That enemy unit has +6\" detection range."
+      },
+      "Tags": [
+        "WAR DOGS"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Insensate Bloodthirst",
+          "Category": "HUNTING WARPACK",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, when an enemy unit targets a friendly War Dog unit.",
+          "Target": "That War Dog unit.",
+          "Effect": "Your unit has Feel No Pain 5+."
+        },
+        {
+          "Name": "Leash of the Masters",
+          "Category": "HUNTING WARPACK",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly War Dog unit has shot.",
+          "Target": "That War Dog unit.",
+          "Effect": "Those attacks do not prevent your unit from being eligible to start an action."
+        },
+        {
+          "Name": "Stalking Focus",
+          "Category": "HUNTING WARPACK",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, when an enemy unit targets a friendly War Dog unit within range of an objective.",
+          "Target": "That War Dog unit.",
+          "Effect": "Ranged attacks that target your unit have -1 AP until that enemy unit has attacked."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Soul-spoor Auspicator",
+          "Description": "Huntsman unit only. This unit’s ranged attacks have +6\" R.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "WeaponStatAdjustments": [
+            {
+              "Value": "6\"",
+              "Type": "Add",
+              "Scope": "Unit",
+              "WeaponScope": "Ranged"
+            }
+          ],
+          "RequiredKeywords": [
+            "Huntsman"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Snarling Rivalry",
+          "Description": "Executioner unit only. This unit’s ranged attacks have [IGNORES COVER].",
+          "Cost": 10,
+          "Features": "Upgrade",
+          "WeaponStatAdjustments": [
+            {
+              "Value": "IGNORES COVER",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Target": "Keywords",
+              "WeaponScope": "Ranged"
+            }
+          ],
+          "RequiredKeywords": [
+            "Executioner"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "ICONOCLAST FIEFDOM",
+      "Rule": {
+        "Restrictions": "",
+        "Title": "WRETCHED THRALLS",
+        "Text": "▪ You can include Damned units in your army (see Codex: Chaos Space Marines). The combined points cost of such units cannot exceed 500 points.\n▪ Friendly Damned units can re-roll leadership rolls."
+      },
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Avenge the Masters!",
+          "Category": "ICONOCLAST FIEFDOM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, when a friendly Chaos Knights unit is destroyed by an enemy unit.",
+          "Target": "That enemy unit.",
+          "Effect": "That enemy unit is marked until the end of the battle.\n▪ Friendly Damned units’ attacks that target a marked unit have [LETHAL HITS]."
+        },
+        {
+          "Name": "Dark Sacrifice",
+          "Category": "ICONOCLAST FIEFDOM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "One friendly Damned unit (excluding Accursed Cultists units) within 9\" of a friendly Chaos Knights model.",
+          "Effect": "Select one Chaos Knights model within 9\" of your unit and roll D3+3:\n▪ Your Damned unit suffers that number of mortal wounds.\n▪ That Chaos Knights model heals that number of wounds."
+        },
+        {
+          "Name": "Coursing Thralls",
+          "Category": "ICONOCLAST FIEFDOM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Shooting phase.",
+          "Target": "One friendly Damned unit.",
+          "Effect": "Select one visible enemy unit within 12\" of your unit. That enemy unit is hunted:\n▪ While a unit is hunted, that unit has +6\" detection range."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Cruel Lashmaster (Aura)",
+          "Description": "Chaos Knights model only. While a friendly Damned unit is within 6\" of this model, when that unit is selected to make a normal/advance/fall-back move that unit has +2\" M until the end of the phase.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Iconoclast Idol (Aura)",
+          "Description": "Chaos Knights model only. While a friendly Damned unit is within 6\" of this model, when you target that unit with the Heroic Intervention stratagem, that use is -1 CP.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "TRAITORIS LANCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "PARAGONS OF TERROR",
+        "Text": "At the start of the first battle round, after selecting one or more Dread abilities to be active for your army, you can select one additional Dread ability to be active for your army (this additional Dread ability cannot be randomly selected)."
+      },
+      "ForceDispositions": [
+        "PURGE THE FOE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Pterrorshades",
+          "Category": "TRAITORIS LANCE - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, just after an enemy unit fails a Battle-shock test.",
+          "Target": "One Chaos Knights unit from your army that is within 12\" of that enemy unit.",
+          "Effect": "Roll six D6: for each 4+, that enemy unit suffers 1 mortal wound and one model in your unit regains up to 1 lost wound.",
+          "Restrictions": "You can only use this Stratagem once per battle round."
+        },
+        {
+          "Name": "Conquerors Without Mercy",
+          "Category": "TRAITORIS LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Chaos Knights model from your army that made a Charge move this turn and has not been selected to fight this phase.",
+          "Effect": "Until the end of the phase, improve the Armour Penetration characteristic of melee weapons equipped by your model by 1. After your model has finished making its attacks this phase, if it destroyed one or more enemy units this phase, each enemy unit within 6\" of your model must take a Battle-shock test."
+        },
+        {
+          "Name": "Disdain for the Weak",
+          "Category": "TRAITORIS LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability, and the Feel No Pain 5+ ability against attacks made by Battle-shocked models."
+        },
+        {
+          "Name": "A Long Leash",
+          "Category": "TRAITORIS LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase.",
+          "Target": "One Abhorrent unit from your army and up to two friendly War Dog units.",
+          "Effect": "Until the start of your next Command phase, those War Dog units are treated as being within range of any Aura abilities your Abhorrent unit has."
+        },
+        {
+          "Name": "Imperious Advance",
+          "Category": "TRAITORIS LANCE - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase or your Charge phase.",
+          "Target": "Up to two War Dog units from your army or one Titanic Chaos Knights unit from your army.",
+          "Effect": "Until the end of the phase, each time a model in one of your units makes a Normal, Advance, Fall Back or Charge move, it can move through models and terrain features. When doing so, it can move within Engagement Range of such models but, unless it made a Charge move, cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed (the Super-heavy Walker ability does not apply while using this Stratagem)."
+        },
+        {
+          "Name": "Storm of Darkness",
+          "Category": "TRAITORIS LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights unit from your army that was selected as a target of one or more of the attacking unit’s attacks.",
+          "Effect": "▪ Your unit has Stealth.\n▪ Melee attacks that target your unit have -1 to hit rolls."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Nightmare's Master",
+          "Description": "Chaos Knights model only. At the start of the Fight phase, each enemy unit within Engagement Range of the bearer must take a Battle-shock test.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Tyrant's Shadow",
+          "Description": "Chaos Knights model only. At the end of your Command phase, select one objective marker the bearer is within range of and that you control. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase. In addition, until you lose control of that objective marker, it has the Deathly Terror ability as if it were a Chaos Knights model from your army.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Malevolent Heraldry",
+          "Description": "Chaos Knights model only. Each time you roll dice to randomly select which Dread abilities are active for your army, if the bearer is on the battlefield, you can re-roll one or both results rolled.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Veil Of Medrengard",
+          "Description": "Chaos Knights model only. The bearer has a 4+ invulnerable save against ranged attacks, and a 5+ invulnerable save against melee attacks.",
+          "Cost": 35,
+          "StatAdjustments": [
+            {
+              "Target": "InvulSave",
+              "Value": "5+",
+              "Info": "4+ invulnerable save against ranged attacks"
+            }
+          ],
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "INFERNAL LANCE",
+      "Cost": 3,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "MALEEFIC SURGE",
+        "Text": "In your Command phase, one or more Chaos Knights units from your army can make a Malefic Surge. Each one that does must first take a Leadership test; if that test is failed, that unit suffers D3 mortal wounds. Then, until the start of your next Command phase, that unit is Empowered. While a unit is Empowered it can use one of the Malefic Surge abilities below. Once that unit has used a Malefic Surge ability, it is no longer Empowered.\n\n▪ Unholy Hunger: When a model in this unit makes a Normal, Advance or Fall Back move, until the end of the phase, add 3\" to its Move characteristic.\n\n▪ Diabolic Power: When this unit is selected to shoot or fight, select either the [LETHAL HITS] or [SUSTAINED HITS 1] ability. Until the end of the phase, weapons equipped by models in this unit have the selected ability.\n\n▪ Unnatural Fortitude: When this unit is selected as the target of an attack, select one of the following to apply until the end of the phase:\n\t▪ Models in this unit have a 5+ invulnerable save.\n\t▪ Models in this unit have the Feel No Pain 6+ ability.\n\nDesigner’s Note: We recommend placing a token next to Chaos Knights models that are Empowered, removing it once they have used a Malefic Surge ability, and removing all unused tokens at the start of your Command phase."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Profane Symbiosis",
+          "Category": "INFERNAL LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "End of any phase.",
+          "Target": "One Chaos Knights unit from your army that is not Empowered.",
+          "Effect": "Your unit makes a Malefic Surge.",
+          "Restrictions": "You cannot select the same unit as the target of this Stratagem more than once per battle round."
+        },
+        {
+          "Name": "Hellforged Construction",
+          "Category": "INFERNAL LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Name": "Corrupting Taint",
+          "Category": "INFERNAL LANCE - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase, just after a Chaos Knights Character unit from your army makes a Malefic Surge.",
+          "Target": "That Chaos Knights Character unit.",
+          "Effect": "Select one objective marker your unit is within range of that you control. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+        },
+        {
+          "Name": "Unleash Balefire",
+          "Category": "INFERNAL LANCE - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Chaos Knights unit from your army that has not been selected to shoot this phase.",
+          "Effect": "After your unit has shot, select one enemy unit hit by one or more of those attacks. That enemy unit must take a Battle-shock test; if the test is failed, until the end of your opponent’s next turn, it is aflame. While a unit is aflame, subtract 2\" from its Move characteristic and subtract 2 from Charge rolls made for it."
+        },
+        {
+          "Name": "Warp Vision",
+          "Category": "INFERNAL LANCE - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Chaos Knights unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability."
+        },
+        {
+          "Name": "Diabolic Bulwark",
+          "Category": "INFERNAL LANCE - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Knight Diabolus",
+          "Description": "Chaos Knights model only. Improve the Weapon Skill characteristic of the bearer’s melee weapons by 1. While the bearer is using the Diabolic Power ability, its melee weapons have the [LANCE] ability.",
+          "Cost": 25,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "1",
+              "Type": "Add",
+              "Target": "ToHit"
+            }
+          ],
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Blasphemous Engine",
+          "Description": "Chaos Knights model only. Add 2 to the bearer’s Wounds characteristic. Each time the bearer’s unit makes a Malefic Surge, you can re-roll the Leadership test taken to see if it suffers any mortal wounds.",
+          "Cost": 35,
+          "StatAdjustments": [
+            {
+              "Target": "Wounds",
+              "Type": "Add",
+              "Value": "2"
+            }
+          ],
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Fleshmetal Fusion",
+          "Description": "Chaos Knights model only. Add 1 to the bearer’s Toughness characteristic. While the bearer is using the Unnatural Fortitude ability, each time an attack with a Damage characteristic of 1 is allocated to the bearer, add 1 to any armour saving throw made against that attack.",
+          "Cost": 35,
+          "StatAdjustments": [
+            {
+              "Target": "Toughness",
+              "Type": "Add",
+              "Value": "1"
+            }
+          ],
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bestial Aspect",
+          "Description": "Chaos Knights model only. The bearer’s ranged weapons have the [ASSAULT] ability. While the bearer is using the Unholy Hunger ability, it can ignore any or all modifiers to its Move characteristic and/or to Advance rolls made for its unit.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "LORDS OF DREAD",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "TYRANNICAL COURT",
+        "Text": "Improve the Objective Control characteristic of Chaos Knights Character models from your army by 2. In addition, once per battle round, if your Warlord is on the battlefield, you can use the Claimed for the Dark Gods Stratagem for 0CP."
+      },
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Claimed for the Dark Gods",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of your Command phase.",
+          "Target": "One Chaos Knights Character unit from your army that is within range of one or more objective markers you control.",
+          "Effect": "Select one of those objective markers. That objective marker remains under your control, with a Level of Control of 5 (unless it would otherwise be higher), until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+        },
+        {
+          "Name": "Spiteful Demise",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, just after a Chaos Knights Character unit from your army is destroyed.",
+          "Target": "That Chaos Knights Character unit. You can use this Stratagem on that unit even though it was just destroyed.",
+          "Effect": "When rolling to determine whether mortal wounds are inflicted by your unit’s Deadly Demise ability, that model’s Deadly Demise ability inflicts mortal wounds on a D6 roll of 4+ instead of on a 6."
+        },
+        {
+          "Name": "Runes of Disdain",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 2,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights Character unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack."
+        },
+        {
+          "Name": "Titanic Duel",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Chaos Knights unit from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Select one enemy Monster or Vehicle unit. Until the end of the phase, each time a model in your unit makes an attack that targets that enemy unit, re-roll a Hit roll and re-roll a Wound roll of 1. Each time a model in your unit makes an attack that targets that enemy unit, if that enemy unit is Titanic, you can re-roll the Hit roll and you can re-roll the Wound roll instead."
+        },
+        {
+          "Name": "Trophy Hunter",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just before a Chaos Knights Character unit from your army is selected to fight.",
+          "Target": "That Chaos Knights Character unit.",
+          "Effect": "Until the end of the phase, each time your unit Consolidates, models in it can move an additional 3\" as long as your unit can end that move in Engagement Range of one or more enemy units."
+        },
+        {
+          "Name": "Crushed Like Vermin",
+          "Category": "LORDS OF DREAD - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, just after a Chaos Knights Character unit from your army ends a Normal move.",
+          "Target": "That Chaos Knights Character unit.",
+          "Effect": "Select one enemy unit (excluding Monsters and Vehicles) that your unit moved over during that move. Roll one D6 for each model in that enemy unit. For each 4+, that enemy unit suffers 1 mortal wound. If one or more models are destroyed as a result of this Stratagem, that enemy unit must take a Battle-shock test."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Throne Mechanicum Of Skulls",
+          "Description": "Chaos Knights model only. You can re-roll Charge rolls made for the bearer’s unit. In addition, once per battle, in your Charge phase, the bearer can use this Enhancement. If it does, until the end of the phase, the bearer’s unit is eligible to declare a charge in a turn in which it Advanced.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Blade Of Celerity",
+          "Description": "Chaos Knights model only. The bearer’s ranged weapons have the [ASSAULT] ability. In addition, once per battle, in the Fight phase, the bearer can use this Enhancement. If it does, until the end of the phase, models in the bearer’s unit have the Fights First ability.",
+          "Cost": 35,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Warp-Borne Stalker",
+          "Description": "Chaos Knights model only. The bearer has the Deep Strike ability. In addition, once per battle, at the end of your opponent’s turn, if the bearer is not within Engagement Range of one or more enemy units, you can remove it from the battlefield and place it into Strategic Reserves.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Putrid Carapace",
+          "Description": "Chaos Knights model only. The bearer has a Save characteristic of 2+. In addition, once per battle, at the start of either player’s Command phase, the bearer can use this Enhancement. If it does, the bearer regains up to D6 lost wounds.",
+          "Cost": 30,
+          "StatAdjustments": [
+            {
+              "Target": "Save",
+              "Value": "2+"
+            }
+          ],
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Mirror Of Fates",
+          "Description": "Chaos Knights model only. Once per turn, when your opponent targets a unit from their army within 12\" of this model with a stratagem, you can use this ability. If you do, increase the CP cost of that use of that stratagem by 1CP.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Blessing Of The Dark Master",
+          "Description": "Chaos Knights model only. The bearer has the Stealth ability. In addition, once per battle, after you make a saving throw for the bearer, you can change the Damage characteristic of that attack to 0.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Chaos Knights",
+            "Character"
+          ],
+          "StatAdjustments": [
+            {
+              "Target": "OC",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Value": "2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "HOUNDPACK LANCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "MARKED PREY",
+        "Text": "At the start of your Command phase, select one unit from your opponent’s army. Until the start of your next Command phase, each time a War Dog model from your army makes an attack that targets that enemy unit, if that unit is visible to the attacking model, that attack has the [SUSTAINED HITS 1] ability.\n\nWhile using the Houndpack Lance Detachment, the following rules apply:\n\n\t▪ Your army must include three or more War Dog units.\n\t▪ War Dog units from your army have the Battleline keyword.\n\t▪ When mustering your army, select three War Dog units from your army. Until the end of the battle, those units have the Character keyword."
+      },
+      "Tags": [
+        "WAR DOGS"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Vox-Howl",
+          "Category": "HOUNDPACK LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 2,
+          "Phase": "any",
+          "When": "Start of the Shooting phase or the start of the Fight phase.",
+          "Target": "One War Dog Character unit from your army.",
+          "Effect": "Each enemy unit within 6\" of your unit must take a Battle-shock test. Each friendly War Dog unit that is within 6\" of your unit and is Battle-shocked must take a Leadership test; if that test is passed, that unit is no longer Battle-shocked.",
+          "Restrictions": "You can only use this Stratagem once per turn."
+        },
+        {
+          "Name": "Hungry for Combat",
+          "Category": "HOUNDPACK LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of the Fight phase.",
+          "Target": "Two or more War Dog units from your army within Engagement Range of the same enemy unit.",
+          "Effect": "Select one enemy unit within Engagement Range of those War Dog units. Until the end of the phase, models in those War Dog units can only target that enemy unit, but each time a model in one of those War Dog units makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit."
+        },
+        {
+          "Name": "Cunning Hunter",
+          "Category": "HOUNDPACK LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, just after a War Dog unit from your army Falls Back.",
+          "Target": "That War Dog unit.",
+          "Effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
+        },
+        {
+          "Name": "Animalistic Rage",
+          "Category": "HOUNDPACK LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after a War Dog unit from your army that has not been selected to attack this phase is destroyed.",
+          "Target": "That War Dog unit. You can use this Stratagem on that unit even though it was just destroyed.",
+          "Effect": "Before resolving your unit’s Deadly Demise ability, it can either shoot or fight. When doing so, it must target only the enemy unit that just destroyed it, and can only do so if that enemy unit is an eligible target. After it has done so and after any Consolidation moves have been made, resolve your unit’s Deadly Demise ability as normal."
+        },
+        {
+          "Name": "Harrying Hounds",
+          "Category": "HOUNDPACK LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+          "Target": "One War Dog unit from your army that is within 8\" of that enemy unit.",
+          "Effect": "Your unit can make a Normal move of up to 6\"."
+        },
+        {
+          "Name": "Encircling Pack",
+          "Category": "HOUNDPACK LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "End of your opponent’s Fight phase.",
+          "Target": "One War Dog unit from your army that is wholly within 12\" of one or more battlefield edges and not within Engagement Range of one or more enemy units.",
+          "Effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Preyslayer's Mantle",
+          "Description": "War Dog model only. The bearer has the Super-heavy Walker ability.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "War Dog"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Final Howl",
+          "Description": "War Dog model only. While a friendly War Dog model is within 6\" of the bearer, each time that model makes an attack, re-roll a Wound roll of 1.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "War Dog"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Loping Predator",
+          "Description": "War Dog model only. The bearer’s ranged weapons have the [ASSAULT] ability.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "War Dog"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Panoply Of The Cursed Knight",
+          "Description": "War Dog model only. Each time an attack targets the bearer, worsen the Armour Penetration characteristic of that attack by 1.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "War Dog"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [
+            "WAR DOG HUNTSMAN",
+            "WAR DOG EXECUTIONER",
+            "WAR DOG BRIGAND",
+            "WAR DOG STALKER",
+            "WAR DOG KARNIVORE",
+            "WAR DOG MOIRAX"
+          ],
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Values": [
+                "Battleline"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "HELHUNT LANCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "MASTERS OF THE PACK",
+        "Text": "If a Titanic Chaos Knights unit from your army has an Aura ability that affects friendly War Dog units, while two or more friendly War Dog models are within range of that Titanic Chaos Knights unit’s Aura ability, that Titanic Chaos Knights unit is affected by that Aura ability as well.\n\nExample: Two friendly War Dog models are within 9\" of a Knight Desecrator when it is selected to shoot. As a result, the Knight Desecrator’s Taskmaster ability also affects itself, even though it does not have the War Dog keyword, so each time that Knight Desecrator makes a ranged attack, Hit rolls of 1 are re-rolled."
+      },
+      "ForceDispositions": [
+        "DISRUPTION"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Feral Arrogance",
+          "Category": "HELHUNT LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, just after a mortal wound is allocated to a Chaos Knights unit from your army.",
+          "Target": "That Chaos Knights unit.",
+          "Effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability against mortal wounds."
+        },
+        {
+          "Name": "Merciless Fusillade",
+          "Category": "HELHUNT LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of your Shooting phase or the start of the Fight phase.",
+          "Target": "One Titanic Chaos Knights unit from your army, and up to two friendly War Dog units, that have not been selected to shoot or fight this phase.",
+          "Effect": "Select one enemy unit that is an eligible target for each of those Chaos Knights units. Until the end of the phase, each time one of those Chaos Knights units is selected to shoot or fight, if that enemy unit is an eligible target, you can only select that enemy unit as the target for all of those attacks and those attacks have the [SUSTAINED HITS 1] ability."
+        },
+        {
+          "Name": "Beasthide Manifestation",
+          "Category": "HELHUNT LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Chaos Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Name": "Flush the Quarry",
+          "Category": "HELHUNT LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Movement phase.",
+          "Target": "One Titanic Chaos Knights unit from your army and up to three friendly War Dog units within 6\" of that Titanic Chaos Knights unit.",
+          "Effect": "Until the end of the phase, each time one of those War Dog units makes a Normal, Advance or Fall Back move, its models can move through models and terrain features. When doing so, they can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
+        },
+        {
+          "Name": "Contemptuous Volleys",
+          "Category": "HELHUNT LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, just after a Chaos Knights unit from your army Falls Back.",
+          "Target": "That Chaos Knights unit.",
+          "Effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
+        },
+        {
+          "Name": "Goaded Beast",
+          "Category": "HELHUNT LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+          "Target": "One Chaos Knights unit from your army that lost one or more wounds as a result of those attacks.",
+          "Effect": "Your unit can make a Surge move. To do so, roll one D6: models in your unit move a number of inches up to the result, but your unit must end that move as close as possible to the closest enemy unit (excluding Aircraft). When doing so, those models can be moved within Engagement Range of that enemy unit."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Hunter’s Helm",
+          "Description": "Chaos Knights model only. You can re-roll Advance and Charge rolls made for the bearer’s unit.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Octagram Of Conjuration",
+          "Description": "Knight Abominant model only. The bearer has the following ability:\nOctagram of Conjuration (Aura): While a friendly War Dog model is within 9\" of this model, after that War Dog model has shot, you can select one enemy unit hit by one or more of those attacks. That enemy unit must take a Battle-shock test.",
+          "Cost": 40,
+          "RequiredKeywords": [
+            "Knight Abominant"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Throne Tyrannicus",
+          "Description": "Titanic Chaos Knights model only. In your Command phase, select one other Chaos Knights Character model within 9\" of the bearer. If the bearer has one or more Aura abilities that affect friendly War Dog units, until the start of your next Command phase, the selected Chaos Knights Character model is affected by those Aura abilities as well.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Chaos Knights",
+            "Titanic"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Aspect Of The Beast",
+          "Description": "Chaos Knights model only. At the start of your Command phase, select one Dread ability to be active for the bearer until the start of your next Command phase, in addition to the Dread abilities active for your army.",
+          "Cost": 30,
+          "RequiredKeywords": [
+            "Chaos Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Chaos Knights",
+            "Titanic"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Masters of the Pack",
+              "Text": "If this unit has an Aura ability that affects friendly War Dog units, while two or more friendly War Dog models are within range of this unit's Aura ability, this unit is affected by that Aura ability as well."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ArmyRules": [
+    {
+      "Title": "HARBINGERS OF DREAD",
+      "Text": "If your Army Faction is Chaos Knights, each unit from your army with this ability gains Dread abilities, depending which are active for your army. The Deathly Terror ability is active for your army from the start of the battle. In addition, at the start of the first, third and fifth battle rounds, you can either select one of the other Dread abilities or randomly select two Dread abilities to apply by rolling two D6 and applying the results rolled, from those numbered 1–6 on the right.\n\nAny Dread abilities that have been selected are active until the end of the battle. You cannot select the same Dread ability more than once, and any duplicated Dread abilities (as a result of randomly selecting them) have no additional effect."
+    },
+    {
+      "Title": "DREAD ABILITIES",
+      "Text": "DEATHLY TERROR (AURA)\nWhile an enemy unit is within 9\" of this model, worsen the Leadership characteristic of models in that unit by 1.\n\nDESPAIR (AURA)\nWhile an enemy unit is within 9\" of this model, worsen the Leadership characteristic of models in that unit by 1. This is cumulative with the Deathly Terror ability (see above).\n\nDOOM\nEach time this model makes an attack, if the target of that attack is Battle-shocked, add 1 to the Wound roll.\n\nDARKNESS\nThis model has Stealth.\n\nDISMAY (AURA)\nIn the Battle-shock step of your opponent’s Command phase, for each enemy unit that is below its Starting Strength and within 9\" of this model, that enemy unit must take a Battle-shock test.\n\nDELIRIUM (AURA)\nWhile an enemy unit that is Below Half-strength is within 9\" of this model, each time that unit fails a Battle-shock test, it suffers D3 mortal wounds.\n\nDOMINION\nAdd 3\" to the range of this model’s Aura abilities."
+    },
+    {
+      "Title": "DREADBLADES",
+      "Text": "If every model in your army has the Chaos keyword, you can include either 1 Titanic Chaos Knights model or up to 3 War Dog models in your army, even if they do not have the Faction keyword you selected in the Select Army Faction step. None of these models can be your Warlord, and they cannot be given Enhancements."
+    },
+    {
+      "Title": "SUPER-HEAVY WALKER",
+      "Text": "Each time a model with this ability makes a Normal, Advance or Fall Back move, it can move through models (excluding Titanic models) and sections of terrain features that are 4\" or less in height. When doing so:\n\t▪ It can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them.\n\t▪ It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a 1, that model is Battle-shocked."
+    }
+  ]
+}

@@ -1,0 +1,4847 @@
+{
+  "Name": "Imperial Knights",
+  "Units": [
+    {
+      "Name": "ARMIGER HELVERIN",
+      "Faction": "Code Chivalric",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Armiger Helverin",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 Armiger autocannons",
+                  "Questoris heavy stubber",
+                  "armoured feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Questoris heavy stubber"
+                    ],
+                    "Options": [
+                      "meltagun"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Suppression Protocols",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit (excluding Monsters and Vehicles) hit by one or more of those attacks made with an Armiger autocannon. Until the start of your next turn, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-5 WOUNDS REMAINING",
+          "Text": "While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Imperium",
+        "Armiger",
+        "Helverin"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armiger autocannon",
+              "Range": "48\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 140
+        }
+      ]
+    },
+    {
+      "Name": "ARMIGER WARGLAIVE",
+      "Faction": "Code Chivalric",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Armiger Warglaive",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Questoris heavy stubber",
+                  "thermal spear",
+                  "reaper chain-cleaver"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Questoris heavy stubber"
+                    ],
+                    "Options": [
+                      "meltagun"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Impetuous Glory",
+          "Text": "Each time this model makes a Charge move, until the end of the turn, add 1 to the Attacks characteristic of this model’s reaper chain-cleaver – strike profile, and add 2 to the Attacks characteristic of this model’s reaper chain-cleaver – sweep profile."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-5 WOUNDS REMAINING",
+          "Text": "While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Imperium",
+        "Armiger",
+        "Warglaive"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Thermal spear",
+              "Keywords": "MELTA 4",
+              "Range": "18\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chain-cleaver – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chain-cleaver – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 140
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT PALADIN",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Paladin",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "meltagun",
+                  "Questoris heavy stubber",
+                  "rapid-fire battle cannon",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "meltagun"
+                    ],
+                    "Options": [
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "thunderstrike gauntlet"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannon",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Paladin’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, weapons equipped by that model have the [LETHAL HITS] ability, and melee weapons equipped by that model have the [LANCE] ability."
+        },
+        {
+          "Title": "Seasoned Noble",
+          "Text": "Each time this model makes a ranged attack that targets the closest eligible target, improve the Armour Penetration characteristic of that attack by 1."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Paladin"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Twin Icarus autocannon",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Rapid-fire battle cannon",
+              "Keywords": "BLAST, RAPID FIRE D6+3",
+              "Range": "72\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 375
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 390
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT ERRANT",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Errant",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "meltagun",
+                  "thermal cannon",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "meltagun"
+                    ],
+                    "Options": [
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "thunderstrike gauntlet"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannons",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Errant’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, you can re-roll Advance rolls made for that model and its ranged weapons have the [ASSAULT] ability."
+        },
+        {
+          "Title": "Aggressive Assault",
+          "Text": "Each time this model makes a ranged attack against the closest eligible target, add 1 to the Hit roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Errant"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Twin Icarus autocannons",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Thermal cannon",
+              "Keywords": "BLAST, MELTA 6",
+              "Range": "24\"",
+              "Attacks": "2D3",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 355
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 370
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT GALLANT",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Gallant",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "meltagun",
+                  "thunderstrike gauntlet",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "meltagun"
+                    ],
+                    "Options": [
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannon",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Gallant’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, you can re-roll Charge rolls made for that model and each time that model makes a melee attack, you can re-roll the Hit roll."
+        },
+        {
+          "Title": "Martial Pride",
+          "Text": "Each time this unit Consolidates, models in it can move an additional 3\" provided your unit can end that move within Engagement Range of one or more enemy units."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Gallant"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Twin Icarus autocannon",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "18",
+              "ToHit": "2+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – strike",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "2+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – sweep",
+              "Keywords": "LETHAL HITS",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 355
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 370
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT WARDEN",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Warden",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "avenger gatling cannon",
+                  "heavy flamer",
+                  "meltagun",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "meltagun"
+                    ],
+                    "Options": [
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "thunderstrike gauntlet"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannon",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Warden’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, weapons equipped by that model have the [SUSTAINED HITS 1] ability, and ranged weapons equipped by that model have the [IGNORES COVER] ability."
+        },
+        {
+          "Title": "Thin Their Ranks",
+          "Text": "Each time this model makes a ranged attack that targets an enemy unit (excluding Monsters and Vehicles), that attack has the [DEVASTATING WOUNDS] ability."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Warden"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Avenger gatling cannon",
+              "Range": "36\"",
+              "Attacks": "18",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Heavy flamer",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Twin Icarus autocannons",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 375
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 390
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT CRUSADER",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Crusader",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "avenger gatling cannon",
+                  "heavy flamer",
+                  "meltagun",
+                  "thermal cannon",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "meltagun"
+                    ],
+                    "Options": [
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "thermal cannon"
+                    ],
+                    "Options": [
+                      "rapid-fire battle cannon and Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannon",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "rapid-fire battle cannon and Questoris heavy stubber",
+            "Cost": 15
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Crusader’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, each time that model makes a ranged attack, add 1 to the Hit roll."
+        },
+        {
+          "Title": "Punishing Salvoes",
+          "Text": "In your Movement phase, if this model Remains Stationary, until the start of your next Movement phase, this model’s ranged weapons have the [SUSTAINED HITS 1] ability."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Crusader"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Avenger gatling cannon",
+              "Range": "36\"",
+              "Attacks": "18",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Heavy flamer",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Twin Icarus autocannon",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Rapid-fire battle cannon",
+              "Keywords": "BLAST, RAPID FIRE D6+3",
+              "Range": "72\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Thermal cannon",
+              "Keywords": "BLAST, MELTA 6",
+              "Range": "24\"",
+              "Attacks": "2D3",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-4",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 395
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 415
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT PRECEPTOR",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Preceptor",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "las-impulsor",
+                  "Questoris multi-laser",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Questoris multi-laser"
+                    ],
+                    "Options": [
+                      "meltagun",
+                      "Questoris heavy stubber"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "thunderstrike gauntlet"
+                    ]
+                  },
+                  {
+                    "Options": [
+                      "twin icarus autocannons",
+                      "ironstorm missile pod",
+                      "stormspear rocket pod"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Mentor (Bondsman)",
+          "Text": "Each time a model affected by this ability makes an attack that targets this model’s quarry, you can re-roll the Wound roll."
+        },
+        {
+          "Title": "Exemplar of the Code",
+          "Text": "At the start of the battle, select one unit from your opponent’s army to be this model’s quarry. Each time this model makes an attack that targets its quarry, you can re-roll the Wound roll. Each time this model’s quarry is destroyed, you can select a new unit from your opponent’s army to be its quarry."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Preceptor"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Twin Icarus autocannons",
+              "Keywords": "ANTI-FLY 2+, TWIN-LINKED",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ironstorm missile pod",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Las-impulsor – high intensity",
+              "Keywords": "BLAST",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            },
+            {
+              "Name": "Las-impulsor – low intensity",
+              "Keywords": "BLAST",
+              "Range": "36\"",
+              "Attacks": "2D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Meltagun",
+              "Keywords": "MELTA 2",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Questoris multi-laser",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Stormspear rocket pod",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "D6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Thunderstrike gauntlet – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 365
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 380
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT CASTELLAN",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Castellan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "plasma decimator",
+                  "2 shieldbreaker missile launchers",
+                  "2 twin meltaguns",
+                  "twin siegebreaker cannon",
+                  "volcano lance",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 shieldbreaker missile launchers",
+                      "twin siegebreaker cannon"
+                    ],
+                    "Options": [
+                      "shieldbreaker missile launcher and 2 twin siegebreaker cannons"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Ion Aegis (Aura)",
+          "Text": "While a friendly Armiger model is within 6\" of this model, each time a ranged attack targets that model, it has the Benefit of Cover against that attack."
+        },
+        {
+          "Title": "Titan Hunter",
+          "Text": "Each time a ranged attack made by this model is allocated to a Monster or Vehicle model, you can re-roll the Damage roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Dominus",
+        "Character",
+        "Imperium",
+        "Knight Castellan"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "12",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Plasma decimator – standard",
+              "Keywords": "BLAST",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plasma decimator – supercharge",
+              "Keywords": "BLAST, HAZARDOUS",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "3"
+            },
+            {
+              "Name": "Shieldbreaker missile launcher",
+              "Keywords": "ANTI-TITANIC 4+, DEVASTATING WOUNDS",
+              "Range": "72\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-6",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Twin meltagun",
+              "Keywords": "MELTA 2, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Twin siegebreaker cannon",
+              "Keywords": "BLAST, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volcano lance",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "18",
+              "AP": "-5",
+              "Damage": "D6+8"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 425
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 450
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT VALIANT",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Valiant",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "conflagration cannon",
+                  "2 shieldbreaker missile launchers",
+                  "thundercoil harpoon",
+                  "2 twin meltaguns",
+                  "twin siegebreaker cannon",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 shieldbreaker missile launchers",
+                      "twin siegebreaker cannon"
+                    ],
+                    "Options": [
+                      "shieldbreaker missile launcher and 2 twin siegebreaker cannons"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Ion Aegis (Aura)",
+          "Text": "While a friendly Armiger model is within 6\" of this model, each time a ranged attack targets that model, it has the Benefit of Cover against that attack."
+        },
+        {
+          "Title": "Overwhelming Firestorm",
+          "Text": "In your Shooting phase, each time you select a target for this model’s thundercoil harpoon, roll one D6 for the target unit and one D6 for each other enemy unit within 6\" of the target unit. On a 4+, the unit being rolled for is struck by arcing energies; after resolving all of this model’s attacks against the target unit, each unit struck by arcing energies suffers D3 mortal wounds."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Dominus",
+        "Character",
+        "Imperium",
+        "Knight Valiant"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "12",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Conflagration cannon",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "18\"",
+              "Attacks": "3D6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin meltagun",
+              "Keywords": "MELTA 2, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-4",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Shieldbreaker missile launcher",
+              "Keywords": "ANTI-TITANIC 4+, DEVASTATING WOUNDS",
+              "Range": "72\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-6",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Thundercoil harpoon",
+              "Keywords": "BLAST, DEVASTATING WOUNDS",
+              "Range": "12\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "24",
+              "AP": "-6",
+              "Damage": "10"
+            },
+            {
+              "Name": "Twin siegebreaker cannon",
+              "Keywords": "BLAST, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 400
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 415
+        }
+      ]
+    },
+    {
+      "Name": "CANIS REX",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Canis Rex",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "las-impulsor",
+                  "Questoris multi-laser",
+                  "Freedom’s Hand"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Legendary Freeblade",
+          "Text": "Once per turn, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
+        },
+        {
+          "Title": "Chainbreaker",
+          "Text": "Once per battle, at the start of any phase, you can select one friendly Imperium unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        },
+        {
+          "Title": "SIR HEKHTUR",
+          "Text": "If Canis Rex is destroyed, follow the instructions for using Sir Hekhtur."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Epic Hero",
+        "Imperium",
+        "Canis Rex"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Las-impulsor – high intensity",
+              "Keywords": "BLAST, SUSTAINED HITS 1",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "2+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            },
+            {
+              "Name": "Las-impulsor – low intensity",
+              "Keywords": "BLAST, SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "2D6",
+              "ToHit": "2+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Questoris multi-laser",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "2+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Freedom’s Hand – strike",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "9"
+            },
+            {
+              "Name": "Freedom’s Hand – sweep",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 415
+        }
+      ]
+    },
+    {
+      "Name": "SIR HEKHTUR",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Sir Hekhtur",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Hekhtur’s pistol",
+                  "close combat weapon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [],
+      "Infos": [
+        {
+          "Title": "Canix Rex",
+          "Text": "Use this datasheet only after your Canix Rex model is destroyed."
+        },
+        {
+          "Title": "Using Sir Hekhtur",
+          "Text": "If your Canis Rex model is destroyed, this model is treated as a model disembarking from a destroyed Transport and must perform an Emergency Disembarkation. Sir Hekhtur cannot be selected as the target of any of your Stratagems other than Core Stratagems. Your Canis Rex unit is not considered to be destroyed until Sir Hekhtur is also destroyed."
+        }
+      ],
+      "Keywords": [
+        "Infantry",
+        "Character",
+        "Epic Hero",
+        "Imperium",
+        "Sir Hekhtur"
+      ],
+      "CoreAbilities": [
+        "Lone Operative"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "6\"",
+          "Toughness": "3",
+          "Save": "4+",
+          "Wounds": "3",
+          "Leadership": "5+",
+          "OC": "1",
+          "BaseInfo": {
+            "Size": "25"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hekhtur’s pistol",
+              "Keywords": "PISTOL",
+              "Range": "12\"",
+              "Attacks": "1",
+              "ToHit": "2+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Close combat weapon",
+              "Range": "Melee",
+              "Attacks": "2",
+              "ToHit": "2+",
+              "Strength": "3",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1
+        }
+      ]
+    },
+    {
+      "Name": "ACASTUS KNIGHT ASTERIUS",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Acastus Knight Asterius",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 Asterius volkite culverins",
+                  "karacnos mortar battery",
+                  "2 twin conversion beam cannons",
+                  "titanic feet"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Sunderer of Fortresses",
+          "Text": "Each time this model makes an attack that targets a Vehicle, improve the Strength and Damage characteristics of that attack by 1. If that attack targets a Fortification, improve the Strength and Damage characteristics of that attack by 2 instead."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Acastus",
+        "Imperium",
+        "Knight Asterius",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "13",
+          "Save": "2+",
+          "Wounds": "30",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Asterius volkite culverin",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "24\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "2"
+            },
+            {
+              "Name": "Karacnos mortar battery",
+              "Keywords": "ANTI-INFANTRY 2+, BLAST, IGNORES COVER, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            },
+            {
+              "Name": "Twin conversion beam cannon",
+              "Keywords": "CONVERSION, TWIN-LINKED, SUSTAINED HITS D3",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-2",
+              "Damage": "6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 785
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 860
+        }
+      ]
+    },
+    {
+      "Name": "ACASTUS KNIGHT PORPHYRION",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Acastus Knight Porphyrion",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 Acastus autocannons",
+                  "Acastus ironstorm missile pod",
+                  "2 twin magna lascannons",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 Acastus autocannons"
+                    ],
+                    "Options": [
+                      "2 lascannons",
+                      "Acastus autocannon and lascannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Acastus ironstorm missile pod"
+                    ],
+                    "Options": [
+                      "helios defence missiles"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Bastion of Firepower",
+          "Text": "Each time this model Remains Stationary, until the end of the turn, ranged weapons equipped by this model have the [LETHAL HITS] ability."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Acastus",
+        "Knight Porphyrion",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "8\"",
+          "Toughness": "13",
+          "Save": "2+",
+          "Wounds": "30",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Acastus autocannon",
+              "Range": "48\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-1",
+              "Damage": "3"
+            },
+            {
+              "Name": "Acastus ironstorm missile pod",
+              "Keywords": "BLAST, HEAVY, INDIRECT FIRE",
+              "Range": "48\"",
+              "Attacks": "D6+6",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Helios defence missiles",
+              "Keywords": "ANTI-FLY 2+, HEAVY",
+              "Range": "48\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "D6"
+            },
+            {
+              "Name": "Lascannon",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Twin magna lascannon",
+              "Keywords": "BLAST, TWIN-LINKED",
+              "Range": "72\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "18",
+              "AP": "-4",
+              "Damage": "D6+6"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 725
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 800
+        }
+      ]
+    },
+    {
+      "Name": "CERASTUS KNIGHT LANCER",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Cerastus Knight Lancer",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Cerastus shock lance"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Lancer’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, it is eligible to declare a charge in a turn in which it Advanced."
+        },
+        {
+          "Title": "Shock Charge",
+          "Text": "You can target this model with the Tank Shock Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Cerastus",
+        "Knight Lancer"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "14\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "4+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Cerastus shock lance",
+              "Keywords": "ASSAULT, SUSTAINED HITS 2",
+              "Range": "12\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Cerastus shock lance – strike",
+              "Keywords": "LANCE",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "2+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Cerastus shock lance – sweep",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "2+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 415
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 435
+        }
+      ]
+    },
+    {
+      "Name": "CERASTUS KNIGHT CASTIGATOR",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Cerastus Knight Castigator",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Castigator bolt cannon",
+                  "tempest warblade"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Castigator’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, its ranged weapons have the [SUSTAINED HITS 1] ability and the Armour Penetration characteristic of its ranged weapons is improved by 1."
+        },
+        {
+          "Title": "Storm of Bolts",
+          "Text": "In your Shooting phase, after this model has shot, select one unit (excluding Monsters and Vehicles) hit by one or more of those attacks. Until the start of your next turn, while this model is on the battlefield, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Cerastus",
+        "Knight Castigator"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Castigator bolt cannon",
+              "Keywords": "TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "18",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Tempest warblade – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Tempest warblade – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 380
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 395
+        }
+      ]
+    },
+    {
+      "Name": "CERASTUS KNIGHT ACHERON",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Cerastus Knight Acheron",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Acheron flame cannon",
+                  "twin heavy bolter",
+                  "reaper chainfist"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Acheron’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, at the start of the Fight phase, each enemy unit within Engagement Range of one or more units with this ability must take a Battle-shock test, subtracting 1 from the result when they do."
+        },
+        {
+          "Title": "Searing Flames",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks made with an Acheron flame cannon. Until the end of the phase, that enemy unit cannot have the Benefit of Cover."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Cerastus",
+        "Knight Acheron"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Acheron flame cannon",
+              "Keywords": "TORRENT, IGNORES COVER",
+              "Range": "18\"",
+              "Attacks": "2D6",
+              "ToHit": "N/A",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin heavy bolter",
+              "Keywords": "SUSTAINED HITS 1, TWIN-LINKED",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaper chainfist – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainfist – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 380
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 395
+        }
+      ]
+    },
+    {
+      "Name": "CERASTUS KNIGHT ATRAPOS",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Cerastus Knight Atrapos",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Atrapos lascutter",
+                  "graviton singularity cannon"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Atrapos’ Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, each time that model makes an attack that targets a Titanic or Towering model, you can re-roll the Hit roll and you can re-roll the Wound roll."
+        },
+        {
+          "Title": "Macro-extinction Protocols",
+          "Text": "Each time this model makes an attack that targets a Monster or Vehicle unit, add 1 to the Hit roll. If that target is Titanic or Towering, add 1 to the Wound roll as well."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-10 WOUNDS REMAINING",
+          "Text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Cerastus",
+        "Knight Atrapos"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+2"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "28",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Atrapos lascutter – low intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "36\"",
+              "Attacks": "2D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Atrapos lascutter – high intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            },
+            {
+              "Name": "Graviton singularity cannon – contained",
+              "Keywords": "BLAST",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Graviton singularity cannon – singularity",
+              "Keywords": "BLAST, DEVASTATING WOUNDS, HAZARDOUS",
+              "Range": "24\"",
+              "Attacks": "D3",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "D6+1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Atrapos lascutter – low intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Atrapos lascutter – high intensity",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-3",
+              "Damage": "4"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 405
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 425
+        }
+      ]
+    },
+    {
+      "Name": "QUESTORIS KNIGHT MAGAERA",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Questoris Knight Magaera",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "lightning cannon",
+                  "phased plasma-fusil",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "hekaton siege claw and twin rad cleanser"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Magaera’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, each time that model makes a ranged attack that targets the closest eligible target, improve the Strength and Armour Penetration characteristics of that attack by 1."
+        },
+        {
+          "Title": "Repair Auto-simulacra",
+          "Text": "At the end of your Command phase, this model regains up to D3 lost wounds."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Questoris",
+        "Knight Magaera"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Lightning cannon",
+              "Keywords": "SUSTAINED HITS 2",
+              "Range": "48\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "0",
+              "Damage": "2"
+            },
+            {
+              "Name": "Phased plasma-fusil",
+              "Keywords": "RAPID FIRE 2",
+              "Range": "24\"",
+              "Attacks": "2",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin rad cleanser",
+              "Keywords": "TORRENT, IGNORES COVER, ANTI-INFANTRY 2+, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hekaton siege claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Hekaton siege claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 385
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 400
+        }
+      ]
+    },
+    {
+      "Name": "QUESTORIS KNIGHT STYRIX",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Questoris Knight Styrix",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "graviton crusher",
+                  "volkite chierovile",
+                  "reaper chainsword"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "reaper chainsword"
+                    ],
+                    "Options": [
+                      "hekaton siege claw and twin rad cleanser"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Styrix’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, each time that model is selected to shoot or fight, after it has resolved all of its attacks, select one enemy unit hit by one or more of those attacks; that unit must take a Battle-shock test, subtracting one from the test when doing so."
+        },
+        {
+          "Title": "Grav-pinned",
+          "Text": "In your Shooting phase, after this model has shot, if an enemy Infantry unit was hit by one or more of those attacks made with a graviton crusher, until the end of your opponent’s next turn, that enemy unit is grav-pinned. While a unit is grav-pinned, subtract 2 from that unit’s Move characteristic and subtract 2 from Charge rolls made for that unit."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Character",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Questoris",
+        "Knight Styrix"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Graviton crusher",
+              "Keywords": "ANTI-VEHICLE 2+, BLAST",
+              "Range": "18\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Twin rad cleanser",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TWIN-LINKED, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volkite chierovile",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "30\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "0",
+              "Damage": "3"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Hekaton siege claw – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Hekaton siege claw – sweep",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "14",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 375
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 390
+        }
+      ]
+    },
+    {
+      "Name": "ARMIGER MOIRAX",
+      "Faction": "Code Chivalric",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Armiger Moirax",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "graviton pulsar",
+                  "volkite veuglaire",
+                  "armoured feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "volkite veuglaire"
+                    ],
+                    "Options": [
+                      "siege claw and rad cleanser",
+                      "graviton pulsar",
+                      "lightning lock",
+                      "conversion beam cannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "graviton pulsar"
+                    ],
+                    "Options": [
+                      "siege claw and rad cleanser",
+                      "lightning lock",
+                      "conversion beam cannon",
+                      "volkite veuglaire"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Protection Protocols",
+          "Text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do:\n▪ That use is -1 CP.\n▪ That use does not prevent any uses of that stratagem on other units this phase."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-5 WOUNDS REMAINING",
+          "Text": "While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Imperium",
+        "Armiger",
+        "Moirax"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D3"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "9",
+          "Save": "3+",
+          "Wounds": "14",
+          "Leadership": "7+",
+          "OC": "6",
+          "BaseInfo": {
+            "Size": "100"
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Conversion beam cannon",
+              "Keywords": "CONVERSION, SUSTAINED HITS D3",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Graviton pulsar",
+              "Keywords": "ANTI-VEHICLE 2+, BLAST",
+              "Range": "24\"",
+              "Attacks": "D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Lightning lock",
+              "Keywords": "SUSTAINED HITS 2",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Rad cleanser",
+              "Keywords": "ANTI-INFANTRY 2+, IGNORES COVER, TORRENT",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "2",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Volkite veuglaire",
+              "Keywords": "DEVASTATING WOUNDS",
+              "Range": "36\"",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "0",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Armoured feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Siege claw",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 150
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 160
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT DEFENDER",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Defender",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "conversion beam obliterator",
+                  "plasma executor",
+                  "twin incendine combustor",
+                  "phosphor blaster",
+                  "titanic feet"
+                ],
+                "Options": []
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Defender’s Duty (Bondsman)",
+          "Text": "While a model is affected by this ability, each time an attack is allocated to that model, subtract 1 from the Damage characteristic of that attack."
+        },
+        {
+          "Title": "Selfless Protector",
+          "Text": "Each time a ranged attack is allocated to an Imperial Knights model from your army, if that model is not fully visible to every model in the attacking unit because of this Knight Defender model, that model has the Benefit of Cover and a 4+ invulnerable save against that attack."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-9 WOUNDS REMAINING",
+          "Text": "While this model has 1-9 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Questoris",
+        "Character",
+        "Imperium",
+        "Knight Defender"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "11",
+          "Save": "3+",
+          "Wounds": "26",
+          "Leadership": "6+",
+          "OC": "10",
+          "BaseInfo": {
+            "Size": "170x109",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "4+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Conversion beam obliterator",
+              "Keywords": "CONVERSION, SUSTAINED HITS D3",
+              "Range": "36\"",
+              "Attacks": "3",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "4"
+            },
+            {
+              "Name": "Plasma executor – standard",
+              "Keywords": "BLAST",
+              "Range": "36\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Plasma executor – supercharge",
+              "Keywords": "BLAST, HAZARDOUS",
+              "Range": "36\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "3"
+            },
+            {
+              "Name": "Phosphor blaster",
+              "Keywords": "IGNORES COVER, RAPID FIRE 1",
+              "Range": "24\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "5",
+              "AP": "0",
+              "Damage": "1"
+            },
+            {
+              "Name": "Twin incendine combustor",
+              "Keywords": "IGNORES COVER, TORRENT, TWIN-LINKED",
+              "Range": "12\"",
+              "Attacks": "D6",
+              "ToHit": "N/A",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 1,
+          "ModelCount": 1,
+          "Cost": 400
+        },
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 420
+        }
+      ]
+    },
+    {
+      "Name": "KNIGHT DESTRIER",
+      "Faction": "Code Chivalric, Super-heavy Walker",
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Knight Destrier",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "chastiser gatling cannon",
+                  "frag bombard",
+                  "Questoris heavy stubber",
+                  "titanic feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "chastiser gatling cannon",
+                      "frag bombard"
+                    ],
+                    "Options": [
+                      "chastiser gatling cannon and bellatus reaper chainsword",
+                      "frag bombard and bellatus reaper chainsword",
+                      "chastiser gatling cannon and thundershock spear",
+                      "frag bombard and thundershock spear",
+                      "bellatus reaper chainsword and thundershock spear"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": [
+          {
+            "Key": "bellatus reaper chainsword and thundershock spear",
+            "GrantsAbilities": [
+              "Thundercharge"
+            ],
+            "WeaponAdjustments": [
+              {
+                "Value": "2",
+                "Type": "Add",
+                "Target": "Attacks"
+              }
+            ]
+          }
+        ]
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Ram Jets",
+          "Text": "Each time this unit is selected to make a Normal or Advance move, until the end of the phase, add D3\" to the Move characteristic of this model."
+        },
+        {
+          "Title": "Thundercharge",
+          "Text": "If this model is equipped with a thundershock spear and a bellatus reaper chainsword, add 2 to the Attacks characteristic of melee weapons equipped by this model."
+        },
+        {
+          "Title": "Saturation Fire",
+          "Text": "Each time this model makes a ranged attack that targets a unit within range of one or more objective markers, that attack has the [IGNORES COVER] ability."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-6 WOUNDS REMAINING",
+          "Text": "While this model has 1-6 wounds remaining, subtract 4 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Bellatus",
+        "Character",
+        "Imperium",
+        "Knight Destrier"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6"
+      ],
+      "FactionKeywords": [
+        "Imperial Knights"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "10",
+          "Save": "3+",
+          "Wounds": "18",
+          "Leadership": "6+",
+          "OC": "8",
+          "BaseInfo": {
+            "Size": "150x95",
+            "Type": 1
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Chastiser gatling cannon",
+              "Keywords": "ASSAULT",
+              "Range": "24\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Frag bombard",
+              "Keywords": "ASSAULT, BLAST, RAPID FIRE D6+3",
+              "Range": "24\"",
+              "Attacks": "D6+3",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Questoris heavy stubber",
+              "Keywords": "ASSAULT, RAPID FIRE 3",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "4",
+              "AP": "-1",
+              "Damage": "1"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Bellatus reaper chainsword – strike",
+              "Range": "Melee",
+              "Attacks": "5",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D3+3"
+            },
+            {
+              "Name": "Bellatus reaper chainsword – sweep",
+              "Range": "Melee",
+              "Attacks": "10",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Thundershock spear – strike",
+              "Keywords": "LANCE",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D3+3"
+            },
+            {
+              "Name": "Thundershock spear – sweep",
+              "Keywords": "LANCE",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-3",
+              "Damage": "2"
+            },
+            {
+              "Name": "Titanic feet",
+              "Range": "Melee",
+              "Attacks": "4",
+              "ToHit": "4+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "UnitCount": 2,
+          "ModelCount": 1,
+          "Cost": 265
+        },
+        {
+          "UnitCount": 3,
+          "ModelCount": 1,
+          "Cost": 280
+        }
+      ]
+    }
+  ],
+  "Dettachments": [
+    {
+      "Name": "DOMINUS FOEBREAKERS",
+      "Rule": {
+        "Restrictions": "",
+        "Title": "RAIN OF DEVASTATION",
+        "Text": "Friendly Imperial Knights Dominus units’ attacks that target a unit in a terrain area have +1 to hit rolls."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Ground-shaking Strides",
+          "Category": "DOMINUS FOEBREAKERS",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, when a friendly Imperial Knights Dominus unit is selected to move.",
+          "Target": "That Imperial Knights Dominus unit.",
+          "Effect": "Your unit has +2\" M."
+        },
+        {
+          "Name": "Foebreaker Firestorm",
+          "Category": "DOMINUS FOEBREAKERS",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly engaged Imperial Knights Dominus unit is selected to shoot.",
+          "Target": "That Imperial Knights Dominus unit.",
+          "Effect": "Your unit’s [BLAST] ranged attacks:\n▪ Do not have [BLAST].\n▪ Have +1 A."
+        },
+        {
+          "Name": "Fire Shocked",
+          "Category": "DOMINUS FOEBREAKERS",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Imperial Knights Dominus unit has shot.",
+          "Target": "That Imperial Knights Dominus unit.",
+          "Effect": "Select one enemy unit hit by those attacks. That enemy unit makes a battle-shock roll, with -1 to that battle-shock roll."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Blessed Plate",
+          "Description": "Imperial Knights Dominus model only. This model has +1 T.",
+          "Cost": 30,
+          "StatAdjustments": [
+            {
+              "Target": "Toughness",
+              "Type": "Add",
+              "Value": "1"
+            }
+          ],
+          "RequiredKeywords": [
+            "Imperial Knights",
+            "Dominus"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Archeotech Autoloaders",
+          "Description": "Imperial Knights Dominus model only. This unit can re-roll rolls to determine the A of a weapon.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Imperial Knights",
+            "Dominus"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "QUESTOR FORGEPACT",
+      "Rule": {
+        "Restrictions": "",
+        "Title": "COGBOUND ALLIANCE",
+        "Text": "Friendly Imperial Knights models have the following ability:\nAssisted Targeting (Aura): While a friendly Adeptus Mechanicus unit is within 6\" of this model, that Adeptus Mechanicus unit’s ranged attacks have:\n\t▪ +1 BS.\n\t▪ [HEAVY].\n\nFriendly Tech-Priest models have the following ability:\nSacristan Pledge: In your Command phase, you can select one friendly Imperial Knights model within 3\" of this model that has not been selected by this ability this phase. If you do, that model heals D3 wounds.\n\nMechanicus Allies: You can include Tech-priest Dominus/Tech-priest Manipulus/Marshal/Rangers/Vanguard units in your army (see Codex: Adeptus Mechanicus). The combined points value of such units cannot exceed 500 points."
+      },
+      "ForceDispositions": [
+        "DISRUPTION"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Omnissiah’s Grace",
+          "Category": "QUESTOR FORGEPACT",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, when a friendly Imperial Knights unit suffers a mortal wound.",
+          "Target": "That Imperial Knights unit.",
+          "Effect": "Your unit has Feel No Pain 5+ against mortal wounds."
+        },
+        {
+          "Name": "Vengeance of the Machine Cult",
+          "Category": "QUESTOR FORGEPACT",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase, when a friendly Imperial Knights Titanic unit is destroyed by an enemy unit.",
+          "Target": "One friendly Adeptus Mechanicus unit.",
+          "Effect": "That enemy unit is marked until the end of the battle:\n▪ While a unit is marked, friendly Adeptus Mechanicus units’ attacks that target that unit can re-roll wound rolls."
+        },
+        {
+          "Name": "In the Shadow of Giants",
+          "Category": "QUESTOR FORGEPACT",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase, when a friendly Adeptus Mechanicus unit is selected to make an advance/fall-back move.",
+          "Target": "That Adeptus Mechanicus unit.",
+          "Effect": "That move does not prevent your unit from being eligible to start an action."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Magos Questoris",
+          "Description": "Tech-Priest model only. When using this model’s Sacristan Pledge ability, the selected Imperial Knights model heals 2 additional wounds.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Tech-Priest"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Knight of the Opus Machina (Aura)",
+          "Description": "Imperial Knights model only. While a friendly Adeptus Mechanicus unit is within 6\" of this model, that Adeptus Mechanicus unit’s melee attacks have +1 WS and AP.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Imperial Knights"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Assisted Targeting (Aura)",
+              "Text": "While a friendly Adeptus Mechanicus unit is within 6\" of this model, that Adeptus Mechanicus unit’s ranged attacks have:\n\t▪ +1 BS.\n\t▪ [HEAVY]."
+            }
+          ]
+        },
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Tech-Priest"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Sacristan Pledge",
+              "Text": "In your Command phase, you can select one friendly Imperial Knights model within 3\" of this model that has not been selected by this ability this phase. If you do, that model heals D3 wounds."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "THRONE-BONDED OUTRIDERS",
+      "Rule": {
+        "Restrictions": "This detachment has the ARMIGERS tag and cannot be taken with another ARMIGERS detachment.",
+        "Title": "DRIVEN FROM THEIR LAIRS",
+        "Text": "While a friendly Armiger unit is affected by a Bondsman ability, that unit’s ranged attacks have [IGNORES COVER]."
+      },
+      "Tags": [
+        "ARMIGERS"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Neural Lash",
+          "Category": "THRONE-BONDED OUTRIDERS",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Command phase.",
+          "Target": "One friendly Imperial Knights Titanic unit.",
+          "Effect": "Select one friendly battle-shocked Armiger unit within 12\" of your unit. That Armiger unit is no longer battle-shocked."
+        },
+        {
+          "Name": "Helm Conditioning",
+          "Category": "THRONE-BONDED OUTRIDERS",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Command phase, when a friendly Imperial Knights unit uses a Bondsman ability.",
+          "Target": "That Imperial Knights unit.",
+          "Effect": "When selecting an Armiger model for that Bondsman ability, you can select one within 18\" of your unit (excluding models already affected by a Bondsman ability)."
+        },
+        {
+          "Name": "Honoured to Serve",
+          "Category": "THRONE-BONDED OUTRIDERS",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, when a friendly Armiger unit has shot.",
+          "Target": "That Armiger unit.",
+          "Effect": "Those attacks do not prevent your unit from being eligible to start an action."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Gyro-optimised Actuators",
+          "Description": "Armiger unit only. This unit has Mobile.",
+          "Cost": 15,
+          "Features": "Upgrade",
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Scope": "Unit",
+              "Values": [
+                "Mobile"
+              ]
+            }
+          ],
+          "RequiredKeywords": [
+            "Armiger"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Ancestral Overbleed",
+          "Description": "Armiger unit only. When you target this unit with the Fire Overwatch/Heroic Intervention stratagem, that use is -1 CP.",
+          "Cost": 10,
+          "Features": "Upgrade",
+          "RequiredKeywords": [
+            "Armiger"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "VALOURSTRIKE LANCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "BOLD GALLANTRY",
+        "Text": "Each time an Imperial Knights unit from your army Advances, until the end of the turn, ranged weapons equipped by Imperial Knights models from your army have the [ASSAULT] ability."
+      },
+      "ForceDispositions": [
+        "PURGE THE FOE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Run Them Through!",
+          "Category": "VALOURSTRIKE LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to fight this phase.",
+          "Effect": "Until the end of the phase, melee weapons equipped by those models have the Lance ability."
+        },
+        {
+          "Name": "Thunderstomp",
+          "Category": "VALOURSTRIKE LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Imperial Knights model from your army that has not been selected to fight this phase.",
+          "Effect": "Until the end of the phase, the Attacks characteristic of any armoured Feet melee weapons equipped by your model is 8, the Attacks characteristic of any titanic Feet melee weapons equipped by your model is 12, and improve the Armour Penetration characteristic of those weapons by 1."
+        },
+        {
+          "Name": "Full Tilt",
+          "Category": "VALOURSTRIKE LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 2,
+          "Phase": "friendly",
+          "When": "Your Movement phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to move this phase.",
+          "Effect": "Until the end of the phase, add 2\" to the Move characteristic of your models and add 2 to Advance rolls made for those model’s units."
+        },
+        {
+          "Name": "Vow of Retribution",
+          "Category": "VALOURSTRIKE LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by your models have the Lethal Hits ability."
+        },
+        {
+          "Name": "Tactical Foil",
+          "Category": "VALOURSTRIKE LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+          "Target": "One Imperial Knights model from your army that is within 8\" of that unit.",
+          "Effect": "Your model can make a Normal move of up to D6\"."
+        },
+        {
+          "Name": "Rotate Ion Shields",
+          "Category": "VALOURSTRIKE LANCE - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Imperial Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Bearer of the Iron Chalice",
+          "Description": "Imperial Knights model only. At the end of your Movement phase, select one other Imperial Knights model from your army that is within 12\" of and visible to the bearer. That selected model regains up to D3 lost wounds, or up to 3 lost wounds if your army is Honoured.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bearer of the Evanescent Ion",
+          "Description": "Imperial Knights model only. At the end of your Movement phase, select one other Imperial Knights model from your army that is within 12\" of and visible to the bearer. Until the start of your next Movement phase, that selected model has the Stealth ability.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bearer of the Judicant’s Helm",
+          "Description": "Imperial Knights model only. At the start of your Shooting phase, select one other Imperial Knights model from your army that is within 12\" of and visible to the bearer. Until the end of the phase, ranged weapons equipped by that selected model have the [IGNORES COVER] ability.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bearer of the Lancer’s Sigil",
+          "Description": "Imperial Knights model only. At the start of your Charge phase, select one other Imperial Knights model from your army that is within 12\" of and visible to the bearer. Until the end of the phase, you can re-roll Charge rolls made for that selected model.",
+          "Cost": 25,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "GATE WARDEN LANCE",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "DAUNTLESS DEFENDERS",
+        "Text": "At the start of the first battle round, select two objectives to be your foundations. Place a circular foundation marker in each one. When you draw a line from the closest part of one foundation marker to the closest part of the other, if any part of a model’s base (or any part of a model’s hull, for a model without a base) crosses that line, that model’s unit is said to be on your defensive line.\n\nWhile an Imperial Knights unit from your army is on your defensive line, that unit has the following ability:\n\nAgainst the Horde: Each time a model in this unit makes an attack that targets a visible enemy unit, you can ignore any or all modifiers to the Hit roll, and weapons equipped by models in this unit have the [SUSTAINED HITS 1] ability.\n\nEach time one of your foundations is removed from the battlefield (e.g. by a Primary Mission rule), just after it is removed, select a new objective marker on the battlefield to be one of your foundations."
+      },
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Drive Them Out!",
+          "Category": "GATE WARDEN LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit on your defensive line, an unmodified Hit roll of 5+ scores a Critical Hit."
+        },
+        {
+          "Name": "Lancebreaker",
+          "Category": "GATE WARDEN LANCE - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Imperial Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks and is on your defensive line.",
+          "Effect": "Until the end of the phase, each time an attack targets your unit, if the Strength characteristic of that attack is greater than the Toughness characteristic of your unit, subtract 1 from the Wound roll."
+        },
+        {
+          "Name": "Steadfast Superiority",
+          "Category": "GATE WARDEN LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase.",
+          "Target": "One Imperial Knights unit from your army that is within Engagement Range of one or more enemy units, that is on your defensive line and that has not already been selected to fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Hit roll."
+        },
+        {
+          "Name": "Marshal the Defence",
+          "Category": "GATE WARDEN LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase.",
+          "Target": "Up to two Imperial Knights units from your army that have not been selected to move this phase.",
+          "Effect": "Until the end of the phase, add 3\" to the Move characteristic of models in your units."
+        },
+        {
+          "Name": "Titanic Bombardment",
+          "Category": "GATE WARDEN LANCE - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Imperial Knights Titanic unit from your army that Remained Stationary this turn, is on your defensive line and that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the Sustained Hits 2 ability."
+        },
+        {
+          "Name": "Fortress of Intimidation",
+          "Category": "GATE WARDEN LANCE - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Start of your opponent’s Charge phase.",
+          "Target": "One Imperial Knights Titanic unit from your army that is on your defensive line.",
+          "Effect": "Until the end of the phase, each time an enemy unit selects your unit as a target of a charge, that unit must take a Battle-shock test, subtracting 1 from the result."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Acquisitor-at-Arms",
+          "Description": "Imperial Knights model only. While the bearer is on your defensive line and there are no enemy units on your defensive line, add the bearer’s Objective Control characteristic to that of each model affected by the bearer’s Bondsman ability.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Purgation’s Hand",
+          "Description": "Imperial Knights model only. Each time the bearer makes a melee attack, if the bearer is on your defensive line, re-roll a Hit roll of 1 and re-roll a Wound roll of 1.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Augury Halo",
+          "Description": "Imperial Knights model only. Each time the bearer makes a ranged attack, while the bearer is on your defensive line, weapons equipped by the bearer have the [IGNORES COVER] ability.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Vengeful Tread",
+          "Description": "Imperial Knights model only. Once per turn, you can target the bearer with the Tank Shock Stratagem for 0CP.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Imperial Knights"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Against the Horde",
+              "Text": "While this unit is on your defensive line, each time a model in this unit makes an attack that targets a visible enemy unit, you can ignore any or all modifiers to the Hit roll, and weapons equipped by models in this unit have the [SUSTAINED HITS 1] ability."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "QUESTORIS COMPANIONS",
+      "Cost": 3,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "HEROES OF LEGEND",
+        "Text": "At the start of your turn, if your current Oath is fulfilled, determine an additional Oath as described on pg 74, with the exception that you cannot select a Deed or Quality you have already selected (if you are randomly selecting the Deed and/or Quality and roll any result that you have already selected, select a Deed or Quality you have not already selected instead). If you cannot determine an additional Oath because you have already selected each Deed and each Quality, do not determine an additional Oath.\n\nThe Qualities from Oaths you have fulfilled continue to apply to all models in your army with the Code Chivalric ability. When the Deed for an additional Oath is completed, you instead gain 1CP, regardless of how you selected the Deed or Quality.\n\nVALOUR’S REWARD\nThe Enhancements shown on the right can become expended. You cannot use such Enhancements while they are expended. Each time you fulfil your Oath, each expended Enhancement is no longer expended."
+      },
+      "ForceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Courageous Stand",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+          "Target": "One Imperial Knights Titanic unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability."
+        },
+        {
+          "Name": "Titanic Duel",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Imperial Knights Titanic model from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Until the end of the phase, each time your model makes an attack that targets a Monster, Titanic or Walker unit, add 1 to the Hit roll and add 1 to the Wound roll."
+        },
+        {
+          "Name": "Moment of Glory",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Fight phase, just before an Imperial Knights Titanic unit from your army Consolidates.",
+          "Target": "That Imperial Knights Titanic unit.",
+          "Effect": "Until the end of the phase, each time your unit Consolidates, models in it can move an additional 3\" provided your unit can end that move within Engagement Range of one or more enemy units."
+        },
+        {
+          "Name": "Hero’s Tread",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "End of your Command phase.",
+          "Target": "One Imperial Knights Titanic model from your army that is within range of an objective marker you control.",
+          "Effect": "Your Level of Control over that objective marker is 5 (unless it would otherwise be higher), until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+        },
+        {
+          "Name": "Unstoppable Warrior",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 2,
+          "Phase": "friendly",
+          "When": "Your Movement phase, just after an Imperial Knights Titanic unit from your army Falls Back.",
+          "Target": "That Imperial Knights Titanic unit.",
+          "Effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
+        },
+        {
+          "Name": "Driven by the Past",
+          "Category": "QUESTORIS COMPANIONS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Charge phase.",
+          "Target": "One Imperial Knights Titanic unit from your army.",
+          "Effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Advanced."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Herald of Triumph",
+          "Description": "Imperial Knights model only. When the bearer ends a Charge move, it can use this Enhancement. If it does, this Enhancement is expended, then each enemy unit within Engagement Range of the bearer must take a Battle-shock test, subtracting 1 from the result.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Wyrmslayer Divination",
+          "Description": "Imperial Knights model only. In your Shooting phase, when the bearer is selected to shoot, it can use this Enhancement. If it does, this Enhancement is expended, then until the end of the phase, each time it makes an attack that targets a unit that can Fly, you can re-roll the Hit roll.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Pennant of Silvered Fury",
+          "Description": "Imperial Knights model only. When the bearer is selected to fight, it can use this Enhancement. If it does, this Enhancement is expended, then until the end of the phase, melee weapons equipped by the bearer have the [SUSTAINED HITS 2] ability.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Crushing Condemnation",
+          "Description": "Imperial Knights model only. When the bearer is selected to fight, after resolving its attacks, if one or more enemy units were destroyed by those attacks, the bearer can use this Enhancement. If it does, this Enhancement is expended, then select one enemy unit that is not within Engagement Range of any units from your army and is within 12\" of and visible to the bearer. Roll six D6: for each 4+, that enemy unit suffers 1 mortal wound.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": []
+    },
+    {
+      "Name": "SPEARHEAD-AT-ARMS",
+      "Cost": 2,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "KNIGHTLY TEACHINGS",
+        "Text": "Each time a model from your army uses its Bondsman ability, if no other model from your army has used that Bondsman ability that turn, you can select up to three friendly Armiger models (instead of one) within 12\" of that model, or within 15\" of that model while your army is Honoured (you still cannot select a model that is already being affected by a Bondsman ability). Until the start of your next Command phase, those models are affected by that Bondsman ability.\n\nKEYWORDS\nArmiger models from your army gain the Battleline keyword."
+      },
+      "Tags": [
+        "ARMIGERS"
+      ],
+      "ForceDispositions": [
+        "RECONNAISSANCE"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Virtue of Courage",
+          "Category": "SPEARHEAD-AT-ARMS - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Start of the Fight phase.",
+          "Target": "One Armiger model from your army, or one Imperial Knights Titanic model from your army, and one or more friendly Armiger models affected by that model’s Bondsman ability.",
+          "Effect": "Select one enemy unit. Until the end of the phase, each time one of your Armiger models makes an attack that targets that enemy unit, add 1 to the Hit roll."
+        },
+        {
+          "Name": "Exemplar’s Wisdom",
+          "Category": "SPEARHEAD-AT-ARMS - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase, just after an Imperial Knights Titanic model from your army has shot.",
+          "Target": "That Imperial Knights Titanic model, and one or more friendly Armiger models affected by that model’s Bondsman ability.",
+          "Effect": "Select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time one of your Armiger models makes an attack that targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Name": "Mantle of the Mentor",
+          "Category": "SPEARHEAD-AT-ARMS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Shooting phase.",
+          "Target": "One Armiger model from your army, or one Imperial Knights Titanic model from your army, and one or more friendly Armiger models affected by that model’s Bondsman ability.",
+          "Effect": "Until the end of the phase, your Armiger models are eligible to shoot in a turn in which they Fell Back."
+        },
+        {
+          "Name": "Thin Their Ranks",
+          "Category": "SPEARHEAD-AT-ARMS - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Start of your Shooting phase.",
+          "Target": "One Armiger model from your army, or one Imperial Knights Titanic model from your army, and one or more friendly Armiger models affected by that model’s Bondsman ability.",
+          "Effect": "Until the end of the phase, ranged weapons equipped by your Armiger models have the Rapid Fire 1 ability."
+        },
+        {
+          "Name": "Let Duty Be Your Shield",
+          "Category": "SPEARHEAD-AT-ARMS - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Armiger unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+        },
+        {
+          "Name": "Squires of the Hunt",
+          "Category": "SPEARHEAD-AT-ARMS - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "End of your opponent’s Fight phase.",
+          "Target": "One Armiger model from your army, or one Imperial Knights Titanic model from your army, and one or more friendly Armiger models affected by that model’s Bondsman ability.",
+          "Effect": "For each of your Armiger models that is within 9\" of one or more battlefield edges and not within Engagement Range of one or more enemy units, remove that Armiger model from the battlefield and place it into Strategic Reserves."
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Mentor’s Pride",
+          "Description": "Imperial Knights model only. While two or more Armiger models are under the effects of the bearer’s Bondsman ability, each time each of those Armiger models makes an attack, you can re-roll a Hit roll of 1.",
+          "Cost": 20,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Fables of Nightmare",
+          "Description": "Imperial Knights model only. While two or more Armiger models are under the effects of the bearer’s Bondsman ability, melee weapons equipped by those Armiger models have the [PRECISION] ability.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Tales of Heroism",
+          "Description": "Imperial Knights model only. While two or more Armiger models are under the effects of the bearer’s Bondsman ability, each time one of those Armiger models makes a melee attack, you can ignore any or all modifiers to the Hit roll and/or the Wound roll.",
+          "Cost": 10,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Martial Tuition",
+          "Description": "Imperial Knights model only. While two or more Armiger models are under the effects of the bearer’s Bondsman ability, once per turn, you can target one of those Armiger models with the Counter-offensive Stratagem for 0CP.",
+          "Cost": 15,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [
+            "ARMIGER HELVERIN",
+            "ARMIGER WARGLAIVE",
+            "ARMIGER MOIRAX"
+          ],
+          "DatasheetAdjustments": [
+            {
+              "Target": "Keywords",
+              "Type": "Add",
+              "Values": [
+                "Battleline"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "FREEBLADE COMPANY",
+      "Cost": 3,
+      "Rule": {
+        "Restrictions": "",
+        "Title": "KNIGHTS OF LEGEND",
+        "Text": "Imperial Knights models from your army have the Feel No Pain 6+ ability. In addition, at the start of your Command phase, each Imperial Knights model from your army regains 1 lost wound."
+      },
+      "ForceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "Stratagems": [
+        {
+          "Name": "Noble Sacrifice",
+          "Category": "FREEBLADE COMPANY - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Any phase.",
+          "Target": "One Imperial Knights unit from your army that was just destroyed. You can target that unit with this Stratagem even though it was just destroyed.",
+          "Effect": "Your unit’s Deadly Demise ability inflicts mortal wounds on a D6 roll of 4+, adding 1 to the result if it is an Armiger unit, instead of only a 6."
+        },
+        {
+          "Name": "Strength From Exile",
+          "Category": "FREEBLADE COMPANY - BATTLE TACTIC STRATAGEM",
+          "CPCost": 1,
+          "Phase": "any",
+          "When": "Your Shooting phase or the Fight phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to shoot or fight this phase.",
+          "Effect": "Until the end of the phase, each time a model in your unit makes an attack, if there are no other friendly units within 9\" of your unit, re-roll a Hit roll of 1 and re-roll a Wound roll of 1."
+        },
+        {
+          "Name": "Full Tilt",
+          "Category": "FREEBLADE COMPANY - WARGEAR STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Movement phase.",
+          "Target": "One Imperial Knights unit from your army.",
+          "Effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit, or 9\" instead if your unit is an Armiger or Destrier unit."
+        },
+        {
+          "Name": "Point-Blank Barrage",
+          "Category": "FREEBLADE COMPANY - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "friendly",
+          "When": "Your Shooting phase.",
+          "Target": "One Imperial Knights unit from your army that has not been selected to shoot this phase.",
+          "Effect": "Until the end of the phase, when making ranged attacks with Blast weapons, models in your unit can target enemy units within Engagement Range of your unit (provided no other friendly units are also within Engagement Range of that enemy unit). In addition, until the end of the phase, your unit does not suffer the penalty to its Hit rolls for being within Engagement Range of one or more enemy units, but each time a model in your unit makes an attack with a Blast weapon that targets a unit within Engagement Range of your unit, on an unmodified Hit roll of 1, your unit suffers 1 mortal wound after all of its attacks have been resolved."
+        },
+        {
+          "Name": "Survivor of Strife",
+          "Category": "FREEBLADE COMPANY - EPIC DEED STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+          "Target": "One Imperial Knights unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+          "Effect": "Until the end of the phase, each time an attack targets your unit, if the Strength characteristic of that attack is greater than the Toughness characteristic of your unit, subtract 1 from the Wound roll."
+        },
+        {
+          "Name": "Flanking Manoeuvres",
+          "Category": "FREEBLADE COMPANY - STRATEGIC PLOY STRATAGEM",
+          "CPCost": 1,
+          "Phase": "opponent",
+          "When": "End of your opponent’s Fight phase.",
+          "Target": "One Armiger unit from your army that is within 9\" of one or more battlefield edges and not within Engagement Range of one or more enemy units.",
+          "Effect": "Remove your unit from the battlefield and place it into Strategic Reserves"
+        }
+      ],
+      "Enhancements": [
+        {
+          "Name": "Mysterious Guardian",
+          "Description": "Imperial Knights model only. (Once per battle, per army) At the end of your opponent’s turn, if this unit is unengaged, you can use this ability. If you do:\n▪ Place this unit in strategic reserves.\n▪ This unit has Deep Strike until the start of your next Shooting phase.\n▪ This unit must make an ingress move in your next Movement phase (including in your first turn).",
+          "Cost": 35,
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Sanctuary",
+          "Description": "Imperial Knights model only. The bearer has a 5+ invulnerable save.",
+          "Cost": 20,
+          "StatAdjustments": [
+            {
+              "Target": "InvulSave",
+              "Value": "5+"
+            }
+          ],
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Bringer Of Justice",
+          "Description": "Imperial Knights model only. Improve the Attacks characteristic of melee weapons equipped by the bearer by 2, and each time the bearer makes a melee attack, add 1 to the Hit roll.",
+          "Cost": 30,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "2",
+              "Type": "Add",
+              "Target": "Attacks"
+            }
+          ],
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        },
+        {
+          "Name": "Hunter’s Eye",
+          "Description": "Imperial Knights model only. Ranged weapons equipped by the bearer have the [IGNORES COVER] ability.",
+          "Cost": 25,
+          "WeaponStatAdjustments": [
+            {
+              "Value": "IGNORES COVER",
+              "Type": "Add",
+              "Target": "Keywords",
+              "WeaponScope": "Ranged"
+            }
+          ],
+          "RequiredKeywords": [
+            "Imperial Knights"
+          ],
+          "RequiredOneOfKeywords": [],
+          "ExcludedKeywords": [],
+          "RequiredAbilities": []
+        }
+      ],
+      "Effects": [
+        {
+          "AffectedUnits": [],
+          "AffectedUnitsByKeyword": [
+            "Imperial Knights"
+          ],
+          "AddedAbilities": [
+            {
+              "Title": "Knights of Legend",
+              "Text": "At the start of your Command phase, this model regains 1 lost wound."
+            }
+          ],
+          "DatasheetAdjustments": [
+            {
+              "Target": "CoreAbilities",
+              "Type": "Add",
+              "Values": [
+                "Feel No Pain 6+"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ArmyRules": [
+    {
+      "Title": "CODE CHIVALRIC",
+      "Text": "If your Army Faction is Imperial Knights, at the end of the Read Mission Objectives step, you must determine your army's Oath for the coming battle. An Oath consists of two parts – one Deed and one Quality. There are three options for each part, shown below.\n\nTo determine your army's Deed, you can either select one Deed or you can randomly select one Deed by rolling a D6 and consulting the relevant table below. The selected Deed will describe what needs to be achieved in order to complete that Deed.\n\nTo determine your army's Quality, you can either select one Quality or you can randomly select one Quality by rolling a D6 and consulting the relevant table below. Until the end of the battle, the ability described in the Quality selected applies to all models in your army with this ability.\n\nThe first time your selected Deed is completed your Oath is fulfilled and, until the end of the battle, your army becomes Honoured and you gain 2CP, or 3CP if you randomly selected your Deed and/or Quality (CP gained in this way are an exemption to the Core Rules that limit the maximum number of CP you can gain per battle round to 1).\n\nDeed\n\t▪ At the start of the battle, select one Character model in your opponent's army. This Deed is completed at the end of a turn if that Character is destroyed.[D6(1 or 2)]\n\t▪ This deed is completed at the end of your opponent's turn if you control more objective markers than your opponent.[D6(3 or 4)]\n\t▪ This deed is completed at the end of the battle round if the number of enemy units destroyed this battle round is greater than the battle round number even if those units are subsequently returned to the battlefield (for example, two destroyed enemy units in the first battle round). [D6(5 or 6)]\n\nQuality\n\t▪ Each time this model is selected to shoot or fight, you can re-roll one Hit roll and you can re-roll one Wound roll. [D6(1 or 2)]\n\t▪ Add 2\" to this model's Move characteristic and add 1 to Advance and Charge rolls made for this model. [D6(3 or 4)]\n\t▪ Improve this model's Objective Control characteristic by 2 and its Leadership characteristic by 1. [D6(5 or 6)]"
+    },
+    {
+      "Title": "BONDSMAN",
+      "Text": "Some Imperial Knights models have a Bondsman ability, tagged with the word ‘Bondsman’. In your Command phase, one or more models from your army with a Bondsman ability can use that ability. For each one that does, select one friendly Armiger model within 12\" of that model (you cannot select an Armiger model that is already being affected by a Bondsman ability). Until the start of your next Command phase, that Armiger model is affected by that Bondsman ability."
+    },
+    {
+      "Title": "SUPER-HEAVY WALKER",
+      "Text": "Each time a model with this ability makes a Normal, Advance or Fall Back move, it can move through models (excluding Titanic models) and sections of terrain features that are 4\" or less in height. When doing so:\n\t▪ It can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them.\n\t▪ It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a 1, that model is Battle-shocked."
+    },
+    {
+      "Title": "FREEBLADES",
+      "Text": "If every model in your army has the Imperium keyword, you can include either one Titanic Imperial Knights model or up to three Armiger models in your army, even if they do not have the Faction keyword you selected in the Select Army Faction step. None of these models can be your Warlord, and they cannot be given Enhancements."
+    }
+  ]
+}

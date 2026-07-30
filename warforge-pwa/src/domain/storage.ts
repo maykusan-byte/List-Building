@@ -2,11 +2,12 @@ import type { InventoryDataset } from './inventory';
 import type { NormalizedDatabase, SavedDraft } from './types';
 
 const DATABASE_NAME = 'warforge-40k';
-const DATABASE_VERSION = 2;
+const DATABASE_VERSION = 3;
 const DATA_STORE = 'datasets';
 const INVENTORY_STORE = 'inventory';
-const DRAFTS_KEY = 'warforge.saved-drafts.v1';
-const FAVORITES_KEY = 'warforge.favourites.v1';
+const DATA_KEY = 'catalog-v2';
+const DRAFTS_KEY = 'warforge.saved-drafts.v2';
+const FAVORITES_KEY = 'warforge.favourites.v2';
 
 function openDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ export async function cacheDatabase(database: NormalizedDatabase): Promise<void>
   const connection = await openDatabase();
   await new Promise<void>((resolve, reject) => {
     const transaction = connection.transaction(DATA_STORE, 'readwrite');
-    transaction.objectStore(DATA_STORE).put(database, 'latest');
+    transaction.objectStore(DATA_STORE).put(database, DATA_KEY);
     transaction.oncomplete = () => resolve();
     transaction.onerror = () => reject(transaction.error);
   });
@@ -34,7 +35,7 @@ export async function cacheDatabase(database: NormalizedDatabase): Promise<void>
 export async function getCachedDatabase(): Promise<NormalizedDatabase | null> {
   const connection = await openDatabase();
   const result = await new Promise<NormalizedDatabase | null>((resolve, reject) => {
-    const request = connection.transaction(DATA_STORE, 'readonly').objectStore(DATA_STORE).get('latest');
+    const request = connection.transaction(DATA_STORE, 'readonly').objectStore(DATA_STORE).get(DATA_KEY);
     request.onsuccess = () => resolve((request.result as NormalizedDatabase | undefined) ?? null);
     request.onerror = () => reject(request.error);
   });

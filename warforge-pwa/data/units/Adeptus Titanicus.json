@@ -1,0 +1,843 @@
+{
+  "Name": "Adeptus Titanicus",
+  "Units": [
+    {
+      "Name": "WARHOUND TITAN",
+      "Faction": "Adeptus Titanicus",
+      "Flags": 8,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Warhound Titan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Warhound plasma blastgun",
+                  "Warhound vulcan mega-bolter",
+                  "Warhound feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Warhound plasma blastgun"
+                    ],
+                    "Options": [
+                      "Warhound inferno gun",
+                      "Warhound turbo-laser destructor",
+                      "Warhound vulcan mega-bolter"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Warhound vulcan mega-bolter"
+                    ],
+                    "Options": [
+                      "Warhound inferno gun",
+                      "Warhound plasma blastgun",
+                      "Warhound turbo-laser destructor"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Striding Colossus",
+          "Text": "Each time you target this model with a Stratagem, you must spend twice that Stratagem’s stated CP cost to do so."
+        },
+        {
+          "Title": "Flank Speed",
+          "Text": "Each time this model Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 8\" to the Move characteristic of this model."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-13 WOUNDS REMAINING",
+          "Text": "While this model has 1-13 wounds remaining, subtract 8 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Warhound Titan",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6"
+      ],
+      "FactionKeywords": [
+        "Adeptus Titanicus"
+      ],
+      "StatLines": [
+        {
+          "Movement": "14\"",
+          "Toughness": "13",
+          "Save": "2+",
+          "Wounds": "40",
+          "Leadership": "6+",
+          "OC": "16",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Warhound inferno gun",
+              "Keywords": "IGNORES COVER, TORRENT",
+              "Range": "24\"",
+              "Attacks": "3D6",
+              "ToHit": "N/A",
+              "Strength": "7",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Warhound plasma blastgun – standard",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "2D6+3",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-3",
+              "Damage": "4"
+            },
+            {
+              "Name": "Warhound plasma blastgun – supercharge",
+              "Keywords": "BLAST, HAZARDOUS",
+              "Range": "72\"",
+              "Attacks": "2D6+3",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "5"
+            },
+            {
+              "Name": "Warhound turbo-laser destructor",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "D3+3",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "2D6"
+            },
+            {
+              "Name": "Warhound vulcan mega-bolter",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "48\"",
+              "Attacks": "20",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Warhound feet",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "4+",
+              "Strength": "10",
+              "AP": "-1",
+              "Damage": "2"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 1100
+        }
+      ]
+    },
+    {
+      "Name": "REAVER TITAN",
+      "Faction": "Adeptus Titanicus",
+      "Flags": 8,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Reaver Titan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "Reaver apocalypse launcher",
+                  "Reaver gatling blaster",
+                  "Reaver laser blaster",
+                  "Reaver feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Reaver gatling blaster"
+                    ],
+                    "Options": [
+                      "Reaver laser blaster",
+                      "Reaver melta cannon",
+                      "Reaver volcano cannon",
+                      "Reaver power fist"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Reaver laser blaster"
+                    ],
+                    "Options": [
+                      "Reaver gatling blaster",
+                      "Reaver melta cannon",
+                      "Reaver volcano cannon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Striding Colossus",
+          "Text": "Each time you target this model with a Stratagem, you must spend three times that Stratagem’s stated CP cost to do so."
+        },
+        {
+          "Title": "God-machine",
+          "Text": "This model is eligible to shoot and declare a charge in a turn in which it Fell Back."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-20 WOUNDS REMAINING",
+          "Text": "While this model has 1-20 wounds remaining, subtract 10 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Reaver Titan",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+6"
+      ],
+      "FactionKeywords": [
+        "Adeptus Titanicus"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "14",
+          "Save": "2+",
+          "Wounds": "60",
+          "Leadership": "6+",
+          "OC": "20",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaver apocalypse launcher",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "200\"",
+              "Attacks": "3D6",
+              "ToHit": "3+",
+              "Strength": "7",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Reaver gatling blaster",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "72\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaver laser blaster",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "D6+2"
+            },
+            {
+              "Name": "Reaver melta cannon",
+              "Keywords": "BLAST, MELTA 4",
+              "Range": "48\"",
+              "Attacks": "D6+2",
+              "ToHit": "3+",
+              "Strength": "13",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaver volcano cannon",
+              "Keywords": "BLAST, HEAVY",
+              "Range": "120\"",
+              "Attacks": "D3+1",
+              "ToHit": "3+",
+              "Strength": "24",
+              "AP": "-5",
+              "Damage": "14"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Reaver feet",
+              "Range": "Melee",
+              "Attacks": "8",
+              "ToHit": "4+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "4"
+            },
+            {
+              "Name": "Reaver power fist – strike",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "20",
+              "AP": "-4",
+              "Damage": "14"
+            },
+            {
+              "Name": "Reaver power fist – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "4+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "6"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 2200
+        }
+      ]
+    },
+    {
+      "Name": "WARBRINGER NEMESIS TITAN",
+      "Faction": "Adeptus Titanicus",
+      "Flags": 8,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Warbringer Nemesis Titan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 anvillus defence battery",
+                  "3 ardex-defensor maulers",
+                  "Nemesis quake cannon",
+                  "Reaver gatling blaster",
+                  "Reaver laser blaster",
+                  "Nemesis feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "Nemesis quake cannon"
+                    ],
+                    "Options": [
+                      "Nemesis volcano cannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Reaver gatling blaster"
+                    ],
+                    "Options": [
+                      "Reaver laser blaster",
+                      "Reaver melta cannon",
+                      "Reaver volcano cannon"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "Reaver laser blaster"
+                    ],
+                    "Options": [
+                      "Reaver gatling blaster",
+                      "Reaver melta cannon",
+                      "Reaver volcano cannon"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Striding Colossus",
+          "Text": "Each time you target this model with a Stratagem, you must spend three times that Stratagem’s stated CP cost to do so."
+        },
+        {
+          "Title": "Titanic Fire Support",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly Imperium model makes an attack that targets that enemy unit, on a Critical Wound, improve the Armour Penetration characteristic of that attack by 1."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-26 WOUNDS REMAINING",
+          "Text": "While this model has 1-26 wounds remaining, subtract 10 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Warbringer Nemesis Titan",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise D6+6"
+      ],
+      "FactionKeywords": [
+        "Adeptus Titanicus"
+      ],
+      "StatLines": [
+        {
+          "Movement": "12\"",
+          "Toughness": "14",
+          "Save": "2+",
+          "Wounds": "80",
+          "Leadership": "6+",
+          "OC": "20",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Anvillus defence battery",
+              "Keywords": "ANTI-FLY 4+",
+              "Range": "72\"",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ardex-defensor mauler",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Nemesis quake cannon",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "480\"",
+              "Attacks": "D6+6",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "4"
+            },
+            {
+              "Name": "Nemesis volcano cannon",
+              "Keywords": "BLAST",
+              "Range": "120\"",
+              "Attacks": "D3+3",
+              "ToHit": "3+",
+              "Strength": "24",
+              "AP": "-5",
+              "Damage": "14"
+            },
+            {
+              "Name": "Reaver gatling blaster",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "72\"",
+              "Attacks": "12",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Reaver laser blaster",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "8",
+              "ToHit": "3+",
+              "Strength": "20",
+              "AP": "-3",
+              "Damage": "D6+2"
+            },
+            {
+              "Name": "Reaver melta cannon",
+              "Keywords": "BLAST, MELTA 4",
+              "Range": "48\"",
+              "Attacks": "D6+2",
+              "ToHit": "3+",
+              "Strength": "13",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Reaver volcano cannon",
+              "Keywords": "BLAST, HEAVY",
+              "Range": "120\"",
+              "Attacks": "D3+1",
+              "ToHit": "3+",
+              "Strength": "24",
+              "AP": "-5",
+              "Damage": "14"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Nemesis feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "4"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 2600
+        }
+      ]
+    },
+    {
+      "Name": "WARLORD TITAN",
+      "Faction": "Adeptus Titanicus",
+      "Flags": 8,
+      "UnitComposition": {
+        "ModelCompositions": [
+          {
+            "ModelName": "Warlord Titan",
+            "Wargear": [
+              {
+                "InitalWargear": [
+                  "2 apocalypse launchers",
+                  "2 ardex-defensor lascannons",
+                  "2 ardex-defensor maulers",
+                  "macro gatling blaster",
+                  "arioch power claw",
+                  "Warlord feet"
+                ],
+                "Options": [
+                  {
+                    "Replaces": [
+                      "2 apocalypse launchers"
+                    ],
+                    "Options": [
+                      "2 laser blasters"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "arioch power claw"
+                    ],
+                    "Options": [
+                      "belicosa volcano cannon",
+                      "macro gatling blaster",
+                      "mori quake cannon",
+                      "sunfury plasma annihilator"
+                    ]
+                  },
+                  {
+                    "Replaces": [
+                      "macro gatling blaster"
+                    ],
+                    "Options": [
+                      "arioch power claw",
+                      "belicosa volcano cannon",
+                      "mori quake cannon",
+                      "sunfury plasma annihilator"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "WargearDefinitions": []
+      },
+      "UnitAbilities": [
+        {
+          "Title": "Striding Colossus",
+          "Text": "Each time you target this model with a Stratagem, you must spend four times that Stratagem’s stated CP cost to do so."
+        },
+        {
+          "Title": "Wrath of the Omnissiah",
+          "Text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. That unit must take a Battle-shock test."
+        }
+      ],
+      "Infos": [
+        {
+          "Title": "DAMAGED: 1-33 WOUNDS REMAINING",
+          "Text": "While this model has 1-33 wounds remaining, subtract 15 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+        }
+      ],
+      "Keywords": [
+        "Vehicle",
+        "Walker",
+        "Titanic",
+        "Towering",
+        "Imperium",
+        "Warlord Titan",
+        "Frame"
+      ],
+      "CoreAbilities": [
+        "Deadly Demise 2D6+6"
+      ],
+      "FactionKeywords": [
+        "Adeptus Titanicus"
+      ],
+      "StatLines": [
+        {
+          "Movement": "10\"",
+          "Toughness": "16",
+          "Save": "2+",
+          "Wounds": "100",
+          "Leadership": "6+",
+          "OC": "30",
+          "BaseInfo": {
+            "Type": 2
+          },
+          "InvulSave": {
+            "Save": "5+",
+            "Description": "Against ranged attacks only"
+          }
+        }
+      ],
+      "Weapons": [
+        {
+          "Name": "RANGED WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Apocalypse launcher",
+              "Keywords": "BLAST, INDIRECT FIRE",
+              "Range": "200\"",
+              "Attacks": "20",
+              "ToHit": "3+",
+              "Strength": "8",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Ardex-defensor lascannon",
+              "Range": "48\"",
+              "Attacks": "1",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "D6+1"
+            },
+            {
+              "Name": "Ardex-defensor mauler",
+              "Range": "36\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-2",
+              "Damage": "2"
+            },
+            {
+              "Name": "Arioch power claw",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "48\"",
+              "Attacks": "20",
+              "ToHit": "3+",
+              "Strength": "6",
+              "AP": "-1",
+              "Damage": "2"
+            },
+            {
+              "Name": "Belicosa volcano cannon",
+              "Keywords": "BLAST",
+              "Range": "120\"",
+              "Attacks": "D3+3",
+              "ToHit": "3+",
+              "Strength": "32",
+              "AP": "-5",
+              "Damage": "18"
+            },
+            {
+              "Name": "Laser blaster",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "6",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "D6+3"
+            },
+            {
+              "Name": "Macro gatling blaster",
+              "Keywords": "SUSTAINED HITS 1",
+              "Range": "100\"",
+              "Attacks": "30",
+              "ToHit": "3+",
+              "Strength": "9",
+              "AP": "-2",
+              "Damage": "3"
+            },
+            {
+              "Name": "Mori quake cannon",
+              "Keywords": "BLAST, IGNORES COVER",
+              "Range": "280\"",
+              "Attacks": "3D6",
+              "ToHit": "3+",
+              "Strength": "16",
+              "AP": "-4",
+              "Damage": "6"
+            },
+            {
+              "Name": "Sunfury plasma annihilator – standard",
+              "Keywords": "BLAST",
+              "Range": "72\"",
+              "Attacks": "2D6+6",
+              "ToHit": "3+",
+              "Strength": "10",
+              "AP": "-3",
+              "Damage": "5"
+            },
+            {
+              "Name": "Sunfury plasma annihilator – supercharge",
+              "Keywords": "BLAST, HAZARDOUS",
+              "Range": "72\"",
+              "Attacks": "2D6+6",
+              "ToHit": "3+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "8"
+            }
+          ]
+        },
+        {
+          "IsMelee": true,
+          "Name": "MELEE WEAPONS",
+          "Weapons": [
+            {
+              "Name": "Arioch power claw – strike",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "20",
+              "AP": "-4",
+              "Damage": "24"
+            },
+            {
+              "Name": "Arioch power claw – sweep",
+              "Range": "Melee",
+              "Attacks": "12",
+              "ToHit": "4+",
+              "Strength": "12",
+              "AP": "-3",
+              "Damage": "8"
+            },
+            {
+              "Name": "Warlord feet",
+              "Range": "Melee",
+              "Attacks": "6",
+              "ToHit": "4+",
+              "Strength": "12",
+              "AP": "-2",
+              "Damage": "4"
+            }
+          ]
+        }
+      ],
+      "Upgrades": [],
+      "Points": [
+        {
+          "ModelCount": 1,
+          "Cost": 3500
+        }
+      ]
+    }
+  ],
+  "Dettachments": [],
+  "ArmyRules": [
+    {
+      "Title": "TOWERING EXAMPLE",
+      "Text": "When mustering your army, if your Army Faction is Adeptus Titanicus, ignore the Select Detachment Rules step. In the Select Warlord step, select one Adeptus Titanicus model from your army to be your Warlord, even though that model does not have the Character keyword. Your army has the Take and Hold force disposition."
+    },
+    {
+      "Title": "TITANIC SUPPORT",
+      "Text": "If every model in your army has the Imperium keyword, you can include 1 Adeptus Titanicus model in your army, even if it does not have the Faction keyword you selected in the Select Army Faction step."
+    },
+    {
+      "Title": "TITANICUS TRAITORIS",
+      "Text": "You can use the Adeptus Titanicus datasheets in this document to represent Titanicus Traitoris models if you wish. To do so, on those datasheets and on this Army Rules card, replace all instances of the Imperium keyword with Chaos, and replace all instances of the Adeptus Titanicus Faction keyword with Titanicus Traitoris. For the purposes of points values, use those published for the equivalent Adeptus Titanicus models."
+    }
+  ]
+}

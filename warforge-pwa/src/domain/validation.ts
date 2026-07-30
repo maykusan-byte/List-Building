@@ -1,4 +1,5 @@
 import { calculateItemCost, enhancementIsEligible, getDetachmentCost, getEnhancement } from './calculations';
+import { isUnitAvailableToFaction } from './catalog';
 import { scenarioIsSelectable } from './scenarios';
 import type { NormalizedDatabase, RosterDraft, ValidationIssue } from './types';
 
@@ -36,7 +37,7 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
     });
   }
 
-  const total = draft.items.reduce((sum, item) => sum + calculateItemCost(database, item, draft.detachmentIds).total, 0);
+  const total = draft.items.reduce((sum, item) => sum + calculateItemCost(database, item, draft.items, draft.detachmentIds).total, 0);
   if (battleSize && total > battleSize.PointsTotal) {
     issues.push({ id: 'points-budget', level: 'error', message: `Budget d’armée dépassé : ${total}/${battleSize.PointsTotal} pts.` });
   }
@@ -48,7 +49,7 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
       issues.push({ id: `unit-${item.id}`, level: 'error', message: 'Une unité de la liste est introuvable dans la base.' });
       return;
     }
-    if (unit.factionName !== draft.primaryFaction) {
+    if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) {
       issues.push({ id: `faction-${item.id}`, level: 'error', message: `${unit.displayName} ne vient pas de la faction sélectionnée.` });
     }
     countByUnit.set(unit.id, (countByUnit.get(unit.id) ?? 0) + 1);
@@ -59,7 +60,7 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
         issues.push({ id: `enhancement-${item.id}`, level: 'error', message: `L’amélioration de ${unit.displayName} n’est pas éligible.` });
       }
     }
-    calculateItemCost(database, item, draft.detachmentIds).notices.forEach((notice, noticeIndex) => {
+    calculateItemCost(database, item, draft.items, draft.detachmentIds).notices.forEach((notice, noticeIndex) => {
       issues.push({ id: `cost-${item.id}-${noticeIndex}`, level: 'warning', message: `${unit.displayName} : ${notice}` });
     });
   });
