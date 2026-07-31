@@ -7,6 +7,7 @@ const DATA_STORE = 'datasets';
 const INVENTORY_STORE = 'inventory';
 const DATA_KEY = 'catalog-v2';
 const DRAFTS_KEY = 'warforge.saved-drafts.v2';
+const ACTIVE_DRAFT_KEY = 'warforge.active-draft.v1';
 const FAVORITES_KEY = 'warforge.favourites.v2';
 
 function openDatabase(): Promise<IDBDatabase> {
@@ -68,14 +69,46 @@ export async function getCachedInventory(): Promise<InventoryDataset | null> {
 export function readSavedDrafts(): SavedDraft[] {
   try {
     const value = localStorage.getItem(DRAFTS_KEY);
-    return value ? (JSON.parse(value) as SavedDraft[]) : [];
+    const parsed: unknown = value ? JSON.parse(value) : [];
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((saved): saved is SavedDraft => Boolean(
+      saved
+      && typeof saved === 'object'
+      && typeof (saved as SavedDraft).id === 'string'
+      && typeof (saved as SavedDraft).name === 'string'
+      && typeof (saved as SavedDraft).updatedAt === 'string'
+      && (saved as SavedDraft).draft
+    ));
   } catch {
     return [];
   }
 }
 
-export function writeSavedDrafts(drafts: SavedDraft[]): void {
-  localStorage.setItem(DRAFTS_KEY, JSON.stringify(drafts));
+export function writeSavedDrafts(drafts: SavedDraft[]): boolean {
+  try {
+    localStorage.setItem(DRAFTS_KEY, JSON.stringify(drafts));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function readActiveDraftId(): string | null {
+  try {
+    const value = localStorage.getItem(ACTIVE_DRAFT_KEY);
+    return value && value.trim() ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+export function writeActiveDraftId(id: string): boolean {
+  try {
+    localStorage.setItem(ACTIVE_DRAFT_KEY, id);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function readFavorites(): string[] {

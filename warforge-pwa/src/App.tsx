@@ -1,10 +1,10 @@
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
-import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readFavorites, readSavedDrafts, writeFavorites, writeSavedDrafts } from './domain/storage';
+import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeSavedDrafts } from './domain/storage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
@@ -25,6 +25,24 @@ function newDraft(database: NormalizedDatabase): RosterDraft {
     scenario: 'TAKE AND HOLD',
     detachmentIds: [],
     items: []
+  };
+}
+
+function restoreSavedDraft(saved: SavedDraft, database: NormalizedDatabase): RosterDraft | null {
+  const stored = saved.draft;
+  if (!stored || (saved.databaseFingerprint && saved.databaseFingerprint !== database.fingerprint)) return null;
+  if (!database.factions.some((faction) => faction.id === stored.primaryFaction)) return null;
+  if (!database.battleSizes.some((size) => size.PointsTotal === stored.battleSizePoints)) return null;
+  if (!Array.isArray(stored.detachmentIds) || !Array.isArray(stored.items)) return null;
+  if (!stored.detachmentIds.every((id) => database.detachments.some((detachment) => detachment.id === id))) return null;
+  if (!stored.items.every((item) => item && database.units.some((unit) => unit.id === item.unitId))) return null;
+  const detachments = database.detachments.filter((detachment) => stored.detachmentIds.includes(detachment.id));
+  return {
+    ...stored,
+    id: saved.id,
+    name: typeof stored.name === 'string' ? stored.name : saved.name,
+    scenario: keepSelectableScenario(detachments, stored.scenario),
+    items: stored.items.map(normalizeRosterItemWargear)
   };
 }
 
@@ -358,10 +376,13 @@ export default function App(): React.JSX.Element {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
-  const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts().map((saved) => ({
-    ...saved,
-    draft: { ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear) }
-  })));
+  const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts().flatMap((saved) => {
+    if (!Array.isArray(saved.draft?.items)) return [];
+    return [{ ...saved, draft: { ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear) } }];
+  }));
+  const savedDraftsRef = useRef(savedDrafts);
+  const startupDraftsRef = useRef(savedDrafts);
+  const startupActiveDraftIdRef = useRef(readActiveDraftId());
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
   const [visibleUnits, setVisibleUnits] = useState(60);
   const [notice, setNotice] = useState<string | null>(null);
@@ -371,7 +392,12 @@ export default function App(): React.JSX.Element {
 
   const installDatabase = async (nextDatabase: NormalizedDatabase, source: string): Promise<void> => {
     setDatabase(nextDatabase);
-    setDraft((current) => current ?? newDraft(nextDatabase));
+    setDraft((current) => {
+      if (current) return current;
+      const preferredId = startupActiveDraftIdRef.current;
+      const candidates = [...startupDraftsRef.current].sort((left, right) => Number(right.id === preferredId) - Number(left.id === preferredId));
+      return candidates.map((saved) => restoreSavedDraft(saved, nextDatabase)).find((saved): saved is RosterDraft => saved !== null) ?? newDraft(nextDatabase);
+    });
     setStatus(`${source} · ${nextDatabase.units.length.toLocaleString('fr-FR')} unités, ${nextDatabase.detachments.length} détachements`);
     setError(null);
     try {
@@ -455,6 +481,37 @@ export default function App(): React.JSX.Element {
     if (!inventory) setInStockOnly(false);
   }, [inventory]);
 
+  useEffect(() => {
+    savedDraftsRef.current = savedDrafts;
+  }, [savedDrafts]);
+
+  const persistDraft = useCallback((nextDraft: RosterDraft, announce = false): void => {
+    if (!database) return;
+    const saved: SavedDraft = {
+      id: nextDraft.id,
+      name: nextDraft.name.trim() || 'Liste sans nom',
+      updatedAt: new Date().toISOString(),
+      databaseFingerprint: database.fingerprint,
+      draft: nextDraft
+    };
+    const next = [saved, ...savedDraftsRef.current.filter((candidate) => candidate.id !== saved.id)].slice(0, 50);
+    savedDraftsRef.current = next;
+    setSavedDrafts(next);
+    const draftsSaved = writeSavedDrafts(next);
+    const activeSaved = writeActiveDraftId(nextDraft.id);
+    if (!draftsSaved || !activeSaved) {
+      setError('La sauvegarde locale est indisponible dans ce navigateur. Vérifiez que le stockage du site n’est pas bloqué.');
+      return;
+    }
+    if (announce) setNotice('Liste enregistrée localement. Les modifications suivantes sont sauvegardées automatiquement.');
+  }, [database]);
+
+  useEffect(() => {
+    if (!database || !draft) return;
+    const timer = window.setTimeout(() => persistDraft(draft), 450);
+    return () => window.clearTimeout(timer);
+  }, [database, draft, persistDraft]);
+
   const selectedUnit = database?.units.find((unit) => unit.id === selectedUnitId) ?? null;
   const inventoryAllocation = useMemo(
     () => database && draft ? allocateInventory(database, draft.items, inventory) : { reservationsByItemId: new Map(), reservedFigureIds: new Set<number>() },
@@ -522,9 +579,56 @@ export default function App(): React.JSX.Element {
     () => selectableScenarios(selectedDetachments),
     [selectedDetachments]
   );
+  const compatibleSavedDrafts = useMemo(
+    () => database ? savedDrafts.filter((saved) => restoreSavedDraft(saved, database) !== null) : [],
+    [database, savedDrafts]
+  );
 
   const updateDraft = (updater: (current: RosterDraft) => RosterDraft): void => {
     setDraft((current) => current ? updater(current) : current);
+  };
+
+  const activateSavedDraft = (saved: SavedDraft): void => {
+    if (!database) return;
+    const restored = restoreSavedDraft(saved, database);
+    if (!restored) {
+      setError('Cette liste est incompatible avec la base chargée.');
+      return;
+    }
+    setDraft(restored);
+    writeActiveDraftId(restored.id);
+    setSelectedUnitId(null);
+    setVisibleUnits(60);
+    setNotice(`Liste « ${saved.name} » ouverte.`);
+  };
+
+  const createDraft = (): void => {
+    if (!database) return;
+    const next = newDraft(database);
+    setDraft(next);
+    writeActiveDraftId(next.id);
+    setSelectedUnitId(null);
+    setVisibleUnits(60);
+    persistDraft(next);
+    setNotice('Nouvelle liste créée. Elle est sauvegardée automatiquement.');
+  };
+
+  const deleteSavedDraft = (saved: SavedDraft): void => {
+    if (!database || !window.confirm(`Supprimer définitivement la liste « ${saved.name} » ?`)) return;
+    const next = savedDraftsRef.current.filter((candidate) => candidate.id !== saved.id);
+    savedDraftsRef.current = next;
+    setSavedDrafts(next);
+    if (!writeSavedDrafts(next)) {
+      setError('La suppression n’a pas pu être enregistrée localement.');
+      return;
+    }
+    if (draft?.id === saved.id) {
+      const replacement = newDraft(database);
+      setDraft(replacement);
+      writeActiveDraftId(replacement.id);
+      persistDraft(replacement);
+    }
+    setNotice(`Liste « ${saved.name} » supprimée.`);
   };
 
   const toggleDetachment = (detachmentId: string): void => {
@@ -581,11 +685,7 @@ export default function App(): React.JSX.Element {
 
   const saveDraft = (): void => {
     if (!draft) return;
-    const saved: SavedDraft = { id: draft.id, name: draft.name.trim() || 'Liste sans nom', updatedAt: new Date().toISOString(), draft };
-    const next = [saved, ...savedDrafts.filter((candidate) => candidate.id !== saved.id)].slice(0, 20);
-    setSavedDrafts(next);
-    writeSavedDrafts(next);
-    setNotice('Brouillon enregistré localement.');
+    persistDraft(draft, true);
   };
 
   const exportDraft = (): void => {
@@ -666,6 +766,16 @@ export default function App(): React.JSX.Element {
           <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
         </label>
         <label>
+          Liste active
+          <select aria-label="Liste active" value={draft.id} onChange={(event) => {
+            const saved = compatibleSavedDrafts.find((candidate) => candidate.id === event.target.value);
+            if (saved) activateSavedDraft(saved);
+          }}>
+            {!compatibleSavedDrafts.some((saved) => saved.id === draft.id) && <option value={draft.id}>{draft.name.trim() || 'Liste sans nom'}</option>}
+            {compatibleSavedDrafts.map((saved) => <option key={saved.id} value={saved.id}>{saved.name}</option>)}
+          </select>
+        </label>
+        <label>
           Format
           <select value={draft.battleSizePoints} onChange={(event) => updateDraft((current) => ({ ...current, battleSizePoints: Number(event.target.value) }))}>
             {database.battleSizes.map((size) => <option key={size.PointsTotal} value={size.PointsTotal}>{size.PointsTotal.toLocaleString('fr-FR')} pts · {size.DetachmentPoints} DP</option>)}
@@ -684,7 +794,8 @@ export default function App(): React.JSX.Element {
           </select>
         </label>
         <div className="configuration-actions">
-          <button onClick={saveDraft}>Sauvegarder</button>
+          <button onClick={createDraft}>Nouvelle liste</button>
+          <button className="secondary" onClick={saveDraft}>Enregistrer</button>
           <button className="secondary" disabled={hasBlockingIssue} onClick={exportDraft}>Exporter v1</button>
         </div>
       </section>
@@ -847,12 +958,20 @@ export default function App(): React.JSX.Element {
               </ul>
             )}
           </div>
-          {savedDrafts.length > 0 && (
+          {compatibleSavedDrafts.length > 0 && (
             <div className="saved-panel">
-              <h3>Listes sauvegardées</h3>
-              {savedDrafts.slice(0, 4).map((saved) => (
-                <button className="saved-list" key={saved.id} onClick={() => setDraft({ ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear), id: crypto.randomUUID() })}>{saved.name}<small>{new Date(saved.updatedAt).toLocaleString('fr-FR')}</small></button>
-              ))}
+              <div className="section-heading"><h3>Listes sauvegardées</h3><span>{compatibleSavedDrafts.length}</span></div>
+              <p className="muted">La liste active et chaque modification sont enregistrées automatiquement sur cet appareil.</p>
+              <div className="saved-list-stack">
+                {compatibleSavedDrafts.map((saved) => (
+                  <div className={`saved-list-row ${saved.id === draft.id ? 'active' : ''}`} key={saved.id}>
+                    <button className="saved-list" onClick={() => activateSavedDraft(saved)} aria-current={saved.id === draft.id ? 'page' : undefined}>
+                      <span>{saved.name}</span><small>{new Date(saved.updatedAt).toLocaleString('fr-FR')}</small>
+                    </button>
+                    <button className="saved-delete" onClick={() => deleteSavedDraft(saved)} aria-label={`Supprimer ${saved.name}`}>×</button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </aside>

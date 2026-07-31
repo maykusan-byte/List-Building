@@ -233,6 +233,8 @@ export interface SavedDraft {
   id: string;
   name: string;
   updatedAt: string;
+  /** Prevents a list from being reopened against an unrelated catalog. */
+  databaseFingerprint?: string;
   draft: RosterDraft;
 }
 
