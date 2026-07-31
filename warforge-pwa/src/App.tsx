@@ -9,7 +9,7 @@ import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios }
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeSavedDrafts } from './domain/storage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
-import type { CoverageBand, ListAnalysis } from './domain/analysis';
+import type { AnalysisTarget, CoverageBand, ListAnalysis } from './domain/analysis';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
@@ -18,6 +18,24 @@ import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
+
+interface CustomTargetForm {
+  enabled: boolean;
+  label: string;
+  toughness: string;
+  save: string;
+  vehicle: boolean;
+  monster: boolean;
+}
+
+const DEFAULT_CUSTOM_TARGET: CustomTargetForm = {
+  enabled: false,
+  label: 'Cible personnalisée',
+  toughness: '8',
+  save: '3',
+  vehicle: false,
+  monster: false
+};
 
 function newDraft(database: NormalizedDatabase): RosterDraft {
   const format = database.battleSizes.find((size) => size.PointsTotal === 2000) ?? database.battleSizes[0];
@@ -263,7 +281,15 @@ function AnalysisMetric({ label, value, detail }: { label: string; value: string
   );
 }
 
-function ListAnalysisPanel({ analysis }: { analysis: ListAnalysis }): React.JSX.Element {
+function ListAnalysisPanel({
+  analysis,
+  customTarget,
+  onCustomTargetChange
+}: {
+  analysis: ListAnalysis;
+  customTarget: CustomTargetForm;
+  onCustomTargetChange: (target: CustomTargetForm) => void;
+}): React.JSX.Element {
   const utilityMetrics = [
     { label: 'Vol', count: analysis.mobility.flyUnits },
     { label: 'Frappe en profondeur', count: analysis.mobility.deepStrikeUnits },
@@ -287,18 +313,29 @@ function ListAnalysisPanel({ analysis }: { analysis: ListAnalysis }): React.JSX.
           <div className="analysis-heading">
             <div><h3>Puissance offensive</h3><p>Dégâts moyens non sauvegardés par phase, à portée.</p></div>
           </div>
+          <details className="custom-target-controls">
+            <summary>Cible personnalisée</summary>
+            <div className="custom-target-grid">
+              <label className="custom-target-enable"><input type="checkbox" checked={customTarget.enabled} onChange={(event) => onCustomTargetChange({ ...customTarget, enabled: event.target.checked })} /> Inclure dans le tableau</label>
+              <label>Nom<input type="text" value={customTarget.label} onChange={(event) => onCustomTargetChange({ ...customTarget, label: event.target.value })} /></label>
+              <label>Endurance<input type="number" min="1" max="99" value={customTarget.toughness} onChange={(event) => onCustomTargetChange({ ...customTarget, toughness: event.target.value })} /></label>
+              <label>Sauvegarde<select value={customTarget.save} onChange={(event) => onCustomTargetChange({ ...customTarget, save: event.target.value })}>{[2, 3, 4, 5, 6].map((save) => <option key={save} value={save}>{save}+</option>)}</select></label>
+              <label className="custom-target-check"><input type="checkbox" checked={customTarget.vehicle} onChange={(event) => onCustomTargetChange({ ...customTarget, vehicle: event.target.checked })} /> Véhicule</label>
+              <label className="custom-target-check"><input type="checkbox" checked={customTarget.monster} onChange={(event) => onCustomTargetChange({ ...customTarget, monster: event.target.checked })} /> Monstre</label>
+            </div>
+          </details>
           <div className="analysis-damage-table-scroll">
             <table className="analysis-damage-table">
               <thead>
                 <tr>
                   <th scope="col">Unité</th>
-                  {analysis.targets.map((target) => <th key={target.id} scope="col">{target.label}</th>)}
+                  {analysis.targets.map((target) => <th key={target.id} scope="col"><span>{target.label}</span><small>E {target.toughness} · Svg {target.save}+</small></th>)}
                 </tr>
               </thead>
               <tbody>
                 {analysis.unitDamages.map((unit) => (
                   <tr key={unit.itemId}>
-                    <th scope="row"><span>{unit.unitName}</span><small>{unit.modelCount} figurine(s)</small></th>
+                    <th scope="row"><span>{unit.unitName}</span><small>{unit.modelCount} figurine(s)</small><small className="analysis-unit-points">{unit.points} pts</small></th>
                     {unit.targets.map((target) => (
                       <td key={target.targetId}>
                         <strong>{formatAnalysisValue(target.totalDamage)}</strong>
@@ -592,6 +629,7 @@ export default function App(): React.JSX.Element {
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
   const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(true);
   const [advancedCatalogFilters, setAdvancedCatalogFilters] = useState<AdvancedCatalogFilters>({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
+  const [customTarget, setCustomTarget] = useState<CustomTargetForm>(DEFAULT_CUSTOM_TARGET);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
   const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts().flatMap((saved) => {
     if (!Array.isArray(saved.draft?.items)) return [];
@@ -759,9 +797,23 @@ export default function App(): React.JSX.Element {
   );
   const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   const rosterTotal = database && draft ? calculateRosterTotal(database, draft.items, draft.detachmentIds) : 0;
+  const customAnalysisTarget = useMemo<AnalysisTarget | undefined>(() => {
+    if (!customTarget.enabled) return undefined;
+    const toughness = Number(customTarget.toughness);
+    const save = Number(customTarget.save);
+    if (!Number.isFinite(toughness) || toughness < 1 || toughness > 99 || ![2, 3, 4, 5, 6].includes(save)) return undefined;
+    return {
+      id: 'custom-target',
+      label: customTarget.label.trim() || 'Cible personnalisée',
+      toughness,
+      save,
+      vehicle: customTarget.vehicle,
+      monster: customTarget.monster
+    };
+  }, [customTarget]);
   const listAnalysis = useMemo(
-    () => database && draft ? analyzeRoster(database, draft) : null,
-    [database, draft]
+    () => database && draft ? analyzeRoster(database, draft, customAnalysisTarget) : null,
+    [database, draft, customAnalysisTarget]
   );
 
   const factionUnits = useMemo(() => {
@@ -1061,7 +1113,7 @@ export default function App(): React.JSX.Element {
             <div><span className="eyebrow">LISTE</span><h2>{draft.name || 'Liste sans nom'}</h2></div>
             <strong className={rosterTotal > (battleSize?.PointsTotal ?? Infinity) ? 'bad-total' : ''}>{rosterTotal}/{battleSize?.PointsTotal ?? '?'} pts</strong>
           </div>
-          {listAnalysis && <ListAnalysisPanel analysis={listAnalysis} />}
+          {listAnalysis && <ListAnalysisPanel analysis={listAnalysis} customTarget={customTarget} onCustomTargetChange={setCustomTarget} />}
           {selectedDetachments.length > 0 && (
             <section className="selected-detachments" aria-label="Détachements sélectionnés">
               <h3>Détachements</h3>

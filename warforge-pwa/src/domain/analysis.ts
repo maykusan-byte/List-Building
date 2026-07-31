@@ -1,11 +1,12 @@
 import type { NormalizedDatabase, NormalizedUnit, RawWeaponProfile, RosterDraft, RosterItem } from './types';
+import { calculateItemCost } from './calculations';
 import { resolveWargear, weaponProfiles } from './wargear';
 import type { SelectedWeaponProfile } from './wargear';
 
 export type CoverageBand = 'absent' | 'fragile' | 'couvert' | 'redondant';
 
 export interface AnalysisTarget {
-  id: 'horde' | 'infantry' | 'elite' | 'vehicle' | 'heavy';
+  id: string;
   label: string;
   toughness: number;
   save: number;
@@ -33,6 +34,7 @@ export interface UnitDamageAnalysis {
   itemId: string;
   unitName: string;
   modelCount: number;
+  points: number;
   targets: UnitTargetDamageAnalysis[];
 }
 
@@ -259,10 +261,11 @@ function coverageBand(sourceUnits: number, battleSizePoints: number): CoverageBa
 }
 
 /** Calculates an at-a-glance roster profile without reading unstructured rule text. */
-export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft): ListAnalysis {
+export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft, customTarget?: AnalysisTarget): ListAnalysis {
   const unitsById = new Map(database.units.map((unit) => [unit.id, unit]));
   const detachmentNames = database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)).map((detachment) => detachment.displayName);
-  const targetState = ANALYSIS_TARGETS.map((target) => ({ target, rangedDamage: 0, meleeDamage: 0, sourceUnits: 0 }));
+  const targets = customTarget ? [...ANALYSIS_TARGETS, customTarget] : ANALYSIS_TARGETS;
+  const targetState = targets.map((target) => ({ target, rangedDamage: 0, meleeDamage: 0, sourceUnits: 0 }));
   const unitDamages: UnitDamageAnalysis[] = [];
   const mobility: MobilityAnalysis = { maximumMove: null, longestRange: null, fastUnits: 0, flyUnits: 0, deepStrikeUnits: 0, scoutUnits: 0, infiltratorUnits: 0 };
   const resilience: ResilienceAnalysis = { totalWounds: 0, toughWounds: 0, saveTwoWounds: 0, saveThreeWounds: 0, resolvedModels: 0, unresolvedUnits: 0 };
@@ -316,7 +319,13 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft):
       if (ranged + melee >= 0.5) state.sourceUnits += 1;
       return { targetId: state.target.id, rangedDamage: ranged, meleeDamage: melee, totalDamage: ranged + melee };
     });
-    unitDamages.push({ itemId: item.id, unitName: unit.Name ?? 'Unité sans nom', modelCount: totalModels, targets: damagesForUnit });
+    unitDamages.push({
+      itemId: item.id,
+      unitName: unit.Name ?? 'Unité sans nom',
+      modelCount: totalModels,
+      points: calculateItemCost(database, item, draft.items, draft.detachmentIds).total,
+      targets: damagesForUnit
+    });
   });
 
   return {

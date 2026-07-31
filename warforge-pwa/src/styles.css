@@ -143,15 +143,25 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .analysis-section:first-child { border-top: 0; padding-top: 0; }
 .analysis-section h3 { color: var(--gold-dark); font-size: 0.74rem; letter-spacing: 0.1em; margin: 0; text-transform: uppercase; }
 .analysis-heading p { font-size: 0.7rem; margin: 0.25rem 0 0.55rem; }
+.custom-target-controls { background: #fffefa; border: 1px solid #e3d8c8; border-radius: 0.55rem; margin: 0 0 0.55rem; }
+.custom-target-controls > summary { color: var(--ink); cursor: pointer; font-size: 0.7rem; font-weight: 850; padding: 0.45rem 0.55rem; }
+.custom-target-grid { display: grid; gap: 0.45rem; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 0.55rem 0.55rem; }
+.custom-target-grid label { color: var(--ink-soft); display: grid; font-size: 0.63rem; font-weight: 750; gap: 0.2rem; }
+.custom-target-grid input, .custom-target-grid select { font: inherit; min-width: 0; padding: 0.3rem; }
+.custom-target-grid .custom-target-check { align-items: center; display: flex; gap: 0.35rem; }
+.custom-target-grid .custom-target-enable { color: var(--ink); grid-column: 1 / -1; grid-template-columns: auto 1fr; align-items: center; }
+.custom-target-grid input[type="checkbox"] { accent-color: var(--gold-dark); }
 .analysis-damage-table-scroll { border: 1px solid #e3d8c8; border-radius: 0.55rem; max-width: 100%; overflow-x: auto; }
 .analysis-damage-table { border-collapse: collapse; font-size: 0.68rem; min-width: 44rem; width: 100%; }
 .analysis-damage-table th, .analysis-damage-table td { border-bottom: 1px solid #e3d8c8; padding: 0.45rem; text-align: center; vertical-align: top; }
 .analysis-damage-table thead th { background: #fff4cf; color: var(--ink); font-size: 0.65rem; font-weight: 900; line-height: 1.15; }
+.analysis-damage-table thead th small { color: var(--ink-soft); display: block; font-size: 0.56rem; font-weight: 700; margin-top: 0.18rem; }
 .analysis-damage-table thead th:first-child { min-width: 9.5rem; position: sticky; left: 0; z-index: 2; }
 .analysis-damage-table tbody th { background: #fffefa; color: var(--ink); font-weight: 850; left: 0; min-width: 9.5rem; position: sticky; text-align: left; z-index: 1; }
 .analysis-damage-table tbody th span, .analysis-damage-table tbody th small, .analysis-damage-table td small { display: block; }
 .analysis-damage-table tbody th span { overflow-wrap: anywhere; }
 .analysis-damage-table small { color: var(--ink-soft); font-size: 0.58rem; font-weight: 650; line-height: 1.25; margin-top: 0.18rem; }
+.analysis-damage-table .analysis-unit-points { color: var(--gold-dark); font-weight: 850; }
 .analysis-damage-table td strong { color: var(--ink); font-size: 0.82rem; }
 .analysis-damage-table tfoot th, .analysis-damage-table tfoot td { background: #f4e8c5; border-bottom: 0; font-weight: 850; }
 .analysis-damage-table tfoot th { text-align: left; }

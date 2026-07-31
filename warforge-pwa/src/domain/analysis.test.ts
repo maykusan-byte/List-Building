@@ -60,4 +60,12 @@ describe('list analysis', () => {
     expect(analysis.control).toMatchObject({ totalObjectiveControl: 20, modelCount: 10, battlelineUnits: 1 });
     expect(analysis.utility.feelNoPainUnits).toBe(1);
   });
+
+  it('adds an optional custom target column to each unit analysis', () => {
+    const analysis = analyzeRoster(database, draft, { id: 'custom-target', label: 'Bête E8', toughness: 8, save: 3, monster: true });
+    expect(analysis.targets.at(-1)).toMatchObject({ id: 'custom-target', label: 'Bête E8', toughness: 8, save: 3 });
+    const antiTank = analysis.unitDamages.find((unit) => unit.unitName === 'ANTI TANK SQUAD')!;
+    expect(antiTank.points).toBe(100);
+    expect(antiTank.targets.find((target) => target.targetId === 'custom-target')?.totalDamage).toBeGreaterThan(0);
+  });
 });
