@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { createCatalogLocalization, loadCatalogLocaleOverlay } from './domain/catalog-localization';
+import { loadUnitImageManifest, unitImageMap, unitImageUrl } from './domain/unit-images';
 import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
 import { analyzeRoster } from './domain/analysis';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
@@ -20,6 +21,7 @@ import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
+import type { UnitImageEntry, UnitImageStatus } from './domain/unit-images';
 import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
@@ -159,6 +161,42 @@ function UnitProfile({ line }: { line: Record<string, unknown> }): React.JSX.Ele
         ))}
       </dl>
     </section>
+  );
+}
+
+function UnitThumbnail({
+  unit,
+  image,
+  display,
+  dataBaseUrl
+}: {
+  unit: NormalizedUnit;
+  image: UnitImageEntry | undefined;
+  display: CatalogLocalization;
+  dataBaseUrl: string;
+}): React.JSX.Element {
+  const { t } = useTranslation();
+  const [failed, setFailed] = useState(false);
+  const name = display.unitName(unit);
+
+  if (!image || failed) {
+    return (
+      <div className="unit-thumbnail unavailable" role="img" aria-label={t('library.imageUnavailable', { name })}>
+        <span aria-hidden="true">?</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="unit-thumbnail">
+      <img
+        src={unitImageUrl(image, dataBaseUrl)}
+        alt={t('library.unitImage', { name })}
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+      />
+    </div>
   );
 }
 
@@ -666,6 +704,8 @@ export default function App(): React.JSX.Element {
   const [notice, setNotice] = useState<string | null>(null);
   const [catalogOverlay, setCatalogOverlay] = useState<CatalogLocaleOverlay | null>(null);
   const [catalogLocaleStatus, setCatalogLocaleStatus] = useState<CatalogLocaleStatus>(locale === 'fr' ? 'unavailable' : 'not-needed');
+  const [unitImages, setUnitImages] = useState<ReadonlyMap<string, UnitImageEntry>>(() => new Map());
+  const [unitImageStatus, setUnitImageStatus] = useState<UnitImageStatus>('unavailable');
   const [view, setView] = useState<AppView>(viewFromHash);
   const databaseInputRef = useRef<HTMLInputElement>(null);
   const inventoryInputRef = useRef<HTMLInputElement>(null);
@@ -698,6 +738,21 @@ export default function App(): React.JSX.Element {
     });
     return () => { active = false; };
   }, [database, locale]);
+
+  useEffect(() => {
+    if (!database) {
+      setUnitImages(new Map());
+      setUnitImageStatus('unavailable');
+      return;
+    }
+    let active = true;
+    void loadUnitImageManifest(database, DATA_BASE_URL).then((result) => {
+      if (!active) return;
+      setUnitImages(unitImageMap(result.manifest));
+      setUnitImageStatus(result.status);
+    });
+    return () => { active = false; };
+  }, [database]);
 
   const changeLocale = (value: string): void => {
     const nextLocale = supportedLocale(value);
@@ -1148,11 +1203,12 @@ export default function App(): React.JSX.Element {
             <div className="unit-grid">
             {factionUnits.slice(0, visibleUnits).map((unit) => {
               const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
+              const image = unitImages.get(unit.id);
               return (
               <article className={`unit-card ${isAlliedUnit(database, draft.primaryFaction, unit) ? 'allied-unit' : ''}`} key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={t('library.favorite', { name: display.unitName(unit) })}>★</button>
                 <div className="unit-card-layout">
-                  <div className="unit-thumbnail" aria-hidden="true" />
+                  <UnitThumbnail key={image?.asset ?? `unavailable-${unitImageStatus}`} unit={unit} image={image} display={display} dataBaseUrl={DATA_BASE_URL} />
                   <div className="unit-card-content">
                     <h3>{display.unitName(unit)}</h3>
                     <p className="muted">{display.factionName(unit.Faction || unit.factionName)}{isAlliedUnit(database, draft.primaryFaction, unit) && <span className="ally-label">{t('library.allied', { source: display.factionName(sourceLabel(database, unit.sourceKey)) })}</span>}</p>

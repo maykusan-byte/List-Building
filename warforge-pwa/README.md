@@ -51,9 +51,32 @@ pnpm preview
 
 Le dossier `dist/` contient l’application statique distribuable. Le catalogue V11 et l’inventaire sont inclus dans le build et pré-cachés par le service worker : l’application peut donc fonctionner hors ligne après son premier chargement.
 
-Les ressources statiques utilisées par l’application, notamment les images futures,
-doivent être placées dans `public/data/` (par exemple `public/data/img/`). Le dossier
-`dist/` est généré et est remplacé à chaque build.
+Les ressources statiques utilisées par l’application, notamment les images d’unités,
+doivent être placées dans `public/data/`. Le dossier `dist/` est généré et est remplacé
+à chaque build.
+
+## Images d’unités
+
+Les miniatures du catalogue sont locales, donc disponibles hors ligne. Leur source de
+vérité est `data/unit-image-seeds.json` : chaque entrée doit cibler une fiche par son
+nom exact (et sa faction si nécessaire), contenir la provenance et une référence de
+licence. Seules les fiches présentes dans l’inventaire par défaut sont ajoutées au
+manifeste public.
+
+Pour les nouveaux visuels, les fichiers sources sont téléchargés dans le cache local
+ignoré `data/unit-image-sources/` et ne sont pas publiés ; seules les miniatures WebP
+normalisées de `public/data/img/units/` sont nécessaires au catalogue.
+
+```powershell
+pnpm images:fetch   # récupère les sources distantes explicitement référencées
+pnpm images:prepare # normalise les sources validées en WebP 320 × 320
+pnpm images:build   # génère public/data/unit-images.json et le rapport des manques
+pnpm images:validate # vérification stricte : toutes les fiches d’inventaire doivent être couvertes
+```
+
+`data/unit-image-missing.json` est la file de validation : il recense les fiches encore
+sans rapprochement suffisamment certain. Ne pas utiliser de nom de fichier ou de
+recherche approximative comme identifiant d’unité.
 
 ## Déploiement GitHub Pages
 

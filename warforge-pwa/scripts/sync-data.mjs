@@ -6,6 +6,7 @@ import { buildCatalogLocales } from './build-locales.mjs';
 try {
   await buildCatalog();
   await buildCatalogLocales();
+  await import('./build-unit-image-manifest.mjs');
   const source = resolve(import.meta.dirname, '../../datasheet_x_figs.csv');
   const destination = resolve(import.meta.dirname, '../public/data/datasheet_x_figs.csv');
   const rulesSource = resolve(import.meta.dirname, '../data/rules/core-rules-fr.json');
