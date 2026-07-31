@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
+    "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",
+    "rules:validate": "node scripts/validate-rules.mjs",
     "locales:sync": "node scripts/sync-mfm-unit-locales.mjs",
     "inventory:index": "node scripts/export-catalog-unit-index.mjs",
     "inventory:migrate": "node scripts/migrate-inventory-csv.mjs",

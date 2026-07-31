@@ -1,0 +1,1317 @@
+{
+  "schemaVersion": "warforge-rules/v1",
+  "title": "Règles de base Warhammer 40,000",
+  "source": {
+    "title": "Warhammer 40,000 — Règles de base",
+    "language": "fr",
+    "filename": "fre_01-06_warhammer40k_new40k_core_rules-ooyuallyp9-s4aczdfbm2_copie.pdf",
+    "pdfPageCount": 88,
+    "modifiedAt": "5 juin 2026",
+    "version": null
+  },
+  "chapters": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "sourcePages": [
+        1,
+        5
+      ],
+      "sections": [
+        {
+          "id": "introduction",
+          "reference": null,
+          "title": "Introduction",
+          "sourcePages": [
+            1,
+            5
+          ],
+          "pages": [
+            {
+              "id": "p-1",
+              "printedPage": 1,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RÈGLES DE BASE\nDans les ténèbres d’un lointain\nfutur, l’Humanité est au bord\nde l’extinction. L’Imperium\nà l’envergure galactique,\nassailli de toute part par des\nxénos voraces, des traîtres\ninfâmes et des démons du\nWarp, compte une fois encore\nsur ses plus grands héros\npour repousser l’obscurité\nqui menace de l’engloutir.\nIl n’y a pas de paix.\nPas de répit.\nPas de pardon.\nIl n’y a que la guerre."
+                }
+              ]
+            },
+            {
+              "id": "p-2",
+              "printedPage": 2,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Chaque section et sous-section possède ici un numéro de référence interne.\nLe tableau ci-dessous détaille quant à lui la pagination de chaque section.\nINTRODUCTION p. 4-5\nRÈGLES ÉLÉMENTAIRES p. 6-25\nCe sont les concepts basiques des règles de Warhammer 40,000, qui incluent l’emploi\ndes fiches techniques et la façon de déplacer vos figurines et d’attaquer avec elles.\n01CONCEPTS DEBASE   p. 8\n02FICHES TECHNIQUES   p. 10\n03MOUVEMENT  p. 1204EFFECTUER DESATTAQUES   p. 16\n05SÉQUENCE D’ATTAQUE   p. 18\n06AUTRES CONCEPTS  p. 24\nLEROUND DEBATAILLE p. 26-43\nWarhammer 40,000 se joue en une série de rounds de bataille au cours desquels chaque joueur prend un tour qui se compose de cinq phases.\n07LEROUND DEBATAILLE  p. 28\n08PHASE DECOMMANDEMENT  p. 30\n09PHASE DEMOUVEMENT  p. 3210PHASE DETIR  p. 34\n11PHASE DECHARGE  p. 36\n12PHASE DECOMBAT  p. 38\nCHAMPS DEBATAILLE ETTACTIQUES p. 44-59\nCette section explique comment créer un champ de bataille attrayant à l’aide du terrain et d’objectifs, et utiliser des outils tactiques sous forme de stratagèmes et d’actions.\n13TERRAIN   p. 46\n14OBJECTIFS  p. 5215STRATAGÈMES  p. 54\n16ACTIONS   p. 58\nRÈGLES AVANCÉES p. 60-75\nCette section explique l’utilisation de types d’unités plus spécifiques, ainsi que la façon de renforcer votre armée avec des unités qui ne sont pas encore sur le champ de bataille.\n17MONSTRES ETVÉHICULES  p. 62\n18TRANSPORTS  p. 64\n19UNITÉS ATTACHÉES  p. 66\n20RÉSERVES STRATÉGIQUES  p. 6821VOLETÉLAN  p. 70\n22AUTRES RÈGLES ETAPTITUDES  p. 72\n23AÉRODYNES  p. 74\nRÉFÉRENCES p. 76-89\nLes aptitudes universelles pour de nombreuses unités et armes de Warhammer 40,000 sont présentées ici, avec une introduction aux éléments de référence que l’on trouve dans l’appli Warhammer 40,000.\n24APTITUDES DEBASE   p. 78 APPENDICES DESRÈGLES   p. 86\nINDEX DESRÈGLES DEBASE  p. 89\nSOMMAIRE\n2"
+                }
+              ]
+            },
+            {
+              "id": "p-3",
+              "printedPage": 3,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Page source sans texte extractible."
+                }
+              ]
+            },
+            {
+              "id": "p-4",
+              "printedPage": 4,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "INTRODUCTION\nBienvenue dans les Règles de Base de Warhammer 40,000. Les pages qui\nsuivent contiennent tout ce que vous avez besoin de savoir pour livrer des batailles palpitantes dans la galaxie ravagée par la guerre du 41\ne millénaire.\nWarhammer 40,000 est un jeu de\nbataille sur table dans lequel chaque joueur dirige une armée de figurines\nCitadel qui représente les forces de\nl’Imperium ou de l’un de ses nombreux ennemis. Le jeu se déroule selon une série de rounds de bataille, lors desquels\nchaque joueur prend un tour décomposé\nen cinq phases. Au fil de ces phases, les joueurs déplaceront leurs forces sur le champ de bataille, et effectueront des attaques pour détruire leurs ennemis à l’aide de tirs mortels et de corps à\ncorps impitoyables.\nUne bataille dure en général cinq  rounds\nà l’issue desquels, en conjuguant talent,\ntactique et un peu de chance, un des joueurs sera déclaré vainqueur.\n4"
+                }
+              ]
+            },
+            {
+              "id": "p-5",
+              "printedPage": 5,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "WARHAMMER\n40,000 :  L’APPLI\nL’appli Warhammer 40,000 est le\ncompagnon idéal de vos parties de\nWarhammer 40,000  ! Elle  contient\nnon seulement les Règles de Base\nagrémentées d’éléments de référence, mais vous permet\naussi de créer facilement une\nliste d’armée et d’accéder aisément à vos règles de faction.\nL’appli Warhammer 40,000 est\npar ailleurs le meilleur endroit où trouver les dernières mises à jour pour votre faction, qu’il s’agisse\nd’historique supplémentaire ou\nde règles inédites.\nSur les pages suivantes, les renvois\nau contenu additionnel de l’appli\nsont surlignés en vert, comme suit  :\n►Exemple de Référence d’AppliChaque partie de Warhammer 40,000 s’inscrit dans le cadre\nd’une mission, que vous devrez générer en premier lieu. Pour\nce faire, vous utiliserez une pile de missions de Warhammer\n40,000. Chaque mission vous indiquera comment préparer\nla bataille et déployer vos forces, ainsi que les règles supplémentaires à respecter. Plus important encore, elle\nstipulera les conditions de victoire  !\nLes missions demanderont aux joueurs de rassembler une\narmée à partir de leur collection de figurines Citadel, en précisant la taille de ces armées. L’appli Warhammer 40,000\ncontient un guide à ce sujet. Rassembler une armée est un\nhobby à part entière, avec plus de vingt factions au choix et des thèmes à l’infini.\nQuelle que soit la faction que vous souhaitez collectionner et\navec laquelle livrer des batailles, un Codex  constitue un guide\ninestimable. Chaque Codex est le livre de référence pour sa faction, avec une profusion d’historique, d’illustrations et de\nphotographies pour vous inspirer, ainsi que les règles qui\ncristallisent les styles de combat des figurines de cette faction\net la façon d’en tirer le meilleur sur la table de jeu.\nEnfin, avant de disputer une partie de Warhammer 40,000,\nil faudra créer un champ de bataille  avec du terrain. Vous pouvez\nutiliser n’importe quelle surface pour poser vos figurines et le\nterrain  ; une table étant l’idéal. Votre mission précisera la taille\ndu champ de bataille préconisé, et vous guidera pour placer le terrain en quantité souhaitable. Ce faisant, les joueurs peuvent recréer les zones de guerre cauchemardesques du 41\ne millénaire,\nqu’il s’agisse d’un monde hostile carnivore ou d’une cité ravagée.\nLes pages suivantes contiennent les Règles de Base que tout\njoueur de Warhammer 40,000 doit connaître. Ce livre est votre guide indispensable pour disputer des batailles exaltantes qui donneront vie aux conflits désespérés du 41\ne millénaire. Il est\ntemps de saisir vos dés et votre mètre-ruban, de raffermir votre\ndétermination, et puissent vos victoires entrer dans la légende  !Scannez le code ci-dessous  pour\ninstaller dès maintenant l’appli Warhammer 40,000.\n5"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regles-elementaires",
+      "title": "Règles élémentaires",
+      "sourcePages": [
+        6,
+        25
+      ],
+      "sections": [
+        {
+          "id": "concepts-de-base",
+          "reference": "01",
+          "title": "Concepts de base",
+          "sourcePages": [
+            6,
+            9
+          ],
+          "pages": [
+            {
+              "id": "p-6",
+              "printedPage": 6,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "6"
+                }
+              ]
+            },
+            {
+              "id": "p-7",
+              "printedPage": 7,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RÈGLES ÉLÉMENTAIRES\n7"
+                }
+              ]
+            },
+            {
+              "id": "p-8",
+              "printedPage": 8,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "CONCEPTS DE BASE\n++ LES INSTRUMENTS DE NOTRE SALUT SONT LA FOI ET LES BALLES ++Avant d’apprendre à déplacer vos guerriers sur le champ de bataille et attaquer\nl’ennemi lors de fusillades mortelles et de corps à corps sanglants, cette section présente des concepts de base propres à chaque bataille de Warhammer 40,000.\n01ARMÉES 01.01\nChaque joueur d’une partie de Warhammer 40,000 commande une\narmée faite d’unités de figurines. Vous contrôlez toutes les figurines de votre armée. Si une règle se réfère au “joueur en contrôle”, elle se\nréfère au joueur qui contrôle les figurines affectées par cette règle.\nUNITÉS ETFIGURINES 01.02\nUne unité peut compter une ou plusieurs figurines. Ces figurines\nse déplacent et combattent comme un groupe unique. Souvent, une figurine a un socle, qui fait partie d’elle au regard des règles.\nLes règles affectent parfois les unités ou les figurines “amies”\nou “ennemies”, qui sont définies comme suit  :\n▪Les unités et les figurines amies sont celles de votre armée.\n▪ Les unités et les figurines ennemies sont celles de l’armée adverse.\nSi une règle affecte des unités ou des figurines sans spécifier\ns’il s’agit d’amis ou d’ennemis, cette règle affecte toute unité\nou figurine, quelle que soit l’armée à laquelle elle appartient.\nQuand un effet ou une aptitude s’applique à une unité, il ou\nelle s’applique à toutes les figurines de ladite unité.\nJOUEUR ACTIF ET\nJOUEUR ADVERSE 01.03\nÀ chaque instant, un joueur est le “joueur actif” et son adversaire est le “joueur adverse”. Le rôle de chaque joueur change au cours\nde la bataille, mais chaque joueur est toujours soit l’un, soit l’autre  ;\nquand un joueur devient le joueur actif, son adversaire devient le joueur adverse, et vice-versa.\nQuand ce n’est le tour d’aucun joueur (ex. au début ou à la fin\ndu round de bataille), le joueur qui prend le premier tour à chaque round de bataille est le joueur actif.\nLorsque c’est le tour d’un joueur, celui-ci est le joueur actif,\navec les exceptions suivantes  :\n▪ Chaque fois qu’une unité est choisie pour être déplacée ,\nle joueur  en contrôle de cette unité est le joueur actif\njusqu’à  ce  que ce mouvement se termine.\n▪ Chaque fois qu’une unité est choisie pour tirer  ou choisie\npour combattre, le joueur en contrôle de cette unité est\nle joueur  actif jusqu’à ce que ces attaques soient résolues.\n8"
+                }
+              ]
+            },
+            {
+              "id": "p-9",
+              "printedPage": 9,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MESURER LESDISTANCES 01.04\nÀ Warhammer 40,000, on mesure les distances en pouces (\"). Vous\npouvez mesurer les distances chaque fois que vous le souhaitez.\nQuand une règle se réfère à la position d’une figurine par rapport à\nautre chose sur le champ de bataille, sauf mention contraire, mesurez depuis ou jusqu’à la partie la plus proche du socle de cette figurine.\nDÉS01.05\nVous aurez besoin de plusieurs dés à six faces (qu’on abrège souvent\nen D6). Ces règles font référence à plusieurs jets de dés, comme  :\n▪ 2+, 3+, etc.  : 2+ signifie un résultat de 2 ou plus, 3+ signifie\nun résultat de 3 ou plus, etc.\n▪ 1-3, 4-6, etc.  : Tout résultat inclus dans l’ensemble spécifié\ninteragira avec la règle indiquée.\n▪ 2D6, 3D6, etc.  : Jetez le nombre de D6 indiqué et additionnez\nles valeurs de chaque dé (ex. pour jeter 2D6, jetez deux D6\net ad ditionnez leurs valeurs respectives).\n▪ D3 : Jetez 1 D6 et divisez par deux le résultat (en arrondissant\nau supérieur).\n▪ D6+1, 2D6+3, etc.  : Jetez le nombre de dés indiqué et ajoutez\nla valeur indiquée au résultat.\nJETSDECOMMANDEMENT 01.06\nPour faire un jet de commandement  pour une unité, son joueur\nen contrôle jette 2D6  : si le résultat est supérieur ou égal à une ou\nplusieurs des caracté ristiques de Cd de cette unité, le jet réussit.\nSinon, le jet échoue. La règle qui vous a demandé de faire ce jet de\ncommandement  décrira l’effet de la réussite ou de l’échec de ce jet.\nJETSD’ÉBRANLEMENT 01.07\nPour faire un jet d’ébranlement pour une unité, son joueur en contrôle fait un jet de commandement  pour elle (voir ci-dessus).\n▪ Si le jet réu ssit, ce tte unité ne devient pas ébranlée.\n▪ Si le jet échoue, cette unité, et chaque figurine qui\ns’y trouve, est ébranlée.\nTant qu’une unit é est ébranlée  :\n▪ La caractéristique de Contrôle d’Objectif ( CO) de toutes\nses figurines est remplacée par “-” ( 02.02 ).\n▪ Son joueur en contrôle ne peut pas cibler cette unité\navec des  stratagèmes ( 15).\n▪ Elle n ’est pas éligible pour entreprendre une action  (16), et si elle\navait entrepris une action, celle-ci ne peut pas être accomplie .VOIR AUSSI\nUNITÉS ETFIGURINES\n▪Châssis 17.02\nJOUEUR ACTIF ET\nJOUEUR ADVERSE\n►Règles de Joueur\n►Séquençage de Règles\nMESURER LESDISTANCES\n►Figurine/Unité la plus Proche\n►Quart de Table\n► Dans/À x\" ou Moins et\nEntièrement Dans/À x\" ou Moins\nDÈS\n►Réussite Automatique\n►Modifier les Jets de Dés\n►Relances\n►Tirs au Dé\nJETSD’ÉBRANLEMENT\n▪Phase de Commandement 08.00\n►Jets d’Ébranlement Multiples\nMORAL SURLE\nCHAMP DEBATAILLE\nAu fil de la  bataille, le\nmoral et  l’organisation\ndes troupes  peuvent\nfaillir. On vérifie cet\nétat de fait à l’aide de\njets d’ébranlement , le\nplus souvent à la phase\nde Commandement.\nRater un tel jet illustre le courage amoindri d’une unité à cause\ndes pertes ou d’autres\ncirconstances, ce qui réduit son efficacité sur\nle terrain. De même,\ncertaines règles vous demanderont de tester la réactivité d’une\nunité en faisant un\njet de commandement .\n9"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fiches-techniques",
+          "reference": "02",
+          "title": "Fiches techniques",
+          "sourcePages": [
+            10,
+            11
+          ],
+          "pages": [
+            {
+              "id": "p-10",
+              "printedPage": 10,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "FICHES TECHNIQUES\nChaque unité a une fiche technique qui explique son fonctionnement au combat.\nVous allez apprendre ici à utiliser les fiches techniques quand vous  préparez\nvotre armée et lorsque vous jouez.\n1NOM DELAFICHE TECHNIQUE 02.01\nVous trouverez ici le nom de l’unité.\n2PROFILS 02.02\nRegroupe les caractéristiques ci-dessous,\nqui vous indiquent la puissance des\nfigurines de l’unité  :\nMouvement (M)  : La vitesse à laquelle\nles figurines se déplacent sur le champ de bataille. Si une figurine a une\ncaractéristique de M de “-”, on peut\nla placer sur le champ de bataille, mais\nelle ne peut pas se déplacer par ailleurs.\nEndurance (E)  : La résistance de la\nfigurine face aux dégâts physiques.\nSauvegarde (Sv) : Présentée comme un ré-\nsultat de dé (ex. 4+), elle indique la protec-\ntion offerte à une figurine par son armure.\nSauvegarde Invulnérable (SvIn)  :\nPrésentée comme un résultat de dé (ex. 4+).\nCertaines figurines sont protégées de façon\nmoins conventionnelle en plus de leur\narmure physique (champs de force, réflexes surnaturels, etc.). Toutes les figurines n’ ont\npas une caractéristique de SvIn , mais\nquand c’est le cas, elle sera indiquée ici.\nPoints de Vie (PV)  : Les points de vie\nreprésentent la quantité de dégâts qu’une figurine peut subir avant d’être détruite .\nSi la caractéristique de Points de Vie d’une\nfigurine est réd uite à 0, elle est détruite .\nCommandement (Cd)  : Présenté comme\nun résultat de dé (ex. 7+), il dénote le courage, la détermination et le contrôle\nde soi d’une figurine.\nContrôle d’Objectif (CO)  : L’efficacité avec\nlaquelle une figurine contrôle  un objectif\nsur le champ de bataille. Si une figurine a une carac téristique de CO de “-”, elle\nne peut pas du tout contrôler d’objectif. 3APTITUDES 02.03\nNombre d’unités ont des aptitudes\nqui s’ appliquent pendant la partie.\nElles  s eront décrites ici.\n4ARMES 02.04\nUne arme a les caractéristiques suivantes  :\nPortée (P)  : La distance à laquelle\nl’arme peut tirer. Les arme s qui ont une\ncaractéristique de P de “Mêlée” sont des armes de mêlée.\nAttaques (A)  : Le nombre  de dés d’attaque\njetés chaque fois que l’arme est utilisée.\nCapacité de Tir (CT)  : Présentée comme\nun résultat de dé (ex. 4+), elle indique\nla précision du porteur avec l’arme de\ntir concernée.\nCapacité de Combat (CC)  : Présentée\ncomme un résultat de dé (ex. 4+), elle\nreflète le talent du porteur à manier\nl’arme de mêlée concernée.\nForce (F)  : Plus la caractéristiqu e de F  d’une\narme est élevée, plus elle a des chances de\nblesser un adversaire.\nPénétration d’Armure (PA)  : Présentée\ncomme un modificateur à un jet de dé (ex. -1). Plus le modificateur est élevé,\nplus l’arme a une chance de passer les\ndéfenses de la cible.\nDégâts (D)\n: La quantité de dégâts infligés\npar une attaque.\n5MOTS-CLÉS 02.05\nChaque fiche technique a une liste de\nmots-clés, divisée en mots-clés de Faction et autres mots-clés. Les premiers servent\nà choisir les figurines à inclure dans une\narmée, mais hormis cela, tous fonctionnent de la même manière. Les mots-clés appa-\nraissent en majuscu les au FORMAT  MOT-CLÉ . 02\n10"
+                }
+              ]
+            },
+            {
+              "id": "p-11",
+              "printedPage": 11,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "BOYZ\nBOYZ\nBOSS NOBM ESV PV CD CO\n6\" 5 5+ 1 7+ 2\n6\" 5 5+ 2 7+ 2\nAPTITUDES\nFACTION : Waaagh!\nPrenez les Morceaux d’Choix : À la fin de votre phase de\nCommandement, si cette unité contrôle un objectif, cet objectif est sécurisé par votre armée.\nCOMPOSITION D’UNITÉ\n▪1 Boss Nob\n▪9 Boyz\nLe Boss Nob est équipé de : 1 kalibr’ ; 1 fling’ kustom ; 1 gros kikoup’\nChaque Boy est équipé de : 1 kalibr’ ; 1 fling’ ; 1 kikoup’Les Boyz chargent en immenses bandes désordonnées sous\nla houlette de musculeux Boss Nobz. Tout en faisant s’abattre des grêles de dakka aussi imprécises que généreuses, ils foncent vers l’ennemi avant de se jeter dans le corps à corps où leur masse musculaire, leur férocité et leurs cruels kikoup’ ne font qu’une bouchée de leurs adversaires.\nARMES DE TIRPORTÉE A CT F PA DFling’ kustom [TIR RAPIDE  2]18\" 4 5+ 4 0 1\nKombi-rokette24\" 1 5+ 10 -2 3Kombi-fling’24\" 2 5+ 4 0 1\nFling’ [TIR RAPIDE  1]18\" 2 5+ 4 0 1\nKalibr’ [COMBAT  RAPPROCHÉ]12\" 1 5+ 4 0 1\nARMES DE MÊLÉEPORTÉE A CC F PA DGros kikoup’Mêlée 3 3+ 7 -1 2Kikoup’Mêlée 3 3+ 4 -1 1\nOPTIONS D’ÉQUIPEMENT\n▪Le Boss Nob peut remplacer son fling’ kustom par 1 kombi-fling’ et 1 kombi-rokette.\nMOTS-CLÉS  DE FACTION :  \nORKSMOTS-CLÉS  :  INFANTERIE  ; LIGNE ; BANDE ; EXPLOSIFS  ; BOYZ\nVOIR AUSSI\nPROFILS ETARMES\n►Modificateurs de Caractéristique\n►Détruit\n►Caractéristiques Aléatoires\nAPTITUDES\n▪Aptitudes d’Aura 22.01\n▪Aptitudes de Faction 22.02\n▪Aptitudes Psychiques  22.03\n▪Aptitudes d’Équipement 22.04\nMOTS-CLÉS\n► Unités à Mots-clés DisparatesCertaines règles sont liées à un ou plusieurs\nmots-clés. Par exemple, une règle peut stipuler qu’elle s’applique aux  unités\nd’INFANTERIE . Ceci signifie qu’elle s’appli-\nque seulement aux unités qui on t le mot-clé\nINFANTERIE . Un mot-clé fonctionne de la\nmême façon, qu’il soit accordé au singulier\nou au pluriel, au masculin ou au féminin.\n6COMPOSITION D’UNITÉ\nETAUTRES RÈGLES 02.06\nCette section détaille le nombre et le\ntype de figurines dans l’unité. Chacune de ces figurines aura un ensemble\nd’équipement par défaut, qui sera indiqué\nici. La section peut aussi indiquer d’autres règles, comme les unités qu’une unité de meneur peut rejoindre, ou celles qui\npeuvent embarquer dans un TRANSPORT .\n7OPTIONS D’ÉQUIPEMENT 02.07\nCertaines fiches techniques ont une\nliste d’options d’équipement. Quand vous incluez une telle unité dans votre\narmée, vous pouvez utiliser ces options\npour remplacer les armes et autres équipements des figurines de l’unité.\n1\n2\n4\n56\n73\n11"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mouvement",
+          "reference": "03",
+          "title": "Mouvement",
+          "sourcePages": [
+            12,
+            15
+          ],
+          "pages": [
+            {
+              "id": "p-12",
+              "printedPage": 12,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Pendant une bataille, vous déplacerez vos figurines en les choisissant et en\nchangeant leur position sur le champ de bataille. Les principes du mouvement\nsont expliqués ici.\nMOUVEMENT\nDÉPLACER DESUNITÉS 03.01\nUne unité peut faire plusieurs types de mouvement. Chacun définit\nquelles unités sont éligibles pour le faire, que lle est sa distance\nmaximale  ou sa distance de placement, et les conditions requises.\nChaque fois que vous déplacez une unité, vous pouvez déplacer une ou plusieurs de ses figurines, une à la fois, en ligne droite et/ou en pivotant, autant de fois que vous le souhaitez.\nChaque fois que vous déplacez une figurine, sauf mention contraire  :\n▪ Elle peut se déplacer à travers les figurines amies.\n▪ Elle peut se déplacer à travers n’importe quel espace par\nlequel son socle peut passer.\n▪ On ne peut déplacer son socle à travers des figurines ennemies.\n▪Son socle ne peut pas franchir le bord du champ de bataille.\n▪Toutes les conditions “en se déplaçant” doivent être remplies.\nDÉPLACER UNEFIGURINE ENLIGNE DROITE\nChaque fois que vous déplacez une figurine en ligne droite, déplacez-la à l’horizontale sur le champ de bataille. Mesurez à partir du même point de son socle du début à la fin de ce\nmouvement, et ajoutez cette distance à n’importe quelle distance\ndont elle s’est déplacée depuis que son unité a commencé ce mouvement. La distance parcourue ne peut pas dépasser\nla\ndistance maximale  de ce type  de mouvement.\nFAIRE PIVOTER UNEFIGURINE\nChaque fois que vous faites pivoter une figurine, faites-la pivoter comme vous le souhaitez sur le centre de son socle\nen la maintenant debout. Notez que faire pivoter une figurine\nne compte pas dans la distance qu’elle a parcourue.\nFINIR UNMOUVEMENT\nAprès avoir fini de placer toutes les figurines d’une unité et/ou de\ndéplacer toutes les figurines que vous vouliez déplacer dans une unité, vérifiez que toutes\nles conditions suivantes sont remplies  :\n▪Si l’unité est sur le champ de bataille, elle est en cohésion ( 03.03 ).\n▪  Aucune figurine de l’unité n’est sur une autre ni à travers une\nsurface d’un élément de terrain  (ex. un mur ou un plafond).\n▪Toutes les conditions “après s’être déplacé” sont remplies.\nSi une condition n’est pas remplie, l’unité ne peut pas faire ce mou-\nvement et on remet ses figurines là où elles étaient avant son com-\nmencement. Sinon, après avoir résolu les règles de la section “après s’être déplacé” de ce type de mouvement , le mouvement est fini. 03\n++ NOUS NE NOUS FERONS PAS QUE RÉSISTER – NOUS VAINCRONS ++ 12"
+                }
+              ]
+            },
+            {
+              "id": "p-13",
+              "printedPage": 13,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "VOIR AUSSI\n▪Châssis 17.02\n▪ Monstres et Véhicules 17.00\n▪Se Déplacer à la Verticale 13.06\n►Mouvement Aléatoire\n▪Réserves Stratégiques 20.00\n▪Terrain 13.00\n▪Transports 18.00\nTYPES DEMOUVEMENT\n▪Mouvement d’Avance 09.06\n▪Mouvement de Charge 11.04\n▪Mouvement de Consolidation 12.08\n▪Mouvement de Débarquement 18.04\n▪ Mouvement de Débarquement\nd’Urgence 18.05\n▪Mouvement de Retraite 09.07\n▪Mouvement d’Arrivée 20.04\n▪Mouvement Normal 09.05\n▪Mouvement d’Insertion 12.03\n▪Mouvement d’Éclaireur 24.32\n▪Mouvement d’Élan 21.02MOUVEMENT EN LIGNE DROITE\nPIVOT\nLes deux figurines montrées ici peuvent se\ndéplacer d’une distance maximale  de 6\".\nElles se déplacent toutes les deux de 3\" en\nligne droite, puis de 3\" selon une autre ligne\ndroite, pour un mouvement total de 6\".\nCette figurine peut se déplacer d’une\ndistance maximale  de 12\". Elle se\ndéplace selon une série de lignes\ndroites et de pivots, comme suit  :\nA) Mouvement de 6\" en ligne droite\nB) Pivot\nC) Mouvement de 6\" en ligne droite\nD) Pivot\nElle s’est déplacée de 12\" au total.\nLes figurines sans socle pivotent sur\nleur axe central (voir Châssis, 17.02). 3\"\n3\"\n3\"\n3\"\nABC\nD\n13"
+                }
+              ]
+            },
+            {
+              "id": "p-14",
+              "printedPage": 14,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PLACEMENT 03.02\nAvant que vos unités puissent se déplacer et attaquer, il faudra\nd’abord les placer sur le champ de bataille. Ceci se produit en général quand vous déployez votre armée pour la bataille,\nmais aussi dans d’autres circonstances.\nChaque fois qu’une règle vous demande de placer une unité,\nplacez ses figurines sur le champ de bataille de sorte que  :\n▪L’unité est en cohésion (voir ci-dessous).\n▪ L’unité est non engagée  (voir ci-dessous).\n▪ Les autres conditions et restrictions sont respectées.\nSi vous ne pouvez pas placer toutes les figurines d’une unité, retirez\nl’unité du champ de bataille et remettez-la à sa position d’origine (ex. en réserve stratégique  ou emba rquée dans un TRANSPORT ).\nCOHÉSION 03.03\nUne unité qui contient plus d’une figurine doit être placée\net terminer n’importe quel type de mouvement en cohésion. Une unité est en cohésion si les deux  conditions suivantes\ns’appliquent à toutes\nses figurines  :\n▪ Chaque figurine de l’unité est à 2\" ou moins à l’horizontale  et à 5\"\nou moins  à la verticale d’ au moins une autre figurine  de l’unité.\n▪ Chaque figurine de l’unité est à 9\" ou moins à l’horizontale  et à 5\"\nou moins à la verticale de toutes les autres figurines  de l’unité.\nRECOUVRER SACOHÉSION\nÀ l’étape de Fin de Tour du tour de chaque joueur, si une ou plusieurs unités sur le champ de bata ille ne sont pas en\ncohésion, les joueurs en contrôle de ces unités doivent en\nretirer des figurines, une à la fois, jus qu’à ce que ces unités\nsoient à nouveau en cohésion. Les figurines ainsi retirées sont\ndétruites, mais ne déclenchent aucune règle qui s’applique\nquand une figurine est détruite.\nENGAGEMENT 03.04\nLa portée d’engagement  d’une figurine est la zone du champ\nde bataille à 2\" ou moins à l’horizontale et à 5\" ou moins à la verticale d’elle.\n▪ Tant qu’une figurine amie est à portée d’engagement d’une\nou plusieurs figurines ennemies, ces figurines – et les unités auxquelles elles appartiennent – sont engagées les unes\navec les autres.\n▪ Tant qu’une unité ne contient aucune figurine engagée ,\ncette unité est non engagée .QU’EST-C EQUE\nLACOHÉSION ?\nLa cohésion empêche\nles figurines de la\nmême unité d’être\ntrop éloignées les unes des autres sur le champ de bataille, et\nassure qu’elles sont\nplacées et terminent n’importe quel type\nde mouvement\nsous la forme d’un unique groupe.\n03MOUVEMENT\nQU’EST-CE QUE\nL’ENGAGEMENT ?\nQuand des figurines de camps adverses sont à\nportée d’engagement\nl’une de l’autre, elles\nsont capables de combattre lors de corps\nà corps cruels, si bien\nqu’à part lorsqu’elles ont l’intention de faire\ndes attaques de mêlée,\nles figurines feraient mieux de rester hors d’atteinte de l’ennemiSIVOUS NEPOUVEZ\nPASPLACER UNEUNITÉ\nCette section explique comment placer vos\nunités sur le champ\nde bataille. Si vous le faites suite à un type de mouvement ,\net s’il faut ramener les figurines d’une unité à leur position précédente\ncar il n’est pas possible\nde toutes les placer, on considère que l’unité n’a pas été choisie pour\nfaire ce mouvement.\nAinsi, elle pourra être choisie pour faire un\nmouvement plus tard,\net alors soit tenter un autre placement, soit rester immobile  (\n09.04 ).\n14"
+                }
+              ]
+            },
+            {
+              "id": "p-15",
+              "printedPage": 15,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "COHÉSION\nENGAGEMENT\n++ L’ARME NE SAURAIT SE SUBSTITUER AU ZÈLE ++\nChaque figurine de cette\nunité est à 2\" ou moins d’au\nmoins une autre figurine de\nson unité, et chaque figurine\nest à 9\" ou moins de toutes les autres figurines de son unité. Cette unité est donc\nen cohésion.\nCes deux unités ont au moins\nune figurine à 2\" ou moins de\nl’unité adverse, elles sont don c\nengagées l’une avec l’autre.2\"\n2\"\n2\"1\"\n1\"1\"1\"1\"\n½\"9\"\n2\"1½\"½\"\n15"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "effectuer-des-attaques",
+          "reference": "04",
+          "title": "Effectuer des attaques",
+          "sourcePages": [
+            16,
+            17
+          ],
+          "pages": [
+            {
+              "id": "p-16",
+              "printedPage": 16,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "FIGURINE SANS\nARME DETIR/MÊLÉE\nUne figurine qui n’a\naucune arme de tir\nne peut pas effectuer\nd’attaque de tir, et une figurine qui n’a aucune arme de mêlée ne peut\npas effectuer d’attaque\nde mêlée.\nCHOISIR LESCIBLES\nQuand vous tirez ou combattez, vous\npouvez choisir\ndifférentes cibles pour chaque arme. Si vous ne pouvez\npas choisir de cible\npour une arme, ou si vous décidez de ne\npas choisir de cible\npour une arme de tir, la figurine dotée de l’arme n’effectuera pas\nd’attaque avec celle-ci.\nARMES DEPOING\nCertaines figurines\nsont dotées d’armes de\n[COMBAT  RAPPROCHÉ ]\nen plus d’autres\narmes à feu. Ces\nfigurines peuvent faire exception aux règles\nde cette section, car\nvous ne pourrez peut-être pas choisir toutes leurs armes pour\neffectuer des attaques.\nEFFECTUER DES ATTAQUES\n1CHOISIR LESARMES 04.01\nPour chaque figurine de l’unité attaquante, choisissez les\narmes avec lesquelles la figurine effectuera des attaques.\nLes figurines effectuent des attaques de tir avec des armes\nde tir, et des attaques de mêlée avec des armes de mêlée.\nENTIRANT\nVous pouvez choisir une ou plusieurs armes de tir dont  dispose la figurine.\nENCOMBATTANT\nVous devez chois ir une seule  arme de mêlée dont\ndispose la figurine.\n2CHOISIR LESCIBLES 04.02\nPour chaque arme choisie  :\nENTIRANT\nChoisis sez comme cible de cette arme une seule  unité ennemie.\nSauf mention contraire, chaque cible doit être  :\n▪Visible de la figurine qui dispose de cette arme ( 06.01 ).\n▪À portée de cette arme.\n▪ Non engagée .\nENCOMBATTANT\nChoisissez comme cibles de cette arme une ou plusieurs unités\nennemies  :\n▪ Chaque cible doit être engagée  avec la figurine qui dispose\nde cette arme.\n▪ Vous ne pouvez pas choisir plus de cibles que la caractéristique\nd’A de cette arme.04Chaque fois qu’une unité tire ou combat, le joueur actif suit\nces étapes  :\n1CHOISIR LESARMES\n2CHOISIR LESCIBLES\n3RÉSOUDRE LESATTAQUES\n++ UN ESPRIT ÉTRANGER NE PEUT PAS RECEVOIR LA BÉNÉDICTION DE L’EMPEREUR ++Pendant la bataille, vos unités tireront sur l’ennemi et le combattront, en faisant\ndes attaques avec leurs armes. Cette section vous explique comment effectuer des attaques avec vos figurines.\n16"
+                }
+              ]
+            },
+            {
+              "id": "p-17",
+              "printedPage": 17,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "3RÉSOUDRE LESATTAQUES 04.03\nRésolvez les attaques selon la séquence suivante  :\n1.  Choisissez l’Unité Ennemie  : Choisissez une des\nunités ennemies ciblées par une ou plusieurs armes.\n2.  Rassemblez les Dés d’Attaque  : Choisissez une arme ciblant\nl’unité et n’ayant pas déjà été utilisée pour effectuer des attaques\ncontre elle, et rassemblez autant de D6 que la caractéristique d’ A\nde cette arme. Ce sont des dés d’attaque  : chacun r eprésente\nune attaque faite par une figurine attaquante avec cette arme.\nSi une ou plusieurs autres armes ciblant l’unité effectuent des\nattaques identiques  à l’arme choisie (voir ci-dessous) et si ces\narmes n’ont pas déjà été utilisées pour effectuer des attaques\ncontre cette cible, elles peuvent le faire maintenant, et vous rassemblez également les dés d’attaque de ces armes (ex. pour\ntrois armes effectuant des attaques identiques, chacune avec une caractéristique d’A de 2, rassemblez un total de six D6).\n3.  Résolvez les Dés d’Attaque  : Résolvez la séquence d’attaque\n(05) pour tous les dés d’attaque que vous venez de rassembler .\n4.  Autres Attaques  : Suivez la première des instructions ci-dessous\nqui s’applique  :\nS’il y a une ou plusieurs armes ciblant la même unité et n’ayant\npas déjà été utilisées pour effectuer des attaques, retournez à l’étape Rassemblez les Dés d’Attaque.\nSinon, s’il y a une ou plusieurs autres armes ayant des attaques non résolues ciblant une unité différente, retournez à l’étape Choisissez l’Unité Ennemie.\nSinon, si toutes les armes ont été utilisées pour faire toutes leurs attaques, cette séquence se termine et les attaques de l’unité ont été résolues.VOIR AUSSI\nCHOISIR LESARMES\n▪[COMBAT RAPPROCHÉ ] 24.07\n▪[ATTAQUES BONUS ] 24.11\n►Profils d’Arme Multiples\nCHOISIR LESCIBLES\n▪Châssis 17.02\n▪ Tirer sur les Monstres et les\nVéhicules Engagés 17.03\nRÉSOUDRE LESATTAQUES\n►Caractéristiques Aléatoires\n► Cible n’Étant plus\nÉligible ni Viable\nATTAQUES IDENTIQUES\nLes attaques identiques sont celles ayant les mêmes\ncaractéristiques de CT/CC, F, PA  et D, et qui sont affectées\npar les mêmes règles et aptitudes applicables.\nRÉPARTIR LESATTAQUES DEMÊLÉE\nEn choisissant des cibles, si vous choisissez plus d’une unité comme cible d’une arme de mêlée, vous devez répartir les attaques de cette arme entre ces unités ciblées. Pour ce\nfaire, annoncez combien d’attaques de cette arme seront\neffectuées contre chaque unité (vous devez déclarer au moins une attaque par unité ciblée).\nÀ l’étape Rassemblez les Dés d’Attaque, pour chaque arme\nqui répartit ses attaques, rassemblez autant de dés d’attaque\npour cette arme que le nombre d’attaques que vous avez annoncé contre la cible concernée avec cette arme.\n17"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sequence-d-attaque",
+          "reference": "05",
+          "title": "Séquence d’attaque",
+          "sourcePages": [
+            18,
+            23
+          ],
+          "pages": [
+            {
+              "id": "p-18",
+              "printedPage": 18,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "SÉQUENCE D’ATTAQUE\n1JETSDETOUCHE 05.01\nFaites 1 jet de touche  pour chaque dé d’attaque en jetant 1 D6.\nPour chaque résultat, vérifiez s’il échoue ou si c’est une touche\nselon la première condition ci-dessous qui s’applique  :\nnon modifié ÉCHOUE\nnon modifié TOUCHE CRITIQUE\nSupérieur ou égal à la caractéristique\nde CT /CC de l’attaqueTOUCHE\nTout autre résultat ÉCHOUE\n2JETSDEBLESSURE 05.02\nFaites 1 jet de blessure pour chaque touche en jetant 1 D6.\nPour chaque résultat, vérifiez s’il échoue ou si c’est une blessure\nselon la première condition ci-dessous qui s’applique  :\nnon modifié ÉCHOUE\nnon modifié BLESSURE CRITIQUE\nSupérieur ou égal au résultat requis\nci-dessous  :BLESSURE\nFORCE DEL’ATTAQUE CONTRE\nENDURANCE DELACIBLERÉSULTAT\nREQUIS\nLa Force est DEUX FOIS (ou plus de deux fois)\nl’Endurance+\nLa Force est SUPÉRIEURE à l’Endurance +\nLa Force est ÉGALE à l’Endurance +\nLa Force est INFÉRIEURE à l’Endurance +\nLa Force est LA MOITIÉ (ou moins de la moitié)\nde l’Endurance+\nTout autre résultat ÉCHOUEChaque fois qu’on demande au joueur actif de résoudre\nla séquence d’attaque, il suit les étapes ci-dessous.\nÀ chaque étape, s’il y a plus d’un dé à jeter, faites\ntous ces  jet s simultanément.\n1JETSDETOUCHE\n2JETSDEBLESSURE\n3JETSDESAUVEGARDE\n4INFLIGER DESDÉGÂTSQUAND CETTE\nSÉQUENCE SE\nTERMINE-T-ELLE ?\nSi une attaque échoue\nou inflige des dégâts,\ncette séquence se\ntermine pour cette attaque. Quand toutes les attaques ont soit\néchoué soit infligé\ndes dégâts, cette séquence se termine\net ces attaques ont\nété résolues.\n05\n++ LE SAGE APPREND DE LA MORT DES AUTRES ++Chaque fois qu’une figurine effectue des attaques, vous suivrez la séquence\nde cette section pour voir si elle inflige des dégâts.\nTOUCHES CRITIQUES ET\nBLESSURES CRITIQUES\nLes touches critiques demeurent des\ntouches, et les\nblessures critiques demeurent des blessures. En plus de\nceci, d’autres règles et\naptitudes sont parfois déclenchées par\nune touche critique\nou une blessure\ncritique, comme\n[\nTOUCHES   FATALES]\net [BLESSURES\nDÉVASTATRICES ] (24).\n18"
+                }
+              ]
+            },
+            {
+              "id": "p-19",
+              "printedPage": 19,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "GROUPE\nD’ALLOCATION ACTUEL\nLe premier groupe dans\nl’ordre d’allocation\ncommence en tant\nque groupe actuel. Une fois que toutes les figurines d’un groupe\nd’allocation sont\ndétruites, le groupe suivant dans l’ordre\nd’allocation devient\nle gr oupe actuel.VOIR AUSSI\n►Détruit\n►Caractéristiques Modifiées\n►Modifier les Dégâts\n►Modifier les Jets de Dés\n►Caractéristiques Aléatoires3JETSDESAUVEGARDE 05.03\nLe joueur adverse résout la séquence suivante  :\n1.  Création des Groupes  : Répartissez toutes les figurines de l’unité\ncible dans les groupes suivants, autant de fois que nécessaire  :\n▫ 1 groupe pour chaque figurine de PERSONNAGE .\n▫ 1 groupe pour chaque autre figurine ayant les mêmes\ncaractéristiques de PV, Sv  et SvIn .\n2.  Ordre d’Allocation  : Annoncez l’ordre dans lequel on allouera les\nattaques à ces groupes, en appliquant tous  les points suivants  :\n▫ Si un groupe (hormis les groupes de PERSONNAGES ) inclut\nune figurine ayant perdu un ou plusieurs points de vie,\nce gr oupe doit être le  premier dans l’ordre d’allocation.\n▫ Aucun groupe de PERSONNAGES  ne peut précéder un groupe\nn’étant pas de PERSONNAGES  dans l’ordre d’allocation.\n▫ Dans l’ordre d’allocation, les groupes de PERSONNAGES  qui\nincluent une figurine ayant perdu un ou plusieurs points de\nvie passent avant ceux qui n’incluent aucune figurine blessée.\n3.  Faites les Jets de Sauvegarde  : Le joueur adverse fait 1 jet de sau-\nvegarde pour chaque attaque qui a blessé la cible en jetant 1 D6.\n4INFLIGER DESDÉGÂTS 05.04\nLe joueur adverse résout la séquence suivante pour chaque jet\nde sauvegarde, du résultat le plus bas au plus élevé, jusqu’à avoir résolu toutes les attaques ou avoir détruit toutes les figurines de\nl’unité  ; dans ce dernier  cas, les attaques en excès sont perdues.\n1.  Choisissez la Figurine  : Choisissez 1 figurine dans le groupe\nd’allocation actuel (voir à droite)  ; il doit  s’agir d’une figurine\nqui a perdu un ou plusieurs points de vie si possible.\n2.  Vérifiez le Jet de Sauvegarde  : Pour chaque résultat, vérifiez\nsi l’attaque inflige des dégâts ou échoue selon la première\ncondition ci-dessous qui s’applique  :\nnon modifié INFLIGE DESDÉGÂTS\nSauvegarde Invulnérable  : Les figurines\ndu groupe d’allocation actuel ont une\ncaractéristique de SvIn  et le résultat est\nsupérieur ou égal à cette caractéristique.ÉCHOUE\nSauvegarde et PA  : Après avoir modifié le\nrésultat avec la caractéristique de PA  de\nl’arme qui attaque, il est supérieur ou égal\nà la caractéristique de  Sv des figurines du\ngroupe d’allocation actuel.ÉCHOUEExemple  : Une caractéristique de PA\nde -1 modifiera un jet de sauvegarde\nde 3 en 2. Pour  les figurines ayant une\ncaractéristique de  Sv de 2+ ou meilleure,\ncette  attaque échouera.\nTout autre résultat INFLIGE DESDÉGÂTS\n3.  Résolvez les Dégâts  : Si l’attaque inflige des dégâts, la figurine\nchoisie perd autant de points de vie que la caractéristique de D\nde l’attaque. Si ceci réduit les points de vie restants de cette\nfigurine à 0 ou moins, elle est détruite.\n19"
+                }
+              ]
+            },
+            {
+              "id": "p-20",
+              "printedPage": 20,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "1. CHOISIR LES ARMES\nL’unité ROUGEROUGE  attaque. On choisit les armes suivantes\navec lesquelles effectuer des attaques  :\n▪2 bolters (B)\n▪2 pistolets bolters (PB)\n▪1 bolter lourd (BL)\n2. CHOISIR LES CIBLES\nL’unité BLEUEBLEUE  est choisie comme cible. L’unité est visible de\ntoutes les figurines de l’unité attaquante. Toutes les armes\nchoisies sont à portée, à l’exception d’un pistolet bolter.\nPar cons équent, cette arme n’effectuera aucune attaque.\n3. RÉSOUDRE LES ATTAQUES\nIl n’y a qu’une seule unité ennemie ciblée, donc le joueur\nen contrôle rassemble à présent les dés d’attaque  :\n▪ Cinq dés d’attaque  sont rassemblés pour les bolters\net le pistolet bolter, qui ont une caractéristique\nd’A de 2 et 1 respectivement, et effectuent tous\ndes attaques identiques.\n▪ Trois dés d’attaque  sont rassemblés pour le bolter lourd,\nqui a une caractéristique d’ A de 3 mais n’effectue pas des\nattaques identiques. 05EXEMPLES DESÉQUENCE D’ATTAQUEPBPB\nBBX5X3EFFECTUER DES ATTAQUES\nBL\n20"
+                }
+              ]
+            },
+            {
+              "id": "p-21",
+              "printedPage": 21,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "1. JETS DE TOUCHE\nLe joueur en contrôle choisit d’effectuer d’abord cinq jets de\ntouche  pour les bolters et pistolet bolter. La caractéristique de\nCT des armes est de 3+. Quatre des attaques touchent la cible.\n2. JETS DE BLESSURE\nLe joueur en contrôle effectue quatre jets de blessure.\nLes arme s ont une caractéristique de F de 4 et l’unité cible\na une caractéristique d’ E de 3, il faut donc des jets de 3+\npour blesser. Trois des attaques blessent la cible.\n3. JETS DE SAUVEGARDE\nLe joueur en contrôle de l’unité cible effectue trois\njets de sauvegarde .\n4. INFLIGER DES DÉGÂTS\n▪ Le résultat le plus bas est inférieur aux caractéristiques\nde SvIn et de Sv de la cible, donc cette attaque inflige\ndes dégâts. Ceci réduit la figurine à laquelle l’attaque\na été allouée à  0 point de vie, ce qui la détruit.\n▪ Le  second résultat le plus bas est inférieur à la\ncaractéristique de SvIn de la cible, mais supérieur à\nsa caractéristique de Sv de 3+  ; cette attaque échoue.\n▪ L’autre résultat est supérieur à la caractéristique de SvIn\nde 5+ de la cible  ; cette attaque échoue elle aussi.1. JETS DE TOUCHE\nLe joueur en contrôle effectue ensuite trois jets de touche\npour le bolter lourd. La caractéristique de CT de l’arme\nest de 4+. Deux des attaques touchent la cible.\n2. JETS DE BLESSURE\nLe joueur en contrôle effectue deux jets de blessure.\nL’arme a une a caractéristique de F de 5, il faut donc des\njets de 3+ pour blesser. Les deux attaques blessent la cible.\n3. JETS DE SAUVEGARDE\nLe joueur en contrôle de l’unité cible effectue deux jets\nde sauvegarde .\n4. INFLIGER DES DÉGÂTS\n▪ Le résultat le plus bas, une fois modifié par la\ncaractéristique de  PA de -1 de l’arme qui attaque ,\nest inférieur à la caractéristique de Sv de 3+ de la cible,\ndonc cette attaque inflige des dégâts. Ceci réduit la\nfigurine à laquelle l’attaque a été allouée à 0 point  de vie, ce qui la détruit.\n▪ L’autre résultat est supérieur à la caractéristique\nde SvIn  de 5+ de la cible  ; cette attaque échoue.\n++ ATTISÉE PAR LE CONFLIT, LA FOI PEUT DÉPLACER DES MONTAGNES ++PB\nBB\n-1 au Jet de\nSauvegardeX5\n1\n1\n2 2\n3 3RÉSOUDRE LES DÉS D’ATTAQUE RÉSOUDRE D’AUTRES ATTAQUES\nX3\nBL\n21"
+                }
+              ]
+            },
+            {
+              "id": "p-22",
+              "printedPage": 22,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "EXEMPLES DESÉQUENCE D’ATTAQUE\n051. CHOISIR LES ARMES\nL’unité ROUGEROUGE  attaque. On choisit les armes\nsuivantes avec lesquelles effectuer des\nattaques  :\n▪7 bolters (B)\n▪1 pistolet à plasma (PP)\n▪2 bolters lourds (BL)\n2. CHOISIR LES CIBLES\nL’unité BLEUEBLEUE  est choisie comme cible. Il s’agit\nd’une unité attachée  (19) constituée d’une unité\nde Séraphines et de Sainte Celestine (avec ses\ndeux Geminae Superia). L’unité est visible de\ntoutes les figurines de l’unité attaquante et toutes les armes choisies sont à portée.3. RÉSOUDRE LES ATTAQUES\nIl n’y a qu’une seule unité ennemie ciblée, donc\nle joueur en contrôle rassemble à présent les\ndés d’attaque . Il décide de résoudre d’abord les\nattaques des bolters lourds, qui ont chacun une\ncaractéristique d’ A de 3, et rassemble dont six\ndés d’attaque .\nLes dés d’attaque  pour les armes restantes seront\nrassemblés une fois les attaques des bolters\nlourds résolues (voir ci-contre), comme suit  :\n▪ Quatorze dés d’attaque  pour les bolters, qui\nont chacun une caractéristique d’ A de 2.\n▪ Un dé d’attaque  pour le pistolet à plasma,\nqui a  une caractéristique d’ A de 1.BBBB\nBBB\nBL\nBLATTAQUER DES UNITÉS ATTACHÉES\nX14X6X1\nPP\n22"
+                }
+              ]
+            },
+            {
+              "id": "p-23",
+              "printedPage": 23,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "1. CRÉER DES GROUPES ET ANNONCER L’ORDRE\nLe joueur en contrôle de l’unité cible la répartie\nen groupes  : un incluant  Sainte Célestine, un\nincluant les Geminae Superia, et un incluant\nles Séraphines. Il annonce ensuite l’ordre\nd’allocation, en choisissant d’abord les Geminae\nSuperia (1), en espérant que leurs meilleures\ncaractéristiques de Sv et de SvIn encaisseront\nles attaques. Les Séraphines doivent être\nchoisies en deuxième (2), car Sainte Célestine\nest une figurine de PERSONNAGE  et doit donc être\nla dernière dans l’ordre annoncé (3).\n2. RÉSOUDRE LES DÉS D’ATTAQUE\nLes attaques des bolters lourds blessent la cible\ncinq fois, donc le joueur en contrôle de l’unité cible effectue cinq jets de sauvegarde .Les attaques sont résolues une à la fois, du\njet de sauvegarde  le plus bas au plus élevé  :\n▪ Les deux résultats de 1 sont alloués en\npremier, au groupe d’allocation actuel\n(les Geminae Superia). Ils infligent tous\ndeux  des dégâts, et les deux Geminae Superia\nsont  détruites.\n▪ Le résultat de 3 est à présent alloué aux\nSéraphines, qui deviennent le groupe d’allocation actuel. Modifié par la\ncaractéristique de  PA de -1 de l’arme qui\nattaque , ceci inflige aussi des dégâts, et,\ndétruit une figurine de Séraphine.\n▪ Les attaques restantes échouent, et aucun\nautre dégât n’est infligé.\n3.  C HOISISSEZ LE GROUPE DE DÉS\nD’ATTAQUE SUIVANT ET RECOMMENCEZ1122\n322 2BL\nBLGROUPES D’ALLOCATION\nJets de\nSauvegarde\n23"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "autres-concepts",
+          "reference": "06",
+          "title": "Autres concepts",
+          "sourcePages": [
+            24,
+            25
+          ],
+          "pages": [
+            {
+              "id": "p-24",
+              "printedPage": 24,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "06Cette section décrit certains concepts de règle supplémentaires fréquemment\nutilisés quand on effectue des attaques.\nVISIBILITÉ  06.01\nOn utilise la ligne de vue pour déterminer la visibilité entre les figurines. Pour qu’une\nfigurine qui observe ait une ligne de vue, il doit être possible de tirer une ligne droite\nimaginaire, de 1 mm d’épaisseur, depuis n’importe quelle partie de cette figurine\njusqu’à n’importe quelle partie de la figurine observée. Cette ligne est la ligne de vue.\nCe faisant, on ignore les autres figurines de l’unité de la figurine qui observe et celles\nde l’unité de la figurine observée.\nLes autres figurines et unités peuvent être soit visibles, soit entièrement visibles d e la\nfigurine qui observe, comme indiqué ci-contre. Notez que le terrain applique des règles supplémentaires à la visibilité (\n13.07 ).\nBLESSURES MORTELLES 06.02\nCertaines attaques ou règles infligent des blessures mortelles aux unités. Chaque fois qu’une unité subit une ou plusieurs blessures mortelles, son joueur en contrôle doit résoudre la séquence suivante pour chacune de ces blessures mortelles, jusqu’à ce\nqu’elles aient été toutes infligées, ou que l’unité ait été détruite\n:\n1.  Choisissez la Figurine  : Choisissez une figurine de l’unité selon la première des\ninstructions ci-dessous qui s’applique  :\nSi une fi gurine de cette unité qui n’est pas un PERSONNAGE  a perdu un ou plusieurs points\nde vie,  vous devez choisir cette figurine.\nSinon, si cette unité inclut une ou plusieurs fig urines n’étant pas des PERSONNAGES ,\nvous  devez choisir une de ces figurines.\nSinon, si une ou plusieurs figurines de PERSONNAGE  de cette unité ont perdu un ou plusieurs\npoints de vie, vous devez choisir une de ces figurines.\nSinon, vous devez choisir une f igurine de PERSONNAGE  de cette unité.\n2.  Résolvez les Dégâts  : La figurine choisie perd 1 point de vie. Si ceci réduit les points\nde vie restants de la figurine à 0, elle est détruite.\nBLESSURES MORTELLES ETDÉGÂTS NORMAUX\nQuand vous résolvez les dés d’attaque, si ces attaques infligent un mélange de\nblessures mortelles et de dégâts normaux, résolvez d’abord tous les dégâts normaux,\npuis résolvez toutes les blessures mortelles.\nJETSDERISQUE 06.03\nPour faire un jet de risque  pour une unité, jetez 1 D6  : sur 1-2, ce jet échoue et l’unité\nsubit 1 blessure mortelle  (voir ci-dessus), ou 3 blessures mortelles à la place si chaque\nfigurine de cette unité est une figurine de  MONSTRE /VÉHICULE . Si on demande plus d’un\nseul jet de risque pour une unité, faites tous ces jets simultanément.\n++ ET ILS NE CONNAÎTRONT PAS LA PEUR ++\nAUTRES CONCEPTS\n24"
+                }
+              ]
+            },
+            {
+              "id": "p-25",
+              "printedPage": 25,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "FIGURINE VISIBLE\nFIGURINE ENTIÈREMENT VISIBLE\nUNITÉ ENTIÈREMENT VISIBLEUNITÉ VISIBLE\nSi n’importe quelle partie d’une autre\nfigurine est visible de la figurine qui\nobserve, cette autre figurine est visible.\nSi toutes les parties d’une autre figurine\nqui fait face à la figurine qui observe sont\nvisibles de la figurine qui observe (de sorte\nque la seule chose qui bloque la visibilité\nvers n’importe quelle partie de l’autre figurine est cette figurine elle-même),\ncette  au tre figurine est entièrement visible .\nSi toutes les figurines d’une unité sont entièrement visibles de la figurine qui observe, cette unité\nest entièrement visible. Quand on détermine ceci, la figurine qui observe peut voir à travers les\nautres figurines de cette unité.\nSi une ou plusieurs figurines d’une unité sont visibles de la figurine qui observe,\ncette unité est visible.\n25"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "round-de-bataille",
+      "title": "Le round de bataille",
+      "sourcePages": [
+        26,
+        43
+      ],
+      "sections": [
+        {
+          "id": "round-de-bataille",
+          "reference": "07",
+          "title": "Le round de bataille",
+          "sourcePages": [
+            26,
+            29
+          ],
+          "pages": [
+            {
+              "id": "p-26",
+              "printedPage": 26,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "26"
+                }
+              ]
+            },
+            {
+              "id": "p-27",
+              "printedPage": 27,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "LE ROUND DE BATAILLE\n27"
+                }
+              ]
+            },
+            {
+              "id": "p-28",
+              "printedPage": 28,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "LE ROUND DE BATAILLE\n1DÉBUT DU ROUND DE BATAILLE 07.01\nAu début du round de bataille, les joueurs résolvent les règles\nqui sont déclenchées au début du round de bataille, avant de passer aux tours de joueur.Chaque round de bataille est résolu en suivant ces étapes  :\n1DÉBUT DUROUND DEBATAILLE\n2TOURS DEJOUEUR\n3FINDUROUND DEBATAILLELes parties de Warhammer 40,000 se jouent en une succession de rounds de\nbataille. Cette section décrit la structure du round de bataille, et définit l’ordre dans lequel les joueurs déplacent leurs unités et effectuent des attaques avec.\n07\n++ L’ANALYSE EST LE POISON DE LA CONVICTION ++2TOURS DEJOUEUR 07.02\nLes deux joueurs jouent à présent un tour chacun.\nLe même joueur prend toujours le premier tour à chaque\nround de bataille  : la  mission jouée vous indiquera de\nquel joueur il s’agit. Une fois que le tour de ce joueur s’est\nterminé, son adversaire commence son propre tour.\nChaque tour se décompose en sept parties  : d’ abord l’étape\nde Début de Tour, puis une série de cinq phases résolues dans l’ordre indiqué ci-contre, puis l’étape de Fin de Tour.\n3FINDUROUND DEBATAILLE 07.03\nLes règles déclenchées à la fin du round de bataille sont résolues\nmaintenant, dans l’ordre suivant  :\n1.  Résolvez d’abord les règles déclenchées à ce stade autres que\nles règles de mission.\n2.  Ensuite, chaque joueur consulte sa mission  ; si l’un ou les deux\njoueurs ont rempli un ou plusieurs  aspect s de leur mission\nqui sont déclenchés à ce  s tade, résolvez-les maintenant.\nPuis le round de bataille prend fin et, sauf si la bataille se termine, le round de bataille suivant commence. La mission jouée vous indiquera combien de rounds de bataille résoudre\navant que la bataille ne s’achève.\n28"
+                }
+              ]
+            },
+            {
+              "id": "p-29",
+              "printedPage": 29,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ÉTAPE DEDÉBUT DETOUR\nLes règles déclenchées au début d’un tour sont résolues maintenant.\nPHASE DECOMMANDEMENT\nVous mobilisez vos ressources stratégiques et vérifiez le moral\nde vos unités.\nPHASE DEMOUVEMENT\nVos unités se déplacent sur le champ de bataille et les réserves\nstratégiques arrivent.\nPHASE DECHARGE\nVos unités effectuent des mouvements de charge pour engager l’ennemi.\nPHASE DECOMBAT\nLes unités des deux joueurs effectuent des attaques  avec leurs armes de mêlée.\nÉTAPE DEFINDETOUR\nLes règles déclenchées à la fin d’un tour sont résolues\nmaintenant dans l’ordre suivant  :\n1.   Résolvez d’abord les règles déclenchées à ce stade autres que les\nrègles de mission.\n2.  Ensuite, chaque joueur consulte sa mission  ; si l’un ou les deux joueurs\nont rempli un ou plusieurs aspects de leur mission qui sont déclenchés\nà ce stade, résolvez-les maintenant.PHASE DETIR\nVos unités effectuent des attaques avec leurs armes de tir.\n29"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phase-de-commandement",
+          "reference": "08",
+          "title": "Phase de Commandement",
+          "sourcePages": [
+            30,
+            31
+          ],
+          "pages": [
+            {
+              "id": "p-30",
+              "printedPage": 30,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE COMMANDEMENT\n1DÉBUT DELAPHASE\nDECOMMANDEMENT 08.01\nLes règles déclenchées au début de la phase de Commandement\nsont résolues maintenant.\n2GAGNER DESPCDEBASE 08.02\nChaque joueur gagne 1 Point de Commandement (PC).\n3ÉBRANLEMENT 08.03\nLe joueur actif doit maintenant effectuer 1  jet d’ébranlement ( 01.07)\npour chaque unité de son armée qui remplit l’une ou les deux\nconditions suivantes  :\n▪L’unité est actuellement ébranlée.\n▪L’unité est à demi-effectif, ou en dessous.\nSi une unité était ébranlée au début de cette étape et si son jet\nd’ébranlement pendant cette étape réussit, elle n’est plus ébranlée.\n4APTITUDES DE\nCOMMANDEMENT 08.04\nLes règles déclenchées à la phase de Commandement (hormis celles déclenchées au début ou à la fin de cette phase, quand on gagne des PC de Base, ou par les jets d’ébranlement) sont résolues maintenant.\n5FINDELAPHASE\nDECOMMANDEMENT 08.05\nLes règles déclenchées à la fin de la phase de Commandement\nsont résolues maintenant, dans l’ordre suivant  :\n1.  Résolvez d’abord les règles déclenchées à ce stade autres que\nles règles de mission.\n2.  Ensuite, chaque joueur consulte sa mission  ; si l’un ou les deux\njoueurs ont rempli un ou plusieurs  aspect s de leur mission\nqui s ont déclenchés à ce  s tade, résolvez-les maintenant.La phase de Commandement est résolue en suivant ces étapes  :\n1DÉBUT DELAPHASE DECOMMANDEMENT\n2GAGNER DESPCDEBASE\n3ÉBRANLEMENT\n4APTITUDES DECOMMANDEMENT\n5FINDELAPHASE DECOMMANDEMENTÀ la phase de Commandement, les deux joueurs gagnent des PC de Base, puis vous\nvérifiez la réactivité martiale de vos forces et utilisez vos aptitudes stratégiques.\n08POINTS DE\nCOMMANDEMENT\nLes Points de\nCommandement sont\nune ressource précieuse\nque vous pouvez dépenser pour utiliser des stratagèmes (\n15).\nL’étape Gagner des PC\nde Base garantit que les\ndeux joueurs gagnent 1PC à chaque tour. Si l’on parle ici de PC de\nBase, ce sont des Points\nde Commandement comme n’importe\nquel autre. Des règles\nmentionnent parfois “PC de Base” quand elles se réfèrent à ces Points\nde Commandement.\n30"
+                }
+              ]
+            },
+            {
+              "id": "p-31",
+              "printedPage": 31,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "VOIR AUSSI\nÉBRANLEMENT\n▪Jets d’Ébranlement 01.07\n►Caractéristiques Modifiées\n►Jets d’Ébranlement Multiples\n►Non sur le Champ de Bataille\n► Effectif Initial et Demi-effectif\n++ LE DOUTE EST LE DÉFAUT DE TOUTE CUIRASSE ++\nCe VÉHICULE  a un effectif\ninitial de 1 et une caracté-\nristique de PV de 11. Il lui\nreste 3 points de vie, il est\ndonc en dessous de son\ndemi-effectif  et on doit\nfaire un jet d’ébranlement\npour lui.\nCette unité a un effectif\ninitial de 5. Il lui reste deux\nfigurines, elle est donc en\ndessous de son demi-\neffectif  et on doit faire un jet\nd’ébranlement  pour elle.\nCette unité a un effectif\ninitial de 10. Il lui reste cinq\nfigurines, elle est donc à\ndemi-effectif  et on doit\nfaire un jet d’ébranlement\npour elle.\nCette unité a un effectif initial de 3 elle n’est donc ni à demi-effectif  ni\nen dessous de son demi-effectif , mais elle est actuellement ébranlée ,\non doit donc faire un jet d’ébranlement  pour elle. Si ce jet réussit, elle\nn’est plus ébranlée . EXEMPLES D’ÉBRANLEMENT\n31"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phase-de-mouvement",
+          "reference": "09",
+          "title": "Phase de Mouvement",
+          "sourcePages": [
+            32,
+            33
+          ],
+          "pages": [
+            {
+              "id": "p-32",
+              "printedPage": 32,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE MOUVEMENT\n1DÉBUT DELAPHASE\nDEMOUVEMENT 09.01\nLes règles déclenchées au début de la phase de Mouvement\nsont résolues maintenant.\n2DÉPLACER DESUNITÉS 09.02\nLe joueur actif déplace ses unités, une à la fois, en utilisant la séquence ci-dessous, jusqu’à ce que toutes ses unités aient été choisies pour se déplacer et que ces mouvements soient terminés.\n1.  Choisissez une Unité  : Choisissez une unité amie qui n’a pas\nété choisie pour se déplacer  à cette phase. Vous pouvez\nchoisir une unité sur le champ de bataille, en réserve\nstratégique, ou embarquée dans un TRANSPORT . Cette unité\nest alors choisie pour se déplacer .\n2.  Choisissez le Type de Mouvement  : Choisissez un type de\nmouvement  auquel cette unité est éligible, et résolvez-le\navec  elle. Il peut s’agir d’un de  ceux listés ci-dessous, ou d’un\nautre présenté ailleurs  :\n▫Rester immobile (voir ci-contre)\n▫Mouvement normal (voir ci-contre)\n▫Mouvement d’avance (voir ci-contre)\n▫Mouvement de retraite (voir ci-contre)\n▫Mouvement de débarquement ( 18.04 )\n▫Mouvement d’arrivée ( 20.04 )\n3FINDELAPHASE\nDEMOUVEMENT 09.03\nLes règles déclenchées à la fin de la phase de Mouvement\nsont  résolues maintenant.La phase de Mouvement est résolue en suivant ces étapes  :\n1DÉBUT DELAPHASE DEMOUVEMENT\n2DÉPLACER DESUNITÉS\n3FINDELAPHASE DEMOUVEMENT\n09\n++ EN AVANT MES FRÈRES, AVEC LOYAUTÉ, JUSQU’À LA VICTOIRE ET LA GLOIRE  ! ++CHOISIR DESUNITÉS\nÀDÉPLACER\nQuand l’étape\nDéplacer des Unités\nse termine, le joueur\nactif doit avoir choisi chacune de ses unités pour effectuer un\nmouvement avec,\ny compris celles en réserve stratégique .\nCeci signifie qu’avant que la phase se termine, chaque unité de son armée aura été\nchoisie pour effectuer\nun mouvement, quand bien même c’eût été\npour rester immobile.\nLes types de\nmouvement\nsont indiqués\npar cette icône.À la phase de Mouvement, vous déplacerez chacune de vos unités sur le champ\nde bataille. Des renforts peuvent aussi arriver à cette phase.\n32"
+                }
+              ]
+            },
+            {
+              "id": "p-33",
+              "printedPage": 33,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RESTER IMMOBILE 09.04\nDISTANCE MAXIMALE  : “–”\nÉLIGIBLE SI  : N’importe quelle unité.\nEFFET  : Aucune figurine n’est déplacée (ni en ligne droite ni en\npivotant). Les unités qui restent immobiles ne déclenchent\naucune  règle déclenchée quand une unité commence ou finit\nun mouvement.\nMOUVEMENT NORMAL 09.05\nDISTANCE MAXIMALE  : La caractéristique de M de votre unité.\nÉLIGIBLE SI  : Votre unité est sur le champ de bataille et non engagée .\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAPRÈS S’ÊTRE DÉPLACÉE  : Votre unité doit être non engagée .\nMOUVEMENT D’AVANCE 09.06\nDISTANCE MAXIMALE  : Jet d’avance + la caractéristique de M\nde votre unité.\nÉLIGIBLE SI  : Votre unité est sur le champ de bataille et non engagée .\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Faites un jet d’avance en jetant 1 D6.\nAPRÈS S’ÊTRE DÉPLACÉE  :\n▪Votre unité doit être non engagée .\n▪ Jusqu’à la fin du tour, sauf mention contraire, votre\nunité n’est pas éligible pour déclarer une charge ni\nentreprendre une action.\nMOUVEMENT DE RETRAITE 09.07\nDISTANCE MAXIMALE  : La caractéristique de M de votre unité.\nÉLIGIBLE SI  : Votre unité est Engagée .\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Choisissez le mode de retraite  :\nRetraite en Bon Ordre  : Si votre unité n’est pas ébranlée,\nvous pouvez choisir ce mode.\nFuite Désespérée  : Sinon, vous devez choisir ce mode. Faites\nun jet de risque  pour chaque figurine de votre unité ( 06.03 ).\nEN SE DÉPLAÇANT  :\n▪ Fuite Désespérée  : Chaque figurine déplacée peut se\ndéplacer à travers les figurines ennemies.\nAPRÈS S’ÊTRE DÉPLACÉE  :\n▪Votre unité doit être non engagée .\n▪ Jusqu’à la fin du tour, sauf mention contraire, votre unité\nn’est pas éligible pour tirer , déclarer une charge, ni\nentreprendre une action.\n▪ Fuite Désespérée  : Si votre unité n’est pas ébranlée, vous\ndevez faire un jet d’ébranlement pour elle ( 01.07 ).VOIR AUSSI\nDÉPLACER DESUNITÉS\n▪Actions 16.00\n▪Aérodynes 23.00\n► Caractéristiques de\nMouvement  Différentes\n▪Figurines Volantes  21.03\n►Modifier des Jets de Dés\n▪Monstres et Véhicules 17.00\n▪Réserves Stratégiques 20.00\n▪Transports  18.00\nCHOISIR DESMODES\nCertaines règles vous demandent\nde choisir un mode, comme les mouvements de retraite\n(voir à gauche). Les modes sont\nmutuellement exclusifs, et vous devez évaluer chacun d’eux dans l’ordre présenté. Lorsqu’elle effectue\nun mouvement, si votre unité ne\nremplit les conditions d’aucun de ces modes, elle ne peut pas effectuer ce mouvement.\nParfois, un mode sera obligatoire\ns’il est applicable (ex. modes de consolidation,\n12.08 ), mais dans le\ncas des mouvements de retraite, la retraite en bon ordre  n’est pas\nobligatoire, vous pouvez donc choisir la fuite désespérée  à la place.\nNombre de types de mouvement\nstipulent des conditions à remplir\nen se déplaçant/après s’être déplacé.\nCelles qui précisent le nom d’un mode ne s’appliquent que si vous\navez choisi celui-ci  ; celle s qui ne\nprécisent aucun nom de  mode\ns’appliquent toujours.\n33"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phase-de-tir",
+          "reference": "10",
+          "title": "Phase de Tir",
+          "sourcePages": [
+            34,
+            35
+          ],
+          "pages": [
+            {
+              "id": "p-34",
+              "printedPage": 34,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE TIR\n101DÉBUT DELAPHASE DETIR10.01\nLes règles déclenchées au début de la phase de Tir sont\nrésolues maintenant.\n2TIRER 10.02\nLe joueur actif tire avec ses unités éligibles, une à la fois, en utilisant la séquence ci-dessous, jusqu’à ce que toutes les unités avec lesquelles il a choisi de tirer aient été choisies pour tirer  et\nque leurs attaques aient été résolues.\nUne unité est éligible pour tirer  si elle est sur le champ de\nbataille et n’a pas déjà été choisie pour tirer  à cette phase.\n1.  Choisissez une Unité  : Choisissez une unité amie qui est\néligible pour tirer  ; cette unité est alors choisie pour tirer .\n2.  Choisissez un Type de Tir  : Choisissez un type de tir auquel\nl’unité est éligible, et résolvez-le avec elle. Il peut s’agir d’un\nde ceux listés ci-dessous, ou d’un autre présenté ailleurs  :\n▫Tir normal (voir ci-dessous)\n▫Tir d’assaut (voir ci-contre)\n▫Tir en combat rapproché  (voir ci-contre)\n▫Tir indirect  (voir ci-contre)\n3FINDELAPHASE DETIR10.03\nLes règles déclenchées à la fin de la phase de Tir sont\nrésolues maintenant.\nTIR NORMAL 10.04\nÉLIGIBLE SI  : Votre unité est non engagée  et n’a pas fait de\nmouvement d’avance à ce tour.\nEFFET  : Votre unité tire comme décrit dans Effectuer des Attaques ( 04).\nAPRÈS AVOIR TIRÉ  : Jusqu’à la fin de la phase, votre unité n’est\npas éligible pour entreprendre une action.La phase de Tir est résolue en suivant ces étapes  :\n1DÉBUT DELAPHASE DETIR\n2TIRER\n3FINDELAPHASE DETIRÀ la phase de Tir, vos unités utiliseront leurs armes de tir pour faire feu sur les\ncibles qu’elles auront choisies.\n++ LA FOI BOURGEONNE DU FÛT D’UN CANON ++Les types de tir\nsont indiqués par\ncette icône.\n34"
+                }
+              ]
+            },
+            {
+              "id": "p-35",
+              "printedPage": 35,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "VOIR AUSSI\nTIRER\n▪ Actions 16.00\n▪ Tirer sur des Monstres et\nVéhicules Engagés 17.03\n▪Terrain et Visibilité 13.07TIR D’ASSAUT 10.05\nÉLIGIBLE SI  : Tous  les points suivants s’appliquent à votre unité  :\n▪Non engagée  et a fait un mouvement d’avance à ce tour.\n▪ A une ou plusieurs armes d’ [ASSAUT] .\nEFFET  : Votre unité tire comme décrit dans Effectuer des Attaques ( 04).\nEN TIRANT  : Vous pouvez choisir seulement des armes\nd’[ASSAUT]  avec lesquelles effectuer des attaques.\nAPRÈS AVOIR TIRÉ  : Jusqu’à la fin de la phase, votre unité n’est\npas éligible pour entreprendre une action.\nTIR EN COMBAT RAPPROCHÉ 10.06\nÉLIGIBLE SI  : Tous  les points suivants s’appliquent à votre unité  :\n▪Engagée  et n’a pas fait de mouvement d’avance à ce tour.\n▪ A une ou plusieurs armes de [COMBAT RAPPROCHÉ]  ou est\nune unité de MONSTRE/VÉHICULE .\nEFFET  : Votre unité tire comme décrit dans Effectuer des Attaques ( 04).\nEN TIRANT  : Les figurines de votre unité peuvent cibler des\nunités ennemies avec lesquelles votre unité est engagée .\n▪ Figurines de MONSTRE /VÉHICULE  : À chaque attaque d’une\nfigurine de MONSTRE/VÉHICULE  de votre unité  :\n▫ Sauf si cette attaque est effectuée avec une arme de\n[COMBAT RAPPROCHÉ]  et cible une unité avec laquelle\nvotre unité est engagée , soustrayez 1 au jet de touche .\n▫ Si cette attaque est faite avec une arme à\n[DÉFLAGRATION] , elle ne peut malgré tout pas cibler\nune unité avec laquelle votre unité est engagée .\n▪ Figurine autre que MONSTRE/VÉHICULE  : Vous pouvez\nseulement utiliser des armes de [COMBAT RAPPROCHÉ]  pour\nfaire des attaques, et vous pouvez seulement choisir comme\ncibles les unités ennemies engagées  avec votre unité.\nAPRÈS AVOIR TIRÉ  : Jusqu’à la fin de la phase, votre unité n’est\npas éligible pour entreprendre une action.\nTIR INDIRECT 10.07\nÉLIGIBLE SI  : Tous  les points suivants s’appliquent à votre unité  :\n▪Non engagée  et n’a pas fait de mouvement d’avance  à ce tour.\n▪ A une ou plusieurs armes à [TIR INDIRECT] .\nEFFET  : Votre unité tire comme décrit dans Effectuer des Attaques ( 04).\nEN TIRANT  :\n▪ Les armes à [TIR INDIRECT]  de votre unité peuvent cibler\ndes unités qui ne sont pas visibles  de la figurine attaquante.\n▪ À chaque attaque de tir d’une arme à [TIR INDIRECT]  :\n▫ La cible a le bénéfice du couvert  contre l’attaque ( 13.08 ).\n▫Vous ne pouvez pas relancer les jets de touche .\n▫ Un jet de touche  non modifié de 1 -5 échoue, sauf si\nvotre unité est restée immobile à ce tour et si la cible est visible  d’une ou plusieurs unités amies, auquel cas,\nun jet de touche\nnon modifié de 1 -3 échoue.\nAPRÈS AVOIR TIRÉ  : Jusqu’à la fin de la phase, votre unité n’est\npas éligible pour entreprendre une action.TIRINDIRECT\nQuand vous choisissez\nle tir indirect  pour\nune unité, ses armes à [TIR INDIRECT]\npeuvent lâcher des barrages écrasants\nsur des cibles qui\nne s ont pas visibles,\nmais n’oubliez pas que ses autres armes\npeuvent cibler d’autres cibles visibles.\n35"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phase-de-charge",
+          "reference": "11",
+          "title": "Phase de Charge",
+          "sourcePages": [
+            36,
+            37
+          ],
+          "pages": [
+            {
+              "id": "p-36",
+              "printedPage": 36,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE CHARGE\n1DÉBUT DE LA PHASE DE CHARGE 11.01\nLes règles déclenchées au début de la phase de charge sont\nrésolues maintenant.\n2 CHARGER 11.02\nLe joueur actif résout des charges avec ses unités éligibles, une\nà la fois, en utilisant la séquence ci-dessous, jusqu’à ce que toutes\nles unités avec lesquelles il a choisi de charger  aient déclaré une\ncharge et que ces charges aient été résolues.\n1.  Déclarez une Charge  : Choisissez une unité amie qui n’a pas\ndéclaré de charge à cette phase et qui est éligible pour déclarer\nune charge (voir ci-dessous). Cette unité déclare une charge.\nUne unité est éligible pour déclarer une charge si elle est sur le champ de bataille, sauf mention contraire. Voici quelques exemples de règles qui empêchent  une unité d’être éligible\npour déclarer une charge  :\n▫ Elle n’est pas à 12\" ou moins d’une ou plusieurs\nunités ennemies.\n▫Elle est engagée .\n▫ Elle a fait un mouvement d’avance  ou de retraite  à ce tour.\n2.  Effectuez le Jet de Charge  : Effectuez un jet de charge en\njetant 2D6  : le r ésultat est la distance maximale  pour le\nmouvement de charge.\n3.  Tentez la Charge  : S’il est possible d’effectuer un mouvement\nde charge, et si vous souhaitez toujours le faire, faites un mouvement de charge avec l’unité (voir ci-contre). Sinon,\nvotre unité ne fait pas de mouvement de charge. Dans tous\nles cas, la charge est alors résolue.\n3 FIN  DE  LA  PHASE  DE  CHARGE 11.03\nLes règles déclenchées à la fin de la phase de Charge sont\nrésolues maintenant.La phase de Charge est résolue en suivant ces étapes  :\n1DÉBUT DELAPHASE DECHARGE\n2CHARGER\n3FINDELAPHASE DECHARGE\nCHARGES RATÉES\nNotez qu’en l’absence\nde modificateur à\nun jet de charge,\nun résultat de 2\n(un double 1) ne\npermet jamais à une\nunité d’accomplir\nun mouvement de\ncharge, puisqu’une\nunité ne peut pas être à portée d’engagement\n(2\") quand elle tente une charge. Le résultat\nd’un tel jet est donc\nune charge ratée, et\nl’unité ne peut pas\nse déplacer.\n11\n++ UNE MORT DIGNE VOUS VAUDRA LA BÉNÉDICTION DE L’EMPEREUR ++À la phase de Charge, vous pourrez effectuer des mouvements de charge avec\nvos unités. Ceci représente vos forces qui se ruent sur leurs adversaires pour\nles engager dans de sanglants corps à corps.\n36"
+                }
+              ]
+            },
+            {
+              "id": "p-37",
+              "printedPage": 37,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MOUVEMENT DE CHARGE 11.04\nDISTANCE MAXIMALE  : Jet de charge.\nÉLIGIBLE SI  : Votre unité a déclaré une charge à cette phase.\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Choisissez une ou plusieurs unités\nennemies à 12\" ou moins de votre unité et à la distance maximale\nou moins de votre unité  ; jusqu’à la fin de ce mouvement, chacune\nde ces unités ennemies est une cible de charge .\nEN SE DÉPLAÇANT  :\n▪ Chaque figurine doit finir son mouvement plus proche\nd’une ou plusieurs cibles de charge.\n▪ Chaque figurine qui peut finir son mouvement à 1\" ou\nmoins d’une ou plusieurs cibles de charge doit le faire.\n▪ Chaque figurine qui peut finir son mouvement engagée\navec une ou plusieurs cibles de charge doit le faire.\nAPRÈS S’ÊTRE DÉPLACÉE  :\n▪ Votre unité doit être engagée  avec toutes  les cibles de charge.\n▪ Votre unité ne peut pas être engagée  avec une ou plusieurs\nunités ennemies qui ne sont pas des cibles de charge.\n▪ Jusqu’à la fin du tour, chaque figurine de votre unité\na l’aptitude Combat en Premier ( 24.13 ).VOIR AUSSI\nDÉCLARER UNECHARGE\n► Cible n’Étant Plus\nÉligible ou Viable\nEFFECTUER UN MOUVEMENT DE CHARGE\n7\"\nCette unité est à plus\nde 7\" de l’unité BLEUEBLEUE ,\nelle ne peut donc\npas être choisie comme cible\nde charge , quand bien même\nl’unité BLEUEBLEUE  pourrait finir son\nmouvement de charge  à 2\" ou\nmoins d’elle.\nL’unité BLEUE BLEUE déclare\nune charge et le jet\nde charge génère\nune distance maximale  de 7\".\nL’unité A est à cette distance, et\npeut donc être choisie comme\ncible de charge, mais l’unité\nBLEUE BLEUE ne pourra pas finir\nson mouvement de charge\nengagée avec elle après avoir\ncontourné les éléments de terrain interposés.\nCes unités sont toutes\nles deux à 7\" ou moins, et peuvent donc\nêtre choisie comme cibles de\ncharge. L’unité\nBLEUEBLEUE  peut finir\nson mouvement de charge\nengagée avec toutes ses cibles\nde charge, elle peut donc faire ce mouvement.AA\nB\nBCCJet de Charge\n37"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phase-de-combat",
+          "reference": "12",
+          "title": "Phase de Combat",
+          "sourcePages": [
+            38,
+            43
+          ],
+          "pages": [
+            {
+              "id": "p-38",
+              "printedPage": 38,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE COMBAT\n1 DÉBUT DE LA PHASE DE COMBAT 12.01\nLes règles déclenchées au début de la phase de Combat sont\nrésolues maintenant.\n2S’INSÉRER 12.02\nLes deux joueurs effectuent des mouvements d’insertion (voir\nci-dessous) avec toutes leurs unités éligibles qu’ils souhaitent déplacer. La section “Éligible Si” décrit les unités éligibles pour\nde tels mouvements. Le joueur dont c’est le tour résout tous ses\nmouvements en premier, suivi de son adversaire. Chaque unité\nne peut pas faire plus d’un mouvement d’insertion à cette étape.\nMOUVEMENT D’INSERTION 12.03\nDISTANCE MAXIMALE  : 3\"\nÉLIGIBLE SI  : C’est la phase de Combat et un ou plusieurs des\npoints suivants s’appliquent à votre unité  :\n▪Elle est engagée .\n▪Elle a effectué un mouvement de charge à ce tour.\n▪ Elle a été choisie pour effectuer un combat de\ndébordement  à cette phase ( 12.06 ).\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Choisissez les cibles d’insertion  :\nSi votre unité est engagée , choisissez chaque  unité ennemie\navec laquelle elle est engagée .\nSinon,  choisissez une ou plusieurs unités ennemies à 5\" ou\nmoins de votre unité.\nEN SE DÉPLAÇANT  :\n▪ Les figurines en contact socle à socle avec une ou plusieurs\nfigurines ennemies ne peuvent pas être déplacées.\n▪ Chaque figurine déplacée doit finir son mouvement plus\nproche de la cible d’insertion la plus proche, et engagée\navec elle si possible.\nAPRÈS S’ÊTRE DÉPLACÉE  :\n▪Votre unité doit être engagée .\n▪ Chaque figurine qui a commencé ce mouvement engagée  avec\nune unité ennemie doit toujours être engagée  avec celle-ci.La phase de Combat est résolue en suivant ces étapes  :\n1DÉBUT DELAPHASE DECOMBAT\n2S’INSÉRER\n3COMBATTRE\n4CONSOLIDER\n5FINDELAPHASE DECOMBAT\n12LESUNITÉS SONT-\nELLES OBLIGÉES\nDECOMBATTRE ?\nOui, vous devez\ncombattre avec\ntoutes les unités qui\nle peuvent, mais vos unités ne sont pas obligés de s’insérer ou\nde consolider si vous\nne le souhaitez pas.\nMOUVEMENTS\nD’ENGAGEMENT\nETMOUVEMENTS\nD’INSERTION\nDes suppléments antérieurs mais\ncompatibles avec\ncette édition de Warhammer 40,000 évoquent parfois\ndes “mouvements\nd’engagement”. À tous les égards, et à partir\nde la présente édition\ndes règles, traitez ces “mouvements d’engagement” comme\ndes mouvements\nd’insertion.\n++ LES SOLDATS VAILLANTS NE DOUTENT PAS, ILS AGISSENT ++À la phase de Combat, les deux joueurs ont l’occasion d’agir. D’abord, des unités\ns’inséreront pour maximiser le nombre de leurs figurines engagées, puis elles effectueront des attaques, avant de consolider leurs positions.\n38"
+                }
+              ]
+            },
+            {
+              "id": "p-39",
+              "printedPage": 39,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MOUVEMENTS D’INSERTIONDÉBUT DE PHASE DE COMBAT\nComme les deux unités ROUGESROUGES\nont effectué des mouvements de\ncharge à ce tour, ce sont des unités\nqui Combattent en Premier à cette\nphase et sont toutes deux éligibles pour effectuer des mouvements\nd’insertion, même si le MONSTRE  est\nnon engagé car il a détruit sa cible\nde charge à la phase de charge en utilisant le stratagème Impact\nÉcrasant (\n15.06 ).\n1. Le joueur  ROUGE ROUGE  fait ses mouvements d’insertion  en premier.\n2.  Le joueur BLEUBLEU  fait ses mouvements d’insertion ensuite,\nmais comme sa figurine est en contact socle à socle avec des\nfigurines ennemies, elle n’est pas déplacée.\nChaque figurine se déplace\nde 3\" maximum.Unité qui Combat\nen Premier\nUnité qui Combat\nen Premier 2½\"\nObjectif de Terrain\nObjectif de Terrain\n39"
+                }
+              ]
+            },
+            {
+              "id": "p-40",
+              "printedPage": 40,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE COMBAT\n12\n++ SEULE LA MORT MET FIN AU DEVOIR ++COMBATS DE\nDÉBORDEMENT\nQuand une unité\neffectue un combat\nde débordement , ses\nfigurines peuvent se déplacer de sorte que des unités ennemies qui\nétaient non engagées\ndeviennent engagées .\nCes unités ennemies deviennent éligibles\npour combattre  à cette\nphase (et sont même\ncapables de combattre\nensuite si ce sont des\nunités qui Combattent en Premier ).3COMBATTRE 12.04\nUne unité est éligible pour combattre  si elle n’a pas déjà été\nchoisie pour combattre à cette phase et si un ou plusieurs des\npoints suivants s’y appliquent  :\n▪Elle est engagée , ou était engagée  au début de cette étape.\n▪Elle a effectué un mouvement de charge à ce tour.\nLes joueurs résolvent la séquence suivante jusqu’à avoir choisi\npour combattre toutes les unités éligibles et résolu leurs attaques  :\n1.  Résolvez les Combats avec les Unités qui Combattent en\nPremier  : En commençant par le joueur dont c’est le tour, les\njoueurs choisissent à tour de rôle une unité amie qui  Combat\nen Premier et qui est éligible pour combattre  ; l’unité est choisie\npour combattre  (voir ci-dessous). Si ce n’est pas possible  :\nS’il n’y a pas d’unité qui Combat en Premier éligible pour\ncombattre, passez à l’étape Résolvez les Combats Restants\noù ce joueur choisira sa prochaine unité.\nSinon, l’autre joueur choisit sa prochaine unité.\n2.  Résolvez les Combats Restants  : En commençant par le joueur\nqui vient de passer à cette séquence à cette étape, les joueurs choisissent à tour de rôle une unité amie\néligible pour combattre  ;\nl’unité est choisie pour combattre . Si ce n’est pas possible  :\nS’il n’y a pas d’unité éligible pour combattre, l’étape\nCombattre se termine.\nSinon, l’autre joueur choisit sa prochaine unité.\nAprès avoir résolu un combat à l’étape Résolvez les Combats Restants, si une ou plusieurs unités qui Combattent en Premier sont à présent éligibles pour combattre, repassez à l’étape\nRésolvez les Combats avec les Unités qui Combattent en Premier.\nQUAND UNEUNITÉ ESTCHOISIE POUR COMBATTRE\nChaque fois qu’une unité est choisie pour combattre, choisissez un\ntype de combat  auquel elle est éligible, et résolvez-le avec elle. Il peut\ns’agir d’un de ceux listés ci-dessous, ou d’un autre présenté ailleurs  :\nCOMBAT NORMAL 12.05\nÉLIGIBLE SI  : Votre unité est engagée .\nEFFET  : Votre unité combat comme décrit dans Effectuer\ndes Attaques ( 04).\nCOMBAT DE DÉBORDEMENT 12.06\nÉLIGIBLE SI  : Votre unité est non engagée,  ou l’était au début de l’étape\nCombattre mais est devenue engagée  pendant la phase de Combat.\nEFFET  : Votre unité peut faire 1 mouvement d’insertion supplémen-\ntaire, puis elle combat comme décrit dans Effectuer des Attaques ( 04).Les types de combat\nsont indiqués par\ncette icône.\n40"
+                }
+              ]
+            },
+            {
+              "id": "p-41",
+              "printedPage": 41,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "COMBAT DE DÉBORDEMENTCOMBAT NORMAL\nLes joueurs choisissent à tour de rôle des\nunités pour combattre. Les unités qui\nCombattent en Premier doivent être choisies\navant toute autre unité éligible.\n3.  Le joueur BLEUBLEU  n’a pas d’unité qui\nCombat en Premier, donc le joueur\nROUGEROUGE  choisit son unité suivante.\n1.  Le joueur ROUGEROUGE   choisit son MONSTRE  pour\ncombattre. Il effectue un combat normal,\net détruit le TRANSPORT .\n4.  Le joueur ROUGEROUGE  choisit une autre unité\nqui Combat en Premier . Cette unité est\nnon engagée , mais était engagée  avec le\nTRANSPORT  au début de l’étape Combattre, et\npeut donc faire un combat de débordement .\nElle effectue d’abord un mouvement d’insertion\npour engager  l’unité qui a débarqué, puis\ncombat, et détruit deux figurines ennemies.\n2.  L’unité embarquée effectue un\nmouvement  de débarquement\nd’urgence. Après cela, elle est non engagée.Unité qui Combat\nen Premier Unité qui Combat\nen Premier\n3\"\n5.  L ’unité du joueur BLEUBLEU\ncombat en représailles, mais n’inflige aucun dégât.Objectif de TerrainObjectif de Terrain\n41"
+                }
+              ]
+            },
+            {
+              "id": "p-42",
+              "printedPage": 42,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "PHASE DE COMBAT\n124CONSOLIDER 12.07\nLes deux joueurs effectuent des mouvements de consolidation\n(voir ci-dessous) avec toutes les unités éligibles qu’ils souhaitent\ndéplacer. La section “Éligible Si” décrit les unités éligibles pour\nde tels mouvements. Le joueur dont c’est le tour résout tous ses\nmouvements en premier, suivi par son adversaire. Chaque unité ne peut pas faire plus d’un mouvement de consolidation à cette étape.\nMOUVEMENT DE CONSOLIDATION 12.08\nDISTANCE MAXIMALE  : 3\"\nÉLIGIBLE SI  : C’est la phase de Combat et votre unité était\néligible pour combattre à cette phase.\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Choisissez un mode de consolidation  :\nConsolidation Continue  : Si votre unité est engagée , vous\ndevez choisir ce mode et choisir chaque  unité ennemie\navec laquelle elle est engagée .\nConsolidation d’Engagement  : Sinon, si votre unité est à 3\" ou\nmoins d’une ou plusieurs unités ennemies, vous devez choisir\nce mode et choisir une ou plusieurs de ces unités ennemies.\nConsolidation sur Objectif  : Sinon, si votre unité est à 3\" ou\nmoins d’un ou plusieurs objectifs, vous devez choisir ce mode et choisir un de ces objectifs.\nEN SE DÉPLAÇANT  :\n▪ Consolidation Continue  : Les figurines en contact socle à\nsocle avec une ou plusieurs figurines ennemies ne peuvent pas être déplacées. Chaque figurine déplacée doit finir son\nmouvement aussi proche que possible de l’unité ennemie\nchoisie la plus proche, et engagée  avec elle si possible.\n▪ Consolidation d’Engagement  : Chaque figurine déplacée\ndoit finir son mouvement plus proche de l’unité ennemie choisie la plus proche, et engagée  avec elle si possible.\n▪ Consolidation sur Objectif  : Chaque figurine déplacée\ndoit finir son mouvement à portée de l’objectif choisi\nsi possible, ou plus proche sinon.\nAPRÈS S’ÊTRE DÉPLACÉE  :\n▪  Consolidation Continue  : Chaque figurine qui a commencé\nce mouvement engagée  avec une unité ennemie doit\ntoujours être engagée  avec celle-ci.\n▪ Consolidation d’Engagement  : Votre unité doit être\nengagée  avec toutes  les unités ennemies choisies. Si une\nou plusieurs unités ennemies engagées avec votre unité\nn’ont pas été choisies pour combattre à cette phase, votre\nadversaire doit choisir chacune d’elles, une à la fois  ; quand\nchacune est choisie, elle devient éligible pour combattre\net est choisie pour combattre ( 12.04 ).\n▪ Consolidation sur Objectif  : Votre unité doit être à portée\nde l’objectif choisi.\n5 FIN  DE  LA  PHASE  DE  COMBAT 12.09\nLes règles déclenchées à la fin de la phase de Combat sont\nrésolues maintenant.DENOUVEAUX\nADVERSAIRES\nÀAFFRONTER\nEn utilisant le mode\nconsolidation\nd’engagement ,\nvotre unité peut finir\nson mouvement\nde consolidation\nengagée avec des unités ennemies qu’elle n’avait pas\nencore combattues\nà cette phase. Dans ce cas, chacune de ces unités ennemies\naura une opportunité\nde combattre votre unité, alors réfléchissez\nsoigneusement au\nniveau d’agressivité que vous voulez donner au déplacement\nde votre unité avec\nce mode.\n42"
+                }
+              ]
+            },
+            {
+              "id": "p-43",
+              "printedPage": 43,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Le joueur  ROUGEROUGE  fait ses mouvements de\nconsolidation en premier. Toutes les unités\nengagées et toutes celles qui étaient éligibles\npour combattre à cette phase peuvent faire un\nmouvement de consolidation.\nChaque figurine se déplace de\n3\" maximum. Les figurines en contact socle à socle avec des\nfigurines ennemies ne peuvent\npas être déplacées.\nAucune unité ennemie n’est à\n3\" ou moins de cette unité de\nMONSTRE , mais il y a un  objectif  à\n3\" ou mois, donc elle se déplace  à portée de cet objectif.CONSOLIDATION CONTINUE\nObjectif de Terrain\nObjectif de Terrain3\"CONSOLIDATION SUR OBJECTIF\n43"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "champs-de-bataille-et-tactiques",
+      "title": "Champs de bataille et tactiques",
+      "sourcePages": [
+        44,
+        59
+      ],
+      "sections": [
+        {
+          "id": "terrain",
+          "reference": "13",
+          "title": "Terrain",
+          "sourcePages": [
+            44,
+            51
+          ],
+          "pages": [
+            {
+              "id": "p-44",
+              "printedPage": 44,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "44"
+                }
+              ]
+            },
+            {
+              "id": "p-45",
+              "printedPage": 45,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "CHAMPS DE BATAILLE\nET TACTIQUES\n45"
+                }
+              ]
+            },
+            {
+              "id": "p-46",
+              "printedPage": 46,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "TERRAIN\nPLACER LETERRAIN 13.01\nAvant la bataille, placez une sélection d’éléments de terrain  sur\nle champ de bataille en utilisant une ou plusieurs des méthodes\nsuivantes  :\n▪ Placez une limite définie (ex. un socle ou un tapis) à chaque\nendroit que vous voulez pourvoir en terrain, puis placez un ou\nplusieurs éléments de terrain  entièrement dans cette limite.\n▪Placez 1 élément de terrain  directement sur le champ de bataille.\n▪ Placez 2 éléments de terrain  ou plus directement sur le champ\nde bataille de sorte que leur ensemble délimite une zone.\nDans chaque cas, la zone du champ de bataille occupée par cette limite ou cet élément de terrain  est appelée une zone de terrain .\nLa carte de déploiement de mission peut définir l’emplacement et les dimensions de chaque zone de terrain . Sinon, les joueurs\ndoivent s’accorder sur la question avant la bataille.\nCATÉGORIES DETERRAIN 13.02\nChaque élément de terrain  appartient à une catégorie de\nterrain , qui peut affecter le mouvement et la visibilité des\nfigurines. Voici ci-dessous quelques exemples des types\nd’éléments de terrain  qui entrent dans chaque catégorie.\nEXPOSÉ 13.03\nLe terrain exposé offre une maigre protection aux troupes\nles plus désespérées, et peut être franchi sans encombre.\nExemples  : Cratères, barbelés, débris épars.\nLÉGER 13.04\nLe terrain léger peut fournir du couvert face aux attaques, mais\nil ne ralentira pas l’ennemi ni n’offrira de défense durable.\nExemples  : Barricades, murs bas, statues.\nDENSE 13.05\nLe terrain dense est un obstacle pour les machines de guerre\nles plus imposantes, et peut abriter des escouades entières.\nExemples  : Bâtiments, ruines, conteneurs blindés, bois.\nLa carte de déploiement de mission peut définir les catégories de terrain  qui doivent être présentes dans chaque zone de\nterrain . Respecter ces conditions vous offrira la meilleure\nexpérience de jeu. Notez que des éléments de terrain  qui\npartagent une même zone de terrain  peuvent appartenir\nà des  catégories de terrain  différentes.Cette section fournit des règles pour utiliser les éléments de terrain et faire de votre\ntable de jeu un champ de bataille thématique et interactif. Ces règles donneront vie à votre champ de bataille et conféreront une dimension tactique vitale à vos parties.\n13CRÉER VOTRE PROPRE\nCHAMP DEBATAILLE\nNe vous inquiétez\npas si votre champ\nde bataille ne répond\npas aux conditions de catégorie de terrain\nd’une mission  ; faites\nau mieux avec les éléments de terrain  en\nvotre possession. Si  u ne\nmission ne donne aucune information,\nce sera aux joueurs\nde décider comment créer leur champ de bataille. Ce faisant,\ngardez à l’esprit que\nles éléments de terrain dense ont\nun impact supérieur\nsur la visibilité et le mouvement. Les champs de\nbataille avec trop\npeu d’éléments de terrain dense  peuvent\navantager des armées reposant sur le tir, ou désavantager des armées misant\nsur le corps à corps.\nSouvenez-vous aussi de laisser assez\nd’espace autour des\néléments de terrain dense pour que les figurines imposantes\ncomme les MONSTRES/\nVÉHICULES  puissent\nmanœuvrer, notam-\nment près des bords\ndu cha mp de bataille.\n46"
+                }
+              ]
+            },
+            {
+              "id": "p-47",
+              "printedPage": 47,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "TERRAIN PLACÉ SUR UN TAPIS\nTERRAIN PLACÉ SUR LE CHAMP DE BATAILLE\nOn a placé deux éléments de terrain sur un\ntapis. Les bords de ce tapis définissent les limites\nde cette zone de terrain. Les deux éléments de\nterrain sont des ruines, donc utilisez les règles\nd’éléments de terrain dense.\nOn a placé trois éléments de terrain directement\nsur le champ de bataille. Les joueurs se sont mis\nd’accord sur les limites de la zone de terrain  définie\npar ces éléments (le rectangle ombré). Les éléments\nBLEUSBLEUS  sont des éléments de terrain dense  et\nl’élément ROUGEROUGE  est un élément de terrain léger .Terrain DenseTerrain Dense\nTerrain Dense Terrain Dense\nTerrain LégerZone de Terrain\nZone de Terrain\n47"
+                }
+              ]
+            },
+            {
+              "id": "p-48",
+              "printedPage": 48,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "13 TERRAIN\nTERRAIN ETMOUVEMENT 13.06\nLes figurines peuvent se déplacer à travers les différentes\ncatégories d’élément de terrain  comme suit  :\n▪ Exposé/Léger  : Toutes les figurines peuvent se déplacer à\nl’horizontale et à la verticale à travers les éléments de terrain\nexposé et terrain léger .\n▪Dense  :\n▫ Les figurines d’INFANTERIE /BÊTES /NUÉE /MOBILE  peuvent\nse déplacer à l’horizontale à travers les éléments de\nterrain dense.\n▫ Les figurines d’INFANTERIE /BÊTES /NUÉE  peuvent\nse déplacer à la verticale à travers les éléments de\nterrain dense.\n▫ Les autres figurines peuvent se déplacer à l’horizontale\nà travers les éléments de terrain dense à condition que\ntoutes les sections de l’élément de terrain  à travers\nlequel se déplace le socle de la figurine fassent 2\" ou\nmoins de haut. Sinon, la figurine qui se déplace doit se\ndéplacer verticalement pour monter sur ou descendre de telles sections. Elle ne peut pas se déplacer à travers les plafonds et les planchers ce faisant, et elle ne peut pas finir\nce mouvement sur la moindre surface de cet élément de\nterrain  qui ne soit pas au niveau du sol (voir ci-dessous).\nSEDÉPLACER ÀLAVERTICALE\nLes figurines peuvent se déplacer verticalement pour monter\nsur ou descendre des éléments de terrain . Ce faisant  :\n▪ Cette figurine doit rester à ½\" ou moins à l’horizontale de\nl’élément de terrain .\n▪ Ajoutez la distance parcourue verticalement vers le haut,\net celle parcourue verticalement vers le bas, à toute autre distance que la figurine a parcourue depuis que son unité\na commencé ce mouvement.\nÊTRE PLACÉ OUFINIR UNMOUVEMENT\nLes figurines peuvent être placées ou finir un mouvement sur le niveau du sol des éléments de terrain . Les figurines peuvent\naussi être placées ou finir un mouvement sur n’importe quelle\nsurface d’un élément de terrain  qui n’est pas au niveau du sol,\nsi toutes  les conditions suivantes sont remplies  :\n▪ Cette figurine a un ou plusieurs des mots-clés\nsuivants  : INFANTERIE /BÊTES /NUÉE /VOL /MONSTRE .\n▪ Après avoir fini ce mouvement, cette figurine est stable et\naucune partie de son socle ne dépasse du bord extérieur\nde cette sur face.\n++ QUE LA VENGEANCE DE L’EMPEREUR BRÛLE EN VOUS ++TIRPLONGEANT\nEn plus de disposer\nde meilleures lignes\nde vue, les figurines\nqui montent sur des éléments de terrain\nélevés bénéficient\nde la règle Tir\nPlongeant  (\n22.05 ).\nTERRAIN PLEIN\nSi un élément de\nterrain a la règle Plein\n(13.11), comme l’ont les\néléments de terrain dense, une figurine\nne peut pas finir un mouvement de sorte que la moindre de\nses parties traverse\nla moindre partie close de cet élément\nde terrain qui est à 3\"\nou moins du niveau du sol – pas même les petites ouvertures\ncomme les portes et\nles fenêtres. Ceci évite que les protrusions\ndes figurines ne\nsoient utilisées pour contourner les restrictions de visibilité\nde la règle Plein.\n48"
+                }
+              ]
+            },
+            {
+              "id": "p-49",
+              "printedPage": 49,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "TERRAIN ET MOUVEMENT\nTerrain Dense\nTerrain Dense\nTerrain Dense\nTerrain DenseTerrain Dense\nToutes les sections de cet élément de terrain dense  font\nplus de 2\" de haut, donc cette figurine de MONSTRE  ne peut\npas se déplacer à travers et doit le contourner à la place.\nCette figurine\nd’INFANTERIE  peut se\ndéplacer à la verticale et\nfinir son mouvement sur\nla surface supérieure de cet élément de terrain , car elle\nest stable et aucune partie\nde son socle ne dépasse\nde cette surface.\nCette figurine de VÉHICULE  ne\npeut pas se déplacer à travers\ncet élément de terrain dense ,\nmais elle peut se déplacer à\nla verticale pour monter et descendre des sections de\nplus de 2\" de haut (à condition\nde ne pas finir ce mouvement au sommet de ces sections).\nCette figurine d’ INFANTERIE\nne se déplace pas par-\ndessus ni à travers des\néléments de terrain. Son mouvement à travers la zone de terrain indiquée se\nfait donc sans encombre.\nCes figurines d’ INFANTERIE  peuvent se\ndéplacer à travers les éléments de terrain\ndense, comme les murs de cette ruine.\n49"
+                }
+              ]
+            },
+            {
+              "id": "p-50",
+              "printedPage": 50,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "TERRAIN ETVISIBILITÉ 13.07\nLe terrain peut affecter la visibilité en fonction de l’application ou\nnon des règles Bénéfice du Couvert , Caché, Occultant  ou Plein.\nBÉNÉFICE DUCOUVERT 13.08\nÀ chaque attaque de tir ciblant une unité, si chaque  figurine de\ncette unité remplit une ou plusieurs des conditions suivantes, l’unité a le bénéfice du couvert\ncontre l’attaque  :\n▪ La figurine a le mot-clé INFANTERIE /BÊTES /NUÉE  et est dans\nune zone de terrain.\n▪ La figurine n’est pas entièrement visible de la figurine attaquante\nen raison d’un ou plusieurs éléments de terrain  interposés et/\nou d’une ou plusieurs zones de terrain occultantes interposées\n(voir ci-dessous).\nÀ chaque attaque de tir ciblant une unité qui a le bénéfice du couvert\ncontre elle, dégradez de 1 la caractéristique de CT  de cette attaque.\nCACHÉ 13.09\nUne figurine est cachée tant que tout  ce qui suit se vérifie  :\n▪ Cette figurine a le mot-clé INFANTERIE /BÊTES /NUÉE  et est dans\nune zone de terrain qui contient un ou plusieurs éléments de\nterrain dense .\n▪ L’unité de cette figurine n’a fait aucune attaque de tir pendant\nce tour ni pendant le tour précédent.\nTant qu’une figurine est cachée, elle est seulement visible  des\nfigurines ennemies qui sont dans sa portée de détection . Sauf\nmention contraire, la portée de détection  d’une figurine est de 15\".\nOCCULTANT 13.10\nLes zones de terrain qui contiennent un ou plusieurs éléments\nde terrain léger  ou dense  sont des zones de terrain occultantes.\nSi toutes les lignes de vue tirées entre deux figurines traversent\nune ou plusieurs zones de terrain occultantes (hormis les zones\nde terrain occultantes dans lesquelles une ou ces deux figurines\nse trouvent), ces deux figurines ne sont pas visibles  l’une de l’autre.\nPLEIN 13.11\nLes éléments de terrain dense  ont la règle Plein. On ne peut pas tirer\nde ligne de vue à travers les ouvertures circonscrites à la surface de\nces éléments de terrain  se trouvant à 3\" ou moins du niveau du sol.\nNote de Conception  : Cette règle s’assure que les figurines ne sont\npas visibles  tant qu’elles s’abritent derrière un terrain au niveau\ndu sol, en dépit d’ouvertures comme les portes, fenêtres ou trous,\nou de petits espaces entre éléments de terrain  adjacents. 3\" est\nla hauteur du rez-de-chaussée de nombre d’ éléments de terrain ,\nmais certaines missions ajustent la hauteur d’effet de cette règle.\nTERRAIN\n++ POUR L’EMPEREUR  ! ++13\n50"
+                }
+              ]
+            },
+            {
+              "id": "p-51",
+              "printedPage": 51,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "CACHÉ ET OCCULTANT BÉNÉFICE DU COUVERT\n15\"A\nA\nA\nBEBCD\nBC\nD\n▪ Il y a une zone de terrain occultante  entre toutes les figuri-\nnes des unités A  et D, donc l’une n’est pas visible de l’autre.\n▪ Toutes les figurines des unités B et C sont dans la zone de\nterrain et sont d’ INFANTERIE , elles sont donc cachées .\nToutefois, les figurines de l’unité D  sont à 15\" ou moins,\nsoit la portée de détection  des figurines de l’unité B\n(mais pas de celles de l’unité C), donc les figurines de\nl’unité B sont visibles  de celles de l’unité D . Les figurines\nde l’unité D  sont aussi visibles  de celles des unités B  et C,\npuisqu’elles ne sont pas dans une zone de terrain .\nLes unités A et B ne sont pas\nvisibles  l’une de l’autre, car\nmême s’il y a une fenêtre sur\ncet élément de terrain dense ,\nil a la règle Plein, donc on ne peut pas tirer de ligne de vue\npar de telles ouvertures circonscrites qui sont à 3\" ou moins du niveau du sol.\nLes unités A  et C sont visibles\nl’une de l’autre, car même\nsi cet élément de terrain\ndense a la règle Plein, on\npeut tirer une ligne de vue\nnormalement depuis les\nouvertures closes à plus\nde 3\" du niveau du sol.\nQuand l’unité E effectue des attaques de tir  :\n▪ L’unité A est entièrement visible de chaque figurine\nde l’unité E, elle n’a donc pas le bénéfice du couvert.\n▪ Toutes les figurines de l’unité B ne sont pas dans une zone\nde terrain , donc l’unité B n’a pas le bénéfice du couvert .\n▪ Toutes les figurines de l’unité C sont dans une zone de\nterrain, donc l’unité C a le bénéfice du couvert.\n▪ L’unité D n’est pas entièrement visible de l’unité E en\nraison d’une zone de terrain occultante  interposée,\ndonc l’unité D a le bénéfice du couvert.-1CT\n-1CT\nPLEINC\n51"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "objectifs",
+          "reference": "14",
+          "title": "Objectifs",
+          "sourcePages": [
+            52,
+            53
+          ],
+          "pages": [
+            {
+              "id": "p-52",
+              "printedPage": 52,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "OBJECTIFS DETERRAIN 14.01\nSi une mission utilise des objectifs, elle stipulera où ils se\ntrouvent sur le champ de bataille. Typiquement, votre mission aura une carte de déploiement montrant plusieurs points\noù placer des objectifs. L’emplacement de chaque point doit\ncoïncider avec une zone de terrain  (\n13.01) ; cette zone de terrain\nest l’ objectif, et elle est appelée un objectif de terrain .\nQuand vous mesurez les distances jusqu’à et depuis un objectif, mesurez jusqu’à et depuis la partie la plus proche de celui-ci.\nNIVEAU DECONTRÔLE 14.02\nAu début de la bataille, aucun joueur ne contrôle d’ objectif du\nchamp de bataille. Pour prendre le contrôle d’un objectif, un joueur aura besoin d’une ou plusieurs figurines ayant une caractéristique\nde CO de 1 ou plus à portée de lui. Une figurine est à portée d’un\nobjectif de terrain  tant qu’elle est dans cette zone de terrain .\nÀ la fin de chaque phase et de chaque tour, pour déterminer\nle niveau de contrôle  d’un joueur sur un objectif, additionnez\nles caractéristiques de CO de toutes les figurines de l’armée\nde ce joueur qui sont à portée de cet\nobjectif  :\n▪ Le joueur qui a le niveau de contrôle  le plus élevé\nsur cet objectif contrôle l’objectif.\n▪ Si les deux joueurs ont le même niveau de contrôle\nsur cet objectif, à moins que ledit objectif soit sécurisé\n(voir ci-dessous), aucun joueur ne contrôle cet objectif.\nQuand une ou plusieurs unités de l’armée d’un joueur sont à portée d’un objectif que ce joueur contrôle, pour chacune\nde ces unités qui contient une ou plusieurs figurines ayant\nune caractéristique de CO de 1 ou plus, on dit que cette unité\ncontrôle cet objectif.\nOBJECTIFS SÉCURISÉS 14.03\nCertaines règles permettent à un objectif d’être sécurisé par l’armée d’un joueur. Quand un objectif est sécurisé par l’armée\nd’un joueur, cet objectif reste sous son contrôle – même une\nfois qu’il n’a plus d’unités à portée de lui – jusqu’à ce que le\nniveau de contrôle  adverse sur cet objectif soit supérieur au\nsien à la fin d’une phase.\nOBJECTIFS\n14TENIR ÀTOUT PRIX\nCertaines unités ont\ndes aptitudes qui sont\ndéclenchées quand\nelles contrôlent un objectif, ou quand elles sécurisent\nun objectif pour\nvotre armée.Les objectifs représentent des endroits critiques que les belligérants tentent\nde sécuriser, et nombre de missions exigent d’en prendre le contrôle pour triompher. Cette section décrit comment y parvenir avec vos figurines.\n52"
+                }
+              ]
+            },
+            {
+              "id": "p-53",
+              "printedPage": 53,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "VOIR AUSSI\n► Objectif n’Étant pas dans\nune Zone de TerrainCONTRÔLER UN OBJECTIF DE TERRAIN\n++ POUR UN GUERRIER, LE SEUL CRIME POSSIBLE EST LA LÂCHETÉ ++\nCette unité est actuellement\nébranlée , donc la caractéristique\nde CO de toutes ses figurines\nest “-”.\nLes figurines de cette unité ont chacune\nune caractéristique de CO de 1. Six de ses\nfigurines sont dans la zone de terrain.\nCe VÉHICULE  a une caractéristique\nde CO de 3, et est dans la zone\nde terrain.\nCe VÉHICULE  a une caractéristique\nde CO de 2, et il est entièrement\ndans la zone de terrain.\nLes deux joueurs additionnent les caractéristiques\nde CO de toutes leurs figurines qui sont dans\nla zone de terrain. Le niveau de contrôle du\njoueur BLEUBLEU  est de 5, et le niveau de contrôle du\njoueur ROUGEROUGE  est de 6. Le joueur ROUGEROUGE  contrôle\ndonc l’objectif.\n53"
+                },
+                {
+                  "kind": "diagram",
+                  "title": "Exemple de niveau de contrôle",
+                  "description": "Exemple de la page source : le joueur Rouge a un niveau de contrôle de 6 contre 5 pour le joueur Bleu et contrôle donc l’objectif.",
+                  "labels": [
+                    "Bleu · CO 5",
+                    "Objectif",
+                    "Rouge · CO 6"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stratagemes",
+          "reference": "15",
+          "title": "Stratagèmes",
+          "sourcePages": [
+            54,
+            57
+          ],
+          "pages": [
+            {
+              "id": "p-54",
+              "printedPage": 54,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "UTILISER DESSTRATAGÈMES 15.01\nPendant la bataille, les deux joueurs peuvent utiliser des\nstratagèmes. Chaque stratagème  stipule  :\n▪Combien de PC coûte son utilisation.\n▪QUAND  : Quand on peut  l’utiliser.\n▪CIBLE  : Quelle s unités il peut cibler.\n▪EFFET  : Quels effet s l’utilisation de ce stratagème entraîne.\n▪ RESTRICTIONS  : Le s éventuelles restrictions supplémentaires\nqui s’appliquent.\nChaque joueur peut utiliser le même stratagème plusieurs fois\npendant la bataille, mais les restrictions suivantes s’appliquent  :\n▪ Chaque joueur ne peut pas utiliser le même stratagème plus\nd’une fois à la même phase.\n▪ Sauf mention contraire, chaque joueur ne peut pas cibler\nla même unité avec plus d’un stratagème à la même phase.\nChaque fois que vous utilisez un stratagème, résolvez la\nséquence suivante  :\n1.  Choisissez des cibles comme décrit par le stratagème.\n2.  Réduisez votre total de PC par le coût en PC listé par le\nstratagème. Si le stratagème contient une section qui\nimplique un coût en PC supplémentaire (ex. +1PC), vous pouvez utiliser cette section supplémentaire seulement\nsi vous augmentez du montant indiqué le coût en PC de\nce stratagème. S’il ne vous reste pas assez de PC, vous ne\npouvez  pas utiliser le stratagème.\n3. Résolvez les effets du stratagème.\nSTRATAGÈMES DEBASE\nTous les joueurs peuvent utiliser les stratagèmes de base (voir au verso de la page suivante). Vous trouverez d’autres stratagèmes dans les Codex et d’autres publications.\nSTRATAGÈMES\nLes Stratagèmes s’utilisent en dépensant des Points de Commandement, pour\nprovoquer des moments d’épiphanie tactique et de prouesse guerrière. Ils servent quand un joueur estime qu’une habileté martiale supérieure ou des effets\ntemporaires mais puissants sont nécessaires pour renverser le cours du conflit.\n15\n++ LA HAINE AIGUISE NOTRE DÉTERMINATION ++ 54"
+                }
+              ]
+            },
+            {
+              "id": "p-55",
+              "printedPage": 55,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ARRIVÉE PRÉCIPITÉE 15.071PCSTRATAGÈME DE BASE\nQu’il s’agisse de stratégie, de technologie\nou de rituel surnaturel, nombreux sont les moyens par lesquels un commandant peut hâter l’arrivée de ses troupes.\nQUAND : À la fin de la phase de\nMouvement adverse.\nCIBLE :  1 unité amie qui est en réserve\nstratégique (sauf les AÉRODYNES\n). EFFET : Votre unité effectue un mouvement\nd’arrivée ( 20.04 ).\nRESTRICTIONS : Vous ne pouvez pas utiliser ce stratagème pendant le premier round de bataille.\nTIR EN ÉTAT D’ALERTE\n15.081PCSTRATAGÈME DE BASE\nUne grêle de tirs peut repousser l’ennemi\nqui approche.\nQUAND : À la fin de la phase de\nMouvement adverse.\nCIBLE :  1 unité non engagée amie (sauf les unités TITANESQUES).\nEFFET : Votre unité tire en utilisant le type\ntir au jugé (voir ci-dessous).\nTIR AU JUGÉ 15.09\nÉLIGIBLE SI : Comme spécifié par la règle\npermettant ce type de tir.\nEFFET : Votre unité tire comme décrit dans\nEffectuer des Attaques (04).\nEN TIRANT :\n▪ Vous pouvez cibler une seule unité ennemie visible à 24\" ou moins de votre unité (et\nseulement si c’est une cible éligible).\n▪ Chaque attaque touche seulement sur un jet de touche non modifié de 6 (quels\nque soient la caractéristique de CT\net les modificateurs éventuels).\n▪Vous ne pouvez pas relancer les\njets de touche.\nAPRÈS AVOIR TIRÉ : Jusqu’à la fin de la phase, votre unité n’est pas éligible pour entreprendre une action.ÉCRAN DE FUMÉE 15.101PCSTRATAGÈME DE BASE\nLe plus habile aura du mal à toucher une cible\nvoilée par un nuage de fumée.\nQUAND : Au début de la phase de Tir adverse.\nCIBLE :  1 unité à FUMÉE  amie.\nEFFET : Jusqu’à la fin de la phase, à chaque\nattaque qui cible soit votre unité à FUMÉE\n, soit une unité qui n’est pas entièrement visible\nde la figurine attaquante à cause d’une ou plusieurs figurines de votre unité à FUMÉE\n, la cible a le bénéfice du couvert contre l’attaque (\n13.08 ).\nINTERVENTION HÉROÏQUE\n15.111PCSTRATAGÈME DE BASE\nDes cris de guerre montent et vos guerriers se\nruent tête baissée face à l’offensive adverse.\nQUAND : À la fin de la phase de Charge adverse.\nCIBLE :  1 unité non engagée amie à 12\" ou moins d’une ou plusieurs unités ennemies. Vous pouvez\nchoisir une unité de VÉHICULE  seulement si c’est une unité de PERSONNAGE/MARCHEUR.EFFET : Résolvez une charge avec votre unité (\n11.02 ). Ce faisant, avant de faire le jet de charge,\nvous devez choisir 1 des modes suivants :\n▪ Bondir pour Défendre : Quand vous choisissez des cibles de charge, vous pouvez seulement choisir des unités ennemies qui ont effectué un mouvement de charge à cette phase et qui sont dans la distance maximale\n.\n▪ Dans la Mêlée :\n▫ Quand vous faites le jet de charge,\nsi le résultat est supérieur à 6 (après modificateurs), changez-le par 6.\n▫ Quand vous choisissez des cibles de charge, vous pouvez choisir une ou plusieurs unités ennemies qui sont à 6\" ou moins de votre unité et dans la distance maximale. +1PC\nCONTRE-OFFENSIVE 15.122PCSTRATAGÈME DE BASE\nEn combat rapproché, la moindre hésitation\npeut laisser entrevoir une faille à exploiter.\nQUAND :  À l’étape Combattre de la phase de Combat\nadverse, juste après qu’une unité ennemie a résolu\nses attaques.\nCIBLE :  1 unité amie qui est éligible pour combattre. EFFET  : Jusqu’à la fin de la phase, votre unité a l’apti-\ntude Combat en Premier et elle doit être la prochai-\nne unité que vous choisissez pour combattre (12.04 ).\n++ LA FOI EST L’ARMURE LA PLUS ROBUSTE. LA HAINE EST L’ARME LA PLUS FIABLE ++\n57\nUtilisation  :\nÀ votre tourVOIR AUSSI\nUTILISER DESSTRATAGÈMES\n► Modifier le Coût en PC\n►Séquençage de Règles\nLes stratagèmes sont présentés comme ci-dessus. Certains indiquent\ndes conditions optionnelles qui impliquent un coût en PC supplémentaire.\nCeci peut dépendre de l’effet choisi (comme dans l’exemple ci-dessus)\nou d’autres variables comme les mots-clés de l’unité ciblée.\nLÉGENDE DES STRATAGÈMES\nUtilisation  : Au tour de\nn’importe quel joueur Utilisation  :\nAu tour adverse\n55"
+                }
+              ]
+            },
+            {
+              "id": "p-56",
+              "printedPage": 56,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RELANCE DE COMMANDEMENT 15.021PC\nSTRATAGÈME DE BASE\nUn grand commandant peut même plier les\ncaprices du destin à sa volonté, afin\nd’assurer la victoire.\nQUAND  : À n’importe quelle phase, juste après\nque vous avez fait un des jets suivants pour une\nunité ou une figurine amie  :\n▪ Jet d’avance\n▪Jet de charge\n▪Jet de dégâts\n▪Jet de risque\n▪Jet de touche\n▪Jet de sauvegarde\n▪Jet de blessure\n▪ Un jet pour déterminer le nombre d’attaques\ngénérées par une arme.\nCIBLE  : Cette unité ou figurine.\nEFFET  : Vous relancez ce jet. Si vous jetez plus\nd’un dé en même temps, choisissez l’un de ces\ndés pour le relancer (sauf pour les jets de charge,\nque vous devez relancer entièrement).\nDÉFI ÉPIQUE 15.03 1PC\nSTRATAGÈME DE BASE\nLes légendes du 41e Millénaire abondent de\nduels mortels entre d’illustres champions.\nQUAND  : À la phase de Combat, juste après\nqu’une unité de PERSONNAGE  amie a été choisie\npour combattre.\nCIBLE  : Cette unité de PERSONNAGE .\nEFFET  : Choisissez 1 figurine de PERSONNAGE  de\nvotre unité. Jusqu’à la fin de la phase, les armes de\nmêlée de cette figurine ont l’aptitude [PRÉCISION] .\nCOURAGE INSENSÉ 15.04 1PC\nSTRATAGÈME DE BASE\nIndifférents à leur propre survie, ces guerriers\ntiennent leurs positions envers et contre tout.\nQUAND  : À l’étape d’Ébranlement de votre phase\nde Commandement, juste avant que vous fassiez un jet d’ébranlement pour une unité amie.\nCIBLE  : Cette unité.\nEFFET  : Ce jet d’ébranlement est\nautomatiquement réussi.\nRESTRICTIONS  : Vous ne pouvez pas utiliser ce\nstratagème plus d’une fois par bataille.EXPLOSIFS 15.05 1PC\nSTRATAGÈME DE BASE\nArmant leurs grenades et autres explosifs,\nces guerriers reculent et envoient la mort\nau beau milieu de l’ennemi.\nQUAND  : À votre phase de Tir.\nCIBLE  : 1 unité à EXPLOSIFS /GRENADES  non\nengagée amie qui est éligible pour tirer  et n’a\npas fait de mouvement d’avance à ce tour.\nEFFET  : Résolvez la séquence suivante  :\n1.  Choisis sez 1 figurine à EXPLOSIFS /GRENADES  de\nvotre unité.\n2.  Choisis sez 1 unité ennemie non engagée  à 8\"\nou moins et visible  de cette figurine.\n3.    Jet ez six D6  : pour  chaque 4+, cette unité\nennemie subit 1 blessure mortelle  (06.02 ).\nIMPACT ÉCRASANT 15.06 1PC\nSTRATAGÈME DE BASE\nEn cas extrême, les blindés et les monstres\npeuvent utiliser leur carrure comme arme,\néperonnant et broyant les ennemis sous leur\nmasse colossale, mais ce n’est pas sans risque\npour eux.\nQUAND  : À votre phase de Charge, juste après\nqu’une unité de MONSTRE /VÉHICULE  amie a fini\nun mouvement de charge.\nCIBLE  : Cette unité de MONSTRE /VÉHICULE .\nEFFET  : Résolvez la séquence suivante  :\n1.  Choisis sez 1 unité ennemie engagée  avec\nvotre unité.\n2.  Choisis sez 1 figurine de votre unité engagée\navec cette unité ennemie.\n3.  Jet ez autant de D6 que la caractéristique d’ E de\ncette figurine  : pour  chaque 1, votre unité subit\n1 blessure mortelle  ; pour chaque 5+, l’unité\nennemie subit 1 blessure mortelle  (jusqu’à un\nmaximum de 6 blessures mortelles par unité).\n56"
+                }
+              ]
+            },
+            {
+              "id": "p-57",
+              "printedPage": 57,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ARRIVÉE PRÉCIPITÉE 15.071PC\nSTRATAGÈME DE BASE\nQu’il s’agisse de stratégie, de technologie\nou de rituel surnaturel, nombreux sont les\nmoyens par lesquels un commandant peut hâter\nl’arrivée de ses troupes.\nQUAND  : À la fin de la phase de\nMouvement adverse.\nCIBLE  : 1 unité amie qui est en réserve\nstratégique (sauf les AÉRODYNES ).\nEFFET  : Votre unité effectue un mouvement\nd’arrivée ( 20.04 ).\nRESTRICTIONS  : Vous ne pouvez pas utiliser ce\nstratagème pendant le premier round de bataille.\nTIR EN ÉTAT D’ALERTE 15.081PC\nSTRATAGÈME DE BASE\nUne grêle de tirs peut repousser l’ennemi\nqui approche.\nQUAND  : À la fin de la phase de\nMouvement adverse.\nCIBLE  : 1 unité non engagée  amie (sauf les\nunités TITANESQUES ).\nEFFET  : Votre unité tire en utilisant le type tir au\njugé (voir ci-dessous).\nTIR AU JUGÉ 15.09\nÉLIGIBLE SI  : Comme spécifié par la règle\npermettant ce type de tir.\nEFFET  : Votre unité tire comme décrit dans\nEffectuer des Attaques ( 04).\nEN TIRANT  :\n▪ Vous pouvez cibler une seule  unité ennemie\nvisible à 24\" ou moins de votre unité (et\nseulement si c’est une cible éligible).\n▪ Chaque attaque touche seulement sur\nun jet de touche  non modifié de 6 (quels\nque soient la caractéristique de CT  et les\nmodificateurs éventuels).\n▪Vous ne pouvez pas relancer les jets de touche .\nAPRÈS AVOIR TIRÉ  : Jusqu’à la fin de la phase,\nvotre unité n’est pas éligible pour entreprendre\nune action.ÉCRAN DE FUMÉE 15.10 1PC\nSTRATAGÈME DE BASE\nLe plus habile aura du mal à toucher une cible\nvoilée par un nuage de fumée.\nQUAND  : Au début de la phase de Tir adverse.\nCIBLE  : 1 unité à FUMÉE  amie.\nEFFET  : Jusqu’à la fin de la phase, à chaque\nattaque qui cible soit votre unité à FUMÉE , soit\nune unité qui n’est pas entièrement visible  de\nla figurine attaquante à cause d’une ou plusieurs figurines de votre unité à FUMÉE , la cible a le\nbénéfice du couvert contre l’attaque (\n13.08 ).\nINTERVENTION HÉROÏQUE 15.111PC\nSTRATAGÈME DE BASE\nDes cris de guerre montent et vos guerriers se\nruent tête baissée face à l’offensive adverse.\nQUAND  : À la fin de la phase de Charge adverse.\nCIBLE  : 1 unité non engagée  amie à 12\" ou moins\nd’une ou plusieurs unités ennemies. Vous pouvez choisir une unité de VÉHICULE  seulement si c’est\nune unité de PERSONNAGE /MARCHEUR .\nEFFET  : Résolvez une charge avec votre unité\n(11.02 ). Ce faisant, avant de faire le jet de charge,\nvous devez choisir 1 des modes suivants  :\n▪ Bondir pour Défendre  : Quand vous choisissez\ndes cibles de charge, vous pouvez seulement choisir des unités ennemies qui ont effectué\nun mouvement de charge à cette phase et qui\nsont dans la distance maximale .\n▪ Dans la Mêlée  :\n▫ Quand vous faites le jet de charge,\nsi le résultat est supérieur à 6 (après modificateurs), changez-le par 6.\n▫ Quand vous choisissez des cibles de charge,\nvous pouvez choisir une ou plusieurs unités ennemies qui sont à 6\" ou moins de votre\nunité et dans la distance maximale. +1PC\nCONTRE-OFFENSIVE 15.12 2PC\nSTRATAGÈME DE BASE\nEn combat rapproché, la moindre hésitation\npeut laisser entrevoir une faille à exploiter.\nQUAND  : À l’étape Combattre de la phase de Combat\nadverse, juste après qu’une unité ennemie a résolu\nses attaques.\nCIBLE  : 1 unité amie qui est éligible pour combattre .\nEFFET  : Jusqu’à la fin de la phase, votre unité a l’apti-\ntude Combat en Premier et elle doit être la prochai-\nne unité que vous choisissez pour combattre  (12.04 ).\n++ LA FOI EST L’ARMURE LA PLUS ROBUSTE. LA HAINE EST L’ARME LA PLUS FIABLE ++ 57"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "actions",
+          "reference": "16",
+          "title": "Actions",
+          "sourcePages": [
+            58,
+            59
+          ],
+          "pages": [
+            {
+              "id": "p-58",
+              "printedPage": 58,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ACTIONS\nEFFECTUER DESACTIONS 16.01\nCertaines règles permettent aux unités d’effectuer des actions.\nChaque action  stipule  :\n▪S’ENTREPREND  : Quand elle e st entreprise.\n▪UNITÉS  : Quelle s unités peuvent l’effectuer.\n▪ LIMITE D’UTILISATION  : Combien de f ois des unités amies\npeuvent l’entreprendre.\n▪S’ACCOMPLIT  : Quand elle e st accomplie.\n▪EFFET  : Quels effet s son accomplissement entraîne.\n▪Les éventuelles restrictions supplémentaires qui s’appliquent.\nENTREPRENDRE UNEACTION\nUne unité est éligible pour entreprendre une action sauf si une\nou plusieurs des conditions suivantes s’appliquent à cette unité  :\n▪Elle n’est pas sur le champ de bataille.\n▪C’est une unité d’AÉRODYNE /FORTIFICATION .\n▪Elle est ébranlée.\n▪Elle a une caractéristique de CO de 0 ou de “-”.\n▪ Elle est engagée  (sauf si c’est une unité TITANESQUE ).\n▪ Elle a fait un mouvement d’avance ou de retraite à ce tour.\n▪Elle a entrepris une autre action à ce tour.\nSi une unité entreprend une action , jusqu’à la fin du tour  :\n▪ Elle n’est pas éligible pour tirer  (sauf les unités TITANESQUES ).\n▪ Elle n’est pas éligible pour déclarer une charge .\nACCOMPLIR UNEACTION\nSi une unité qui entreprend une action fait un mouvement (hormis un mouvement d’insertion ou de consolidation) ou quitte le\nchamp de bataille, elle n’accomplit pas cette action. Sinon, quand\nune action est accomplie, sa section “Effet” est déclenchée.\nExemple d’ action à\nvocation illustrative\nuniquement.OÙTROUVER\nLESACTIONS\nLes actions que les\njoueurs peuvent\nutiliser se trouvent\ndans d’autres publications comme les packs de missions.\nTous les joueurs\npeuvent utiliser les actions de base,\ntandis que d’autres\nactions auront des restrictions, comme une faction d’armée.\n16DÉPLOYER LE DISPOSITIF\nEXEMPLE D’ACTION (NE PEUT PAS ÊTRE UTILISÉ)\nSans pour autant renverser le cours de la bataille,\ndéployer ce  dispositif servira l’effort de guerre.\nS’ENTREPREND  : À votre phase de Tir.\nUNITÉS  : 1 unité d’INFANTERIE qui est dans une zone de\nterrain  qui n’est pas dans votre zone de déploiement.\nLIMITE D’UTILISATION : Une fois par tour.\nS’ACCOMPLIT  : À la fin du tour.\nEFFET  : Placez 1 marqueur à 1\" de votre unité et dans\ncette zone de terrain .Les Actions représentent des tâches vitales que vos forces doivent accomplir, qu’il\ns’agisse de chercher de l’archéotechnologie ou d’exécuter un rituel blasphématoire.\n58"
+                }
+              ]
+            },
+            {
+              "id": "p-59",
+              "printedPage": 59,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Page source sans texte extractible."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regles-avancees",
+      "title": "Règles avancées",
+      "sourcePages": [
+        60,
+        75
+      ],
+      "sections": [
+        {
+          "id": "monstres-et-vehicules",
+          "reference": "17",
+          "title": "Monstres et Véhicules",
+          "sourcePages": [
+            60,
+            63
+          ],
+          "pages": [
+            {
+              "id": "p-60",
+              "printedPage": 60,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "60"
+                }
+              ]
+            },
+            {
+              "id": "p-61",
+              "printedPage": 61,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RÈGLES AVANCÉES\n61"
+                }
+              ]
+            },
+            {
+              "id": "p-62",
+              "printedPage": 62,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "17 MONSTRES ET VÉHICULES\nDÉPLACER LESMONSTRES\nETLESVÉHICULES 17.01\nChaque fois que vous effectuez un mouvement normal ou\nd’avance avec une unité, les figurines de MONSTRE /VÉHICULE\nde l’unité peuvent se déplacer à travers les figurines amies\net ennemies (sauf les autres figurines de MONSTRE /VÉHICULE ).\nCHÂSSIS 17.02\nCertaines figurines n’ont pas de socle  ; n ombre de celles-ci sont\ndes figurines de MONSTRE /VÉHICULE . Ces figurines ont le mot-clé\nCHÂSSIS , de même que d’autres figurines imposantes. Chaque fois\nqu’une règle se réfère à la position d’une figurine par rapport à\nn’importe quoi d’autre sur le champ de bataille (ex. en mesurant\nles distances), si cette figurine a le mot-clé CHÂSSIS , sauf mention\ncontraire, mesurez jusqu’à et depuis le point le plus proche de cette figurine (donc pas nécessairement depuis son socle, si elle en a un).\nLorsqu’on fait pivoter une figurine à CHÂSSIS  dans le cadre d’un\nmouvement, si cette figurine n’a pas de socle, faites-la pivoter dans\nn’importe quel sens sur son axe central, en la maintenant debout.\nTIRER SURDESMONSTRES\nETDESVÉHICULES ENGAGÉS 17.03\nÀ votre phase de Tir, les unités de MONSTRE /VÉHICULE  qui sont\nengagées peuvent être choisies comme cibles d’attaques de tir.\nChaque fois qu’une figurine effectue une attaque de tir qui\ncible une telle unité, soustrayez 1 au jet de touche  (hormis les\nattaques effectuées avec des armes de [COMBAT RAPPROCHÉ]\npar des figurines engagées avec la cible).\nRÈGLES AVANCÉES\nTIRER ENÉTANT\nENGAGÉ AVEC DES\nMONSTRES/VÉHICULES\nUne unité engagée\navec une unité de\nMONSTRE /VÉHICULE\nennemie n’est quand\nmême pas éligible\npour tirer, et ne\npeut donc pas faire\nd’attaques de tir contre cette unité de\nMONSTRE /VÉHICULE ,\nsauf si l’unité est\néligible pour tirer alors qu’elle est engagée\n(ex. parce qu’elle utilise le tir en combat\nrapproché).En raison de leur taille imposante et de leur nature implacable, les Monstres et\nles Véhicules fonctionnent différemment sur le champ de bataille. Cette section détaille les règles supplémentaires requises pour utiliser ces unités.\n62"
+                }
+              ]
+            },
+            {
+              "id": "p-63",
+              "printedPage": 63,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MONSTRES/VÉHICULES ENGAGÉS – TIR\nLE VÉHICULE  peut tirer sur cette unité\nd’INFANTERIE  en utilisant le tir en combat\nrapproché. En résolvant ces attaques,\nsoustrayez 1 aux jets de touche  (attaques effectuées\navec des armes de [COMBAT RAPPROCHÉ]  exclues).\nCette unité d’ INFANTERIE  peut tirer sur le VÉHICULE\nen utilisant le tir normal. En résolvant ces attaques,\nsoustrayez 1 aux jets de touche . Comme le VÉHICULE\nest engagé, les armes à [DÉFLAGRATION]  ne peuvent\npas le cibler, mais elles peuvent cibler d’autres unités\nnon engagées.\nLe VÉHICULE  peut tirer sur cette unité\nd’INFANTERIE  en utilisant le tir en\ncombat rapproché. En résolvant ces\nattaques, soustrayez 1 aux jets de touche . Comme\nl’unité d’INFANTERIE  est engagée, les armes à\n[DÉFLAGRATION]  ne peuvent pas le cibler, mais elles\npeuvent cibler d’autres unités non engagées.\nCette unité d’ INFANTERIE  est engagée, mais elle peut\ntirer sur le VÉHICULE  en utilisant le tir en combat\nrapproché. Ce faisant, elle peut seulement faire des\nattaques avec ses armes de [COMBAT RAPPROCHÉ]  et\npeut seulement cibler le VÉHICULE  avec lequel elle\nest engagée.A\nA\nBB-1 AU JET DE TOUCHE\n-1 AU JET DE TOUCHE\n63"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "transports",
+          "reference": "18",
+          "title": "Transports",
+          "sourcePages": [
+            64,
+            65
+          ],
+          "pages": [
+            {
+              "id": "p-64",
+              "printedPage": 64,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "CAPACITÉ DETRANSPORT 18.01\nLes figurines de TRANSPORT  ont une capacité de transport\nindiquée sur leur fiche technique. Elle détermine le type et le\nnombre maximum de figurines amies qui sont éligibles pour y\nembarquer. Plusieurs unités peuvent être embarquées dans la\nmême figurine de TRANSPORT  en même temps, à condition que\nsa capacité de transport soit suffisante.\nAvant la bataille, à l’étape Déclarer les Formations de Bataille, vos\nunités peuvent commencer embarquées à bord de n’importe quelle figurine de TRANSPORT  amie dont la capacité de transport\nrestante est suffisante pour toute l’unité.\nEMBARQUER 18.02\nUne fois que le premier round de bataille a commencé, une unité amie peut embarquer dans une figurine de TRANSPORT\namie après avoir effectué un mouvement normal, d’avance ou\nde retraite, si toutes\nles conditions suivantes sont respectées  :\n▪Chaque figurine de l’unité est à 3\" ou moins du TRANSPORT .\n▪ L’unité n’a pas été placée sur le champ de bataille à ce tour.\n▪ L’unité est éligible pour embarquer dans ce TRANSPORT ,\ncomme décrit sur la fiche technique du TRANSPORT .\n▪ Il reste à ce TRANSPORT  une capacité de transport suffisante\npour chaque figurine de l’unité.\nQuand une unité embarque, le joueur actif la retire du champ de\nbataille et la met de côté  ; elle e st à présent embarquée dans ce\nTRANSPORT  et n’est plus sur le champ de bataille.\nDÉBARQUER 18.03\nÀ la phase de Mouvement du joueur actif, chaque unité amie embarquée dans une figurine de TRANSPORT  peut en débarquer\nen effectuant un mouvement de débarquement (voir ci-contre).\nSi une figurine de TRANSPORT  est détruite , avant de la\nretirer du champ de bataille, le joueur actif doit effectuer un\nmouvement de débarquement d’urgence (voir ci-contre) avec\nchaque unité y étant embarquée.\nTRANSPORTS\n18Les figurines de TRANSPORT  peuvent convoyer des passagers sur le champ de\nbataille. Cette section explique comment utiliser de telles figurines lors de vos\nbatailles, et comment les unités peuvent y embarquer et en débarquer.\n++ SOYEZ FORT DANS VOTRE IGNORANCE ++\nRÈGLES AVANCÉES\n64"
+                }
+              ]
+            },
+            {
+              "id": "p-65",
+              "printedPage": 65,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MOUVEMENT DE DÉBARQUEMENT 18.04\nDISTANCE DE PLACEMENT  :\n- Débarquement Rapide/Tactique  : 3\"\n- Débarquement de Combat  : 6\"\nÉLIGIBLE SI  : Tous  les points suivants s’appliquent à votre unité  :\n▪ Embarquée dans une figurine de TRANSPORT  qui est sur\nle champ de bataille.\n▪N’a pas embarqué dans le TRANSPORT  à cette phase.\n▪ Le TRANSPORT  n’a pas effectué de mouvement d’avance\nni de retraite à cette phase.\nEFFET  : Votre unité est placée comme décrit dans Placement ( 03.02 ).\nAVANT DE SE DÉPLACER  : Choisissez le mode de débarquement  :\nDébarquement Rapide  : Si le TRANSPORT  a fait un\nmouvement normal ou d’arrivée à cette phase, vous\ndevez choisir ce mode.\nDébarquement Tactique  : Sinon, si le TRANSPORT  est resté\nimmobile  ou n’a pas encore été choisi pour se déplacer\nà cette phase, si vous pouvez placer votre unité comme\ndécrit ci-dessous, vous devez choisir ce mode.\nDébarquement de Combat  : Sinon, vous devez choisir\nce mode. Faites un jet de risque pour chaque figurine\nde votre unité.\nEN SE DÉPLAÇANT  : Placez chaque figurine de votre unité\nentièrement dans la distance de placement du TRANSPORT .\n▪ Débarquement Rapide  : Si le TRANSPORT  a fait un\nmouvement d’arrivée à ce tour, chaque figurine doit\nsuivre les mêmes règles que le TRANSPORT  devait suivre\nen résolvant ce mouvement.\n▪ Débarquement de Combat  : Chaque figurine peut être\nplacée engagée  avec une ou plusieurs unités ennemies\navec lesquelles le TRANSPORT  est engagé.\nAPRÈS D’ÊTRE DÉPLACÉ  :\n▪ Débarquement Rapide  : Jusqu’à la fin du tour, votre unité\nn’est pas éligible pour déclarer une charge.\n▪ Débarquement Tactique  : Choisissez votre unité pour\neffectuer un mouvement normal ou d’avance.\n▪ Débarquement de Combat  : Votre unité est ébranlée et,\njusqu’à la fin du tour, elle n’est pas éligible pour déclarer une charge.\nMOUVEMENT DE DÉBARQUEMENT D’URGENCE 18.05\nDISTANCE DE PLACEMENT  : 6\"\nÉLIGIBLE SI  : Votre unité est embarquée dans une figurine de\nTRANSPORT  qui vient juste d’être détruite.\nEFFET  : Votre unité est placée comme décrit dans Placement ( 03.02 ).\nAVANT DE SE DÉPLACER  : Faites un jet de risque pour chaque\nfigurine de votre unité ( 06.03 ).\nEN SE DÉPLAÇANT  : Placez chaque figurine de votre unité\nentièrement dans la distance de placement du TRANSPORT ,\naussi proche que possible de lui. Chaque figurine qui ne peut\npas être placée ainsi est détruite.\nAPRÈS S’ÊTRE DÉPLACÉ  : Votre unité est ébranlée et, jusqu’à\nla fin du tour, n’est pas éligible pour déclarer une charge .VOIR AUSSI\nEMBARQUER\n►Pas sur le Champ de Bataille\nDÉBARQUER\n▪Jets de Risque 06.03\n►Effets de Règles Persistants\nDÉBARQUEMENT\nRAPIDE\nQuand une unité\nutilise le mode\ndébarquement\nrapide  après que son\nTRANSPORT  a effectué\nun mouvement\nd’arrivée, les figurines doivent suivre les mêmes règles et\nrestrictions que\nsuivait le TRANSPORT .\nPar exemple, si le TRANSPORT  doit être\nplacé à plus de 8\" des unités ennemies, et non dans la zone de\ndéploiement adverse,\nil en va de même pour l’unité qui débarque.\n65"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "unites-attachees",
+          "reference": "19",
+          "title": "Unités attachées",
+          "sourcePages": [
+            66,
+            67
+          ],
+          "pages": [
+            {
+              "id": "p-66",
+              "printedPage": 66,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "19 UNITÉS ATTACHÉES\nFORMER DES UNITÉS ATTACHÉES 19.01\nCertaines unités ont l’aptitude Meneur  ou Appui  indiquée sur\nleur fiche technique (voir ci-dessous). On appelle respectivement\nces unités des unités de meneur et des unités d’appui . Ces deux\naptitudes permettent à ces unités de mener d’autres unités amies\n(appelées unités de gardes du corps) pour former des unités\nattachées. Une unité attachée est une seule unité au regard\nde toutes les règles. Les unités de meneur et d’appui peuvent\nseulement mener des unités de gardes du corps spécifiques,\ncomme indiqué sur l’appli Warhammer 40,000.\nMENEUR 24.22 / APPUI 24.34\nLes héros les plus puissants combattent en première ligne.\nAvant la bataille, à l’étape Rassembler les Armées, pour chaque\nunité de meneur et d’appui de votre armée, vous pouvez choisir\n1 unité de gardes du corps amie que cette unité peut mener.\nCette unité mènera alors l’unité de gardes du corps pour\nla bataille et forme une unité attachée avec elle.\nSauf mention contraire, chaque unité de gardes du corps\npeut seulement avoir 1 unité de meneur et 1 unité d’ appui lui\nétant attachées.\nATTAQUER DES\nUNITÉS ATTACHÉES 19.02\nÀ chaque attaque qui cible une unité attachée , si l’unité\ncontient une ou plusieurs figurines de gardes du corps, utilisez\nla caractéristique d’E la plus élevée des figurines de gardes\ndu corps de cette unité en résolvant les attaques, même si\nune unité de meneur/appui de cette unité attachée a une\ncaractéristique d’E différente. Si l’unité ne contient que des figurines de meneur/appui , utilisez plutôt la caractéristique\nd’E\nla plus élevée de ces figurines en résolvant les attaques.\nLes règles qui sont déclenchées quand une unité est détruite sont déclenchées seulement quand la dernière figurine qui a commencé la bataille dans une unité attachée est détruite.Les héros de votre armée combattent rarement seuls. En général, ils rejoignent\ndes guerriers, et forment une unité attachée qui agit comme une seule entité. Cette section explique comment former des unités attachées et leur fonctionnement.\n++ LA DOULEUR EST UNE ILLUSION PROVOQUÉE PAR LA PEUR ++\nRÈGLES AVANCÉES\n66"
+                }
+              ]
+            },
+            {
+              "id": "p-67",
+              "printedPage": 67,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MOTS-CLÉS DES\nUNITÉS ATTACHÉES 19.03\nUne unité attachée a tous les mots-clés de toutes les unités qui la\ncomposent. De fait, une unité attachée est affectée par la moindre\nrègle s’appliquant aux unités ayant n’importe lequel de ces mots-\nclés. Les figurines d’une unité attachée ne gagnent pas les mots-\nclés des autres figurines de cette unité si elles ne les ont pas déjà.\nSouvenez-vous que les attaques ciblent des unités, pas des figurines.\nExemple  : Une unité attachée contient une figurine de meneur\navec le mot-clé PSYKER . Tant que cette figurine fait partie de\nl’unité, ladite unité a le mot-clé PSYKER , même si les figurines de\ngardes du corps n’ont pas ce mot-clé. Si l’unité est attaquée par\nune arme ayant l’aptitude [ANTI-PSYKER  4+], tout jet de blessure\nnon modifié de 4+ obtenu contre l’unité est une blessure critique,\nmême si l’attaque n’est pas allouée à la figurine de meneur .\nAPTITUDES DES\nUNITÉS ATTACHÉES 19.04\nLes aptitudes/règles affectant une unique figurine spécifique (ex. grâce à une optimisation ou un objet d’équipement)\ns’appliquent toujours seulement à cette figurine, même\nlorsqu’elle fait partie d’une unité attachée .\nSinon, les aptitudes/règles qui affectent une unité (ou ses figurines)\ns’appliquent à toute figurine d’une unité attachée, jusqu’à ce que la\nsource de l’aptitude/règle soit détruite , comme détaillé ci-dessous.\nAPTITUDES DESUNITÉS ATTACHÉES\nSOURCE DEL’APTITUDE/RÈGLE S’APPLIQUE ÀL’UNITÉ ATTACHÉE\nUnité de meneur/appuiJusqu’à ce que la dernière figurine de\nl’unité de meneur/appui soit détruite.*\nUnité de gardes du corps\n(ex. aptitude de fiche technique)Jusqu’à ce que la dernière figurine de\nl’unité de gardes du corps soit détruite.\nUne figurine spécifique\n(ex. le porteur d’une\noptimisation ou d’un\nobjet  d’équipement)Jusqu’à ce que cette figurine soit détruite .\n*  Ceci signifie que les unités de meneur /appui continuent à bénéficier\nde leurs propres aptitudes “tant que cette figurine mène une unité”\nmême après que leur unité de gardes du corps a été détruite, à\ncondition qu’elles aient commencé la bataille dans une unité attachée .\nDans tous les cas ci-dessus, si la dernière figurine a été détruite\nsuite à une attaque, l’aptitude qu’elle conférait à l’unité attachée s’applique jusqu’à ce que l’unité attaquante ait résolu toutes\nses attaques.SEULE LAMORT\nMETFINAUDEVOIR\nLes unités de meneur\net d’ appui ont souvent\ndes aptitudes qui\nrendent les figurines qu’elles mènent plus puissantes. De la\nmême façon, certaines\naptitudes d’unités de gardes du corps\npeuvent améliorer la puissance des unités qui les mènent . Les\nrègles à gauche\nsignifient qu’une fois\nque les figurines qui conféraient de tels\neffets sont détruites,\ncette unité attachée\ncesse d’en bénéficier.\nCependant, si ces\nfigurines venaient à\nêtre ressuscitées plus tard, ces aptitudes\ns’appliqueraient\nà nouveau à leur unité attachée .VOIR AUSSI\nAPTITUDES DES\nUNITÉS ATTACHÉES\n►Ressuscité\n67"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "reserves-strategiques",
+          "reference": "20",
+          "title": "Réserves stratégiques",
+          "sourcePages": [
+            68,
+            69
+          ],
+          "pages": [
+            {
+              "id": "p-68",
+              "printedPage": 68,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RÉSERVES STRATÉGIQUES\nPLACER DESUNITÉS EN\nRÉSERVE STRATÉGIQUE 20.01\nAvant la bataille, à l’étape Déclarer les Formations de Bataille,\nvous pouvez choisir une ou plusieurs unités amies (sauf les FORTIFICATIONS ) à placer en réserve stratégique . Au lieu\nde placer ces unités sur le champ de bataille pendant le\ndéploiement, mettez-les de côté  ; ce sont des unités de réserve\nstratégique, et elles arriveront plus tard au combat.\nSauf mention contraire, la somme des valeurs en points de\ntoutes vos unités de réserve stratégique (y compris celles\nembarquées dans des TRANSPORTS  eux-mêmes placés en\nréserve stratégique) ne peut pas dépasser 50% de votre limite\nen points pour votre format de bataille.\nUNITÉS REPOSITIONNÉES 20.02\nCertaines règles permettent à des unités d’être retirées du\nchamp de bataille et placées en réserve stratégique pendant la bataille. Les unités qui utilisent de telles règles sont appelées\nunités repositionnées. En plus des autres règles qui s’appliquent\nà de telles unités (comme où elles peuvent et ne peuvent pas arriver), toutes\nles règles suivantes s’y appliquent  :\n▪ Si ces règles sont utilisées à la phase de Mouvement,\nelles peuvent être utilisées sur des unités qui se sont\ndéjà déplacées à cette phase.\n▪ Une unité repositionnée  qui est placée au même tour\noù elle a effectué un mouvement d’avance, de retraite  ou\nde débarquement  compte quand même comme ayant fait un\nmouvement d’avance, de retraite  or de débarquement  à ce tour.\n▪ Quand de telles unités sont retirées du champ de bataille,\ntoute règle qui les affectait pour une durée précise ou dans des circonstances précises continue de les affecter tant que cette durée et/ou ces circonstances s’appliquent.\nExemple  : Une unité qui était à portée d’une aptitude d’aura\nquand elle a été retirée du champ de bataille ne sera plus affectée par cette aptitude d’aura si elle n’en est plus à portée\nquand elle effectue un mouvement d’arrivée, mais une unité\nqui était ébranlée  quand elle a été retirée du champ de\nbataille sera toujours ébranlée  si elle effectue un mouvement\nd’arrivée au même tour.Les réserves stratégiques sont des unités qui arrivent sur le champ de bataille à\ndivers moments, soit parce qu’elles ont été gardées en retrait au déploiement, soit parce qu’elles ont une aptitude leur permettant d’être repositionnées.\n20\n++ LA STÈLE DU MARTYR EST LA CLÉ DE VOÛTE DE L’IMPERIUM ++\nRÈGLES AVANCÉES\n68"
+                }
+              ]
+            },
+            {
+              "id": "p-69",
+              "printedPage": 69,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ARRIVER DES\nRÉSERVES STRATÉGIQUES 20.03\nPour arriver sur le champ de bataille, chaque unité de réserve\nstratégique doit effectuer un mouvement d’arrivée (voir ci-\ndessous). Sauf mention contraire, ces unités ne peuvent faire\nainsi qu’à partir du deuxième round de bataille.\nMOUVEMENT D’ARRIVÉE 20.04\nDISTANCE DE PLACEMENT  : 6\"\nÉLIGIBLE SI  : Votre unité est en réserve stratégique (hormis\nles unités embarquées dans des TRANSPORTS  qui sont eux-\nmêmes en  réserve stratégique).\nEFFET  : Votre unité est placée comme décrit dans Placement ( 03.02 ).\nEN SE DÉPLAÇANT  : Placez votre unité entièrement à la\ndistance de placement d’un ou plusieurs bords de champ\nde bataille et à plus de 8\" à l’horizontale des unités ennemies.\n▪ Avant le Troisième Round de Bataille  : Ce faisant,\naucune figurine ne peut être placée dans la zone\nde déploiement  adverse.\nAPRÈS D’ÊTRE DÉPLACÉ  : Sauf mention contraire, jusqu’au\ndébut de la prochaine phase de Charge, votre unité n’est pas\néligible pour effectuer tout autre type de mouvement.\nÀ la fin du troisième round de bataille, sauf mention contraire,\ntoutes les unités de réserve stratégique qui n’ont pas effectué\nun ou plusieurs mouvements d’arrivée sont détruites, avec les\nexceptions suivantes  :\n▪ Unités embarquées dans des TRANSPORTS  qui ont effectué\nun mouvement d’arrivée pendant la bataille.\n▪Unités repositionnées (voir ci-contre).VOIR AUSSI\nARRIVER DES\nRÉSERVES STRATÉGIQUES\n►Pas sur le Champ de Bataille\n►Effets de Règles Persistants\n►Placer de Grandes Figurines\n69"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vol-et-elan",
+          "reference": "21",
+          "title": "Vol et Élan",
+          "sourcePages": [
+            70,
+            71
+          ],
+          "pages": [
+            {
+              "id": "p-70",
+              "printedPage": 70,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "21MOUVEMENTS D’ÉLAN 21.01\nCertaines règles permettent à une unité d’effectuer\nun mouvement d’élan, comme décrit ci-dessous.\nMOUVEMENT D’ÉLAN 21.02\nDISTANCE MAXIMALE  : Comme spécifié par la règle autorisant\nce type de mouvement .\nÉLIGIBLE SI  : Tous  les points suivants s’appliquent  :\n▪La règle autorisant ce type de mouvement  a été déclenchée.\n▪Votre unité n’est pas ébranlée.\n▪Votre unité est non engagée .\n▪Votre unité ne s’est pas déplacée à cette phase.\nEFFET  : Votre unité se déplace comme décrit dans Mouvement ( 03).\nAVANT DE SE DÉPLACER  : Choisissez comme cible d’élan\nl’unité ennemie la plus proche.\nEN SE DÉPLAÇANT  :\n▪ Chaque figurine doit finir son mouvement engagée  avec\nla cible d’élan si possible.\n▪ Chaque figurine qui ne peut pas finir son mouvement\nengagée  avec la cible d’élan doit finir son mouvement\naussi proche que possible de la cible d’élan.\nAPRÈS D’ÊTRE DÉPLACÉ  :\n▪ Votre unité ne peut pas être engagée  avec une ou\nplusieurs unités ennemies qui n’étaient pas la cible d’élan.\n▪Votre unité ne peut pas se déplacer à nouveau à cette phase.Cette section complète les règles de base sur le mouvement et explique comment\ncertaines unités peuvent voler par-dessus les obstacles ou s’élancer sur l’ennemi.\nEFFECTUER UN MOUVEMENT D’ÉLAN\n++ LE SALAIRE DE LA TRAHISON EST LA VENGEANCE ++\nVOL ET ÉLANRÈGLES AVANCÉES\n4\"\n▪ L’unité A tire, et détruit deux\nfigurines de l’unité B.\n▪ L’unité B a une aptitude qui lui\npermet de faire un mouvement\nd’élan de D6\" après qu’une unité\nennemie a tiré, si une ou plusieurs de ses figurines ont été détruites\npar ces attaques. Le joueur actif\njette 1 D6, et obtient un 4.\n▪ L’unité B fait un mouvement\nd’élan, chacune de ses figurines survivantes se déplaçant de\n4\" maximum vers de l’unité\nennemie la plus proche (l’unité  C).\nElle finit ce mouvement engagée\navec l’unité.A\nB\nC\n70"
+                }
+              ]
+            },
+            {
+              "id": "p-71",
+              "printedPage": 71,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "VOIR AUSSI\nMOUVEMENTS D’ÉLAN\n►Séquençage de RèglesFIGURINES VOLANTES 21.03\nOn dit des figurines qui ont le mot-clé VOL , et des unités dont\nde telles figurines font partie, qu’elles sont capables de VOLER .\nCertaines règles se réfèrent aussi à de telles figurines/unités\ncomme étant des figurines VOLANTES /unités VOLANTES .\nChaque fois qu’une unité VOLANTE  est choisie pour faire un mouve-\nment normal , d’avance, de retraite  ou de charge , avant de déplacer\nla moindre figurine de cette unité, le joueur actif peut annoncer\nqu’elle va décoller . En ce cas, quand vous résolvez le mouvement  :\n▪Soustrayez 2\" à la distance maximale.\n▪ Chaque fois qu’une figurine VOLANTE  se déplace  :\n▫ Ignorez toutes les distances verticales au regard de la\ndistance qu’elle a parcourue.\n▫ Elle peut se déplacer à travers tous les types de figurines\n(figurines ennemies et de MONSTRE /VÉHICULE  incluses).\n▫ Elle peut se déplacer à l’horizontale et à la verticale à\ntravers toutes les catégories d’élément de terrain .\nDÉCOLLER\n▪ Cette Exo-armure Riptide peut VOLER .\nElle effectue un mouvement d’avance\navec une distance maximale  de 16\".\n▪ Avant de déplacer l’unité, le joueur\nactif annonce qu’elle va décoller. La\ndistance maximale  du mouvement\nest réduite à 14\", mais en effectuant ce\nmouvement, l’Exo-armure Riptide peut se déplacer à travers toutes les unités ennemies (y compris les VÉHICULES )\net tous les éléments de terrain, en\nignorant la distance verticale qu’on aurait normalement comptée pour\nmonter sur et descendre de ces\néléments de terrain.14\"\n71"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "autres-regles-et-aptitudes",
+          "reference": "22",
+          "title": "Autres règles et aptitudes",
+          "sourcePages": [
+            72,
+            73
+          ],
+          "pages": [
+            {
+              "id": "p-72",
+              "printedPage": 72,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "APTITUDES D’AURA 22.01\nLes aptitudes qui affectent des figurines ou des unités dans une\nportée donnée sont des aptitudes d’aura, et sont identifiées par le mot “Aura”.\nTant qu’une figurine ayant une aptitude d’aura est sur le champ\nde bataille, elle est toujours à portée de sa propre aptitude d’aura .\nUne unité peut être affectée par plus d’une aptitude d’aura à la\nfois, mais si une unité est à portée de la même aptitude d’aura plus d’une fois, cette aptitude d’aura ne s’applique à cette unité qu’une seule fois.\nAPTITUDES DEFACTION 22.02\nCertaines aptitudes sont communes à chaque unité appartenant\nà une faction particulière  : ce sont des aptitudes de faction\n(aussi appelées règles d’armée), et elles sont listées dans la\nsection Aptitudes de Faction d’une fiche technique.\nSauf mention contraire, les aptitudes de faction d’une unité\ns’appliquent seulement si la faction d’armée que vous avez\nchoisie en rassemblant votre armée correspond à un mot-clé\nde faction listé sur la fiche technique de cette unité.\nAPTITUDES PSYCHIQUES 22.03\nLes aptitudes indiquées par le mot “Psychique” sont des aptitudes psychiques . Si une aptitude psychique entraîne la perte d’un ou\nplusieurs points de vie pour une figurine, on dit de chacune de ces\nblessures qu’elle a été infligée par une attaque psychique  (ceci\npeut s’avérer important pour le déclenchement d’autres règles).\nAPTITUDES D’ÉQUIPEMENT 22.04\nLes aptitudes qui se gagnent quand une unité (ou une de\nses figurines) a un objet d’équipement particulier sont des aptitudes d’équipement, et sont listées dans la section\nAptitudes d’Équipement d’une fiche technique.\nSi une unité a un objet d’équipement qui a une aptitude\nd’équipement, cette aptitude s’applique à cette unité. Si\nune figurine d’une unité a un objet d’équipement qui a une\naptitude d’équipement, cette figurine est le porteur de cet objet d’équipement, et cette aptitude s’applique jusqu’à ce que cette figurine soit détruite.22En plus des aptitudes de base présentées ailleurs, nombre d’unités ont accès\nà d’autres règles et types d’aptitudes qui fonctionnent comme décrit ci-dessous.\n++ LA SAGESSE EST L’AMORCE DE LA PEUR ++\nAUTRES RÈGLES ET APTITUDESRÈGLES AVANCÉES\n72"
+                }
+              ]
+            },
+            {
+              "id": "p-73",
+              "printedPage": 73,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "TIRPLONGEANT 22.05\nChaque fois qu’une figurine effectue une attaque de tir qui cible\nune unité visible  contenant une ou plusieurs figurines au niveau\ndu sol, si une ou plusieurs des conditions suivantes s’appliquent,\naméliorez de 1 la caractéristique de CT  de l’attaque  :\n▪ La figurine attaquante est sur une section d’un élément de\nterrain  qui est à 3\" ou plus de hauteur.\n▪ La figurine attaquante a le mot-clé IMPOSANT  et l’unité cible\nest à 12\" ou moins.\nTIR PLONGEANT\nCette figurine attaquante est au\nniveau du sol, mais elle a le mot-clé\nIMPOSANT . L’unité cible est à 12\" ou\nmoins et contient des figurines au niveau du sol, donc Tir Plongeant\naméliore de 1 la caractéristique\nde CT de ces attaques.\nToutes ces figurines attaquantes sont sur une section d’ élément\nde terrain  qui est à 3\" ou plus de hauteur, et l’unité cible\ncontient des figurines au niveau du sol, donc Tir Plongeant\naméliore de 1 la caractéristique de CT de ces attaques.\n+1CT+1CT\n73"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "aerodynes",
+          "reference": "23",
+          "title": "Aérodynes",
+          "sourcePages": [
+            74,
+            75
+          ],
+          "pages": [
+            {
+              "id": "p-74",
+              "printedPage": 74,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "AÉRODYNES\n23DÉPLOIEMENT 23.01\n▪ À l’étape Déclarer les Formations de Bataille, toutes\nles unités d’AÉRODYNE  doivent être placées en réserve\nstratégique ( 20.01 ).\nMOUVEMENT 23.02\n▪ Les unités d’AÉRODYNE  sont seulement éligibles pour effectuer\nun mouvement d’arrivée ( 20.04 ) ; elle s ne sont pas éligibles\npour effectuer d’autres types de mouvement.\n▪ À la fin du tour adverse, toutes les unités d’ AÉRODYNE  de votre\narmée qui sont sur le champ de bataille doivent être placées\nen réserve stratégique.\n▪ Chaque fois qu’une unité effectue le moindre type de\nmouvement, ses figurines peuvent se déplacer à travers des figurines d’AÉRODYNE .\n▪ Chaque fois qu’une unité effectue un mouvement d’insertion,\nde consolidation ou d’élan, sauf si ladite unité peut VOLER ,\nlorsqu’elle effectue ce mouvement, ignorez les unités\nd’AÉRODYNE  au regard de la sélection d’unités ennemies\net pour déterminer l’unité ennemie la plus proche.\n▪ Être engagé avec seulement une ou plusieurs unités\nd’AÉRODYNE  n’empêche pas une unité d’être éligible pour\neffectuer un mouvement normal ou d’avance.\nTIR23.03\n▪ La règle Tir Plongeant ( 22.05 ) n’a pas d’effet sur les attaques\neffectuées par, ou qui ciblent, les unités d’AÉRODYNE .\nCHARGE ETCOMBAT 23.04\n▪ Les unités d’AÉRODYNE  ne sont pas éligibles pour déclarer une\ncharge, et elles peuvent seulement effectuer des attaques de\nmêlée qui ciblent les unités VOLANTES .\n▪ Seules les unités VOLANTES  peuvent choisir des unités\nd’AÉRODYNE  comme cible de charge, et seules les figurines\nVOLANTES  peuvent effectuer des attaques de mêlée qui ciblent\nles unités d’AÉRODYNE .Les AÉRODYNES  jouent un rôle unique, bien que limité, sur les champs de bataille\nde Warhammer 40,000. Affrontant des rivaux dans le ciel, mitraillant des troupes\nau sol ou s’adonnant à des bombardements, ils sont toujours en mouvement.\n++ QU’IMPORTE CE QUE PENSE LE XÉNO. LE HAÏR SUFFIT ++\nRÈGLES AVANCÉES\n74"
+                }
+              ]
+            },
+            {
+              "id": "p-75",
+              "printedPage": 75,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "Page source sans texte extractible."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": "Références",
+      "sourcePages": [
+        76,
+        88
+      ],
+      "sections": [
+        {
+          "id": "aptitudes-de-base",
+          "reference": "24",
+          "title": "Aptitudes de base",
+          "sourcePages": [
+            76,
+            85
+          ],
+          "pages": [
+            {
+              "id": "p-76",
+              "printedPage": 76,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "76"
+                }
+              ]
+            },
+            {
+              "id": "p-77",
+              "printedPage": 77,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "RÉFÉRENCES\n77"
+                }
+              ]
+            },
+            {
+              "id": "p-78",
+              "printedPage": 78,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "APTITUDES DE BASE\nAPTITUDES  24.01\nNombre d’unités ont des aptitudes de base listées sur leur fiche\ntechnique, et des aptitudes d’arme listées sur leur profil d’arme.\nLes aptitudes d’arme  sont présentées entre crochets en corps gras,\nex. [DÉFLAGRATION] . Les armes sont souvent décrites en utilisant\nune aptitude particulière dont elles disposent, ex. les armes à\n[DÉFLAGRATION]  sont celles avec l’aptitude [DÉFLAGRATION] .\nSi une aptitude d’arme est suivie d’un ou plusieurs mots-clés, à\nchaque attaque de cette arme, l’aptitude s’applique seulement si l’unité cible a un ou plusieurs de ces mots-clés.\nExemple  : L’aptitude [TOUCHES FATALES  : VÉHICULE]  s’applique\nseulement aux attaques qui ciblent une unité de VÉHICULE .\nL’aptitude [TOUCHES SOUTENUES  1 : INFANTERIE /BÊTES]\ns’applique seulement aux attaques qui ciblent une unité d’INFANTERIE /BÊTES .\n24Cette section présente les aptitudes les plus courantes de Warhammer  40,000.\nQuand elles apparaîtront ailleurs, elles seront en général seulement mentionnées\npar leur nom.\nAPTITUDES DUPLIQUÉES 24.02\nPlusieurs occurrences de la même aptitude de base ou\naptitude d’arme ne se cumulent pas, quels que soient les nombres ou les mots-clés qui y figurent. En pareil cas, le\njoueur en contrôle doit choisir quelle occurrence il applique\nà chaque instant donné. Dans le cas d’aptitudes d’arme en plusieurs exemplaires, cette sélection doit être faite à chaque attaque de l’unité, à l’étape Choisir les Armes.\n▪ Plusieurs occurrences d’ aptitudes de base  incluant un\nnombre comptent comme dupliquées même si ce nombre change. Toutefois, dans le cas d’ Éclaireurs, vous devez choisir\nle nombre le plus bas qui n’est pas partagé par toutes les figurines de l’unité (ex. si toutes les figurines de l’unité ont à la fois Éclaireurs 6\"  et Éclaireurs 8\", vous pouvez choisir\nÉclaireurs 8\" car toutes ses figurines le partagent, mais si\nune unité contient une figurine avec Éclaireurs 6\"  et cinq\navec Éclaireurs 8\", vous devez choisir Éclaireurs 6\" ).\n▪ Plusieurs occurrences d’ aptitudes d’arme incluant un\nnombre (ex. [TOUCHES SOUTENUES  1]) comptent comme\ndupliquées même si ce nombre varie (ex. le joueur en contrôle doit choisir entre [TOUCHES SOUTENUES  1] et\n[TOUCHES SOUTENUES  2]).\n▪ Plusieurs occurrences d’ aptitudes d’arme incluant un\nmot-clé comptent comme dupliquées même si ce mot-\nclé change (ex. le joueur en contrôle doit choisir entre\n[ANTI-VÉHICULE  4+] et [ANTI-INFANTERIE  2+]).\n++ LE ZÈLE EST UNE EXCUSE EN SOI ++ 78"
+                }
+              ]
+            },
+            {
+              "id": "p-79",
+              "printedPage": 79,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "[À RISQUE] 24.15\nLes armes alimentées par des sources\nd’énergie instables posent un risque substantiel à l’utilisateur et ceux\nqui l’entourent.\nChaque fois qu’une unité est choisie\npour tirer  ou choisie pour combattre,\naprès que cette unité a résolu toutes ses attaques, faites autant de jets de risque\n(\n06.03 ) pour elle que le nombre d’armes\n[À RISQUE]  que vous avez choisies à\nl’étape Choisir les Armes.\n[ABATTAGE] 24.06\nLes guerriers suffisamment forts ou habiles peuvent faucher l’ennemi par d’amples coups de leurs serres et lames.\nCette aptitude revêt toujours la forme\n[ABATTAGE  X]. Chaque fois que vous\nrassemblez les dés d’attaque pour une\narme d’[ABATTAGE] , si vous avez choisi\nune seule cible pour toutes les attaques\nde l’arme, ajoutez X dés d’attaque\nsupplémentaires par tranche de 5 figurines\nqui étaient dans l’unité cible à l’étape\nChoisir les Cibles (arrondi à l’inférieur).\nExemple  : Si une arme d’ [ABATTAGE  1]\navec une caractéristique d’ A de 3\ncible 1 unité contenant 16 figurines,\nvous rassemblerez trois dés d’attaque\nsupplémentaires pour l’arme (pour\nun t otal de six dés pour l’arme).AGENT SOLITAIRE 24.24\nLes assassins et autres agents clandestins\nsont difficiles à repérer dans le tumulte de la bataille.\nSauf si elle fait partie d’une unité attachée,\ncette unité n’est pas visible  des figurines\nennemies sauf si elles sont à 12\" ou moins\nde cette unité, et elle ne peut pas être\nciblée par des armes à [TIR INDIRECT]\nsauf si la figurine attaquante est à 12\" ou moins de cette unité.\nSi cette aptitude revêt la forme\nAgent Solitaire X\", sauf si elle fait partie d’une unité attachée , cette unité n’est\npas visible  des figurines ennemies sauf\nsi elles sont à X\" ou moins de cette\nunité, elle ne peut pas être ciblée par des armes à [TIR INDIRECT]  sauf si la\nfigurine attaquante est à X\" ou moins\nde cette unité.\n[ANTI] 24.03\nCertaines armes sont la némésis d’un ennemi particulier.\nCette aptitude revêt toujours la forme\n[ANTI-X Y+]. À chaque attaque d’une\narme [ANTI] , si l’unité cible a le mot-clé\nindiqué par X , un jet de blessure  non\nmodifié de Y+ est une blessure critique.\nExemple  : Une attaque effectuée avec\nune arme [ANTI-VÉHICULE  4+] contre\nune unité de VÉHICULE  résultera en\nune blessure critique  sur un jet de\nblessure non modifié de 4+, tandis\nqu’une attaque effectuée avec une arme\n[ANTI-PSYKER  2+] contre une\nunité PSYKER  résultera en une blessure\ncritique sur un jet de blessure non\nmodifié de 2+.\n79"
+                }
+              ]
+            },
+            {
+              "id": "p-80",
+              "printedPage": 80,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "APPUI 24.34\nOn assigne parfois des combattants\nspécialisés aux escouades de première ligne pour accroître leur efficacité.\nVoir Unités Attachées (\n19).\n[ASSAUT] 24.04\nCrosses pliables, canons sciés et\narmatures légères permettent de tirer avec certaines armes facilement\nen mouvement.\nLes unités incluant une ou plusieurs\nfigurines avec une arme d’[ASSAUT]\npeuvent tirer en utilisant le tir\nd’assaut (\n10.05 ).\n[ATTAQUES BONUS] 24.11\nCertains guerriers vont au combat sur des montures qui piétinent les ennemis. D’autres manient des armes\nsupplémentaires avec lesquelles ils font\npleuvoir des coups.\nChaque fois qu’une unité qui contient\nune ou plusieurs figurines avec une arme\nà [ATTAQUES BONUS]  combat, lesdites\nfigurines effectueront des attaques avec ces armes en plus de toute autre.\nÀ l’étape Choisir les Armes (\n04.01 ), pour\nchacune de ces figurines, vous devez\nchoisir  :\n▪ Toutes les armes à [ATTAQUES BONUS]\nde cette figurine.\n▪ Une des autres armes de mêlée de\ncette figurine, si possible.[BLESSURES DÉVASTATRICES] 24.10\nCertaines armes sont si puissantes\nqu’elles se rient des armures et peuvent faucher plusieurs ennemis d’un coup.\nÀ chaque attaque d’une arme à\n[BLESSURES DÉVASTATRICES]  qui\nrésulte en une blessure critique, la\nséquence d’attaque pour cette attaque se termine et l’unité cible subit autant de blessures mortelles que la\ncaractéristique D de l’arme. Celles-ci sont\ninfligées après avoir résolu les dégâts\nnormaux infligés par ces attaques.\nLes blessures mortelles infligées par des\narmes à [BLESSURES DÉVASTATRICES]\npeuvent endommager un maximum de\n1 figurine pour chaque blessure critique  ;\ntoutes les blessures mortelles restantes\ninfligées par cette attaque sont perdues.\nExemple  : Une attaque effectuée avec une\narme à [BLESSURES  DÉVASTATRICES]\navec une  caract éristique de D de 3\nrésulte en une blessure critique  contre\nune Escouade Intercessor, et inflige donc\n3 blessures mortelles. Les 2 premières\nblessures mortelles suffisent à détruire\n1 figurine d’Intercessor, donc la blessure\nmortelle  restante est perdue.\nCOMBAT EN PREMIER 24.13\nCertains guerriers attaquent à une vitesse foudroyante, et placent leurs coups avant que l’ennemi ne puisse réagir.\nTant que toutes les figurines d’une unité\nont cette aptitude, cette unité est une unité qui Combat en Premier.\nVoir l’étape Résolvez les Combats des\nUnités qui Combattent en Premier de\nla phase de Combat ( 12.04 ).\nAPTITUDES DE BASE\n24\n++ QUICONQUE REJETTE LA BÉNÉDICTION DE L’EMPEREUR RENONCE À TOUT ESPOIR ++ 80"
+                }
+              ]
+            },
+            {
+              "id": "p-81",
+              "printedPage": 81,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "[COMBAT RAPPROCHÉ] 24.07\nLes armes conçues pour les combats\nrapprochés se manient aisément en mêlée.\nLes unités contenant une ou plusieurs\nfigurines avec une arme de [COMBAT\nRAPPROCHÉ]  peuvent tirer en utilisant\nle tir en combat rapproché  (10.06 ).\nQuand vous utilisez un autre type de tir,\npour chaque figurine de cette unité (sauf\nles figurines de MONSTRE /VÉHICULE ), vous\npouvez choisir une seule  des options\nsuivantes avec laquelle effectuer des\nattaques  :\n▪ Une ou plusieurs de ses armes de\n[COMBAT RAPPROCHÉ] .\n▪ Une ou plusieurs de ses autres armes\nde tir.\n[DÉFLAGRATION] 24.05\nLes explosifs peuvent faucher plusieurs guerriers d’un seul coup, mais il est mal avisé de les employer à bout portant.\nChaque fois que vous rassemblez\nles dés d’attaque pour une arme à [DÉFLAGRATION] , ajoutez 1 dé d’attaque\nsupplémentaire par tranche de 5 figurines qui étaient dans l’unité cible à l’étape Choisir les Cibles (arrondi à l’inférieur).\nSi cette aptitude revêt la forme\n[DÉFLAGRATION  X], chaque fois que vous\nrassemblez les dés d’attaque pour une\ntelle arme, ajoutez plutôt X dés d’attaque\nsupplémentaires par tranche de 5 figurines qui étaient dans l’unité cible à l’étape Choisir les Cibles (arrondi à l’inférieur).\nExemple  : Si une arme à\n[DÉFLAGRATION  2] avec une\ncaractéristique d’ A de 3 cible une\nunité contenant 12 figurines, vous rassemblerez quatre dés d’attaque\nsupplémentaires pour l’arme (pour\nun t otal de sept dés pour l’arme).DESTRUCTION NÉFASTE 24.08\nExplosion de munitions, ichor caustique ou spasmes d’agonies cinglants, certaines cibles sont nuisibles même dans la défaite.\nCette aptitude revêt toujours la\nforme Destruction Néfaste X. Chaque fois qu’une figurine de cette unité\nest détruite, après que les unités\nqui y étaient embarquées (le cas\néchéant) ont fait leurs mouvements de débarquement d’urgence, jetez\n1 D6. Sur un 6, cette figurine subit une\ndestruction néfaste  ; chaque unité à 6\"\nou moins de cette figurine subit autant de blessures mortelles que le X  (s’il\ns’agit d’un nombre aléatoire, faites un jet séparé pour chaque unité à 6\" ou moins).\nExemple  : Un Impulsor avec une unité\nd’Intercessors embarquée est détruit par des attaques de tir. D’abord, on\nrésout toute attaque non résolue\neffectuée par l’unité attaquante. Puis les Intercessors effectuent un mouvement de débarquement\nd’urgence. Puis on fait le jet pour\nl’aptitude Destruction Néfaste , et sur un\n6, on résout l’aptitude. Enfin, l’Impulsor est retiré du champ de bataille.\nDISCRÉTION 24.33\nCertains guerriers peuvent échapper aux regards, et aux balles, de leurs ennemis.\nSi toutes les figurines d’une unité ont\ncette aptitude, à chaque attaque de tir qui cible l’unité, l’unité a le bénéfice\ndu couvert  contre l’attaque ( 13.08 ).\n81"
+                }
+              ]
+            },
+            {
+              "id": "p-82",
+              "printedPage": 82,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "ÉCLAIREURS 24.31\nLes éclaireurs forment l’avant-garde de\nbien des armées. À l’insu de l’ennemi, ils précèdent la force principale.\nCette aptitude revêt toujours la forme\nÉclaireurs X\". À l’étape Résoudre les Aptitudes de Prébataille, si toutes les\nfigurines d’une unité ont cette aptitude,\nvous pouvez faire l’ un\ndes points suivants  :\n▪ Si cette unité est en réserve\nstratégique, vous pouvez la placer n’importe où entièrement dans votre\nzone de déploiement.\n▪ Si cette unité est entièrement dans\nvotre zone de déploiement, elle peut\neffectuer un mouvement d’éclaireur (voir ci-dessous).\n▪ Si cette unité est embarquée dans\nun TRANSPORT ASSIGNÉ  qui est\nentièrement dans votre zone de déploiement, et si toutes les figurines\nembarquées dans ce TRANSPORT\nASSIGNÉ  ont l’aptitude Éclaireurs, ce\nTRANSPORT ASSIGNÉ  peut effectuer\nun mouvement d’éclaireur.\nMOUVEMENT D’ÉCLAIREUR 24.32\nDISTANCE MAXIMUM  :\nLe X\" dans Éclaireurs X\".\nÉLIGIBLE SI  : C’est l’étape Résoudre\nles Aptitudes de Prébataille, et votre\nunité est entièrement dans votre\nzone de déploiement.\nEFFET  : Votre  unité se déplace\ncomme décrit dans Mouvement ( 03).\nAPRÈS LE MOUVEMENT  : Votre\nunité doit être à plus de 8\" à\nl’horizontale des unités ennemies.FRAPPE EN PROFONDEUR 24.09\nIl y a bien des façons de déployer des\ntroupes au front, que ce soit via des tunnels, la téléportation ou des méthodes\nplus ésotériques encore.\nChaque fois que cette unité effectue\nun mouvement d’arrivée (\n20.04 ), si\ntoutes les figurines de cette unité ont cette aptitude, elle peut être placée\nn’importe où sur le champ de bataille\nà plus de 8\" à l’horizontale des unités ennemies, y compris dans la zone de déploiement adverse.\n[FUSION] 24.25\nLes armes à fusion projettent des rayons cuisants dont la puissance est amplifiée\nà courte portée.\nCette aptitude revêt toujours la forme\n[FUSION  X]. À chaque attaque d’une\nfigurine avec une arme à [FUSION] , si\nl’unité cible était à mi-portée ou moins\nde l’arme à l’étape Choisir les Cibles,\njusqu’à ce que les attaques de l’unité\nattaquante aient été résolues, ajoutez X\nà la caractéristique de D de l’arme.\nExemple  : Une figurine cible une\nunité qui est à mi-portée ou moins d’une arme à [FUSION  2] dont la\ncaractéristique de D est D6. Lorsqu’on\nrésout ces attaques, cette arme a une caractéristique de D de D6+2.\n[IGNORE LE COUVERT] 24.18\nCertaines armes sont conçues pour bouter les formations ennemies hors\nde positions retranchées.\nÀ chaque attaque d’une arme qui [IGNORE LE COUVERT] , la cible ne peut\npas avoir le bénéfice du couvert contre\nl’attaque (\n13.08 ), y compris grâce à\ndes règles qui donnent à une figurine ou une unité le bénéfice du couvert\n(ex. Discrétion).\nAPTITUDES DE BASE\n24\n++ GARE À L’ENNEMI INTÉRIEUR ++ 82"
+                }
+              ]
+            },
+            {
+              "id": "p-83",
+              "printedPage": 83,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "INFILTRATEURS 24.20\nNombre d’armées emploient des unités de\nreconnaissance qui restent dissimulées en attendant le moment de frapper.\nPendant le déploiement, Si toutes les\nfigurines d’une unité ont cette aptitude, elle peut être placée n’importe où sur\nle champ de bataille à plus de 8\" à\nl’horizontale de la zone de déploiement adverse et des unités ennemies.\nINSENSIBLE À LA DOULEUR 24.12\nCertains guerriers refusent obstinément de succomber, même criblés de blessures fatales.\nCette aptitude revêt toujours la forme\nInsensible à la Douleur X+. Chaque fois qu’une figurine avec cette aptitude est\ncensée perdre un point de vie, jetez 1  D6 :\nsur X+, ce point de vie n’est pas perdu.\n[JUMELÉ] 24.38\nLes armes doubles sont souvent associées au même système de visée pour en accroître la létalité.\nÀ chaque attaque d’une arme [JUMELÉE] ,\nvous pouvez relancer le jet de blessure.\n[LANCE] 24.21\nLes lances sont fatales lorsque le guerrier\nqui les manie charge tête baissée.\nÀ chaque attaque d’une arme [LANCE] ,\nsi l’unité de la figurine qui attaque a\neffectué un mouvement de charge\nà ce tour, ajoutez 1 au jet de blessure.[LOURD] 24.16\nLes armes lourdes sont dévastatrices, mais elles requièrent un appui stable\npour  une efficacité maximale.\nÀ votre phase de Tir, à chaque attaque faite avec une arme [LOURDE] , ajoutez\n1 au jet de touche  si tous les points\nsuivants s’appliquent à l’unité attaquante  :\n▪L’unité est non engagée .\n▪ L’unité n’a pas été placée sur le champ\nde bataille à ce tour.\n▪ Aucune figurine de l’unité ne s’est\ndéplacée de plus de 3\" à ce tour.\nMARCHEUR SUPER-LOURD 24.35\nCréatures monstrueuses et machines de guerre gigantesques surplombent le champ de bataille comme des\ndieux manifestés, qui enjambent\nles combattants pour écraser tous les obstacles.\nChaque fois qu’une unité avec cette\naptitude effectue un mouvement\nnormal , d’avance ou de\nretraite  :\n▪ Les figurines de cette unité peuvent\nse déplacer à travers les figurines\n(y compris les figurines de MONSTRE /\nVÉHICULE , mais figurines TITANESQUES\nexclues) et peuvent se déplacer à\nl’horizontale à travers des sections\nd’éléments de terrain  qui font 4”\nou moins de hauteur.\n▪ Avant de déplacer cette unité, vous\npouvez décider que toutes les figurines de l’unité aient le mot-clé MOBILE\njusqu’à la fin de ce mouvement.\nDans ce cas, quand ce mouvement\nse termine, jetez 1 D6  : sur 1, l’unité\nest ébranlée.\nNote de Conception  : Gagner le mot-clé\nMOBILE  pour la durée d’un mouvement\npermettra à cette unité de se déplacer horizontalement à travers les éléments\nde terrain dense (\n13.06 ).\n83"
+                }
+              ]
+            },
+            {
+              "id": "p-84",
+              "printedPage": 84,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "MENEUR 24.22\nLes héros les plus puissants combattent\nen première ligne.\nVoir Unités Attachées ( 19).\n[PISTOLET] 24.27\nOn peut utiliser les pistolets pour tirer\nà bout portant.\n[PISTOLET]  et [COMBAT RAPPROCHÉ]\nsont identiques au regard des règles.\nVoir [COMBAT RAPPROCHÉ] .\nNote de Conception  : [PISTOLET]\nest une aptitude qui existait\nprécédemment et qui sera supplantée\npar [COMBAT RAPPROCHÉ]  au fur\net à mesure de l’enrichissement\nde la présente édition de Warhammer 40,000. Les deux sont\nfonctionnellement les mêmes, mais\nle nom de la seconde sied mieux aux armes qui fonctionnent de cette façon.\nPONT DE TIR 24.14\nCertains transports ont des trappes ou des plates-formes depuis lesquelles les passagers peuvent tirer.\nCette aptitude revêt toujours la forme\nPont de Tir X. À votre phase de Tir, chaque fois que ce TRANSPORT  est choisi pour\ntirer , si une ou plusieurs unités y sont\nembarquées, résolvez la séquence suivante  :\n1.   Choisissez jusqu’à X figurines\nembarquées dans ce TRANSPORT\n(sauf  les figurines qui ont déjà été\nchoisies pour tirer  à cette phase).\n2.   Pour chaque figurine choisie, choisissez\nune de ses armes de tir (sauf les armes à [TIR  UNIQUE] ).\n3.   Jusqu’à ce que ce TRANSPORT  ait résolu\ntoutes ses attaques, il a toutes les armes choisies en plus de ses autres armes.\n4.   Jusqu’à la fin du tour, les unités\nembarquées dans ce TRANSPORT\nne sont pas éligibles pour tirer . [PRÉCISION] 24.28\nLes attaques de précision peuvent viser des cibles de valeur au milieu d’une foule.\nLorsqu’on résout des attaques faites avec\nune ou plusieurs armes de [PRÉCISION] ,\nau début de l’étape Ordre d’Allocation (\n05.03 ), si l’unité cible contient une ou\nplusieurs figurines de PERSONNAGE  visibles\nd’une ou plusieurs figurines attaquantes,\nle joueur actif peut choisir 1  gr oupe\nd’allocation qui contient une des figurines de PERSONNAGE  visibles . En ce cas, jusqu’à\nce que les attaques soient résolues, ou\njusqu’à ce que ce groupe de PERSONNAGE\nsoit détruit (selon ce qui arrive en premier),\nce groupe de PERSONNAGE  est le groupe\nd’allocation actuel.\n[PSYCHIQUE] 24.29\nCertaines armes canalisent la puissance\npsychique du porteur et renforcent ses coups.\nÀ chaque attaque d’une arme [PSYCHIQUE] ,\nvous pouvez ignorer certains ou tous\nles modificateurs à la caractéristique de CT  ou de CC de l’attaque, et certains\nou tous les modificateurs au jet de\ntouche . Les attaques effectuées avec des\narmes [PSYCHIQUES]  sont appelées des\nattaques psychiques (ceci est important\npour le déclenchement d’autres règles).\nSTATIONNAIRE 24.17\nCertains aéronefs sont dotés de\npropulseurs vectoriels ou de technologie antigrav leur permettant de voler sur\nplace, idéal pour traquer leur proie ou\ndéployer les troupes embarquées.\nChaque fois que cette unité décolle\n(\n21.03 ), ne soustrayez pas 2\" à la\ndistance maximale .\nAPTITUDES DE BASE\n24\n84"
+                }
+              ]
+            },
+            {
+              "id": "p-85",
+              "printedPage": 85,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "[TIR INDIRECT] 24.19\nLes projectiles des armes à tir indirect\npassent par-dessus ou autour des obstacles de sorte que nul n’est à l’abri de leur fureur.\nLes unités incluant une ou plusieurs figu-\nrines avec une arme à [TIR INDIRECT]\npeuvent tirer en utilisant le tir indirect  (\n10.07).\n[TIR RAPIDE] 24.30\nCes armes permettent des tirs précis à longue\nportée, ou des rafales à courte portée.\nCette aptitude revêt toujours la forme\n[TIR RAPIDE  X]. Chaque fois que vous\nrassemblez les dés d’attaque d’une arme\nà [TIR RAPIDE] , ajoutez X dés d’attaque\nsupplémentaires si l’unité cible est à mi-portée ou moins de l’arme à l’étape\nChoisir les Cibles.\nExemple  : Si une arme à [TIR RAPIDE  1]\navec une caractéristique d’ A de 1 cible une\nunité à mi-portée, vous pouvez rassembler un dé d’attaque  supplémentaire pour\nl’arme (pour un  t otal de deux pour l’arme).\n[TIR UNIQUE] 24.26\nCertaines armes sont si rares, complexes\nou fastidieuses à recharger qu’on ne peut les utiliser qu’une seule fois.\nChaque arme ayant cette aptitude peut\nseulement être choisie pour effectuer des attaques une seule fois par bataille.\nSi une figurine détruite est restituée\nà une unité, aucune de ses armes à\n[TIR\nUNIQUE]  ayant déjà été choisies\npour effectuer des attaques pendant la bataille ne peut être choisie pour\neffectuer des attaques à nouveau.\nSi une nouvelle unité est ajoutée à une\narmée, toutes les armes à [TIR  UNIQUE]\nde cette unité peuvent être choisies pour effectuer des attaques une seule fois par bataille.[TORRENT] 24.37\nLes armes à torrent libèrent des langues de feu, des nuages de gaz ou autres auxquels leurs cibles ne peuvent se soustraire.\nÀ chaque attaque d’une arme à\n[TORRENT] , cette attaque touche\nautomatiquement la cible.\n[TOUCHES FATALES] 24.23\nCertaines armes peuvent infliger des blessures fatales à n’importe quelle cible, quelle que soit sa robustesse.\nÀ chaque attaque d’une arme à\n[TOUCHES FATALES]  qui résulte en une\ntouche critique, vous pouvez choisir\nque l’attaque blesse automatiquement\nla cible.\nNote de Conception  : Faire le choix de\nblesser automatique la cible signifie qu’on ne fait pas de jet de blessure\npour l’attaque. Vous n’êtes pas obligé de faire ce choix, car il signifie que l’attaque ne peut pas résulter en une blessure critique , et qu’elle ne peut\ndonc pas déclencher d’autres aptitudes comme [BLESSURES DÉVASTATRICES] .\n[TOUCHES SOUTENUES] 24.36\nCertaines armes infligent une pluie de coups qui réduisent l’ennemi en pièces.\nCette aptitude revêt toujours la\nforme [TOUCHES SOUTENUES  X].\nÀ chaque attaque d’une arme à\n[TOUCHES SOUTENUES]  qui résulte en\nune touche critique, l’attaque résulte en\nautant de touches supplémentaires sur\nla cible que le X.\nExemple  : Une attaque effectuée avec\nune arme à [TOUCHES SOUTENUES  2]\nrésulte en une touche critique . Cette\nattaque touche donc la cible trois fois (une fois grâce à la touche critique , et\ndeux fois grâce à l’aptitude [TOUCHES\nSOUTENUES  2]).\n++ LA VIGILANCE EST VOTRE BOUCLIER ++ 85"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "appendices",
+          "reference": null,
+          "title": "Appendices des règles",
+          "sourcePages": [
+            86,
+            87
+          ],
+          "pages": [
+            {
+              "id": "p-86",
+              "printedPage": 86,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "APPENDICE DES RÈGLES\nEFFECTIF INITIAL\nETDEMI-EFFECTIF\nLe nombre de figurines qu’une unité contient au début du premier round\nde bataille est son effectif initial . L’effectif initial  d’une unité attachée\nest le nombre de figurines que cette unité contient au début du premier round de bataille.\nCertaines règles se réfèrent à des unités étant en dessous de leur effectif\ninitial , ou à – ou en dessous de leur – demi-effectif. Le sens de ces\ntermes varie selon l’effectif initial  d’une unité, comme ci-dessous.\nEFFECTIF DEL’UNITÉ\nEFFECTIF INITIAL\nDE1EFFECTIF INITIAL\nDE2OUPLUS\nENDESSOUS DE\nL’EFFECTIF INITIALLes points de vie\nrestants de la figurine\nsont inférieurs à  sa\ncaractéristique de PV.Le nombre de\nfigurines restant dans\nl’unité est inférieur à\nson effectif initial .\nÀDEMI-EFFECTIFLes points de vie\nrestants de la figurine\nsont la moitié de sa\ncaractéristique de PV.Le nombre de\nfigurines restant dans\nl’unité est la moitié de\nson effectif initial .\nENDESSOUS DU\nDEMI-EFFECTIFLes points de vie\nrestants de la figurine\nsont inférieurs\nà la moitié de sa\ncaractéristique de PV.Le nombre de\nfigurines restant dans\nl’unité est inférieur\nà la moitié de son\neffectif initial .\nExemple  : Un Capitaine (1 figurine) est attaché à une unité d’Intercessors\n(5 figurines). Cette unité attachée  a un effectif initial de 6. Si trois\nIntercessors sont détruits, l’unité sera à demi-effectif . Si quatre Intercessors\nsont détruits, l’unité sera en dessous de son demi-effectif . Si tous les\nIntercessors sont détruits, le Capitaine restant sera en dessous de\nson demi-effectif , malgré le fait qu’il a tous ses points de vie.CERTAINES UNITÉS NE\nPEUVENT PASÊTRE À\nDEMI-EFFECTIF\nSi la caractéristique de\nPV d’une figurine ou si\nl’effectif initial d’une\nunité ne peut pas être divisé par deux de façon égale, cette\nfigurine ou unité ne\npeut pas être à demi-\neffectif  (mais elle peut\nêtre en dessous de son demi-effectif comme décrit à droite).\n++ VOIS LE XÉNO, TUE LE XÉNO ++\nÀ SUIVRE DANS L’APPLI\nAPPUI NUMÉRIQUE\nL’appli Warhammer 40,000 contient une liste étendue de définitions, de règles d’interactions\nrares et une foire aux questions (FAQ).\nCes ressources numériques sont conçues pour clarifier vos doutes et faire en sorte que\nvos batailles soient les plus fluides possible. De fait, elles sont révisées et mises à jour régulièrement. Les pages suivantes présentent un aperçu de ce contenu d’appui.\n86"
+                },
+                {
+                  "kind": "table",
+                  "title": "Effectif initial et demi-effectif",
+                  "columns": [
+                    "État",
+                    "Unité d’une figurine",
+                    "Unité de deux figurines ou plus"
+                  ],
+                  "rows": [
+                    [
+                      "En dessous de l’effectif initial",
+                      "PV restants inférieurs à la caractéristique de PV.",
+                      "Figurines restantes inférieures à l’effectif initial."
+                    ],
+                    [
+                      "À demi-effectif",
+                      "PV restants égaux à la moitié de la caractéristique de PV.",
+                      "Figurines restantes égales à la moitié de l’effectif initial."
+                    ],
+                    [
+                      "En dessous du demi-effectif",
+                      "PV restants inférieurs à la moitié de la caractéristique de PV.",
+                      "Figurines restantes inférieures à la moitié de l’effectif initial."
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p-87",
+              "printedPage": 87,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "AJOUTER UNENOUVELLE UNITÉ\nÀVOTRE ARMÉE\nCertaines règles ajoutent une nouvelle unité à votre armée pendant\nune bataille. L’effectif initial  de cette unité est déterminé quand elle\nest ajoutée à votre armée, mais en dehors de cela, il est déterminé de\nla même manière que pour les autres unités.\nDÉTRUIT\nAu cours d’une bataille, les figurines subissent des dégâts, perdent des points de vie et peuvent être détruites. Quand toutes les figurines d’une unité ont été détruites, l’unité est détruite.\nQuand une figurine est détruite, résolvez d’abord les règles éventuelles\nqui se déclenchent quand elle est détruite, puis elle est retirée du champ de bataille. Si de telles règles s’appliquent, et si la figurine a été détruite suite à une attaque, sauf mention contraire, ces règles sont seulement résolues et la figurine est seulement retirée après que les attaques de l’unité attaquante ont été résolues. Sauf mention contraire, les figurines et unités détruites ne peuvent pas utiliser d’aptitudes, ni être choisies\nou ciblées par des règles.\nCARACTÉRISTIQUES DE\nMOUVEMENT DIFFÉRENTES\nLors d’un mouvement normal ou d’avance, si des figurines de l’unité\nqui se déplace ont des caractéristiques de M différentes, la distance\nmaximale  pour ce mouvement sera différente pour ces figurines.\nPar exemple, si une unité fait un mouvement normal et si toutes les figurines de cette unité ont une caractéristique M de 6\" à l’exception d’une figurine avec une caractéristique M de 9\", la distance maximale\nde cette figurine pour ce mouvement est 9\", tandis que la distance maximale  des autres figurines est 6\". Lorsque l’unité effectue ce\nmouvement, toutes les autres restrictions doivent être respectées.\nÉLIGIBLE POUR COMBATTRE,\nMAIS INCAPABLE DECOMBATTRE\nPendant la séquence de Combat, quand la séquence revient à un joueur afin qu’il choisisse une unité pour combattre, si toutes les unités de ce joueur qui sont éligibles pour combattre sont à plus de 5\" des unités\nennemies, ce joueur peut à la place choisir de passer pour que la séquence revienne à son adversaire qui choisit alors une unité. Si les deux joueurs passent successivement, ou si un joueur passe alors qu’il ne reste à son adversaire aucune unité éligible pour combattre , l’étape Combat prend fin.\nNote de Conception  : Parfois, toutes les cibles d’une unité auront été\ndétruites avant qu’elle ait une chance de combattre, et elle n’aura pas de\ncible assez proche à engager avec un mouvement d’insertion. En pareil\ncas, un joueur peut choisir de passer et d’attendre pour voir si une autre unité ennemie termine un mouvement d’insertion assez proche pour être\nattaquée plus tard à cette phase.\nUNITÉS ÀMOTS-CLÉS DISPARATES\nCertaines unités peuvent contenir des figurines aux mots-clés différents,\nparce qu’il s’agit d’une unité attachée , suite à des séparations listées sur\nsa fiche technique et/ou des objets d’équipement. Lorsque c’est le cas, une unité a tous les mots-clés de toutes ses figurines, mais ses figurines ne gagnent pas les mots-clés des autres figurines de l’unité si elles ne les ont pas déjà. Souvenez-vous que les attaques sont effectuées contre des unités, pas contre des figurines.VOIR AUSSI\nEFFECTIF INITIAL\nETDEMI-EFFECTIF\n►Récupérer des Points de Vie Perdus\n►Ressuscité\nScannez le code ci-dessous pour\ninstaller dès maintenant l’appli Warhammer 40,000.\n87"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "reference": null,
+          "title": "Index des règles de base",
+          "sourcePages": [
+            88,
+            88
+          ],
+          "pages": [
+            {
+              "id": "p-88",
+              "printedPage": 88,
+              "blocks": [
+                {
+                  "kind": "text",
+                  "text": "APPENDICE DES RÈGLESOBJECTIFS N’ÉTANT PAS\nDANS UNEZONE DETERRAIN\nSi la position d’un objectif ne coïncide pas\navec une zone de terrain , vous devez indiquer\nla position de cet objectif avec un marqueur plat et circulaire de 40 mm de diamètre, centré\nsur ce point  : ceci s’appelle un pion d’objectif.\nLes figurines peuvent se déplacer à travers les pions d’objectif et peuvent terminer un mouvement sur les pions d’objectif.\nUne figurine est à portée d’un pion d’objectif\ntant qu’elle est à 3\" ou moins à l’horizontale et à 5\" ou moins à la verticale de ce pion d’objectif. Quand on mesure les distances jusqu’à et depuis un pion d’objectif, on mesure depuis et jusqu’à sa partie la plus proche.\nRESSUSCITÉ\nQuand une règle ressuscite, ranime ou restitue des figurines à une unité, un nombre spécifique de figurines détruites est ajouté à l’unité. Ceci ne peut pas amener une unité à dépasser son effectif initial . Ces figurines sont ajoutées avec\ntout équipement et optimisation  avec lesquels\nelles ont commencé la bataille et, sauf mention contraire, sont restituées avec tous leurs\npoints  de vie restants.\nLes figurines restituées à une unité sur le champ\nde bataille doivent être placées comme suit  :\n▪ En cohésion avec des figurines de l’unité\nqui ont commencé cette phase sur le champ de bataille (c.-à-d. des figurines qui étaient déjà sur le champ de bataille quand cette\nrègle a  été utilisée).\n▪ Elles peuvent être engagées avec une\nou plusieurs unités ennemies, mais seulement si ces unités ennemies étaient déjà engagées avec l’unité à laquelle ces figurines sont restituées.\nSi une figurine de meneur ou d’ appui  qui était\ndans une unité attachée est détruite puis\nressuscitée par la suite, elle fait toujours partie de cette unité attachée et doit y être restituée\nsi possible.FAQ\nQ : Une unité sans arme de tir est-elle\néligible pour tirer à la phase de Tir de\nson joueur en contrôle  ?\nR : Oui. Quand bien même l’unité ne peut\npas effectuer d’attaque de tir, elle reste éligible pour tirer, ce qui peut l’affecter pour d’autres règles, ex. entreprendre une action.\nQ : Quand mon unit é tire en utilisant le\ntir en combat rapproché, les figurines  de MONSTRE /VÉHICULE  de mon unité\npeuvent-elles cibler une unité engagée avec des armes à [DÉFLAGRATION]\n?\nR : Non.\nQ : Quand mon unit é tire sur une unité de\nMONSTRE /VÉHICULE  engagée, les figurines\nde mon unité peuvent-elles cibler cette unité avec des armes à [DÉFLAGRATION]\n?\nR : Non.\nQ : Une unité qui est éligible pour effectuer\nun combat de débordement peut-elle être choisie pour ce faire si elle n’est pas aussi\néligible pour combattre  ?\nR : Non. Parfois, une unité peut devenir\nengagée après le début de l’étape Combat, pour devenir ensuite non engagée  plus tard\nà cette étape. Si cela se produit, et si elle n’est plus éligible pour combattre, elle ne peut pas effectuer de combat de débordement .\nQ : Une unité peut-elle embarquer dans\nun TRANSPORT  après avoir effectué un\nmouvement d’éclaireur?\nR : Non. Les mouvements d’éclaireur se\nproduisent après l’étape Résoudre les Aptitudes de Prébataille, qui vient après l’étape Déclarer les Formations de Bataille et avant l’étape Commencer la Bataille.\nÀ SUIVRE DANS L’APPLI\n88"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "missionFramework": {
+    "packName": "Pile de Missions Sceau Capitulaire 2026-27",
+    "language": "fr",
+    "status": "public-summary",
+    "sources": [
+      {
+        "label": "Comment votre armée affecte votre mission",
+        "url": "https://www.warhammer-community.com/fr-fr/articles/oefzq9fg/new40k-comment-votre-armee-affecte-votre-mission/"
+      },
+      {
+        "label": "Présentation de la Pile de Missions Sceau Capitulaire",
+        "url": "https://www.warhammer-community.com/fr-fr/articles/adciuo3f/precommandes-du-samedi-regles-cartes-et-plus-encore-pour-le-new40k/"
+      },
+      {
+        "label": "Mise à jour Warhammer 40,000 de juillet",
+        "url": "https://www.warhammer-community.com/fr-fr/articles/rgqanids/mise-a-jour-warhammer-40000-de-juillet-tout-ce-quil-y-a-a-savoir/"
+      }
+    ],
+    "primary": [
+      "La carte de Mission Principale indique quand et comment marquer les PdV.",
+      "Maximum : 45 PdV par partie et 15 PdV par round de bataille.",
+      "La Disposition des Forces ne remplace pas une carte de Mission Principale."
+    ],
+    "secondary": [
+      "Chaque joueur choisit des missions fixes ou des missions tactiques.",
+      "En tactique, piochez deux cartes à chaque tour et conservez celles qui ne sont pas accomplies.",
+      "Maximum : 45 PdV par partie et 15 PdV par round de bataille."
+    ],
+    "unavailableNotice": "Les textes et barèmes individuels des cartes de Mission Principale et Secondaire ne sont pas publiés intégralement dans les ressources officielles publiques. Ils seront ajoutés après fourniture d’une source officielle par l’utilisateur."
+  }
+}

@@ -10,6 +10,7 @@ import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
+import { RulesPage } from './rules/RulesPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
@@ -656,6 +657,7 @@ export default function App(): React.JSX.Element {
   const [notice, setNotice] = useState<string | null>(null);
   const [catalogOverlay, setCatalogOverlay] = useState<CatalogLocaleOverlay | null>(null);
   const [catalogLocaleStatus, setCatalogLocaleStatus] = useState<CatalogLocaleStatus>(locale === 'fr' ? 'unavailable' : 'not-needed');
+  const [view, setView] = useState<'builder' | 'rules'>(() => window.location.hash.startsWith('#rules') ? 'rules' : 'builder');
   const databaseInputRef = useRef<HTMLInputElement>(null);
   const inventoryInputRef = useRef<HTMLInputElement>(null);
   const listInputRef = useRef<HTMLInputElement>(null);
@@ -670,6 +672,12 @@ export default function App(): React.JSX.Element {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    const onHashChange = (): void => setView(window.location.hash.startsWith('#rules') ? 'rules' : 'builder');
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   useEffect(() => {
     if (!database) return;
@@ -1050,6 +1058,16 @@ export default function App(): React.JSX.Element {
     writeFavorites(next);
   };
 
+  const openRules = (): void => {
+    window.location.hash = 'rules';
+  };
+
+  const openBuilder = (): void => {
+    window.location.hash = 'builder';
+  };
+
+  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} />;
+
   if (!database || !draft) {
     return (
       <main className="loading-shell">
@@ -1059,6 +1077,7 @@ export default function App(): React.JSX.Element {
           <p>{status}</p>
           {error && <p className="error-text">{error}</p>}
           <button onClick={() => databaseInputRef.current?.click()}>{t('action.importDatabase')}</button>
+          <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
           <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
         </div>
       </main>
@@ -1250,7 +1269,7 @@ export default function App(): React.JSX.Element {
             </select>
           </label>
           <label>
-            {t('command.scenario')}
+            {locale === 'fr' ? 'Disposition des Forces' : 'Force disposition'}
             <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
               {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenarioTitle(scenario.id)}</option>)}
             </select>
@@ -1264,12 +1283,12 @@ export default function App(): React.JSX.Element {
 
         <section className="scenario-guide">
           <div>
-            <span className="eyebrow">{t('command.guide')}</span>
+            <span className="eyebrow">{locale === 'fr' ? 'GUIDE DE DISPOSITION' : 'FORCE DISPOSITION GUIDE'}</span>
             <h2>{scenarioTitle(draft.scenario)}</h2>
             <p>{scenarioGuide(draft.scenario)}</p>
           </div>
           <dl>
-            <div><dt>{t('command.allowedScenarios')}</dt><dd>{availableScenarios.length}</dd></div>
+            <div><dt>{locale === 'fr' ? 'Dispositions autorisées' : 'Allowed dispositions'}</dt><dd>{availableScenarios.length}</dd></div>
             <div><dt>{t('command.detachmentBudget')}</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
             <div><dt>{t('command.enhancementLimit')}</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
           </dl>
@@ -1323,6 +1342,7 @@ export default function App(): React.JSX.Element {
         </div>
         <div className="topbar-actions">
           <button className="secondary" onClick={() => databaseInputRef.current?.click()}>{t('action.updateDatabase')}</button>
+          <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
           <button className="secondary" onClick={() => listInputRef.current?.click()}>{t('action.importList')}</button>
           <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>{t('action.importInventory')}</button>
           <button className="secondary" onClick={() => window.print()}>{t('action.print')}</button>

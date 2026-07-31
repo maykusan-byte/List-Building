@@ -20,6 +20,7 @@ export const fr = {
     addToList: 'Ajouter à la liste'
   },
   navigation: { language: 'Langue', french: 'Français', english: 'English' },
+  rules: { open: 'Règles', unavailable: 'Référence indisponible' },
   library: {
     eyebrow: 'BIBLIOTHÈQUE', title: 'Unités disponibles', results_one: '{{count}} résultat', results_other: '{{count}} résultats',
     search: 'Rechercher une unité, un mot-clé…', allRoles: 'Tous les rôles', maximumCost: 'Coût max', favorites: 'Favoris',
@@ -77,6 +78,7 @@ export const fr = {
 } as const;
 
 export const en = {
+  rules: { open: 'Rules', unavailable: 'Reference unavailable' },
   app: { loading: 'Preparing the arsenal', unit: 'unit', units_one: '{{count}} unit', units_other: '{{count}} units', model_one: '{{count}} model', model_other: '{{count}} models', sourceUnavailable: 'Partial French: any name, rule or profile not covered by an official source is shown in English.', unknown: 'Not provided', none: 'None' },
   action: { add: 'Add', remove: 'Remove', details: 'Details', close: 'Close', reset: 'Reset', save: 'Save', export: 'Export v1', print: 'Print', import: 'Import', showCatalog: 'Show catalog', collapseCatalog: 'Collapse catalog', newList: 'New list', loadMore: 'Show 60 more units', updateDatabase: 'Update database', importDatabase: 'Import a JSON database', importList: 'Import a v1 list', importInventory: 'Import an inventory CSV', addToList: 'Add to list' },
   navigation: { language: 'Language', french: 'Français', english: 'English' },
