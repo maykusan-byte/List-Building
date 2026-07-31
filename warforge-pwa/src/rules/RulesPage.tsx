@@ -82,7 +82,7 @@ function MissionFramework({ document }: { document: RulesDocument }): React.JSX.
   );
 }
 
-export function RulesPage({ locale, onOpenBuilder }: { locale: 'fr' | 'en'; onOpenBuilder: () => void }): React.JSX.Element {
+export function RulesPage({ locale, onOpenBuilder, onOpenWeapons }: { locale: 'fr' | 'en'; onOpenBuilder: () => void; onOpenWeapons: () => void }): React.JSX.Element {
   const [document, setDocument] = useState<RulesDocument | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
@@ -131,7 +131,10 @@ export function RulesPage({ locale, onOpenBuilder }: { locale: 'fr' | 'en'; onOp
     <main className="rules-shell">
       <header className="rules-topbar">
         <div><span className="eyebrow">WARFORGE 40K · RÉFÉRENCE</span><h1>Règles de base</h1><p>{locale === 'en' ? 'French source content' : 'Contenu source en français'} · Hors ligne après le premier chargement</p></div>
-        <button className="secondary" onClick={onOpenBuilder}>{locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
+        <div className="weapons-topbar-actions">
+          <button className="secondary" onClick={onOpenWeapons}>{locale === 'en' ? 'Armoury' : 'Arsenal'}</button>
+          <button className="secondary" onClick={onOpenBuilder}>{locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
+        </div>
       </header>
 
       {!document && <section className="rules-loading"><h2>Chargement de la référence…</h2>{error && <p className="error-text">{error}</p>}</section>}

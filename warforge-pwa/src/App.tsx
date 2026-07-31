@@ -11,6 +11,7 @@ import { keepSelectableScenario, selectableScenarios } from './domain/scenarios'
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
 import { RulesPage } from './rules/RulesPage';
+import { WeaponsPage } from './weapons/WeaponsPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
@@ -23,6 +24,14 @@ import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
+
+type AppView = 'builder' | 'rules' | 'weapons';
+
+function viewFromHash(): AppView {
+  if (window.location.hash.startsWith('#rules')) return 'rules';
+  if (window.location.hash.startsWith('#weapons')) return 'weapons';
+  return 'builder';
+}
 
 interface CustomTargetForm {
   enabled: boolean;
@@ -657,7 +666,7 @@ export default function App(): React.JSX.Element {
   const [notice, setNotice] = useState<string | null>(null);
   const [catalogOverlay, setCatalogOverlay] = useState<CatalogLocaleOverlay | null>(null);
   const [catalogLocaleStatus, setCatalogLocaleStatus] = useState<CatalogLocaleStatus>(locale === 'fr' ? 'unavailable' : 'not-needed');
-  const [view, setView] = useState<'builder' | 'rules'>(() => window.location.hash.startsWith('#rules') ? 'rules' : 'builder');
+  const [view, setView] = useState<AppView>(viewFromHash);
   const databaseInputRef = useRef<HTMLInputElement>(null);
   const inventoryInputRef = useRef<HTMLInputElement>(null);
   const listInputRef = useRef<HTMLInputElement>(null);
@@ -674,7 +683,7 @@ export default function App(): React.JSX.Element {
   }, [locale]);
 
   useEffect(() => {
-    const onHashChange = (): void => setView(window.location.hash.startsWith('#rules') ? 'rules' : 'builder');
+    const onHashChange = (): void => setView(viewFromHash());
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
@@ -1062,11 +1071,17 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'rules';
   };
 
+  const openWeapons = (): void => {
+    window.location.hash = 'weapons';
+  };
+
   const openBuilder = (): void => {
     window.location.hash = 'builder';
   };
 
-  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} />;
+  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} />;
+
+  if (view === 'weapons' && database) return <WeaponsPage database={database} display={display} locale={locale} onOpenBuilder={openBuilder} onOpenRules={openRules} />;
 
   if (!database || !draft) {
     return (
@@ -1078,6 +1093,7 @@ export default function App(): React.JSX.Element {
           {error && <p className="error-text">{error}</p>}
           <button onClick={() => databaseInputRef.current?.click()}>{t('action.importDatabase')}</button>
           <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
+          <button className="secondary" onClick={openWeapons}>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
           <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
         </div>
       </main>
@@ -1343,6 +1359,7 @@ export default function App(): React.JSX.Element {
         <div className="topbar-actions">
           <button className="secondary" onClick={() => databaseInputRef.current?.click()}>{t('action.updateDatabase')}</button>
           <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
+          <button className="secondary" onClick={openWeapons}>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
           <button className="secondary" onClick={() => listInputRef.current?.click()}>{t('action.importList')}</button>
           <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>{t('action.importInventory')}</button>
           <button className="secondary" onClick={() => window.print()}>{t('action.print')}</button>
