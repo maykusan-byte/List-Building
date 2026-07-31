@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import frenchSource from '../../data/locales/fr/official.json';
+import mfmReport from '../../data/locales/fr/mfm-unit-localization-report.json';
 import { createCatalogLocalization, isCatalogLocaleOverlay } from './catalog-localization';
 import { normalizeDatabase } from './normalize';
 
@@ -9,6 +11,16 @@ const database = normalizeDatabase(JSON.stringify({
 }));
 
 describe('catalog localization', () => {
+  it('contains the versioned official MFM unit overlay without point data', () => {
+    expect(Object.keys(frenchSource.units)).toHaveLength(1458);
+    expect(frenchSource.units['Space Marines::16']).toEqual({ name: 'ESCOUADE INTERCESSOR' });
+    expect(frenchSource.units['Aeldari::57']).toEqual({ name: 'MARCHEURS DE GUERRE' });
+    expect(frenchSource.units['Death Guard::20']).toEqual({ name: 'SEMI-CHENILLÉS MÉPHITIQUES' });
+    expect(mfmReport.ambiguous).toEqual([]);
+    expect(mfmReport.unmatched).toEqual([{ sourceKey: 'Imperial Knights', sourceIndex: 11, name: 'SIR HEKHTUR' }]);
+    expect(JSON.stringify(frenchSource.units)).not.toContain('"Cost"');
+  });
+
   it('renders official overlay values without changing canonical unit data', () => {
     const unit = database.units[0];
     const overlay = {

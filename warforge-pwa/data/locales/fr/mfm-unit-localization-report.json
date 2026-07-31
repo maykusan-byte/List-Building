@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "warforge-mfm-unit-localization-report/v1",
+  "source": "https://mfm.warhammer-community.com/fr",
+  "retrievedAt": "2026-07-31",
+  "catalogUnitCount": 1459,
+  "mfmEnglishMatchCount": 1458,
+  "translatedCount": 1458,
+  "ambiguous": [],
+  "variants": [
+    {
+      "sourceKey": "Aeldari",
+      "sourceIndex": 57,
+      "name": "WAR WALKER",
+      "frenchName": "MARCHEURS DE GUERRE"
+    },
+    {
+      "sourceKey": "Aeldari",
+      "sourceIndex": 69,
+      "name": "VYPERS",
+      "frenchName": "VYPER"
+    },
+    {
+      "sourceKey": "Death Guard",
+      "sourceIndex": 20,
+      "name": "MYPHITIC BLIGHT-HAULER",
+      "frenchName": "SEMI-CHENILLÉS MÉPHITIQUES"
+    }
+  ],
+  "unmatched": [
+    {
+      "sourceKey": "Imperial Knights",
+      "sourceIndex": 11,
+      "name": "SIR HEKHTUR"
+    }
+  ]
+}

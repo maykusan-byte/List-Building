@@ -6,7 +6,7 @@
     "source": "https://mfm.warhammer-community.com/fr",
     "version": "MFM V1.1",
     "retrievedAt": "2026-07-31",
-    "scope": "Terminologie structuree et noms de factions publies en francais. Les textes de regles et profils non presents dans une source officielle francaise restent en anglais."
+    "scope": "Noms d’unités et terminologie structurée publiés par le MFM. Aucun coût du MFM n’est importé ; règles et profils sans source française structurée restent en anglais."
   },
   "factions": {
     "Imperial Agents": "Agents Impériaux",
@@ -65,12 +65,4380 @@
     "Twin-linked": "Jumelé"
   },
   "units": {
-    "Space Marines::3": { "name": "CAPITAINE" },
-    "Space Marines::16": { "name": "ESCOUADE INTERCESSOR" },
-    "Space Marines::17": { "name": "ESCOUADE INFERNUS" },
-    "Space Marines::18": { "name": "ESCOUADE D’ASSAUT INTERCESSOR" },
-    "Space Marines::34": { "name": "ESCOUADE TERMINATOR" },
-    "Space Marines::50": { "name": "ESCOUADE HELLBLASTER" }
+    "Adepta Sororitas::0": {
+      "name": "MORVENN VAHL"
+    },
+    "Adepta Sororitas::1": {
+      "name": "CHANOINESSE"
+    },
+    "Adepta Sororitas::10": {
+      "name": "IMAGIFÈRE"
+    },
+    "Adepta Sororitas::11": {
+      "name": "DIALOGUS"
+    },
+    "Adepta Sororitas::12": {
+      "name": "PRÊTRE DU MINISTORUM"
+    },
+    "Adepta Sororitas::13": {
+      "name": "CÉLESTES SACRO-SAINTES"
+    },
+    "Adepta Sororitas::14": {
+      "name": "HOSPITALIÈRE"
+    },
+    "Adepta Sororitas::15": {
+      "name": "DOGMATA"
+    },
+    "Adepta Sororitas::16": {
+      "name": "EXO-HARNAIS PARANGON"
+    },
+    "Adepta Sororitas::17": {
+      "name": "ESCOUADE REPENTIA"
+    },
+    "Adepta Sororitas::18": {
+      "name": "ESCOUADE DOMINION"
+    },
+    "Adepta Sororitas::19": {
+      "name": "ESCOUADE SÉRAPHINE"
+    },
+    "Adepta Sororitas::2": {
+      "name": "PALATINE"
+    },
+    "Adepta Sororitas::20": {
+      "name": "ESCOUADE ZÉPHYRINE"
+    },
+    "Adepta Sororitas::21": {
+      "name": "ESCOUADE RETRIBUTOR"
+    },
+    "Adepta Sororitas::22": {
+      "name": "MORTIFICATRICES"
+    },
+    "Adepta Sororitas::23": {
+      "name": "MACHINES DE PÉNITENCE"
+    },
+    "Adepta Sororitas::24": {
+      "name": "EXORCIST"
+    },
+    "Adepta Sororitas::25": {
+      "name": "CASTIGATOR"
+    },
+    "Adepta Sororitas::26": {
+      "name": "RHINO SORORITAS"
+    },
+    "Adepta Sororitas::27": {
+      "name": "IMMOLATOR"
+    },
+    "Adepta Sororitas::28": {
+      "name": "ARCO-FLAGELLANTS"
+    },
+    "Adepta Sororitas::29": {
+      "name": "CHANOINESSE À RÉACTEUR DORSAL"
+    },
+    "Adepta Sororitas::3": {
+      "name": "JUNITH ERUITA"
+    },
+    "Adepta Sororitas::30": {
+      "name": "SANCTIFICATEURS"
+    },
+    "Adepta Sororitas::31": {
+      "name": "CÉLESTES INSIDIATRICES"
+    },
+    "Adepta Sororitas::32": {
+      "name": "INTRANZIA FRAYE"
+    },
+    "Adepta Sororitas::4": {
+      "name": "SAINTE CÉLESTINE"
+    },
+    "Adepta Sororitas::5": {
+      "name": "TRIOMPHE DE SAINTE KATHERINE"
+    },
+    "Adepta Sororitas::6": {
+      "name": "DÉMONIFUGE"
+    },
+    "Adepta Sororitas::7": {
+      "name": "ESCOUADE DE SŒURS DE BATAILLE"
+    },
+    "Adepta Sororitas::8": {
+      "name": "ESCOUADE DE SŒURS NOVICES"
+    },
+    "Adepta Sororitas::9": {
+      "name": "AESTRED THURGA ET AGATHAE DOLAN"
+    },
+    "Adeptus Custodes::0": {
+      "name": "GARDES CUSTODIENS"
+    },
+    "Adeptus Custodes::1": {
+      "name": "VEILLEURS CUSTODIENS"
+    },
+    "Adeptus Custodes::10": {
+      "name": "RHINO ANATHEMA PSYKANA"
+    },
+    "Adeptus Custodes::11": {
+      "name": "CHEVALIÈRE-CENTURA"
+    },
+    "Adeptus Custodes::12": {
+      "name": "CAPITAINE-REMPART EN ARMURE TERMINATOR ALLARUS"
+    },
+    "Adeptus Custodes::13": {
+      "name": "CAPITAINE-REMPART SUR MOTOJET DAWNEAGLE"
+    },
+    "Adeptus Custodes::14": {
+      "name": "TRAJANN VALORIS"
+    },
+    "Adeptus Custodes::15": {
+      "name": "VALERIAN"
+    },
+    "Adeptus Custodes::16": {
+      "name": "DREADNOUGHT CONTEMPTOR VÉNÉRABLE"
+    },
+    "Adeptus Custodes::17": {
+      "name": "LAND RAIDER VÉNÉRABLE"
+    },
+    "Adeptus Custodes::18": {
+      "name": "GARDES CUSTODIENS AVEC LANCES ADRASITE ET PYRITHITE"
+    },
+    "Adeptus Custodes::19": {
+      "name": "CUSTODIENS SAGITTARI"
+    },
+    "Adeptus Custodes::2": {
+      "name": "CUSTODIENS ALLARUS"
+    },
+    "Adeptus Custodes::20": {
+      "name": "CUSTODIENS AQUILON"
+    },
+    "Adeptus Custodes::21": {
+      "name": "DREADNOUGHT CONTEMPTOR-ACHILLUS"
+    },
+    "Adeptus Custodes::22": {
+      "name": "CUSTODIENS AGAMATUS"
+    },
+    "Adeptus Custodes::23": {
+      "name": "VENATARI CUSTODIENS"
+    },
+    "Adeptus Custodes::24": {
+      "name": "SPEEDER D’ATTAQUE PALLAS"
+    },
+    "Adeptus Custodes::25": {
+      "name": "DREADNOUGHT LOURD TELEMON"
+    },
+    "Adeptus Custodes::26": {
+      "name": "CHAR ANTIGRAV CALADIUS"
+    },
+    "Adeptus Custodes::27": {
+      "name": "GRAVIPORTEUR CORONUS"
+    },
+    "Adeptus Custodes::28": {
+      "name": "NAVETTE D'ASSAUT ORION"
+    },
+    "Adeptus Custodes::29": {
+      "name": "ESCORTEUR ARES"
+    },
+    "Adeptus Custodes::3": {
+      "name": "PRAETORS VERTUS"
+    },
+    "Adeptus Custodes::30": {
+      "name": "DREADNOUGHT CONTEMPTOR-GALATUS"
+    },
+    "Adeptus Custodes::4": {
+      "name": "PROSECUTORS"
+    },
+    "Adeptus Custodes::5": {
+      "name": "VIGILATORS"
+    },
+    "Adeptus Custodes::6": {
+      "name": "RÉPURGATRICES"
+    },
+    "Adeptus Custodes::7": {
+      "name": "CAPITAINE-REMPART"
+    },
+    "Adeptus Custodes::8": {
+      "name": "CHAMPION DES LAMES"
+    },
+    "Adeptus Custodes::9": {
+      "name": "ALEYA"
+    },
+    "Adeptus Mechanicus::0": {
+      "name": "ARCHÉOPTÈRE FUSILAVE"
+    },
+    "Adeptus Mechanicus::1": {
+      "name": "ARCHÉOPTÈRE STRATORAPTOR"
+    },
+    "Adeptus Mechanicus::10": {
+      "name": "DESTRUCTEURS KATAPHRON"
+    },
+    "Adeptus Mechanicus::11": {
+      "name": "ONAGRE DES DUNES"
+    },
+    "Adeptus Mechanicus::12": {
+      "name": "VAUTOURS PTERAXII"
+    },
+    "Adeptus Mechanicus::13": {
+      "name": "STÉRILISATEURS PTERAXII"
+    },
+    "Adeptus Mechanicus::14": {
+      "name": "HUSSARDS SERBERYS"
+    },
+    "Adeptus Mechanicus::15": {
+      "name": "SOUFREDOGUES SERBERYS"
+    },
+    "Adeptus Mechanicus::16": {
+      "name": "INFILTRATEURS SICARIENS"
+    },
+    "Adeptus Mechanicus::17": {
+      "name": "CORRÔDEURS SICARIENS"
+    },
+    "Adeptus Mechanicus::18": {
+      "name": "MARÉCHAL SKITARII"
+    },
+    "Adeptus Mechanicus::19": {
+      "name": "RANGERS SKITARII"
+    },
+    "Adeptus Mechanicus::2": {
+      "name": "ARCHÉOPTÈRE TRANSVECTOR"
+    },
+    "Adeptus Mechanicus::20": {
+      "name": "PATROUILLEURS SKITARII"
+    },
+    "Adeptus Mechanicus::21": {
+      "name": "DÉSINTÉGRATEUR SKORPIUS"
+    },
+    "Adeptus Mechanicus::22": {
+      "name": "GLISSEUR SKORPIUS"
+    },
+    "Adeptus Mechanicus::23": {
+      "name": "DRAGONS SYDONIENS AVEC LANCES TASER"
+    },
+    "Adeptus Mechanicus::24": {
+      "name": "DRAGONS SYDONIENS AVEC JEZZAIL À RADIUM"
+    },
+    "Adeptus Mechanicus::25": {
+      "name": "TECHNOPRÊTRE DOMINUS"
+    },
+    "Adeptus Mechanicus::26": {
+      "name": "TECHNAUGURE"
+    },
+    "Adeptus Mechanicus::27": {
+      "name": "TECHNOPRÊTRE MANIPULUS"
+    },
+    "Adeptus Mechanicus::28": {
+      "name": "TECHNOARCHÉOLOGUE"
+    },
+    "Adeptus Mechanicus::29": {
+      "name": "SKATROS SYDONIEN"
+    },
+    "Adeptus Mechanicus::3": {
+      "name": "BELISARIUS CAWL"
+    },
+    "Adeptus Mechanicus::30": {
+      "name": "CLADE DE COMBAT DE SERVITORS"
+    },
+    "Adeptus Mechanicus::31": {
+      "name": "THULIA GHULD"
+    },
+    "Adeptus Mechanicus::32": {
+      "name": "EXTERMINATEURS HASTARII"
+    },
+    "Adeptus Mechanicus::33": {
+      "name": "FUSILIERS HASTARII"
+    },
+    "Adeptus Mechanicus::4": {
+      "name": "ÉLECTROPRÊTRES CORPUSCARII"
+    },
+    "Adeptus Mechanicus::5": {
+      "name": "COMPILATEUR CYBERNÉTIQUE"
+    },
+    "Adeptus Mechanicus::6": {
+      "name": "ROBOTS KASTELAN"
+    },
+    "Adeptus Mechanicus::7": {
+      "name": "ÉLECTROPRÊTRES FULGURITES"
+    },
+    "Adeptus Mechanicus::8": {
+      "name": "FERRO-ÉCHASSIERS BALLISTARII"
+    },
+    "Adeptus Mechanicus::9": {
+      "name": "BRÉCHEURS KATAPHRON"
+    },
+    "Adeptus Titanicus::0": {
+      "name": "TITAN WARHOUND"
+    },
+    "Adeptus Titanicus::1": {
+      "name": "TITAN REAVER"
+    },
+    "Adeptus Titanicus::2": {
+      "name": "TITAN WARBRINGER NEMESIS"
+    },
+    "Adeptus Titanicus::3": {
+      "name": "TITAN WARLORD"
+    },
+    "Aeldari::0": {
+      "name": "ASURMEN"
+    },
+    "Aeldari::1": {
+      "name": "AUTARQUE"
+    },
+    "Aeldari::10": {
+      "name": "VENGEURS LUGUBRES"
+    },
+    "Aeldari::11": {
+      "name": "ELDRAD ULTHRAN"
+    },
+    "Aeldari::12": {
+      "name": "FAUCON"
+    },
+    "Aeldari::13": {
+      "name": "GRAND PROPHÈTE"
+    },
+    "Aeldari::14": {
+      "name": "GRAND PROPHÈTE COUREUR CÉLESTE"
+    },
+    "Aeldari::15": {
+      "name": "DRAGONS FLAMBOYANTS"
+    },
+    "Aeldari::16": {
+      "name": "PRISME DE FEU"
+    },
+    "Aeldari::17": {
+      "name": "FUEGAN"
+    },
+    "Aeldari::18": {
+      "name": "GARDIENS DÉFENSEURS"
+    },
+    "Aeldari::19": {
+      "name": "CHASSEUR FANTÔME CONIUM"
+    },
+    "Aeldari::2": {
+      "name": "AUTARQUE SAUTEVOIE"
+    },
+    "Aeldari::20": {
+      "name": "BANSHEES HUANTES"
+    },
+    "Aeldari::21": {
+      "name": "JAIN ZAR"
+    },
+    "Aeldari::22": {
+      "name": "MAUGAN RA"
+    },
+    "Aeldari::23": {
+      "name": "TISSEUR DE NUIT"
+    },
+    "Aeldari::24": {
+      "name": "RANGERS"
+    },
+    "Aeldari::25": {
+      "name": "PROPHÈTE DE L’OMBRE"
+    },
+    "Aeldari::26": {
+      "name": "LANCES ÉTINCELANTES"
+    },
+    "Aeldari::27": {
+      "name": "COUREURS MIRAGES"
+    },
+    "Aeldari::28": {
+      "name": "TISSEURS CÉLESTES"
+    },
+    "Aeldari::29": {
+      "name": "SOLITAIRE"
+    },
+    "Aeldari::3": {
+      "name": "AVATAR DE KHAINE"
+    },
+    "Aeldari::30": {
+      "name": "SPIRITE"
+    },
+    "Aeldari::31": {
+      "name": "TISSEUR STELLAIRE"
+    },
+    "Aeldari::32": {
+      "name": "GARDIENS DE CHOC"
+    },
+    "Aeldari::33": {
+      "name": "SCORPIONS FOUDROYANTS"
+    },
+    "Aeldari::34": {
+      "name": "ÉPERVIERS VOLTIGEURS"
+    },
+    "Aeldari::35": {
+      "name": "LE VISARQUE"
+    },
+    "Aeldari::36": {
+      "name": "L’YNCARNE"
+    },
+    "Aeldari::37": {
+      "name": "TROUPE"
+    },
+    "Aeldari::38": {
+      "name": "CORYPHÉE"
+    },
+    "Aeldari::39": {
+      "name": "TISSEUR DU NÉANT"
+    },
+    "Aeldari::4": {
+      "name": "BAHARROTH"
+    },
+    "Aeldari::40": {
+      "name": "PSYCHARQUE"
+    },
+    "Aeldari::41": {
+      "name": "ARAIGNÉES SPECTRALES"
+    },
+    "Aeldari::42": {
+      "name": "SERPENT ONDOYANT"
+    },
+    "Aeldari::43": {
+      "name": "GARDIENS DU VENT"
+    },
+    "Aeldari::44": {
+      "name": "GUERRIERS FANTÔMES"
+    },
+    "Aeldari::45": {
+      "name": "GARDES FANTÔMES"
+    },
+    "Aeldari::46": {
+      "name": "CHEVALIER FANTÔME"
+    },
+    "Aeldari::47": {
+      "name": "CHEVALIER FANTÔME AVEC SABRE SPECTRAL"
+    },
+    "Aeldari::48": {
+      "name": "SEIGNEUR FANTÔME"
+    },
+    "Aeldari::49": {
+      "name": "YVRAINE"
+    },
+    "Aeldari::5": {
+      "name": "CORSAIRES NEANTARI"
+    },
+    "Aeldari::50": {
+      "name": "CONCLAVE DE PSYCHARQUES"
+    },
+    "Aeldari::51": {
+      "name": "TITAN REVENANT"
+    },
+    "Aeldari::52": {
+      "name": "TITAN FANTÔME"
+    },
+    "Aeldari::53": {
+      "name": "LHYKHIS"
+    },
+    "Aeldari::54": {
+      "name": "PLATEFORME À CANON À DISTORSION"
+    },
+    "Aeldari::55": {
+      "name": "PLATEFORME À TISSEUR DE TÉNÈBRES"
+    },
+    "Aeldari::56": {
+      "name": "PLATEFORME À CANON À VIBRATIONS"
+    },
+    "Aeldari::57": {
+      "name": "MARCHEURS DE GUERRE"
+    },
+    "Aeldari::58": {
+      "name": "PSYCHARQUES COUREURS CÉLESTES"
+    },
+    "Aeldari::59": {
+      "name": "CÉRASTES YNNARI"
+    },
+    "Aeldari::6": {
+      "name": "CORSAIRES NEANTI"
+    },
+    "Aeldari::60": {
+      "name": "VENOM YNNARI"
+    },
+    "Aeldari::61": {
+      "name": "SUCCUBE YNNARI"
+    },
+    "Aeldari::62": {
+      "name": "ÉCUMEURS YNNARI"
+    },
+    "Aeldari::63": {
+      "name": "SACCAGEUR YNNARI"
+    },
+    "Aeldari::64": {
+      "name": "GUERRIERS KABALITES YNNARI"
+    },
+    "Aeldari::65": {
+      "name": "INCUBES YNNARI"
+    },
+    "Aeldari::66": {
+      "name": "ARCHONTE YNNARI"
+    },
+    "Aeldari::67": {
+      "name": "PRINCE YRIEL"
+    },
+    "Aeldari::68": {
+      "name": "KHARSETH"
+    },
+    "Aeldari::69": {
+      "name": "VYPER"
+    },
+    "Aeldari::7": {
+      "name": "CHASSEUR ÉCARLATE"
+    },
+    "Aeldari::70": {
+      "name": "CROCS STELLAIRES"
+    },
+    "Aeldari::71": {
+      "name": "ÉCUMEURS CÉLESTES CORSAIRES"
+    },
+    "Aeldari::8": {
+      "name": "FAUCHEURS NOIRS"
+    },
+    "Aeldari::9": {
+      "name": "BOUFFON TRAGIQUE"
+    },
+    "Astra Militarum::0": {
+      "name": "SEIGNEUR SOLAIRE LEONTUS"
+    },
+    "Astra Militarum::1": {
+      "name": "URSULA CREED"
+    },
+    "Astra Militarum::10": {
+      "name": "COMBATTANTS DES JUNGLES DE CATACHAN"
+    },
+    "Astra Militarum::11": {
+      "name": "SLY MARBO"
+    },
+    "Astra Militarum::12": {
+      "name": "KASRKINS"
+    },
+    "Astra Militarum::13": {
+      "name": "COMMISSAIRE"
+    },
+    "Astra Militarum::14": {
+      "name": "ESCOUADE D’OGRYNS"
+    },
+    "Astra Militarum::15": {
+      "name": "ESCOUADE DE TAUROGRYNS"
+    },
+    "Astra Militarum::16": {
+      "name": "CAVALIERS D’ATTILA"
+    },
+    "Astra Militarum::17": {
+      "name": "SENTINEL DE RECONNAISSANCE"
+    },
+    "Astra Militarum::18": {
+      "name": "SENTINEL BLINDÉS"
+    },
+    "Astra Militarum::19": {
+      "name": "HELLHOUND"
+    },
+    "Astra Militarum::2": {
+      "name": "CASTELLAN CADIEN"
+    },
+    "Astra Militarum::20": {
+      "name": "CHAR DE COMBAT ROGAL DORN"
+    },
+    "Astra Militarum::21": {
+      "name": "BATTERIE D’ARTILLERIE"
+    },
+    "Astra Militarum::22": {
+      "name": "CHAR DE COMBAT LEMAN RUSS"
+    },
+    "Astra Militarum::23": {
+      "name": "LEMAN RUSS DEMOLISHER"
+    },
+    "Astra Militarum::24": {
+      "name": "LEMAN RUSS VANQUISHER"
+    },
+    "Astra Militarum::25": {
+      "name": "LEMAN RUSS PUNISHER"
+    },
+    "Astra Militarum::26": {
+      "name": "LEMAN RUSS EXECUTIONER"
+    },
+    "Astra Militarum::27": {
+      "name": "LEMAN RUSS EXTERMINATOR"
+    },
+    "Astra Militarum::28": {
+      "name": "LEMAN RUSS ERADICATOR"
+    },
+    "Astra Militarum::29": {
+      "name": "BASILISK"
+    },
+    "Astra Militarum::3": {
+      "name": "ESCOUADE D’ÉTAT-MAJOR CADIENNE"
+    },
+    "Astra Militarum::30": {
+      "name": "HYDRA"
+    },
+    "Astra Militarum::31": {
+      "name": "MANTICORE"
+    },
+    "Astra Militarum::32": {
+      "name": "WYVERN"
+    },
+    "Astra Militarum::33": {
+      "name": "DEATHSTRIKE"
+    },
+    "Astra Militarum::34": {
+      "name": "CHIMERA"
+    },
+    "Astra Militarum::35": {
+      "name": "TAUROX"
+    },
+    "Astra Militarum::36": {
+      "name": "VALKYRIE"
+    },
+    "Astra Militarum::37": {
+      "name": "LIGNE DE DÉFENSE AEGIS"
+    },
+    "Astra Militarum::38": {
+      "name": "BANEBLADE"
+    },
+    "Astra Militarum::39": {
+      "name": "BANEHAMMER"
+    },
+    "Astra Militarum::4": {
+      "name": "PSYKER PRIMARIS"
+    },
+    "Astra Militarum::40": {
+      "name": "BANESWORD"
+    },
+    "Astra Militarum::41": {
+      "name": "DOOMHAMMER"
+    },
+    "Astra Militarum::42": {
+      "name": "HELLHAMMER"
+    },
+    "Astra Militarum::43": {
+      "name": "SHADOWSWORD"
+    },
+    "Astra Militarum::44": {
+      "name": "STORMLORD"
+    },
+    "Astra Militarum::45": {
+      "name": "STORMSWORD"
+    },
+    "Astra Militarum::46": {
+      "name": "ESCOUADE D’ÉTAT-MAJOR DU MILITARUM TEMPESTUS"
+    },
+    "Astra Militarum::47": {
+      "name": "PUPILLES DU TEMPESTUS"
+    },
+    "Astra Militarum::48": {
+      "name": "TAUROX PRIMUS"
+    },
+    "Astra Militarum::49": {
+      "name": "CAVALIERS DE KRIEG"
+    },
+    "Astra Militarum::5": {
+      "name": "FANTÔMES DE GAUNT"
+    },
+    "Astra Militarum::50": {
+      "name": "VÉHICULE DE DÉMOLITION CYCLOPS"
+    },
+    "Astra Militarum::51": {
+      "name": "CHASSEUR D'ATTAQUE AVENGER"
+    },
+    "Astra Militarum::52": {
+      "name": "AQUILONS DU TEMPESTUS"
+    },
+    "Astra Militarum::53": {
+      "name": "RATLINGS"
+    },
+    "Astra Militarum::54": {
+      "name": "ÉQUIPE D'ARTILLERIE"
+    },
+    "Astra Militarum::55": {
+      "name": "SAPEURS DE KRIEG"
+    },
+    "Astra Militarum::56": {
+      "name": "ESCOUADE D'ARMES LOURDES DE KRIEG"
+    },
+    "Astra Militarum::57": {
+      "name": "ESCOUADE D'ARMES LOURDES CADIENNE"
+    },
+    "Astra Militarum::58": {
+      "name": "ESCOUADE D'ARMES LOURDES DE CATACHAN"
+    },
+    "Astra Militarum::59": {
+      "name": "SEIGNEUR-MARÉCHAL DREIR"
+    },
+    "Astra Militarum::6": {
+      "name": "GARDE DU CORPS OGRYN"
+    },
+    "Astra Militarum::60": {
+      "name": "COMMANDANT DE ROGAL DORN"
+    },
+    "Astra Militarum::61": {
+      "name": "ESCOUADE D’ÉTAT-MAJOR DE CATACHAN"
+    },
+    "Astra Militarum::62": {
+      "name": "ESCOUADE D’ÉTAT-MAJOR DE KRIEG"
+    },
+    "Astra Militarum::63": {
+      "name": "COMMANDANT DE LEMAN RUSS"
+    },
+    "Astra Militarum::64": {
+      "name": "PRÊTRE DU MINISTORUM"
+    },
+    "Astra Militarum::65": {
+      "name": "TECHNAUGURE"
+    },
+    "Astra Militarum::66": {
+      "name": "COMMISSAIRE YARRICK"
+    },
+    "Astra Militarum::67": {
+      "name": "COMMISSAIRE GRAVES"
+    },
+    "Astra Militarum::68": {
+      "name": "COMMISSAIRE GRAVES À PIED"
+    },
+    "Astra Militarum::69": {
+      "name": "VBC HIPPOGRIFF"
+    },
+    "Astra Militarum::7": {
+      "name": "NORK DEDDOG"
+    },
+    "Astra Militarum::70": {
+      "name": "VFR CENTAUR"
+    },
+    "Astra Militarum::71": {
+      "name": "ESCOUADE DE RECONNAISSANCE CADIENNE"
+    },
+    "Astra Militarum::8": {
+      "name": "TROUPES DE CHOC CADIENNES"
+    },
+    "Astra Militarum::9": {
+      "name": "DEATH KORPS DE KRIEG"
+    },
+    "Black Templars::0": {
+      "name": "CASTELLAN"
+    },
+    "Black Templars::1": {
+      "name": "CHAPELAIN GRIMALDUS"
+    },
+    "Black Templars::10": {
+      "name": "IMPULSOR"
+    },
+    "Black Templars::11": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Black Templars::12": {
+      "name": "SÉNÉCHAL"
+    },
+    "Black Templars::13": {
+      "name": "REPULSOR"
+    },
+    "Black Templars::14": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Black Templars::15": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Black Templars::16": {
+      "name": "ESCOUADE DE FRÈRES D'ÉPÉE"
+    },
+    "Black Templars::17": {
+      "name": "ESCOUADE TERMINATOR"
+    },
+    "Black Templars::18": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Black Templars::19": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Black Templars::2": {
+      "name": "DOYEN DE CROISASE"
+    },
+    "Black Templars::20": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Black Templars::21": {
+      "name": "CAPITAINE"
+    },
+    "Black Templars::22": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Black Templars::23": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Black Templars::24": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Black Templars::25": {
+      "name": "LIEUTENANT"
+    },
+    "Black Templars::26": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Black Templars::27": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Black Templars::28": {
+      "name": "CHAPELAIN"
+    },
+    "Black Templars::29": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Black Templars::3": {
+      "name": "ESCOUADE CRUSADER"
+    },
+    "Black Templars::30": {
+      "name": "TECHMARINE"
+    },
+    "Black Templars::31": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Black Templars::32": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Black Templars::33": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Black Templars::34": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Black Templars::35": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Black Templars::36": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Black Templars::37": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Black Templars::38": {
+      "name": "ESCOUADE TACTIQUE"
+    },
+    "Black Templars::39": {
+      "name": "ESCOUADE SCOUT"
+    },
+    "Black Templars::4": {
+      "name": "CHAMPION DE L’EMPEREUR"
+    },
+    "Black Templars::40": {
+      "name": "APOTHICAIRE BIOLOGIS"
+    },
+    "Black Templars::41": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Black Templars::42": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Black Templars::43": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Black Templars::44": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Black Templars::45": {
+      "name": "JUDICATEUR"
+    },
+    "Black Templars::46": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Black Templars::47": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Black Templars::48": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Black Templars::49": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Black Templars::5": {
+      "name": "EXECRATOR"
+    },
+    "Black Templars::50": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Black Templars::51": {
+      "name": "DREADNOUGHT"
+    },
+    "Black Templars::52": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Black Templars::53": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Black Templars::54": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Black Templars::55": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Black Templars::56": {
+      "name": "QUAD INVADER"
+    },
+    "Black Templars::57": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Black Templars::58": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Black Templars::59": {
+      "name": "LAND SPEEDER"
+    },
+    "Black Templars::6": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Black Templars::60": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Black Templars::61": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Black Templars::62": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Black Templars::63": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Black Templars::64": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Black Templars::65": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Black Templars::66": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Black Templars::67": {
+      "name": "ESCOUADE DEVASTATOR"
+    },
+    "Black Templars::68": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Black Templars::69": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Black Templars::7": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Black Templars::70": {
+      "name": "WHIRLWIND"
+    },
+    "Black Templars::71": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Black Templars::72": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Black Templars::73": {
+      "name": "VINDICATOR"
+    },
+    "Black Templars::74": {
+      "name": "LAND RAIDER"
+    },
+    "Black Templars::75": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Black Templars::76": {
+      "name": "RHINO"
+    },
+    "Black Templars::77": {
+      "name": "RAZORBACK"
+    },
+    "Black Templars::78": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Black Templars::79": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Black Templars::8": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Black Templars::80": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Black Templars::81": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Black Templars::82": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Black Templars::83": {
+      "name": "ASTRAEUS"
+    },
+    "Black Templars::84": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Black Templars::85": {
+      "name": "APOTHICAIRE"
+    },
+    "Black Templars::86": {
+      "name": "DOYEN"
+    },
+    "Black Templars::87": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Black Templars::88": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Black Templars::89": {
+      "name": "ESCOUADE D’ASSAUT TERMINATOR"
+    },
+    "Black Templars::9": {
+      "name": "GRAND SÉNÉCHAL HELBRECHT"
+    },
+    "Blood Angels::0": {
+      "name": "ASTORATH"
+    },
+    "Blood Angels::1": {
+      "name": "PREDATOR BAAL"
+    },
+    "Blood Angels::10": {
+      "name": "PRÊTRE SANGUINIEN"
+    },
+    "Blood Angels::11": {
+      "name": "LE SANGUINOR"
+    },
+    "Blood Angels::12": {
+      "name": "CAPITAINE DES BLOOD ANGELS"
+    },
+    "Blood Angels::13": {
+      "name": "CAPITAINE DE LA COMPAGNIE DE LA MORT"
+    },
+    "Blood Angels::14": {
+      "name": "CAPITAINE DE LA COMPAGNIE DE LA MORT À RÉACTEUR DORSAL"
+    },
+    "Blood Angels::15": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Blood Angels::16": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Blood Angels::17": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Blood Angels::18": {
+      "name": "CAPITAINE"
+    },
+    "Blood Angels::19": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Blood Angels::2": {
+      "name": "MAÎTRE ARCHIVISTE MÉPHISTON"
+    },
+    "Blood Angels::20": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Blood Angels::21": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Blood Angels::22": {
+      "name": "LIEUTENANT"
+    },
+    "Blood Angels::23": {
+      "name": "ARCHIVISTE EN ARMURE PHOBOS"
+    },
+    "Blood Angels::24": {
+      "name": "ARCHIVISTE EN ARMURE TERMINATOR"
+    },
+    "Blood Angels::25": {
+      "name": "ARCHIVISTE"
+    },
+    "Blood Angels::26": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Blood Angels::27": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Blood Angels::28": {
+      "name": "CHAPELAIN"
+    },
+    "Blood Angels::29": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Blood Angels::3": {
+      "name": "COMMANDEUR DANTE"
+    },
+    "Blood Angels::30": {
+      "name": "TECHMARINE"
+    },
+    "Blood Angels::31": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Blood Angels::32": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Blood Angels::33": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Blood Angels::34": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Blood Angels::35": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Blood Angels::36": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Blood Angels::37": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Blood Angels::38": {
+      "name": "ESCOUADE TACTIQUE"
+    },
+    "Blood Angels::39": {
+      "name": "ESCOUADE SCOUT"
+    },
+    "Blood Angels::4": {
+      "name": "DREADNOUGHT DE LA COMPAGNIE DE LA MORT"
+    },
+    "Blood Angels::40": {
+      "name": "APOTHICAIRE BIOLOGIS"
+    },
+    "Blood Angels::41": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Blood Angels::42": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Blood Angels::43": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Blood Angels::44": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Blood Angels::45": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Blood Angels::46": {
+      "name": "JUDICATEUR"
+    },
+    "Blood Angels::47": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Blood Angels::48": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Blood Angels::49": {
+      "name": "ESCOUADE TERMINATOR"
+    },
+    "Blood Angels::5": {
+      "name": "MARINES DE LA COMPAGNIE DE LA MORT AVEC FUSILS BOLTERS"
+    },
+    "Blood Angels::50": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Blood Angels::51": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Blood Angels::52": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Blood Angels::53": {
+      "name": "DREADNOUGHT"
+    },
+    "Blood Angels::54": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Blood Angels::55": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Blood Angels::56": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Blood Angels::57": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Blood Angels::58": {
+      "name": "QUAD INVADER"
+    },
+    "Blood Angels::59": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Blood Angels::6": {
+      "name": "MARINES DE LA COMPAGNIE DE LA MORT"
+    },
+    "Blood Angels::60": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Blood Angels::61": {
+      "name": "LAND SPEEDER"
+    },
+    "Blood Angels::62": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Blood Angels::63": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Blood Angels::64": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Blood Angels::65": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Blood Angels::66": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Blood Angels::67": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Blood Angels::68": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Blood Angels::69": {
+      "name": "ESCOUADE DEVASTATOR"
+    },
+    "Blood Angels::7": {
+      "name": "MARINES DE LA COMPAGNIE DE LA MORT À RÉACTEURS DORSAUX"
+    },
+    "Blood Angels::70": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Blood Angels::71": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Blood Angels::72": {
+      "name": "WHIRLWIND"
+    },
+    "Blood Angels::73": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Blood Angels::74": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Blood Angels::75": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Blood Angels::76": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Blood Angels::77": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Blood Angels::78": {
+      "name": "VINDICATOR"
+    },
+    "Blood Angels::79": {
+      "name": "LAND RAIDER"
+    },
+    "Blood Angels::8": {
+      "name": "LEMARTES"
+    },
+    "Blood Angels::80": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Blood Angels::81": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Blood Angels::82": {
+      "name": "REPULSOR"
+    },
+    "Blood Angels::83": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Blood Angels::84": {
+      "name": "RHINO"
+    },
+    "Blood Angels::85": {
+      "name": "RAZORBACK"
+    },
+    "Blood Angels::86": {
+      "name": "IMPULSOR"
+    },
+    "Blood Angels::87": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Blood Angels::88": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Blood Angels::89": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Blood Angels::9": {
+      "name": "GARDE SANGUINIENNE"
+    },
+    "Blood Angels::90": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Blood Angels::91": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Blood Angels::92": {
+      "name": "ASTRAEUS"
+    },
+    "Blood Angels::93": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Blood Angels::94": {
+      "name": "APOTHICAIRE"
+    },
+    "Blood Angels::95": {
+      "name": "DOYEN"
+    },
+    "Blood Angels::96": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Blood Angels::97": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Blood Angels::98": {
+      "name": "ESCOUADE D’ASSAUT TERMINATOR"
+    },
+    "Chaos Daemons::0": {
+      "name": "SKARBRAND"
+    },
+    "Chaos Daemons::1": {
+      "name": "BUVEUR DE SANG"
+    },
+    "Chaos Daemons::10": {
+      "name": "AUTEL DES CRÂNES"
+    },
+    "Chaos Daemons::11": {
+      "name": "KAIROS FATEWEAVER"
+    },
+    "Chaos Daemons::12": {
+      "name": "DUC DU CHANGEMENT"
+    },
+    "Chaos Daemons::13": {
+      "name": "LE MYSTIFICATEUR"
+    },
+    "Chaos Daemons::14": {
+      "name": "FORTUNARQUE"
+    },
+    "Chaos Daemons::15": {
+      "name": "FLUCTUARQUE"
+    },
+    "Chaos Daemons::16": {
+      "name": "LES SCRIBES BLEUS"
+    },
+    "Chaos Daemons::17": {
+      "name": "FALSIFICATEUR"
+    },
+    "Chaos Daemons::18": {
+      "name": "HORREURS BLEUES"
+    },
+    "Chaos Daemons::19": {
+      "name": "HORREURS ROSES"
+    },
+    "Chaos Daemons::2": {
+      "name": "PRENEUR DE CRÂNES"
+    },
+    "Chaos Daemons::20": {
+      "name": "INCENDIAIRES"
+    },
+    "Chaos Daemons::21": {
+      "name": "INCENDIAIRE EXALTÉ"
+    },
+    "Chaos Daemons::22": {
+      "name": "HURLEURS"
+    },
+    "Chaos Daemons::23": {
+      "name": "CHAR ARDENT"
+    },
+    "Chaos Daemons::24": {
+      "name": "ROTIGUS"
+    },
+    "Chaos Daemons::25": {
+      "name": "GRAND IMMONDE"
+    },
+    "Chaos Daemons::26": {
+      "name": "PORTE-VÉROLE"
+    },
+    "Chaos Daemons::27": {
+      "name": "SCRIBE AVARIEUR"
+    },
+    "Chaos Daemons::28": {
+      "name": "EPIDEMIUS"
+    },
+    "Chaos Daemons::29": {
+      "name": "COMIQUE TRIPIER"
+    },
+    "Chaos Daemons::3": {
+      "name": "MAÎTRE DU SANG"
+    },
+    "Chaos Daemons::30": {
+      "name": "HORTICULOUS SLIMUX"
+    },
+    "Chaos Daemons::31": {
+      "name": "PORTEPESTES"
+    },
+    "Chaos Daemons::32": {
+      "name": "NURGLINGS"
+    },
+    "Chaos Daemons::33": {
+      "name": "BÊTES DE NURGLE"
+    },
+    "Chaos Daemons::34": {
+      "name": "BOURDONS DE LA PESTE"
+    },
+    "Chaos Daemons::35": {
+      "name": "GUEULE NOUEUSE IMMONDE"
+    },
+    "Chaos Daemons::36": {
+      "name": "SHALAXI HELBANE"
+    },
+    "Chaos Daemons::37": {
+      "name": "GARDIEN DES SECRETS"
+    },
+    "Chaos Daemons::38": {
+      "name": "SÉDUCTRICE INFERNALE"
+    },
+    "Chaos Daemons::39": {
+      "name": "LE MASQUE DE SLAANESH"
+    },
+    "Chaos Daemons::4": {
+      "name": "MAÎTRE DES CRÂNES"
+    },
+    "Chaos Daemons::40": {
+      "name": "SYLL’ESSKE"
+    },
+    "Chaos Daemons::41": {
+      "name": "ÉPITOME TORTUEUX"
+    },
+    "Chaos Daemons::42": {
+      "name": "TISSETRANSE"
+    },
+    "Chaos Daemons::43": {
+      "name": "DÉMONETTES"
+    },
+    "Chaos Daemons::44": {
+      "name": "CHARNELLES"
+    },
+    "Chaos Daemons::45": {
+      "name": "VENEUSES"
+    },
+    "Chaos Daemons::46": {
+      "name": "BE’LAKOR"
+    },
+    "Chaos Daemons::47": {
+      "name": "BROYEUR D’ÂMES"
+    },
+    "Chaos Daemons::48": {
+      "name": "PRINCE DÉMON DU CHAOS"
+    },
+    "Chaos Daemons::49": {
+      "name": "PRINCE DÉMON DU CHAOS AILÉ"
+    },
+    "Chaos Daemons::5": {
+      "name": "MUTILEUR SUR TRÔNE DE SANG"
+    },
+    "Chaos Daemons::50": {
+      "name": "KARANAK"
+    },
+    "Chaos Daemons::51": {
+      "name": "CHARS ÉCORCHEURS"
+    },
+    "Chaos Daemons::52": {
+      "name": "TOURMENTEUSE"
+    },
+    "Chaos Daemons::6": {
+      "name": "SANGUINAIRES"
+    },
+    "Chaos Daemons::7": {
+      "name": "ÉQUARRISSEURS"
+    },
+    "Chaos Daemons::8": {
+      "name": "MOLOSSES DE KHORNE"
+    },
+    "Chaos Daemons::9": {
+      "name": "CANON À CRÂNES"
+    },
+    "Chaos Knights::0": {
+      "name": "CHEVALIER TYRAN"
+    },
+    "Chaos Knights::1": {
+      "name": "CHEVALIER PILLARD"
+    },
+    "Chaos Knights::10": {
+      "name": "DOGUE KARNIVORE"
+    },
+    "Chaos Knights::11": {
+      "name": "CHEVALIER ACASTUS ASTÉRIUS DU CHAOS"
+    },
+    "Chaos Knights::12": {
+      "name": "CHEVALIER ACASTUS PORPHYRION DU CHAOS"
+    },
+    "Chaos Knights::13": {
+      "name": "CHEVALIER CERASTUS LANCIER DU CHAOS"
+    },
+    "Chaos Knights::14": {
+      "name": "CHEVALIER CERASTUS CASTIGATEUR DU CHAOS"
+    },
+    "Chaos Knights::15": {
+      "name": "CHEVALIER CERASTUS ACHÉRON DU CHAOS"
+    },
+    "Chaos Knights::16": {
+      "name": "CHEVALIER CERASTUS ATRAPOS DU CHAOS"
+    },
+    "Chaos Knights::17": {
+      "name": "CHEVALIER QUESTORIS MAGAERA DU CHAOS"
+    },
+    "Chaos Knights::18": {
+      "name": "CHEVALIER QUESTORIS STYRIX DU CHAOS"
+    },
+    "Chaos Knights::19": {
+      "name": "DOGUE MOIRAX"
+    },
+    "Chaos Knights::2": {
+      "name": "CHEVALIER ABOMINABLE"
+    },
+    "Chaos Knights::3": {
+      "name": "CHEVALIER RUINEUR"
+    },
+    "Chaos Knights::4": {
+      "name": "CHEVALIER PROFANATEUR"
+    },
+    "Chaos Knights::5": {
+      "name": "CHEVALIER SACCAGEUR"
+    },
+    "Chaos Knights::6": {
+      "name": "DOGUE CHASSEUR"
+    },
+    "Chaos Knights::7": {
+      "name": "DOGUE EXÉCUTEUR"
+    },
+    "Chaos Knights::8": {
+      "name": "DOGUE BRIGAND"
+    },
+    "Chaos Knights::9": {
+      "name": "DOGUE RABATTEUR"
+    },
+    "Chaos Space Marines::0": {
+      "name": "ABADDON LE FLÉAU"
+    },
+    "Chaos Space Marines::1": {
+      "name": "HAARKEN WORLDCLAIMER"
+    },
+    "Chaos Space Marines::10": {
+      "name": "MAÎTRE DE LA POSSESSION"
+    },
+    "Chaos Space Marines::11": {
+      "name": "SEIGNEUR DU CHAOS"
+    },
+    "Chaos Space Marines::12": {
+      "name": "SEIGNEUR DU CHAOS EN ARMURE TERMINATOR"
+    },
+    "Chaos Space Marines::13": {
+      "name": "SORCIER"
+    },
+    "Chaos Space Marines::14": {
+      "name": "SORCIER EN ARMURE TERMINATOR"
+    },
+    "Chaos Space Marines::15": {
+      "name": "SEIGNEUR DE LA DISCORDE SUR MÉTARÔDEUR"
+    },
+    "Chaos Space Marines::16": {
+      "name": "TECHMANCIEN"
+    },
+    "Chaos Space Marines::17": {
+      "name": "APÔTRE NOIR"
+    },
+    "Chaos Space Marines::18": {
+      "name": "SOMBRE COMMUNION"
+    },
+    "Chaos Space Marines::19": {
+      "name": "LÉGIONNAIRES"
+    },
+    "Chaos Space Marines::2": {
+      "name": "HURON BLACKHEART"
+    },
+    "Chaos Space Marines::20": {
+      "name": "BANDE DE CULTISTES"
+    },
+    "Chaos Space Marines::21": {
+      "name": "CULTISTES MAUDITS"
+    },
+    "Chaos Space Marines::22": {
+      "name": "ESCOUADE TERMINATOR DU CHAOS"
+    },
+    "Chaos Space Marines::23": {
+      "name": "MAÎTRE DES EXÉCUTIONS"
+    },
+    "Chaos Space Marines::24": {
+      "name": "POSSÉDÉS"
+    },
+    "Chaos Space Marines::25": {
+      "name": "ÉLUS"
+    },
+    "Chaos Space Marines::26": {
+      "name": "MÉTARAGNE"
+    },
+    "Chaos Space Marines::27": {
+      "name": "MOTARDS DU CHAOS"
+    },
+    "Chaos Space Marines::28": {
+      "name": "RAPACES"
+    },
+    "Chaos Space Marines::29": {
+      "name": "SERRES DU WARP"
+    },
+    "Chaos Space Marines::3": {
+      "name": "MAÎTRES DU MAELSTRÖM"
+    },
+    "Chaos Space Marines::30": {
+      "name": "HAVOCS"
+    },
+    "Chaos Space Marines::31": {
+      "name": "OBLITERATORS"
+    },
+    "Chaos Space Marines::32": {
+      "name": "LAND RAIDER DU CHAOS"
+    },
+    "Chaos Space Marines::33": {
+      "name": "PREDATOR ANNIHILATOR DU CHAOS"
+    },
+    "Chaos Space Marines::34": {
+      "name": "PREDATOR DESTRUCTOR DU CHAOS"
+    },
+    "Chaos Space Marines::35": {
+      "name": "VINDICATOR DU CHAOS"
+    },
+    "Chaos Space Marines::36": {
+      "name": "FERROCENTAURUS"
+    },
+    "Chaos Space Marines::37": {
+      "name": "MÉTABRUTUS"
+    },
+    "Chaos Space Marines::38": {
+      "name": "MÉTADRAK"
+    },
+    "Chaos Space Marines::39": {
+      "name": "FERROCERBERUS"
+    },
+    "Chaos Space Marines::4": {
+      "name": "PILLARDS RED CORSAIRS"
+    },
+    "Chaos Space Marines::40": {
+      "name": "RHINO DU CHAOS"
+    },
+    "Chaos Space Marines::41": {
+      "name": "REJETONS DU CHAOS"
+    },
+    "Chaos Space Marines::42": {
+      "name": "SEIGNEUR DES CRÂNES DE KHORNE"
+    },
+    "Chaos Space Marines::43": {
+      "name": "COURONNE DE NOCTILITHE"
+    },
+    "Chaos Space Marines::44": {
+      "name": "VASHTORR L’ARKIFANE"
+    },
+    "Chaos Space Marines::45": {
+      "name": "ESCOUADE DE GARDES RENÉGATS"
+    },
+    "Chaos Space Marines::46": {
+      "name": "HOMMES-BÊTES AFFREGORS"
+    },
+    "Chaos Space Marines::47": {
+      "name": "ACCUSATEUR RENÉGAT"
+    },
+    "Chaos Space Marines::48": {
+      "name": "CULTISTE BOUTEFEU"
+    },
+    "Chaos Space Marines::49": {
+      "name": "SEIGNEUR DU CHAOS À RÉACTEUR DORSAL"
+    },
+    "Chaos Space Marines::5": {
+      "name": "CAPITAINE-ÉCUMEUR RED CORSAIR"
+    },
+    "Chaos Space Marines::50": {
+      "name": "GRIFFE NÉMÉSIS"
+    },
+    "Chaos Space Marines::51": {
+      "name": "KRAVEK MORNE"
+    },
+    "Chaos Space Marines::52": {
+      "name": "MUTILATORS"
+    },
+    "Chaos Space Marines::53": {
+      "name": "PROFANATEUR"
+    },
+    "Chaos Space Marines::6": {
+      "name": "PRINCE DÉMON DE L’HERETICUS ASTARTES"
+    },
+    "Chaos Space Marines::7": {
+      "name": "PRINCE DÉMON DE L’HERETICUS ASTARTES AILÉ"
+    },
+    "Chaos Space Marines::8": {
+      "name": "FABIUS BILE"
+    },
+    "Chaos Space Marines::9": {
+      "name": "CYPHER"
+    },
+    "Dark Angels::0": {
+      "name": "AZRAËL"
+    },
+    "Dark Angels::1": {
+      "name": "BÉLIAL"
+    },
+    "Dark Angels::10": {
+      "name": "DARKSHROUD DE LA RAVENWING"
+    },
+    "Dark Angels::11": {
+      "name": "LAND SPEEDER VENGEANCE"
+    },
+    "Dark Angels::12": {
+      "name": "DARK TALON DE LA RAVENWING"
+    },
+    "Dark Angels::13": {
+      "name": "CHASSEUR NÉPHILIM"
+    },
+    "Dark Angels::14": {
+      "name": "LION EL’JONSON"
+    },
+    "Dark Angels::15": {
+      "name": "COMPAGNONS DU CERCLE INTÉRIEUR"
+    },
+    "Dark Angels::16": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Dark Angels::17": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Dark Angels::18": {
+      "name": "QUAD INVADER"
+    },
+    "Dark Angels::19": {
+      "name": "LAND SPEEDER"
+    },
+    "Dark Angels::2": {
+      "name": "SAMMAËL"
+    },
+    "Dark Angels::20": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Dark Angels::21": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Dark Angels::22": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Dark Angels::23": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Dark Angels::24": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Dark Angels::25": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Dark Angels::26": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Dark Angels::27": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Dark Angels::28": {
+      "name": "ARCHIVISTE EN ARMURE TERMINATOR"
+    },
+    "Dark Angels::29": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Dark Angels::3": {
+      "name": "ÉZÉKIEL"
+    },
+    "Dark Angels::30": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Dark Angels::31": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Dark Angels::32": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Dark Angels::33": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Dark Angels::34": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Dark Angels::35": {
+      "name": "ESCOUADE TERMINATOR"
+    },
+    "Dark Angels::36": {
+      "name": "DREADNOUGHT"
+    },
+    "Dark Angels::37": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Dark Angels::38": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Dark Angels::39": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Dark Angels::4": {
+      "name": "ASMODAÏ"
+    },
+    "Dark Angels::40": {
+      "name": "LAND RAIDER"
+    },
+    "Dark Angels::41": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Dark Angels::42": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Dark Angels::43": {
+      "name": "REPULSOR"
+    },
+    "Dark Angels::44": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Dark Angels::45": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Dark Angels::46": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Dark Angels::47": {
+      "name": "CAPITAINE"
+    },
+    "Dark Angels::48": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Dark Angels::49": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Dark Angels::5": {
+      "name": "LAZARUS"
+    },
+    "Dark Angels::50": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Dark Angels::51": {
+      "name": "LIEUTENANT"
+    },
+    "Dark Angels::52": {
+      "name": "ARCHIVISTE EN ARMURE PHOBOS"
+    },
+    "Dark Angels::53": {
+      "name": "ARCHIVISTE"
+    },
+    "Dark Angels::54": {
+      "name": "CHAPELAIN"
+    },
+    "Dark Angels::55": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Dark Angels::56": {
+      "name": "TECHMARINE"
+    },
+    "Dark Angels::57": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Dark Angels::58": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Dark Angels::59": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Dark Angels::6": {
+      "name": "ESCOUADE TERMINATOR DE LA DEATHWING"
+    },
+    "Dark Angels::60": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Dark Angels::61": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Dark Angels::62": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Dark Angels::63": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Dark Angels::64": {
+      "name": "ESCOUADE TACTIQUE"
+    },
+    "Dark Angels::65": {
+      "name": "ESCOUADE SCOUT"
+    },
+    "Dark Angels::66": {
+      "name": "APOTHICAIRE BIOLOGIS"
+    },
+    "Dark Angels::67": {
+      "name": "JUDICATEUR"
+    },
+    "Dark Angels::68": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Dark Angels::69": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Dark Angels::7": {
+      "name": "CHEVALIERS DE LA DEATHWING"
+    },
+    "Dark Angels::70": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Dark Angels::71": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Dark Angels::72": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Dark Angels::73": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Dark Angels::74": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Dark Angels::75": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Dark Angels::76": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Dark Angels::77": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Dark Angels::78": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Dark Angels::79": {
+      "name": "ESCOUADE DEVASTATOR"
+    },
+    "Dark Angels::8": {
+      "name": "ESCOUADE D’ÉTAT-MAJOR DE LA RAVENWING"
+    },
+    "Dark Angels::80": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Dark Angels::81": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Dark Angels::82": {
+      "name": "WHIRLWIND"
+    },
+    "Dark Angels::83": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Dark Angels::84": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Dark Angels::85": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Dark Angels::86": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Dark Angels::87": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Dark Angels::88": {
+      "name": "VINDICATOR"
+    },
+    "Dark Angels::89": {
+      "name": "RHINO"
+    },
+    "Dark Angels::9": {
+      "name": "CHEVALIERS NOIRS DE LA RAVENWING"
+    },
+    "Dark Angels::90": {
+      "name": "RAZORBACK"
+    },
+    "Dark Angels::91": {
+      "name": "IMPULSOR"
+    },
+    "Dark Angels::92": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Dark Angels::93": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Dark Angels::94": {
+      "name": "ASTRAEUS"
+    },
+    "Dark Angels::95": {
+      "name": "APOTHICAIRE"
+    },
+    "Dark Angels::96": {
+      "name": "DOYEN"
+    },
+    "Dark Angels::97": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Dark Angels::98": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Dark Angels::99": {
+      "name": "ESCOUADE D’ASSAUT TERMINATOR"
+    },
+    "Death Guard::0": {
+      "name": "MORTARION"
+    },
+    "Death Guard::1": {
+      "name": "TYPHUS"
+    },
+    "Death Guard::10": {
+      "name": "BIOLOGUS PUTRÉFACTEUR"
+    },
+    "Death Guard::11": {
+      "name": "INTENDANT"
+    },
+    "Death Guard::12": {
+      "name": "CHIRURGIEN DE LA PESTE"
+    },
+    "Death Guard::13": {
+      "name": "VÉROLEUX"
+    },
+    "Death Guard::14": {
+      "name": "PORTE-ICÔNE"
+    },
+    "Death Guard::15": {
+      "name": "MARINES DE LA PESTE"
+    },
+    "Death Guard::16": {
+      "name": "TERMINATORS ROUILLARQUES"
+    },
+    "Death Guard::17": {
+      "name": "TERMINATORS DU LINCEUL"
+    },
+    "Death Guard::18": {
+      "name": "MÉTABRUTUS"
+    },
+    "Death Guard::19": {
+      "name": "REJETONS DU CHAOS"
+    },
+    "Death Guard::2": {
+      "name": "PRINCE DÉMON DE NURGLE"
+    },
+    "Death Guard::20": {
+      "name": "SEMI-CHENILLÉS MÉPHITIQUES"
+    },
+    "Death Guard::21": {
+      "name": "DRONE FÉTIDE"
+    },
+    "Death Guard::22": {
+      "name": "DRONE FÉTIDE AVEC LANCE-PESTE LOURD"
+    },
+    "Death Guard::23": {
+      "name": "CHENILLÉ CRACHEPESTE"
+    },
+    "Death Guard::24": {
+      "name": "PREDATOR ANNIHILATOR DU CHAOS"
+    },
+    "Death Guard::25": {
+      "name": "PREDATOR DESTRUCTOR DU CHAOS"
+    },
+    "Death Guard::26": {
+      "name": "LAND RAIDER DU CHAOS"
+    },
+    "Death Guard::27": {
+      "name": "RHINO DU CHAOS"
+    },
+    "Death Guard::28": {
+      "name": "EXHAUSTEUR PANDÉMIQUE"
+    },
+    "Death Guard::29": {
+      "name": "ROTIGUS"
+    },
+    "Death Guard::3": {
+      "name": "PRINCE DÉMON DE NURGLE AILÉ"
+    },
+    "Death Guard::30": {
+      "name": "GRAND IMMONDE"
+    },
+    "Death Guard::31": {
+      "name": "PORTEPESTES"
+    },
+    "Death Guard::32": {
+      "name": "BOURDONS DE LA PESTE"
+    },
+    "Death Guard::33": {
+      "name": "BÊTES DE NURGLE"
+    },
+    "Death Guard::34": {
+      "name": "NURGLINGS"
+    },
+    "Death Guard::35": {
+      "name": "PROFANATEUR"
+    },
+    "Death Guard::4": {
+      "name": "SEIGNEUR DE LA VIRULENCE"
+    },
+    "Death Guard::5": {
+      "name": "SEIGNEUR DES VÉROLES"
+    },
+    "Death Guard::6": {
+      "name": "SEIGNEUR DE LA CONTAGION"
+    },
+    "Death Guard::7": {
+      "name": "ESSAIMEUR RÉPUGNANT"
+    },
+    "Death Guard::8": {
+      "name": "DÉLABREUR DÉLÉTÈRE"
+    },
+    "Death Guard::9": {
+      "name": "CORRUPTEUR NIDOREUX"
+    },
+    "Deathwatch::0": {
+      "name": "MAÎTRE DU GUET"
+    },
+    "Deathwatch::1": {
+      "name": "CAPITAINE DU GUET ARTEMIS"
+    },
+    "Deathwatch::10": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Deathwatch::11": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Deathwatch::12": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Deathwatch::13": {
+      "name": "CAPITAINE"
+    },
+    "Deathwatch::14": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Deathwatch::15": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Deathwatch::16": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Deathwatch::17": {
+      "name": "LIEUTENANT"
+    },
+    "Deathwatch::18": {
+      "name": "ARCHIVISTE EN ARMURE PHOBOS"
+    },
+    "Deathwatch::19": {
+      "name": "ARCHIVISTE EN ARMURE TERMINATOR"
+    },
+    "Deathwatch::2": {
+      "name": "VÉTÉRANS DE LA DEATHWATCH"
+    },
+    "Deathwatch::20": {
+      "name": "ARCHIVISTE"
+    },
+    "Deathwatch::21": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Deathwatch::22": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Deathwatch::23": {
+      "name": "CHAPELAIN"
+    },
+    "Deathwatch::24": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Deathwatch::25": {
+      "name": "TECHMARINE"
+    },
+    "Deathwatch::26": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Deathwatch::27": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Deathwatch::28": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Deathwatch::29": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Deathwatch::3": {
+      "name": "ESCOUADE TERMINATOR DE LA DEATHWATCH"
+    },
+    "Deathwatch::30": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Deathwatch::31": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Deathwatch::32": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Deathwatch::33": {
+      "name": "APOTHICAIRE BIOLOGIS"
+    },
+    "Deathwatch::34": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Deathwatch::35": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Deathwatch::36": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Deathwatch::37": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Deathwatch::38": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Deathwatch::39": {
+      "name": "JUDICATEUR"
+    },
+    "Deathwatch::4": {
+      "name": "CORVUS BLACKSTAR"
+    },
+    "Deathwatch::40": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Deathwatch::41": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Deathwatch::42": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Deathwatch::43": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Deathwatch::44": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Deathwatch::45": {
+      "name": "DREADNOUGHT"
+    },
+    "Deathwatch::46": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Deathwatch::47": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Deathwatch::48": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Deathwatch::49": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Deathwatch::5": {
+      "name": "KILL TEAM TALONSTRIKE"
+    },
+    "Deathwatch::50": {
+      "name": "QUAD INVADER"
+    },
+    "Deathwatch::51": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Deathwatch::52": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Deathwatch::53": {
+      "name": "LAND SPEEDER"
+    },
+    "Deathwatch::54": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Deathwatch::55": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Deathwatch::56": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Deathwatch::57": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Deathwatch::58": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Deathwatch::59": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Deathwatch::6": {
+      "name": "KILL TEAM FORTIS"
+    },
+    "Deathwatch::60": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Deathwatch::61": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Deathwatch::62": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Deathwatch::63": {
+      "name": "WHIRLWIND"
+    },
+    "Deathwatch::64": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Deathwatch::65": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Deathwatch::66": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Deathwatch::67": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Deathwatch::68": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Deathwatch::69": {
+      "name": "VINDICATOR"
+    },
+    "Deathwatch::7": {
+      "name": "KILL TEAM INDOMITOR"
+    },
+    "Deathwatch::70": {
+      "name": "LAND RAIDER"
+    },
+    "Deathwatch::71": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Deathwatch::72": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Deathwatch::73": {
+      "name": "REPULSOR"
+    },
+    "Deathwatch::74": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Deathwatch::75": {
+      "name": "RHINO"
+    },
+    "Deathwatch::76": {
+      "name": "RAZORBACK"
+    },
+    "Deathwatch::77": {
+      "name": "IMPULSOR"
+    },
+    "Deathwatch::78": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Deathwatch::79": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Deathwatch::8": {
+      "name": "KILL TEAM SPECTRUS"
+    },
+    "Deathwatch::80": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Deathwatch::81": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Deathwatch::82": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Deathwatch::83": {
+      "name": "ASTRAEUS"
+    },
+    "Deathwatch::84": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Deathwatch::85": {
+      "name": "APOTHICAIRE"
+    },
+    "Deathwatch::86": {
+      "name": "DOYEN"
+    },
+    "Deathwatch::87": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Deathwatch::88": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Deathwatch::9": {
+      "name": "KILL TEAM DECIMUS"
+    },
+    "Drukhari::0": {
+      "name": "DRAZHAR"
+    },
+    "Drukhari::1": {
+      "name": "INCUBES"
+    },
+    "Drukhari::10": {
+      "name": "CÉRASTES"
+    },
+    "Drukhari::11": {
+      "name": "ÉCUMEURS"
+    },
+    "Drukhari::12": {
+      "name": "SUCCUBE"
+    },
+    "Drukhari::13": {
+      "name": "CRONOS"
+    },
+    "Drukhari::14": {
+      "name": "MANDRAGORES"
+    },
+    "Drukhari::15": {
+      "name": "HELLIONS"
+    },
+    "Drukhari::16": {
+      "name": "LELITH HESPERAX"
+    },
+    "Drukhari::17": {
+      "name": "GORGONES"
+    },
+    "Drukhari::18": {
+      "name": "HÉMONCULE"
+    },
+    "Drukhari::19": {
+      "name": "GUERRIERS KABALITES"
+    },
+    "Drukhari::2": {
+      "name": "DAME MALYS"
+    },
+    "Drukhari::20": {
+      "name": "ARCHONTE"
+    },
+    "Drukhari::21": {
+      "name": "CHASSEUR STYMPHALE"
+    },
+    "Drukhari::22": {
+      "name": "BOMBARDIER KORVIDE"
+    },
+    "Drukhari::3": {
+      "name": "TALOS"
+    },
+    "Drukhari::4": {
+      "name": "RAVAGEUR"
+    },
+    "Drukhari::5": {
+      "name": "VENOM"
+    },
+    "Drukhari::6": {
+      "name": "MAIN DE L'ARCHONTE"
+    },
+    "Drukhari::7": {
+      "name": "SACCAGEUR"
+    },
+    "Drukhari::8": {
+      "name": "FLÉAUX AVEC CARABINES ÉCLATEUSES"
+    },
+    "Drukhari::9": {
+      "name": "FLÉAUX AVEC ARMES LOURDES"
+    },
+    "Emperor's Children::0": {
+      "name": "LUCIUS L’ÉTERNEL"
+    },
+    "Emperor's Children::1": {
+      "name": "SEIGNEUR EXULTANT"
+    },
+    "Emperor's Children::10": {
+      "name": "LAND RAIDER DU CHAOS"
+    },
+    "Emperor's Children::11": {
+      "name": "RHINO DU CHAOS"
+    },
+    "Emperor's Children::12": {
+      "name": "REJETONS DU CHAOS"
+    },
+    "Emperor's Children::13": {
+      "name": "TERMINATORS DU CHAOS"
+    },
+    "Emperor's Children::14": {
+      "name": "PRINCE DÉMON DE SLAANESH"
+    },
+    "Emperor's Children::15": {
+      "name": "PRINCE DÉMON DE SLAANESH AILÉ"
+    },
+    "Emperor's Children::16": {
+      "name": "LAMES INFAILLIBLES"
+    },
+    "Emperor's Children::17": {
+      "name": "DÉMONETTES"
+    },
+    "Emperor's Children::18": {
+      "name": "CHARNELLES"
+    },
+    "Emperor's Children::19": {
+      "name": "VENEUSES"
+    },
+    "Emperor's Children::2": {
+      "name": "SEIGNEUR KAKOPHONISTE"
+    },
+    "Emperor's Children::20": {
+      "name": "GARDIEN DES SECRETS"
+    },
+    "Emperor's Children::21": {
+      "name": "SHALAXI HELBANE"
+    },
+    "Emperor's Children::22": {
+      "name": "PROFANATEUR"
+    },
+    "Emperor's Children::3": {
+      "name": "FERROCERBERUS"
+    },
+    "Emperor's Children::4": {
+      "name": "SORCIER"
+    },
+    "Emperor's Children::5": {
+      "name": "TOURMENTEURS"
+    },
+    "Emperor's Children::6": {
+      "name": "FULGRIM"
+    },
+    "Emperor's Children::7": {
+      "name": "MÉTADRAK"
+    },
+    "Emperor's Children::8": {
+      "name": "MARINES DU VACARME"
+    },
+    "Emperor's Children::9": {
+      "name": "INFRACTEURS"
+    },
+    "Genestealer Cults::0": {
+      "name": "ABERRANTS"
+    },
+    "Genestealer Cults::1": {
+      "name": "ABOMINANT"
+    },
+    "Genestealer Cults::10": {
+      "name": "CAMION GOLIATH"
+    },
+    "Genestealer Cults::11": {
+      "name": "HYBRIDES MÉTAMORPHES"
+    },
+    "Genestealer Cults::12": {
+      "name": "ALPHUS CHACAL"
+    },
+    "Genestealer Cults::13": {
+      "name": "KELERMORPHE"
+    },
+    "Genestealer Cults::14": {
+      "name": "LOCUS"
+    },
+    "Genestealer Cults::15": {
+      "name": "MAGUS"
+    },
+    "Genestealer Cults::16": {
+      "name": "HYBRIDES NÉOPHYTES"
+    },
+    "Genestealer Cults::17": {
+      "name": "NEXOS"
+    },
+    "Genestealer Cults::18": {
+      "name": "PATRIARCHE"
+    },
+    "Genestealer Cults::19": {
+      "name": "PRIMUS"
+    },
+    "Genestealer Cults::2": {
+      "name": "TOUT-TERRAIN ACHILLES"
+    },
+    "Genestealer Cults::20": {
+      "name": "GENESTEALERS PURE-SOUCHE"
+    },
+    "Genestealer Cults::21": {
+      "name": "SABOTEUR REDUCTUS"
+    },
+    "Genestealer Cults::22": {
+      "name": "SANCTUS"
+    },
+    "Genestealer Cults::23": {
+      "name": "BENEFICTUS"
+    },
+    "Genestealer Cults::3": {
+      "name": "HYBRIDES ACOLYTES AVEC LANCE-FLAMMES LÉGERS"
+    },
+    "Genestealer Cults::4": {
+      "name": "HYBRIDES ACOLYTES AVEC PISTOLETS-MITRAILLEURS"
+    },
+    "Genestealer Cults::5": {
+      "name": "ACOLYTE GARDE-ICÔNE"
+    },
+    "Genestealer Cults::6": {
+      "name": "CHACALS ATALANS"
+    },
+    "Genestealer Cults::7": {
+      "name": "BIOPHAGUS"
+    },
+    "Genestealer Cults::8": {
+      "name": "CLAMAVUS"
+    },
+    "Genestealer Cults::9": {
+      "name": "CONCASSEUR GOLIATH"
+    },
+    "Grey Knights::0": {
+      "name": "GRAND MAÎTRE VOLDUS"
+    },
+    "Grey Knights::1": {
+      "name": "GRAND MAÎTRE"
+    },
+    "Grey Knights::10": {
+      "name": "ESCOUADE PALADIN"
+    },
+    "Grey Knights::11": {
+      "name": "ESCOUADE PURIFICATOR"
+    },
+    "Grey Knights::12": {
+      "name": "DREADNOUGHT VÉNÉRABLE"
+    },
+    "Grey Knights::13": {
+      "name": "ESCOUADE TERMINATOR DE CONFRÉRIE"
+    },
+    "Grey Knights::14": {
+      "name": "ESCOUADE INTERCEPTOR"
+    },
+    "Grey Knights::15": {
+      "name": "ESCOUADE PURGATOR"
+    },
+    "Grey Knights::16": {
+      "name": "CUIRASSIER NÉMÉSIS"
+    },
+    "Grey Knights::17": {
+      "name": "RHINO"
+    },
+    "Grey Knights::18": {
+      "name": "RAZORBACK"
+    },
+    "Grey Knights::19": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Grey Knights::2": {
+      "name": "GRAND MAÎTRE EN CUIRASSE NÉMÉSIS"
+    },
+    "Grey Knights::20": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Grey Knights::21": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Grey Knights::22": {
+      "name": "ESCORTEUR THUNDERHAWK DES GREY KNIGHTS"
+    },
+    "Grey Knights::23": {
+      "name": "LAND RAIDER"
+    },
+    "Grey Knights::24": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Grey Knights::25": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Grey Knights::3": {
+      "name": "CASTELLAN CROWE"
+    },
+    "Grey Knights::4": {
+      "name": "FRÈRE-CAPITAINE"
+    },
+    "Grey Knights::5": {
+      "name": "CHAMPION DE CONFRÉRIE"
+    },
+    "Grey Knights::6": {
+      "name": "ARCHIVISTE DE CONFRÉRIE"
+    },
+    "Grey Knights::7": {
+      "name": "TECHMARINE DE CONFRÉRIE"
+    },
+    "Grey Knights::8": {
+      "name": "CHAPELAIN DE CONFRÉRIE"
+    },
+    "Grey Knights::9": {
+      "name": "ESCOUADE D’INCURSION"
+    },
+    "Imperial Agents Allies::0": {
+      "name": "ASSASSIN VINDICARE"
+    },
+    "Imperial Agents Allies::1": {
+      "name": "ASSASSIN CULEXUS"
+    },
+    "Imperial Agents Allies::10": {
+      "name": "INQUISITRICE DRAXUS"
+    },
+    "Imperial Agents Allies::11": {
+      "name": "INQUISITEUR COTEAZ"
+    },
+    "Imperial Agents Allies::12": {
+      "name": "INQUISITRICE GREYFAX"
+    },
+    "Imperial Agents Allies::13": {
+      "name": "INQUISITEUR"
+    },
+    "Imperial Agents Allies::14": {
+      "name": "AGENTS INQUISITORIAUX"
+    },
+    "Imperial Agents Allies::15": {
+      "name": "MAÎTRE DU GUET"
+    },
+    "Imperial Agents Allies::16": {
+      "name": "CAPITAINE DU GUET ARTEMIS"
+    },
+    "Imperial Agents Allies::17": {
+      "name": "KILL TEAM DE LA DEATHWATCH"
+    },
+    "Imperial Agents Allies::18": {
+      "name": "CORVUS BLACKSTAR"
+    },
+    "Imperial Agents Allies::19": {
+      "name": "PRÊTRE DU MINISTORUM"
+    },
+    "Imperial Agents Allies::2": {
+      "name": "ASSASSIN EVERSOR"
+    },
+    "Imperial Agents Allies::20": {
+      "name": "CHIMERA INQUISITORIAL"
+    },
+    "Imperial Agents Allies::21": {
+      "name": "RHINO IMPÉRIAL"
+    },
+    "Imperial Agents Allies::22": {
+      "name": "ESCOUADE DE SŒURS DE BATAILLE"
+    },
+    "Imperial Agents Allies::23": {
+      "name": "IMMOLATOR DES SŒURS DE BATAILLE"
+    },
+    "Imperial Agents Allies::24": {
+      "name": "ESCOUADE TERMINATOR DES GREY KNIGHTS"
+    },
+    "Imperial Agents Allies::25": {
+      "name": "NAVIGATEUR"
+    },
+    "Imperial Agents Allies::26": {
+      "name": "SANCTIFICATEURS"
+    },
+    "Imperial Agents Allies::27": {
+      "name": "KILL TEAM AQUILA"
+    },
+    "Imperial Agents Allies::28": {
+      "name": "INQUISITEUR KROYLE"
+    },
+    "Imperial Agents Allies::3": {
+      "name": "ASSASSIN CALLIDUS"
+    },
+    "Imperial Agents Allies::4": {
+      "name": "ENTOURAGE DE LIBRE MARCHAND"
+    },
+    "Imperial Agents Allies::5": {
+      "name": "COSMOMARINS EN ARMES"
+    },
+    "Imperial Agents Allies::6": {
+      "name": "SAPEURS DE LA MARINE IMPÉRIALE"
+    },
+    "Imperial Agents Allies::7": {
+      "name": "ESCOUADE SUBDUCTOR"
+    },
+    "Imperial Agents Allies::8": {
+      "name": "ESCOUADE D’EXACTION"
+    },
+    "Imperial Agents Allies::9": {
+      "name": "ESCOUADE VIGILANT"
+    },
+    "Imperial Agents::0": {
+      "name": "ASSASSIN VINDICARE"
+    },
+    "Imperial Agents::1": {
+      "name": "ASSASSIN CULEXUS"
+    },
+    "Imperial Agents::10": {
+      "name": "INQUISITRICE DRAXUS"
+    },
+    "Imperial Agents::11": {
+      "name": "INQUISITEUR COTEAZ"
+    },
+    "Imperial Agents::12": {
+      "name": "INQUISITRICE GREYFAX"
+    },
+    "Imperial Agents::13": {
+      "name": "INQUISITEUR"
+    },
+    "Imperial Agents::14": {
+      "name": "AGENTS INQUISITORIAUX"
+    },
+    "Imperial Agents::15": {
+      "name": "MAÎTRE DU GUET"
+    },
+    "Imperial Agents::16": {
+      "name": "CAPITAINE DU GUET ARTEMIS"
+    },
+    "Imperial Agents::17": {
+      "name": "KILL TEAM DE LA DEATHWATCH"
+    },
+    "Imperial Agents::18": {
+      "name": "CORVUS BLACKSTAR"
+    },
+    "Imperial Agents::19": {
+      "name": "PRÊTRE DU MINISTORUM"
+    },
+    "Imperial Agents::2": {
+      "name": "ASSASSIN EVERSOR"
+    },
+    "Imperial Agents::20": {
+      "name": "CHIMERA INQUISITORIAL"
+    },
+    "Imperial Agents::21": {
+      "name": "RHINO IMPÉRIAL"
+    },
+    "Imperial Agents::22": {
+      "name": "ESCOUADE DE SŒURS DE BATAILLE"
+    },
+    "Imperial Agents::23": {
+      "name": "IMMOLATOR DES SŒURS DE BATAILLE"
+    },
+    "Imperial Agents::24": {
+      "name": "ESCOUADE TERMINATOR DES GREY KNIGHTS"
+    },
+    "Imperial Agents::25": {
+      "name": "NAVIGATEUR"
+    },
+    "Imperial Agents::26": {
+      "name": "SANCTIFICATEURS"
+    },
+    "Imperial Agents::27": {
+      "name": "KILL TEAM AQUILA"
+    },
+    "Imperial Agents::28": {
+      "name": "INQUISITEUR KROYLE"
+    },
+    "Imperial Agents::3": {
+      "name": "ASSASSIN CALLIDUS"
+    },
+    "Imperial Agents::4": {
+      "name": "ENTOURAGE DE LIBRE MARCHAND"
+    },
+    "Imperial Agents::5": {
+      "name": "COSMOMARINS EN ARMES"
+    },
+    "Imperial Agents::6": {
+      "name": "SAPEURS DE LA MARINE IMPÉRIALE"
+    },
+    "Imperial Agents::7": {
+      "name": "ESCOUADE SUBDUCTOR"
+    },
+    "Imperial Agents::8": {
+      "name": "ESCOUADE D’EXACTION"
+    },
+    "Imperial Agents::9": {
+      "name": "ESCOUADE VIGILANT"
+    },
+    "Imperial Fists::0": {
+      "name": "TOR GARADON"
+    },
+    "Imperial Fists::1": {
+      "name": "PEDRO KANTOR"
+    },
+    "Imperial Fists::2": {
+      "name": "DARNATH LYSANDER"
+    },
+    "Imperial Knights::0": {
+      "name": "ARMIGÈRES HELVÉRIENS"
+    },
+    "Imperial Knights::1": {
+      "name": "ARMIGÈRES HASTAIRES"
+    },
+    "Imperial Knights::10": {
+      "name": "CANIS REX"
+    },
+    "Imperial Knights::12": {
+      "name": "CHEVALIER ACASTUS ASTÉRIUS"
+    },
+    "Imperial Knights::13": {
+      "name": "CHEVALIER ACASTUS PORPHYRION"
+    },
+    "Imperial Knights::14": {
+      "name": "CHEVALIER CERASTUS LANCIER"
+    },
+    "Imperial Knights::15": {
+      "name": "CHEVALIER CERASTUS CASTIGATEUR"
+    },
+    "Imperial Knights::16": {
+      "name": "CHEVALIER CERASTUS ACHÉRON"
+    },
+    "Imperial Knights::17": {
+      "name": "CHEVALIER CERASTUS ATRAPOS"
+    },
+    "Imperial Knights::18": {
+      "name": "CHEVALIER QUESTORIS MAGAERA"
+    },
+    "Imperial Knights::19": {
+      "name": "CHEVALIER QUESTORIS STYRIX"
+    },
+    "Imperial Knights::2": {
+      "name": "CHEVALIER PALADIN"
+    },
+    "Imperial Knights::20": {
+      "name": "ARMIGÈRE MOIRAX"
+    },
+    "Imperial Knights::21": {
+      "name": "CHEVALIER DÉFENSEUR"
+    },
+    "Imperial Knights::22": {
+      "name": "CHEVALIER DESTRIER"
+    },
+    "Imperial Knights::3": {
+      "name": "CHEVALIER ERRANT"
+    },
+    "Imperial Knights::4": {
+      "name": "CHEVALIER GALANT"
+    },
+    "Imperial Knights::5": {
+      "name": "CHEVALIER VIGILANT"
+    },
+    "Imperial Knights::6": {
+      "name": "CHEVALIER CROISÉ"
+    },
+    "Imperial Knights::7": {
+      "name": "CHEVALIER PRÉCEPTEUR"
+    },
+    "Imperial Knights::8": {
+      "name": "CHEVALIER CASTELLAN"
+    },
+    "Imperial Knights::9": {
+      "name": "CHEVALIER VAILLANT"
+    },
+    "Iron Hands::0": {
+      "name": "RÉVÉREND DE FER FEIRROS"
+    },
+    "Iron Hands::1": {
+      "name": "CAANOK VAR"
+    },
+    "Leagues of Votann::0": {
+      "name": "MAÎTRE-FER BRÔKHYR"
+    },
+    "Leagues of Votann::1": {
+      "name": "BESERKS CTHONIENS"
+    },
+    "Leagues of Votann::10": {
+      "name": "CHAUDRONNIERS COGNATS DE FER AVEC DÉSINTÉGRATEURS VOLKANITES LOURDS"
+    },
+    "Leagues of Votann::11": {
+      "name": "CHAUDRONNIERS COGNATS DE FER AVEC ARMES DE MÊLÉE"
+    },
+    "Leagues of Votann::12": {
+      "name": "KÂHL"
+    },
+    "Leagues of Votann::13": {
+      "name": "PORTEUR KAPRICUS"
+    },
+    "Leagues of Votann::14": {
+      "name": "DÉFENSEURS KAPRICUS"
+    },
+    "Leagues of Votann::15": {
+      "name": "STRATÈGE MEMNYR"
+    },
+    "Leagues of Votann::16": {
+      "name": "ÉVALUATEUR ARKANYSTE"
+    },
+    "Leagues of Votann::17": {
+      "name": "SAGITAUR"
+    },
+    "Leagues of Votann::18": {
+      "name": "TONNEKOGS BRÔKHYRS"
+    },
+    "Leagues of Votann::19": {
+      "name": "ÛTHAR LE DESTINÉ"
+    },
+    "Leagues of Votann::2": {
+      "name": "TREMBLETERRES CTHONIENS"
+    },
+    "Leagues of Votann::20": {
+      "name": "BURI AEGNIRSSEN"
+    },
+    "Leagues of Votann::21": {
+      "name": "BEREHK STORNBRÖW"
+    },
+    "Leagues of Votann::3": {
+      "name": "CHAMPION EINHYR"
+    },
+    "Leagues of Votann::4": {
+      "name": "ÂTREGARDES EINHYRS"
+    },
+    "Leagues of Votann::5": {
+      "name": "GRIMNYR"
+    },
+    "Leagues of Votann::6": {
+      "name": "GUERRIERS ÂTREKOGS"
+    },
+    "Leagues of Votann::7": {
+      "name": "FORTERESSE MOBILE HEKATON"
+    },
+    "Leagues of Votann::8": {
+      "name": "PIONNIERS HERNKOGS"
+    },
+    "Leagues of Votann::9": {
+      "name": "YAEGIRS HERNKOGS"
+    },
+    "Necrons::0": {
+      "name": "IMOTEKH LE SEIGNEUR DES TEMPÊTES"
+    },
+    "Necrons::1": {
+      "name": "ORIKAN LE DEVIN"
+    },
+    "Necrons::10": {
+      "name": "TECHNOMANCIEN"
+    },
+    "Necrons::11": {
+      "name": "PSYCHOMANCIEN"
+    },
+    "Necrons::12": {
+      "name": "CHRONOMANCIEN"
+    },
+    "Necrons::13": {
+      "name": "PLASMANCIEN"
+    },
+    "Necrons::14": {
+      "name": "GUERRIERS NÉCRONS"
+    },
+    "Necrons::15": {
+      "name": "IMMORTELS"
+    },
+    "Necrons::16": {
+      "name": "RÉANIMATEUR CANOPTEK"
+    },
+    "Necrons::17": {
+      "name": "DESTROYER HEXMARK"
+    },
+    "Necrons::18": {
+      "name": "FACTIONNAIRES"
+    },
+    "Necrons::19": {
+      "name": "TRAQUEURS"
+    },
+    "Necrons::2": {
+      "name": "ILLUMINOR SZERAS"
+    },
+    "Necrons::20": {
+      "name": "DÉPECEURS"
+    },
+    "Necrons::21": {
+      "name": "CRYPTOSERFS"
+    },
+    "Necrons::22": {
+      "name": "DESTROYERS SKORPEKHS"
+    },
+    "Necrons::23": {
+      "name": "RÔDEUR DU TRIARCAT"
+    },
+    "Necrons::24": {
+      "name": "ÉCHARDE C’TAN DU MYSTIFICATEUR"
+    },
+    "Necrons::25": {
+      "name": "ÉCHARDE C’TAN DU NYCTOPHORE"
+    },
+    "Necrons::26": {
+      "name": "ÉCHARDE C’TAN DU DRAGON DU NÉANT"
+    },
+    "Necrons::27": {
+      "name": "C’TAN TRANSCENDANT"
+    },
+    "Necrons::28": {
+      "name": "ARACHNYDES CANOPTEKS"
+    },
+    "Necrons::29": {
+      "name": "NUÉES DE SCARABÉES CANOPTEKS"
+    },
+    "Necrons::3": {
+      "name": "TRAZYN L’INFINI"
+    },
+    "Necrons::30": {
+      "name": "DESTROYERS OPHYDIENS"
+    },
+    "Necrons::31": {
+      "name": "MÉCANOPTÈRES"
+    },
+    "Necrons::32": {
+      "name": "PRÉTORIENS DU TRIARCAT"
+    },
+    "Necrons::33": {
+      "name": "SPECTRES CANOPTEKS"
+    },
+    "Necrons::34": {
+      "name": "CONSOLE D’ANNIHILATION"
+    },
+    "Necrons::35": {
+      "name": "ARCHE DU JUGEMENT DERNIER"
+    },
+    "Necrons::36": {
+      "name": "DESTROYERS LOKHUSTS"
+    },
+    "Necrons::37": {
+      "name": "DESTROYERS LOURDS LOKHUSTS"
+    },
+    "Necrons::38": {
+      "name": "MARAUDEUR CANOPTEK"
+    },
+    "Necrons::39": {
+      "name": "ARCHE FANTÔME"
+    },
+    "Necrons::4": {
+      "name": "GARDE ROYAL"
+    },
+    "Necrons::40": {
+      "name": "FAUCHEUR"
+    },
+    "Necrons::41": {
+      "name": "MOISSONNEUR"
+    },
+    "Necrons::42": {
+      "name": "OBÉLISQUE"
+    },
+    "Necrons::43": {
+      "name": "CRYPTE TESSERACT"
+    },
+    "Necrons::44": {
+      "name": "MONOLITHE"
+    },
+    "Necrons::45": {
+      "name": "LE ROI SILENCIEUX"
+    },
+    "Necrons::46": {
+      "name": "CONVERGENCE DE DOMINATION"
+    },
+    "Necrons::47": {
+      "name": "MÉCANOPODE LOURD SERAPTEK"
+    },
+    "Necrons::48": {
+      "name": "MACROCYTES CANOPTEKS"
+    },
+    "Necrons::49": {
+      "name": "ARPENTEURS SÉPULCRAUX CANOPTEKS"
+    },
+    "Necrons::5": {
+      "name": "SEIGNEUR SKORPEKH"
+    },
+    "Necrons::50": {
+      "name": "GÉOMANCIEN"
+    },
+    "Necrons::51": {
+      "name": "NÉKROSOR AMMENTAR"
+    },
+    "Necrons::6": {
+      "name": "SEIGNEUR LOKHUST"
+    },
+    "Necrons::7": {
+      "name": "CONSOLE DE COMMANDEMENT"
+    },
+    "Necrons::8": {
+      "name": "TÉTRARQUE"
+    },
+    "Necrons::9": {
+      "name": "TÉTRARQUE AVEC LINCEUL DE TRANSLOCALISATION"
+    },
+    "Orks::0": {
+      "name": "CHARIOT D’GUERRE"
+    },
+    "Orks::1": {
+      "name": "BOYZ ALPAGUEURS"
+    },
+    "Orks::10": {
+      "name": "BOSS SNIKROT"
+    },
+    "Orks::11": {
+      "name": "BOYZ"
+    },
+    "Orks::12": {
+      "name": "KRAM’BOYZ"
+    },
+    "Orks::13": {
+      "name": "KRAMA-BOMBA"
+    },
+    "Orks::14": {
+      "name": "DAKKAJET"
+    },
+    "Orks::15": {
+      "name": "DRED EUD’ LA MORT"
+    },
+    "Orks::16": {
+      "name": "TRIKE MORKITU"
+    },
+    "Orks::17": {
+      "name": "KOPTERS D’LA MORT"
+    },
+    "Orks::18": {
+      "name": "FRIMEURS"
+    },
+    "Orks::19": {
+      "name": "GHAZGHKULL THRAKA"
+    },
+    "Orks::2": {
+      "name": "BOSS DRESSEUR"
+    },
+    "Orks::20": {
+      "name": "GORKANAUTE"
+    },
+    "Orks::21": {
+      "name": "GRETCHINS"
+    },
+    "Orks::22": {
+      "name": "KARIOL’ KICHASS’"
+    },
+    "Orks::23": {
+      "name": "KARIOL’ KITU"
+    },
+    "Orks::24": {
+      "name": "BOÎT’KITU"
+    },
+    "Orks::25": {
+      "name": "KOMMANDOS"
+    },
+    "Orks::26": {
+      "name": "BOOSTA-KLATA KUSTOM"
+    },
+    "Orks::27": {
+      "name": "PILLARDS"
+    },
+    "Orks::28": {
+      "name": "MÉGANOBZ"
+    },
+    "Orks::29": {
+      "name": "BRIKOJET MÉGACH’NILLÉ"
+    },
+    "Orks::3": {
+      "name": "BOSS DRESSEUR SUR SQUIGOSAURE"
+    },
+    "Orks::30": {
+      "name": "MEK"
+    },
+    "Orks::31": {
+      "name": "KANONS D’MEK"
+    },
+    "Orks::32": {
+      "name": "MORKANAUTE"
+    },
+    "Orks::33": {
+      "name": "MOZROG SKRAGBAD"
+    },
+    "Orks::34": {
+      "name": "NOBZ"
+    },
+    "Orks::35": {
+      "name": "MÉDIBOSS"
+    },
+    "Orks::36": {
+      "name": "MÉDIKO"
+    },
+    "Orks::37": {
+      "name": "BUGGY FOURRE-SQUIGS"
+    },
+    "Orks::38": {
+      "name": "DRAGSTA SHOKK"
+    },
+    "Orks::39": {
+      "name": "BOYZ SUR SQUIGLIERS"
+    },
+    "Orks::4": {
+      "name": "GROS MEK EN MÉGA-ARMURE"
+    },
+    "Orks::40": {
+      "name": "KRABOUILLEUR"
+    },
+    "Orks::41": {
+      "name": "CHOKBOYZ"
+    },
+    "Orks::42": {
+      "name": "KAMION"
+    },
+    "Orks::43": {
+      "name": "MOTARDS DE GUERRE"
+    },
+    "Orks::44": {
+      "name": "BOSS DE GUERRE"
+    },
+    "Orks::45": {
+      "name": "BOSS DE GUERRE EN MÉGA-ARMURE"
+    },
+    "Orks::46": {
+      "name": "KLAT’JET WAZBOUM"
+    },
+    "Orks::47": {
+      "name": "BIZARBOY"
+    },
+    "Orks::48": {
+      "name": "ZARBOY"
+    },
+    "Orks::49": {
+      "name": "ZODGROD WORTSNAGGA"
+    },
+    "Orks::5": {
+      "name": "GROS MEK"
+    },
+    "Orks::50": {
+      "name": "SQUIGGOUTH GARGANTUESQUE"
+    },
+    "Orks::51": {
+      "name": "KASSEURS"
+    },
+    "Orks::52": {
+      "name": "KASS’TANKS"
+    },
+    "Orks::53": {
+      "name": "WAZDAKKA GUTSMEK"
+    },
+    "Orks::54": {
+      "name": "GROBOSS"
+    },
+    "Orks::55": {
+      "name": "NOB PORTÉTENDAR"
+    },
+    "Orks::56": {
+      "name": "MOTOCH'NILL'"
+    },
+    "Orks::57": {
+      "name": "MÉKADAKKA DE GROS MEK"
+    },
+    "Orks::6": {
+      "name": "GROS MEK AVEC KANON SHOKK"
+    },
+    "Orks::7": {
+      "name": "GRO’BUNKER D’BOSS"
+    },
+    "Orks::8": {
+      "name": "BLITZA-BOMBA"
+    },
+    "Orks::9": {
+      "name": "CHARIOT BOUMDAKKA DE LUX’"
+    },
+    "Raven Guard::0": {
+      "name": "KAYVAAN SHRIKE"
+    },
+    "Raven Guard::1": {
+      "name": "AETHON SHAAN"
+    },
+    "Salamanders::0": {
+      "name": "ADRAX AGATONE"
+    },
+    "Salamanders::1": {
+      "name": "VULKAN HE’STAN"
+    },
+    "Space Marines::0": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Space Marines::1": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Space Marines::10": {
+      "name": "ARCHIVISTE"
+    },
+    "Space Marines::11": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Space Marines::12": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Space Marines::13": {
+      "name": "CHAPELAIN"
+    },
+    "Space Marines::14": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Space Marines::15": {
+      "name": "TECHMARINE"
+    },
+    "Space Marines::16": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Space Marines::17": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Space Marines::18": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Space Marines::19": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Space Marines::2": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Space Marines::20": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Space Marines::21": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Space Marines::22": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Space Marines::23": {
+      "name": "ESCOUADE TACTIQUE"
+    },
+    "Space Marines::24": {
+      "name": "ESCOUADE SCOUT"
+    },
+    "Space Marines::25": {
+      "name": "APOTHICAIRE BIOLOGIS"
+    },
+    "Space Marines::26": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Space Marines::27": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Space Marines::28": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Space Marines::29": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Space Marines::3": {
+      "name": "CAPITAINE"
+    },
+    "Space Marines::30": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Space Marines::31": {
+      "name": "JUDICATEUR"
+    },
+    "Space Marines::32": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Space Marines::33": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Space Marines::34": {
+      "name": "ESCOUADE TERMINATOR"
+    },
+    "Space Marines::35": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Space Marines::36": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Space Marines::37": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Space Marines::38": {
+      "name": "DREADNOUGHT"
+    },
+    "Space Marines::39": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Space Marines::4": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Space Marines::40": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Space Marines::41": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Space Marines::42": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Space Marines::43": {
+      "name": "QUAD INVADER"
+    },
+    "Space Marines::44": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Space Marines::45": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Space Marines::46": {
+      "name": "LAND SPEEDER"
+    },
+    "Space Marines::47": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Space Marines::48": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Space Marines::49": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Space Marines::5": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Space Marines::50": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Space Marines::51": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Space Marines::52": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Space Marines::53": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Space Marines::54": {
+      "name": "ESCOUADE DEVASTATOR"
+    },
+    "Space Marines::55": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Space Marines::56": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Space Marines::57": {
+      "name": "WHIRLWIND"
+    },
+    "Space Marines::58": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Space Marines::59": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Space Marines::6": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Space Marines::60": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Space Marines::61": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Space Marines::62": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Space Marines::63": {
+      "name": "VINDICATOR"
+    },
+    "Space Marines::64": {
+      "name": "LAND RAIDER"
+    },
+    "Space Marines::65": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Space Marines::66": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Space Marines::67": {
+      "name": "REPULSOR"
+    },
+    "Space Marines::68": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Space Marines::69": {
+      "name": "RHINO"
+    },
+    "Space Marines::7": {
+      "name": "LIEUTENANT"
+    },
+    "Space Marines::70": {
+      "name": "RAZORBACK"
+    },
+    "Space Marines::71": {
+      "name": "IMPULSOR"
+    },
+    "Space Marines::72": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Space Marines::73": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Space Marines::74": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Space Marines::75": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Space Marines::76": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Space Marines::77": {
+      "name": "ASTRAEUS"
+    },
+    "Space Marines::78": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Space Marines::79": {
+      "name": "APOTHICAIRE"
+    },
+    "Space Marines::8": {
+      "name": "ARCHIVISTE EN ARMURE PHOBOS"
+    },
+    "Space Marines::80": {
+      "name": "DOYEN"
+    },
+    "Space Marines::81": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Space Marines::82": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Space Marines::83": {
+      "name": "ESCOUADE D’ASSAUT TERMINATOR"
+    },
+    "Space Marines::9": {
+      "name": "ARCHIVISTE EN ARMURE TERMINATOR"
+    },
+    "Space Wolves::0": {
+      "name": "LOGAN GRIMNAR"
+    },
+    "Space Wolves::1": {
+      "name": "NJÁL STORMCALLER"
+    },
+    "Space Wolves::10": {
+      "name": "CHASSEURS GRIS"
+    },
+    "Space Wolves::100": {
+      "name": "ESCOUADE D’ASSAUT TERMINATOR"
+    },
+    "Space Wolves::11": {
+      "name": "PRENEURS DE TÊTES GARDES LOUPS"
+    },
+    "Space Wolves::12": {
+      "name": "CAVALERIE SUR LOUPS TONNERRE"
+    },
+    "Space Wolves::13": {
+      "name": "TERMINATORS GARDES LOUPS"
+    },
+    "Space Wolves::14": {
+      "name": "LOUPS FENRISSIENS"
+    },
+    "Space Wolves::15": {
+      "name": "WULFENS"
+    },
+    "Space Wolves::16": {
+      "name": "WULFENS AVEC BOUCLIER STORM"
+    },
+    "Space Wolves::17": {
+      "name": "MURDERFANG"
+    },
+    "Space Wolves::18": {
+      "name": "DREADNOUGHT WULFEN"
+    },
+    "Space Wolves::19": {
+      "name": "DREADNOUGHT VÉNÉRABLE"
+    },
+    "Space Wolves::2": {
+      "name": "ULRIK LE TUEUR"
+    },
+    "Space Wolves::20": {
+      "name": "SCOUTS SPACE WOLVES"
+    },
+    "Space Wolves::21": {
+      "name": "CAPITAINE EN ARMURE GRAVIS"
+    },
+    "Space Wolves::22": {
+      "name": "CAPITAINE EN ARMURE PHOBOS"
+    },
+    "Space Wolves::23": {
+      "name": "CAPITAINE EN ARMURE TERMINATOR"
+    },
+    "Space Wolves::24": {
+      "name": "CAPITAINE"
+    },
+    "Space Wolves::25": {
+      "name": "CAPITAINE À RÉACTEUR DORSAL"
+    },
+    "Space Wolves::26": {
+      "name": "LIEUTENANT EN ARMURE REIVER"
+    },
+    "Space Wolves::27": {
+      "name": "LIEUTENANT EN ARMURE PHOBOS"
+    },
+    "Space Wolves::28": {
+      "name": "LIEUTENANT"
+    },
+    "Space Wolves::29": {
+      "name": "ARCHIVISTE EN ARMURE PHOBOS"
+    },
+    "Space Wolves::3": {
+      "name": "BJÖRN MAIN FUNESTE"
+    },
+    "Space Wolves::30": {
+      "name": "ARCHIVISTE EN ARMURE TERMINATOR"
+    },
+    "Space Wolves::31": {
+      "name": "ARCHIVISTE"
+    },
+    "Space Wolves::32": {
+      "name": "CHAPELAIN EN ARMURE TERMINATOR"
+    },
+    "Space Wolves::33": {
+      "name": "CHAPELAIN À MOTO"
+    },
+    "Space Wolves::34": {
+      "name": "CHAPELAIN"
+    },
+    "Space Wolves::35": {
+      "name": "CHAPELAIN À RÉACTEUR DORSAL"
+    },
+    "Space Wolves::36": {
+      "name": "TECHMARINE"
+    },
+    "Space Wolves::37": {
+      "name": "ESCOUADE INTERCESSOR"
+    },
+    "Space Wolves::38": {
+      "name": "ESCOUADE INFERNUS"
+    },
+    "Space Wolves::39": {
+      "name": "ESCOUADE D’ASSAUT INTERCESSOR"
+    },
+    "Space Wolves::4": {
+      "name": "RAGNAR BLACKMANE"
+    },
+    "Space Wolves::40": {
+      "name": "LIEUTENANT AVEC ARME COMBINÉE"
+    },
+    "Space Wolves::41": {
+      "name": "ESCOUADE LOURDE INTERCESSOR"
+    },
+    "Space Wolves::42": {
+      "name": "ESCOUADE INFILTRATOR"
+    },
+    "Space Wolves::43": {
+      "name": "ESCOUADE INCURSOR"
+    },
+    "Space Wolves::44": {
+      "name": "ESCOUADE SCOUT"
+    },
+    "Space Wolves::45": {
+      "name": "DOYEN GARDELAME"
+    },
+    "Space Wolves::46": {
+      "name": "DOYEN EN ARMURE TERMINATOR"
+    },
+    "Space Wolves::47": {
+      "name": "ESCOUADE DE VÉTÉRANS GARDELAMES"
+    },
+    "Space Wolves::48": {
+      "name": "ESCOUADE DE VÉTÉRANS D'AVANT-GARDE À RÉACTEURS DORSAUX"
+    },
+    "Space Wolves::49": {
+      "name": "ESCOUADE DE VÉTÉRANS STERNGUARDS"
+    },
+    "Space Wolves::5": {
+      "name": "ARJAC ROCKFIST"
+    },
+    "Space Wolves::50": {
+      "name": "JUDICATEUR"
+    },
+    "Space Wolves::51": {
+      "name": "ESCOUADE REIVER"
+    },
+    "Space Wolves::52": {
+      "name": "ESCOUADE AGGRESSOR"
+    },
+    "Space Wolves::53": {
+      "name": "ESCOUADE TERMINATOR"
+    },
+    "Space Wolves::54": {
+      "name": "ESCOUADE D’ASSAUT CENTURION"
+    },
+    "Space Wolves::55": {
+      "name": "ESCOUADE CENTURION DEVASTATOR"
+    },
+    "Space Wolves::56": {
+      "name": "EXO-HARNAIS TACTIQUE INVICTOR"
+    },
+    "Space Wolves::57": {
+      "name": "DREADNOUGHT"
+    },
+    "Space Wolves::58": {
+      "name": "DREADNOUGHT REDEMPTOR"
+    },
+    "Space Wolves::59": {
+      "name": "DREADNOUGHT BRUTALIS"
+    },
+    "Space Wolves::6": {
+      "name": "PRÊTRE LOUP"
+    },
+    "Space Wolves::60": {
+      "name": "DREADNOUGHT BALLISTUS"
+    },
+    "Space Wolves::61": {
+      "name": "ESCOUADE OUTRIDER"
+    },
+    "Space Wolves::62": {
+      "name": "QUAD INVADER"
+    },
+    "Space Wolves::63": {
+      "name": "ESCOUADE SUPPRESSOR"
+    },
+    "Space Wolves::64": {
+      "name": "ESCOUADE INCEPTOR"
+    },
+    "Space Wolves::65": {
+      "name": "LAND SPEEDER"
+    },
+    "Space Wolves::66": {
+      "name": "STORM SPEEDER HAILSTRIKE"
+    },
+    "Space Wolves::67": {
+      "name": "STORM SPEEDER THUNDERSTRIKE"
+    },
+    "Space Wolves::68": {
+      "name": "STORM SPEEDER HAMMERSTRIKE"
+    },
+    "Space Wolves::69": {
+      "name": "ESCOUADE HELLBLASTER"
+    },
+    "Space Wolves::7": {
+      "name": "PRÊTRE DE FER"
+    },
+    "Space Wolves::70": {
+      "name": "ESCOUADE ELIMINATOR"
+    },
+    "Space Wolves::71": {
+      "name": "ESCOUADE ERADICATOR"
+    },
+    "Space Wolves::72": {
+      "name": "ESCOUADE ERADICATOR À BOLTERS LOURDS"
+    },
+    "Space Wolves::73": {
+      "name": "ESCOUADE DESOLATOR"
+    },
+    "Space Wolves::74": {
+      "name": "SERVO-TOURELLES FIRESTRIKE"
+    },
+    "Space Wolves::75": {
+      "name": "WHIRLWIND"
+    },
+    "Space Wolves::76": {
+      "name": "PREDATOR DESTRUCTOR"
+    },
+    "Space Wolves::77": {
+      "name": "PREDATOR ANNIHILATOR"
+    },
+    "Space Wolves::78": {
+      "name": "GLADIATOR LANCER"
+    },
+    "Space Wolves::79": {
+      "name": "GLADIATOR REAPER"
+    },
+    "Space Wolves::8": {
+      "name": "CHEF DE BATAILLE GARDE LOUP"
+    },
+    "Space Wolves::80": {
+      "name": "GLADIATOR VALIANT"
+    },
+    "Space Wolves::81": {
+      "name": "VINDICATOR"
+    },
+    "Space Wolves::82": {
+      "name": "LAND RAIDER"
+    },
+    "Space Wolves::83": {
+      "name": "LAND RAIDER CRUSADER"
+    },
+    "Space Wolves::84": {
+      "name": "LAND RAIDER REDEEMER"
+    },
+    "Space Wolves::85": {
+      "name": "REPULSOR"
+    },
+    "Space Wolves::86": {
+      "name": "REPULSOR EXECUTIONER"
+    },
+    "Space Wolves::87": {
+      "name": "RHINO"
+    },
+    "Space Wolves::88": {
+      "name": "RAZORBACK"
+    },
+    "Space Wolves::89": {
+      "name": "IMPULSOR"
+    },
+    "Space Wolves::9": {
+      "name": "GRIFFES SANGLANTES"
+    },
+    "Space Wolves::90": {
+      "name": "MODULE DE LARGAGE"
+    },
+    "Space Wolves::91": {
+      "name": "INTERCEPTEUR STORMHAWK"
+    },
+    "Space Wolves::92": {
+      "name": "ESCORTEUR STORMTALON"
+    },
+    "Space Wolves::93": {
+      "name": "ESCORTEUR STORMRAVEN"
+    },
+    "Space Wolves::94": {
+      "name": "BUNKER HAMMERFALL"
+    },
+    "Space Wolves::95": {
+      "name": "ASTRAEUS"
+    },
+    "Space Wolves::96": {
+      "name": "ESCORTEUR THUNDERHAWK"
+    },
+    "Space Wolves::97": {
+      "name": "DOYEN"
+    },
+    "Space Wolves::98": {
+      "name": "INTERCESSORS D'ASSAUT À RÉACTEURS DORSAUX"
+    },
+    "Space Wolves::99": {
+      "name": "HÉROS DE COMPAGNIE"
+    },
+    "Tau Empire::0": {
+      "name": "COMMANDANTE SHADOWSUN"
+    },
+    "Tau Empire::1": {
+      "name": "COMMANDANT FARSIGHT"
+    },
+    "Tau Empire::10": {
+      "name": "DARKSTRIDER"
+    },
+    "Tau Empire::11": {
+      "name": "ÉQUIPE D’ATTAQUE"
+    },
+    "Tau Empire::12": {
+      "name": "ÉQUIPE DE BRÉCHEURS"
+    },
+    "Tau Empire::13": {
+      "name": "CARNIVORES KROOTS"
+    },
+    "Tau Empire::14": {
+      "name": "CAVALIERS KROOTOX"
+    },
+    "Tau Empire::15": {
+      "name": "EXO-ARMURES CRISIS SUNFORGE"
+    },
+    "Tau Empire::16": {
+      "name": "EXO-ARMURES CRISIS FIREKNIFE"
+    },
+    "Tau Empire::17": {
+      "name": "EXO-ARMURES CRISIS STARSCYTHE"
+    },
+    "Tau Empire::18": {
+      "name": "EXO-ARMURE GHOSTKEEL"
+    },
+    "Tau Empire::19": {
+      "name": "ÉQUIPE DE TIR FURTIVE"
+    },
+    "Tau Empire::2": {
+      "name": "COMMANDANT EN EXO-ARMURE ENFORCER"
+    },
+    "Tau Empire::20": {
+      "name": "ÉQUIPE DE CIBLEURS"
+    },
+    "Tau Empire::21": {
+      "name": "PIRANHA"
+    },
+    "Tau Empire::22": {
+      "name": "FRELONS VESPIDES"
+    },
+    "Tau Empire::23": {
+      "name": "CHIENS KROOTS"
+    },
+    "Tau Empire::24": {
+      "name": "EXO-ARMURES BROADSIDE"
+    },
+    "Tau Empire::25": {
+      "name": "EXO-ARMURE RIPTIDE"
+    },
+    "Tau Empire::26": {
+      "name": "CHAR HAMMERHEAD"
+    },
+    "Tau Empire::27": {
+      "name": "CHAR SKY RAY"
+    },
+    "Tau Empire::28": {
+      "name": "DEVILFISH"
+    },
+    "Tau Empire::29": {
+      "name": "CHASSEUR RAZORSHARK"
+    },
+    "Tau Empire::3": {
+      "name": "COMMANDANT EN EXO-ARMURE COLDSTAR"
+    },
+    "Tau Empire::30": {
+      "name": "BOMBARDIER SUN SHARK"
+    },
+    "Tau Empire::31": {
+      "name": "LIGNE-BOUCLIER TIDEWALL"
+    },
+    "Tau Empire::32": {
+      "name": "DRONEPORT TIDEWALL"
+    },
+    "Tau Empire::33": {
+      "name": "TOURELLE TIDEWALL"
+    },
+    "Tau Empire::34": {
+      "name": "STORMSURGE"
+    },
+    "Tau Empire::35": {
+      "name": "EXORÔDEURS KROOTS"
+    },
+    "Tau Empire::36": {
+      "name": "ARMURE DE SUPRÉMATIE TA’UNAR"
+    },
+    "Tau Empire::37": {
+      "name": "TIGER SHARK"
+    },
+    "Tau Empire::38": {
+      "name": "TIGER SHARK AX-1-0"
+    },
+    "Tau Empire::39": {
+      "name": "MANTA"
+    },
+    "Tau Empire::4": {
+      "name": "SABRE DE FEU"
+    },
+    "Tau Empire::40": {
+      "name": "SACCAGEURS KROOTOX"
+    },
+    "Tau Empire::41": {
+      "name": "EXO-ARMURES STEALTH"
+    },
+    "Tau Empire::42": {
+      "name": "LES LANCES JUMELLES"
+    },
+    "Tau Empire::5": {
+      "name": "MENTOR PISTEUR KROOT"
+    },
+    "Tau Empire::6": {
+      "name": "MENTOR DE GUERRE KROOT"
+    },
+    "Tau Empire::7": {
+      "name": "MENTOR DÉPECEUR KROOT"
+    },
+    "Tau Empire::8": {
+      "name": "SOLILANCE KROOT"
+    },
+    "Tau Empire::9": {
+      "name": "ÉTHÉRÉ"
+    },
+    "Thousand Sons::0": {
+      "name": "MAGNUS LE ROUGE"
+    },
+    "Thousand Sons::1": {
+      "name": "AHRIMAN"
+    },
+    "Thousand Sons::10": {
+      "name": "TERMINATORS DU SCARABÉE OCCULTE"
+    },
+    "Thousand Sons::11": {
+      "name": "MARINES RUBRICAE"
+    },
+    "Thousand Sons::12": {
+      "name": "PREDATOR DESTRUCTOR DU CHAOS"
+    },
+    "Thousand Sons::13": {
+      "name": "PREDATOR ANNIHILATOR DU CHAOS"
+    },
+    "Thousand Sons::14": {
+      "name": "RHINO DU CHAOS"
+    },
+    "Thousand Sons::15": {
+      "name": "VINDICATOR DU CHAOS"
+    },
+    "Thousand Sons::16": {
+      "name": "LAND RAIDER DU CHAOS"
+    },
+    "Thousand Sons::17": {
+      "name": "MÉTABRUTUS"
+    },
+    "Thousand Sons::18": {
+      "name": "FERROCENTAURUS"
+    },
+    "Thousand Sons::19": {
+      "name": "FERROCERBERUS"
+    },
+    "Thousand Sons::2": {
+      "name": "MAÎTRE INFERNAL"
+    },
+    "Thousand Sons::20": {
+      "name": "MÉTADRAK"
+    },
+    "Thousand Sons::21": {
+      "name": "REJETONS DU CHAOS"
+    },
+    "Thousand Sons::22": {
+      "name": "CHAMAN TZAANGOR"
+    },
+    "Thousand Sons::23": {
+      "name": "TZAANGORS ÉCLAIRÉS"
+    },
+    "Thousand Sons::24": {
+      "name": "TZAANGORS ÉCLAIRÉS AVEC GRANDS ARCS SCELLE-DESTIN"
+    },
+    "Thousand Sons::25": {
+      "name": "TZAANGORS"
+    },
+    "Thousand Sons::26": {
+      "name": "MUTALITHE À VORTEX"
+    },
+    "Thousand Sons::27": {
+      "name": "KAIROS FATEWEAVER"
+    },
+    "Thousand Sons::28": {
+      "name": "DUC DU CHANGEMENT"
+    },
+    "Thousand Sons::29": {
+      "name": "INCENDIAIRES"
+    },
+    "Thousand Sons::3": {
+      "name": "SORCIER"
+    },
+    "Thousand Sons::30": {
+      "name": "HURLEURS"
+    },
+    "Thousand Sons::31": {
+      "name": "HORREURS ROSES"
+    },
+    "Thousand Sons::32": {
+      "name": "HORREURS BLEUES"
+    },
+    "Thousand Sons::33": {
+      "name": "PROFANATEUR"
+    },
+    "Thousand Sons::4": {
+      "name": "SORCIER EXALTÉ"
+    },
+    "Thousand Sons::5": {
+      "name": "SORCIER EXALTÉ SUR DISQUE DE TZEENTCH"
+    },
+    "Thousand Sons::6": {
+      "name": "PRINCE DÉMON DE TZEENTCH"
+    },
+    "Thousand Sons::7": {
+      "name": "PRINCE DÉMON DE TZEENTCH AILÉ"
+    },
+    "Thousand Sons::8": {
+      "name": "SORCIER EN ARMURE TERMINATOR"
+    },
+    "Thousand Sons::9": {
+      "name": "ROBOTS SEKHETAR"
+    },
+    "Tyranids::0": {
+      "name": "TYRAN DES RUCHES AILÉ"
+    },
+    "Tyranids::1": {
+      "name": "TYRAN DES RUCHES"
+    },
+    "Tyranids::10": {
+      "name": "HORMAGAUNTS"
+    },
+    "Tyranids::11": {
+      "name": "GARGOUILLES"
+    },
+    "Tyranids::12": {
+      "name": "TOXICRÈNE"
+    },
+    "Tyranids::13": {
+      "name": "GARDES TYRANIDES"
+    },
+    "Tyranids::14": {
+      "name": "NEUROTYRAN"
+    },
+    "Tyranids::15": {
+      "name": "LICTOR"
+    },
+    "Tyranids::16": {
+      "name": "LA MORT SUBITE"
+    },
+    "Tyranids::17": {
+      "name": "MALECEPTOR"
+    },
+    "Tyranids::18": {
+      "name": "PYROVORES"
+    },
+    "Tyranids::19": {
+      "name": "HARUSPEX"
+    },
+    "Tyranids::2": {
+      "name": "LE MAÎTRE DES ESSAIMS"
+    },
+    "Tyranids::20": {
+      "name": "VENOMTHROPES"
+    },
+    "Tyranids::21": {
+      "name": "BONDISSEURS DE VON RYAN"
+    },
+    "Tyranids::22": {
+      "name": "NEUROGAUNTS"
+    },
+    "Tyranids::23": {
+      "name": "ZOANTHROPES"
+    },
+    "Tyranids::24": {
+      "name": "GENESTEALERS"
+    },
+    "Tyranids::25": {
+      "name": "NUÉES DE VORACES"
+    },
+    "Tyranids::26": {
+      "name": "PARASITE DE MORTREX"
+    },
+    "Tyranids::27": {
+      "name": "MAWLOC"
+    },
+    "Tyranids::28": {
+      "name": "TRYGON"
+    },
+    "Tyranids::29": {
+      "name": "SPORES MUCOLIDES"
+    },
+    "Tyranids::3": {
+      "name": "GÉNOCRATE"
+    },
+    "Tyranids::30": {
+      "name": "SPORES MINES"
+    },
+    "Tyranids::31": {
+      "name": "EXOCRINE"
+    },
+    "Tyranids::32": {
+      "name": "BIOVORES"
+    },
+    "Tyranids::33": {
+      "name": "CARNIFEX"
+    },
+    "Tyranids::34": {
+      "name": "TUEUR-HURLEUR"
+    },
+    "Tyranids::35": {
+      "name": "GARDES DES RUCHES"
+    },
+    "Tyranids::36": {
+      "name": "TYRANNOFEX"
+    },
+    "Tyranids::37": {
+      "name": "TYRANNOCYTE"
+    },
+    "Tyranids::38": {
+      "name": "VIRAGO DES RUCHES"
+    },
+    "Tyranids::39": {
+      "name": "HARPIE"
+    },
+    "Tyranids::4": {
+      "name": "PRIMAT TYRANIDE AILÉ"
+    },
+    "Tyranids::40": {
+      "name": "SPOROKYSTE"
+    },
+    "Tyranids::41": {
+      "name": "PSYCHOPHAGE"
+    },
+    "Tyranids::42": {
+      "name": "BARBGAUNTS"
+    },
+    "Tyranids::43": {
+      "name": "HARIDELLE"
+    },
+    "Tyranids::44": {
+      "name": "HIÉROPHANTE"
+    },
+    "Tyranids::45": {
+      "name": "ÉMISSAIRE NORNE"
+    },
+    "Tyranids::46": {
+      "name": "ASSIMILATRICE NORNE"
+    },
+    "Tyranids::47": {
+      "name": "NEUROLICTOR"
+    },
+    "Tyranids::48": {
+      "name": "RÔDEURS"
+    },
+    "Tyranids::49": {
+      "name": "RÔDEURS HYPERADAPTÉS"
+    },
+    "Tyranids::5": {
+      "name": "TERVIGON"
+    },
+    "Tyranids::50": {
+      "name": "PRIMAT TYRANIDE AVEC BIOKNOUT"
+    },
+    "Tyranids::51": {
+      "name": "LA TERREUR ROUGE"
+    },
+    "Tyranids::6": {
+      "name": "LE VIEUX BORGNE"
+    },
+    "Tyranids::7": {
+      "name": "GUERRIERS TYRANIDES AVEC BIO-ARMES DE TIR"
+    },
+    "Tyranids::8": {
+      "name": "GUERRIERS TYRANIDES AVEC BIO-ARMES DE MÊLÉE"
+    },
+    "Tyranids::9": {
+      "name": "TERMAGANTS"
+    },
+    "Ultramarines::0": {
+      "name": "MAÎTRE ARCHIVISTE TIGURIUS"
+    },
+    "Ultramarines::1": {
+      "name": "URIEL VENTRIS"
+    },
+    "Ultramarines::2": {
+      "name": "ROBOUTE GUILLIMAN"
+    },
+    "Ultramarines::3": {
+      "name": "MARNEUS CALGAR EN ARMURE D'ANTILOCHUS"
+    },
+    "Ultramarines::4": {
+      "name": "CATO SICARIUS"
+    },
+    "Ultramarines::5": {
+      "name": "GARDE D'HONNEUR VICTRIX"
+    },
+    "Ultramarines::6": {
+      "name": "CAPITAINE TITUS"
+    },
+    "Ultramarines::7": {
+      "name": "GARDIENS D'ULTRAMAR"
+    },
+    "White Scars::0": {
+      "name": "KOR’SARRO KHAN"
+    },
+    "White Scars::1": {
+      "name": "SUBODEN KHAN"
+    },
+    "World Eaters::0": {
+      "name": "ANGRON"
+    },
+    "World Eaters::1": {
+      "name": "KHÂRN LE FÉLON"
+    },
+    "World Eaters::10": {
+      "name": "TERMINATORS DU CHAOS"
+    },
+    "World Eaters::11": {
+      "name": "OCTOLIÉS"
+    },
+    "World Eaters::12": {
+      "name": "OCTOLIÉS EXALTÉS"
+    },
+    "World Eaters::13": {
+      "name": "LAND RAIDER DU CHAOS"
+    },
+    "World Eaters::14": {
+      "name": "PREDATOR ANNIHILATOR DU CHAOS"
+    },
+    "World Eaters::15": {
+      "name": "PREDATOR DESTRUCTOR DU CHAOS"
+    },
+    "World Eaters::16": {
+      "name": "FERROCENTAURUS"
+    },
+    "World Eaters::17": {
+      "name": "FERROCERBERUS"
+    },
+    "World Eaters::18": {
+      "name": "MÉTABRUTUS"
+    },
+    "World Eaters::19": {
+      "name": "MÉTADRAK"
+    },
+    "World Eaters::2": {
+      "name": "SEIGNEUR INVOCATUS"
+    },
+    "World Eaters::20": {
+      "name": "RHINO DU CHAOS"
+    },
+    "World Eaters::21": {
+      "name": "REJETONS DU CHAOS"
+    },
+    "World Eaters::22": {
+      "name": "SEIGNEUR DES CRÂNES DE KHORNE"
+    },
+    "World Eaters::23": {
+      "name": "MUNIFISANGS"
+    },
+    "World Eaters::24": {
+      "name": "SKARBRAND"
+    },
+    "World Eaters::25": {
+      "name": "BUVEUR DE SANG"
+    },
+    "World Eaters::26": {
+      "name": "SANGUINAIRES"
+    },
+    "World Eaters::27": {
+      "name": "ÉQUARRISSEURS"
+    },
+    "World Eaters::28": {
+      "name": "MOLOSSES DE KHORNE"
+    },
+    "World Eaters::29": {
+      "name": "PROFANATEUR"
+    },
+    "World Eaters::3": {
+      "name": "PRINCE DÉMON DE KHORNE"
+    },
+    "World Eaters::4": {
+      "name": "PRINCE DÉMON DE KHORNE AILÉ"
+    },
+    "World Eaters::5": {
+      "name": "SEIGNEUR SUR JUGGERNAUT"
+    },
+    "World Eaters::6": {
+      "name": "MAÎTRE DES EXÉCUTIONS"
+    },
+    "World Eaters::7": {
+      "name": "OCCILIÉ"
+    },
+    "World Eaters::8": {
+      "name": "BERZERKS DE KHORNE"
+    },
+    "World Eaters::9": {
+      "name": "CHAKHALS"
+    }
   },
   "detachments": {}
 }

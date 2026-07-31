@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
+    "locales:sync": "node scripts/sync-mfm-unit-locales.mjs",
     "inventory:index": "node scripts/export-catalog-unit-index.mjs",
     "inventory:migrate": "node scripts/migrate-inventory-csv.mjs",
     "inventory:rebase": "node scripts/rebase-inventory-csv.mjs",
