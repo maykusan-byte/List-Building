@@ -35,6 +35,15 @@ export interface ArsenalEntry {
   grantsAbilities: string[];
 }
 
+/** Equipment resolved for one type of model in the unit. */
+export interface ModelWargear {
+  composition: ModelCompositionState;
+  rules: WargearRule[];
+  equipment: ArsenalEntry[];
+  profiles: SelectedWeaponProfile[];
+  nonProfileEquipment: ArsenalEntry[];
+}
+
 export interface SelectedWeaponProfile {
   group: string;
   melee: boolean;
@@ -49,6 +58,7 @@ export interface WargearResolution {
   arsenal: ArsenalEntry[];
   profiles: SelectedWeaponProfile[];
   nonProfileEquipment: ArsenalEntry[];
+  byComposition: ModelWargear[];
   warnings: string[];
 }
 
@@ -240,6 +250,24 @@ export function selectionQuantity(item: RosterItem, ruleId: string, option: stri
   return normalizedWargearSelections(item)[ruleId]?.[option] ?? 0;
 }
 
+/**
+ * The largest quantity that can be selected for one option while preserving
+ * the shared cap of its choice group.  Existing imported quantities are kept
+ * selectable so they can be reduced instead of disappearing from the UI.
+ */
+export function optionQuantityLimit(
+  item: RosterItem,
+  rule: WargearRule,
+  compositionCount: number,
+  totalModels: number,
+  option: string
+): number {
+  const selected = normalizedWargearSelections(item)[rule.id] ?? {};
+  const current = selected[option] ?? 0;
+  const selectedTotal = Object.values(selected).reduce((sum, quantity) => sum + quantity, 0);
+  return Math.max(current, ruleLimit(rule, compositionCount, totalModels) - selectedTotal + current);
+}
+
 export function ruleLimit(rule: WargearRule, compositionCount: number, totalModels: number): number {
   const maximum = rule.max ?? compositionCount;
   const perX = rule.perXModels ? Math.floor(totalModels / rule.perXModels) : Number.POSITIVE_INFINITY;
@@ -287,7 +315,7 @@ function profileMatches(profile: RawWeaponProfile, equipment: string): boolean {
   const baseName = canonical((profile.Name ?? '').replace(/\s*[–—-]\s*(?:standard|supercharge).*$/iu, ''));
   const equipmentName = canonical(equipment);
   if (!weaponName || !equipmentName) return false;
-  return weaponName === equipmentName || baseName === equipmentName || weaponName.includes(equipmentName) || equipmentName.includes(baseName);
+  return weaponName === equipmentName || baseName === equipmentName;
 }
 
 export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmentNames: readonly string[] = []): WargearResolution {
@@ -321,7 +349,7 @@ export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmen
       if (!rule.options.some((candidate) => canonical(candidate) === canonical(option))) {
         warnings.push(`${rule.compositionLabel} : option d’équipement inconnue « ${option} ».`);
       }
-      pieces(option).forEach((piece) => addCount(additions, piece.name, piece.count * count));
+      pieces(option).forEach((piece) => addCountForComposition(additions, rule.compositionId, piece.name, piece.count * count));
       rule.replaces.forEach((replaced) => pieces(replaced).forEach((piece) => addCountForComposition(replacements, rule.compositionId, piece.name, piece.count * count)));
     });
   });
@@ -354,6 +382,36 @@ export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmen
     });
     return { ...entry, hasProfile: matched.length > 0, grantsAbilities: grantsByEquipment.get(canonical(entry.name)) ?? [] };
   });
+  const byComposition = compositions.map((composition) => {
+    const prefix = `${composition.id}\u0000`;
+    const compositionArsenal = new Map<string, { name: string; count: number }>();
+    remainingInitial.forEach((entry, key) => {
+      if (key.startsWith(prefix)) addCount(compositionArsenal, entry.name, entry.count);
+    });
+    additions.forEach((entry, key) => {
+      if (key.startsWith(prefix)) addCount(compositionArsenal, entry.name, entry.count);
+    });
+    const profileKeysForComposition = new Set<string>();
+    const profilesForComposition: SelectedWeaponProfile[] = [];
+    const equipment = [...compositionArsenal.values()].filter((entry) => entry.count > 0).map((entry) => {
+      const matched = allProfiles.filter((candidate) => profileMatches(candidate.profile, entry.name));
+      matched.forEach((candidate) => {
+        const key = `${candidate.group}\u0000${candidate.profile.Name ?? ''}`;
+        if (!profileKeysForComposition.has(key)) {
+          profileKeysForComposition.add(key);
+          profilesForComposition.push(candidate);
+        }
+      });
+      return { ...entry, hasProfile: matched.length > 0, grantsAbilities: grantsByEquipment.get(canonical(entry.name)) ?? [] };
+    });
+    return {
+      composition,
+      rules: rules.filter((rule) => rule.compositionId === composition.id),
+      equipment,
+      profiles: profilesForComposition,
+      nonProfileEquipment: equipment.filter((entry) => !entry.hasProfile)
+    };
+  });
 
   return {
     totalModels,
@@ -363,6 +421,7 @@ export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmen
     arsenal: arsenalEntries,
     profiles,
     nonProfileEquipment: arsenalEntries.filter((entry) => !entry.hasProfile),
+    byComposition,
     warnings
   };
 }

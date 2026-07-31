@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { normalizeDatabase } from './normalize';
 import { calculateItemCost } from './calculations';
-import { normalizedWargearSelections, resolveModelCompositions, resolveWargear, ruleLimit } from './wargear';
+import { normalizedWargearSelections, optionQuantityLimit, resolveModelCompositions, resolveWargear, ruleLimit, updateWargearQuantity } from './wargear';
 import type { RosterItem } from './types';
 
 const database = normalizeDatabase(JSON.stringify([{
@@ -37,6 +37,7 @@ const database = normalizeDatabase(JSON.stringify([{
       { Name: 'RANGED WEAPONS', Weapons: [
         { Name: 'Bolt pistol', Range: '12"', Attacks: '1', ToHit: '3+', Strength: '4', AP: '0', Damage: '1' },
         { Name: 'Boltgun', Range: '24"', Attacks: '2', ToHit: '3+', Strength: '4', AP: '0', Damage: '1' },
+        { Name: 'Condemnor boltgun', Range: '24"', Attacks: '1', ToHit: '3+', Strength: '4', AP: '0', Damage: '1' },
         { Name: 'Meltagun', Range: '12"', Attacks: '1', ToHit: '3+', Strength: '9', AP: '-4', Damage: 'D6' },
         { Name: 'Plasma pistol – standard', Range: '12"', Attacks: '1', ToHit: '3+', Strength: '7', AP: '-2', Damage: '1' },
         { Name: 'Plasma pistol – supercharge', Range: '12"', Attacks: '1', ToHit: '3+', Strength: '8', AP: '-3', Damage: '2' }
@@ -89,6 +90,16 @@ describe('wargear resolution', () => {
     expect(resolved.profiles.map((entry) => entry.profile.Name)).toEqual(expect.arrayContaining([
       'Plasma pistol – standard', 'Plasma pistol – supercharge', 'Meltagun'
     ]));
+    expect(resolved.profiles.map((entry) => entry.profile.Name)).not.toContain('Condemnor boltgun');
+    expect(resolved.byComposition.find((model) => model.composition.label === 'Sergeant')?.equipment)
+      .toContainEqual(expect.objectContaining({ name: 'plasma pistol', count: 1 }));
+  });
+
+  it('limits an option by the other quantities chosen in the same equipment choice', () => {
+    const rule = resolveWargear(unit, item(1)).rules.find((candidate) => candidate.id === 'c1-w0-o0')!;
+    expect(optionQuantityLimit(item(1), rule, 9, 10, 'flamer')).toBe(0);
+    const oneMeltagun = updateWargearQuantity(item(1), rule.id, 'meltagun', 1);
+    expect(optionQuantityLimit(oneMeltagun, rule, 9, 10, 'flamer')).toBe(1);
   });
 
   it('upgrades the historic one-string selection into a quantitative selection', () => {

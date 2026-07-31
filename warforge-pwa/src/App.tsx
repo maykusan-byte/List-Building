@@ -8,7 +8,7 @@ import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, r
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
-import { normalizeRosterItemWargear, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
+import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import './styles.css';
 
@@ -153,83 +153,87 @@ function WargearEditor({
 }): React.JSX.Element | null {
   const wargear = resolveWargear(unit, item, detachmentNames);
   const sourceProfiles = weaponProfiles(unit);
-  if (wargear.rules.length === 0 && wargear.arsenal.length === 0 && sourceProfiles.length === 0) return null;
+  if (wargear.byComposition.length === 0 && sourceProfiles.length === 0) return null;
   const detachmentAvailable = (name: string | undefined) => !name || detachmentNames.some((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase());
+  const allMatchedProfiles = wargear.byComposition.some((model) => model.profiles.length > 0);
+
   return (
     <section className="wargear-editor">
       <div className="wargear-heading"><h4>Armement et équipement</h4><span>{wargear.totalModels} figurine(s)</span></div>
-      {wargear.compositions.some((composition) => composition.editable) && (
-        <div className="composition-editor">
-          <strong>Composition</strong>
-          {wargear.compositions.map((composition) => (
-            <label key={composition.id}>
-              {composition.label} <small>{composition.min}–{composition.max}</small>
-              <input
-                type="number"
-                min={composition.min}
-                max={composition.max}
-                disabled={!composition.editable}
-                value={composition.count}
-                onChange={(event) => onChange(updateModelCount(unit, item, composition.id, Number(event.target.value)))}
-              />
-            </label>
-          ))}
-        </div>
-      )}
-      {wargear.compositions.map((composition) => {
-        const rules = wargear.rules.filter((rule) => rule.compositionId === composition.id);
-        if (rules.length === 0) return null;
-        return (
-          <section className="model-wargear" key={composition.id}>
-            <h5>{composition.label} <span>×{composition.count}</span></h5>
+      {wargear.byComposition.map(({ composition, rules, equipment, profiles, nonProfileEquipment }) => (
+        <details className="model-wargear model-wargear-dropdown" key={composition.id}>
+          <summary><span>{composition.label}</span><span>×{composition.count}</span></summary>
+          <div className="model-wargear-content">
+            {composition.editable && (
+              <label className="model-count-select">
+                Effectif de {composition.label} <small>{composition.min}–{composition.max}</small>
+                <input
+                  type="number"
+                  min={composition.min}
+                  max={composition.max}
+                  value={composition.count}
+                  onChange={(event) => onChange(updateModelCount(unit, item, composition.id, Number(event.target.value)))}
+                />
+              </label>
+            )}
+            {equipment.length > 0 && (
+              <section className="model-equipment">
+                <h5>Équipement retenu</h5>
+                <div className="tag-row">
+                  {equipment.map((entry) => <span className={entry.hasProfile ? '' : 'non-profile'} key={entry.name}>×{entry.count} {entry.name}</span>)}
+                </div>
+                {nonProfileEquipment.length > 0 && <p className="muted">Équipement sans profil : {nonProfileEquipment.map((entry) => entry.name).join(', ')}.</p>}
+              </section>
+            )}
+            {rules.length === 0 && <p className="muted">Aucun choix d’équipement pour ce type de figurine.</p>}
             {rules.map((rule) => {
               const selected = wargear.selections[rule.id] ?? {};
               const selectedTotal = Object.values(selected).reduce((sum, count) => sum + count, 0);
               const maximum = ruleLimit(rule, composition.count, wargear.totalModels);
               const required = detachmentAvailable(rule.requiredDetachment);
               return (
-                <div className="wargear-rule" key={rule.id}>
+                <section className="wargear-rule" key={rule.id}>
                   <div className="wargear-rule-heading">
                     <span>{rule.replaces.length > 0 ? `Remplace ${rule.replaces.join(' + ')}` : 'Équipement additionnel'}</span>
-                    <small>{selectedTotal}/{maximum}{rule.perXModels ? ` · 1 par ${rule.perXModels} fig.` : ''}</small>
+                    <small>{selectedTotal}/{maximum} choisi{maximum > 1 ? 's' : ''}{rule.perXModels ? ` · 1 par ${rule.perXModels} fig.` : ''}</small>
                   </div>
                   {rule.requiredDetachment && <p className={required ? 'wargear-requirement' : 'wargear-requirement warning'}>Requiert : {rule.requiredDetachment}</p>}
                   <div className="wargear-options">
                     {rule.options.map((option) => {
                       const quantity = selectionQuantity(item, rule.id, option);
-                      const addDisabled = !required || selectedTotal >= maximum;
+                      const quantityLimit = optionQuantityLimit(item, rule, composition.count, wargear.totalModels, option);
                       return (
-                        <div className="wargear-option" key={option}>
+                        <label className="wargear-option" key={option}>
                           <span>{option}</span>
-                          <div className="quantity-control">
-                            <button type="button" className="secondary" aria-label={`Retirer ${option}`} disabled={quantity === 0} onClick={() => onChange(updateWargearQuantity(item, rule.id, option, quantity - 1))}>−</button>
-                            <strong>{quantity}</strong>
-                            <button type="button" aria-label={`Ajouter ${option}`} disabled={addDisabled} onClick={() => onChange(updateWargearQuantity(item, rule.id, option, quantity + 1))}>+</button>
-                          </div>
-                        </div>
+                          <select
+                            aria-label={`Quantité de ${option}`}
+                            disabled={!required}
+                            value={quantity}
+                            onChange={(event) => onChange(updateWargearQuantity(item, rule.id, option, Number(event.target.value)))}
+                          >
+                            {Array.from({ length: quantityLimit + 1 }, (_, value) => <option key={value} value={value}>{value}</option>)}
+                          </select>
+                        </label>
                       );
                     })}
                   </div>
-                </div>
+                </section>
               );
             })}
-          </section>
-        );
-      })}
-      {wargear.arsenal.length > 0 && (
-        <section className="selected-arsenal">
-          <h5>Arsenal sélectionné</h5>
-          <div className="tag-row">{wargear.arsenal.map((entry) => <span className={entry.hasProfile ? '' : 'non-profile'} key={entry.name}>×{entry.count} {entry.name}</span>)}</div>
-          {wargear.arsenal.some((entry) => entry.grantsAbilities.length > 0) && <p className="muted">Aptitudes accordées : {wargear.arsenal.flatMap((entry) => entry.grantsAbilities).join(', ')}.</p>}
-          {wargear.nonProfileEquipment.length > 0 && <p className="muted">Équipement sans profil : {wargear.nonProfileEquipment.map((entry) => entry.name).join(', ')}.</p>}
-          <WeaponTable profiles={wargear.profiles} compact />
-        </section>
-      )}
-      {wargear.arsenal.length === 0 && sourceProfiles.length > 0 && (
-        <section className="selected-arsenal">
-          <h5>Profils de l’unité</h5>
-          <WeaponTable profiles={sourceProfiles} compact />
-        </section>
+            {profiles.length > 0 && (
+              <section className="model-weapon-profiles">
+                <h5>Profils des armes retenues</h5>
+                <WeaponTable profiles={profiles} compact />
+              </section>
+            )}
+          </div>
+        </details>
+      ))}
+      {!allMatchedProfiles && sourceProfiles.length > 0 && (
+        <details className="model-wargear model-wargear-dropdown unit-weapon-profiles">
+          <summary><span>Profils d’armes de l’unité</span></summary>
+          <div className="model-wargear-content"><WeaponTable profiles={sourceProfiles} compact /></div>
+        </details>
       )}
     </section>
   );
@@ -866,7 +870,12 @@ export default function App(): React.JSX.Element {
                 {['Movement', 'Toughness', 'Save', 'Wounds', 'Leadership', 'OC'].map((key) => <div key={key}><dt>{key}</dt><dd>{String(line[key] ?? '—')}</dd></div>)}
               </dl>
             ))}
-            {(selectedUnit.Weapons?.length ?? 0) > 0 && <><h3>Armes</h3><WeaponTable profiles={weaponProfiles(selectedUnit)} /></>}
+            {(selectedUnit.Weapons?.length ?? 0) > 0 && (
+              <details className="weapon-details">
+                <summary>Armes</summary>
+                <WeaponTable profiles={weaponProfiles(selectedUnit)} />
+              </details>
+            )}
             {(selectedUnit.UnitAbilities?.length ?? 0) > 0 && <h3>Aptitudes</h3>}
             {selectedUnit.UnitAbilities?.map((ability, index) => <p key={index}><strong>{ability.Title}</strong> {ability.Text}</p>)}
             <button onClick={() => { updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(selectedUnit.id)] })); setSelectedUnitId(null); }}>Ajouter à la liste</button>
