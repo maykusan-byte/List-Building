@@ -2,12 +2,14 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from '
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
+import { analyzeRoster } from './domain/analysis';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeSavedDrafts } from './domain/storage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
+import type { CoverageBand, ListAnalysis } from './domain/analysis';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
@@ -235,6 +237,113 @@ function AdvancedCatalogFilterMenu({
           <p className="muted">Les valeurs aléatoires (D6, 2D6…) sont comparées avec leur maximum possible.</p>
           <button className="secondary" type="button" disabled={activeCount === 0} onClick={onReset}>Réinitialiser</button>
         </div>
+      </div>
+    </details>
+  );
+}
+
+const COVERAGE_LABELS: Record<CoverageBand, string> = {
+  absent: 'Absent',
+  fragile: 'Fragile',
+  couvert: 'Couvert',
+  redondant: 'Redondant'
+};
+
+function formatAnalysisValue(value: number): string {
+  return value.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+}
+
+function AnalysisMetric({ label, value, detail }: { label: string; value: string | number; detail?: string }): React.JSX.Element {
+  return (
+    <div className="analysis-metric">
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+      {detail && <small>{detail}</small>}
+    </div>
+  );
+}
+
+function ListAnalysisPanel({ analysis }: { analysis: ListAnalysis }): React.JSX.Element {
+  const utilityMetrics = [
+    { label: 'Vol', count: analysis.mobility.flyUnits },
+    { label: 'Frappe en profondeur', count: analysis.mobility.deepStrikeUnits },
+    { label: 'Éclaireurs', count: analysis.mobility.scoutUnits },
+    { label: 'Infiltrateurs', count: analysis.mobility.infiltratorUnits },
+    { label: 'Furtivité', count: analysis.utility.stealthUnits },
+    { label: 'Opérateur Solitaire', count: analysis.utility.loneOperativeUnits },
+    { label: 'Insensible à la douleur', count: analysis.utility.feelNoPainUnits },
+    { label: 'Tir indirect', count: analysis.utility.indirectFireUnits },
+    { label: 'Torrent', count: analysis.utility.torrentUnits }
+  ].filter(({ count }) => count > 0);
+
+  return (
+    <details className="list-analysis" open>
+      <summary>
+        <span>Analyse de liste</span>
+        <small>Dégâts, mobilité, résistance et contrôle</small>
+      </summary>
+      <div className="list-analysis-content">
+        <section className="analysis-section">
+          <div className="analysis-heading">
+            <div><h3>Puissance offensive</h3><p>Dégâts moyens non sauvegardés par phase, à portée.</p></div>
+          </div>
+          <div className="analysis-target-grid">
+            {analysis.targets.map((target) => (
+              <article className="analysis-target" key={target.id}>
+                <div className="analysis-target-heading"><h4>{target.label}</h4><span className={`coverage-badge ${target.coverage}`}>{COVERAGE_LABELS[target.coverage]}</span></div>
+                <dl>
+                  <AnalysisMetric label="Tir" value={formatAnalysisValue(target.rangedDamage)} />
+                  <AnalysisMetric label="Mêlée" value={formatAnalysisValue(target.meleeDamage)} />
+                  <AnalysisMetric label="Total" value={formatAnalysisValue(target.totalDamage)} />
+                </dl>
+                <p>{target.sourceUnits} source(s) · {formatAnalysisValue(target.sourcesPerThousand)}/1 000 pts</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="analysis-section analysis-overview-grid">
+          <article>
+            <h3>Mobilité</h3>
+            <dl className="analysis-metrics-grid">
+              <AnalysisMetric label="Meilleur M" value={analysis.mobility.maximumMove === null ? '—' : `${formatAnalysisValue(analysis.mobility.maximumMove)}″`} />
+              <AnalysisMetric label="Portée max." value={analysis.mobility.longestRange === null ? '—' : `${formatAnalysisValue(analysis.mobility.longestRange)}″`} />
+              <AnalysisMetric label="Unités rapides" value={analysis.mobility.fastUnits} detail="M ≥ 10″" />
+              <AnalysisMetric label="Déploiement rapide" value={analysis.mobility.deepStrikeUnits + analysis.mobility.scoutUnits + analysis.mobility.infiltratorUnits} detail="FEP, Éclaireurs ou Infiltrateurs" />
+            </dl>
+          </article>
+          <article>
+            <h3>Résistance</h3>
+            <dl className="analysis-metrics-grid">
+              <AnalysisMetric label="PV totaux" value={formatAnalysisValue(analysis.resilience.totalWounds)} />
+              <AnalysisMetric label="Noyau E ≥ 10" value={formatAnalysisValue(analysis.resilience.toughWounds)} detail="PV lourds" />
+              <AnalysisMetric label="Svg 2+" value={formatAnalysisValue(analysis.resilience.saveTwoWounds)} detail="PV protégés" />
+              <AnalysisMetric label="Svg 3+" value={formatAnalysisValue(analysis.resilience.saveThreeWounds)} detail="PV protégés" />
+            </dl>
+          </article>
+          <article>
+            <h3>Contrôle</h3>
+            <dl className="analysis-metrics-grid">
+              <AnalysisMetric label="OC de base" value={formatAnalysisValue(analysis.control.totalObjectiveControl)} />
+              <AnalysisMetric label="Figurines" value={analysis.control.modelCount} />
+              <AnalysisMetric label="Battleline" value={analysis.control.battlelineUnits} detail="unité(s)" />
+              <AnalysisMetric label="Profils résolus" value={analysis.resilience.resolvedModels} detail="figurines avec stats exploitables" />
+            </dl>
+          </article>
+        </section>
+
+        <section className="analysis-section">
+          <h3>Outils tactiques structurés</h3>
+          {utilityMetrics.length > 0 ? (
+            <div className="analysis-utility-list">{utilityMetrics.map(({ label, count }) => <span key={label}>{label} <strong>{count}</strong></span>)}</div>
+          ) : <p className="muted">Aucun outil structuré détecté dans les profils sélectionnés.</p>}
+          {analysis.resilience.unresolvedUnits > 0 && <p className="analysis-warning">{analysis.resilience.unresolvedUnits} unité(s) à profils multiples utilisent un profil de secours pour les PV et l’OC.</p>}
+        </section>
+
+        <details className="analysis-assumptions">
+          <summary>Hypothèses de calcul</summary>
+          <ul>{analysis.assumptions.map((assumption) => <li key={assumption}>{assumption}</li>)}</ul>
+        </details>
       </div>
     </details>
   );
@@ -626,6 +735,10 @@ export default function App(): React.JSX.Element {
   );
   const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   const rosterTotal = database && draft ? calculateRosterTotal(database, draft.items, draft.detachmentIds) : 0;
+  const listAnalysis = useMemo(
+    () => database && draft ? analyzeRoster(database, draft) : null,
+    [database, draft]
+  );
 
   const factionUnits = useMemo(() => {
     if (!database || !draft) return [];
@@ -924,6 +1037,7 @@ export default function App(): React.JSX.Element {
             <div><span className="eyebrow">LISTE</span><h2>{draft.name || 'Liste sans nom'}</h2></div>
             <strong className={rosterTotal > (battleSize?.PointsTotal ?? Infinity) ? 'bad-total' : ''}>{rosterTotal}/{battleSize?.PointsTotal ?? '?'} pts</strong>
           </div>
+          {listAnalysis && <ListAnalysisPanel analysis={listAnalysis} />}
           {selectedDetachments.length > 0 && (
             <section className="selected-detachments" aria-label="Détachements sélectionnés">
               <h3>Détachements</h3>

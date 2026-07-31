@@ -130,6 +130,44 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .favorite:hover, .favorite.active { background: transparent; box-shadow: none; color: var(--gold-dark); transform: none; }
 .load-more { display: block; margin: 1rem auto 0; }
 .roster-panel { border-top: 3px solid var(--ink); max-height: calc(100vh - 1rem); overflow: auto; position: sticky; top: 0.5rem; }
+.list-analysis { background: #f8f4eb; border: 1px solid #ddcfb7; border-radius: 0.75rem; margin: 0 0 1rem; overflow: hidden; }
+.list-analysis > summary { align-items: center; color: var(--ink); cursor: pointer; display: flex; font-size: 0.9rem; font-weight: 900; gap: 0.45rem; justify-content: space-between; list-style: none; padding: 0.75rem; }
+.list-analysis > summary::-webkit-details-marker { display: none; }
+.list-analysis > summary::before { color: var(--gold-dark); content: '▸'; font-size: 1rem; transition: transform 150ms ease; }
+.list-analysis[open] > summary { background: #fff4cf; border-bottom: 1px solid #ddcfb7; }
+.list-analysis[open] > summary::before { transform: rotate(90deg); }
+.list-analysis > summary span { margin-right: auto; }
+.list-analysis > summary small { color: var(--ink-soft); font-size: 0.67rem; font-weight: 650; text-align: right; }
+.list-analysis-content { display: grid; gap: 0.9rem; padding: 0.75rem; }
+.analysis-section { border-top: 1px solid #ddcfb7; padding-top: 0.75rem; }
+.analysis-section:first-child { border-top: 0; padding-top: 0; }
+.analysis-section h3 { color: var(--gold-dark); font-size: 0.74rem; letter-spacing: 0.1em; margin: 0; text-transform: uppercase; }
+.analysis-heading p { font-size: 0.7rem; margin: 0.25rem 0 0.55rem; }
+.analysis-target-grid { display: grid; gap: 0.45rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+.analysis-target { background: #fffefa; border: 1px solid #e3d8c8; border-radius: 0.55rem; padding: 0.55rem; }
+.analysis-target-heading { align-items: center; display: flex; gap: 0.45rem; justify-content: space-between; }
+.analysis-target h4 { color: var(--ink); font-size: 0.74rem; margin: 0; }
+.analysis-target > dl, .analysis-metrics-grid { display: grid; gap: 0.3rem; margin: 0.5rem 0 0; }
+.analysis-target > dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.analysis-target > p { font-size: 0.65rem; margin: 0.45rem 0 0; }
+.analysis-metric { background: #f8f4eb; border: 1px solid #ebe1d3; border-radius: 0.4rem; min-width: 0; padding: 0.35rem; text-align: center; }
+.analysis-metric dt { color: var(--ink-soft); font-size: 0.61rem; font-weight: 750; }
+.analysis-metric dd { color: var(--ink); font-size: 0.8rem; font-weight: 900; margin: 0.1rem 0 0; overflow-wrap: anywhere; }
+.analysis-metric small { color: var(--ink-soft); display: block; font-size: 0.57rem; line-height: 1.2; margin-top: 0.15rem; }
+.coverage-badge { border: 1px solid #d7c8af; border-radius: 999px; color: var(--ink-soft); font-size: 0.6rem; font-weight: 850; padding: 0.16rem 0.35rem; white-space: nowrap; }
+.coverage-badge.fragile { background: #fff1d3; border-color: #d6a033; color: #755004; }
+.coverage-badge.couvert { background: #e7f1e6; border-color: #7ca682; color: #23512d; }
+.coverage-badge.redondant { background: #dcece6; border-color: #4b8965; color: #164e31; }
+.analysis-overview-grid { display: grid; gap: 0.75rem; }
+.analysis-overview-grid > article { display: grid; gap: 0.45rem; }
+.analysis-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.analysis-utility-list { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
+.analysis-utility-list span { background: #fffefa; border: 1px solid #ddd0ba; border-radius: 999px; color: var(--ink-soft); font-size: 0.66rem; font-weight: 700; padding: 0.25rem 0.45rem; }
+.analysis-utility-list strong { color: var(--gold-dark); margin-left: 0.2rem; }
+.analysis-warning { color: var(--gold-dark); font-size: 0.67rem; font-weight: 750; margin: 0.65rem 0 0; }
+.analysis-assumptions { color: var(--ink-soft); font-size: 0.68rem; }
+.analysis-assumptions > summary { color: var(--ink-soft); cursor: pointer; font-weight: 800; }
+.analysis-assumptions ul { display: grid; gap: 0.3rem; margin: 0.5rem 0 0; padding-left: 1.1rem; }
 .roster-card { margin-bottom: 0.75rem; position: relative; }
 .selected-detachments { border-bottom: 1px solid #bca77f; margin-bottom: 1rem; padding-bottom: 0.25rem; }
 .selected-detachments > h3 { color: var(--gold-dark); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }

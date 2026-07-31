@@ -91,6 +91,7 @@ describe('wargear resolution', () => {
       'Plasma pistol – standard', 'Plasma pistol – supercharge', 'Meltagun'
     ]));
     expect(resolved.profiles.map((entry) => entry.profile.Name)).not.toContain('Condemnor boltgun');
+    expect(resolved.profiles.find((entry) => entry.profile.Name === 'Meltagun')?.count).toBe(2);
     expect(resolved.byComposition.find((model) => model.composition.label === 'Sergeant')?.equipment)
       .toContainEqual(expect.objectContaining({ name: 'plasma pistol', count: 1 }));
   });

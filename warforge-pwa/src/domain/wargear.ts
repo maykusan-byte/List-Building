@@ -48,6 +48,8 @@ export interface SelectedWeaponProfile {
   group: string;
   melee: boolean;
   profile: RawWeaponProfile;
+  /** Number of selected instances that carry this profile. */
+  count: number;
 }
 
 export interface WargearResolution {
@@ -306,8 +308,20 @@ export function weaponProfiles(unit: NormalizedUnit): SelectedWeaponProfile[] {
   return (unit.Weapons ?? []).flatMap((group: RawWeaponGroup) => (group.Weapons ?? []).map((profile) => ({
     group: group.Name?.trim() || (group.IsMelee ? 'ARMES DE CORPS À CORPS' : 'ARMES'),
     melee: Boolean(group.IsMelee),
-    profile
+    profile,
+    count: 1
   })));
+}
+
+function addProfile(target: SelectedWeaponProfile[], profileIndexes: Map<string, number>, candidate: SelectedWeaponProfile, count: number): void {
+  const key = `${candidate.group}\u0000${candidate.profile.Name ?? ''}`;
+  const existingIndex = profileIndexes.get(key);
+  if (existingIndex === undefined) {
+    profileIndexes.set(key, target.length);
+    target.push({ ...candidate, count });
+    return;
+  }
+  target[existingIndex].count += count;
 }
 
 function profileMatches(profile: RawWeaponProfile, equipment: string): boolean {
@@ -369,16 +383,12 @@ export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmen
   additions.forEach((addition) => addCount(arsenal, addition.name, addition.count));
   const allProfiles = weaponProfiles(unit);
   const grantsByEquipment = new Map((unit.UnitComposition?.WargearDefinitions ?? []).map((definition) => [canonical(definition.Key), definition.GrantsAbilities ?? []]));
-  const profileKeys = new Set<string>();
+  const profileIndexes = new Map<string, number>();
   const profiles: SelectedWeaponProfile[] = [];
   const arsenalEntries = [...arsenal.values()].filter((entry) => entry.count > 0).map((entry) => {
     const matched = allProfiles.filter((candidate) => profileMatches(candidate.profile, entry.name));
     matched.forEach((candidate) => {
-      const key = `${candidate.group}\u0000${candidate.profile.Name ?? ''}`;
-      if (!profileKeys.has(key)) {
-        profileKeys.add(key);
-        profiles.push(candidate);
-      }
+      addProfile(profiles, profileIndexes, candidate, entry.count);
     });
     return { ...entry, hasProfile: matched.length > 0, grantsAbilities: grantsByEquipment.get(canonical(entry.name)) ?? [] };
   });
@@ -391,16 +401,12 @@ export function resolveWargear(unit: NormalizedUnit, item: RosterItem, detachmen
     additions.forEach((entry, key) => {
       if (key.startsWith(prefix)) addCount(compositionArsenal, entry.name, entry.count);
     });
-    const profileKeysForComposition = new Set<string>();
+    const profileIndexesForComposition = new Map<string, number>();
     const profilesForComposition: SelectedWeaponProfile[] = [];
     const equipment = [...compositionArsenal.values()].filter((entry) => entry.count > 0).map((entry) => {
       const matched = allProfiles.filter((candidate) => profileMatches(candidate.profile, entry.name));
       matched.forEach((candidate) => {
-        const key = `${candidate.group}\u0000${candidate.profile.Name ?? ''}`;
-        if (!profileKeysForComposition.has(key)) {
-          profileKeysForComposition.add(key);
-          profilesForComposition.push(candidate);
-        }
+        addProfile(profilesForComposition, profileIndexesForComposition, candidate, entry.count);
       });
       return { ...entry, hasProfile: matched.length > 0, grantsAbilities: grantsByEquipment.get(canonical(entry.name)) ?? [] };
     });
