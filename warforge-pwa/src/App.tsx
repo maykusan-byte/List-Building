@@ -1,11 +1,13 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
+import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
 import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, SCENARIOS, scenarioLabel, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeSavedDrafts } from './domain/storage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
+import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
@@ -155,6 +157,86 @@ function WeaponTable({ profiles, compact = false }: { profiles: SelectedWeaponPr
         </section>
       ))}
     </div>
+  );
+}
+
+type AdvancedCatalogFilterKey = keyof AdvancedCatalogFilters;
+
+function AdvancedCatalogFilterInput({
+  field,
+  label,
+  filters,
+  onChange
+}: {
+  field: AdvancedCatalogFilterKey;
+  label: string;
+  filters: AdvancedCatalogFilters;
+  onChange: (field: AdvancedCatalogFilterKey, value: string) => void;
+}): React.JSX.Element {
+  return (
+    <label className="advanced-filter-field">
+      <span>{label}</span>
+      <input
+        aria-label={label}
+        type="number"
+        step="1"
+        placeholder="—"
+        value={filters[field]}
+        onChange={(event) => onChange(field, event.target.value)}
+      />
+    </label>
+  );
+}
+
+function AdvancedCatalogFilterMenu({
+  filters,
+  activeCount,
+  onChange,
+  onReset
+}: {
+  filters: AdvancedCatalogFilters;
+  activeCount: number;
+  onChange: (field: AdvancedCatalogFilterKey, value: string) => void;
+  onReset: () => void;
+}): React.JSX.Element {
+  return (
+    <details className="advanced-filters">
+      <summary>Filtres avancés{activeCount > 0 ? ` · ${activeCount} actif${activeCount > 1 ? 's' : ''}` : ''}</summary>
+      <div className="advanced-filter-content">
+        <section className="advanced-filter-group" aria-labelledby="unit-stat-filter-title">
+          <div>
+            <h3 id="unit-stat-filter-title">Caractéristiques de l’unité</h3>
+            <p>Au moins un profil doit remplir toutes les conditions choisies.</p>
+          </div>
+          <div className="advanced-filter-grid">
+            <AdvancedCatalogFilterInput field="minimumMovement" label="M ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumToughness" label="E ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="maximumSave" label="Svg ≤" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumWounds" label="PV ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="maximumLeadership" label="Cd ≤" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumObjectiveControl" label="OC ≥" filters={filters} onChange={onChange} />
+          </div>
+        </section>
+        <section className="advanced-filter-group" aria-labelledby="weapon-stat-filter-title">
+          <div>
+            <h3 id="weapon-stat-filter-title">Caractéristiques d’une arme</h3>
+            <p>Une même arme doit remplir toutes les conditions choisies.</p>
+          </div>
+          <div className="advanced-filter-grid">
+            <AdvancedCatalogFilterInput field="minimumWeaponRange" label="Portée ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumWeaponAttacks" label="A ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="maximumWeaponSkill" label="CC / CT ≤" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumWeaponStrength" label="F ≥" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="maximumWeaponAP" label="PA ≤" filters={filters} onChange={onChange} />
+            <AdvancedCatalogFilterInput field="minimumWeaponDamage" label="D ≥" filters={filters} onChange={onChange} />
+          </div>
+        </section>
+        <div className="advanced-filter-footer">
+          <p className="muted">Les valeurs aléatoires (D6, 2D6…) sont comparées avec leur maximum possible.</p>
+          <button className="secondary" type="button" disabled={activeCount === 0} onClick={onReset}>Réinitialiser</button>
+        </div>
+      </div>
+    </details>
   );
 }
 
@@ -375,6 +457,8 @@ export default function App(): React.JSX.Element {
   const [favouritesOnly, setFavouritesOnly] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
+  const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(true);
+  const [advancedCatalogFilters, setAdvancedCatalogFilters] = useState<AdvancedCatalogFilters>({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
   const [savedDrafts, setSavedDrafts] = useState<SavedDraft[]>(() => readSavedDrafts().flatMap((saved) => {
     if (!Array.isArray(saved.draft?.items)) return [];
@@ -551,6 +635,7 @@ export default function App(): React.JSX.Element {
       if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) return false;
       if (favouritesOnly && !favorites.includes(unit.id)) return false;
       if (inStockOnly && !hasFreeInventory(inventory, inventoryAllocation, unit.id)) return false;
+      if (!matchesAdvancedCatalogFilters(unit, advancedCatalogFilters)) return false;
       if (roleFilter && !(unit.Keywords ?? []).some((keyword) => keyword.toLocaleLowerCase().includes(roleFilter.toLocaleLowerCase()))) return false;
       if (searchText) {
         const corpus = [unit.displayName, ...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? [])].join(' ').toLocaleLowerCase();
@@ -561,7 +646,7 @@ export default function App(): React.JSX.Element {
       if (ceiling !== undefined && minimumCost !== null && minimumCost > ceiling) return false;
       return true;
     });
-  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation]);
+  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation, advancedCatalogFilters]);
 
   const roles = useMemo(() => {
     if (!database || !draft) return [];
@@ -583,9 +668,20 @@ export default function App(): React.JSX.Element {
     () => database ? savedDrafts.filter((saved) => restoreSavedDraft(saved, database) !== null) : [],
     [database, savedDrafts]
   );
+  const activeAdvancedCatalogFilterCount = advancedCatalogFilterCount(advancedCatalogFilters);
 
   const updateDraft = (updater: (current: RosterDraft) => RosterDraft): void => {
     setDraft((current) => current ? updater(current) : current);
+  };
+
+  const updateAdvancedCatalogFilter = (field: AdvancedCatalogFilterKey, value: string): void => {
+    setAdvancedCatalogFilters((current) => ({ ...current, [field]: value }));
+    setVisibleUnits(60);
+  };
+
+  const resetAdvancedCatalogFilters = (): void => {
+    setAdvancedCatalogFilters({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
+    setVisibleUnits(60);
   };
 
   const activateSavedDraft = (saved: SavedDraft): void => {
@@ -742,7 +838,7 @@ export default function App(): React.JSX.Element {
       <header className="topbar">
         <div>
           <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
-          <h1>Commandement de liste</h1>
+          <h1>Warforge 40K</h1>
           <p>{status} · Empreinte {database.fingerprint}</p>
           <p className="inventory-status">{inventoryStatus}</p>
         </div>
@@ -759,59 +855,6 @@ export default function App(): React.JSX.Element {
 
       {notice && <div className="toast" role="status">{notice}<button onClick={() => setNotice(null)}>×</button></div>}
       {error && <div className="toast error-toast" role="alert">{error}<button onClick={() => setError(null)}>×</button></div>}
-
-      <section className="configuration" aria-label="Configuration de la liste">
-        <label>
-          Nom de la liste
-          <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
-        </label>
-        <label>
-          Liste active
-          <select aria-label="Liste active" value={draft.id} onChange={(event) => {
-            const saved = compatibleSavedDrafts.find((candidate) => candidate.id === event.target.value);
-            if (saved) activateSavedDraft(saved);
-          }}>
-            {!compatibleSavedDrafts.some((saved) => saved.id === draft.id) && <option value={draft.id}>{draft.name.trim() || 'Liste sans nom'}</option>}
-            {compatibleSavedDrafts.map((saved) => <option key={saved.id} value={saved.id}>{saved.name}</option>)}
-          </select>
-        </label>
-        <label>
-          Format
-          <select value={draft.battleSizePoints} onChange={(event) => updateDraft((current) => ({ ...current, battleSizePoints: Number(event.target.value) }))}>
-            {database.battleSizes.map((size) => <option key={size.PointsTotal} value={size.PointsTotal}>{size.PointsTotal.toLocaleString('fr-FR')} pts · {size.DetachmentPoints} DP</option>)}
-          </select>
-        </label>
-        <label>
-          Faction
-          <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
-            {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{faction.name} · {faction.unitCount} unités</option>)}
-          </select>
-        </label>
-        <label>
-          Scénario
-          <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
-            {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}
-          </select>
-        </label>
-        <div className="configuration-actions">
-          <button onClick={createDraft}>Nouvelle liste</button>
-          <button className="secondary" onClick={saveDraft}>Enregistrer</button>
-          <button className="secondary" disabled={hasBlockingIssue} onClick={exportDraft}>Exporter v1</button>
-        </div>
-      </section>
-
-      <section className="scenario-guide">
-        <div>
-          <span className="eyebrow">GUIDE DE SCÉNARIO</span>
-          <h2>{scenarioLabel(draft.scenario)}</h2>
-          <p>{SCENARIOS.find((scenario) => scenario.id === draft.scenario)?.guide}</p>
-        </div>
-        <dl>
-          <div><dt>Scénarios autorisés</dt><dd>{availableScenarios.length}</dd></div>
-          <div><dt>Budget de détachements</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
-          <div><dt>Limite d’améliorations</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
-        </dl>
-      </section>
 
       <section className="detachment-section">
         <div className="section-heading">
@@ -855,26 +898,43 @@ export default function App(): React.JSX.Element {
         <div className="library-panel">
           <div className="section-heading">
             <div><span className="eyebrow">BIBLIOTHÈQUE</span><h2>Unités disponibles</h2></div>
-            <p>{factionUnits.length} résultat(s)</p>
+            <div className="library-heading-actions">
+              <p>{factionUnits.length} résultat(s)</p>
+              <button
+                className="secondary"
+                aria-controls="unit-catalog"
+                aria-expanded={unitCatalogExpanded}
+                onClick={() => setUnitCatalogExpanded((expanded) => !expanded)}
+              >
+                {unitCatalogExpanded ? 'Réduire le catalogue' : 'Afficher le catalogue'}
+              </button>
+            </div>
           </div>
-          <div className="filters">
-            <input placeholder="Rechercher une unité, un mot-clé…" value={search} onChange={(event) => { setSearch(event.target.value); setVisibleUnits(60); }} />
-            <select value={roleFilter} onChange={(event) => { setRoleFilter(event.target.value); setVisibleUnits(60); }}>
-              <option value="">Tous les rôles</option>
-              {roles.map((role) => <option key={role} value={role}>{role}</option>)}
-            </select>
-            <input type="number" min="0" placeholder="Coût max" value={maxCost} onChange={(event) => { setMaxCost(event.target.value); setVisibleUnits(60); }} />
-            <label className="checkbox-label"><input type="checkbox" checked={favouritesOnly} onChange={(event) => setFavouritesOnly(event.target.checked)} /> Favoris</label>
-            <label className="checkbox-label" title={inventory ? undefined : 'Chargez un inventaire compatible pour filtrer le stock.'}>
-              <input
-                type="checkbox"
-                checked={inStockOnly}
-                disabled={!inventory}
-                onChange={(event) => { setInStockOnly(event.target.checked); setVisibleUnits(60); }}
-              /> En stock
-            </label>
-          </div>
-          <div className="unit-grid">
+          <div id="unit-catalog" hidden={!unitCatalogExpanded}>
+            <div className="filters">
+              <input placeholder="Rechercher une unité, un mot-clé…" value={search} onChange={(event) => { setSearch(event.target.value); setVisibleUnits(60); }} />
+              <select value={roleFilter} onChange={(event) => { setRoleFilter(event.target.value); setVisibleUnits(60); }}>
+                <option value="">Tous les rôles</option>
+                {roles.map((role) => <option key={role} value={role}>{role}</option>)}
+              </select>
+              <input type="number" min="0" placeholder="Coût max" value={maxCost} onChange={(event) => { setMaxCost(event.target.value); setVisibleUnits(60); }} />
+              <label className="checkbox-label"><input type="checkbox" checked={favouritesOnly} onChange={(event) => setFavouritesOnly(event.target.checked)} /> Favoris</label>
+              <label className="checkbox-label" title={inventory ? undefined : 'Chargez un inventaire compatible pour filtrer le stock.'}>
+                <input
+                  type="checkbox"
+                  checked={inStockOnly}
+                  disabled={!inventory}
+                  onChange={(event) => { setInStockOnly(event.target.checked); setVisibleUnits(60); }}
+                /> En stock
+              </label>
+            </div>
+            <AdvancedCatalogFilterMenu
+              filters={advancedCatalogFilters}
+              activeCount={activeAdvancedCatalogFilterCount}
+              onChange={updateAdvancedCatalogFilter}
+              onReset={resetAdvancedCatalogFilters}
+            />
+            <div className="unit-grid">
             {factionUnits.slice(0, visibleUnits).map((unit) => {
               const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
               return (
@@ -910,8 +970,9 @@ export default function App(): React.JSX.Element {
               </article>
               );
             })}
+            </div>
+            {factionUnits.length > visibleUnits && <button className="load-more" onClick={() => setVisibleUnits((current) => current + 60)}>Afficher 60 unités de plus</button>}
           </div>
-          {factionUnits.length > visibleUnits && <button className="load-more" onClick={() => setVisibleUnits((current) => current + 60)}>Afficher 60 unités de plus</button>}
         </div>
 
         <aside className="roster-panel">
@@ -975,6 +1036,66 @@ export default function App(): React.JSX.Element {
             </div>
           )}
         </aside>
+      </section>
+
+      <section className="command-center" aria-label="Commandement de liste">
+        <div className="command-center-heading">
+          <span className="eyebrow">COMMANDEMENT DE LISTE</span>
+          <h2>Préparer la force</h2>
+          <p>Choisissez le format, la faction et le scénario, puis enregistrez ou exportez la liste.</p>
+        </div>
+        <section className="configuration" aria-label="Configuration de la liste">
+          <label>
+            Nom de la liste
+            <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
+          </label>
+          <label>
+            Liste active
+            <select aria-label="Liste active" value={draft.id} onChange={(event) => {
+              const saved = compatibleSavedDrafts.find((candidate) => candidate.id === event.target.value);
+              if (saved) activateSavedDraft(saved);
+            }}>
+              {!compatibleSavedDrafts.some((saved) => saved.id === draft.id) && <option value={draft.id}>{draft.name.trim() || 'Liste sans nom'}</option>}
+              {compatibleSavedDrafts.map((saved) => <option key={saved.id} value={saved.id}>{saved.name}</option>)}
+            </select>
+          </label>
+          <label>
+            Format
+            <select value={draft.battleSizePoints} onChange={(event) => updateDraft((current) => ({ ...current, battleSizePoints: Number(event.target.value) }))}>
+              {database.battleSizes.map((size) => <option key={size.PointsTotal} value={size.PointsTotal}>{size.PointsTotal.toLocaleString('fr-FR')} pts · {size.DetachmentPoints} DP</option>)}
+            </select>
+          </label>
+          <label>
+            Faction
+            <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
+              {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{faction.name} · {faction.unitCount} unités</option>)}
+            </select>
+          </label>
+          <label>
+            Scénario
+            <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
+              {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}
+            </select>
+          </label>
+          <div className="configuration-actions">
+            <button onClick={createDraft}>Nouvelle liste</button>
+            <button className="secondary" onClick={saveDraft}>Enregistrer</button>
+            <button className="secondary" disabled={hasBlockingIssue} onClick={exportDraft}>Exporter v1</button>
+          </div>
+        </section>
+
+        <section className="scenario-guide">
+          <div>
+            <span className="eyebrow">GUIDE DE SCÉNARIO</span>
+            <h2>{scenarioLabel(draft.scenario)}</h2>
+            <p>{SCENARIOS.find((scenario) => scenario.id === draft.scenario)?.guide}</p>
+          </div>
+          <dl>
+            <div><dt>Scénarios autorisés</dt><dd>{availableScenarios.length}</dd></div>
+            <div><dt>Budget de détachements</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
+            <div><dt>Limite d’améliorations</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
+          </dl>
+        </section>
       </section>
 
       {selectedUnit && (

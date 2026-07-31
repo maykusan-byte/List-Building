@@ -36,7 +36,7 @@ h2 { font-size: 1.2rem; margin-bottom: 0.35rem; }
 h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
 p { color: var(--ink-soft); line-height: 1.5; }
 .app-shell { margin: 0 auto; max-width: 1720px; padding: 1.25rem; }
-.topbar, .configuration, .scenario-guide, .detachment-section, .library-panel, .roster-panel { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
+.topbar, .configuration, .scenario-guide, .detachment-section, .library-panel, .roster-panel, .command-center { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
 .topbar { align-items: center; border-top: 3px solid var(--ink); display: flex; gap: 1rem; justify-content: space-between; padding: 1.35rem; }
 .topbar p { font-size: 0.78rem; margin: 0; overflow-wrap: anywhere; }
 .inventory-status { color: var(--green) !important; margin-top: 0.3rem !important; }
@@ -50,6 +50,11 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .scenario-guide dl div { background: #f8f4eb; border: 1px solid #eadfcd; border-radius: 0.75rem; padding: 0.6rem; }
 .scenario-guide dt { color: var(--ink-soft); font-size: 0.68rem; }
 .scenario-guide dd { color: var(--gold-dark); font-size: 1.1rem; font-weight: 900; margin: 0.25rem 0 0; }
+.command-center { margin-top: 1rem; padding: 1rem; }
+.command-center-heading h2 { margin-bottom: 0.2rem; }
+.command-center-heading p { font-size: 0.82rem; margin-bottom: 0; }
+.command-center .configuration { background: transparent; border: 0; box-shadow: none; margin-top: 0.75rem; padding: 0; }
+.command-center .scenario-guide { background: transparent; border: 0; border-radius: 0; border-top: 1px solid #dfd3c0; box-shadow: none; margin: 1rem 0 0; padding: 1rem 0 0; }
 .detachment-section { box-shadow: inset 0 3px 0 var(--gold), 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); margin-top: 1rem; padding: 1rem; }
 .section-heading { align-items: start; display: flex; gap: 1rem; justify-content: space-between; margin-bottom: 0.85rem; }
 .section-heading p { font-size: 0.8rem; margin-bottom: 0; }
@@ -75,8 +80,26 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .workspace { align-items: start; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.7fr) minmax(21rem, 0.9fr); margin-top: 1rem; }
 .library-panel, .roster-panel { padding: 1rem; }
 .filters { display: grid; gap: 0.55rem; grid-template-columns: minmax(14rem, 1.5fr) minmax(9rem, 1fr) minmax(7rem, 0.45fr) auto auto; margin-bottom: 1rem; }
+.library-heading-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: end; }
+.library-heading-actions p { margin: 0; }
 .checkbox-label { align-items: center; display: flex; grid-auto-flow: column; white-space: nowrap; }
 .checkbox-label input { min-height: 0; width: auto; }
+.advanced-filters { background: #f8f4eb; border: 1px solid #dfd2bc; border-radius: 0.75rem; margin: -0.2rem 0 1rem; }
+.advanced-filters > summary { align-items: center; color: var(--ink); cursor: pointer; display: flex; font-size: 0.82rem; font-weight: 850; gap: 0.5rem; list-style: none; padding: 0.7rem 0.8rem; }
+.advanced-filters > summary::-webkit-details-marker { display: none; }
+.advanced-filters > summary::before { color: var(--gold-dark); content: '▸'; font-size: 0.95rem; transition: transform 150ms ease; }
+.advanced-filters[open] > summary { background: #fff5d6; border-bottom: 1px solid #dfd2bc; border-radius: 0.75rem 0.75rem 0 0; }
+.advanced-filters[open] > summary::before { transform: rotate(90deg); }
+.advanced-filter-content { display: grid; gap: 0.9rem; padding: 0.8rem; }
+.advanced-filter-group { display: grid; gap: 0.55rem; }
+.advanced-filter-group h3 { color: var(--ink); font-size: 0.78rem; margin: 0; }
+.advanced-filter-group p { font-size: 0.72rem; margin: 0.15rem 0 0; }
+.advanced-filter-grid { display: grid; gap: 0.45rem; grid-template-columns: repeat(6, minmax(4.4rem, 1fr)); }
+.advanced-filter-field { color: var(--ink-soft); font-size: 0.7rem; gap: 0.22rem; }
+.advanced-filter-field input { min-height: 2.15rem; padding: 0.35rem 0.45rem; }
+.advanced-filter-footer { align-items: center; border-top: 1px solid #dfd2bc; display: flex; gap: 0.65rem; justify-content: space-between; padding-top: 0.7rem; }
+.advanced-filter-footer p { margin: 0; }
+.advanced-filter-footer button { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
 .unit-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr)); }
 .unit-card { position: relative; }
 .unit-card.allied-unit { border-color: #c59b1f; }
@@ -202,10 +225,12 @@ p { color: var(--ink-soft); line-height: 1.5; }
 @media (max-width: 720px) {
   .app-shell { padding: 0.65rem; }
   .topbar, .section-heading { align-items: stretch; flex-direction: column; }
-  .detachment-heading-actions { align-items: stretch; justify-content: stretch; }
+  .detachment-heading-actions, .library-heading-actions { align-items: stretch; justify-content: stretch; }
   .configuration { grid-template-columns: 1fr; }
   .scenario-guide dl { grid-template-columns: 1fr; }
   .filters { grid-template-columns: 1fr; }
+  .advanced-filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .advanced-filter-footer { align-items: stretch; flex-direction: column; }
   .unit-grid { grid-template-columns: minmax(0, 1fr); }
   .unit-card-layout { grid-template-columns: minmax(0, 1fr); }
   .unit-thumbnail { margin: 0 auto; }
@@ -214,7 +239,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 }
 @media print {
   body { background: #fff; color: #111; }
-  .topbar-actions, .configuration, .scenario-guide, .detachment-section, .library-panel, .toast, .icon-button, .saved-panel { display: none !important; }
+  .topbar-actions, .command-center, .detachment-section, .library-panel, .toast, .icon-button, .saved-panel { display: none !important; }
   .app-shell { max-width: none; padding: 0; }
   .topbar, .roster-panel { background: #fff; border: 0; box-shadow: none; color: #111; }
   .roster-panel { max-height: none; overflow: visible; }
