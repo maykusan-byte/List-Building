@@ -22,6 +22,20 @@ export interface TargetDamageAnalysis extends AnalysisTarget {
   coverage: CoverageBand;
 }
 
+export interface UnitTargetDamageAnalysis {
+  targetId: AnalysisTarget['id'];
+  rangedDamage: number;
+  meleeDamage: number;
+  totalDamage: number;
+}
+
+export interface UnitDamageAnalysis {
+  itemId: string;
+  unitName: string;
+  modelCount: number;
+  targets: UnitTargetDamageAnalysis[];
+}
+
 export interface MobilityAnalysis {
   maximumMove: number | null;
   longestRange: number | null;
@@ -57,6 +71,7 @@ export interface UtilityAnalysis {
 
 export interface ListAnalysis {
   targets: TargetDamageAnalysis[];
+  unitDamages: UnitDamageAnalysis[];
   mobility: MobilityAnalysis;
   resilience: ResilienceAnalysis;
   control: ControlAnalysis;
@@ -248,6 +263,7 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft):
   const unitsById = new Map(database.units.map((unit) => [unit.id, unit]));
   const detachmentNames = database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)).map((detachment) => detachment.displayName);
   const targetState = ANALYSIS_TARGETS.map((target) => ({ target, rangedDamage: 0, meleeDamage: 0, sourceUnits: 0 }));
+  const unitDamages: UnitDamageAnalysis[] = [];
   const mobility: MobilityAnalysis = { maximumMove: null, longestRange: null, fastUnits: 0, flyUnits: 0, deepStrikeUnits: 0, scoutUnits: 0, infiltratorUnits: 0 };
   const resilience: ResilienceAnalysis = { totalWounds: 0, toughWounds: 0, saveTwoWounds: 0, saveThreeWounds: 0, resolvedModels: 0, unresolvedUnits: 0 };
   const control: ControlAnalysis = { totalObjectiveControl: 0, battlelineUnits: 0, modelCount: 0 };
@@ -292,13 +308,15 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft):
       if (range !== null) mobility.longestRange = Math.max(mobility.longestRange ?? 0, range);
     });
 
-    targetState.forEach((state) => {
+    const damagesForUnit = targetState.map((state) => {
       const ranged = bestProfilesForTarget(profiles, state.target, false).reduce((sum, profile) => sum + expectedProfileDamage(profile, state.target), 0);
       const melee = bestProfilesForTarget(profiles, state.target, true).reduce((sum, profile) => sum + expectedProfileDamage(profile, state.target), 0);
       state.rangedDamage += ranged;
       state.meleeDamage += melee;
       if (ranged + melee >= 0.5) state.sourceUnits += 1;
+      return { targetId: state.target.id, rangedDamage: ranged, meleeDamage: melee, totalDamage: ranged + melee };
     });
+    unitDamages.push({ itemId: item.id, unitName: unit.Name ?? 'Unité sans nom', modelCount: totalModels, targets: damagesForUnit });
   });
 
   return {
@@ -311,6 +329,7 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft):
       sourcesPerThousand: sourceUnits * 1000 / Math.max(1, draft.battleSizePoints),
       coverage: coverageBand(sourceUnits, draft.battleSizePoints)
     })),
+    unitDamages,
     mobility,
     resilience,
     control,

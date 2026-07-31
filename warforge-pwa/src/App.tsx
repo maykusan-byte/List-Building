@@ -287,18 +287,42 @@ function ListAnalysisPanel({ analysis }: { analysis: ListAnalysis }): React.JSX.
           <div className="analysis-heading">
             <div><h3>Puissance offensive</h3><p>Dégâts moyens non sauvegardés par phase, à portée.</p></div>
           </div>
-          <div className="analysis-target-grid">
-            {analysis.targets.map((target) => (
-              <article className="analysis-target" key={target.id}>
-                <div className="analysis-target-heading"><h4>{target.label}</h4><span className={`coverage-badge ${target.coverage}`}>{COVERAGE_LABELS[target.coverage]}</span></div>
-                <dl>
-                  <AnalysisMetric label="Tir" value={formatAnalysisValue(target.rangedDamage)} />
-                  <AnalysisMetric label="Mêlée" value={formatAnalysisValue(target.meleeDamage)} />
-                  <AnalysisMetric label="Total" value={formatAnalysisValue(target.totalDamage)} />
-                </dl>
-                <p>{target.sourceUnits} source(s) · {formatAnalysisValue(target.sourcesPerThousand)}/1 000 pts</p>
-              </article>
-            ))}
+          <div className="analysis-damage-table-scroll">
+            <table className="analysis-damage-table">
+              <thead>
+                <tr>
+                  <th scope="col">Unité</th>
+                  {analysis.targets.map((target) => <th key={target.id} scope="col">{target.label}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {analysis.unitDamages.map((unit) => (
+                  <tr key={unit.itemId}>
+                    <th scope="row"><span>{unit.unitName}</span><small>{unit.modelCount} figurine(s)</small></th>
+                    {unit.targets.map((target) => (
+                      <td key={target.targetId}>
+                        <strong>{formatAnalysisValue(target.totalDamage)}</strong>
+                        <small>Tir {formatAnalysisValue(target.rangedDamage)} · CàC {formatAnalysisValue(target.meleeDamage)}</small>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                {analysis.unitDamages.length === 0 && <tr><td className="analysis-empty" colSpan={analysis.targets.length + 1}>Ajoutez des unités depuis la bibliothèque.</td></tr>}
+              </tbody>
+              {analysis.unitDamages.length > 0 && (
+                <tfoot>
+                  <tr>
+                    <th scope="row">Total</th>
+                    {analysis.targets.map((target) => (
+                      <td key={target.id}>
+                        <strong>{formatAnalysisValue(target.totalDamage)}</strong>
+                        <small><span className={`coverage-badge ${target.coverage}`}>{COVERAGE_LABELS[target.coverage]}</span> {target.sourceUnits} source(s)</small>
+                      </td>
+                    ))}
+                  </tr>
+                </tfoot>
+              )}
+            </table>
           </div>
         </section>
 

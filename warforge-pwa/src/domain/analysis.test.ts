@@ -45,6 +45,10 @@ describe('list analysis', () => {
     expect(heavy.rangedDamage).toBeCloseTo(7.8, 1);
     expect(heavy.sourceUnits).toBe(1);
     expect(heavy.coverage).toBe('couvert');
+    const antiTank = analysis.unitDamages.find((unit) => unit.unitName === 'ANTI TANK SQUAD')!;
+    expect(antiTank.modelCount).toBe(5);
+    expect(antiTank.targets.find((target) => target.targetId === 'heavy')?.totalDamage).toBeCloseTo(7.8, 1);
+    expect(analysis.unitDamages).toHaveLength(2);
   });
 
   it('separates melee, mobility, durability, control and structured tools', () => {
