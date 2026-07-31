@@ -835,64 +835,8 @@ export default function App(): React.JSX.Element {
 
   return (
     <main className="app-shell">
-      <header className="topbar">
-        <div>
-          <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
-          <h1>Warforge 40K</h1>
-          <p>{status} · Empreinte {database.fingerprint}</p>
-          <p className="inventory-status">{inventoryStatus}</p>
-        </div>
-        <div className="topbar-actions">
-          <button className="secondary" onClick={() => databaseInputRef.current?.click()}>Mettre à jour la base</button>
-          <button className="secondary" onClick={() => listInputRef.current?.click()}>Importer une liste v1</button>
-          <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>Importer un inventaire CSV</button>
-          <button className="secondary" onClick={() => window.print()}>Imprimer</button>
-          <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
-          <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />
-          <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
-        </div>
-      </header>
-
       {notice && <div className="toast" role="status">{notice}<button onClick={() => setNotice(null)}>×</button></div>}
       {error && <div className="toast error-toast" role="alert">{error}<button onClick={() => setError(null)}>×</button></div>}
-
-      <section className="detachment-section">
-        <div className="section-heading">
-          <div><span className="eyebrow">DÉTACHEMENTS</span><h2>Forces de la faction</h2></div>
-          <div className="detachment-heading-actions">
-            <p>{selectedDetachments.length} sélectionné(s) · ils déterminent les scénarios autorisés.</p>
-            <button
-              className="secondary"
-              aria-controls="detachment-catalog"
-              aria-expanded={detachmentCatalogExpanded}
-              onClick={() => setDetachmentCatalogExpanded((expanded) => !expanded)}
-            >
-              {detachmentCatalogExpanded ? 'Réduire le catalogue' : 'Afficher le catalogue'}
-            </button>
-          </div>
-        </div>
-        <div id="detachment-catalog" hidden={!detachmentCatalogExpanded}>
-          <div className="detachment-grid">
-            {factionDetachments.map((detachment) => {
-            const selected = draft.detachmentIds.includes(detachment.id);
-            return (
-              <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
-                <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
-                <p>{detachment.Rule?.Title || 'Règle de détachement'}</p>
-                <p className="detachment-scenario">
-                  Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>
-                </p>
-                <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{tag}</span>)}</div>
-                <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
-                  {selected ? 'Retirer' : 'Ajouter'}
-                </button>
-                <CompactRule detachment={detachment} />
-              </article>
-            );
-            })}
-          </div>
-          </div>
-      </section>
 
       <section className="workspace">
         <div className="library-panel">
@@ -1097,6 +1041,62 @@ export default function App(): React.JSX.Element {
           </dl>
         </section>
       </section>
+
+      <section className="detachment-section">
+        <div className="section-heading">
+          <div><span className="eyebrow">DÉTACHEMENTS</span><h2>Forces de la faction</h2></div>
+          <div className="detachment-heading-actions">
+            <p>{selectedDetachments.length} sélectionné(s) · ils déterminent les scénarios autorisés.</p>
+            <button
+              className="secondary"
+              aria-controls="detachment-catalog"
+              aria-expanded={detachmentCatalogExpanded}
+              onClick={() => setDetachmentCatalogExpanded((expanded) => !expanded)}
+            >
+              {detachmentCatalogExpanded ? 'Réduire le catalogue' : 'Afficher le catalogue'}
+            </button>
+          </div>
+        </div>
+        <div id="detachment-catalog" hidden={!detachmentCatalogExpanded}>
+          <div className="detachment-grid">
+            {factionDetachments.map((detachment) => {
+              const selected = draft.detachmentIds.includes(detachment.id);
+              return (
+                <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
+                  <div className="card-title-row"><h3>{detachment.displayName}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
+                  <p>{detachment.Rule?.Title || 'Règle de détachement'}</p>
+                  <p className="detachment-scenario">
+                    Scénario : <strong>{(detachment.ForceDispositions ?? []).map(scenarioLabel).join(' · ') || 'Non renseigné'}</strong>
+                  </p>
+                  <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{tag}</span>)}</div>
+                  <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
+                    {selected ? 'Retirer' : 'Ajouter'}
+                  </button>
+                  <CompactRule detachment={detachment} />
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <header className="topbar">
+        <div>
+          <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
+          <h1>Warforge 40K</h1>
+          <p>{status} · Empreinte {database.fingerprint}</p>
+          <p className="inventory-status">{inventoryStatus}</p>
+        </div>
+        <div className="topbar-actions">
+          <button className="secondary" onClick={() => databaseInputRef.current?.click()}>Mettre à jour la base</button>
+          <button className="secondary" onClick={() => listInputRef.current?.click()}>Importer une liste v1</button>
+          <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>Importer un inventaire CSV</button>
+          <button className="secondary" onClick={() => window.print()}>Imprimer</button>
+          <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
+          <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />
+          <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
+        </div>
+      </header>
 
       {selectedUnit && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setSelectedUnitId(null)}>
