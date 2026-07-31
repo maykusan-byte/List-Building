@@ -33,4 +33,11 @@ describe('weapon catalog', () => {
     const sorted = sortWeaponCatalog(buildWeaponCatalog({ units }), 'damage', 'desc');
     expect(sorted[0].profile.Damage).toBe('2');
   });
+
+  it('keeps a per-target damage estimate that can also be sorted', () => {
+    const catalog = buildWeaponCatalog({ units });
+    expect(catalog.every((entry) => entry.targetDamages.horde > 0)).toBe(true);
+    const sorted = sortWeaponCatalog(catalog, 'heavy', 'desc');
+    expect(sorted[0].profile.Damage).toBe('2');
+  });
 });

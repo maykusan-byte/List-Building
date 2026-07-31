@@ -147,13 +147,16 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .weapons-results-heading { align-items: end; display: flex; gap: 1rem; justify-content: space-between; margin-bottom: 0.75rem; }
 .weapons-results-heading h2 { font-size: 1rem; margin: 0; }
 .weapons-table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
-.weapons-table-scroll table { border-collapse: collapse; font-size: 0.75rem; min-width: 82rem; width: 100%; }
+.weapons-table-scroll table { border-collapse: collapse; font-size: 0.75rem; min-width: 105rem; width: 100%; }
 .weapons-table-scroll th, .weapons-table-scroll td { border: 1px solid #e2d8c9; padding: 0.45rem 0.5rem; text-align: left; vertical-align: top; }
 .weapons-table-scroll thead th { background: #efe4cf; color: var(--ink); font-size: 0.66rem; white-space: nowrap; }
 .weapons-table-scroll tbody th { color: var(--ink); font-weight: 850; min-width: 10rem; }
 .weapons-sort { background: transparent; border: 0; border-radius: 0.3rem; box-shadow: none; color: inherit; font-size: inherit; padding: 0.18rem 0.2rem; text-align: left; white-space: nowrap; }
 .weapons-sort:hover { background: #fff6da; }
 .weapons-sort:focus-visible { box-shadow: 0 0 0 3px rgba(215, 165, 39, 0.45); outline: 0; }
+.weapons-sort small { color: var(--ink-soft); display: block; font-size: 0.56rem; font-weight: 700; line-height: 1.15; margin-top: 0.14rem; }
+.weapon-target-damage { background: #fffaf0; min-width: 4.6rem; text-align: center !important; }
+.weapon-target-damage strong { color: var(--ink); font-size: 0.84rem; }
 .weapon-keywords, .weapon-factions, .weapon-carrier-pills { display: flex; flex-wrap: wrap; gap: 0.28rem; }
 .weapon-keywords span, .weapon-factions span, .weapon-carrier-pills span { background: #fffdfa; border: 1px solid #d7cab4; border-radius: 999px; color: #393126; font-size: 0.66rem; font-weight: 700; line-height: 1.3; padding: 0.2rem 0.4rem; }
 .weapon-factions span { background: #f8f0df; border-color: #dac49d; }

@@ -1,19 +1,24 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { buildWeaponCatalog, filterWeaponCatalog, sortWeaponCatalog, weaponFactions, weaponKeywords } from '../domain/weapon-catalog';
+import { buildWeaponCatalog, filterWeaponCatalog, sortWeaponCatalog, WEAPON_DAMAGE_TARGETS, WEAPON_TARGET_IDS, weaponFactions, weaponKeywords } from '../domain/weapon-catalog';
 import type { SortDirection, WeaponCatalogEntry, WeaponCatalogSortColumn } from '../domain/weapon-catalog';
 import type { CatalogLocalization } from '../domain/catalog-localization';
 import type { NormalizedDatabase } from '../domain/types';
 
-const STAT_COLUMNS: ReadonlySet<WeaponCatalogSortColumn> = new Set(['range', 'attacks', 'skill', 'strength', 'ap', 'damage']);
+const NUMERIC_COLUMNS: ReadonlySet<WeaponCatalogSortColumn> = new Set(['range', 'attacks', 'skill', 'strength', 'ap', 'damage', ...WEAPON_TARGET_IDS]);
 
 interface Column {
   key: WeaponCatalogSortColumn;
   label: string;
+  detail?: string;
 }
 
 function stat(value: string | undefined): string {
   return value?.trim() || '—';
+}
+
+function damage(value: number, locale: string): string {
+  return value.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US', { maximumFractionDigits: 1 });
 }
 
 function CarrierList({ entry, display, locale }: { entry: WeaponCatalogEntry; display: CatalogLocalization; locale: string }): React.JSX.Element {
@@ -77,6 +82,11 @@ export function WeaponsPage({
     { key: 'strength', label: 'F' },
     { key: 'ap', label: 'PA' },
     { key: 'damage', label: 'D' },
+    ...WEAPON_DAMAGE_TARGETS.map(({ id, target }) => ({
+      key: id,
+      label: t(`analysis.target.${id}`),
+      detail: `E ${target.toughness} · Svg ${target.save}+`
+    })),
     { key: 'keywords', label: t('weapons.abilities') },
     { key: 'factions', label: locale === 'fr' ? 'Factions' : 'Factions' },
     { key: 'units', label: locale === 'fr' ? 'Unités équipables' : 'Equippable units' }
@@ -85,7 +95,7 @@ export function WeaponsPage({
   const changeSort = (column: WeaponCatalogSortColumn): void => {
     setSort((current) => current.column === column
       ? { column, direction: current.direction === 'asc' ? 'desc' : 'asc' }
-      : { column, direction: STAT_COLUMNS.has(column) ? 'desc' : 'asc' });
+      : { column, direction: NUMERIC_COLUMNS.has(column) ? 'desc' : 'asc' });
   };
 
   const sortLabel = (column: WeaponCatalogSortColumn): string => {
@@ -118,8 +128,8 @@ export function WeaponsPage({
             : 'Each row combines datasheets with an identical profile. The units column shows the first three, then reveals the remainder on demand.'}</p>
         </div>
         <p className="weapons-caveat">{locale === 'fr'
-          ? 'Les porteurs sont issus des fiches du catalogue ; vérifiez les restrictions et remplacements d’équipement dans la fiche de l’unité.'
-          : 'Carriers come from catalog datasheets; check each unit datasheet for wargear restrictions and replacements.'}</p>
+          ? 'Les colonnes de cibles indiquent les dégâts moyens non sauvegardés d’un exemplaire de l’arme, avec les mêmes hypothèses que l’analyse de liste. Les porteurs sont issus des fiches du catalogue ; vérifiez les restrictions et remplacements d’équipement dans la fiche de l’unité.'
+          : 'Target columns show average unsaved damage from one instance of the weapon, using the same assumptions as list analysis. Carriers come from catalog datasheets; check each unit datasheet for wargear restrictions and replacements.'}</p>
       </section>
 
       <section className="weapons-filters" aria-label={locale === 'fr' ? 'Filtres des profils d’armes' : 'Weapon profile filters'}>
@@ -155,7 +165,7 @@ export function WeaponsPage({
               <tr>{columns.map((column) => (
                 <th key={column.key} aria-sort={sort.column === column.key ? (sort.direction === 'asc' ? 'ascending' : 'descending') : 'none'}>
                   <button className="weapons-sort" onClick={() => changeSort(column.key)} aria-label={`${column.label}. ${sortLabel(column.key)}`}>
-                    {column.label}<span aria-hidden="true">{sort.column === column.key ? (sort.direction === 'asc' ? ' ↑' : ' ↓') : ' ↕'}</span>
+                    <span>{column.label}{sort.column === column.key ? (sort.direction === 'asc' ? ' ↑' : ' ↓') : ' ↕'}</span>{column.detail && <small>{column.detail}</small>}
                   </button>
                 </th>
               ))}</tr>
@@ -167,6 +177,7 @@ export function WeaponsPage({
                   <th scope="row">{entry.profile.Name?.trim() || (locale === 'fr' ? 'Arme sans nom' : 'Unnamed weapon')}</th>
                   <td>{stat(entry.profile.Range)}</td><td>{stat(entry.profile.Attacks)}</td><td>{stat(entry.profile.ToHit)}</td>
                   <td>{stat(entry.profile.Strength)}</td><td>{stat(entry.profile.AP)}</td><td>{stat(entry.profile.Damage)}</td>
+                  {WEAPON_TARGET_IDS.map((id) => <td className="weapon-target-damage" key={id}><strong>{damage(entry.targetDamages[id], locale)}</strong></td>)}
                   <td><div className="weapon-keywords">{entry.keywords.length > 0 ? entry.keywords.map((value) => <span key={value}>{display.term(value)}</span>) : '—'}</div></td>
                   <td><div className="weapon-factions">{entry.factionNames.map((value) => <span key={value}>{display.factionName(value)}</span>)}</div></td>
                   <td><CarrierList entry={entry} display={display} locale={locale} /></td>

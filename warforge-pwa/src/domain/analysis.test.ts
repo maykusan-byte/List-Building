@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { analyzeRoster } from './analysis';
+import { ANALYSIS_TARGETS, analyzeRoster, estimateWeaponProfileDamage } from './analysis';
 import { normalizeDatabase } from './normalize';
 import type { RosterDraft } from './types';
 
@@ -49,6 +49,12 @@ describe('list analysis', () => {
     expect(antiTank.modelCount).toBe(5);
     expect(antiTank.targets.find((target) => target.targetId === 'heavy')?.totalDamage).toBeCloseTo(7.8, 1);
     expect(analysis.unitDamages).toHaveLength(2);
+  });
+
+  it('exposes the same per-profile estimate for the weapon catalogue', () => {
+    const rifle = database.units.find((unit) => unit.displayName === 'ANTI TANK SQUAD')!.Weapons![0].Weapons![0];
+    const heavy = ANALYSIS_TARGETS.find((target) => target.id === 'heavy')!;
+    expect(estimateWeaponProfileDamage(rifle, heavy)).toBeCloseTo(1.56, 2);
   });
 
   it('separates melee, mobility, durability, control and structured tools', () => {

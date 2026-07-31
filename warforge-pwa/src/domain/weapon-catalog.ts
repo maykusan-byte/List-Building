@@ -1,4 +1,15 @@
 import type { NormalizedDatabase, NormalizedUnit, RawWeaponProfile } from './types';
+import { ANALYSIS_TARGETS, estimateWeaponProfileDamage } from './analysis';
+
+export const WEAPON_TARGET_IDS = ['horde', 'infantry', 'elite', 'vehicle', 'heavy'] as const;
+export type WeaponTargetId = typeof WEAPON_TARGET_IDS[number];
+
+const targetsById = new Map(ANALYSIS_TARGETS.map((target) => [target.id, target]));
+
+export const WEAPON_DAMAGE_TARGETS = WEAPON_TARGET_IDS.map((id) => ({
+  id,
+  target: targetsById.get(id)!
+}));
 
 export interface WeaponCatalogEntry {
   /** Stable within a catalog and safe to use as a React key. */
@@ -11,6 +22,8 @@ export interface WeaponCatalogEntry {
   carriers: NormalizedUnit[];
   /** Derived from the currently visible carriers. */
   factionNames: string[];
+  /** Expected unsaved damage from one instance of this profile. */
+  targetDamages: Record<WeaponTargetId, number>;
 }
 
 export interface WeaponCatalogFilters {
@@ -19,7 +32,7 @@ export interface WeaponCatalogFilters {
   query?: string;
 }
 
-export type WeaponCatalogSortColumn = 'type' | 'name' | 'range' | 'attacks' | 'skill' | 'strength' | 'ap' | 'damage' | 'keywords' | 'factions' | 'units';
+export type WeaponCatalogSortColumn = 'type' | 'name' | 'range' | 'attacks' | 'skill' | 'strength' | 'ap' | 'damage' | WeaponTargetId | 'keywords' | 'factions' | 'units';
 export type SortDirection = 'asc' | 'desc';
 
 function normalized(value: string | undefined): string {
@@ -76,6 +89,10 @@ function entryWithCarriers(entry: WeaponCatalogEntry, carriers: NormalizedUnit[]
   };
 }
 
+function targetDamages(profile: RawWeaponProfile): Record<WeaponTargetId, number> {
+  return Object.fromEntries(WEAPON_DAMAGE_TARGETS.map(({ id, target }) => [id, estimateWeaponProfileDamage(profile, target)])) as Record<WeaponTargetId, number>;
+}
+
 /**
  * One result represents one exact stat-line, rather than merely one weapon
  * name. This preserves separate standard, overcharge, or otherwise distinct
@@ -98,7 +115,8 @@ export function buildWeaponCatalog(database: Pick<NormalizedDatabase, 'units'>):
             profile,
             keywords: weaponKeywordList(profile.Keywords),
             carriers: [unit],
-            factionNames: [unit.factionName]
+            factionNames: [unit.factionName],
+            targetDamages: targetDamages(profile)
           });
           carrierIds.set(key, new Set([unit.id]));
           return;
@@ -185,6 +203,7 @@ function sortableText(entry: WeaponCatalogEntry, column: WeaponCatalogSortColumn
 }
 
 function sortableStat(entry: WeaponCatalogEntry, column: WeaponCatalogSortColumn): number | null {
+  if ((WEAPON_TARGET_IDS as readonly string[]).includes(column)) return entry.targetDamages[column as WeaponTargetId];
   switch (column) {
     case 'range': return weaponStatValue(entry.profile.Range);
     case 'attacks': return weaponStatValue(entry.profile.Attacks);

@@ -169,16 +169,21 @@ function modeKey(entry: SelectedWeaponProfile): string {
   return `${entry.melee ? 'melee' : 'ranged'}\u0000${name || normalized(entry.group)}`;
 }
 
-function expectedProfileDamage(entry: SelectedWeaponProfile, target: AnalysisTarget): number {
-  const attacks = expectedNumber(entry.profile.Attacks);
-  const strength = expectedNumber(entry.profile.Strength);
-  const damage = expectedNumber(entry.profile.Damage);
-  const armourPenetration = expectedNumber(entry.profile.AP);
-  const text = keywordText(entry.profile);
+/**
+ * Expected unsaved damage for one weapon profile, against one target.
+ * This is shared by the list analysis and the public weapon catalogue so
+ * that their target columns always use the same assumptions.
+ */
+export function estimateWeaponProfileDamage(profile: RawWeaponProfile, target: AnalysisTarget, count = 1): number {
+  const attacks = expectedNumber(profile.Attacks);
+  const strength = expectedNumber(profile.Strength);
+  const damage = expectedNumber(profile.Damage);
+  const armourPenetration = expectedNumber(profile.AP);
+  const text = keywordText(profile);
   if (attacks === null || strength === null || damage === null || armourPenetration === null) return 0;
 
   const torrent = hasKeyword(text, 'torrent');
-  const toHit = torrent ? 2 : requiredRoll(entry.profile.ToHit);
+  const toHit = torrent ? 2 : requiredRoll(profile.ToHit);
   if (toHit === null) return 0;
   const hitChance = torrent ? 1 : successChance(toHit);
   const criticalHitChance = torrent ? 0 : 1 / 6;
@@ -199,7 +204,11 @@ function expectedProfileDamage(entry: SelectedWeaponProfile, target: AnalysisTar
   const normalWoundDamage = devastatingWounds
     ? (woundChance - criticalWoundChance) * saveFailureChance + criticalWoundChance
     : woundChance * saveFailureChance;
-  return Math.max(0, attacks * entry.count * (nonAutomaticHits * normalWoundDamage + automaticWounds * saveFailureChance) * damage);
+  return Math.max(0, attacks * count * (nonAutomaticHits * normalWoundDamage + automaticWounds * saveFailureChance) * damage);
+}
+
+function expectedProfileDamage(entry: SelectedWeaponProfile, target: AnalysisTarget): number {
+  return estimateWeaponProfileDamage(entry.profile, target, entry.count);
 }
 
 function selectedProfiles(unit: NormalizedUnit, item: RosterItem, detachmentNames: readonly string[]): { profiles: SelectedWeaponProfile[]; totalModels: number } {
