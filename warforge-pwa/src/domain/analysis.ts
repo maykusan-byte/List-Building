@@ -7,7 +7,8 @@ export type CoverageBand = 'absent' | 'fragile' | 'couvert' | 'redondant';
 
 export interface AnalysisTarget {
   id: string;
-  label: string;
+  /** User-entered label for a custom target. Built-in targets use their stable id. */
+  label?: string;
   toughness: number;
   save: number;
   monster?: boolean;
@@ -32,6 +33,7 @@ export interface UnitTargetDamageAnalysis {
 
 export interface UnitDamageAnalysis {
   itemId: string;
+  unitId: string;
   unitName: string;
   modelCount: number;
   points: number;
@@ -82,11 +84,11 @@ export interface ListAnalysis {
 }
 
 export const ANALYSIS_TARGETS: readonly AnalysisTarget[] = [
-  { id: 'horde', label: 'Horde', toughness: 3, save: 5 },
-  { id: 'infantry', label: 'Infanterie', toughness: 4, save: 3 },
-  { id: 'elite', label: 'Élite', toughness: 6, save: 2 },
-  { id: 'vehicle', label: 'Monstre / Véhicule', toughness: 10, save: 3, monster: true, vehicle: true },
-  { id: 'heavy', label: 'Blindage lourd', toughness: 12, save: 2, vehicle: true }
+  { id: 'horde', toughness: 3, save: 5 },
+  { id: 'infantry', toughness: 4, save: 3 },
+  { id: 'elite', toughness: 6, save: 2 },
+  { id: 'vehicle', toughness: 10, save: 3, monster: true, vehicle: true },
+  { id: 'heavy', toughness: 12, save: 2, vehicle: true }
 ];
 
 function normalized(value: string | undefined): string {
@@ -321,6 +323,7 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft, 
     });
     unitDamages.push({
       itemId: item.id,
+      unitId: unit.id,
       unitName: unit.Name ?? 'Unité sans nom',
       modelCount: totalModels,
       points: calculateItemCost(database, item, draft.items, draft.detachmentIds).total,
@@ -343,10 +346,6 @@ export function analyzeRoster(database: NormalizedDatabase, draft: RosterDraft, 
     resilience,
     control,
     utility,
-    assumptions: [
-      'Moyennes statistiques des dés ; cible à portée, sans couvert, invulnérable ni Insensible à la douleur.',
-      'Les règles dépendant de la position ou de la cible (Melta, Lourde, Charge, etc.) ne sont pas incluses.',
-      'Les aptitudes textuelles restent affichées comme outils tactiques et ne modifient pas les résultats.'
-    ]
+    assumptions: ['statisticalAverage', 'situationalRules', 'textAbilities']
   };
 }

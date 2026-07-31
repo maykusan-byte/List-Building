@@ -9,6 +9,26 @@ const DATA_KEY = 'catalog-v2';
 const DRAFTS_KEY = 'warforge.saved-drafts.v2';
 const ACTIVE_DRAFT_KEY = 'warforge.active-draft.v1';
 const FAVORITES_KEY = 'warforge.favourites.v2';
+const LOCALE_KEY = 'warforge.locale.v1';
+
+export type StoredLocale = 'fr' | 'en';
+
+export function readLocale(): StoredLocale {
+  try {
+    return localStorage.getItem(LOCALE_KEY) === 'en' ? 'en' : 'fr';
+  } catch {
+    return 'fr';
+  }
+}
+
+export function writeLocale(locale: StoredLocale): boolean {
+  try {
+    localStorage.setItem(LOCALE_KEY, locale);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function openDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {

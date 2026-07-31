@@ -1,9 +1,11 @@
 import { copyFile, mkdir, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { buildCatalog } from './build-catalog.mjs';
+import { buildCatalogLocales } from './build-locales.mjs';
 
 try {
   await buildCatalog();
+  await buildCatalogLocales();
   const source = resolve(import.meta.dirname, '../../datasheet_x_figs.csv');
   const destination = resolve(import.meta.dirname, '../public/data/datasheet_x_figs.csv');
   await stat(source);

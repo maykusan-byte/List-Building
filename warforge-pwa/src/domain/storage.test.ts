@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { readActiveDraftId, readSavedDrafts, writeActiveDraftId, writeSavedDrafts } from './storage';
+import { readActiveDraftId, readLocale, readSavedDrafts, writeActiveDraftId, writeLocale, writeSavedDrafts } from './storage';
 import type { SavedDraft } from './types';
 
 function savedDraft(id = 'saved-list'): SavedDraft {
@@ -37,6 +37,16 @@ beforeEach(() => {
 });
 
 describe('saved list storage', () => {
+  it('keeps the locale independent from saved lists and defaults to French', () => {
+    expect(readLocale()).toBe('fr');
+    expect(writeLocale('en')).toBe(true);
+    expect(readLocale()).toBe('en');
+    expect(writeSavedDrafts([savedDraft()])).toBe(true);
+    expect(readLocale()).toBe('en');
+    localStorage.setItem('warforge.locale.v1', 'de');
+    expect(readLocale()).toBe('fr');
+  });
+
   it('keeps several saved lists and the active list identifier', () => {
     const drafts = [savedDraft('first'), savedDraft('second')];
     expect(writeSavedDrafts(drafts)).toBe(true);

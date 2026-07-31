@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['data/catalog.json', 'data/datasheet_x_figs.csv'],
+        includeAssets: ['data/catalog.json', 'data/locales/fr/catalog.json', 'data/datasheet_x_figs.csv'],
         manifest: {
           name: 'Warforge 40k',
           short_name: 'Warforge',
