@@ -1382,7 +1382,6 @@ export default function App(): React.JSX.Element {
           <div className="configuration-actions">
             <button onClick={createDraft}>{t('action.newList')}</button>
             <button className="secondary" onClick={saveDraft}>{t('action.save')}</button>
-            <button className="secondary" disabled={hasBlockingIssue} onClick={exportDraft}>{t('action.export')}</button>
           </div>
         </section>
 
@@ -1467,6 +1466,7 @@ export default function App(): React.JSX.Element {
           <button className="secondary action-with-icon" onClick={() => listInputRef.current?.click()}><span className="button-icon" aria-hidden="true">⇩</span>{t('action.importList')}</button>
           <button className="secondary action-with-icon" onClick={() => inventoryInputRef.current?.click()}><span className="button-icon" aria-hidden="true">▦</span>{t('action.importInventory')}</button>
           <button className="secondary action-with-icon" onClick={() => window.print()}><span className="button-icon" aria-hidden="true">⎙</span>{t('action.print')}</button>
+          <button className="secondary action-with-icon export-action" disabled={hasBlockingIssue} onClick={exportDraft}><span className="button-icon" aria-hidden="true">⇧</span>{t('action.export')}</button>
         </nav>
         <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
         <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />

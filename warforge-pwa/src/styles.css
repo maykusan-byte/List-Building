@@ -69,6 +69,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .footer-actions { justify-content: center; }
 .footer-actions .secondary { background: #fbf8f1; }
 .footer-actions .secondary:hover { background: #fff1cb; }
+.footer-actions .export-action { background: #fff1cb; border-color: #c99b2a; }
 .command-center-heading h2 { margin-bottom: 0.2rem; }
 .command-center-heading p { font-size: 0.82rem; margin-bottom: 0; }
 .command-center .configuration { background: transparent; border: 0; box-shadow: none; margin-top: 0.75rem; padding: 0; }
@@ -440,6 +441,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .unit-card-layout { grid-template-columns: minmax(0, 1fr); }
   .unit-thumbnail { margin: 0 auto; }
   .footer-actions, .configuration-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-actions .export-action { grid-column: 1 / -1; }
   .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rules-shell { padding: 0.65rem; }
   .rules-topbar { align-items: stretch; flex-direction: column; }
