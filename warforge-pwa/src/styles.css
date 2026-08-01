@@ -1,6 +1,9 @@
 :root {
   --ink: #1b1610;
   --ink-soft: #5f564a;
+  --navy: #101827;
+  --navy-soft: #223652;
+  --navy-line: #4c6281;
   --paper: #fffdf7;
   --paper-muted: #f0e9dc;
   --paper-deep: #e4d8c3;
@@ -17,16 +20,17 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: linear-gradient(135deg, #f7f4ed 0%, #ebe4d8 100%); }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 8% -10%, rgba(218, 179, 66, 0.2), transparent 26rem), radial-gradient(circle at 100% 0%, rgba(37, 67, 105, 0.12), transparent 30rem), linear-gradient(135deg, #f8f5ef 0%, #e8e0d2 100%); min-height: 100vh; }
 button, input, select { font: inherit; }
-button { border: 1px solid #b78312; border-radius: 0.65rem; background: var(--gold); box-shadow: 0 0.2rem 0.6rem rgba(132, 91, 8, 0.18); color: #171108; cursor: pointer; font-weight: 800; padding: 0.65rem 0.9rem; }
-button:hover { background: var(--gold-light); }
+button { border: 1px solid #b78312; border-radius: 0.65rem; background: var(--gold); box-shadow: 0 0.2rem 0.6rem rgba(132, 91, 8, 0.18); color: #171108; cursor: pointer; font-weight: 800; padding: 0.65rem 0.9rem; transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease; }
+button:hover { background: var(--gold-light); transform: translateY(-1px); }
 button:active { box-shadow: none; transform: translateY(0.08rem); }
 button:disabled { cursor: not-allowed; opacity: 0.45; }
 button.secondary { background: #fffdfa; border-color: #d6c8b3; box-shadow: none; color: var(--ink); }
 button.secondary:hover { background: #f4ecdf; border-color: #bda47b; }
 input, select { background: #fffefa; border: 1px solid #d4c8b7; border-radius: 0.6rem; color: var(--ink); min-height: 2.65rem; padding: 0.55rem 0.65rem; width: 100%; }
 input:focus, select:focus { border-color: var(--gold-dark); box-shadow: 0 0 0 3px rgba(215, 165, 39, 0.28); outline: 0; }
+button:focus-visible, summary:focus-visible { outline: 3px solid rgba(215, 165, 39, 0.7); outline-offset: 3px; }
 label { color: var(--ink-soft); display: grid; font-size: 0.78rem; font-weight: 800; gap: 0.35rem; letter-spacing: 0.02em; }
 input[type="checkbox"] { accent-color: var(--gold-dark); }
 h1, h2, h3, p { margin-top: 0; }
@@ -37,10 +41,12 @@ h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
 p { color: var(--ink-soft); line-height: 1.5; }
 .app-shell { display: flex; flex-direction: column; margin: 0 auto; max-width: 1720px; padding: 1.25rem; }
 .topbar, .configuration, .scenario-guide, .detachment-section, .library-panel, .roster-panel, .command-center { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
-.topbar { align-items: center; border-top: 3px solid var(--ink); display: flex; gap: 1rem; justify-content: space-between; order: -3; padding: 1.35rem; }
+.topbar { align-items: center; display: flex; gap: 1rem; justify-content: space-between; order: -3; padding: 1.35rem; }
 .topbar p { font-size: 0.78rem; margin: 0; overflow-wrap: anywhere; }
 .inventory-status { color: var(--green) !important; margin-top: 0.3rem !important; }
 .topbar-actions, .configuration-actions, .card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.action-with-icon { align-items: center; display: inline-flex; gap: 0.42rem; }
+.button-icon { align-items: center; display: inline-flex; font-size: 1rem; font-weight: 900; justify-content: center; line-height: 1; min-width: 0.85rem; }
 .language-selector { align-items: center; display: inline-flex; gap: 0.35rem; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
 .language-selector select { min-width: 6.8rem; padding: 0.45rem 1.75rem 0.45rem 0.55rem; }
 .eyebrow { color: var(--gold-dark); display: block; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.15em; margin-bottom: 0.35rem; }
@@ -58,7 +64,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .scenario-guide dl div { background: #f8f4eb; border: 1px solid #eadfcd; border-radius: 0.75rem; padding: 0.6rem; }
 .scenario-guide dt { color: var(--ink-soft); font-size: 0.68rem; }
 .scenario-guide dd { color: var(--gold-dark); font-size: 1.1rem; font-weight: 900; margin: 0.25rem 0 0; }
-.command-center { margin-top: 1rem; order: -2; padding: 1rem; }
+.command-center { border-top: 3px solid var(--gold); margin-top: 1rem; order: -2; padding: 1rem; }
 .command-center-heading h2 { margin-bottom: 0.2rem; }
 .command-center-heading p { font-size: 0.82rem; margin-bottom: 0; }
 .command-center .configuration { background: transparent; border: 0; box-shadow: none; margin-top: 0.75rem; padding: 0; }
@@ -69,7 +75,8 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .section-heading h2, .section-heading h3 { margin-bottom: 0; }
 .detachment-heading-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: end; }
 .detachment-grid { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); max-height: 34rem; overflow: auto; padding-right: 0.25rem; }
-.detachment-card, .unit-card, .roster-card { background: #fffefa; border: 1px solid #e2d8c9; border-radius: 0.85rem; box-shadow: 0 0.3rem 0.9rem rgba(58, 43, 20, 0.06); padding: 0.85rem; }
+.detachment-card, .unit-card, .roster-card { background: linear-gradient(145deg, #fffefa 0%, #faf6ed 100%); border: 1px solid #e2d8c9; border-radius: 0.85rem; box-shadow: 0 0.3rem 0.9rem rgba(58, 43, 20, 0.06); padding: 0.85rem; transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease; }
+.detachment-card:hover, .unit-card:hover { border-color: #ccb07a; box-shadow: 0 0.7rem 1.5rem rgba(58, 43, 20, 0.1); transform: translateY(-2px); }
 .detachment-card.selected { border-color: var(--gold-dark); box-shadow: 0 0 0 2px rgba(215, 165, 39, 0.4), 0 0.3rem 0.9rem rgba(58, 43, 20, 0.08); }
 .detachment-scenario { color: var(--ink-soft); font-size: 0.82rem; margin: 0.45rem 0; }
 .detachment-scenario strong { color: var(--gold-dark); }
@@ -144,6 +151,18 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .weapons-topbar { align-items: center; border-top: 3px solid var(--ink); display: flex; gap: 1rem; justify-content: space-between; padding: 1.35rem; }
 .weapons-topbar p, .weapons-introduction p, .weapons-results-heading p { font-size: 0.8rem; margin: 0; }
 .weapons-topbar-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.topbar, .rules-topbar, .weapons-topbar { background: linear-gradient(122deg, var(--navy) 0%, #172b46 60%, var(--navy-soft) 100%); border-color: var(--navy-line); border-top-color: var(--gold-light); box-shadow: 0 1rem 2.5rem rgba(15, 25, 40, 0.24); overflow: hidden; position: relative; }
+.topbar::before, .rules-topbar::before, .weapons-topbar::before { background: radial-gradient(circle, rgba(246, 203, 91, 0.28), transparent 68%); content: ''; height: 19rem; pointer-events: none; position: absolute; right: -6rem; top: -12rem; width: 19rem; }
+.topbar > *, .rules-topbar > *, .weapons-topbar > * { position: relative; z-index: 1; }
+.brand-lockup { align-items: flex-start; display: flex; gap: 0.9rem; min-width: 0; }
+.brand-mark { align-items: center; background: linear-gradient(145deg, #f4d773 0%, #b98317 52%, #684104 100%); border: 1px solid rgba(255, 236, 164, 0.8); box-shadow: inset 0 0 0 2px rgba(59, 35, 4, 0.28), 0 0.35rem 0.85rem rgba(0, 0, 0, 0.28); clip-path: polygon(50% 0, 90% 22%, 90% 76%, 50% 100%, 10% 76%, 10% 22%); color: #fff8dc; display: inline-flex; flex: 0 0 auto; height: 3.45rem; justify-content: center; margin-top: 0.1rem; text-shadow: 0 2px 0 #513004, 0 0 0.3rem rgba(52, 30, 0, 0.9); width: 3.15rem; }
+.brand-mark span { font-family: Georgia, 'Times New Roman', serif; font-size: 1.65rem; font-weight: 900; line-height: 1; transform: translateY(-0.04rem); }
+.topbar h1, .rules-topbar h1, .weapons-topbar h1 { color: #fffdf6; }
+.topbar .eyebrow, .rules-topbar .eyebrow, .weapons-topbar .eyebrow { color: #f3d77e; }
+.topbar p, .rules-topbar p, .weapons-topbar p { color: #d3deeb; }
+.topbar .inventory-status { color: #9bd5ac !important; }
+.topbar .secondary, .rules-topbar .secondary, .weapons-topbar .secondary { background: rgba(255, 255, 255, 0.94); border-color: rgba(237, 221, 178, 0.8); color: #162337; }
+.topbar .secondary:hover, .rules-topbar .secondary:hover, .weapons-topbar .secondary:hover { background: #fff4cf; border-color: var(--gold-light); }
 .weapons-introduction { align-items: start; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.5fr); margin-top: 1rem; padding: 1rem; }
 .weapons-introduction h2 { margin-bottom: 0.35rem; }
 .weapons-caveat { background: #fff5d6; border-left: 3px solid var(--gold-dark); border-radius: 0.4rem; padding: 0.7rem 0.8rem; }
@@ -375,6 +394,9 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .error-toast { background: #fae3df; border-color: #b85148; color: #742018; }
 .loading-shell { align-items: center; display: flex; justify-content: center; min-height: 100vh; padding: 1rem; }
 .loading-card { background: var(--paper); border: 1px solid #e1d8ca; border-top: 3px solid var(--gold); border-radius: 1rem; box-shadow: 0 1rem 3rem rgba(44, 30, 10, 0.12); max-width: 33rem; padding: 2rem; text-align: center; }
+.loading-brand { align-items: center; display: flex; gap: 1rem; margin-bottom: 1rem; text-align: left; }
+.loading-brand h1, .loading-brand p { margin-bottom: 0; }
+.loading-brand .brand-mark { height: 4rem; width: 3.65rem; }
 .error-text { color: var(--red); }
 .modal-backdrop { align-items: center; background: rgba(22, 17, 10, 0.72); display: flex; inset: 0; justify-content: center; padding: 1rem; position: fixed; z-index: 10; }
 .unit-modal { background: var(--paper); border: 2px solid var(--gold); border-radius: 1rem; box-shadow: 0 2rem 5rem rgba(27, 22, 16, 0.45); max-height: min(50rem, 94vh); max-width: 48rem; overflow: auto; padding: 1.4rem; position: relative; }
@@ -398,6 +420,9 @@ p { color: var(--ink-soft); line-height: 1.5; }
 @media (max-width: 720px) {
   .app-shell { padding: 0.65rem; }
   .topbar, .section-heading { align-items: stretch; flex-direction: column; }
+  .brand-lockup { gap: 0.7rem; }
+  .brand-mark { height: 3rem; width: 2.75rem; }
+  .topbar-actions .action-with-icon { justify-content: center; }
   .detachment-heading-actions, .library-heading-actions { align-items: stretch; justify-content: stretch; }
   .configuration { grid-template-columns: 1fr; }
   .scenario-guide dl { grid-template-columns: 1fr; }

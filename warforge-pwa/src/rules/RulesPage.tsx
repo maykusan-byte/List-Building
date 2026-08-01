@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { BrandMark } from '../components/BrandMark';
 import { rulesSectionById, searchRules } from './search';
 import type { RulesBlock, RulesDocument, RulesSection } from './types';
 
@@ -130,10 +131,10 @@ export function RulesPage({ locale, onOpenBuilder, onOpenWeapons }: { locale: 'f
   return (
     <main className="rules-shell">
       <header className="rules-topbar">
-        <div><span className="eyebrow">WARFORGE 40K · RÉFÉRENCE</span><h1>Règles de base</h1><p>{locale === 'en' ? 'French source content' : 'Contenu source en français'} · Hors ligne après le premier chargement</p></div>
+        <div className="brand-lockup"><BrandMark /><div><span className="eyebrow">WARFORGE 40K · RÉFÉRENCE</span><h1>Règles de base</h1><p>{locale === 'en' ? 'French source content' : 'Contenu source en français'} · Hors ligne après le premier chargement</p></div></div>
         <div className="weapons-topbar-actions">
-          <button className="secondary" onClick={onOpenWeapons}>{locale === 'en' ? 'Armoury' : 'Arsenal'}</button>
-          <button className="secondary" onClick={onOpenBuilder}>{locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
+          <button className="secondary action-with-icon" onClick={onOpenWeapons}><span className="button-icon" aria-hidden="true">✦</span>{locale === 'en' ? 'Armoury' : 'Arsenal'}</button>
+          <button className="secondary action-with-icon" onClick={onOpenBuilder}><span className="button-icon" aria-hidden="true">⌘</span>{locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
         </div>
       </header>
 

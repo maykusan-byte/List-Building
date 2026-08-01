@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BrandMark } from '../components/BrandMark';
 import { buildWeaponCatalog, filterWeaponCatalog, sortWeaponCatalog, WEAPON_DAMAGE_TARGETS, WEAPON_TARGET_IDS, weaponFactions, weaponKeywords } from '../domain/weapon-catalog';
 import type { SortDirection, WeaponCatalogEntry, WeaponCatalogSortColumn } from '../domain/weapon-catalog';
 import type { CatalogLocalization } from '../domain/catalog-localization';
@@ -108,14 +109,17 @@ export function WeaponsPage({
   return (
     <main className="weapons-shell">
       <header className="weapons-topbar">
-        <div>
+        <div className="brand-lockup">
+          <BrandMark />
+          <div>
           <span className="eyebrow">WARFORGE 40K · {locale === 'fr' ? 'ARSENAL' : 'ARMOURY'}</span>
           <h1>{locale === 'fr' ? 'Profils d’armes' : 'Weapon profiles'}</h1>
           <p>{locale === 'fr' ? 'Catalogue local · profils regroupés par ligne de caractéristiques' : 'Local catalog · profiles grouped by stat line'}</p>
+          </div>
         </div>
         <div className="weapons-topbar-actions">
-          <button className="secondary" onClick={onOpenRules}>{t('rules.open')}</button>
-          <button className="secondary" onClick={onOpenBuilder}>{locale === 'fr' ? 'Créateur de liste' : 'Army builder'}</button>
+          <button className="secondary action-with-icon" onClick={onOpenRules}><span className="button-icon" aria-hidden="true">§</span>{t('rules.open')}</button>
+          <button className="secondary action-with-icon" onClick={onOpenBuilder}><span className="button-icon" aria-hidden="true">⌘</span>{locale === 'fr' ? 'Créateur de liste' : 'Army builder'}</button>
         </div>
       </header>
 

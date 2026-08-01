@@ -19,6 +19,7 @@ import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
 import type { ExportedList, NormalizedDatabase, NormalizedDetachment, NormalizedUnit, RosterDraft, RosterItem, SavedDraft } from './domain/types';
 import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
+import { BrandMark } from './components/BrandMark';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
 import type { UnitImageEntry, UnitImageStatus } from './domain/unit-images';
@@ -1139,9 +1140,10 @@ export default function App(): React.JSX.Element {
     return (
       <main className="loading-shell">
         <div className="loading-card">
-          <span className="eyebrow">WARFORGE 40K</span>
-          <h1>{t('app.loading')}</h1>
-          <p>{status}</p>
+          <div className="loading-brand">
+            <BrandMark />
+            <div><span className="eyebrow">WARFORGE 40K</span><h1>{t('app.loading')}</h1><p>{status}</p></div>
+          </div>
           {error && <p className="error-text">{error}</p>}
           <button onClick={() => databaseInputRef.current?.click()}>{t('action.importDatabase')}</button>
           <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
@@ -1232,7 +1234,7 @@ export default function App(): React.JSX.Element {
                       </p>
                     )}
                     <div className="card-actions">
-                      <button className="secondary" onClick={() => setSelectedUnitId(unit.id)}>{t('action.details')}</button>
+                      <button className="secondary action-with-icon" onClick={() => setSelectedUnitId(unit.id)}><span className="button-icon" aria-hidden="true">i</span>{t('action.details')}</button>
                       {pointSizes.length > 1 && (
                         <label className="catalog-size-select">
                           <span>{t('roster.baseSize')}</span>
@@ -1245,9 +1247,9 @@ export default function App(): React.JSX.Element {
                           </select>
                         </label>
                       )}
-                      <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id, selectedPointIndex)] }))}>{t('action.add')}</button>
+                      <button className="action-with-icon" onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id, selectedPointIndex)] }))}><span className="button-icon" aria-hidden="true">+</span>{t('action.add')}</button>
                       <button
-                        className="secondary"
+                        className="secondary action-with-icon"
                         disabled={!hasSelectedPointSize}
                         onClick={() => updateDraft((current) => {
                           const removalIndex = current.items.reduce(
@@ -1260,7 +1262,7 @@ export default function App(): React.JSX.Element {
                           return removalIndex === -1 ? current : { ...current, items: current.items.filter((_, index) => index !== removalIndex) };
                         })}
                       >
-                        {t('action.remove')}
+                        <span className="button-icon" aria-hidden="true">−</span>{t('action.remove')}
                       </button>
                     </div>
                   </div>
@@ -1439,19 +1441,22 @@ export default function App(): React.JSX.Element {
       </section>
 
       <header className="topbar">
-        <div>
-          <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
-          <h1>Warforge 40K</h1>
-          <p>{status} · Empreinte {database.fingerprint}</p>
-          <p className="inventory-status">{inventoryStatus}</p>
+        <div className="brand-lockup">
+          <BrandMark />
+          <div>
+            <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
+            <h1>Warforge 40K</h1>
+            <p>{status} · Empreinte {database.fingerprint}</p>
+            <p className="inventory-status">{inventoryStatus}</p>
+          </div>
         </div>
         <div className="topbar-actions">
-          <button className="secondary" onClick={() => databaseInputRef.current?.click()}>{t('action.updateDatabase')}</button>
-          <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
-          <button className="secondary" onClick={openWeapons}>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
-          <button className="secondary" onClick={() => listInputRef.current?.click()}>{t('action.importList')}</button>
-          <button className="secondary" onClick={() => inventoryInputRef.current?.click()}>{t('action.importInventory')}</button>
-          <button className="secondary" onClick={() => window.print()}>{t('action.print')}</button>
+          <button className="secondary action-with-icon" onClick={() => databaseInputRef.current?.click()}><span className="button-icon" aria-hidden="true">↻</span>{t('action.updateDatabase')}</button>
+          <button className="secondary action-with-icon" onClick={openRules}><span className="button-icon" aria-hidden="true">§</span>{t('rules.open')}</button>
+          <button className="secondary action-with-icon" onClick={openWeapons}><span className="button-icon" aria-hidden="true">✦</span>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
+          <button className="secondary action-with-icon" onClick={() => listInputRef.current?.click()}><span className="button-icon" aria-hidden="true">⇩</span>{t('action.importList')}</button>
+          <button className="secondary action-with-icon" onClick={() => inventoryInputRef.current?.click()}><span className="button-icon" aria-hidden="true">▦</span>{t('action.importInventory')}</button>
+          <button className="secondary action-with-icon" onClick={() => window.print()}><span className="button-icon" aria-hidden="true">⎙</span>{t('action.print')}</button>
           <label className="language-selector">
             <span>{t('navigation.language')}</span>
             <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
