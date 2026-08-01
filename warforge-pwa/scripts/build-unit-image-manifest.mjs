@@ -96,7 +96,8 @@ export async function buildUnitImageManifest() {
   if (seeds.schemaVersion !== 'warforge-unit-image-seeds/v1' || !Array.isArray(seeds.entries)) throw new Error('Source d’images invalide.');
 
   const inventoryIds = inventoryUnitIds(rawInventory);
-  const units = catalogUnits(catalog).filter((unit) => inventoryIds.has(unit.id));
+  const units = catalogUnits(catalog);
+  const inventoryUnits = units.filter((unit) => inventoryIds.has(unit.id));
   const entries = [];
   const duplicated = [];
   for (const unit of units) {
@@ -128,8 +129,15 @@ export async function buildUnitImageManifest() {
     entries: entries.sort((left, right) => left.unitId.localeCompare(right.unitId))
   };
   const mapped = new Set(entries.map((entry) => entry.unitId));
-  const missing = units.filter((unit) => !mapped.has(unit.id));
-  return { manifest, missing, total: units.length };
+  const missing = inventoryUnits.filter((unit) => !mapped.has(unit.id));
+  return {
+    manifest,
+    missing,
+    total: inventoryUnits.length,
+    mapped: inventoryUnits.length - missing.length,
+    catalogTotal: units.length,
+    catalogMapped: entries.length
+  };
 }
 
 const result = await buildUnitImageManifest();
@@ -139,7 +147,9 @@ const missingReport = `${JSON.stringify({
   databaseFingerprint: result.manifest.databaseFingerprint,
   generatedAt: result.manifest.generatedAt,
   total: result.total,
-  mapped: result.manifest.entries.length,
+  mapped: result.mapped,
+  catalogTotal: result.catalogTotal,
+  catalogMapped: result.catalogMapped,
   missing: result.missing
 }, null, 2)}\n`;
 if (check) {
@@ -150,7 +160,7 @@ if (check) {
   await writeFile(missingPath, missingReport, 'utf8');
 }
 
-console.log(`Images d’unités : ${result.manifest.entries.length}/${result.total} fiches associées.`);
+console.log(`Images d’unités : ${result.mapped}/${result.total} fiches d’inventaire associées (${result.catalogMapped}/${result.catalogTotal} au catalogue).`);
 if (result.missing.length) {
   console.log(`À valider : ${result.missing.length} fiche(s), voir data/unit-image-missing.json.`);
   if (strict) throw new Error(`${result.missing.length} fiche(s) d’inventaire sans image validée.`);
