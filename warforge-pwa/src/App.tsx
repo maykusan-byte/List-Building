@@ -357,7 +357,7 @@ function ListAnalysisPanel({
   ].filter(({ count }) => count > 0);
 
   return (
-    <details className="list-analysis" open>
+    <details className="list-analysis">
       <summary>
         <span>{t('analysis.title')}</span>
         <small>{t('analysis.subtitle')}</small>
