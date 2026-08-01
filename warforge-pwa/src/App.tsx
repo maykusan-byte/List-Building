@@ -687,8 +687,8 @@ export default function App(): React.JSX.Element {
   const [roleFilter, setRoleFilter] = useState('');
   const [favouritesOnly, setFavouritesOnly] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(true);
-  const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(true);
+  const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(false);
+  const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(false);
   const [advancedCatalogFilters, setAdvancedCatalogFilters] = useState<AdvancedCatalogFilters>({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
   const [customTarget, setCustomTarget] = useState<CustomTargetForm>(DEFAULT_CUSTOM_TARGET);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
@@ -1315,6 +1315,12 @@ export default function App(): React.JSX.Element {
         </div>
         <section className="configuration" aria-label={t('command.title')}>
           <label>
+            {t('command.faction')}
+            <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
+              {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{display.factionName(faction.name)} · {t('app.units', { count: faction.unitCount })}</option>)}
+            </select>
+          </label>
+          <label>
             {t('command.name')}
             <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
           </label>
@@ -1335,12 +1341,6 @@ export default function App(): React.JSX.Element {
             </select>
           </label>
           <label>
-            {t('command.faction')}
-            <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
-              {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{display.factionName(faction.name)} · {t('app.units', { count: faction.unitCount })}</option>)}
-            </select>
-          </label>
-          <label>
             {locale === 'fr' ? 'Disposition des Forces' : 'Force disposition'}
             <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
               {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenarioTitle(scenario.id)}</option>)}
@@ -1353,18 +1353,20 @@ export default function App(): React.JSX.Element {
           </div>
         </section>
 
-        <section className="scenario-guide">
-          <div>
+        <details className="scenario-guide">
+          <summary>
             <span className="eyebrow">{locale === 'fr' ? 'GUIDE DE DISPOSITION' : 'FORCE DISPOSITION GUIDE'}</span>
             <h2>{scenarioTitle(draft.scenario)}</h2>
+          </summary>
+          <div className="scenario-guide-content">
             <p>{scenarioGuide(draft.scenario)}</p>
+            <dl>
+              <div><dt>{locale === 'fr' ? 'Dispositions autorisées' : 'Allowed dispositions'}</dt><dd>{availableScenarios.length}</dd></div>
+              <div><dt>{t('command.detachmentBudget')}</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
+              <div><dt>{t('command.enhancementLimit')}</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
+            </dl>
           </div>
-          <dl>
-            <div><dt>{locale === 'fr' ? 'Dispositions autorisées' : 'Allowed dispositions'}</dt><dd>{availableScenarios.length}</dd></div>
-            <div><dt>{t('command.detachmentBudget')}</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
-            <div><dt>{t('command.enhancementLimit')}</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
-          </dl>
-        </section>
+        </details>
       </section>
 
       <section className="detachment-section">
