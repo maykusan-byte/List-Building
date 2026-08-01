@@ -885,6 +885,15 @@ export default function App(): React.JSX.Element {
     () => database && draft ? allocateInventory(database, draft.items, inventory) : { reservationsByItemId: new Map(), reservedFigureIds: new Set<number>() },
     [database, draft, inventory]
   );
+  useEffect(() => {
+    if (!database || !draft || !inventory) return;
+    const factionUnitIds = new Set(
+      database.units
+        .filter((unit) => isUnitAvailableToFaction(database, draft.primaryFaction, unit))
+        .map((unit) => unit.id)
+    );
+    setInStockOnly(inventory.entries.some((entry) => factionUnitIds.has(entry.unitId)));
+  }, [database, draft?.primaryFaction, inventory]);
   const inventoryIssues = useMemo(() => {
     if (!database || !draft || !inventory) return [];
     return draft.items.flatMap((item) => {
