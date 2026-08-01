@@ -1450,25 +1450,28 @@ export default function App(): React.JSX.Element {
             <p className="inventory-status">{inventoryStatus}</p>
           </div>
         </div>
-        <div className="topbar-actions">
+        <label className="language-selector">
+          <span>{t('navigation.language')}</span>
+          <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
+            <option value="fr">{t('navigation.french')}</option>
+            <option value="en">{t('navigation.english')}</option>
+          </select>
+        </label>
+      </header>
+
+      <footer className="app-footer">
+        <nav className="footer-actions" aria-label={locale === 'fr' ? 'Outils de la liste' : 'List tools'}>
           <button className="secondary action-with-icon" onClick={() => databaseInputRef.current?.click()}><span className="button-icon" aria-hidden="true">↻</span>{t('action.updateDatabase')}</button>
           <button className="secondary action-with-icon" onClick={openRules}><span className="button-icon" aria-hidden="true">§</span>{t('rules.open')}</button>
           <button className="secondary action-with-icon" onClick={openWeapons}><span className="button-icon" aria-hidden="true">✦</span>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
           <button className="secondary action-with-icon" onClick={() => listInputRef.current?.click()}><span className="button-icon" aria-hidden="true">⇩</span>{t('action.importList')}</button>
           <button className="secondary action-with-icon" onClick={() => inventoryInputRef.current?.click()}><span className="button-icon" aria-hidden="true">▦</span>{t('action.importInventory')}</button>
           <button className="secondary action-with-icon" onClick={() => window.print()}><span className="button-icon" aria-hidden="true">⎙</span>{t('action.print')}</button>
-          <label className="language-selector">
-            <span>{t('navigation.language')}</span>
-            <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
-              <option value="fr">{t('navigation.french')}</option>
-              <option value="en">{t('navigation.english')}</option>
-            </select>
-          </label>
-          <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
-          <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />
-          <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
-        </div>
-      </header>
+        </nav>
+        <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
+        <input ref={inventoryInputRef} type="file" accept="text/csv,.csv" hidden onChange={loadExternalInventory} />
+        <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
+      </footer>
 
       {selectedUnit && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setSelectedUnitId(null)}>

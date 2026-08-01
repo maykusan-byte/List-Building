@@ -44,7 +44,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .topbar { align-items: center; display: flex; gap: 1rem; justify-content: space-between; order: -3; padding: 1.35rem; }
 .topbar p { font-size: 0.78rem; margin: 0; overflow-wrap: anywhere; }
 .inventory-status { color: var(--green) !important; margin-top: 0.3rem !important; }
-.topbar-actions, .configuration-actions, .card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.footer-actions, .configuration-actions, .card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .action-with-icon { align-items: center; display: inline-flex; gap: 0.42rem; }
 .button-icon { align-items: center; display: inline-flex; font-size: 1rem; font-weight: 900; justify-content: center; line-height: 1; min-width: 0.85rem; }
 .language-selector { align-items: center; display: inline-flex; gap: 0.35rem; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
@@ -65,6 +65,10 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .scenario-guide dt { color: var(--ink-soft); font-size: 0.68rem; }
 .scenario-guide dd { color: var(--gold-dark); font-size: 1.1rem; font-weight: 900; margin: 0.25rem 0 0; }
 .command-center { border-top: 3px solid var(--gold); margin-top: 1rem; order: -2; padding: 1rem; }
+.app-footer { background: rgba(255, 254, 250, 0.9); border: 1px solid #e1d8ca; border-bottom: 3px solid var(--gold); border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); margin-top: 1rem; padding: 0.85rem; }
+.footer-actions { justify-content: center; }
+.footer-actions .secondary { background: #fbf8f1; }
+.footer-actions .secondary:hover { background: #fff1cb; }
 .command-center-heading h2 { margin-bottom: 0.2rem; }
 .command-center-heading p { font-size: 0.82rem; margin-bottom: 0; }
 .command-center .configuration { background: transparent; border: 0; box-shadow: none; margin-top: 0.75rem; padding: 0; }
@@ -161,6 +165,8 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .topbar .eyebrow, .rules-topbar .eyebrow, .weapons-topbar .eyebrow { color: #f3d77e; }
 .topbar p, .rules-topbar p, .weapons-topbar p { color: #d3deeb; }
 .topbar .inventory-status { color: #9bd5ac !important; }
+.topbar .language-selector { color: #d3deeb; }
+.topbar .language-selector select { background: rgba(255, 255, 255, 0.94); border-color: rgba(237, 221, 178, 0.8); color: #162337; }
 .topbar .secondary, .rules-topbar .secondary, .weapons-topbar .secondary { background: rgba(255, 255, 255, 0.94); border-color: rgba(237, 221, 178, 0.8); color: #162337; }
 .topbar .secondary:hover, .rules-topbar .secondary:hover, .weapons-topbar .secondary:hover { background: #fff4cf; border-color: var(--gold-light); }
 .weapons-introduction { align-items: start; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.5fr); margin-top: 1rem; padding: 1rem; }
@@ -422,7 +428,8 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .topbar, .section-heading { align-items: stretch; flex-direction: column; }
   .brand-lockup { gap: 0.7rem; }
   .brand-mark { height: 3rem; width: 2.75rem; }
-  .topbar-actions .action-with-icon { justify-content: center; }
+  .footer-actions .action-with-icon { justify-content: center; }
+  .app-footer { padding: 0.65rem; }
   .detachment-heading-actions, .library-heading-actions { align-items: stretch; justify-content: stretch; }
   .configuration { grid-template-columns: 1fr; }
   .scenario-guide dl { grid-template-columns: 1fr; }
@@ -432,7 +439,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .unit-grid { grid-template-columns: minmax(0, 1fr); }
   .unit-card-layout { grid-template-columns: minmax(0, 1fr); }
   .unit-thumbnail { margin: 0 auto; }
-  .topbar-actions, .configuration-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-actions, .configuration-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rules-shell { padding: 0.65rem; }
   .rules-topbar { align-items: stretch; flex-direction: column; }
@@ -449,7 +456,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 }
 @media print {
   body { background: #fff; color: #111; }
-  .topbar-actions, .command-center, .detachment-section, .library-panel, .toast, .icon-button, .saved-panel { display: none !important; }
+  .app-footer, .command-center, .detachment-section, .library-panel, .toast, .icon-button, .saved-panel { display: none !important; }
   .app-shell { max-width: none; padding: 0; }
   .topbar, .roster-panel { background: #fff; border: 0; box-shadow: none; color: #111; }
   .roster-panel { max-height: none; overflow: visible; }
