@@ -123,8 +123,8 @@ function downloadJson(filename: string, content: unknown): void {
   URL.revokeObjectURL(url);
 }
 
-function makeRosterItem(unitId: string): RosterItem {
-  return { id: crypto.randomUUID(), unitId, pointIndex: 0, wargearSelections: {} };
+function makeRosterItem(unitId: string, pointIndex = 0): RosterItem {
+  return { id: crypto.randomUUID(), unitId, pointIndex, wargearSelections: {} };
 }
 
 const PROFILE_STATS = [
@@ -688,7 +688,8 @@ export default function App(): React.JSX.Element {
   const [favouritesOnly, setFavouritesOnly] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(true);
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(false);
-  const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(false);
+  const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(true);
+  const [catalogPointIndexes, setCatalogPointIndexes] = useState<Record<string, number>>({});
   const [advancedCatalogFilters, setAdvancedCatalogFilters] = useState<AdvancedCatalogFilters>({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
   const [customTarget, setCustomTarget] = useState<CustomTargetForm>(DEFAULT_CUSTOM_TARGET);
   const [favorites, setFavorites] = useState<string[]>(() => readFavorites());
@@ -1204,6 +1205,9 @@ export default function App(): React.JSX.Element {
             {factionUnits.slice(0, visibleUnits).map((unit) => {
               const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
               const image = unitImages.get(unit.id);
+              const nextOccurrence = draft.items.filter((item) => item.unitId === unit.id).length + 1;
+              const selectedPointIndex = catalogPointIndexes[unit.id] ?? 0;
+              const pointSizes = getPointSizes(unit);
               return (
               <article className={`unit-card ${isAlliedUnit(database, draft.primaryFaction, unit) ? 'allied-unit' : ''}`} key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={t('library.favorite', { name: display.unitName(unit) })}>★</button>
@@ -1220,7 +1224,7 @@ export default function App(): React.JSX.Element {
                         <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}</li>)}</ul>
                       </section>
                     )}
-                    <strong className="unit-card-price">{minimumPointCost(unit, draft.items.filter((item) => item.unitId === unit.id).length + 1) ?? '?'} pts <small>{t('library.from')}</small></strong>
+                    <strong className="unit-card-price">{minimumPointCost(unit, nextOccurrence) ?? '?'} pts <small>{t('library.from')}</small></strong>
                     {availability && (
                       <p className={`inventory-stock ${availability.hasCatalogEntry ? (availability.used === availability.total ? 'depleted' : '') : 'unlisted'}`}>
                         {availability.hasCatalogEntry
@@ -1230,7 +1234,29 @@ export default function App(): React.JSX.Element {
                     )}
                     <div className="card-actions">
                       <button className="secondary" onClick={() => setSelectedUnitId(unit.id)}>{t('action.details')}</button>
-                      <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id)] }))}>{t('action.add')}</button>
+                      {pointSizes.length > 1 && (
+                        <label className="catalog-size-select">
+                          <span>{t('roster.baseSize')}</span>
+                          <select
+                            aria-label={`${t('roster.baseSize')} ${display.unitName(unit)}`}
+                            value={selectedPointIndex}
+                            onChange={(event) => setCatalogPointIndexes((current) => ({ ...current, [unit.id]: Number(event.target.value) }))}
+                          >
+                            {pointSizes.map((_, index) => <option key={index} value={index}>{pointLabel(unit, index, nextOccurrence, t('feedback.profileWithoutCost'))}</option>)}
+                          </select>
+                        </label>
+                      )}
+                      <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id, selectedPointIndex)] }))}>{t('action.add')}</button>
+                      <button
+                        className="secondary"
+                        disabled={nextOccurrence === 1}
+                        onClick={() => updateDraft((current) => {
+                          const removalIndex = current.items.reduce((lastIndex, item, index) => item.unitId === unit.id ? index : lastIndex, -1);
+                          return removalIndex === -1 ? current : { ...current, items: current.items.filter((_, index) => index !== removalIndex) };
+                        })}
+                      >
+                        {t('action.remove')}
+                      </button>
                     </div>
                   </div>
                 </div>
