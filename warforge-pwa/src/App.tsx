@@ -849,10 +849,6 @@ export default function App(): React.JSX.Element {
   }, [database]);
 
   useEffect(() => {
-    if (!inventory) setInStockOnly(false);
-  }, [inventory]);
-
-  useEffect(() => {
     savedDraftsRef.current = savedDrafts;
   }, [savedDrafts]);
 
