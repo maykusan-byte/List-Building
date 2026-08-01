@@ -113,8 +113,8 @@ export async function buildUnitImageManifest() {
     entries.push({
       unitId: unit.id,
       asset,
-      productName: seed.productName,
-      sourceUrl: seed.sourceUrl,
+      productName: seed.productName ?? unit.name,
+      sourceUrl: seed.sourceUrl ?? seed.sourceImageUrl,
       sourceLabel: seed.sourceLabel ?? seeds.sourceLabel,
       licenseReference: seed.licenseReference ?? seeds.licenseReference,
       retrievedAt: seed.retrievedAt ?? seeds.retrievedAt
