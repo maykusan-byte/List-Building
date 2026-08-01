@@ -6,7 +6,7 @@ import { createCatalogLocalization, loadCatalogLocaleOverlay } from './domain/ca
 import { loadUnitImageManifest, unitImageMap, unitImageUrl } from './domain/unit-images';
 import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
 import { analyzeRoster } from './domain/analysis';
-import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './domain/inventory';
+import { allocateInventory, getInventoryAvailability, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
@@ -686,7 +686,7 @@ export default function App(): React.JSX.Element {
   const [maxCost, setMaxCost] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [favouritesOnly, setFavouritesOnly] = useState(false);
-  const [inStockOnly, setInStockOnly] = useState(false);
+  const [inStockOnly, setInStockOnly] = useState(true);
   const [detachmentCatalogExpanded, setDetachmentCatalogExpanded] = useState(false);
   const [unitCatalogExpanded, setUnitCatalogExpanded] = useState(false);
   const [advancedCatalogFilters, setAdvancedCatalogFilters] = useState<AdvancedCatalogFilters>({ ...EMPTY_ADVANCED_CATALOG_FILTERS });
@@ -938,7 +938,7 @@ export default function App(): React.JSX.Element {
     return database.units.filter((unit) => {
       if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) return false;
       if (favouritesOnly && !favorites.includes(unit.id)) return false;
-      if (inStockOnly && !hasFreeInventory(inventory, inventoryAllocation, unit.id)) return false;
+      if (inStockOnly && inventory && !getInventoryAvailability(inventory, inventoryAllocation, unit.id)?.hasCatalogEntry) return false;
       if (!matchesAdvancedCatalogFilters(unit, advancedCatalogFilters)) return false;
       if (roleFilter && !(unit.Keywords ?? []).some((keyword) => keyword.toLocaleLowerCase().includes(roleFilter.toLocaleLowerCase()))) return false;
       if (searchText) {
@@ -1222,9 +1222,9 @@ export default function App(): React.JSX.Element {
                     )}
                     <strong className="unit-card-price">{minimumPointCost(unit, draft.items.filter((item) => item.unitId === unit.id).length + 1) ?? '?'} pts <small>{t('library.from')}</small></strong>
                     {availability && (
-                      <p className={`inventory-stock ${availability.hasCatalogEntry ? '' : 'unlisted'}`}>
+                      <p className={`inventory-stock ${availability.hasCatalogEntry ? (availability.used === availability.total ? 'depleted' : '') : 'unlisted'}`}>
                         {availability.hasCatalogEntry
-                          ? t('library.freeStock', { real: availability.real, proxy: availability.proxy })
+                          ? t('library.inventoryUsage', { used: availability.used, total: availability.total })
                           : t('library.inventoryUnlisted')}
                       </p>
                     )}

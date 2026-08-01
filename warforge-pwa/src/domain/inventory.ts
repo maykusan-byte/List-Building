@@ -36,6 +36,8 @@ export interface InventoryAvailability {
   hasCatalogEntry: boolean;
   real: number;
   proxy: number;
+  used: number;
+  total: number;
 }
 
 interface CsvRow {
@@ -224,7 +226,9 @@ export function getInventoryAvailability(
   return {
     hasCatalogEntry: candidates.length > 0,
     real: available.filter((entry) => entry.type === 'real').length,
-    proxy: available.filter((entry) => entry.type === 'proxy').length
+    proxy: available.filter((entry) => entry.type === 'proxy').length,
+    used: candidates.length - available.length,
+    total: candidates.length
   };
 }
 

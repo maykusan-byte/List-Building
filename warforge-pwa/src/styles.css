@@ -234,6 +234,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .unit-card .card-actions button { font-size: 0.75rem; padding: 0.42rem 0.65rem; }
 .unit-card small { color: var(--ink-soft); font-weight: 600; }
 .inventory-stock { color: var(--green); font-size: 0.75rem; font-weight: 800; margin: -0.4rem 0 0.8rem; }
+.inventory-stock.depleted { color: var(--red); }
 .inventory-stock.unlisted { color: var(--ink-soft); font-weight: 600; }
 .favorite { background: transparent; border: 0; box-shadow: none; color: #8b8173; font-size: 1.2rem; padding: 0.1rem; position: absolute; right: 0.55rem; top: 0.45rem; }
 .favorite:hover, .favorite.active { background: transparent; box-shadow: none; color: var(--gold-dark); transform: none; }

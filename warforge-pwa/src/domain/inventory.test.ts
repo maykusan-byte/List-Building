@@ -60,8 +60,8 @@ describe('inventory CSV', () => {
 
     expect(allocation.reservationsByItemId.get('alpha')).toMatchObject({ realFigureIds: [1], proxyFigureIds: [2], missing: 0 });
     expect(allocation.reservationsByItemId.get('beta')).toMatchObject({ realFigureIds: [3], proxyFigureIds: [], missing: 0 });
-    expect(getInventoryAvailability(inventory, allocation, unitA)).toEqual({ hasCatalogEntry: true, real: 0, proxy: 0 });
-    expect(getInventoryAvailability(inventory, allocation, unitC)).toEqual({ hasCatalogEntry: false, real: 0, proxy: 0 });
+    expect(getInventoryAvailability(inventory, allocation, unitA)).toEqual({ hasCatalogEntry: true, real: 0, proxy: 0, used: 2, total: 2 });
+    expect(getInventoryAvailability(inventory, allocation, unitC)).toEqual({ hasCatalogEntry: false, real: 0, proxy: 0, used: 0, total: 0 });
   });
 
   it('allocates every real association before any proxy association globally', () => {
