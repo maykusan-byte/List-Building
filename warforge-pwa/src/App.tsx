@@ -1204,6 +1204,9 @@ export default function App(): React.JSX.Element {
               const nextOccurrence = draft.items.filter((item) => item.unitId === unit.id).length + 1;
               const selectedPointIndex = catalogPointIndexes[unit.id] ?? 0;
               const pointSizes = getPointSizes(unit);
+              const hasSelectedPointSize = draft.items.some(
+                (item) => item.unitId === unit.id && item.pointIndex === selectedPointIndex
+              );
               return (
               <article className={`unit-card ${isAlliedUnit(database, draft.primaryFaction, unit) ? 'allied-unit' : ''}`} key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={t('library.favorite', { name: display.unitName(unit) })}>★</button>
@@ -1245,9 +1248,15 @@ export default function App(): React.JSX.Element {
                       <button onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id, selectedPointIndex)] }))}>{t('action.add')}</button>
                       <button
                         className="secondary"
-                        disabled={nextOccurrence === 1}
+                        disabled={!hasSelectedPointSize}
                         onClick={() => updateDraft((current) => {
-                          const removalIndex = current.items.reduce((lastIndex, item, index) => item.unitId === unit.id ? index : lastIndex, -1);
+                          const removalIndex = current.items.reduce(
+                            (lastIndex, item, index) =>
+                              item.unitId === unit.id && item.pointIndex === selectedPointIndex
+                                ? index
+                                : lastIndex,
+                            -1
+                          );
                           return removalIndex === -1 ? current : { ...current, items: current.items.filter((_, index) => index !== removalIndex) };
                         })}
                       >
