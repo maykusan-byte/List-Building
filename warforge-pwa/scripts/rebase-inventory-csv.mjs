@@ -4,8 +4,8 @@ import { buildCatalog } from './build-catalog.mjs';
 
 const apply = process.argv.includes('--apply');
 const excludeUnavailable = process.argv.includes('--exclude-unavailable');
-const inventoryPath = resolve(import.meta.dirname, '../../datasheet_x_figs.csv');
-const masterPath = resolve(import.meta.dirname, '../../master_warorgan.json');
+const inventoryPath = resolve(import.meta.dirname, '../data/inventory/datasheet_x_figs.csv');
+const masterPath = resolve(import.meta.dirname, '../../legacy/warorgan/master_warorgan.json');
 const unavailablePath = resolve(import.meta.dirname, '../data/inventory-v11-unavailable.csv');
 const slug = (value) => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase() || 'inconnu';
 const parseCsv = (raw) => raw.trimEnd().split(/\r?\n/).map((line) => line.split(','));

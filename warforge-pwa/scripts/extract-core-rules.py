@@ -104,7 +104,7 @@ CHAPTERS = {
 
 def main() -> int:
     repository_root = Path(__file__).resolve().parents[2]
-    source_path = repository_root / SOURCE_FILENAME
+    source_path = repository_root / 'references' / 'warhammer-40k' / 'rules' / 'core' / SOURCE_FILENAME
     output_path = repository_root / 'warforge-pwa' / 'data' / 'rules' / 'core-rules-fr.json'
     if not source_path.is_file():
         print(f'Source PDF missing: {source_path}', file=sys.stderr)

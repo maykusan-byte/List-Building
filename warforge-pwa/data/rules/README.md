@@ -1,7 +1,7 @@
 # Référence des règles
 
 `core-rules-fr.json` est la transcription Web générée à partir de
-`../fre_01-06_warhammer40k_new40k_core_rules-ooyuallyp9-s4aczdfbm2_copie.pdf`.
+`../../../references/warhammer-40k/rules/core/fre_01-06_warhammer40k_new40k_core_rules-ooyuallyp9-s4aczdfbm2_copie.pdf`.
 Il est distribué avec la PWA, y compris dans le build GitHub Pages.
 
 Lorsqu’une nouvelle version du PDF est retenue :

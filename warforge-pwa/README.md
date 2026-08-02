@@ -28,8 +28,18 @@ pnpm --version
 
 Fermez ensuite ce terminal et ouvrez-en un nouveau. Si le problème persiste,
 ajoutez le dossier affiché par `npm prefix --global` à la variable
-d'environnement utilisateur `Path` de Windows.
+d’environnement utilisateur `Path` de Windows.
 - Les 36 fichiers de faction, `DataInfo.json` et `FactionInfoData.json` dans `data/units/`
+
+## Organisation des données
+
+- `data/units/`, `data/locales/`, `data/rules/` et `data/inventory/` sont les
+  entrées versionnées de Warforge.
+- Les fichiers sous `public/data/` sont générés par `pnpm sync-data`, à
+  l’exception des images publiques validées.
+- Les PDF de règles et les notes de contexte sont conservés hors de la PWA dans
+  `../references/warhammer-40k/` ; les outils Warorgan historiques vivent dans
+  `../legacy/warorgan/`.
 
 ## Lancer en développement
 
@@ -40,7 +50,7 @@ pnpm install
 pnpm dev
 ```
 
-Ouvrir ensuite l’adresse affichée par Vite (habituellement `http://localhost:5173`). Avant chaque démarrage, `pnpm` génère `public/data/catalog.json`. Cette copie est générée et n’est pas une seconde source de vérité. `master_warorgan.json` reste inchangé pour les anciennes applications locales.
+Ouvrir ensuite l’adresse affichée par Vite (habituellement `http://localhost:5173`). Avant chaque démarrage, `pnpm` génère `public/data/catalog.json`. Cette copie est générée et n’est pas une seconde source de vérité. La base Warorgan historique est archivée dans `../legacy/warorgan/` et ne sert qu’aux migrations explicites.
 
 ## Compiler la PWA
 
@@ -82,7 +92,7 @@ recherche approximative comme identifiant d’unité.
 
 Chaque envoi sur la branche `master` déclenche le workflow
 `.github/workflows/deploy-pages.yml`. Il installe les dépendances, génère le catalogue,
-copie l’inventaire depuis la racine, compile la PWA et publie `dist/` sur GitHub Pages.
+synchronise les ressources versionnées de la PWA, compile la PWA et publie `dist/` sur GitHub Pages.
 
 Le workflow utilise automatiquement le chemin du dépôt GitHub : les données,
 l’inventaire et les ressources publiques restent donc accessibles sous l’URL publique
@@ -90,7 +100,7 @@ du projet.
 
 ## Inventaire
 
-L’inventaire par défaut est le fichier `../datasheet_x_figs.csv`. Il est copié avec
+L’inventaire par défaut est le fichier `data/inventory/datasheet_x_figs.csv`. Il est copié avec
 la base, pré-caché par la PWA et peut être remplacé localement depuis le bouton
 « Importer un inventaire CSV ».
 
@@ -115,7 +125,9 @@ Une mise à jour de la base qui change son empreinte impose de régénérer et d
 valider humainement l’inventaire. Les réservations sont recalculées depuis la
 liste et l’inventaire local ; elles ne modifient pas le format d’export v1.
 
-Pour préparer la migration depuis l’ancienne base, lancez d’abord le contrôle :
+Pour préparer la migration depuis l’ancienne base, utilisez uniquement un CSV
+d’inventaire historique dont les `UnitId` proviennent de cette base, puis lancez
+d’abord le contrôle :
 
 ```powershell
 pnpm inventory:rebase --check
@@ -124,6 +136,8 @@ pnpm inventory:rebase --check
 Après validation, `pnpm inventory:rebase --apply --exclude-unavailable` écrit le
 CSV V11. Les fiches disparues du catalogue sont conservées séparément dans
 `data/inventory-v11-unavailable.csv`; ce script n’utilise jamais `Nom_datasheet`.
+Ne l’exécutez pas comme contrôle courant sur l’inventaire V11 actif : la
+migration est volontairement à sens unique.
 
 ## Utilisation
 
@@ -139,4 +153,4 @@ Les sauvegardes et favoris restent dans le navigateur. Le bouton « Mettre à jo
 
 L’application bloque les incohérences certaines présentes dans les données : scénario non proposé par les détachements sélectionnés, dépassement de points ou de budget de détachements, amélioration non éligible et format invalide. Un coût de détachement absent du JSON représente le coût standard de 1 DP. Les lignes de points sont regroupées par taille : `UnitCount` détermine le palier de coût selon le rang d’occurrence du même `UnitId`, même si les tailles choisies diffèrent. Les restrictions d’alliés uniquement rédigées en texte restent des avertissements à vérifier dans les règles sources.
 
-Les anciennes exportations de `cr_ateur_de_liste_warhammer_40k(5).html` ne sont volontairement pas importées, car leurs identifiants d’unités peuvent être ambigus. Utiliser les nouveaux exports versionnés de Warforge 40k.
+Les anciennes exportations de `../legacy/warorgan/cr_ateur_de_liste_warhammer_40k(5).html` ne sont volontairement pas importées, car leurs identifiants d’unités peuvent être ambigus. Utiliser les nouveaux exports versionnés de Warforge 40k.

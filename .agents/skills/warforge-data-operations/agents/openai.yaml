@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warforge Data Operations"
+  short_description: "Maintain Warforge game data safely"
+  default_prompt: "Use $warforge-data-operations to update and validate Warforge 40k game data."

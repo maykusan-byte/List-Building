@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const projectRoot = resolve(import.meta.dirname, '..');
 const catalogPath = resolve(projectRoot, 'public/data/catalog.json');
-const inventoryPath = resolve(projectRoot, '../datasheet_x_figs.csv');
+const inventoryPath = resolve(projectRoot, 'data/inventory/datasheet_x_figs.csv');
 const seedPath = resolve(projectRoot, 'data/unit-image-seeds.json');
 const outputPath = resolve(projectRoot, 'public/data/unit-images.json');
 const missingPath = resolve(projectRoot, 'data/unit-image-missing.json');

@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const source = resolve(import.meta.dirname, '../../datasheet_x_figs.csv');
+const source = resolve(import.meta.dirname, '../data/inventory/datasheet_x_figs.csv');
 
 // This is deliberately a migration-only table. The PWA never loads it and
 // never attempts any name-based inventory matching.
@@ -138,7 +138,7 @@ function quoted(value) {
   return /[",\r\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
 }
 
-const masterPath = resolve(import.meta.dirname, '../../master_warorgan.json');
+const masterPath = resolve(import.meta.dirname, '../../legacy/warorgan/master_warorgan.json');
 const [legacyRaw, masterBytes] = await Promise.all([readFile(source, 'utf8'), readFile(masterPath)]);
 const masterRaw = new TextDecoder().decode(masterBytes);
 const legacyRows = parseLegacyCsv(legacyRaw);
