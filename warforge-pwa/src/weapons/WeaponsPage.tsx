@@ -48,13 +48,15 @@ export function WeaponsPage({
   display,
   locale,
   onOpenBuilder,
-  onOpenRules
+  onOpenRules,
+  onOpenLearning
 }: {
   database: NormalizedDatabase;
   display: CatalogLocalization;
   locale: 'fr' | 'en';
   onOpenBuilder: () => void;
   onOpenRules: () => void;
+  onOpenLearning?: () => void;
 }): React.JSX.Element {
   const { t } = useTranslation();
   const [faction, setFaction] = useState('');
@@ -118,6 +120,7 @@ export function WeaponsPage({
           </div>
         </div>
         <div className="weapons-topbar-actions">
+          {onOpenLearning && <button className="secondary action-with-icon" onClick={onOpenLearning}><span className="button-icon" aria-hidden="true">🎓</span>{locale === 'fr' ? 'Apprentissage' : 'Learning'}</button>}
           <button className="secondary action-with-icon" onClick={onOpenRules}><span className="button-icon" aria-hidden="true">§</span>{t('rules.open')}</button>
           <button className="secondary action-with-icon" onClick={onOpenBuilder}><span className="button-icon" aria-hidden="true">⌘</span>{locale === 'fr' ? 'Créateur de liste' : 'Army builder'}</button>
         </div>

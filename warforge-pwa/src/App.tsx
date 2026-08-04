@@ -1,18 +1,19 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
-import { isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
+import { formatSaveDisplay, isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
 import { createCatalogLocalization, loadCatalogLocaleOverlay } from './domain/catalog-localization';
 import { loadUnitImageManifest, unitImageMap, unitImageUrl } from './domain/unit-images';
 import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
 import { analyzeRoster } from './domain/analysis';
-import { allocateInventory, getInventoryAvailability, parseInventoryCsv } from './domain/inventory';
+import { allocateInventory, getInventoryAvailability, getProxySourceUnits, getReservedProxySources, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
 import { RulesPage } from './rules/RulesPage';
 import { WeaponsPage } from './weapons/WeaponsPage';
+import { LearningPage } from './learning/LearningPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
@@ -28,11 +29,12 @@ import './styles.css';
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
-type AppView = 'builder' | 'rules' | 'weapons';
+type AppView = 'builder' | 'rules' | 'weapons' | 'learning';
 
 function viewFromHash(): AppView {
   if (window.location.hash.startsWith('#rules')) return 'rules';
   if (window.location.hash.startsWith('#weapons')) return 'weapons';
+  if (window.location.hash.startsWith('#learning')) return 'learning';
   return 'builder';
 }
 
@@ -150,17 +152,33 @@ function compositionLabel(model: { ModelName?: string; Limit?: { Min?: number; M
 function UnitProfile({ line }: { line: Record<string, unknown> }): React.JSX.Element {
   const { t } = useTranslation();
   const profileName = typeof line.StatName === 'string' ? line.StatName.trim() : '';
+  const { displaySave, invul } = formatSaveDisplay(line);
+
   return (
     <section className="unit-profile">
       {profileName && <h4>{profileName}</h4>}
       <dl className="unit-stat-grid">
-        {PROFILE_STATS.map(({ key, label, description }) => (
-          <div key={key}>
-            <dt aria-label={t(`profile.${key === 'Movement' ? 'movement' : key === 'Toughness' ? 'toughness' : key === 'Save' ? 'save' : key === 'Wounds' ? 'wounds' : key === 'Leadership' ? 'leadership' : 'objectiveControl'}`)}>{label}</dt>
-            <dd>{String(line[key] ?? '—')}</dd>
-          </div>
-        ))}
+        {PROFILE_STATS.map(({ key, label }) => {
+          let val = String(line[key] ?? '—');
+          if (key === 'Save') {
+            val = displaySave;
+          }
+          return (
+            <div key={key} title={key === 'Save' && invul?.description ? `${invul.formatted}: ${invul.description}` : undefined}>
+              <dt aria-label={t(`profile.${key === 'Movement' ? 'movement' : key === 'Toughness' ? 'toughness' : key === 'Save' ? 'save' : key === 'Wounds' ? 'wounds' : key === 'Leadership' ? 'leadership' : 'objectiveControl'}`)}>{label}</dt>
+              <dd>
+                {val}
+                {key === 'Save' && invul?.description && <span style={{ fontSize: '0.75em', verticalAlign: 'super', color: 'var(--gold-dark)', marginLeft: '1px' }}>*</span>}
+              </dd>
+            </div>
+          );
+        })}
       </dl>
+      {invul?.description && (
+        <p className="invul-save-desc" style={{ fontSize: '0.73rem', fontStyle: 'italic', color: 'var(--ink-soft)', margin: '0.25rem 0 0', lineHeight: 1.2 }}>
+          * {invul.formatted} : {invul.description}
+        </p>
+      )}
     </section>
   );
 }
@@ -265,20 +283,43 @@ function AdvancedCatalogFilterInput({
 
 function AdvancedCatalogFilterMenu({
   filters,
+  maxCost,
   activeCount,
   onChange,
+  onMaxCostChange,
   onReset
 }: {
   filters: AdvancedCatalogFilters;
+  maxCost: string;
   activeCount: number;
   onChange: (field: AdvancedCatalogFilterKey, value: string) => void;
+  onMaxCostChange: (value: string) => void;
   onReset: () => void;
 }): React.JSX.Element {
   const { t } = useTranslation();
+  const totalActive = activeCount + (maxCost ? 1 : 0);
   return (
     <details className="advanced-filters">
-      <summary>{t('library.advanced')}{activeCount > 0 ? ` · ${t('library.active', { count: activeCount })}` : ''}</summary>
+      <summary>{t('library.advanced')}{totalActive > 0 ? ` · ${t('library.active', { count: totalActive })}` : ''}</summary>
       <div className="advanced-filter-content">
+        <section className="advanced-filter-group">
+          <div>
+            <h3>{t('library.maximumCost')}</h3>
+          </div>
+          <div className="advanced-filter-grid">
+            <label className="advanced-filter-field">
+              <span>{t('library.maximumCost')} (pts)</span>
+              <input
+                aria-label={t('library.maximumCost')}
+                type="number"
+                min="0"
+                placeholder="—"
+                value={maxCost}
+                onChange={(event) => onMaxCostChange(event.target.value)}
+              />
+            </label>
+          </div>
+        </section>
         <section className="advanced-filter-group" aria-labelledby="unit-stat-filter-title">
           <div>
             <h3 id="unit-stat-filter-title">{t('library.unitStats')}</h3>
@@ -309,7 +350,7 @@ function AdvancedCatalogFilterMenu({
         </section>
         <div className="advanced-filter-footer">
           <p className="muted">{t('library.randomValues')}</p>
-          <button className="secondary" type="button" disabled={activeCount === 0} onClick={onReset}>{t('action.reset')}</button>
+          <button className="secondary" type="button" disabled={totalActive === 0} onClick={onReset}>{t('action.reset')}</button>
         </div>
       </div>
     </details>
@@ -406,45 +447,13 @@ function ListAnalysisPanel({
                     <th scope="row">{t('analysis.total')}</th>
                     {analysis.targets.map((target) => (
                       <td key={target.id}>
-                        <strong>{formatAnalysisValue(target.totalDamage, i18n.language)}</strong>
-                        <small><span className={`coverage-badge ${target.coverage}`}>{t(`analysis.coverage.${target.coverage === 'couvert' ? 'covered' : target.coverage}`)}</span> {t('analysis.sources', { count: target.sourceUnits })}</small>
-                      </td>
+                        <strong>{formatAnalysisValue(target.totalDamage, i18n.language)}</strong></td>
                     ))}
                   </tr>
                 </tfoot>
               )}
             </table>
           </div>
-        </section>
-
-        <section className="analysis-section analysis-overview-grid">
-          <article>
-            <h3>{t('analysis.mobility')}</h3>
-            <dl className="analysis-metrics-grid">
-              <AnalysisMetric label={t('analysis.bestMove')} value={analysis.mobility.maximumMove === null ? '—' : `${formatAnalysisValue(analysis.mobility.maximumMove, i18n.language)}″`} />
-              <AnalysisMetric label={t('analysis.longestRange')} value={analysis.mobility.longestRange === null ? '—' : `${formatAnalysisValue(analysis.mobility.longestRange, i18n.language)}″`} />
-              <AnalysisMetric label={t('analysis.fastUnits')} value={analysis.mobility.fastUnits} detail="M ≥ 10″" />
-              <AnalysisMetric label={t('analysis.rapidDeployment')} value={analysis.mobility.deepStrikeUnits + analysis.mobility.scoutUnits + analysis.mobility.infiltratorUnits} detail={t('analysis.utility.deepStrike')} />
-            </dl>
-          </article>
-          <article>
-            <h3>{t('analysis.resilience')}</h3>
-            <dl className="analysis-metrics-grid">
-              <AnalysisMetric label={t('analysis.totalWounds')} value={formatAnalysisValue(analysis.resilience.totalWounds, i18n.language)} />
-              <AnalysisMetric label={t('analysis.toughCore')} value={formatAnalysisValue(analysis.resilience.toughWounds, i18n.language)} detail="Wounds" />
-              <AnalysisMetric label={t('analysis.saveTwo')} value={formatAnalysisValue(analysis.resilience.saveTwoWounds, i18n.language)} detail="Wounds" />
-              <AnalysisMetric label={t('analysis.saveThree')} value={formatAnalysisValue(analysis.resilience.saveThreeWounds, i18n.language)} detail="Wounds" />
-            </dl>
-          </article>
-          <article>
-            <h3>{t('analysis.control')}</h3>
-            <dl className="analysis-metrics-grid">
-              <AnalysisMetric label={t('analysis.baseOc')} value={formatAnalysisValue(analysis.control.totalObjectiveControl, i18n.language)} />
-              <AnalysisMetric label={t('analysis.models')} value={analysis.control.modelCount} />
-              <AnalysisMetric label={t('analysis.battleline')} value={analysis.control.battlelineUnits} />
-              <AnalysisMetric label={t('analysis.resolvedProfiles')} value={analysis.resilience.resolvedModels} />
-            </dl>
-          </article>
         </section>
 
         <section className="analysis-section">
@@ -598,13 +607,14 @@ interface RosterCardProps {
   database: NormalizedDatabase;
   item: RosterItem;
   draft: RosterDraft;
+  inventory?: InventoryDataset | null;
   inventoryReservation?: InventoryReservation;
   display: CatalogLocalization;
   onChange: (item: RosterItem) => void;
   onRemove: () => void;
 }
 
-function RosterCard({ database, item, draft, inventoryReservation, display, onChange, onRemove }: RosterCardProps): React.JSX.Element | null {
+function RosterCard({ database, item, draft, inventory, inventoryReservation, display, onChange, onRemove }: RosterCardProps): React.JSX.Element | null {
   const { t } = useTranslation();
   const unit = database.units.find((candidate) => candidate.id === item.unitId);
   if (!unit) return null;
@@ -664,13 +674,185 @@ function RosterCard({ database, item, draft, inventoryReservation, display, onCh
       {(breakdown.wargear > 0 || breakdown.enhancement > 0) && (
         <p className="muted">{t('roster.equipment', { cost: breakdown.wargear, enhancement: breakdown.enhancement })}</p>
       )}
-      {inventoryReservation?.hasCatalogEntry && (
-        <p className="inventory-reservation">
-          {t('roster.reserved', { real: inventoryReservation.realFigureIds.length, proxy: inventoryReservation.proxyFigureIds.length })}
-          {inventoryReservation.missing > 0 && <strong className="inventory-warning"> · {t('roster.missing', { count: inventoryReservation.missing })}</strong>}
-        </p>
-      )}
+      {inventoryReservation?.hasCatalogEntry && (() => {
+        const proxySources = inventory && inventoryReservation.proxyFigureIds.length > 0
+          ? getReservedProxySources(inventory, database, inventoryReservation.proxyFigureIds)
+          : [];
+        const proxySourcesText = proxySources.map((u) => display.unitName(u)).join(', ');
+        return (
+          <p className="inventory-reservation">
+            {t('roster.reserved', { real: inventoryReservation.realFigureIds.length, proxy: inventoryReservation.proxyFigureIds.length })}
+            {inventoryReservation.missing > 0 && <strong className="inventory-warning"> · {t('roster.missing', { count: inventoryReservation.missing })}</strong>}
+            {proxySourcesText ? (
+              <span className="proxy-sources-info" style={{ display: 'block', fontSize: '0.82rem', marginTop: '0.25rem', color: '#6b5d4d', fontWeight: 600 }}>
+                {t('wargear.proxySources', { sources: proxySourcesText })}
+              </span>
+            ) : null}
+          </p>
+        );
+      })()}
     </article>
+  );
+}
+
+
+
+
+
+
+
+
+
+function WeaponInline({ name, unit, display, t }: { name: string, unit?: import('./domain/types').NormalizedUnit, display: CatalogLocalization, t: any }) {
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [coords, setCoords] = useState({ top: 0, left: 0, bottom: 0 });
+  
+  if (!unit) return <span style={{ fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)' }}>{name}</span>;
+  
+  const allProfiles = weaponProfiles(unit);
+  const cleanName = name.trim().toLowerCase();
+  const matchedProfiles = allProfiles.filter(p => {
+     const profileName = (p.profile.Name || '').toLowerCase();
+     return profileName === cleanName || profileName.includes(cleanName) || cleanName.includes(profileName);
+  });
+  
+  if (matchedProfiles.length === 0) {
+    return <span style={{ fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)' }}>{name}</span>;
+  }
+  
+  const handleOpen = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setCoords({ top: rect.top, left: rect.left + rect.width / 2, bottom: window.innerHeight - rect.top });
+    }
+    setOpen(true);
+  };
+  
+  return (
+    <span style={{ display: 'inline-flex' }} onMouseLeave={() => setOpen(false)}>
+      <button 
+        ref={buttonRef}
+        type="button" 
+        onClick={(e) => { e.preventDefault(); if(open) setOpen(false); else handleOpen(); }}
+        onMouseEnter={handleOpen}
+        onFocus={handleOpen}
+        onBlur={() => setOpen(false)}
+        style={{ 
+          background: 'none', border: 'none', padding: 0, margin: 0, font: 'inherit',
+          cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textDecorationColor: 'var(--gold)',
+          fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)'
+        }}
+      >
+        {name}
+      </button>
+      {open && (
+        <div style={{
+          position: 'fixed', zIndex: 99999, 
+          bottom: coords.bottom + 8 + 'px', 
+          left: coords.left + 'px', 
+          transform: 'translateX(-50%)',
+          background: 'var(--paper)', border: '1px solid var(--gold)', borderRadius: '0.5rem', padding: '0.5rem',
+          width: 'max-content', maxWidth: 'calc(100vw - 2rem)', boxShadow: '0 8px 32px rgba(58, 43, 20, 0.4)',
+          fontSize: '0.75rem', textAlign: 'left', lineHeight: 1.4, color: 'var(--ink)'
+        }} 
+        ref={node => {
+          if (node) {
+            const rect = node.getBoundingClientRect();
+            if (rect.left < 10) {
+              node.style.left = '10px';
+              node.style.transform = 'none';
+            } else if (rect.right > window.innerWidth - 10) {
+              node.style.left = 'auto';
+              node.style.right = '10px';
+              node.style.transform = 'none';
+            }
+          }
+        }}
+        onMouseDown={(e) => e.preventDefault()}>
+          <WeaponTable profiles={matchedProfiles} display={display} compact={true} />
+        </div>
+      )}
+    </span>
+  );
+}
+
+function WargearDescription({ model, display, t, unit }: { model: any, display: CatalogLocalization, t: any, unit?: import("./domain/types").NormalizedUnit }) {
+  if (!model.Wargear || model.Wargear.length === 0) return null;
+
+  const formatWeaponString = (str: string, separator = ' + ') => {
+    const parts = str.split(/ and | \+ |, /i).filter(p => p.trim() !== '');
+    return (
+      <>
+        {parts.map((part, index) => (
+          <span key={index} style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <WeaponInline name={part} unit={unit} display={display} t={t} />
+            {index < parts.length - 1 && <span style={{ fontWeight: 400, margin: '0 0.35rem', color: 'var(--ink-soft)' }}>{separator}</span>}
+          </span>
+        ))}
+      </>
+    );
+  };
+
+  return (
+    <div className="model-wargear" style={{ marginTop: '0.75rem', fontSize: '0.85em', color: 'var(--ink)' }}>
+      {model.Wargear.map((wg: any, wIndex: number) => (
+        <div key={wIndex} style={{ marginBottom: '1rem', background: 'rgba(255,255,255,0.6)', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(212, 200, 183, 0.6)' }}>
+          {(wg.InitalWargear && wg.InitalWargear.length > 0) && (
+            <div style={{ marginBottom: '0.75rem' }}>
+              <strong style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t('wargear.equipped', 'Équipement de base')}</strong>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                {wg.InitalWargear.map((w: string, i: number) => (
+                  <span key={i} style={{ background: '#fffefa', padding: '0.15rem 0.55rem', borderRadius: '1rem', border: '1px solid #d4c8b7', fontSize: '0.88em' }}>{formatWeaponString(w)}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          {(wg.Options && wg.Options.length > 0) && (
+            <div>
+              <strong style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--ink-soft)', marginBottom: '0.4rem', marginTop: '0.8rem' }}>{t('wargear.options', 'Options')}</strong>
+              <div style={{ margin: '0', paddingLeft: '0', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {wg.Options.map((opt: any, oIndex: number) => {
+                  if (typeof opt === 'string') return <div key={oIndex} style={{ paddingLeft: '0.5rem', borderLeft: '3px solid var(--gold)', fontSize: '0.88em' }}>{formatWeaponString(opt)}</div>;
+                  
+                  let prefixParts = [];
+                  if (opt.Max) prefixParts.push(`Max ${opt.Max}`);
+                  if (opt.PerXModels) prefixParts.push(`pour ${opt.PerXModels} fig.`);
+                  
+                  let replacesDesc = null;
+                  if (opt.Replaces && opt.Replaces.length > 0) {
+                     replacesDesc = (
+                       <div style={{ color: 'var(--ink-soft)' }}>
+                         Remplace <em style={{ fontStyle: 'normal' }}>{formatWeaponString(opt.Replaces.join(', '), ', ')}</em> par :
+                       </div>
+                     );
+                  } else {
+                     replacesDesc = <div style={{ color: 'var(--ink-soft)' }}>Peut être équipé de :</div>;
+                  }
+
+                  return (
+                    <div key={oIndex} style={{ background: '#fffefa', padding: '0.65rem', borderRadius: '0.4rem', border: '1px solid #eaddd0', boxShadow: '0 2px 4px rgba(58, 43, 20, 0.02)' }}>
+                      <div style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.9em', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        {prefixParts.length > 0 && <div style={{ alignSelf: 'flex-start', background: 'var(--gold)', color: '#171108', padding: '0.1rem 0.4rem', borderRadius: '0.3rem', fontWeight: 800, fontSize: '0.85em', letterSpacing: '0.03em', marginBottom: '0.2rem' }}>{prefixParts.join(' ')}</div>}
+                        {replacesDesc}
+                      </div>
+                      <div style={{ margin: '0', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                        {opt.Options?.map((o: string, idx: number) => (
+                          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.88em' }}>
+                            <span style={{ color: 'var(--gold-dark)', marginTop: '0.15rem', fontSize: '0.9em' }}>•</span>
+                            <span style={{ flex: 1, lineHeight: 1.4 }}>{formatWeaponString(o)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -702,6 +884,9 @@ export default function App(): React.JSX.Element {
   const startupDraftsRef = useRef(savedDrafts);
   const startupActiveDraftIdRef = useRef(readActiveDraftId());
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
+  const [wargearModalItem, setWargearModalItem] = useState<RosterItem | null>(null);
+  const [savedListsModalOpen, setSavedListsModalOpen] = useState(false);
+  const [deletingListId, setDeletingListId] = useState<string | null>(null);
   const [visibleUnits, setVisibleUnits] = useState(60);
   const [notice, setNotice] = useState<string | null>(null);
   const [catalogOverlay, setCatalogOverlay] = useState<CatalogLocaleOverlay | null>(null);
@@ -770,7 +955,7 @@ export default function App(): React.JSX.Element {
       const candidates = [...startupDraftsRef.current].sort((left, right) => Number(right.id === preferredId) - Number(left.id === preferredId));
       return candidates.map((saved) => restoreSavedDraft(saved, nextDatabase)).find((saved): saved is RosterDraft => saved !== null) ?? newDraft(nextDatabase);
     });
-    setStatus(`${source} · ${nextDatabase.units.length.toLocaleString(localeTag(locale))} ${t('app.units', { count: nextDatabase.units.length })}, ${nextDatabase.detachments.length} ${t('roster.selectedDetachments').toLocaleLowerCase()}`);
+    setStatus(`${source} · ${t('app.units', { count: nextDatabase.units.length })}, ${nextDatabase.detachments.length} détachements`);
     setError(null);
     try {
       await cacheDatabase(nextDatabase);
@@ -942,7 +1127,9 @@ export default function App(): React.JSX.Element {
     if (!database || !draft) return [];
     const searchText = search.trim().toLocaleLowerCase();
     const ceiling = maxCost ? Number(maxCost) : undefined;
-    return database.units.filter((unit) => {
+    const primarySourceKey = database.factions.find((f) => f.id === draft.primaryFaction)?.sourceKey;
+
+    const filtered = database.units.filter((unit) => {
       if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) return false;
       if (favouritesOnly && !favorites.includes(unit.id)) return false;
       if (inStockOnly && inventory && !getInventoryAvailability(inventory, inventoryAllocation, unit.id)?.hasCatalogEntry) return false;
@@ -957,7 +1144,22 @@ export default function App(): React.JSX.Element {
       if (ceiling !== undefined && minimumCost !== null && minimumCost > ceiling) return false;
       return true;
     });
-  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation, advancedCatalogFilters, display]);
+
+    const dedupedMap = new Map<string, NormalizedUnit>();
+    for (const unit of filtered) {
+      const nameKey = unit.displayName.toUpperCase().trim();
+      if (!dedupedMap.has(nameKey)) {
+        dedupedMap.set(nameKey, unit);
+      } else {
+        const existing = dedupedMap.get(nameKey)!;
+        if (unit.sourceKey === primarySourceKey && existing.sourceKey !== primarySourceKey) {
+          dedupedMap.set(nameKey, unit);
+        }
+      }
+    }
+
+    return [...dedupedMap.values()].sort((left, right) => display.unitName(left).localeCompare(display.unitName(right), localeTag(locale)));
+  }, [database, draft, search, maxCost, roleFilter, favouritesOnly, favorites, inStockOnly, inventory, inventoryAllocation, advancedCatalogFilters, display, locale]);
 
   const roles = useMemo(() => {
     if (!database || !draft) return [];
@@ -1021,7 +1223,7 @@ export default function App(): React.JSX.Element {
   };
 
   const deleteSavedDraft = (saved: SavedDraft): void => {
-    if (!database || !window.confirm(t('feedback.deleteConfirm', { name: saved.name }))) return;
+    if (!database) return;
     const next = savedDraftsRef.current.filter((candidate) => candidate.id !== saved.id);
     savedDraftsRef.current = next;
     setSavedDrafts(next);
@@ -1056,7 +1258,6 @@ export default function App(): React.JSX.Element {
 
   const changeFaction = (nextFaction: string): void => {
     if (!draft) return;
-    if ((draft.items.length > 0 || draft.detachmentIds.length > 0) && !window.confirm(t('feedback.factionConfirm'))) return;
     updateDraft((current) => ({ ...current, primaryFaction: nextFaction, items: [], detachmentIds: [] }));
     setSelectedUnitId(null);
     setVisibleUnits(60);
@@ -1137,36 +1338,227 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'weapons';
   };
 
+  const openLearning = (): void => {
+    window.location.hash = 'learning';
+  };
+
   const openBuilder = (): void => {
     window.location.hash = 'builder';
   };
 
-  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} />;
+  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} onOpenLearning={openLearning} />;
 
-  if (view === 'weapons' && database) return <WeaponsPage database={database} display={display} locale={locale} onOpenBuilder={openBuilder} onOpenRules={openRules} />;
+  if (view === 'weapons' && database) return <WeaponsPage database={database} display={display} locale={locale} onOpenBuilder={openBuilder} onOpenRules={openRules} onOpenLearning={openLearning} />;
+
+  if (view === 'learning' && database) {
+    return (
+      <LearningPage
+        database={database}
+        display={display}
+        locale={locale}
+        inventory={inventory}
+        inventoryAllocation={inventoryAllocation}
+        activeDraft={draft}
+        favorites={favorites}
+        unitImages={unitImages}
+        onOpenBuilder={openBuilder}
+        onOpenRules={openRules}
+        onOpenWeapons={openWeapons}
+      />
+    );
+  }
 
   if (!database || !draft) {
     return (
       <main className="loading-shell">
-        <div className="loading-card">
+        <div className="loading-card warfare-loader">
           <div className="loading-brand">
             <BrandMark />
-            <div><span className="eyebrow">WARFORGE 40K</span><h1>{t('app.loading')}</h1><p>{status}</p></div>
+            <div>
+              <span className="eyebrow">WARFORGE 40K</span>
+              <h1>{t('app.loading')}</h1>
+              <p className="loading-pulse">{status}</p>
+            </div>
           </div>
-          {error && <p className="error-text">{error}</p>}
-          <button onClick={() => databaseInputRef.current?.click()}>{t('action.importDatabase')}</button>
-          <button className="secondary" onClick={openRules}>{t('rules.open')}</button>
-          <button className="secondary" onClick={openWeapons}>{locale === 'fr' ? 'Arsenal' : 'Armoury'}</button>
+          <div className="radar-spinner" aria-hidden="true">
+            <div className="radar-ring" />
+            <div className="radar-sweep" />
+            <div className="radar-cross" />
+          </div>
+          {error && (
+            <div style={{ marginTop: '1rem' }}>
+              <p className="error-text">{error}</p>
+              <button onClick={() => databaseInputRef.current?.click()}>{t('action.importDatabase')}</button>
+            </div>
+          )}
           <input ref={databaseInputRef} type="file" accept="application/json,.json" hidden onChange={loadExternalDatabase} />
         </div>
       </main>
     );
   }
 
+  const handleAddUnit = (unit: NormalizedUnit, pointIndex = 0) => {
+    const newItem = makeRosterItem(unit.id, pointIndex);
+    updateDraft((current) => ({ ...current, items: [...current.items, newItem] }));
+    const selectedDetNames = selectedDetachments.map((d) => d.displayName);
+    const wargear = resolveWargear(unit, newItem, selectedDetNames);
+    const proxySources = inventory && database ? getProxySourceUnits(inventory, database, unit.id) : [];
+    if (wargear.byComposition.some((comp) => comp.composition.editable || comp.rules.length > 0) || proxySources.length > 0) {
+      setWargearModalItem(newItem);
+    }
+  };
+
   return (
     <main className="app-shell">
       {notice && <div className="toast" role="status">{notice}<button onClick={() => setNotice(null)}>×</button></div>}
       {error && <div className="toast error-toast" role="alert">{error}<button onClick={() => setError(null)}>×</button></div>}
+
+      <header className="topbar">
+        <div className="brand-lockup">
+          <BrandMark />
+          <div>
+            <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
+            <h1>Warforge 40K</h1>
+            <p>{status} · Empreinte {database.fingerprint}</p>
+            {database.dataInfo?.PublishDate && (
+              <p className="update-date" style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', marginTop: '0.2rem' }}>
+                {t('status.lastUpdate', 'Dernière mise à jour W40K prise en compte :')}{' '}
+                <strong>
+                  {new Date(database.dataInfo.PublishDate).toLocaleDateString(localeTag(locale), {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })}
+                </strong>
+              </p>
+            )}
+            <p className="inventory-status">{inventoryStatus}</p>
+          </div>
+        </div>
+        <div className="topbar-actions">
+          <button className="secondary action-with-icon" onClick={openLearning}><span className="button-icon" aria-hidden="true">🎓</span>{locale === 'fr' ? 'Apprentissage' : 'Learning'}</button>
+          <label className="language-selector">
+            <span>{t('navigation.language')}</span>
+            <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
+              <option value="fr">{t('navigation.french')}</option>
+              <option value="en">{t('navigation.english')}</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <section className="command-center" aria-label={t('command.eyebrow')}>
+        <div className="command-header-row">
+          <div>
+            <span className="eyebrow">{t('command.eyebrow')}</span>
+            <h2>{t('command.title')}</h2>
+            <p>{t('command.intro')}</p>
+          </div>
+          <div className="command-actions-compact">
+            <button className="icon-button-discrete" onClick={createDraft} title={t('action.newList')} aria-label={t('action.newList')}>
+              ＋
+            </button>
+            <button className="icon-button-discrete" onClick={saveDraft} title={t('action.save')} aria-label={t('action.save')}>
+              💾
+            </button>
+            <button className="icon-button-discrete" onClick={() => setSavedListsModalOpen(true)} title={t('roster.savedLists')} aria-label={t('roster.savedLists')}>
+              📁
+              {compatibleSavedDrafts.length > 0 && <span className="badge">{compatibleSavedDrafts.length}</span>}
+            </button>
+          </div>
+        </div>
+
+        <section className="configuration" aria-label={t('command.title')}>
+          <label>
+            {t('command.faction')}
+            <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
+              {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{display.factionName(faction.name)} · {t('app.units', { count: faction.unitCount })}</option>)}
+            </select>
+          </label>
+          <label>
+            {t('command.name')}
+            <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
+          </label>
+          <label>
+            {t('command.active')}
+            <select aria-label={t('command.active')} value={draft.id} onChange={(event) => {
+              const saved = compatibleSavedDrafts.find((candidate) => candidate.id === event.target.value);
+              if (saved) activateSavedDraft(saved);
+            }}>
+              {!compatibleSavedDrafts.some((saved) => saved.id === draft.id) && <option value={draft.id}>{draft.name.trim() || t('roster.unnamed')}</option>}
+              {compatibleSavedDrafts.map((saved) => <option key={saved.id} value={saved.id}>{saved.name}</option>)}
+            </select>
+          </label>
+          <label>
+            {t('command.format')}
+            <select value={draft.battleSizePoints} onChange={(event) => updateDraft((current) => ({ ...current, battleSizePoints: Number(event.target.value) }))}>
+              {database.battleSizes.map((size) => <option key={size.PointsTotal} value={size.PointsTotal}>{size.PointsTotal.toLocaleString(localeTag(locale))} pts · {size.DetachmentPoints} DP</option>)}
+            </select>
+          </label>
+        </section>
+
+        <details className="scenario-guide">
+          <summary>
+            <span className="eyebrow">{locale === 'fr' ? 'GUIDE DE DISPOSITION' : 'FORCE DISPOSITION GUIDE'}</span>
+            <h2>{scenarioTitle(draft.scenario)}</h2>
+          </summary>
+          <div className="scenario-guide-content">
+            <p>{scenarioGuide(draft.scenario)}</p>
+            <dl>
+              <div><dt>{locale === 'fr' ? 'Dispositions autorisées' : 'Allowed dispositions'}</dt><dd>{availableScenarios.length}</dd></div>
+              <div><dt>{t('command.detachmentBudget')}</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
+              <div><dt>{t('command.enhancementLimit')}</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <section className="detachment-section" style={{ marginTop: '1rem' }}>
+          <div className="section-heading">
+            <div><span className="eyebrow">{t('command.detachmentEyebrow')}</span><h2>{t('command.detachmentTitle')}</h2></div>
+            <div className="detachment-heading-actions">
+              <p>{t('command.selectedInfo', { count: selectedDetachments.length })}</p>
+              <button
+                className="secondary"
+                aria-controls="detachment-catalog"
+                aria-expanded={detachmentCatalogExpanded}
+                onClick={() => setDetachmentCatalogExpanded((expanded) => !expanded)}
+              >
+                {detachmentCatalogExpanded ? t('action.collapseCatalog') : t('action.showCatalog')}
+              </button>
+            </div>
+          </div>
+          <div id="detachment-catalog" hidden={!detachmentCatalogExpanded}>
+            <div className="detachment-grid">
+              {factionDetachments.map((detachment) => {
+                const selected = draft.detachmentIds.includes(detachment.id);
+                return (
+                  <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
+                    <div className="card-title-row"><h3>{display.detachmentName(detachment)}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
+                    <p>{detachment.Rule?.Title || t('command.detachmentRule')}</p>
+                    <p className="detachment-scenario">
+                      {t('roster.scenario', { scenario: (detachment.ForceDispositions ?? []).map(scenarioTitle).join(' · ') || t('app.unknown') })}
+                    </p>
+                    <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{display.term(tag)}</span>)}</div>
+                    <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
+                      {selected ? t('action.remove') : t('action.add')}
+                    </button>
+                    <CompactRule detachment={detachment} display={display} />
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <div style={{ marginTop: '1rem' }}>
+          <label>
+            {locale === 'fr' ? 'Disposition des Forces' : 'Force disposition'}
+            <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
+              {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenarioTitle(scenario.id)}</option>)}
+            </select>
+          </label>
+        </div>
+      </section>
 
       <section className="workspace">
         <div className="library-panel">
@@ -1187,11 +1579,6 @@ export default function App(): React.JSX.Element {
           <div id="unit-catalog" hidden={!unitCatalogExpanded}>
             <div className="filters">
               <input placeholder={t('library.search')} value={search} onChange={(event) => { setSearch(event.target.value); setVisibleUnits(60); }} />
-              <select value={roleFilter} onChange={(event) => { setRoleFilter(event.target.value); setVisibleUnits(60); }}>
-                <option value="">{t('library.allRoles')}</option>
-                {roles.map((role) => <option key={role} value={role}>{display.term(role)}</option>)}
-              </select>
-              <input type="number" min="0" placeholder={t('library.maximumCost')} value={maxCost} onChange={(event) => { setMaxCost(event.target.value); setVisibleUnits(60); }} />
               <label className="checkbox-label"><input type="checkbox" checked={favouritesOnly} onChange={(event) => setFavouritesOnly(event.target.checked)} /> {t('library.favorites')}</label>
               <label className="checkbox-label" title={inventory ? undefined : t('library.stockHint')}>
                 <input
@@ -1204,13 +1591,16 @@ export default function App(): React.JSX.Element {
             </div>
             <AdvancedCatalogFilterMenu
               filters={advancedCatalogFilters}
+              maxCost={maxCost}
               activeCount={activeAdvancedCatalogFilterCount}
               onChange={updateAdvancedCatalogFilter}
-              onReset={resetAdvancedCatalogFilters}
+              onMaxCostChange={(value) => { setMaxCost(value); setVisibleUnits(60); }}
+              onReset={() => { resetAdvancedCatalogFilters(); setMaxCost(''); }}
             />
             <div className="unit-grid">
             {factionUnits.slice(0, visibleUnits).map((unit) => {
               const availability = getInventoryAvailability(inventory, inventoryAllocation, unit.id);
+              const proxySources = inventory && database ? getProxySourceUnits(inventory, database, unit.id) : [];
               const image = unitImages.get(unit.id);
               const nextOccurrence = draft.items.filter((item) => item.unitId === unit.id).length + 1;
               const selectedPointIndex = catalogPointIndexes[unit.id] ?? 0;
@@ -1219,28 +1609,40 @@ export default function App(): React.JSX.Element {
                 (item) => item.unitId === unit.id && item.pointIndex === selectedPointIndex
               );
               return (
-              <article className={`unit-card ${isAlliedUnit(database, draft.primaryFaction, unit) ? 'allied-unit' : ''}`} key={unit.id}>
+              <article className="unit-card" key={unit.id}>
                 <button className={`favorite ${favorites.includes(unit.id) ? 'active' : ''}`} onClick={() => toggleFavorite(unit.id)} aria-label={t('library.favorite', { name: display.unitName(unit) })}>★</button>
                 <div className="unit-card-layout">
                   <UnitThumbnail key={image?.asset ?? `unavailable-${unitImageStatus}`} unit={unit} image={image} display={display} dataBaseUrl={DATA_BASE_URL} />
                   <div className="unit-card-content">
                     <h3>{display.unitName(unit)}</h3>
-                    <p className="muted">{display.factionName(unit.Faction || unit.factionName)}{isAlliedUnit(database, draft.primaryFaction, unit) && <span className="ally-label">{t('library.allied', { source: display.factionName(sourceLabel(database, unit.sourceKey)) })}</span>}</p>
+                    <p className="muted">{display.factionName(unit.factionName)}</p>
                     <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{display.term(keyword)}</span>)}</div>
                     {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} />)}
                     {(unit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
                       <section className="unit-composition">
                         <h4>{t('library.composition')}</h4>
-                        <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}</li>)}</ul>
+                        <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}<WargearDescription model={model} display={display} t={t} unit={unit} /></li>)}</ul>
                       </section>
                     )}
-                    <strong className="unit-card-price">{minimumPointCost(unit, nextOccurrence) ?? '?'} pts <small>{t('library.from')}</small></strong>
+                    <strong className="unit-card-price"><small>{t('library.from')}</small> {minimumPointCost(unit, nextOccurrence) ?? '?'} pts</strong>
                     {availability && (
-                      <p className={`inventory-stock ${availability.hasCatalogEntry ? (availability.used === availability.total ? 'depleted' : '') : 'unlisted'}`}>
-                        {availability.hasCatalogEntry
-                          ? t('library.inventoryUsage', { used: availability.used, total: availability.total })
-                          : t('library.inventoryUnlisted')}
-                      </p>
+                      <div className="inventory-stock-details">
+                        <p className={`inventory-stock ${availability.hasCatalogEntry ? (availability.used === availability.total ? 'depleted' : '') : 'unlisted'}`}>
+                          {availability.hasCatalogEntry
+                            ? t('library.inventoryUsage', { used: availability.used, total: availability.total })
+                            : t('library.inventoryUnlisted')}
+                          {availability.hasCatalogEntry && (
+                            <small style={{ display: 'block', fontWeight: 600, color: 'var(--ink-soft)' }}>
+                              {t('library.freeStock', { real: availability.real, proxy: availability.proxy })}
+                            </small>
+                          )}
+                        </p>
+                        {availability.proxy > 0 && proxySources.length > 0 && (
+                          <p style={{ fontSize: '0.72rem', color: 'var(--ink-soft)', margin: '-0.2rem 0 0.5rem' }}>
+                            {t('wargear.proxySources', { sources: proxySources.map((u) => display.unitName(u)).join(', ') })}
+                          </p>
+                        )}
+                      </div>
                     )}
                     <div className="card-actions">
                       <button className="secondary action-with-icon" onClick={() => setSelectedUnitId(unit.id)}><span className="button-icon" aria-hidden="true">i</span>{t('action.details')}</button>
@@ -1256,7 +1658,7 @@ export default function App(): React.JSX.Element {
                           </select>
                         </label>
                       )}
-                      <button className="action-with-icon" onClick={() => updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(unit.id, selectedPointIndex)] }))}><span className="button-icon" aria-hidden="true">+</span>{t('action.add')}</button>
+                      <button className="action-with-icon" onClick={() => handleAddUnit(unit, selectedPointIndex)}><span className="button-icon" aria-hidden="true">+</span>{t('action.add')}</button>
                       <button
                         className="secondary action-with-icon"
                         disabled={!hasSelectedPointSize}
@@ -1311,16 +1713,23 @@ export default function App(): React.JSX.Element {
             </section>
           )}
           {draft.items.length === 0 ? <p className="empty-state">{t('analysis.empty')}</p> : draft.items.map((item) => (
-            <RosterCard
-              key={item.id}
-              database={database}
-              item={item}
-              draft={draft}
-              inventoryReservation={inventoryAllocation.reservationsByItemId.get(item.id)}
-              display={display}
-              onChange={(nextItem) => updateDraft((current) => ({ ...current, items: current.items.map((candidate) => candidate.id === nextItem.id ? nextItem : candidate) }))}
-              onRemove={() => updateDraft((current) => ({ ...current, items: current.items.filter((candidate) => candidate.id !== item.id) }))}
-            />
+            <div key={item.id}>
+              <RosterCard
+                database={database}
+                item={item}
+                draft={draft}
+                inventory={inventory}
+                inventoryReservation={inventoryAllocation.reservationsByItemId.get(item.id)}
+                display={display}
+                onChange={(nextItem) => updateDraft((current) => ({ ...current, items: current.items.map((candidate) => candidate.id === nextItem.id ? nextItem : candidate) }))}
+                onRemove={() => updateDraft((current) => ({ ...current, items: current.items.filter((candidate) => candidate.id !== item.id) }))}
+              />
+              <div style={{ marginTop: '-0.4rem', marginBottom: '0.85rem', textAlign: 'right' }}>
+                <button className="secondary" style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }} onClick={() => setWargearModalItem(item)}>
+                  ⚙ {t('wargear.configureOnAdd')}
+                </button>
+              </div>
+            </div>
           ))}
           <div className="validation-panel">
             <div className="section-heading"><h2>{t('roster.validation')}</h2><span>{t('roster.errors', { count: issues.filter((issue) => issue.level === 'error').length })}</span></div>
@@ -1330,142 +1739,8 @@ export default function App(): React.JSX.Element {
               </ul>
             )}
           </div>
-          {compatibleSavedDrafts.length > 0 && (
-            <div className="saved-panel">
-              <div className="section-heading"><h3>{t('roster.savedLists')}</h3><span>{compatibleSavedDrafts.length}</span></div>
-              <p className="muted">{t('roster.autosave')}</p>
-              <div className="saved-list-stack">
-                {compatibleSavedDrafts.map((saved) => (
-                  <div className={`saved-list-row ${saved.id === draft.id ? 'active' : ''}`} key={saved.id}>
-                    <button className="saved-list" onClick={() => activateSavedDraft(saved)} aria-current={saved.id === draft.id ? 'page' : undefined}>
-                      <span>{saved.name}</span><small>{new Date(saved.updatedAt).toLocaleString(localeTag(locale))}</small>
-                    </button>
-                    <button className="saved-delete" onClick={() => deleteSavedDraft(saved)} aria-label={t('roster.delete', { name: saved.name })}>×</button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </aside>
       </section>
-
-      <section className="command-center" aria-label={t('command.eyebrow')}>
-        <div className="command-center-heading">
-          <span className="eyebrow">{t('command.eyebrow')}</span>
-          <h2>{t('command.title')}</h2>
-          <p>{t('command.intro')}</p>
-        </div>
-        <section className="configuration" aria-label={t('command.title')}>
-          <label>
-            {t('command.faction')}
-            <select value={draft.primaryFaction} onChange={(event) => changeFaction(event.target.value)}>
-              {database.factions.map((faction) => <option key={faction.id} value={faction.id}>{display.factionName(faction.name)} · {t('app.units', { count: faction.unitCount })}</option>)}
-            </select>
-          </label>
-          <label>
-            {t('command.name')}
-            <input value={draft.name} onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))} />
-          </label>
-          <label>
-            {t('command.active')}
-            <select aria-label={t('command.active')} value={draft.id} onChange={(event) => {
-              const saved = compatibleSavedDrafts.find((candidate) => candidate.id === event.target.value);
-              if (saved) activateSavedDraft(saved);
-            }}>
-              {!compatibleSavedDrafts.some((saved) => saved.id === draft.id) && <option value={draft.id}>{draft.name.trim() || t('roster.unnamed')}</option>}
-              {compatibleSavedDrafts.map((saved) => <option key={saved.id} value={saved.id}>{saved.name}</option>)}
-            </select>
-          </label>
-          <label>
-            {t('command.format')}
-            <select value={draft.battleSizePoints} onChange={(event) => updateDraft((current) => ({ ...current, battleSizePoints: Number(event.target.value) }))}>
-              {database.battleSizes.map((size) => <option key={size.PointsTotal} value={size.PointsTotal}>{size.PointsTotal.toLocaleString(localeTag(locale))} pts · {size.DetachmentPoints} DP</option>)}
-            </select>
-          </label>
-          <label>
-            {locale === 'fr' ? 'Disposition des Forces' : 'Force disposition'}
-            <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
-              {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenarioTitle(scenario.id)}</option>)}
-            </select>
-          </label>
-          <div className="configuration-actions">
-            <button onClick={createDraft}>{t('action.newList')}</button>
-            <button className="secondary" onClick={saveDraft}>{t('action.save')}</button>
-          </div>
-        </section>
-
-        <details className="scenario-guide">
-          <summary>
-            <span className="eyebrow">{locale === 'fr' ? 'GUIDE DE DISPOSITION' : 'FORCE DISPOSITION GUIDE'}</span>
-            <h2>{scenarioTitle(draft.scenario)}</h2>
-          </summary>
-          <div className="scenario-guide-content">
-            <p>{scenarioGuide(draft.scenario)}</p>
-            <dl>
-              <div><dt>{locale === 'fr' ? 'Dispositions autorisées' : 'Allowed dispositions'}</dt><dd>{availableScenarios.length}</dd></div>
-              <div><dt>{t('command.detachmentBudget')}</dt><dd>{detachmentPoints}/{battleSize?.DetachmentPoints ?? '?'} DP</dd></div>
-              <div><dt>{t('command.enhancementLimit')}</dt><dd>{battleSize?.EnhancementLimit ?? '?'}</dd></div>
-            </dl>
-          </div>
-        </details>
-      </section>
-
-      <section className="detachment-section">
-        <div className="section-heading">
-          <div><span className="eyebrow">{t('command.detachmentEyebrow')}</span><h2>{t('command.detachmentTitle')}</h2></div>
-          <div className="detachment-heading-actions">
-            <p>{t('command.selectedInfo', { count: selectedDetachments.length })}</p>
-            <button
-              className="secondary"
-              aria-controls="detachment-catalog"
-              aria-expanded={detachmentCatalogExpanded}
-              onClick={() => setDetachmentCatalogExpanded((expanded) => !expanded)}
-            >
-              {detachmentCatalogExpanded ? t('action.collapseCatalog') : t('action.showCatalog')}
-            </button>
-          </div>
-        </div>
-        <div id="detachment-catalog" hidden={!detachmentCatalogExpanded}>
-          <div className="detachment-grid">
-            {factionDetachments.map((detachment) => {
-              const selected = draft.detachmentIds.includes(detachment.id);
-              return (
-                <article className={`detachment-card ${selected ? 'selected' : ''}`} key={detachment.id}>
-                  <div className="card-title-row"><h3>{display.detachmentName(detachment)}</h3><strong>{getDetachmentCost(detachment)} DP</strong></div>
-                  <p>{detachment.Rule?.Title || t('command.detachmentRule')}</p>
-                  <p className="detachment-scenario">
-                    {t('roster.scenario', { scenario: (detachment.ForceDispositions ?? []).map(scenarioTitle).join(' · ') || t('app.unknown') })}
-                  </p>
-                  <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{display.term(tag)}</span>)}</div>
-                  <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
-                    {selected ? t('action.remove') : t('action.add')}
-                  </button>
-                  <CompactRule detachment={detachment} display={display} />
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <header className="topbar">
-        <div className="brand-lockup">
-          <BrandMark />
-          <div>
-            <span className="eyebrow">WARFORGE 40K · PWA LOCALE</span>
-            <h1>Warforge 40K</h1>
-            <p>{status} · Empreinte {database.fingerprint}</p>
-            <p className="inventory-status">{inventoryStatus}</p>
-          </div>
-        </div>
-        <label className="language-selector">
-          <span>{t('navigation.language')}</span>
-          <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
-            <option value="fr">{t('navigation.french')}</option>
-            <option value="en">{t('navigation.english')}</option>
-          </select>
-        </label>
-      </header>
 
       <footer className="app-footer">
         <nav className="footer-actions" aria-label={locale === 'fr' ? 'Outils de la liste' : 'List tools'}>
@@ -1482,6 +1757,139 @@ export default function App(): React.JSX.Element {
         <input ref={listInputRef} type="file" accept="application/json,.json" hidden onChange={importDraft} />
       </footer>
 
+      {savedListsModalOpen && (
+        <div className="modal-backdrop" role="presentation" onMouseDown={() => setSavedListsModalOpen(false)}>
+          <section className="unit-modal" role="dialog" aria-modal="true" aria-label={t('roster.savedLists')} onMouseDown={(e) => e.stopPropagation()}>
+            <button className="icon-button" onClick={() => setSavedListsModalOpen(false)} aria-label={t('action.close')}>×</button>
+            <span className="eyebrow">{t('roster.savedLists')}</span>
+            <h2>{t('roster.savedLists')} ({compatibleSavedDrafts.length})</h2>
+            <p className="muted">{t('roster.autosave')}</p>
+            <div className="saved-list-stack" style={{ display: 'grid', gap: '0.5rem', marginTop: '1rem' }}>
+              {compatibleSavedDrafts.map((saved) => (
+                <div className={`saved-list-row ${saved.id === draft.id ? 'active' : ''}`} key={saved.id} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                  <button
+                    className="saved-list"
+                    style={{ flex: 1, textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    onClick={() => { activateSavedDraft(saved); setSavedListsModalOpen(false); }}
+                    aria-current={saved.id === draft.id ? 'page' : undefined}
+                  >
+                    <span>{saved.name}</span>
+                    <small>{new Date(saved.updatedAt).toLocaleString(localeTag(locale))}</small>
+                  </button>
+                  {deletingListId === saved.id ? (
+                    <button
+                      className="saved-delete danger"
+                      style={{ background: '#b83228', color: '#ffffff', borderColor: '#b83228', borderRadius: '0.6rem', padding: '0.5rem 0.75rem', fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}
+                      onClick={() => {
+                        deleteSavedDraft(saved);
+                        setDeletingListId(null);
+                      }}
+                    >
+                      {locale === 'fr' ? 'Confirmer ?' : 'Confirm?'}
+                    </button>
+                  ) : (
+                    <button
+                      className="saved-delete"
+                      style={{ background: '#fdf2f0', borderColor: '#e0b8b5', color: '#b83228', borderRadius: '0.6rem', padding: '0.5rem 0.75rem', fontWeight: 800, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+                      onClick={() => setDeletingListId(saved.id)}
+                      aria-label={t('roster.delete', { name: saved.name })}
+                      title={t('roster.delete', { name: saved.name })}
+                    >
+                      🗑️
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {wargearModalItem && database && draft && (() => {
+        const unit = database.units.find((u) => u.id === wargearModalItem.unitId);
+        if (!unit) return null;
+        const selectedDetNames = selectedDetachments.map((d) => d.displayName);
+        const proxySources = inventory ? getProxySourceUnits(inventory, database, unit.id) : [];
+        return (
+          <div className="modal-backdrop" role="presentation" onMouseDown={() => setWargearModalItem(null)}>
+            <section className="unit-modal" role="dialog" aria-modal="true" aria-label={display.unitName(unit)} onMouseDown={(e) => e.stopPropagation()}>
+              <button className="icon-button" onClick={() => setWargearModalItem(null)} aria-label={t('action.close')}>×</button>
+              <span className="eyebrow">{t('wargear.configureOnAdd')}</span>
+              <h2>{display.unitName(unit)}</h2>
+
+              <div style={{ background: '#f8f4eb', padding: '0.75rem', borderRadius: '0.65rem', margin: '0.75rem 0', border: '1px solid #e2d8c9' }}>
+                <label style={{ fontWeight: 800, marginBottom: '0.35rem' }}>{t('wargear.figurePreference')}</label>
+                <div className="pref-grid">
+                  {(['any', 'real', 'proxy'] as const).map((pref) => (
+                    <button
+                      key={pref}
+                      type="button"
+                      className={`pref-card ${ (wargearModalItem.figurePreference ?? 'any') === pref ? 'selected' : '' }`}
+                      onClick={() => {
+                        const updated = { ...wargearModalItem, figurePreference: pref };
+                        updateDraft((current) => ({
+                          ...current,
+                          items: current.items.map((candidate) => candidate.id === updated.id ? updated : candidate)
+                        }));
+                        setWargearModalItem(updated);
+                      }}
+                    >
+                      {t(`wargear.pref${pref.charAt(0).toUpperCase() + pref.slice(1)}`)}
+                    </button>
+                  ))}
+                </div>
+
+                {proxySources.length > 0 && (
+                  <div style={{ marginTop: '0.6rem' }}>
+                    <label style={{ fontWeight: 800, marginBottom: '0.35rem', display: 'block', fontSize: '0.85rem' }}>
+                      {t('wargear.proxySourceChoice')}
+                    </label>
+                    <select
+                      style={{ width: '100%', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', border: '1px solid #d6c8b3', background: '#fff' }}
+                      value={wargearModalItem.preferredProxySourceId ?? ''}
+                      onChange={(e) => {
+                        const val = e.target.value || undefined;
+                        const updated = { ...wargearModalItem, preferredProxySourceId: val };
+                        updateDraft((current) => ({
+                          ...current,
+                          items: current.items.map((candidate) => candidate.id === updated.id ? updated : candidate)
+                        }));
+                        setWargearModalItem(updated);
+                      }}
+                    >
+                      <option value="">{t('wargear.anyProxySource')}</option>
+                      {proxySources.map((sourceUnit) => (
+                        <option key={sourceUnit.id} value={sourceUnit.id}>
+                          {t('wargear.proxyFromUnit', { unit: display.unitName(sourceUnit) })}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+
+              <WargearEditor
+                unit={unit}
+                item={wargearModalItem}
+                detachmentNames={selectedDetNames}
+                display={display}
+                onChange={(nextItem) => {
+                  updateDraft((current) => ({
+                    ...current,
+                    items: current.items.map((candidate) => candidate.id === nextItem.id ? nextItem : candidate)
+                  }));
+                  setWargearModalItem(nextItem);
+                }}
+              />
+
+              <div style={{ marginTop: '1rem', textAlign: 'right' }}>
+                <button onClick={() => setWargearModalItem(null)}>OK</button>
+              </div>
+            </section>
+          </div>
+        );
+      })()}
+
       {selectedUnit && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setSelectedUnitId(null)}>
           <section className="unit-modal" role="dialog" aria-modal="true" aria-label={`${t('action.details')} ${display.unitName(selectedUnit)}`} onMouseDown={(event) => event.stopPropagation()}>
@@ -1489,13 +1897,36 @@ export default function App(): React.JSX.Element {
             <span className="eyebrow">{display.factionName(selectedUnit.factionName)}</span>
             <h2>{display.unitName(selectedUnit)}</h2>
             <div className="tag-row">{[...(selectedUnit.Keywords ?? []), ...(selectedUnit.FactionKeywords ?? [])].map((keyword) => <span key={keyword}>{display.term(keyword)}</span>)}</div>
+            
+            {inventory && database && (() => {
+              const avail = getInventoryAvailability(inventory, inventoryAllocation, selectedUnit.id);
+              const proxySources = getProxySourceUnits(inventory, database, selectedUnit.id);
+              if (!avail) return null;
+              return (
+                <div style={{ background: '#f8f4eb', padding: '0.75rem', borderRadius: '0.65rem', margin: '0.75rem 0', border: '1px solid #e2d8c9' }}>
+                  <strong>Inventaire / Stock :</strong> {avail.hasCatalogEntry ? `${avail.used} / ${avail.total} utilisés (${t('library.freeStock', { real: avail.real, proxy: avail.proxy })})` : t('library.inventoryUnlisted')}
+                  {avail.proxy > 0 && proxySources.length > 0 && (
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.78rem' }}>
+                      {t('wargear.proxySources', { sources: proxySources.map((u) => display.unitName(u)).join(', ') })}
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
+
             {(selectedUnit.StatLines ?? []).map((line, index) => (
-              <dl className="stat-grid" key={index}>
-                {['Movement', 'Toughness', 'Save', 'Wounds', 'Leadership', 'OC'].map((key) => <div key={key}><dt>{key}</dt><dd>{String(line[key] ?? '—')}</dd></div>)}
-              </dl>
+              <UnitProfile key={index} line={line} />
             ))}
+
+            {(selectedUnit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
+              <section className="unit-composition" style={{ margin: '0.75rem 0' }}>
+                <h4>{t('library.composition')}</h4>
+                <ul>{selectedUnit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}<WargearDescription model={model} display={display} t={t} unit={selectedUnit} /></li>)}</ul>
+              </section>
+            )}
+
             {(selectedUnit.Weapons?.length ?? 0) > 0 && (
-              <details className="weapon-details">
+              <details className="weapon-details" open style={{ margin: '0.75rem 0' }}>
                 <summary>{t('weapons.weapons')}</summary>
                 <WeaponTable profiles={weaponProfiles(selectedUnit)} display={display} />
               </details>
@@ -1503,7 +1934,7 @@ export default function App(): React.JSX.Element {
             {(selectedUnit.UnitAbilities?.length ?? 0) > 0 && <h3>{t('weapons.abilities')}</h3>}
             {selectedUnit.UnitAbilities?.map((ability, index) => <p key={index}><strong>{ability.Title}</strong> {ability.Text}</p>)}
             {locale === 'fr' && <p className="notice-text">{t('app.sourceUnavailable')}</p>}
-            <button onClick={() => { updateDraft((current) => ({ ...current, items: [...current.items, makeRosterItem(selectedUnit.id)] })); setSelectedUnitId(null); }}>{t('action.addToList')}</button>
+            <button onClick={() => { handleAddUnit(selectedUnit); setSelectedUnitId(null); }}>{t('action.addToList')}</button>
           </section>
         </div>
       )}

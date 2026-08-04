@@ -1,5 +1,5 @@
 import { getPointSizes } from './calculations';
-import type { NormalizedDatabase, RosterItem } from './types';
+import type { NormalizedDatabase, NormalizedUnit, RosterItem } from './types';
 
 export type FigureType = 'real' | 'proxy';
 
@@ -192,17 +192,57 @@ export function allocateInventory(
     }];
   });
 
-  // This two-pass allocation is global: a physical miniature that is real for
-  // any selected unit cannot be consumed as a proxy by an earlier list item.
-  for (const type of ['real', 'proxy'] as const) {
-    for (const entry of pending) {
-      entry.reservation.hasCatalogEntry = entry.candidates.length > 0;
-      for (const candidate of entry.candidates) {
-        const reservedCount = entry.reservation.realFigureIds.length + entry.reservation.proxyFigureIds.length;
-        if (candidate.type !== type || reservedFigureIds.has(candidate.figureId) || reservedCount >= entry.reservation.required) continue;
-        reservedFigureIds.add(candidate.figureId);
-        (type === 'real' ? entry.reservation.realFigureIds : entry.reservation.proxyFigureIds).push(candidate.figureId);
-      }
+  for (const entry of pending) {
+    entry.reservation.hasCatalogEntry = entry.candidates.length > 0;
+  }
+
+  // Pass 1: Allocate primary figure type for all items first
+  for (const entry of pending) {
+    const pref = entry.item.figurePreference ?? 'any';
+    const primaryType = pref === 'proxy' ? 'proxy' : 'real';
+    let candidatesToTry = entry.candidates;
+    if (primaryType === 'proxy' && entry.item.preferredProxySourceId) {
+      const preferredId = entry.item.preferredProxySourceId;
+      candidatesToTry = [...entry.candidates].sort((a, b) => {
+        if (a.type !== 'proxy' || b.type !== 'proxy') return 0;
+        const aReal = inventory.entries.find((e) => e.figureId === a.figureId && e.type === 'real');
+        const bReal = inventory.entries.find((e) => e.figureId === b.figureId && e.type === 'real');
+        const aMatch = aReal?.unitId === preferredId;
+        const bMatch = bReal?.unitId === preferredId;
+        return Number(bMatch) - Number(aMatch);
+      });
+    }
+    for (const candidate of candidatesToTry) {
+      const reservedCount = entry.reservation.realFigureIds.length + entry.reservation.proxyFigureIds.length;
+      if (candidate.type !== primaryType || reservedFigureIds.has(candidate.figureId) || reservedCount >= entry.reservation.required) continue;
+      reservedFigureIds.add(candidate.figureId);
+      (candidate.type === 'real' ? entry.reservation.realFigureIds : entry.reservation.proxyFigureIds).push(candidate.figureId);
+    }
+  }
+
+  // Pass 2: Allocate secondary figure type for remaining slots across all items
+  for (const entry of pending) {
+    const pref = entry.item.figurePreference ?? 'any';
+    const secondaryType = pref === 'proxy' ? 'real' : (pref === 'real' ? null : 'proxy');
+    if (!secondaryType) continue;
+
+    let candidatesToTry = entry.candidates;
+    if (secondaryType === 'proxy' && entry.item.preferredProxySourceId) {
+      const preferredId = entry.item.preferredProxySourceId;
+      candidatesToTry = [...entry.candidates].sort((a, b) => {
+        if (a.type !== 'proxy' || b.type !== 'proxy') return 0;
+        const aReal = inventory.entries.find((e) => e.figureId === a.figureId && e.type === 'real');
+        const bReal = inventory.entries.find((e) => e.figureId === b.figureId && e.type === 'real');
+        const aMatch = aReal?.unitId === preferredId;
+        const bMatch = bReal?.unitId === preferredId;
+        return Number(bMatch) - Number(aMatch);
+      });
+    }
+    for (const candidate of candidatesToTry) {
+      const reservedCount = entry.reservation.realFigureIds.length + entry.reservation.proxyFigureIds.length;
+      if (candidate.type !== secondaryType || reservedFigureIds.has(candidate.figureId) || reservedCount >= entry.reservation.required) continue;
+      reservedFigureIds.add(candidate.figureId);
+      (candidate.type === 'real' ? entry.reservation.realFigureIds : entry.reservation.proxyFigureIds).push(candidate.figureId);
     }
   }
 
@@ -213,6 +253,42 @@ export function allocateInventory(
   }
 
   return { reservationsByItemId, reservedFigureIds };
+}
+
+export function getProxySourceUnits(
+  inventory: InventoryDataset | null,
+  database: NormalizedDatabase,
+  unitId: string
+): NormalizedUnit[] {
+  if (!inventory) return [];
+  const proxyEntries = inventory.entries.filter((entry) => entry.unitId === unitId && entry.type === 'proxy');
+  if (proxyEntries.length === 0) return [];
+
+  const sourceUnitIds = new Set<string>();
+  for (const proxyEntry of proxyEntries) {
+    const realEntry = inventory.entries.find((entry) => entry.figureId === proxyEntry.figureId && entry.type === 'real');
+    if (realEntry && realEntry.unitId !== unitId) {
+      sourceUnitIds.add(realEntry.unitId);
+    }
+  }
+
+  return database.units.filter((unit) => sourceUnitIds.has(unit.id));
+}
+
+export function getReservedProxySources(
+  inventory: InventoryDataset | null,
+  database: NormalizedDatabase,
+  proxyFigureIds: number[]
+): NormalizedUnit[] {
+  if (!inventory || proxyFigureIds.length === 0) return [];
+  const sourceUnitIds = new Set<string>();
+  for (const figId of proxyFigureIds) {
+    const realEntry = inventory.entries.find((entry) => entry.figureId === figId && entry.type === 'real');
+    if (realEntry) {
+      sourceUnitIds.add(realEntry.unitId);
+    }
+  }
+  return database.units.filter((unit) => sourceUnitIds.has(unit.id));
 }
 
 export function getInventoryAvailability(

@@ -202,6 +202,8 @@ export interface RosterItem {
   /** Selected number of models for each composition entry. */
   modelCounts?: Record<string, number>;
   enhancement?: EnhancementSelection;
+  figurePreference?: 'real' | 'proxy' | 'any';
+  preferredProxySourceId?: string;
 }
 
 export interface RosterDraft {

@@ -1,0 +1,15 @@
+{
+  "name": "warforge-root",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "warforge-pwa"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=warforge-pwa",
+    "build": "npm run build --workspace=warforge-pwa",
+    "lint": "npm run lint --workspace=warforge-pwa",
+    "preview": "npm run preview --workspace=warforge-pwa",
+    "test": "npm run test --workspace=warforge-pwa"
+  }
+}

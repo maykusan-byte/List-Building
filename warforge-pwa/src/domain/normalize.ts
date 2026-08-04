@@ -135,10 +135,10 @@ function catalogFactions(
       const target = ally.FactionKeyword?.trim();
       if (!target) return [];
       if (bySourceKey.has(target)) return [target];
-      const faction = (factionInfo ?? []).find((candidate) =>
-        candidate.FactionKeyword?.trim() === target || (candidate.AdditionalFactionKeywords ?? []).some((keyword) => keyword.trim() === target)
-      );
-      return faction?.Name && bySourceKey.has(faction.Name) ? [faction.Name] : [];
+      const primaryMatch = (factionInfo ?? []).find((candidate) => candidate.Name?.trim() === target || candidate.FactionKeyword?.trim() === target);
+      if (primaryMatch?.Name && bySourceKey.has(primaryMatch.Name)) return [primaryMatch.Name];
+      const fallbackMatch = (factionInfo ?? []).find((candidate) => (candidate.AdditionalFactionKeywords ?? []).some((keyword) => keyword.trim() === target));
+      return fallbackMatch?.Name && bySourceKey.has(fallbackMatch.Name) ? [fallbackMatch.Name] : [];
     }))];
     alliesByFaction[id] = allies;
     factions.push({

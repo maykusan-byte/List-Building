@@ -83,7 +83,17 @@ function MissionFramework({ document }: { document: RulesDocument }): React.JSX.
   );
 }
 
-export function RulesPage({ locale, onOpenBuilder, onOpenWeapons }: { locale: 'fr' | 'en'; onOpenBuilder: () => void; onOpenWeapons: () => void }): React.JSX.Element {
+export function RulesPage({
+  locale,
+  onOpenBuilder,
+  onOpenWeapons,
+  onOpenLearning
+}: {
+  locale: 'fr' | 'en';
+  onOpenBuilder: () => void;
+  onOpenWeapons: () => void;
+  onOpenLearning?: () => void;
+}): React.JSX.Element {
   const [document, setDocument] = useState<RulesDocument | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
@@ -133,6 +143,7 @@ export function RulesPage({ locale, onOpenBuilder, onOpenWeapons }: { locale: 'f
       <header className="rules-topbar">
         <div className="brand-lockup"><BrandMark /><div><span className="eyebrow">WARFORGE 40K · RÉFÉRENCE</span><h1>Règles de base</h1><p>{locale === 'en' ? 'French source content' : 'Contenu source en français'} · Hors ligne après le premier chargement</p></div></div>
         <div className="weapons-topbar-actions">
+          {onOpenLearning && <button className="secondary action-with-icon" onClick={onOpenLearning}><span className="button-icon" aria-hidden="true">🎓</span>{locale === 'en' ? 'Learning' : 'Apprentissage'}</button>}
           <button className="secondary action-with-icon" onClick={onOpenWeapons}><span className="button-icon" aria-hidden="true">✦</span>{locale === 'en' ? 'Armoury' : 'Arsenal'}</button>
           <button className="secondary action-with-icon" onClick={onOpenBuilder}><span className="button-icon" aria-hidden="true">⌘</span>{locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
         </div>
