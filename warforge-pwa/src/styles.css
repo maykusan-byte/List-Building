@@ -120,10 +120,57 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .mini-list span { font-size: 0.74rem; }
 .notice-text { color: var(--gold-dark); }
 .rules-shell { margin: 0 auto; max-width: 1500px; padding: 1.25rem; }
-.rules-topbar, .rules-introduction, .rules-results, .mission-framework, .rules-toc, .rules-chapter { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
+.reference-header, .rules-core-header, .rules-reference-view-heading, .rules-playbook, .rules-introduction, .rules-results, .mission-framework, .rules-toc, .rules-chapter { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
+.reference-header { border-top: 3px solid var(--gold); margin-top: 1rem; padding: 1.15rem 1.25rem; }
+.reference-header h1 { margin-bottom: 0.2rem; }
+.reference-header p { font-size: 0.82rem; margin: 0; }
+.reference-nav { align-items: center; background: rgba(255, 254, 250, 0.7); border-bottom: 1px solid #d9cfbf; display: flex; gap: 0.25rem; margin: 0.7rem 0 1rem; overflow-x: auto; overscroll-behavior-inline: contain; padding: 0.35rem; scrollbar-width: none; }
+.reference-nav::-webkit-scrollbar { display: none; }
+.reference-nav a { border-radius: 0.5rem; color: var(--ink-soft); flex: 0 0 auto; font-size: 0.8rem; font-weight: 800; padding: 0.55rem 0.7rem; text-decoration: none; white-space: nowrap; }
+.reference-nav a:hover { background: #f4ecdf; color: var(--ink); }
+.reference-nav a:focus-visible { outline: 3px solid rgba(215, 165, 39, 0.55); outline-offset: 2px; }
+.reference-nav a.active { background: var(--ink); color: #fffdf7; }
 .rules-topbar { align-items: center; border-top: 3px solid var(--ink); display: flex; gap: 1rem; justify-content: space-between; padding: 1.35rem; }
 .rules-topbar p, .rules-introduction p { font-size: 0.8rem; margin: 0; }
 .rules-loading { background: #fffefa; border: 1px solid #e1d8ca; border-radius: 1rem; margin-top: 1rem; padding: 2rem; text-align: center; }
+.rules-core-header { align-items: end; display: grid; gap: 1rem; grid-template-columns: minmax(16rem, 1fr) minmax(18rem, 0.78fr); margin-top: 1rem; padding: 1rem; }
+.rules-core-header h2 { margin-bottom: 0.2rem; }
+.rules-core-header p { font-size: 0.76rem; margin: 0; }
+.rules-core-controls { display: grid; gap: 0.75rem; }
+.rules-view-switch { background: #eee5d5; border: 1px solid #d9cdb9; border-radius: 0.72rem; display: grid; gap: 0.2rem; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0.22rem; }
+.rules-view-switch button { background: transparent; border: 0; box-shadow: none; color: var(--ink-soft); font-size: 0.75rem; min-height: 2.35rem; padding: 0.35rem 0.45rem; }
+.rules-view-switch button:hover { background: #f9f4eb; color: var(--ink); transform: none; }
+.rules-view-switch button.active { background: #fffdf7; box-shadow: 0 0.15rem 0.45rem rgba(53, 39, 20, 0.14); color: var(--ink); }
+.rules-playbook { box-shadow: inset 0 3px 0 var(--gold), 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); margin-top: 1rem; padding: 1rem; }
+.rules-playbook-heading { align-items: start; display: flex; gap: 1rem; justify-content: space-between; }
+.rules-playbook-heading h2 { margin-bottom: 0.2rem; }
+.rules-playbook-heading p { font-size: 0.82rem; margin: 0; max-width: 56rem; }
+.rules-source-note { background: #f8f1df; border: 1px solid #dfc890; border-radius: 999px; color: var(--gold-dark); flex: 0 0 auto; font-size: 0.68rem; font-weight: 850; line-height: 1.3; max-width: 15rem; padding: 0.4rem 0.6rem; text-align: center; }
+.rules-context-rail { display: flex; gap: 0.4rem; margin: 1rem -0.1rem 0; overflow-x: auto; overscroll-behavior-inline: contain; padding: 0.1rem; scrollbar-width: none; }
+.rules-context-rail::-webkit-scrollbar { display: none; }
+.rules-context-rail button { background: #f7f1e6; border-color: #d9cdb9; box-shadow: none; color: var(--ink-soft); flex: 0 0 auto; font-size: 0.76rem; min-height: 2.55rem; padding: 0.45rem 0.65rem; white-space: nowrap; }
+.rules-context-rail button:hover { background: #fff5d6; color: var(--ink); transform: none; }
+.rules-context-rail button.active { background: var(--ink); border-color: var(--ink); color: #fffdf7; }
+.rules-context-panel { margin-top: 0.9rem; }
+.rules-context-introduction { align-items: center; background: linear-gradient(100deg, #fff9ec, #f8f1e3); border: 1px solid #e4d3ae; border-radius: 0.75rem; display: flex; gap: 0.75rem; padding: 0.7rem 0.8rem; }
+.rules-context-introduction p { font-size: 0.82rem; margin: 0; }
+.rules-source-chip, .rules-page-chip { border-radius: 999px; display: inline-flex; font-size: 0.66rem; font-weight: 900; letter-spacing: 0.04em; line-height: 1.2; padding: 0.28rem 0.46rem; text-transform: uppercase; }
+.rules-source-chip { background: #f0dfb8; color: #6d4800; }
+.rules-page-chip { background: #f5f1e8; border: 1px solid #ded3bf; color: var(--ink-soft); }
+.rules-quick-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); margin-top: 0.8rem; }
+.rules-quick-card { background: #fffdfa; border: 1px solid #dfd2bd; border-radius: 0.8rem; box-shadow: 0 0.25rem 0.8rem rgba(58, 43, 20, 0.06); display: flex; flex-direction: column; min-width: 0; padding: 0.85rem; }
+.rules-quick-card.primary { border-top: 3px solid var(--gold-dark); }
+.rules-quick-card.supporting { background: #fbf8f1; box-shadow: none; }
+.rules-quick-card-heading { align-items: center; display: flex; gap: 0.4rem; justify-content: space-between; }
+.rules-quick-card h3 { color: var(--ink); font-size: 0.98rem; margin: 0.65rem 0 0.4rem; }
+.rules-quick-card p { color: var(--ink-soft); font-size: 0.78rem; line-height: 1.5; margin: 0; }
+.rules-excerpt-label { color: var(--gold-dark); display: block; font-size: 0.63rem; font-weight: 900; letter-spacing: 0.07em; margin-bottom: 0.28rem; text-transform: uppercase; }
+.rules-open-reference { align-self: start; font-size: 0.72rem; margin-top: auto; padding: 0.42rem 0.58rem; }
+.rules-supporting-references { border-top: 1px solid #e2d8c9; margin-top: 1.1rem; padding-top: 1rem; }
+.rules-supporting-references h3 { font-size: 0.98rem; margin-bottom: 0; }
+.rules-reference-view-heading { align-items: end; display: flex; gap: 1rem; justify-content: space-between; margin-top: 1rem; padding: 1rem; }
+.rules-reference-view-heading h2 { margin-bottom: 0.2rem; }
+.rules-reference-view-heading p { font-size: 0.8rem; margin: 0; max-width: 52rem; }
 .rules-introduction { align-items: end; display: grid; gap: 1rem; grid-template-columns: minmax(15rem, 1fr) auto minmax(17rem, 0.8fr); margin-top: 1rem; padding: 1rem; }
 .rules-introduction h2 { margin-bottom: 0.2rem; }
 .rules-search { min-width: 0; }
@@ -499,6 +546,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .workspace { grid-template-columns: 1fr; }
   .roster-panel { max-height: none; position: static; }
   .scenario-guide-content { align-items: stretch; flex-direction: column; }
+  .rules-core-header { align-items: stretch; grid-template-columns: 1fr; }
   .rules-layout { grid-template-columns: minmax(0, 1fr); }
   .rules-toc { display: none; max-height: none; position: static; }
   .rules-toc.open { display: block; }
@@ -539,6 +587,13 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rules-shell { padding: 0.65rem; }
   .rules-topbar { align-items: stretch; flex-direction: column; }
+  .reference-header { margin-top: 0.65rem; padding: 0.9rem; }
+  .reference-nav { margin: 0.55rem 0 0.75rem; }
+  .rules-core-header, .rules-playbook, .rules-reference-view-heading { padding: 0.8rem; }
+  .rules-playbook-heading, .rules-reference-view-heading { align-items: stretch; flex-direction: column; }
+  .rules-source-note { max-width: none; text-align: left; }
+  .rules-context-introduction { align-items: flex-start; flex-direction: column; }
+  .rules-quick-grid { grid-template-columns: 1fr; }
   .weapons-shell { padding: 0.65rem; }
   .weapons-topbar, .weapons-results-heading { align-items: stretch; flex-direction: column; }
   .weapons-introduction, .weapons-filters { grid-template-columns: 1fr; }

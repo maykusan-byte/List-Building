@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { BrandMark } from '../../components/BrandMark';
+import { coreRuleContexts, sectionsForRuleContext, type RuleReadingContext } from './presentation';
 import { rulesSectionById, searchRules } from './search';
 import type { RulesBlock, RulesDocument, RulesSection } from './types';
 
 const RULES_URL = `${import.meta.env.BASE_URL}data/rules/core-rules-fr.json`;
+
+type CoreView = 'play' | 'reference';
 
 function sectionIdFromHash(): string | null {
   const match = window.location.hash.match(/^#rules\/([^/?#]+)/);
@@ -20,9 +22,7 @@ function goToRule(id: string): void {
 
 function renderBlock(block: RulesBlock, index: number): React.JSX.Element {
   if (block.kind === 'text') return <p className="rules-text" key={index}>{block.text}</p>;
-  if (block.kind === 'callout') {
-    return <aside className="rules-callout" key={index}><h4>{block.title}</h4><p>{block.text}</p></aside>;
-  }
+  if (block.kind === 'callout') return <aside className="rules-callout" key={index}><h4>{block.title}</h4><p>{block.text}</p></aside>;
   if (block.kind === 'diagram') {
     return (
       <figure className="rules-diagram" key={index}>
@@ -37,6 +37,34 @@ function renderBlock(block: RulesBlock, index: number): React.JSX.Element {
       <div><table><thead><tr>{block.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
       <tbody>{block.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>
     </section>
+  );
+}
+
+function sectionExcerpt(section: RulesSection): string | null {
+  const text = section.pages.flatMap((page) => page.blocks.flatMap((block) => {
+    if (block.kind === 'text' || block.kind === 'callout') return [block.text];
+    if (block.kind === 'diagram') return [block.description];
+    return block.title ? [block.title] : [];
+  })).join(' ').replace(/\s+/g, ' ').trim();
+  if (!text) return null;
+  return text.length > 430 ? `${text.slice(0, 427).trimEnd()}…` : text;
+}
+
+function RuleQuickCard({ section, locale, kind }: { section: RulesSection; locale: 'fr' | 'en'; kind: 'primary' | 'supporting' }): React.JSX.Element {
+  const excerpt = sectionExcerpt(section);
+  const isFrench = locale === 'fr';
+  return (
+    <article className={`rules-quick-card ${kind}`}>
+      <div className="rules-quick-card-heading">
+        <span className="rules-source-chip">{section.reference ?? (isFrench ? 'Règle de base' : 'Core rule')}</span>
+        <span className="rules-page-chip">{sourcePageLabel(section.sourcePages)}</span>
+      </div>
+      <h3>{section.title}</h3>
+      {excerpt && <p><span className="rules-excerpt-label">{isFrench ? 'Extrait source' : 'Source excerpt'}</span>{excerpt}</p>}
+      <button className="secondary rules-open-reference" type="button" onClick={() => goToRule(section.id)}>
+        {isFrench ? 'Lire la règle complète' : 'Read the complete rule'}
+      </button>
+    </article>
   );
 }
 
@@ -66,33 +94,71 @@ function RulesContent({ document, selectedSectionId }: { document: RulesDocument
   );
 }
 
-function MissionFramework({ document }: { document: RulesDocument }): React.JSX.Element {
-  const framework = document.missionFramework;
+function RulePlaybook({ document, locale }: { document: RulesDocument; locale: 'fr' | 'en' }): React.JSX.Element {
+  const [contextId, setContextId] = useState<RuleReadingContext['id']>('round');
+  const context = coreRuleContexts.find((candidate) => candidate.id === contextId) ?? coreRuleContexts[1];
+  const { primary, supporting } = useMemo(() => sectionsForRuleContext(document, context), [document, context]);
+  const isFrench = locale === 'fr';
+
   return (
-    <section className="mission-framework" aria-labelledby="mission-framework-title">
-      <span className="eyebrow">MISSIONS ET SCORE</span>
-      <h2 id="mission-framework-title">{framework.packName}</h2>
-      <p>Les cinq choix proposés dans le créateur de liste sont des Dispositions des Forces. Le barème du primaire est défini par la carte de Mission Principale jouée, et non par la Disposition seule.</p>
-      <div className="mission-score-grid">
-        <article><h3>Mission principale</h3><ul>{framework.primary.map((rule) => <li key={rule}>{rule}</li>)}</ul></article>
-        <article><h3>Missions secondaires</h3><ul>{framework.secondary.map((rule) => <li key={rule}>{rule}</li>)}</ul></article>
+    <section id="rules-playbook" className="rules-playbook" role="tabpanel" aria-labelledby="rules-playbook-title">
+      <div className="rules-playbook-heading">
+        <div>
+          <span className="eyebrow">{isFrench ? 'PARTIE EN COURS' : 'DURING THE GAME'}</span>
+          <h2 id="rules-playbook-title">{isFrench ? 'Trouver la bonne règle au bon moment' : 'Find the right rule at the right moment'}</h2>
+          <p>{isFrench ? 'Choisissez le moment de jeu, puis ouvrez la référence complète si un cas précis se présente.' : 'Choose the moment of play, then open the complete reference for a specific case.'}</p>
+        </div>
+        <span className="rules-source-note">{isFrench ? 'Chaque carte renvoie au texte source.' : 'Every card links to the source text.'}</span>
       </div>
-      <aside className="mission-unavailable"><strong>Cartes détaillées non intégrées</strong><p>{framework.unavailableNotice}</p></aside>
-      <p className="rules-sources">Sources officielles publiques&nbsp;: {framework.sources.map((source, index) => <span key={source.url}>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></span>)}</p>
+
+      <div className="rules-context-rail" role="tablist" aria-label={isFrench ? 'Moment de jeu' : 'Moment of play'}>
+        {coreRuleContexts.map((candidate) => (
+          <button
+            key={candidate.id}
+            type="button"
+            role="tab"
+            aria-selected={candidate.id === context.id}
+            aria-controls="rules-context-panel"
+            className={candidate.id === context.id ? 'active' : ''}
+            onClick={() => setContextId(candidate.id)}
+          >
+            {candidate.label[locale]}
+          </button>
+        ))}
+      </div>
+
+      <section id="rules-context-panel" className="rules-context-panel" role="tabpanel" aria-label={context.label[locale]}>
+        <div className="rules-context-introduction">
+          <span className="rules-source-chip">{context.label[locale]}</span>
+          <p>{context.description[locale]}</p>
+        </div>
+        <div className="rules-quick-grid">
+          {primary.map((section) => <RuleQuickCard key={section.id} section={section} locale={locale} kind="primary" />)}
+        </div>
+        {supporting.length > 0 && (
+          <section className="rules-supporting-references" aria-labelledby="rules-supporting-title">
+            <div>
+              <span className="eyebrow">{isFrench ? 'RENVOIS UTILES' : 'RELATED REFERENCES'}</span>
+              <h3 id="rules-supporting-title">{isFrench ? 'À consulter selon la situation' : 'Consult when relevant'}</h3>
+            </div>
+            <div className="rules-quick-grid supporting">
+              {supporting.map((section) => <RuleQuickCard key={section.id} section={section} locale={locale} kind="supporting" />)}
+            </div>
+          </section>
+        )}
+      </section>
     </section>
   );
 }
 
-export function ReferenceCorePage({
-  locale
-}: {
-  locale: 'fr' | 'en';
-}): React.JSX.Element {
+export function ReferenceCorePage({ locale }: { locale: 'fr' | 'en' }): React.JSX.Element {
   const [document, setDocument] = useState<RulesDocument | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(() => sectionIdFromHash());
   const [tocOpen, setTocOpen] = useState(false);
+  const [view, setView] = useState<CoreView>(() => sectionIdFromHash() ? 'reference' : 'play');
+  const isFrench = locale === 'fr';
 
   useEffect(() => {
     let active = true;
@@ -113,17 +179,21 @@ export function ReferenceCorePage({
   }, []);
 
   useEffect(() => {
-    const onHashChange = (): void => setSelectedSectionId(sectionIdFromHash());
+    const onHashChange = (): void => {
+      const nextSectionId = sectionIdFromHash();
+      setSelectedSectionId(nextSectionId);
+      if (nextSectionId) setView('reference');
+    };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
   useEffect(() => {
-    if (!document || !selectedSectionId) return;
+    if (!document || !selectedSectionId || view !== 'reference') return;
     const target = window.document.getElementById(`rule-${selectedSectionId}`);
     target?.scrollIntoView({ block: 'start' });
     target?.focus({ preventScroll: true });
-  }, [document, selectedSectionId]);
+  }, [document, selectedSectionId, view]);
 
   const results = useMemo(() => document ? searchRules(document, query).slice(0, 30) : [], [document, query]);
   const selectedSection = document ? rulesSectionById(document, selectedSectionId) : null;
@@ -131,32 +201,49 @@ export function ReferenceCorePage({
     setTocOpen(false);
     goToRule(section.id);
   };
+  const openPlaybook = (): void => {
+    setSelectedSectionId(null);
+    setView('play');
+    if (window.location.hash !== '#reference/core') window.location.hash = 'reference/core';
+  };
 
   return (
-    <div className="rules-shell-content" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      
-
-      {!document && <section className="rules-loading"><h2>Chargement de la référence…</h2>{error && <p className="error-text">{error}</p>}</section>}
+    <div className="rules-shell-content">
+      {!document && <section className="rules-loading"><h2>{isFrench ? 'Chargement de la référence…' : 'Loading reference…'}</h2>{error && <p className="error-text">{error}</p>}</section>}
       {document && (
         <>
-          <section className="rules-introduction">
-            <div><span className="eyebrow">SOURCE OFFICIELLE</span><h2>{document.source.title}</h2><p>{document.source.filename} · {document.source.pdfPageCount} pages · métadonnée PDF&nbsp;: {document.source.modifiedAt} · version&nbsp;: non indiquée.</p></div>
-            <button className="secondary rules-toc-toggle" aria-expanded={tocOpen} onClick={() => setTocOpen((open) => !open)}>Sommaire</button>
-            <label className="rules-search"><span>Rechercher dans les règles</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Ex. objectif sécurisé, charge, ébranlé" /></label>
+          <section className="rules-core-header">
+            <div>
+              <span className="eyebrow">{isFrench ? 'RÈGLES DE BASE · SOURCE HORS LIGNE' : 'CORE RULES · OFFLINE SOURCE'}</span>
+              <h2>{document.source.title}</h2>
+              <p>{document.source.filename} · {document.source.pdfPageCount} {isFrench ? 'pages' : 'pages'} · {isFrench ? 'métadonnée PDF' : 'PDF metadata'} : {document.source.modifiedAt}</p>
+            </div>
+            <div className="rules-core-controls">
+              <div className="rules-view-switch" role="tablist" aria-label={isFrench ? 'Mode de lecture' : 'Reading mode'}>
+                <button type="button" role="tab" aria-selected={view === 'play'} aria-controls="rules-playbook" className={view === 'play' ? 'active' : ''} onClick={openPlaybook}>{isFrench ? 'Partie en cours' : 'During the game'}</button>
+                <button type="button" role="tab" aria-selected={view === 'reference'} aria-controls="rules-reference" className={view === 'reference' ? 'active' : ''} onClick={() => setView('reference')}>{isFrench ? 'Référence complète' : 'Full reference'}</button>
+              </div>
+              <label className="rules-search"><span>{isFrench ? 'Rechercher dans les règles' : 'Search rules'}</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={isFrench ? 'Ex. objectif sécurisé, charge, ébranlé' : 'E.g. objective secured, charge, battle-shocked'} /></label>
+            </div>
           </section>
 
-          {query.trim() && <section className="rules-results" aria-live="polite"><h2>{results.length} résultat{results.length === 1 ? '' : 's'}</h2>{results.length === 0 ? <p>Aucune règle ne correspond à cette recherche.</p> : <ul>{results.map((result) => <li key={`${result.section.id}-${result.page.id}`}><button className="secondary" onClick={() => openSection(result.section)}><strong>{result.section.reference} · {result.section.title}</strong><span>p. {result.page.printedPage} · {result.snippet}</span></button></li>)}</ul>}</section>}
+          {query.trim() && <section className="rules-results" aria-live="polite"><h2>{results.length} {isFrench ? `résultat${results.length === 1 ? '' : 's'}` : `result${results.length === 1 ? '' : 's'}`}</h2>{results.length === 0 ? <p>{isFrench ? 'Aucune règle ne correspond à cette recherche.' : 'No rule matches this search.'}</p> : <ul>{results.map((result) => <li key={`${result.section.id}-${result.page.id}`}><button className="secondary" onClick={() => openSection(result.section)}><strong>{result.section.reference} · {result.section.title}</strong><span>{isFrench ? 'p.' : 'p.'} {result.page.printedPage} · {result.snippet}</span></button></li>)}</ul>}</section>}
 
-          <div className="rules-layout">
-            <aside className={`rules-toc ${tocOpen ? 'open' : ''}`} aria-label="Sommaire des règles">
-              <div className="rules-toc-heading"><h2>Sommaire</h2><button className="secondary" onClick={() => setTocOpen(false)}>Fermer</button></div>
-              {document.chapters.map((chapter) => <section key={chapter.id}><h3>{chapter.title}</h3><ul>{chapter.sections.map((section) => <li key={section.id}><button className={selectedSection?.id === section.id ? 'active' : ''} onClick={() => openSection(section)}>{section.reference && <span>{section.reference}</span>}{section.title}<small>{sourcePageLabel(section.sourcePages)}</small></button></li>)}</ul></section>)}
-            </aside>
-            <div>
-              <MissionFramework document={document} />
-              <RulesContent document={document} selectedSectionId={selectedSectionId} />
-            </div>
-          </div>
+          {view === 'play' ? <RulePlaybook document={document} locale={locale} /> : (
+            <section id="rules-reference" className="rules-reference-view" role="tabpanel" aria-label={isFrench ? 'Référence complète des règles de base' : 'Complete core rules reference'}>
+              <div className="rules-reference-view-heading">
+                <div><span className="eyebrow">{isFrench ? 'TEXTE STRUCTURÉ' : 'STRUCTURED TEXT'}</span><h2>{isFrench ? 'Référence complète' : 'Complete reference'}</h2><p>{isFrench ? 'Le corpus intégral reste disponible, avec sa pagination source et des liens directs pérennes.' : 'The complete corpus remains available with source pagination and stable direct links.'}</p></div>
+                <button className="secondary rules-toc-toggle" type="button" aria-expanded={tocOpen} onClick={() => setTocOpen((open) => !open)}>{isFrench ? 'Sommaire' : 'Contents'}</button>
+              </div>
+              <div className="rules-layout">
+                <aside className={`rules-toc ${tocOpen ? 'open' : ''}`} aria-label={isFrench ? 'Sommaire des règles' : 'Rules contents'}>
+                  <div className="rules-toc-heading"><h2>{isFrench ? 'Sommaire' : 'Contents'}</h2><button className="secondary" type="button" onClick={() => setTocOpen(false)}>{isFrench ? 'Fermer' : 'Close'}</button></div>
+                  {document.chapters.map((chapter) => <section key={chapter.id}><h3>{chapter.title}</h3><ul>{chapter.sections.map((section) => <li key={section.id}><button className={selectedSection?.id === section.id ? 'active' : ''} onClick={() => openSection(section)}>{section.reference && <span>{section.reference}</span>}{section.title}<small>{sourcePageLabel(section.sourcePages)}</small></button></li>)}</ul></section>)}
+                </aside>
+                <RulesContent document={document} selectedSectionId={selectedSectionId} />
+              </div>
+            </section>
+          )}
         </>
       )}
     </div>
