@@ -1731,7 +1731,7 @@ export default function App(): React.JSX.Element {
                   <div className="unit-card-content">
                     <h3>{display.unitName(unit)}</h3>
                     <p className="muted">{display.factionName(unit.factionName)}</p>
-                    <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{display.term(keyword)}</span>)}</div>
+                    <div className="tag-row">{(unit.Keywords ?? []).map((keyword) => <span key={keyword}>{display.term(keyword)}</span>)}</div>
                     {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} display={display} />)}
                     {(unit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
                       <section className="unit-composition">
