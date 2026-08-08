@@ -56,9 +56,10 @@ function RuleQuickCard({ section, locale, kind }: { section: RulesSection; local
   return (
     <article className={`rules-quick-card ${kind}`}>
       <div className="rules-quick-card-heading">
-        <span className="rules-source-chip">{section.reference ?? (isFrench ? 'Règle de base' : 'Core rule')}</span>
+        <span className="rules-card-kind">{kind === 'primary' ? (isFrench ? 'Règle principale' : 'Primary rule') : (isFrench ? 'Renvoi utile' : 'Related rule')}</span>
         <span className="rules-page-chip">{sourcePageLabel(section.sourcePages)}</span>
       </div>
+      <span className="rules-source-chip">{section.reference ?? (isFrench ? 'Règle de base' : 'Core rule')}</span>
       <h3>{section.title}</h3>
       {excerpt && <p><span className="rules-excerpt-label">{isFrench ? 'Extrait source' : 'Source excerpt'}</span>{excerpt}</p>}
       <button className="secondary rules-open-reference" type="button" onClick={() => goToRule(section.id)}>
@@ -98,6 +99,7 @@ function RulePlaybook({ document, locale }: { document: RulesDocument; locale: '
   const [contextId, setContextId] = useState<RuleReadingContext['id']>('round');
   const context = coreRuleContexts.find((candidate) => candidate.id === contextId) ?? coreRuleContexts[1];
   const { primary, supporting } = useMemo(() => sectionsForRuleContext(document, context), [document, context]);
+  const contextIndex = coreRuleContexts.findIndex((candidate) => candidate.id === context.id) + 1;
   const isFrench = locale === 'fr';
 
   return (
@@ -112,7 +114,7 @@ function RulePlaybook({ document, locale }: { document: RulesDocument; locale: '
       </div>
 
       <div className="rules-context-rail" role="tablist" aria-label={isFrench ? 'Moment de jeu' : 'Moment of play'}>
-        {coreRuleContexts.map((candidate) => (
+        {coreRuleContexts.map((candidate, index) => (
           <button
             key={candidate.id}
             type="button"
@@ -122,15 +124,16 @@ function RulePlaybook({ document, locale }: { document: RulesDocument; locale: '
             className={candidate.id === context.id ? 'active' : ''}
             onClick={() => setContextId(candidate.id)}
           >
-            {candidate.label[locale]}
+            <span className="rules-context-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <span>{candidate.label[locale]}</span>
           </button>
         ))}
       </div>
 
       <section id="rules-context-panel" className="rules-context-panel" role="tabpanel" aria-label={context.label[locale]}>
         <div className="rules-context-introduction">
-          <span className="rules-source-chip">{context.label[locale]}</span>
-          <p>{context.description[locale]}</p>
+          <span className="rules-context-marker" aria-hidden="true">{String(contextIndex).padStart(2, '0')}</span>
+          <div><span className="rules-source-chip">{context.label[locale]}</span><p>{context.description[locale]}</p></div>
         </div>
         <div className="rules-quick-grid">
           {primary.map((section) => <RuleQuickCard key={section.id} section={section} locale={locale} kind="primary" />)}
