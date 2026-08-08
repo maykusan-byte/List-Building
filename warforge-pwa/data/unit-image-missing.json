@@ -1,10 +1,101 @@
 {
   "schemaVersion": "warforge-unit-image-missing/v1",
-  "databaseFingerprint": "fnv1a-ff5e56d0-5031011",
+  "databaseFingerprint": "fnv1a-08ca1448-5031410",
   "generatedAt": "2026-08-01T00:00:00.000Z",
   "total": 340,
-  "mapped": 340,
+  "mapped": 322,
   "catalogTotal": 1459,
-  "catalogMapped": 1084,
-  "missing": []
+  "catalogMapped": 897,
+  "missing": [
+    {
+      "id": "book-black-templars:unit:41",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Black Templars"
+    },
+    {
+      "id": "book-black-templars:unit:45",
+      "name": "JUDICIAR",
+      "faction": "Black Templars"
+    },
+    {
+      "id": "book-black-templars:unit:65",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Black Templars"
+    },
+    {
+      "id": "book-blood-angels:unit:41",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Blood Angels"
+    },
+    {
+      "id": "book-blood-angels:unit:46",
+      "name": "JUDICIAR",
+      "faction": "Blood Angels"
+    },
+    {
+      "id": "book-blood-angels:unit:67",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Blood Angels"
+    },
+    {
+      "id": "book-dark-angels:unit:30",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Dark Angels"
+    },
+    {
+      "id": "book-dark-angels:unit:67",
+      "name": "JUDICIAR",
+      "faction": "Dark Angels"
+    },
+    {
+      "id": "book-dark-angels:unit:77",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Dark Angels"
+    },
+    {
+      "id": "book-deathwatch:unit:34",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Deathwatch"
+    },
+    {
+      "id": "book-deathwatch:unit:39",
+      "name": "JUDICIAR",
+      "faction": "Deathwatch"
+    },
+    {
+      "id": "book-deathwatch:unit:59",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Deathwatch"
+    },
+    {
+      "id": "book-space-marines:unit:26",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Space Marines"
+    },
+    {
+      "id": "book-space-marines:unit:31",
+      "name": "JUDICIAR",
+      "faction": "Space Marines"
+    },
+    {
+      "id": "book-space-marines:unit:52",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Space Marines"
+    },
+    {
+      "id": "book-space-wolves:unit:45",
+      "name": "BLADEGUARD ANCIENT",
+      "faction": "Space Wolves"
+    },
+    {
+      "id": "book-space-wolves:unit:50",
+      "name": "JUDICIAR",
+      "faction": "Space Wolves"
+    },
+    {
+      "id": "book-space-wolves:unit:71",
+      "name": "ERADICATOR SQUAD",
+      "faction": "Space Wolves"
+    }
+  ]
 }

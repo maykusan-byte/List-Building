@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useQuizQueue } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import {
@@ -36,18 +37,14 @@ export function StatsQuiz({
   inventory,
   getUnitImgUrl
 }: StatsQuizProps) {
-  const [unitSeedIndex, setUnitSeedIndex] = useState<number>(0);
+
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [selectedStatsAbilities, setSelectedStatsAbilities] = useState<Set<string>>(new Set());
   const [inspectedAbilityTitle, setInspectedAbilityTitle] = useState<string | null>(null);
   const [statsChecked, setStatsChecked] = useState<boolean>(false);
 
-  // Current Unit for Stats Quiz
-  const currentUnit = useMemo(() => {
-    if (shuffledUnits.length === 0) return null;
-    const index = Math.abs(unitSeedIndex) % shuffledUnits.length;
-    return shuffledUnits[index] ?? null;
-  }, [shuffledUnits, unitSeedIndex]);
+  const { currentItem: currentUnit, advance } = useQuizQueue(shuffledUnits, u => u.id);
+  const [lastCorrect, setLastCorrect] = useState(false);
 
   // Stat options generated for the current unit
   const statOptionsMap = useMemo(() => {
@@ -93,7 +90,7 @@ export function StatsQuiz({
     setSelectedStatsAbilities(new Set());
     setInspectedAbilityTitle(null);
     setStatsChecked(false);
-    setUnitSeedIndex((prev) => prev + 1);
+    advance(lastCorrect);
     onAdvance();
   };
 
@@ -130,6 +127,7 @@ export function StatsQuiz({
     const isFullyCorrect = allStatsCorrect && abilitiesCorrect;
 
     setStatsChecked(true);
+    setLastCorrect(isFullyCorrect);
     onScoreUpdate(isFullyCorrect);
   };
 
@@ -158,7 +156,7 @@ export function StatsQuiz({
             </div>
 
             {/* Unit Image & Datacard Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: getUnitImgUrl(currentUnit.id) ? '140px 1fr' : '1fr', gap: '1rem', alignItems: 'center' }}>
+            <div className={getUnitImgUrl(currentUnit.id) ? "stats-quiz-grid with-img" : "stats-quiz-grid"}>
               {getUnitImgUrl(currentUnit.id) && (
                 <div style={{ textAlign: 'center', background: '#f8f4eb', border: '1px solid #e2d8c9', borderRadius: '0.65rem', padding: '0.35rem' }}>
                   <img

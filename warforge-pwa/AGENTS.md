@@ -55,3 +55,6 @@ d’images qu’avec une source et un objectif explicites.
   workflow GitHub Pages.
 - Ne pas publier les archives ou un travail sans rapport avec Warforge sans
   demande explicite.
+
+## Architecture Règles (Reference Hub)
+Pour toute évolution liée au système de règles, de missions et d'affichage des stratagèmes, se référer au document de conception : `docs/ARCHITECTURE_REGLES.md`.

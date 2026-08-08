@@ -1,0 +1,115 @@
+.stratagem-card {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.stratagem-header {
+  background: var(--ink);
+  color: var(--canvas);
+  padding: 0.75rem 1rem;
+}
+
+.stratagem-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.stratagem-name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.stratagem-cp {
+  font-weight: 800;
+  background: var(--canvas);
+  color: var(--ink);
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.stratagem-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.stratagem-body {
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stratagem-section {
+  margin: 0;
+}
+
+.stratagem-section strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.enhancement-card {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.enhancement-header {
+  background: var(--surface-hover);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+}
+
+.enhancement-name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.enhancement-cost {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.enhancement-body {
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.rule-tooltip-trigger {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--ink-soft);
+  cursor: help;
+  font-weight: 600;
+}
+
+.rule-tooltip-trigger:hover {
+  color: var(--interactive);
+  text-decoration-color: var(--interactive);
+}

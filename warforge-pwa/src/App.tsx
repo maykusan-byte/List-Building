@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
-import { formatSaveDisplay, isAlliedUnit, isUnitAvailableToFaction, sourceLabel } from './domain/catalog';
+import { formatSaveDisplay, isAlliedUnit, isUnitAvailableToFaction, primaryRosterSourceKeysForFaction, sourceLabel } from './domain/catalog';
 import { createCatalogLocalization, loadCatalogLocaleOverlay } from './domain/catalog-localization';
 import { loadUnitImageManifest, unitImageMap, unitImageUrl } from './domain/unit-images';
 import { EMPTY_ADVANCED_CATALOG_FILTERS, advancedCatalogFilterCount, matchesAdvancedCatalogFilters } from './domain/advanced-filters';
@@ -11,7 +11,7 @@ import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
 import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
-import { RulesPage } from './rules/RulesPage';
+import { ReferencePage } from './reference/ReferencePage';
 import { WeaponsPage } from './weapons/WeaponsPage';
 import { LearningPage } from './learning/LearningPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
@@ -29,10 +29,10 @@ import './styles.css';
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
-type AppView = 'builder' | 'rules' | 'weapons' | 'learning';
+type AppView = 'builder' | 'reference' | 'weapons' | 'learning';
 
 function viewFromHash(): AppView {
-  if (window.location.hash.startsWith('#rules')) return 'rules';
+  if (window.location.hash.startsWith('#rules') || window.location.hash.startsWith('#reference')) return 'reference';
   if (window.location.hash.startsWith('#weapons')) return 'weapons';
   if (window.location.hash.startsWith('#learning')) return 'learning';
   return 'builder';
@@ -139,8 +139,9 @@ const PROFILE_STATS = [
   { key: 'OC', label: 'OC', description: 'Contrôle d’objectif' }
 ] as const;
 
-function compositionLabel(model: { ModelName?: string; Limit?: { Min?: number; Max?: number } }, fallbackName: string): string {
-  const name = model.ModelName?.trim() || fallbackName;
+function compositionLabel(model: { ModelName?: string; Limit?: { Min?: number; Max?: number } }, fallbackName: string, display?: CatalogLocalization): string {
+  const rawName = model.ModelName?.trim();
+  const name = rawName ? (display ? display.term(rawName) : rawName) : fallbackName;
   const min = model.Limit?.Min;
   const max = model.Limit?.Max;
   if (typeof min === 'number' && typeof max === 'number') return min === max ? `x${min} ${name}` : `${min}–${max} ${name}`;
@@ -149,9 +150,10 @@ function compositionLabel(model: { ModelName?: string; Limit?: { Min?: number; M
   return name;
 }
 
-function UnitProfile({ line }: { line: Record<string, unknown> }): React.JSX.Element {
+function UnitProfile({ line, display }: { line: Record<string, unknown>; display?: CatalogLocalization }): React.JSX.Element {
   const { t } = useTranslation();
-  const profileName = typeof line.StatName === 'string' ? line.StatName.trim() : '';
+  const rawProfileName = typeof line.StatName === 'string' ? line.StatName.trim() : '';
+  const profileName = rawProfileName ? (display ? display.term(rawProfileName) : rawProfileName) : '';
   const { displaySave, invul } = formatSaveDisplay(line);
 
   return (
@@ -239,7 +241,7 @@ function WeaponTable({ profiles, display, compact = false }: { profiles: Selecte
               <tbody>
                 {entries.map(({ profile }, index) => (
                   <tr key={`${profile.Name ?? 'arme'}-${index}`}>
-                    <th scope="row">{profile.Name || t('weapons.weapon')}</th>
+                    <th scope="row">{display.term(profile.Name) || t('weapons.weapon')}</th>
                     <td>{profile.Range || '—'}</td><td>{profile.Attacks || '—'}</td><td>{profile.ToHit || '—'}</td>
                     <td>{profile.Strength || '—'}</td><td>{profile.AP || '—'}</td><td>{profile.Damage || '—'}</td><td>{display.term(profile.Keywords) || '—'}</td>
                   </tr>
@@ -1169,8 +1171,8 @@ export default function App(): React.JSX.Element {
 
   const factionDetachments = useMemo(() => {
     if (!database || !draft) return [];
-    const faction = database.factions.find((candidate) => candidate.id === draft.primaryFaction);
-    return faction ? database.detachments.filter((detachment) => detachment.sourceKey === faction.sourceKey) : [];
+    const keys = primaryRosterSourceKeysForFaction(database, draft.primaryFaction);
+    return database.detachments.filter((detachment) => keys.has(detachment.sourceKey));
   }, [database, draft]);
 
   const availableScenarios = useMemo(
@@ -1346,7 +1348,7 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'builder';
   };
 
-  if (view === 'rules') return <RulesPage locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} onOpenLearning={openLearning} />;
+  if (view === 'reference') return <ReferencePage database={database} locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} onOpenLearning={openLearning} />;
 
   if (view === 'weapons' && database) return <WeaponsPage database={database} display={display} locale={locale} onOpenBuilder={openBuilder} onOpenRules={openRules} onOpenLearning={openLearning} />;
 
@@ -1617,11 +1619,11 @@ export default function App(): React.JSX.Element {
                     <h3>{display.unitName(unit)}</h3>
                     <p className="muted">{display.factionName(unit.factionName)}</p>
                     <div className="tag-row">{(unit.Keywords ?? []).slice(0, 4).map((keyword) => <span key={keyword}>{display.term(keyword)}</span>)}</div>
-                    {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} />)}
+                    {(unit.StatLines ?? []).map((line, index) => <UnitProfile key={index} line={line} display={display} />)}
                     {(unit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
                       <section className="unit-composition">
                         <h4>{t('library.composition')}</h4>
-                        <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}<WargearDescription model={model} display={display} t={t} unit={unit} /></li>)}</ul>
+                        <ul>{unit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'), display)}<WargearDescription model={model} display={display} t={t} unit={unit} /></li>)}</ul>
                       </section>
                     )}
                     <strong className="unit-card-price"><small>{t('library.from')}</small> {minimumPointCost(unit, nextOccurrence) ?? '?'} pts</strong>
@@ -1915,13 +1917,13 @@ export default function App(): React.JSX.Element {
             })()}
 
             {(selectedUnit.StatLines ?? []).map((line, index) => (
-              <UnitProfile key={index} line={line} />
+              <UnitProfile key={index} line={line} display={display} />
             ))}
 
             {(selectedUnit.UnitComposition?.ModelCompositions?.length ?? 0) > 0 && (
               <section className="unit-composition" style={{ margin: '0.75rem 0' }}>
                 <h4>{t('library.composition')}</h4>
-                <ul>{selectedUnit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'))}<WargearDescription model={model} display={display} t={t} unit={selectedUnit} /></li>)}</ul>
+                <ul>{selectedUnit.UnitComposition?.ModelCompositions?.map((model, index) => <li key={`${model.ModelName ?? 'figurine'}-${index}`}>{compositionLabel(model, t('profile.model'), display)}<WargearDescription model={model} display={display} t={t} unit={selectedUnit} /></li>)}</ul>
               </section>
             )}
 

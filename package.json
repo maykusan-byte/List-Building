@@ -11,5 +11,8 @@
     "lint": "npm run lint --workspace=warforge-pwa",
     "preview": "npm run preview --workspace=warforge-pwa",
     "test": "npm run test --workspace=warforge-pwa"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
   }
 }

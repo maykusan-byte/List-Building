@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useQuizQueue } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit, RawWeaponProfile } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import { generateWeaponStatOptions, shuffleArray } from '../learning-utils';
@@ -32,27 +33,20 @@ export function WeaponsQuiz({
   onScoreUpdate,
   getUnitImgUrl
 }: WeaponsQuizProps) {
-  const [seedIndex, setSeedIndex] = useState<number>(() => Math.floor(Math.random() * 10000));
+
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [checked, setChecked] = useState<boolean>(false);
 
-  const question = useMemo(() => {
-    if (eligibleUnits.length === 0) return null;
-    
-    const validUnits = eligibleUnits.filter(u => u.Weapons && u.Weapons.length > 0);
-    if (validUnits.length === 0) return null;
-    
-    // stable shuffle for the units based on seed
-    const unit = validUnits[Math.abs(seedIndex) % validUnits.length];
-    
-    // find a weapon profile
-    const allProfiles = (unit.Weapons || []).flatMap(wg => (wg.Weapons || []).map(wp => ({ wg, wp })));
-    if (allProfiles.length === 0) return null;
-    
-    const { wg, wp } = allProfiles[Math.abs(seedIndex * 7) % allProfiles.length];
-    
-    return { unit, wg, wp };
-  }, [eligibleUnits, seedIndex]);
+  const weaponPool = useMemo(() => {
+    return eligibleUnits.flatMap(unit => 
+      (unit.Weapons || []).flatMap(wg => 
+        (wg.Weapons || []).map(wp => ({ unit, wg, wp }))
+      )
+    );
+  }, [eligibleUnits]);
+
+  const { currentItem: question, advance } = useQuizQueue(weaponPool, q => q.unit.id + '|' + (q.wg.Name||'') + '|' + (q.wp.Name||''));
+  const [lastCorrect, setLastCorrect] = useState(false);
 
   const statOptionsMap = useMemo(() => {
     if (!question) return {};
@@ -85,7 +79,7 @@ export function WeaponsQuiz({
   const handleNext = () => {
     setSelectedAnswers({});
     setChecked(false);
-    setSeedIndex(prev => prev + 1);
+    advance(lastCorrect);
     onAdvance();
   };
 

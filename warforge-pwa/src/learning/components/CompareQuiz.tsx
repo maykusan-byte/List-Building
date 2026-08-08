@@ -36,7 +36,10 @@ export function CompareQuiz({
   onScoreUpdate,
   getUnitImgUrl
 }: CompareQuizProps) {
-  const [seedIndex, setSeedIndex] = useState<number>(() => Math.floor(Math.random() * 10000));
+  const [turn, setTurn] = useState<number>(0);
+  const [failedSchedule, setFailedSchedule] = useState<any[]>([]);
+  const [seedIndex, setSeedIndex] = useState<number>(() => Math.floor(Math.random() * 100000));
+  const [lastCorrect, setLastCorrect] = useState(false);
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
   const [checked, setChecked] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -53,6 +56,14 @@ export function CompareQuiz({
     }
 
     const timer = setTimeout(() => {
+      // Check schedule
+      const scheduled = failedSchedule.find(s => s.turn === turn);
+      if (scheduled) {
+        setQuestion(scheduled.q);
+        setIsGenerating(false);
+        return;
+      }
+
       let attempts = 0;
       let nextQuestion = null;
       while (attempts < 100) {
@@ -76,8 +87,8 @@ export function CompareQuiz({
           }
         }
         if (unit1.id !== unit2.id) {
-          const val1 = evaluateMetric(unit1, metricDef);
-          const val2 = evaluateMetric(unit2, metricDef);
+          const val1 = evaluateMetric(unit1, metricDef, display);
+          const val2 = evaluateMetric(unit2, metricDef, display);
           if (val1.value !== val2.value) {
             nextQuestion = {
               unit1,
@@ -131,10 +142,14 @@ export function CompareQuiz({
   };
 
   const handleNext = () => {
+    if (!lastCorrect && question) {
+      setFailedSchedule(prev => [...prev, { turn: turn + 5, q: question }]);
+    }
+    setTurn(prev => prev + 1);
     setSelectedUnitId(null);
     setChecked(false);
     setShowDetails(false);
-    setSeedIndex(prev => prev + 1);
+    setSeedIndex(Math.floor(Math.random() * 100000));
     onAdvance();
   };
 
@@ -261,7 +276,7 @@ export function CompareQuiz({
   );
 }
 
-function calculateUnitDamage(profiles: SelectedWeaponProfile[], target: AnalysisTarget, range?: number) {
+function calculateUnitDamage(profiles: SelectedWeaponProfile[], target: AnalysisTarget, range?: number, display?: CatalogLocalization) {
   let total = 0;
   let maxDmg = -1;
   let bestWeaponName = '';
@@ -284,21 +299,21 @@ function calculateUnitDamage(profiles: SelectedWeaponProfile[], target: Analysis
     if (dmg > 0) {
       activeWeapons++;
       if (profile.count > 1) {
-        activeWeaponNames.push(`${profile.count}x ${profile.profile.Name}`);
+        activeWeaponNames.push(`${profile.count}x ${display && profile.profile.Name ? display.term(profile.profile.Name) : profile.profile.Name}`);
       } else {
-        activeWeaponNames.push(profile.profile.Name || '');
+        activeWeaponNames.push((display && profile.profile.Name ? display.term(profile.profile.Name) : profile.profile.Name) || '');
       }
     }
     if (dmg > maxDmg) {
       maxDmg = dmg;
-      bestWeaponName = profile.profile.Name || '';
+      bestWeaponName = (display && profile.profile.Name ? display.term(profile.profile.Name) : profile.profile.Name) || '';
     }
   }
 
   return { total, maxDmg, bestWeaponName, activeWeapons, activeWeaponNames };
 }
 
-function evaluateMetric(unit: NormalizedUnit, metricDef: { key: CompareMetric; targetId?: string; range?: number }) {
+function evaluateMetric(unit: NormalizedUnit, metricDef: { key: CompareMetric; targetId?: string; range?: number }, display?: CatalogLocalization) {
   if (metricDef.targetId) {
     const target = ANALYSIS_TARGETS.find(t => t.id === metricDef.targetId);
     if (!target) return { value: 0, displayValue: '0', profileName: null };
@@ -323,13 +338,13 @@ function evaluateMetric(unit: NormalizedUnit, metricDef: { key: CompareMetric; t
       
       let item = { ...mockItem, wargearSelectionCounts: { ...bestSelections } };
       let wargear = resolveWargear(unit, item);
-      let dmg = calculateUnitDamage(wargear.profiles, target, metricDef.range).total;
+      let dmg = calculateUnitDamage(wargear.profiles, target, metricDef.range, display).total;
       bestRuleDamage = dmg;
 
       for (const option of rule.options) {
         item = { ...mockItem, wargearSelectionCounts: { ...bestSelections, [rule.id]: { [option]: limit } } };
         wargear = resolveWargear(unit, item);
-        const currentDmg = calculateUnitDamage(wargear.profiles, target, metricDef.range).total;
+        const currentDmg = calculateUnitDamage(wargear.profiles, target, metricDef.range, display).total;
         
         if (currentDmg > bestRuleDamage) {
           bestRuleDamage = currentDmg;
@@ -345,7 +360,7 @@ function evaluateMetric(unit: NormalizedUnit, metricDef: { key: CompareMetric; t
     const finalItem = { ...mockItem, wargearSelectionCounts: bestSelections };
     const finalWargear = resolveWargear(unit, finalItem);
     
-    const { total: totalDamage, bestWeaponName, activeWeapons, activeWeaponNames } = calculateUnitDamage(finalWargear.profiles, target, metricDef.range);
+    const { total: totalDamage, bestWeaponName, activeWeapons, activeWeaponNames } = calculateUnitDamage(finalWargear.profiles, target, metricDef.range, display);
     const bestTotalModels = finalWargear.totalModels;
     
     const weaponsStr = activeWeaponNames && activeWeaponNames.length > 0 
@@ -431,7 +446,7 @@ function FullUnitDetails({ unit, isFrench, display }: { unit: NormalizedUnit, is
               <tbody>
                 {entries.map(({ profile }, index) => (
                   <tr key={index}>
-                    <th scope="row">{profile.Name || (isFrench ? 'Arme' : 'Weapon')}</th>
+                    <th scope="row">{profile.Name ? display.term(profile.Name) : (isFrench ? 'Arme' : 'Weapon')}</th>
                     <td>{profile.Range || '—'}</td><td>{profile.Attacks || '—'}</td><td>{profile.ToHit || '—'}</td>
                     <td>{profile.Strength || '—'}</td><td>{profile.AP || '—'}</td><td>{profile.Damage || '—'}</td><td>{display.term(profile.Keywords) || '—'}</td>
                   </tr>

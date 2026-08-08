@@ -1,5 +1,6 @@
 
 import { useMemo, useState } from 'react';
+import { useQuizQueue } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import {
@@ -27,49 +28,53 @@ export function KeywordsQuiz({
   onScoreUpdate,
   getUnitImgUrl
 }: KeywordsQuizProps) {
-  const [kwSeedIndex, setKwSeedIndex] = useState<number>(() => Math.floor(Math.random() * 10000));
+
   const [selectedKwUnitIds, setSelectedKwUnitIds] = useState<Set<string>>(new Set());
   const [kwChecked, setKwChecked] = useState<boolean>(false);
 
-  const kwQuestion = useMemo(() => {
-    if (eligibleUnits.length === 0) return null;
-
-    const kwMap = new Map<string, NormalizedUnit[]>();
+  const { keywords, kwMap } = useMemo(() => {
+    if (eligibleUnits.length === 0) return { keywords: [], kwMap: new Map<string, NormalizedUnit[]>() };
+    
+    const map = new Map<string, NormalizedUnit[]>();
     for (const unit of eligibleUnits) {
       const unitKws = [...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? [])];
       for (const kw of unitKws) {
         if (isForbiddenKeyword(kw, database)) continue;
         const key = kw.trim().toUpperCase();
-        if (!kwMap.has(key)) kwMap.set(key, []);
-        kwMap.get(key)!.push(unit);
+        if (!map.has(key)) map.set(key, []);
+        map.get(key)!.push(unit);
       }
     }
+    return { keywords: Array.from(map.keys()), kwMap: map };
+  }, [eligibleUnits, database]);
 
-    const availableKeywords = shuffleArray(Array.from(kwMap.keys()));
-    if (availableKeywords.length === 0) return null;
+  const { currentItem: targetKeyword, advance } = useQuizQueue(keywords, k => k);
+  const [lastCorrect, setLastCorrect] = useState(false);
 
-    const targetKeyword = availableKeywords[Math.abs(kwSeedIndex) % availableKeywords.length];
+  const kwQuestion = useMemo(() => {
+    if (!targetKeyword) return null;
+    
     const positiveUnits = kwMap.get(targetKeyword) ?? [];
     const positiveIds = new Set(positiveUnits.map((u) => u.id));
     const negativeUnits = eligibleUnits.filter((u) => !positiveIds.has(u.id));
-
+    
     const shuffledPos = shuffleArray(positiveUnits);
     const shuffledNeg = shuffleArray(negativeUnits);
-
+    
     const targetTotal = Math.min(6, eligibleUnits.length);
     const numPos = Math.min(shuffledPos.length, Math.max(1, Math.floor(Math.random() * 3) + 1));
     const numNeg = Math.min(shuffledNeg.length, targetTotal - numPos);
-
+    
     const candidateUnits = shuffleArray([
       ...shuffledPos.slice(0, numPos),
       ...shuffledNeg.slice(0, numNeg)
     ]);
-
+    
     return {
       targetKeyword,
       candidateUnits
     };
-  }, [eligibleUnits, kwSeedIndex, database]);
+  }, [targetKeyword, kwMap, eligibleUnits]);
 
   const toggleKwUnit = (unitId: string) => {
     if (kwChecked) return;
@@ -105,7 +110,7 @@ export function KeywordsQuiz({
   const handleNextKw = () => {
     setSelectedKwUnitIds(new Set());
     setKwChecked(false);
-    setKwSeedIndex(Math.floor(Math.random() * 100000));
+    advance(lastCorrect);
     onAdvance();
   };
 

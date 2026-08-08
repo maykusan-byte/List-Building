@@ -3,12 +3,13 @@ import { sanitizeStratagemCategoryForQuiz, sanitizeStratagemTextForQuiz, generat
 import { StatsQuiz } from "./components/StatsQuiz";
 import { KeywordsQuiz } from "./components/KeywordsQuiz";
 import { StratagemsQuiz } from "./components/StratagemsQuiz";
+import { MissionsQuiz } from "./components/MissionsQuiz";
 import { WeaponsQuiz } from "./components/WeaponsQuiz";
 import { CompareQuiz } from "./components/CompareQuiz";
 import "./learning.css";
 import { useTranslation } from 'react-i18next';
 import { BrandMark } from '../components/BrandMark';
-import { formatSaveDisplay, isUnitAvailableToFaction, parseInvulSave } from '../domain/catalog';
+import { formatSaveDisplay, isUnitAvailableToFaction, parseInvulSave, primaryRosterSourceKeysForFaction, sourceKeysForFaction } from '../domain/catalog';
 import { getDetachmentCost } from '../domain/calculations';
 import { getInventoryAvailability, getProxySourceUnits } from '../domain/inventory';
 import { unitImageUrl } from '../domain/unit-images';
@@ -18,7 +19,7 @@ import type { NormalizedDatabase, NormalizedUnit, RosterDraft } from '../domain/
 import type { UnitImageEntry } from '../domain/unit-images';
 
 type ScopeFilter = 'all' | 'stock' | 'favorites' | 'roster';
-type QuizType = 'all' | 'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare';
+type QuizType = 'all' | 'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions';
 
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
@@ -76,13 +77,19 @@ export function LearningPage({
     return unitImageUrl(entry, DATA_BASE_URL);
   };
 
-  const [selectedFactionIds, setSelectedFactionIds] = useState<Set<string>>(new Set());
+  const [selectedFactionId, setSelectedFactionId] = useState<string | null>(null);
   const [hasInitializedFactions, setHasInitializedFactions] = useState(false);
-  const [scope, setScope] = useState<ScopeFilter>('stock');
+  const [scope, setScope] = useState<ScopeFilter>(() => {
+    if (inventory && inventory.entries.length > 0) return 'stock';
+    if (activeDraft && activeDraft.items.length > 0) return 'roster';
+    if (favorites.length > 0) return 'favorites';
+    return 'all';
+  });
   const [quizType, setQuizType] = useState<QuizType>('all');
-  const [allQuizSubtype, setAllQuizSubtype] = useState<'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare'>('stats');
+  const [allQuizSubtype, setAllQuizSubtype] = useState<'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions'>('stats');
 
 
+  const [missionsScore, setMissionsScore] = useState<{ correct: number; total: number; streak: number }>({ correct: 0, total: 0, streak: 0 });
   const [stratScore, setStratScore] = useState<{ correct: number; total: number; streak: number }>({ correct: 0, total: 0, streak: 0 });
   const [stratSeedIndex, setStratSeedIndex] = useState<number>(0);
 
@@ -90,51 +97,51 @@ export function LearningPage({
     setScope(preset);
   };
 
-  const handleSelectAllFactions = () => {
-    const all = new Set(database.factions.map(f => f.id));
-    setSelectedFactionIds(all);
-  };
-
-  const handleDeselectAllFactions = () => {
-    setSelectedFactionIds(new Set());
-  };
-
   const toggleFaction = (factionId: string) => {
-    setSelectedFactionIds(prev => {
-      const next = new Set(prev);
-      if (next.has(factionId)) next.delete(factionId);
-      else next.add(factionId);
-      return next;
-    });
+    setSelectedFactionId(factionId);
   };
 
   const eligibleUnits = useMemo(() => {
     let units = database.units;
     if (scope !== 'all') {
       const favSet = new Set(favorites);
-      units = units.filter(u => {
+      units = units.filter((u) => {
         if (scope === 'favorites') return favSet.has(u.id);
-        if (scope === 'roster') return activeDraft?.items.some(i => i.unitId === u.id);
+        if (scope === 'roster') return activeDraft?.items.some((i) => i.unitId === u.id) ?? false;
         if (scope === 'stock') {
-          if (!inventory || inventory.databaseFingerprint !== database.fingerprint) return false;
-          return inventory.entries.some(e => e.unitId === u.id);
+          if (!inventory) return false;
+          return inventory.entries.some((e) => e.unitId === u.id);
         }
         return false;
       });
     }
-    return units.filter(u => selectedFactionIds.has(u.factionName));
-  }, [database, scope, favorites, activeDraft, inventory, selectedFactionIds]);
+    if (!selectedFactionId) return [];
+    return units.filter((u) => {
+      if (u.factionName === selectedFactionId || isUnitAvailableToFaction(database, selectedFactionId, u)) {
+        return true;
+      }
+      return false;
+    });
+  }, [database, scope, favorites, activeDraft, inventory, selectedFactionId]);
 
   const eligibleDetachments = useMemo(() => {
-    const detachmentsWithStrats = database.detachments.filter(d => (d.Stratagems ?? []).length > 0);
-    const selectedFactionNames = new Set(database.factions.filter(f => selectedFactionIds.has(f.id)).map(f => f.name));
-    const factionFiltered = detachmentsWithStrats.filter(d => selectedFactionNames.has(d.factionName));
-    
+    const detachmentsWithStrats = database.detachments.filter((d) => (d.Stratagems ?? []).length > 0);
+    if (!selectedFactionId) return [];
+
+    const validSourceKeys = new Set<string>();
+    const primaryKeys = primaryRosterSourceKeysForFaction(database, selectedFactionId);
+    primaryKeys.forEach((k) => validSourceKeys.add(k));
+    const allKeys = sourceKeysForFaction(database, selectedFactionId);
+    allKeys.forEach((k) => validSourceKeys.add(k));
+
+    const factionFiltered = detachmentsWithStrats.filter((d) => validSourceKeys.has(d.sourceKey) || selectedFactionId === d.factionName);
+
     if (scope === 'all') return factionFiltered;
-    
-    const factionNamesFromUnits = new Set(eligibleUnits.map(u => u.factionName));
-    return factionFiltered.filter(d => factionNamesFromUnits.has(d.factionName));
-  }, [database, selectedFactionIds, scope, eligibleUnits]);
+
+    const factionNamesFromUnits = new Set(eligibleUnits.map((u) => u.factionName));
+    const sourceKeysFromUnits = new Set(eligibleUnits.map((u) => u.sourceKey));
+    return factionFiltered.filter((d) => sourceKeysFromUnits.has(d.sourceKey) || factionNamesFromUnits.has(d.factionName));
+  }, [database, selectedFactionId, scope, eligibleUnits]);
 
   // Compute available faction sets for quick presets
   const stockFactionIds = useMemo(() => {
@@ -184,23 +191,15 @@ export function LearningPage({
     []
   );
 
-  // Default to Blood Angels, Dark Angels, Ultramarines, Space Marines on initial load
+  // Default to Space Marines on initial load
   useEffect(() => {
     if (!hasInitializedFactions && database.factions.length > 0) {
-      const defaultFactionSet = new Set(
-        database.factions
-          .filter(
-            (f) =>
-              DEFAULT_FACTION_NAMES.has(f.name.toLowerCase().trim()) ||
-              DEFAULT_FACTION_NAMES.has(f.id.toLowerCase().trim())
-          )
-          .map((f) => f.id)
-      );
-      const initialIds = defaultFactionSet.size > 0 ? defaultFactionSet : allFactionIds;
-      setSelectedFactionIds(new Set(initialIds));
+      const defaultFaction = database.factions.find(f => DEFAULT_FACTION_NAMES.has(f.name.toLowerCase().trim()) || DEFAULT_FACTION_NAMES.has(f.id.toLowerCase().trim()));
+      const initialId = defaultFaction ? defaultFaction.id : database.factions[0].id;
+      setSelectedFactionId(initialId);
       setHasInitializedFactions(true);
     }
-  }, [database, allFactionIds, hasInitializedFactions, DEFAULT_FACTION_NAMES]);
+  }, [database, hasInitializedFactions, DEFAULT_FACTION_NAMES]);
 
     const [kwScore, setKwScore] = useState<{ correct: number; total: number; streak: number }>({ correct: 0, total: 0, streak: 0 });
 
@@ -217,19 +216,20 @@ export function LearningPage({
 
   // Helper to pick next random subtype when advancing in 'all' mode
   const pickNextAllSubtype = () => {
-    const options: ('stats' | 'keywords' | 'stratagems')[] = [];
+    const options: ('stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions')[] = [];
     if (eligibleUnits.length > 0) {
-      options.push('stats', 'keywords');
+      options.push('stats', 'keywords', 'weapons', 'compare');
     }
     if (eligibleDetachments.length > 0) {
       options.push('stratagems');
     }
+    options.push('missions');
     if (options.length === 0) return;
     const next = options[Math.floor(Math.random() * options.length)];
     setAllQuizSubtype(next);
   };
 
-  const effectiveQuizType: 'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' = useMemo(() => {
+  const effectiveQuizType: 'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions' = useMemo(() => {
     if (quizType !== 'all') return quizType;
     if (allQuizSubtype === 'stratagems' && eligibleDetachments.length === 0 && eligibleUnits.length > 0) {
       return 'stats';
@@ -284,56 +284,33 @@ export function LearningPage({
       {/* Mode Navigation & Score Header */}
       <section className="command-center learning-command-center">
         <div className="learning-topbar">
-          <div className="learning-tabs">
-            <button
-              className={quizType === 'all' ? '' : 'secondary'}
-              onClick={() => setQuizType('all')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
+          <div className="learning-select-wrapper" style={{ flex: '1 1 200px' }}>
+            <select
+              value={quizType}
+              onChange={(e) => setQuizType(e.target.value as any)}
+              className="learning-select"
             >
-              🎲 {isFrench ? 'Tous les tests' : 'All Quizzes'}
-            </button>
-            <button
-              className={quizType === 'stats' ? '' : 'secondary'}
-              onClick={() => setQuizType('stats')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
-            >
-              🎴 {isFrench ? 'Profils & Caractéristiques' : 'Unit Stats Datacard'}
-            </button>
-            <button
-              className={quizType === 'weapons' ? '' : 'secondary'}
-              onClick={() => setQuizType('weapons')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
-            >
-              ⚔️ {isFrench ? 'Profils d\'Armes' : 'Weapon Profiles'}
-            </button>
-            <button
-              className={quizType === 'compare' ? '' : 'secondary'}
-              onClick={() => setQuizType('compare')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
-            >
-              ⚖️ {isFrench ? 'Comparer' : 'Compare'}
-            </button>
-            <button
-              className={quizType === 'keywords' ? '' : 'secondary'}
-              onClick={() => setQuizType('keywords')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
-            >
-              🏷️ {isFrench ? 'Test de Mots-Clés' : 'Keywords Quiz'}
-            </button>
-            <button
-              className={quizType === 'stratagems' ? '' : 'secondary'}
-              onClick={() => setQuizType('stratagems')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem' }}
-            >
-              ⚡ {isFrench ? 'Tests stratagèmes' : 'Stratagems Quiz'}
-            </button>
+              <option value="all">🎲 {isFrench ? 'Tous les tests' : 'All Quizzes'}</option>
+              <option value="stats">🎴 {isFrench ? 'Profils & Caractéristiques' : 'Unit Stats Datacard'}</option>
+              <option value="weapons">⚔️ {isFrench ? 'Profils d\'Armes' : 'Weapon Profiles'}</option>
+              <option value="compare">⚖️ {isFrench ? 'Comparer' : 'Compare'}</option>
+              <option value="keywords">🏷️ {isFrench ? 'Test de Mots-Clés' : 'Keywords Quiz'}</option>
+              <option value="stratagems">⚡ {isFrench ? 'Tests stratagèmes' : 'Stratagems Quiz'}</option>
+              <option value="missions">📜 {isFrench ? 'Missions' : 'Missions'}</option>
+            </select>
+            <div className="learning-select-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
+
 
           <div className="learning-scores score-display">
             {quizType === 'all' ? (
               (() => {
-                const totalCorr = statsScore.correct + weaponsScore.correct + kwScore.correct + stratScore.correct + compareScore.correct;
-                const totalTot = statsScore.total + weaponsScore.total + kwScore.total + stratScore.total + compareScore.total;
+                const totalCorr = statsScore.correct + weaponsScore.correct + kwScore.correct + stratScore.correct + compareScore.correct + missionsScore.correct;
+                const totalTot = statsScore.total + weaponsScore.total + kwScore.total + stratScore.total + compareScore.total + missionsScore.total;
                 return (
                   <>
                     <div className="score-badge">🎯 {isFrench ? 'Score Global' : 'Overall Score'} : {totalCorr}/{totalTot}</div>
@@ -360,182 +337,181 @@ export function LearningPage({
         <div className="learning-filters-section">
           {/* Preset Segmented Control */}
           <div className="learning-filters-header" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '0.5rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--ink)' }}>
-                🎯 {isFrench ? 'Périmètre d’apprentissage :' : 'Learning Scope:'}
+            <label htmlFor="scope-select" style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
+              🎯 {isFrench ? 'Périmètre d’apprentissage :' : 'Learning Scope:'}
+            </label>
+            <div className="learning-select-wrapper">
+              <select
+                id="scope-select"
+                value={scope}
+                onChange={(e) => handleSelectPreset(e.target.value as any)}
+                className="learning-select"
+              >
+                <option value="stock" disabled={!inventory}>📦 {isFrench ? 'Mon Inventaire' : 'My Collection'}</option>
+                <option value="favorites">⭐ {isFrench ? 'Mes Favoris' : 'My Favorites'}</option>
+                <option value="roster" disabled={!activeDraft}>📋 {isFrench ? 'Liste Active' : 'Active Roster'}</option>
+                <option value="all">🌍 {isFrench ? 'Toutes les Unités' : 'All Units'}</option>
+              </select>
+              <div className="learning-select-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
             </div>
-            <div className="segmented-control">
-              <button
-                type="button"
-                className={scope === 'stock' ? 'active' : ''}
-                onClick={() => handleSelectPreset('stock')}
-                disabled={!inventory}
-                title={!inventory ? (isFrench ? 'Inventaire non disponible' : 'Inventory unavailable') : ''}
-              >
-                📦 {isFrench ? 'Mon Inventaire' : 'My Collection'}
-              </button>
-              <button
-                type="button"
-                className={scope === 'favorites' ? 'active' : ''}
-                onClick={() => handleSelectPreset('favorites')}
-              >
-                ⭐ {isFrench ? 'Mes Favoris' : 'My Favorites'}
-              </button>
-              <button
-                type="button"
-                className={scope === 'roster' ? 'active' : ''}
-                onClick={() => handleSelectPreset('roster')}
-                disabled={!activeDraft}
-                title={!activeDraft ? (isFrench ? 'Aucune liste active' : 'No active roster') : ''}
-              >
-                📋 {isFrench ? 'Liste Active' : 'Active Roster'}
-              </button>
-              <button
-                type="button"
-                className={scope === 'all' ? 'active' : ''}
-                onClick={() => handleSelectPreset('all')}
-              >
-                🌍 {isFrench ? 'Toutes les Unités' : 'All Units'}
-              </button>
-            </div>
           </div>
 
-          {/* Faction Checkboxes Header & Select/Deselect All */}
-          <div className="learning-checkboxes-header">
-            <div style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
-              {isFrench ? `Choix des factions (${selectedFactionIds.size}/${database.factions.length}) :` : `Selected Factions (${selectedFactionIds.size}/${database.factions.length}):`}
-            </div>
-            <div style={{ display: 'flex', gap: '0.35rem' }}>
-              <button
-                type="button"
-                className="secondary"
-                onClick={handleSelectAllFactions}
-                style={{ padding: '0.15rem 0.45rem', fontSize: '0.72rem' }}
+          {/* Faction Select */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem', marginBottom: '0.5rem' }}>
+            <label htmlFor="faction-select" style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
+              {isFrench ? `Choix de la faction :` : `Selected Faction:`}
+            </label>
+            <div className="learning-select-wrapper">
+              <select
+                id="faction-select"
+                value={selectedFactionId || ''}
+                onChange={(e) => toggleFaction(e.target.value)}
+                className="learning-select"
               >
-                ✓ {isFrench ? 'Tout cocher' : 'Select All'}
-              </button>
-              <button
-                type="button"
-                className="secondary"
-                onClick={handleDeselectAllFactions}
-                style={{ padding: '0.15rem 0.45rem', fontSize: '0.72rem' }}
-              >
-                ✗ {isFrench ? 'Tout décocher' : 'Deselect All'}
-              </button>
+                {database.factions.map((f) => (
+                  <option key={f.id} value={f.id}>
+                    {display.factionName(f.name)}
+                  </option>
+                ))}
+              </select>
+              <div className="learning-select-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
             </div>
-          </div>
-
-          {/* Checkboxes Grid */}
-          <div className="learning-checkboxes-grid">
-            {database.factions.map((f) => {
-              const isChecked = selectedFactionIds.has(f.id);
-              return (
-                <label
-                  key={f.id}
-                  className="learning-checkbox-label"
-                  style={{
-                    color: isChecked ? 'var(--ink)' : 'var(--ink-soft)',
-                    fontWeight: isChecked ? 600 : 400
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => toggleFaction(f.id)}
-                    className="learning-checkbox-input"
-                  />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {display.factionName(f.name)} <span style={{ opacity: 0.6, fontSize: '0.72rem' }}>({f.unitCount})</span>
-                  </span>
-                </label>
-              );
-            })}
           </div>
         </div>
       </section>
 
       {/* Content Area */}
-      {effectiveQuizType === 'stats' ? (
-        <StatsQuiz
-          database={database}
-          display={display}
-          isFrench={isFrench}
-          shuffledUnits={shuffledUnits}
-          onAdvance={pickNextAllSubtype}
-          onScoreUpdate={(isCorrect) => {
-            setStatsScore((prev) => ({
-              correct: prev.correct + (isCorrect ? 1 : 0),
-              total: prev.total + 1,
-              streak: isCorrect ? prev.streak + 1 : 0
-            }));
-          }}
-          inventory={inventory}
-          getUnitImgUrl={getUnitImgUrl}
-        />
-      ) : effectiveQuizType === 'keywords' ? (
-        <KeywordsQuiz
-          database={database}
-          display={display}
-          isFrench={isFrench}
-          eligibleUnits={eligibleUnits}
-          onAdvance={pickNextAllSubtype}
-          onScoreUpdate={(numCorrect, total, isFullyCorrect) => {
-            setKwScore((prev) => ({
-              correct: prev.correct + numCorrect,
-              total: prev.total + total,
-              streak: isFullyCorrect ? prev.streak + 1 : 0
-            }));
-          }}
-          getUnitImgUrl={getUnitImgUrl}
-        />
-      ) : effectiveQuizType === 'compare' ? (
-        <CompareQuiz
-          database={database}
-          display={display}
-          isFrench={isFrench}
-          eligibleUnits={shuffledUnits}
-          onAdvance={pickNextAllSubtype}
-          onScoreUpdate={(isCorrect) => {
-            setCompareScore((prev) => ({
-              correct: prev.correct + (isCorrect ? 1 : 0),
-              total: prev.total + 1,
-              streak: isCorrect ? prev.streak + 1 : 0
-            }));
-          }}
-          getUnitImgUrl={getUnitImgUrl}
-        />
-      ) : effectiveQuizType === 'weapons' ? (
-        <WeaponsQuiz
-          database={database}
-          display={display}
-          isFrench={isFrench}
-          eligibleUnits={shuffledUnits}
-          onAdvance={pickNextAllSubtype}
-          onScoreUpdate={(isCorrect) => {
-            setWeaponsScore((prev) => ({
-              correct: prev.correct + (isCorrect ? 1 : 0),
-              total: prev.total + 1,
-              streak: isCorrect ? prev.streak + 1 : 0
-            }));
-          }}
-          getUnitImgUrl={getUnitImgUrl}
-        />
+      {eligibleUnits.length === 0 && (effectiveQuizType !== 'stratagems' || eligibleDetachments.length === 0) && effectiveQuizType !== 'missions' ? (
+        <section className="library-panel" style={{ marginTop: '0.85rem', padding: '2.5rem 1.5rem', textAlign: 'center' }}>
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🎯</div>
+          <h3 style={{ fontSize: '1.15rem', margin: '0 0 0.5rem 0' }}>
+            {isFrench ? 'Aucune unité ou détachement disponible pour ce filtre' : 'No units or detachments available for this filter'}
+          </h3>
+          <p className="muted" style={{ margin: '0 auto 1.25rem auto', maxWidth: '500px', fontSize: '0.9rem' }}>
+            {isFrench
+              ? 'Essayez de choisir le périmètre "Toutes les Unités" ou de choisir une autre faction.'
+              : 'Try selecting the "All Units" scope or choosing another faction.'}
+          </p>
+          <button
+            type="button"
+            className="action-with-icon"
+            onClick={() => {
+              setScope('all');
+            }}
+            style={{ margin: '0 auto', padding: '0.5rem 1rem' }}
+          >
+            🌍 {isFrench ? 'Réinitialiser : Toutes les Factions & Unités' : 'Reset: All Factions & Units'}
+          </button>
+        </section>
       ) : (
-        <StratagemsQuiz
-          database={database}
-          display={display}
-          isFrench={isFrench}
-          eligibleDetachments={eligibleDetachments}
-          onAdvance={pickNextAllSubtype}
-          onScoreUpdate={(isSuccess) => {
-            setStratScore((prev) => ({
-              correct: prev.correct + (isSuccess ? 1 : 0),
-              total: prev.total + 1,
-              streak: isSuccess ? prev.streak + 1 : 0
-            }));
-          }}
-        />
+        <>
+          <div style={{ display: effectiveQuizType === 'stats' ? 'block' : 'none' }}>
+            <StatsQuiz
+              database={database}
+              display={display}
+              isFrench={isFrench}
+              shuffledUnits={shuffledUnits}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(isCorrect: boolean) => {
+                setStatsScore((prev) => ({
+                  correct: prev.correct + (isCorrect ? 1 : 0),
+                  total: prev.total + 1,
+                  streak: isCorrect ? prev.streak + 1 : 0
+                }));
+              }}
+              inventory={inventory}
+              getUnitImgUrl={getUnitImgUrl}
+            />
+          </div>
+          <div style={{ display: effectiveQuizType === 'keywords' ? 'block' : 'none' }}>
+            <KeywordsQuiz
+              database={database}
+              display={display}
+              isFrench={isFrench}
+              eligibleUnits={eligibleUnits}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(numCorrect, total, isFullyCorrect) => {
+                setKwScore((prev) => ({
+                  correct: prev.correct + numCorrect,
+                  total: prev.total + total,
+                  streak: isFullyCorrect ? prev.streak + 1 : 0
+                }));
+              }}
+              getUnitImgUrl={getUnitImgUrl}
+            />
+          </div>
+          <div style={{ display: effectiveQuizType === 'compare' ? 'block' : 'none' }}>
+            <CompareQuiz
+              database={database}
+              display={display}
+              isFrench={isFrench}
+              eligibleUnits={shuffledUnits}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(isCorrect: boolean) => {
+                setCompareScore((prev) => ({
+                  correct: prev.correct + (isCorrect ? 1 : 0),
+                  total: prev.total + 1,
+                  streak: isCorrect ? prev.streak + 1 : 0
+                }));
+              }}
+              getUnitImgUrl={getUnitImgUrl}
+            />
+          </div>
+          <div style={{ display: effectiveQuizType === 'weapons' ? 'block' : 'none' }}>
+            <WeaponsQuiz
+              database={database}
+              display={display}
+              isFrench={isFrench}
+              eligibleUnits={shuffledUnits}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(isCorrect: boolean) => {
+                setWeaponsScore((prev) => ({
+                  correct: prev.correct + (isCorrect ? 1 : 0),
+                  total: prev.total + 1,
+                  streak: isCorrect ? prev.streak + 1 : 0
+                }));
+              }}
+              getUnitImgUrl={getUnitImgUrl}
+            />
+          </div>
+          <div style={{ display: effectiveQuizType === 'missions' ? 'block' : 'none' }}>
+            <MissionsQuiz
+              isFrench={isFrench}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(isCorrect: boolean) => {
+                setMissionsScore((prev) => ({
+                  correct: prev.correct + (isCorrect ? 1 : 0),
+                  total: prev.total + 1,
+                  streak: isCorrect ? prev.streak + 1 : 0
+                }));
+              }}
+            />
+          </div>
+          <div style={{ display: effectiveQuizType === 'stratagems' ? 'block' : 'none' }}>
+            <StratagemsQuiz
+              database={database}
+              display={display}
+              isFrench={isFrench}
+              eligibleDetachments={eligibleDetachments}
+              onAdvance={pickNextAllSubtype}
+              onScoreUpdate={(isSuccess) => {
+                setStratScore((prev) => ({
+                  correct: prev.correct + (isSuccess ? 1 : 0),
+                  total: prev.total + 1,
+                  streak: isSuccess ? prev.streak + 1 : 0
+                }));
+              }}
+            />
+          </div>
+        </>
       )}
     </main>
   );

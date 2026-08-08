@@ -132,4 +132,27 @@ describe('Warforge data engine', () => {
     expect(calculateItemCost(database, items[2], items, []).base).toBe(85);
     expect(calculateItemCost(database, items[2], items, [database.detachments[0].id])).toMatchObject({ pointOverride: 105, total: 105 });
   });
+
+  it('includes subfaction units and detachments in primary roster when IsIncludedInPrimaryRoster is true', () => {
+    const database = normalizeDatabase(JSON.stringify({
+      SchemaVersion: 'warforge-catalog/v2',
+      BattleSizeDefinitions: [{ PointsTotal: 1000, DetachmentPoints: 2, EnhancementLimit: 2, UnitLimit: 2 }],
+      FactionInfo: {
+        Factions: [
+          { Name: 'Space Marines', FactionKeyword: 'Adeptus Astartes', Allies: [{ FactionKeyword: 'Salamanders', IsIncludedInPrimaryRoster: true }] },
+          { Name: 'Salamanders', FactionKeyword: 'Salamanders', Allies: [{ FactionKeyword: 'Adeptus Astartes', IsIncludedInPrimaryRoster: true }] }
+        ]
+      },
+      Books: [
+        { Name: 'Space Marines', SourceKey: 'Space Marines', Units: [{ Name: 'INTERCESSOR SQUAD', Points: [{ ModelCount: 5, Cost: 80 }] }], Dettachments: [{ Name: 'GLADIUS TASK FORCE' }] },
+        { Name: 'Salamanders', SourceKey: 'Salamanders', Units: [{ Name: 'ADRAX AGATONE', FactionKeywords: ['Salamanders'], Points: [{ ModelCount: 1, Cost: 85 }] }], Dettachments: [{ Name: 'FORGEFATHER’S SEEKERS' }] }
+      ]
+    }));
+
+    const adrax = database.units.find((u) => u.displayName === 'ADRAX AGATONE')!;
+    expect(isUnitAvailableToFaction(database, 'Space Marines', adrax)).toBe(true);
+
+    const smDetachments = database.detachments.filter((d) => database.primaryRostersByFaction?.['Space Marines']?.includes(d.sourceKey));
+    expect(smDetachments.map((d) => d.displayName)).toEqual(['GLADIUS TASK FORCE', 'FORGEFATHER’S SEEKERS']);
+  });
 });

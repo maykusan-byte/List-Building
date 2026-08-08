@@ -124,7 +124,7 @@ export interface RawFactionInfo {
   Name?: string;
   FactionKeyword?: string;
   AdditionalFactionKeywords?: string[];
-  Allies?: Array<{ FactionKeyword?: string; AdditionalFactionKeywords?: string[] }>;
+  Allies?: Array<{ FactionKeyword?: string; AdditionalFactionKeywords?: string[]; IsIncludedInPrimaryRoster?: boolean }>;
 }
 
 export interface RawCatalogBundle {
@@ -178,6 +178,7 @@ export interface NormalizedDatabase {
   books: SourceBook[];
   factions: FactionSummary[];
   alliesByFaction: Record<string, string[]>;
+  primaryRostersByFaction?: Record<string, string[]>;
   dataInfo?: RawCatalogBundle['DataInfo'];
   units: NormalizedUnit[];
   detachments: NormalizedDetachment[];

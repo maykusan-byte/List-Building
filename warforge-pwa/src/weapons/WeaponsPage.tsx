@@ -181,7 +181,7 @@ export function WeaponsPage({
               {entries.map((entry) => (
                 <tr key={entry.id}>
                   <td>{entry.melee ? t('weapons.melee') : t('weapons.ranged')}</td>
-                  <th scope="row">{entry.profile.Name?.trim() || (locale === 'fr' ? 'Arme sans nom' : 'Unnamed weapon')}</th>
+                  <th scope="row">{entry.profile.Name ? display.term(entry.profile.Name.trim()) : (locale === 'fr' ? 'Arme sans nom' : 'Unnamed weapon')}</th>
                   <td>{stat(entry.profile.Range)}</td><td>{stat(entry.profile.Attacks)}</td><td>{stat(entry.profile.ToHit)}</td>
                   <td>{stat(entry.profile.Strength)}</td><td>{stat(entry.profile.AP)}</td><td>{stat(entry.profile.Damage)}</td>
                   {WEAPON_TARGET_IDS.map((id) => <td className="weapon-target-damage" key={id}><strong>{damage(entry.targetDamages[id], locale)}</strong></td>)}

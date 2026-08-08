@@ -121,26 +121,34 @@ function catalogFactions(
   sourceBooks: SourceBook[],
   units: NormalizedUnit[],
   detachments: NormalizedDetachment[]
-): { factions: FactionSummary[]; alliesByFaction: Record<string, string[]> } {
+): { factions: FactionSummary[]; alliesByFaction: Record<string, string[]>; primaryRostersByFaction: Record<string, string[]> } {
   const bySourceKey = new Map(sourceBooks.map((book) => [book.sourceKey, book]));
   const factions: FactionSummary[] = [];
   const alliesByFaction: Record<string, string[]> = {};
+  const primaryRostersByFaction: Record<string, string[]> = {};
+
+  const resolveTarget = (target: string | undefined): string[] => {
+    const trimmed = target?.trim();
+    if (!trimmed) return [];
+    if (bySourceKey.has(trimmed)) return [trimmed];
+    const primaryMatch = (factionInfo ?? []).find((candidate) => candidate.Name?.trim() === trimmed || candidate.FactionKeyword?.trim() === trimmed);
+    if (primaryMatch?.Name && bySourceKey.has(primaryMatch.Name)) return [primaryMatch.Name];
+    const fallbackMatch = (factionInfo ?? []).find((candidate) => (candidate.AdditionalFactionKeywords ?? []).some((keyword) => keyword.trim() === trimmed));
+    return fallbackMatch?.Name && bySourceKey.has(fallbackMatch.Name) ? [fallbackMatch.Name] : [];
+  };
 
   (factionInfo ?? []).forEach((info) => {
     const id = info.Name?.trim();
     if (!id) return;
     const book = bySourceKey.get(id);
     if (!book) return;
-    const allies = [...new Set((info.Allies ?? []).flatMap((ally) => {
-      const target = ally.FactionKeyword?.trim();
-      if (!target) return [];
-      if (bySourceKey.has(target)) return [target];
-      const primaryMatch = (factionInfo ?? []).find((candidate) => candidate.Name?.trim() === target || candidate.FactionKeyword?.trim() === target);
-      if (primaryMatch?.Name && bySourceKey.has(primaryMatch.Name)) return [primaryMatch.Name];
-      const fallbackMatch = (factionInfo ?? []).find((candidate) => (candidate.AdditionalFactionKeywords ?? []).some((keyword) => keyword.trim() === target));
-      return fallbackMatch?.Name && bySourceKey.has(fallbackMatch.Name) ? [fallbackMatch.Name] : [];
-    }))];
+    const allies = [...new Set((info.Allies ?? []).flatMap((ally) => resolveTarget(ally.FactionKeyword)))];
+    const primaryRosters = [...new Set([
+      book.sourceKey,
+      ...(info.Allies ?? []).flatMap((ally) => ally.IsIncludedInPrimaryRoster ? resolveTarget(ally.FactionKeyword) : [])
+    ])];
     alliesByFaction[id] = allies;
+    primaryRostersByFaction[id] = primaryRosters;
     factions.push({
       id,
       name: info.Name?.trim() || book.name,
@@ -152,9 +160,9 @@ function catalogFactions(
   });
 
   if (factions.length === 0) {
-    return { factions: legacyFactions(sourceBooks, units, detachments), alliesByFaction };
+    return { factions: legacyFactions(sourceBooks, units, detachments), alliesByFaction, primaryRostersByFaction };
   }
-  return { factions: factions.sort((left, right) => left.name.localeCompare(right.name, 'fr')), alliesByFaction };
+  return { factions: factions.sort((left, right) => left.name.localeCompare(right.name, 'fr')), alliesByFaction, primaryRostersByFaction };
 }
 
 function battleSizesFrom(values: RawBattleSizeDefinition[]): Required<RawBattleSizeDefinition>[] {
@@ -178,7 +186,7 @@ export function normalizeDatabase(raw: string): NormalizedDatabase {
   const normalized = normalizedBooks(books, Boolean(catalog));
   const factionData = catalog
     ? catalogFactions(catalog.FactionInfo?.Factions, normalized.books, normalized.units, normalized.detachments)
-    : { factions: legacyFactions(normalized.books, normalized.units, normalized.detachments), alliesByFaction: {} };
+    : { factions: legacyFactions(normalized.books, normalized.units, normalized.detachments), alliesByFaction: {}, primaryRostersByFaction: {} };
   const battleSizes = battleSizesFrom(catalog?.BattleSizeDefinitions ?? books.flatMap((book) => book.BattleSizeDefinitions ?? []));
   if (battleSizes.length === 0) throw new Error('Aucun format de bataille exploitable n’a été trouvé.');
 
@@ -188,6 +196,7 @@ export function normalizeDatabase(raw: string): NormalizedDatabase {
     books: normalized.books,
     factions: factionData.factions,
     alliesByFaction: factionData.alliesByFaction,
+    primaryRostersByFaction: factionData.primaryRostersByFaction,
     dataInfo: catalog?.DataInfo,
     units: normalized.units,
     detachments: normalized.detachments,

@@ -1,5 +1,7 @@
 
+import { SCENARIOS } from '../../domain/scenarios';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { NormalizedDatabase, NormalizedDetachment } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import { getDetachmentCost } from "../../domain/calculations";
@@ -27,7 +29,11 @@ export function StratagemsQuiz({
   onAdvance,
   onScoreUpdate
 }: StratagemsQuizProps) {
-  const [stratSeedIndex, setStratSeedIndex] = useState<number>(() => Math.floor(Math.random() * 10000));
+  const { t } = useTranslation();
+  const [turn, setTurn] = useState<number>(0);
+  const [failedSchedule, setFailedSchedule] = useState<any[]>([]);
+  const [stratSeedIndex, setStratSeedIndex] = useState<number>(() => Math.floor(Math.random() * 100000));
+  const [lastCorrect, setLastCorrect] = useState(false);
   const [selectedStratagemChoice, setSelectedStratagemChoice] = useState<string | null>(null);
   const [selectedStratagemNames, setSelectedStratagemNames] = useState<Set<string>>(new Set());
   const [selectedCost, setSelectedCost] = useState<number | null>(null);
@@ -43,8 +49,10 @@ export function StratagemsQuiz({
   } | null>(null);
   const [stratChecked, setStratChecked] = useState<boolean>(false);
 
-  const stratagemQuestion = useMemo(() => {
+  const stratagemQuestion = useMemo<any>(() => {
     if (eligibleDetachments.length === 0) return null;
+    const scheduled = failedSchedule.find((s: any) => s.turn === turn);
+    if (scheduled) return scheduled.q as any;
     
     // Choose the question type: 'identify-detachment' or 'select-stratagems'
     const isIdentify = (Math.abs(stratSeedIndex) % 2) === 0;
@@ -52,7 +60,7 @@ export function StratagemsQuiz({
     if (isIdentify) {
       // identify-detachment: Show a single stratagem and ask which detachment it belongs to
       const allStrats = eligibleDetachments.flatMap((d) =>
-        (d.Stratagems ?? []).map((s) => ({ strat: s, detachment: d }))
+        (d.Stratagems ?? []).map((s: any) => ({ strat: s, detachment: d }))
       );
       if (allStrats.length === 0) return null;
       
@@ -87,17 +95,32 @@ export function StratagemsQuiz({
     }
   }, [eligibleDetachments, stratSeedIndex]);
 
+  const validDetachmentIds = useMemo(() => {
+    if (!stratagemQuestion || stratagemQuestion.type !== 'identify-detachment') return new Set<string>();
+    const targetName = (stratagemQuestion.targetStratagem.Name ?? '').toUpperCase().trim();
+    const validIds = new Set<string>();
+    for (const choice of stratagemQuestion.choices) {
+      const hasStrat = (choice.Stratagems ?? []).some(
+        (s: any) => (s.Name ?? '').toUpperCase().trim() === targetName
+      );
+      if (hasStrat) {
+        validIds.add(choice.id);
+      }
+    }
+    return validIds;
+  }, [stratagemQuestion]);
+
   const handleVerifyStrat = () => {
     if (!stratagemQuestion || stratChecked) return;
     setStratChecked(true);
 
     let isSuccess = false;
     if (stratagemQuestion.type === 'identify-detachment') {
-      isSuccess = selectedStratagemChoice === stratagemQuestion.correctDetachment.id;
+      isSuccess = selectedStratagemChoice !== null && validDetachmentIds.has(selectedStratagemChoice);
     } else {
-      const correctSet = new Set(stratagemQuestion.correctStratagems.map((s) => (s.Name ?? '').toUpperCase().trim()));
-      const selectedSet = new Set([...selectedStratagemNames].map((s) => s.toUpperCase().trim()));
-      const stratagemsSuccess = correctSet.size === selectedSet.size && [...correctSet].every((s) => selectedSet.has(s));
+      const correctSet = new Set(stratagemQuestion.correctStratagems.map((s: any) => (s.Name ?? '').toUpperCase().trim()));
+      const selectedSet = new Set([...selectedStratagemNames].map((s: any) => s.toUpperCase().trim()));
+      const stratagemsSuccess = correctSet.size === selectedSet.size && [...correctSet].every((s: any) => selectedSet.has(s));
 
       const targetCost = getDetachmentCost(stratagemQuestion.targetDetachment);
       const costSuccess = selectedCost === targetCost;
@@ -151,11 +174,19 @@ export function StratagemsQuiz({
               </h2>
               {stratChecked && (
                 <div style={{ fontSize: '0.85rem', fontWeight: 800, marginTop: '0.25rem' }}>
-                  {selectedStratagemChoice === stratagemQuestion.correctDetachment.id ? (
+                  {selectedStratagemChoice && validDetachmentIds.has(selectedStratagemChoice) ? (
                     <span style={{ color: '#0f5132' }}>🎉 {isFrench ? 'Excellente réponse !' : 'Correct answer!'}</span>
                   ) : (
                     <span style={{ color: '#842029' }}>
-                      ❌ {isFrench ? `Incorrect. Le bon détachement est : ${display.detachmentName(stratagemQuestion.correctDetachment)}` : `Incorrect. The correct detachment is: ${display.detachmentName(stratagemQuestion.correctDetachment)}`}
+                      ❌ {isFrench
+                        ? `Incorrect. Bon(s) détachement(s) : ${stratagemQuestion.choices
+                            .filter((c: any) => validDetachmentIds.has(c.id))
+                            .map((c: any) => display.detachmentName(c))
+                            .join(' ou ')}`
+                        : `Incorrect. Correct detachment(s): ${stratagemQuestion.choices
+                            .filter((c: any) => validDetachmentIds.has(c.id))
+                            .map((c: any) => display.detachmentName(c))
+                            .join(' or ')}`}
                     </span>
                   )}
                 </div>
@@ -185,7 +216,7 @@ export function StratagemsQuiz({
                   stratagemQuestion.correctDetachment.displayName,
                   stratagemQuestion.correctDetachment.Name,
                   stratagemQuestion.correctDetachment.id,
-                  ...stratagemQuestion.choices.flatMap((c) => [c.displayName, c.Name, c.id])
+                  ...stratagemQuestion.choices.flatMap((c: any) => [c.displayName, c.Name, c.id])
                 ].filter((n): n is string => typeof n === 'string' && n.trim().length > 2);
 
                 const cleanCategory = sanitizeStratagemCategoryForQuiz(
@@ -254,13 +285,13 @@ export function StratagemsQuiz({
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.65rem' }}>
-              {stratagemQuestion.choices.map((choice) => {
+              {stratagemQuestion.choices.map((choice: any) => {
                 const cost = getDetachmentCost(choice);
                 const costText = `${cost} DP`;
                 const choiceLabel = `${display.factionName(choice.factionName)} / ${display.detachmentName(choice)} / ${costText}`;
 
                 const isSelected = selectedStratagemChoice === choice.id;
-                const isCorrectChoice = choice.id === stratagemQuestion.correctDetachment.id;
+                const isCorrectChoice = validDetachmentIds.has(choice.id);
 
                 let btnBg = isSelected ? '#f5e9ce' : '#fcf9f2';
                 let btnBorder = isSelected ? '2px solid var(--gold-dark)' : '1px solid #dcd1be';
@@ -327,9 +358,9 @@ export function StratagemsQuiz({
               const expectedFd = (targetFd.length === 0 ? 'ALL' : targetFd[0]).toUpperCase().trim();
               const fdSuccess = selectedForceDisposition !== null && selectedForceDisposition.toUpperCase().trim() === expectedFd;
 
-              const correctSet = new Set(stratagemQuestion.correctStratagems.map((s) => (s.Name ?? '').toUpperCase().trim()));
-              const selectedSet = new Set([...selectedStratagemNames].map((s) => s.toUpperCase().trim()));
-              const stratagemsSuccess = correctSet.size === selectedSet.size && [...correctSet].every((s) => selectedSet.has(s));
+              const correctSet = new Set(stratagemQuestion.correctStratagems.map((s: any) => (s.Name ?? '').toUpperCase().trim()));
+              const selectedSet = new Set([...selectedStratagemNames].map((s: any) => s.toUpperCase().trim()));
+              const stratagemsSuccess = correctSet.size === selectedSet.size && [...correctSet].every((s: any) => selectedSet.has(s));
 
               const isSuccess = stratagemsSuccess && costSuccess && fdSuccess;
 
@@ -375,13 +406,13 @@ export function StratagemsQuiz({
 
           <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
             <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--ink-soft)', marginBottom: '0.35rem' }}>
-                    {isFrench ? 'Coût en DP (0-5)' : 'DP Cost (0-5)'}
+                    {isFrench ? 'Coût en DP (1-3)' : 'DP Cost (1-3)'}
                   </label>
                   <div style={{ display: 'flex', gap: '0.2rem' }}>
-                    {[0, 1, 2, 3, 4, 5].map((val) => {
+                    {[1, 2, 3].map((val) => {
                       const isSelected = selectedCost === val;
                       let bg = isSelected ? 'var(--gold, #dcb15b)' : '#f8f4eb';
                       let color = isSelected ? '#171108' : 'var(--ink-soft)';
@@ -422,10 +453,10 @@ export function StratagemsQuiz({
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--ink-soft)', marginBottom: '0.35rem' }}>
-                    Force Disposition
+                    {isFrench ? 'Scénario (Force Disposition)' : 'Scenario (Force Disposition)'}
                   </label>
-                  <div style={{ display: 'flex', gap: '0.2rem' }}>
-                    {['ALL', 'IMPERIALIS', 'TRAITORIS'].map((val) => {
+                  <div style={{ display: 'flex', gap: '0.2rem', flexWrap: 'wrap' }}>
+                    {['ALL', ...SCENARIOS.map((s: any) => s.id)].map((val) => {
                       const isSelected = selectedForceDisposition === val;
                       let bg = isSelected ? 'var(--gold, #dcb15b)' : '#f8f4eb';
                       let color = isSelected ? '#171108' : 'var(--ink-soft)';
@@ -440,6 +471,9 @@ export function StratagemsQuiz({
                           color = '#842029';
                         }
                       }
+                      const label = val === 'ALL'
+                        ? (isFrench ? 'TOUS' : 'ALL')
+                        : t(`scenarios.${val}.label`);
                       return (
                         <button
                           key={val}
@@ -451,14 +485,15 @@ export function StratagemsQuiz({
                             color: color,
                             border: '1px solid #e2d8c9',
                             borderRadius: '0.35rem',
-                            padding: '0.35rem 0',
-                            flex: 1,
+                            padding: '0.35rem 0.4rem',
+                            flex: '1 1 auto',
                             fontWeight: 800,
                             cursor: stratChecked ? 'default' : 'pointer',
-                            fontSize: '0.7rem'
+                            fontSize: '0.7rem',
+                            whiteSpace: 'nowrap'
                           }}
                         >
-                          {val === 'ALL' ? (isFrench ? 'TOUTES' : 'ALL') : val}
+                          {label}
                         </button>
                       );
                     })}
@@ -471,11 +506,11 @@ export function StratagemsQuiz({
                   {isFrench ? 'Sélectionnez les stratagèmes :' : 'Select Stratagems:'}
                 </label>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  {stratagemQuestion.proposedStratagems.map((strat, idx) => {
+                  {stratagemQuestion.proposedStratagems.map((strat: any, idx: number) => {
                     const stratName = strat.Name ?? '';
                     const isSelected = selectedStratagemNames.has(stratName);
                     const isCorrectStrat = stratagemQuestion.correctStratagems.some(
-                      (s) => s.Name?.toUpperCase().trim() === stratName.toUpperCase().trim()
+                      (s: any) => s.Name?.toUpperCase().trim() === stratName.toUpperCase().trim()
                     );
 
                     let chipBg = isSelected ? 'var(--gold, #dcb15b)' : '#fcf9f2';

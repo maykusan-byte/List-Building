@@ -43,6 +43,21 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
     issues.push({ id: 'points-budget', level: 'error', message: `Budget d’armée dépassé : ${total}/${battleSize.PointsTotal} pts.` });
   }
 
+  const CHAPTER_KEYWORDS = new Set([
+    'Black Templars',
+    'Blood Angels',
+    'Dark Angels',
+    'Deathwatch',
+    'Imperial Fists',
+    'Iron Hands',
+    'Raven Guard',
+    'Salamanders',
+    'Space Wolves',
+    'Ultramarines',
+    'White Scars'
+  ]);
+
+  const usedChapters = new Set<string>();
   const countByUnit = new Map<string, number>();
   let enhancements = 0;
   items.forEach(({ item, unit }) => {
@@ -53,6 +68,11 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
     if (!isUnitAvailableToFaction(database, draft.primaryFaction, unit)) {
       issues.push({ id: `faction-${item.id}`, level: 'error', message: `${unit.displayName} ne vient pas de la faction sélectionnée.` });
     }
+    (unit.FactionKeywords ?? []).forEach((keyword) => {
+      if (CHAPTER_KEYWORDS.has(keyword)) {
+        usedChapters.add(keyword);
+      }
+    });
     countByUnit.set(unit.id, (countByUnit.get(unit.id) ?? 0) + 1);
     if (item.enhancement) {
       enhancements += 1;
@@ -68,6 +88,14 @@ export function validateDraft(database: NormalizedDatabase, draft: RosterDraft):
       issues.push({ id: `wargear-${item.id}-${warningIndex}`, level: 'warning', message: `${unit.displayName} : ${warning}` });
     });
   });
+
+  if (usedChapters.size > 1) {
+    issues.push({
+      id: 'chapter-mixing',
+      level: 'error',
+      message: `Votre liste ne peut pas inclure d’unités provenant de plusieurs Chapitres différents (${[...usedChapters].join(', ')}).`
+    });
+  }
 
   if (battleSize && enhancements > battleSize.EnhancementLimit) {
     issues.push({

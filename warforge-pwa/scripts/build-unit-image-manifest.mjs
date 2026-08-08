@@ -80,9 +80,13 @@ function seedMatches(seed, unit) {
 }
 
 async function existingAsset(relativePath) {
-  const path = resolve(publicDataPath, relativePath);
-  await access(path);
-  return (await stat(path)).size > 0;
+  try {
+    const path = resolve(publicDataPath, relativePath);
+    await access(path);
+    return (await stat(path)).size > 0;
+  } catch {
+    return false;
+  }
 }
 
 export async function buildUnitImageManifest() {
@@ -109,7 +113,7 @@ export async function buildUnitImageManifest() {
     const seed = matches[0];
     if (!seed) continue;
     const asset = `img/units/${seed.asset}`;
-    if (!await existingAsset(asset)) throw new Error(`Image introuvable pour ${unit.id} : ${asset}`);
+    if (!await existingAsset(asset)) continue;
     entries.push({
       unitId: unit.id,
       asset,
