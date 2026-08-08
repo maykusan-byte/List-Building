@@ -8,6 +8,7 @@
     "sync-data": "node scripts/sync-data.mjs",
     "gdm:import": "node scripts/import-gdmissions-11th.mjs --run",
     "missions:validate": "node scripts/mission-data.mjs --check",
+    "faction-packs:validate": "node scripts/faction-pack-audit.mjs --check",
     "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",
     "rules:validate": "node scripts/validate-rules.mjs",
     "locales:sync": "node scripts/sync-mfm-unit-locales.mjs",
@@ -22,11 +23,11 @@
     "prebuild": "pnpm sync-data",
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:pages": "pnpm sync-data && tsc -b && vite build --mode github-pages",
+    "build:pages": "pnpm faction-packs:validate && pnpm sync-data && tsc -b && vite build --mode github-pages",
     "preview": "vite preview",
     "lint": "tsc -b",
     "test": "vitest run --config vite.config.ts",
-    "verify": "pnpm sync-data && pnpm missions:validate && pnpm images:validate && pnpm rules:validate && pnpm test && pnpm build",
+    "verify": "pnpm faction-packs:validate && pnpm sync-data && pnpm missions:validate && pnpm images:validate && pnpm rules:validate && pnpm test && pnpm build",
     "test:watch": "vitest --config vite.config.ts"
   },
   "dependencies": {

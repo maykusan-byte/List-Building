@@ -35,6 +35,10 @@ d’environnement utilisateur `Path` de Windows.
 
 - `data/units/`, `data/locales/`, `data/rules/` et `data/inventory/` sont les
   entrées versionnées de Warforge.
+- `data/faction-packs/manifest.json` relie chaque pack de faction français à
+  son PDF local, son empreinte SHA-256, sa version, sa date d'effet et son
+  état d'audit. `pnpm faction-packs:validate` bloque les sources nouvelles ou
+  non auditées avant une publication.
 - Les fichiers sous `public/data/` sont générés par `pnpm sync-data`, à
   l’exception des images publiques validées.
 - Les PDF de règles et les notes de contexte sont conservés hors de la PWA dans
@@ -91,7 +95,8 @@ recherche approximative comme identifiant d’unité.
 ## Déploiement GitHub Pages
 
 Chaque envoi sur la branche `master` déclenche le workflow
-`.github/workflows/deploy-pages.yml`. Il installe les dépendances, génère le catalogue,
+`.github/workflows/deploy-pages.yml`. Il installe les dépendances, valide les packs de
+faction, génère le catalogue,
 synchronise les ressources versionnées de la PWA, compile la PWA et publie `dist/` sur GitHub Pages.
 
 Le workflow utilise automatiquement le chemin du dépôt GitHub : les données,

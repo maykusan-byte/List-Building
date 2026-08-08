@@ -32,6 +32,8 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Validate faction pack audit
+        run: pnpm --dir warforge-pwa faction-packs:validate
       - name: Build the PWA
         run: pnpm --dir warforge-pwa build:pages
       - name: Verify generated artifacts

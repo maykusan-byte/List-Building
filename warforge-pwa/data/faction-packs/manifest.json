@@ -1,0 +1,219 @@
+{
+  "schemaVersion": "warforge-faction-pack-audit/v1",
+  "catalog": {
+    "dataInfoPath": "data/units/DataInfo.json",
+    "version": "1.2.13.0",
+    "publishedAt": "2026-07-24T20:15:05.0043058Z"
+  },
+  "packs": [
+    {
+      "id": "aeldari-v1.2-2026-08-05",
+      "faction": "Aeldari",
+      "catalogFile": "data/units/Aeldari.json",
+      "source": {
+        "relativePath": "references/warhammer-40k/faction-packs/fre_05-08_wh40k_faction_pack_aeldari-3eaigqhbbg-dzwnrssftp_copie.pdf",
+        "language": "fr",
+        "version": "1.2",
+        "effectiveAt": "2026-08-05",
+        "pageCount": 28,
+        "sha256": "fa92bef4d596fcb9d727df33a02f0ff315fa4bc5744a9f3d0b2cf12d4ace851a"
+      },
+      "audit": {
+        "status": "catalog-audited-with-known-gaps",
+        "auditedAt": "2026-08-08",
+        "knownGaps": [
+          "Les fiches Chevaliers Dragons, Traqueur Tellurien, Chanteur de Pierre et Lame de Clan exigent une source de points vérifiée avant import."
+        ]
+      }
+    },
+    {
+      "id": "deathwatch-v1.0-2026-06-20",
+      "faction": "Deathwatch",
+      "catalogFile": "data/units/Deathwatch.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_08-06_warhammer40000_faction_pack_deathwatch-zs99xq2bi0-tqenv587nn_copie.pdf", "language": "fr", "version": "1.0", "effectiveAt": "2026-06-20", "pageCount": 28, "sha256": "a9077e031fb7a26cdbede2d50086a6053bda474f3e9e48966a1c99f89390409c" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "adepta-sororitas-v1.1-2026-06-22",
+      "faction": "Adepta Sororitas",
+      "catalogFile": "data/units/Adepta Sororitas.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_adepta_sororitas-zkasdzbvkp-jgixfwjwur_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-06-22", "pageCount": 14, "sha256": "e32112fce71728161505fe560932ca74e21887dd22f0ff8dc8ca6bfb50291980" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "adeptus-custodes-v1.1-2026-07-22",
+      "faction": "Adeptus Custodes",
+      "catalogFile": "data/units/Adeptus Custodes.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_adeptus_custodes-yd7p15axrj-ndsvkbtby8_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 9, "sha256": "51879df23f5518ce59cf05586d63c57c585e799c0e6a80f8fbf825c755f08134" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "adeptus-mechanicus-v1.1-2026-07-22",
+      "faction": "Adeptus Mechanicus",
+      "catalogFile": "data/units/Adeptus Mechanicus.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_adeptus_mechanicus-rvjcrts9f3-qqx9rffpzp_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 19, "sha256": "d81a7876dcbac82551408a94f81cfe5c67d565ffb43a6af86e9893f4518fb26b" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "black-templars-v1.1-2026-07-22",
+      "faction": "Black Templars",
+      "catalogFile": "data/units/Black Templars.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_black_templars-efp5xromvm-8syg3smcd6_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 5, "sha256": "96aeb8c1faef9842137b3cead3892e4d2695b6be86808a42a212c72708442c6b" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "blood-angels-v1.1-2026-07-22",
+      "faction": "Blood Angels",
+      "catalogFile": "data/units/Blood Angels.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_blood_angels-5itzplkrbv-wnamrfvfs4_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 10, "sha256": "32a81025ff962e21b3dd67695472ebea79b6c5a09871f752fbc2c364d17b398b" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "chaos-daemons-v1.1-2026-07-22",
+      "faction": "Chaos Daemons",
+      "catalogFile": "data/units/Chaos Daemons.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_chaos_daemons-vb4fuekggl-5cvrnv8wo0_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 131, "sha256": "3773e1c49e6f0755d9c216feb7cdc9638edd2014f938163c580f6de60e345999" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "chaos-knights-v1.1-2026-07-22",
+      "faction": "Chaos Knights",
+      "catalogFile": "data/units/Chaos Knights.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_chaos_knights-sfinckwm0t-fpehvpm6tz_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 7, "sha256": "a2ded8ceedab1b1cbfbe51a17528689d8dbdeede5eec1745200792862690eaa8" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "chaos-space-marines-v1.1-2026-07-22",
+      "faction": "Chaos Space Marines",
+      "catalogFile": "data/units/Chaos Space Marines.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_chaos_space_marines-ws8pilz3vw-pz5d36s1g0_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 39, "sha256": "dbd5214776c5e5ad83056a4b4e04cbd88394cb5b53f87bd0121f65ae1dfbc771" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "dark-angels-v1.1-2026-07-22",
+      "faction": "Dark Angels",
+      "catalogFile": "data/units/Dark Angels.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_dark_angels-o7opjyoeiu-pl5wztmupm_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 11, "sha256": "2de2196a847cb39ecb4d29dc5c8479cf4cb5f24b0460c48699f29aab5203b3f6" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "drukhari-v1.1-2026-07-22",
+      "faction": "Drukhari",
+      "catalogFile": "data/units/Drukhari.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_drukhari-u3fjb1mma6-irjimkt1bb_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 8, "sha256": "8eb4fcc6797a318cbd8b394a5763a85a2c47ea4541fdc3c22a4591adc93fb67d" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "emperors-children-v1.1-2026-07-22",
+      "faction": "Emperor's Children",
+      "catalogFile": "data/units/Emperor's Children.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_emperor_s_children-tmpbwelqkw-dojpjcjkf8_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 10, "sha256": "98b41f94274c84cc8afaa934d8a4cb475f384fff63b7c4e60780da80dd2fac49" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "genestealer-cults-v1.1-2026-07-22",
+      "faction": "Genestealer Cults",
+      "catalogFile": "data/units/Genestealer Cults.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_genestealer_cults-cdkgcgjprl-oid2msyxy7_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 9, "sha256": "da2cc4cd5e066e74a5d9dd57c2637820502829afb9fc62732f62b1144fb90c7b" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "grey-knights-v1.1-2026-07-22",
+      "faction": "Grey Knights",
+      "catalogFile": "data/units/Grey Knights.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_grey_knights-8547tjhnr2-9bryyczctx_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 7, "sha256": "32011c546ee998909bb4ea2b8b192b52f200e9afe6297e61b84a72e6832f234f" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "imperial-agents-v1.1-2026-07-22",
+      "faction": "Imperial Agents",
+      "catalogFile": "data/units/Imperial Agents.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_imperia_agents-5afblkucim-n1lknb1zeh_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 11, "sha256": "efe693b75ac5b3d5f289faa1c31e1194e36223b9f21ad9b272ffa3f3a20704c5" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "imperial-knights-v1.1-2026-07-22",
+      "faction": "Imperial Knights",
+      "catalogFile": "data/units/Imperial Knights.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_imperia_knights-ikxw2tf7to-lrrxfcpwuw_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 9, "sha256": "557abadb383367b26922a5c1b814788de7714f247379e6ea575891b9ca9edfab" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "leagues-of-votann-v1.1-2026-07-22",
+      "faction": "Leagues of Votann",
+      "catalogFile": "data/units/Leagues of Votann.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_leagues_of_votann-s1syqp2zp0-qfii0fezlw_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 11, "sha256": "de4a70753bf0ecc9fbe05e8e0f41660b0381c81d770f6bed4c73f4aa590eed5c" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "necrons-v1.1-2026-07-22",
+      "faction": "Necrons",
+      "catalogFile": "data/units/Necrons.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_necrons-aj45fj0vpw-kpb9kedhs1_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 31, "sha256": "2273572531ab0c4be60c98fcf01886ed4968d6a7bbf4603d2fbef1e450f42a54" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "orks-v1.1-2026-07-22",
+      "faction": "Orks",
+      "catalogFile": "data/units/Orks.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_orks-k9mtvacodx-ovzgkoxr3b_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 25, "sha256": "b6e8249b9284050eef5e8da95a4308086b2f0c09f13a991037e77957e87e1d12" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "space-marines-v1.1-2026-07-22",
+      "faction": "Space Marines",
+      "catalogFile": "data/units/Space Marines.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_space_marines-6wse5zhfer-mz7j3abkil_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 60, "sha256": "247ccf96c5d2b6e16f28c34ad670b14c47fed2e1f405d77fbed0c5fae8f73993" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "space-wolves-v1.1-2026-07-22",
+      "faction": "Space Wolves",
+      "catalogFile": "data/units/Space Wolves.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_space_wolves-em3dkvgtvd-burznugxfr_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 9, "sha256": "38ce501021ac863d7fdc808a902e3884412acabe34cce1e897ae4abd271e9e3c" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "tau-empire-v1.1-2026-07-22",
+      "faction": "Tau Empire",
+      "catalogFile": "data/units/Tau Empire.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_tau_empire-zqsgqir46e-pszdxnfljr_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 12, "sha256": "7b0e1818916a75a014c6149ae324d6b1281616a709a92c78ab4abe145825d775" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "thousand-sons-v1.1-2026-07-22",
+      "faction": "Thousand Sons",
+      "catalogFile": "data/units/Thousand Sons.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_thousand_sons-gbfjtpmb4o-ekc7su2r7d_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 11, "sha256": "3a6993e3d4d5e3fc258ccfa68d73e259004776c790ccb5094da8ffdf8c53d8a1" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "world-eaters-v1.1-2026-07-22",
+      "faction": "World Eaters",
+      "catalogFile": "data/units/World Eaters.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_world_eaters-rbmmlsmiux-vsvfizbh9k_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 8, "sha256": "7f29e1669f0cb37d7c8607f3a765611f125509002f3ca663cd5c86cd5a45f70a" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "astra-militarum-v1.1-2026-07-22",
+      "faction": "Astra Militarum",
+      "catalogFile": "data/units/Astra Militarum.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40000_faction_pack_astra_militarum-tkriusbubl-loczin1iys_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 27, "sha256": "7eb9d84bf8f872b7cd053cf96b2fec421d2199568ff00e14b4bbd7eb8e11fe7c" },
+      "audit": { "status": "catalog-audited-with-known-gaps", "auditedAt": "2026-08-08", "knownGaps": ["Les suppressions de Tempestus Aquilons et Ratlings exigent une migration d'identifiants et d'inventaire explicitement versionnée."] }
+    },
+    {
+      "id": "death-guard-v1.1-2026-07-22",
+      "faction": "Death Guard",
+      "catalogFile": "data/units/Death Guard.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40000_faction_pack_death_guard-tvvfiu0mnm-qecgerbulj_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 7, "sha256": "5f93f4847dd18733b52a535af40de444e631551f5dedc63ccd6c4e09f4f9e32a" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    },
+    {
+      "id": "tyranids-v1.1-2026-07-22",
+      "faction": "Tyranids",
+      "catalogFile": "data/units/Tyranids.json",
+      "source": { "relativePath": "references/warhammer-40k/faction-packs/fre_22-07_warhammer_40000_faction_pack_tyranids-b0f1tbe0jd-kwv6yzrcmn_copie.pdf", "language": "fr", "version": "1.1", "effectiveAt": "2026-07-22", "pageCount": 17, "sha256": "a5d6424062c78e71528f727cd83816e2ca33e4b83697866a800bd412bd5c9655" },
+      "audit": { "status": "catalog-audited", "auditedAt": "2026-08-08" }
+    }
+  ]
+}
