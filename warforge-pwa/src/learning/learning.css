@@ -288,3 +288,44 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+.mission-quiz { margin-top: 0.85rem; padding: 1.25rem; }
+.mission-quiz-header { align-items: flex-start; display: flex; gap: 1rem; justify-content: space-between; }
+.mission-quiz-header h2 { margin: 0.2rem 0 0; }
+.mission-quiz-score { background: #f8f2e6; border: 1px solid #dfd0b8; border-radius: 999px; color: var(--ink); font-size: 0.78rem; font-weight: 800; margin: 0; padding: 0.45rem 0.65rem; white-space: nowrap; }
+.mission-quiz-filter { color: var(--ink-soft); display: grid; font-size: 0.75rem; font-weight: 800; gap: 0.35rem; margin-top: 1rem; max-width: 25rem; }
+.mission-quiz-filter select { background: #fffdf8; border: 1px solid #d8c9b6; border-radius: 0.5rem; color: var(--ink); font: inherit; padding: 0.6rem; }
+.mission-quiz-question { background: #fffdf8; border: 1px solid #dfd2bf; border-radius: 0.85rem; margin-top: 1rem; overflow: hidden; }
+.mission-quiz-question > h3 { font-size: 1.05rem; margin: 0; padding: 1.1rem 1rem 0; text-align: center; }
+.mission-quiz-brief-card, .mission-quiz-question > .mission-quiz-rules, .mission-quiz-question > .mission-quiz-matchup { background: #fcfaf5; border-bottom: 1px solid #eadfce; padding: 1rem; }
+.mission-quiz-brief-card h3 { font-size: 1.15rem; margin: 0.25rem 0 0.75rem; text-align: center; }
+.mission-quiz-matchup { align-items: stretch; display: grid; gap: 0.65rem; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+.mission-quiz-force { border-radius: 0.7rem; color: #fff; display: grid; gap: 0.35rem; padding: 1rem; text-align: center; }
+.mission-quiz-force span { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; }
+.mission-quiz-force strong { font-size: 1rem; }
+.mission-quiz-force--friendly { background: #1f4f8a; }
+.mission-quiz-force--opponent { background: #8a2b2b; }
+.mission-quiz-versus { align-self: center; background: #eee3d1; border-radius: 999px; color: var(--ink-soft); font-size: 0.8rem; font-weight: 900; padding: 0.5rem; }
+.mission-quiz-rules { text-align: left; }
+.mission-quiz-rules--compact { font-size: 0.78rem; }
+.mission-quiz-rules--compact .mission-rule-section { margin-top: 0.45rem; padding-top: 0.45rem; }
+.mission-quiz-rules--compact .mission-score-line { font-size: 0.72rem; padding: 0.25rem 0; }
+.mission-text-underline { text-decoration: underline; }
+.mission-quiz-options { display: grid; gap: 0.65rem; padding: 1rem; }
+.mission-quiz-options--rules { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.mission-quiz-option { align-items: center; background: #fff; border: 2px solid #ded1bf; border-radius: 0.65rem; color: var(--ink); cursor: pointer; display: flex; font: inherit; font-size: 0.93rem; font-weight: 800; justify-content: space-between; min-height: 3rem; padding: 0.75rem; text-align: left; transition: border-color 150ms ease, background 150ms ease, color 150ms ease; }
+.mission-quiz-option:hover:not(:disabled) { background: #fff9eb; border-color: var(--gold-dark); }
+.mission-quiz-option:disabled { cursor: default; }
+.mission-quiz-option--correct { background: #e5f2e7; border-color: #2f6b4f; color: #16452b; }
+.mission-quiz-option--wrong { background: #fff0ee; border-color: #b9382d; color: #8f241c; }
+.mission-quiz-option--muted { opacity: 0.55; }
+.mission-quiz-feedback { border-radius: 0.55rem; font-size: 0.85rem; font-weight: 800; margin: 1rem 0 0; padding: 0.7rem 0.8rem; }
+.mission-quiz-feedback--correct { background: #e5f2e7; color: #16452b; }
+.mission-quiz-feedback--wrong { background: #fff0ee; color: #8f241c; }
+.mission-quiz-review { background: #fffdf8; border: 1px solid #dfd2bf; border-radius: 0.85rem; margin-top: 1rem; overflow: hidden; padding: 1rem; }
+.mission-quiz-review__heading h3 { font-size: 1.15rem; margin: 0.25rem 0 0; }
+.mission-quiz-card-image { background: #20170e; border: 1px solid #dfd2bf; border-radius: 0.6rem; display: block; margin: 1rem auto 0; max-height: 32rem; max-width: 100%; }
+.mission-quiz-layouts { border-top: 1px solid #eadfce; margin-top: 1rem; padding-top: 0.85rem; }
+.mission-quiz-layouts h4 { color: var(--gold-dark); font-size: 0.78rem; letter-spacing: 0.06em; margin: 0 0 0.65rem; text-transform: uppercase; }
+.mission-quiz-layout-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+.mission-quiz-next { display: block; margin: 1rem auto 0; }
