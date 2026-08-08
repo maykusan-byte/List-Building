@@ -9,9 +9,6 @@ import { ReferenceSearchPage } from './search/ReferenceSearchPage';
 export interface ReferencePageProps {
   database: NormalizedDatabase | null;
   locale: 'fr' | 'en';
-  onOpenBuilder: () => void;
-  onOpenWeapons: () => void;
-  onOpenLearning?: () => void;
 }
 
 export function ReferencePage(props: ReferencePageProps) {
@@ -54,11 +51,6 @@ export function ReferencePage(props: ReferencePageProps) {
             <p>{props.locale === 'en' ? 'Offline access' : 'Accès hors ligne'}</p>
           </div>
         </div>
-        <div className="weapons-topbar-actions">
-          {props.onOpenLearning && <button className="secondary action-with-icon" onClick={props.onOpenLearning}><span className="button-icon" aria-hidden="true">🎓</span>{props.locale === 'en' ? 'Learning' : 'Apprentissage'}</button>}
-          <button className="secondary action-with-icon" onClick={props.onOpenWeapons}><span className="button-icon" aria-hidden="true">✦</span>{props.locale === 'en' ? 'Armoury' : 'Arsenal'}</button>
-          <button className="secondary action-with-icon" onClick={props.onOpenBuilder}><span className="button-icon" aria-hidden="true">⌘</span>{props.locale === 'en' ? 'Army builder' : 'Créateur de liste'}</button>
-        </div>
       </header>
 
       <nav className="reference-nav" style={{ padding: '0 1.5rem', borderBottom: '1px solid var(--border)', display: 'flex', gap: '1.5rem', marginBottom: '1rem', background: '#f8f4eb' }}>
@@ -68,7 +60,7 @@ export function ReferencePage(props: ReferencePageProps) {
         <a href="#reference/search" style={{ padding: '0.75rem 0', color: route === 'search' ? 'var(--ink)' : 'var(--ink-soft)', fontWeight: route === 'search' ? 800 : 500, borderBottom: route === 'search' ? '2px solid var(--ink)' : '2px solid transparent', textDecoration: 'none' }}>Recherche Globale</a>
       </nav>
 
-      {route === 'core' && <ReferenceCorePage {...props} />}
+      {route === 'core' && <ReferenceCorePage locale={props.locale} />}
       {route === 'factions' && <ReferenceFactionsPage database={props.database} locale={props.locale} />}
       {route === 'missions' && <ReferenceMissionsPage locale={props.locale} />}
       {route === 'search' && <ReferenceSearchPage database={props.database} locale={props.locale} />}

@@ -1,4 +1,5 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
 import { formatSaveDisplay, isAlliedUnit, isUnitAvailableToFaction, primaryRosterSourceKeysForFaction, sourceLabel } from './domain/catalog';
@@ -21,6 +22,8 @@ import type { ExportedList, NormalizedDatabase, NormalizedDetachment, Normalized
 import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
 import { BrandMark } from './components/BrandMark';
+import { GlobalNavigation } from './components/GlobalNavigation';
+import { createUserProfile, parseUserProfile } from './domain/user-profile';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
 import type { UnitImageEntry, UnitImageStatus } from './domain/unit-images';
@@ -705,75 +708,112 @@ function RosterCard({ database, item, draft, inventory, inventoryReservation, di
 
 
 
-function WeaponInline({ name, unit, display, t }: { name: string, unit?: import('./domain/types').NormalizedUnit, display: CatalogLocalization, t: any }) {
+function WeaponInline({ name, unit, display }: { name: string; unit?: import('./domain/types').NormalizedUnit; display: CatalogLocalization }): React.JSX.Element {
+  const { i18n } = useTranslation();
+  const isFrench = supportedLocale(i18n.resolvedLanguage ?? i18n.language) === 'fr';
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [coords, setCoords] = useState({ top: 0, left: 0, bottom: 0 });
-  
-  if (!unit) return <span style={{ fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)' }}>{name}</span>;
-  
-  const allProfiles = weaponProfiles(unit);
+  const popoverRef = useRef<HTMLElement>(null);
+  const [position, setPosition] = useState({ top: 0, left: 0, placement: 'below' as 'above' | 'below' });
+
+  const allProfiles = unit ? weaponProfiles(unit) : [];
   const cleanName = name.trim().toLowerCase();
   const matchedProfiles = allProfiles.filter(p => {
      const profileName = (p.profile.Name || '').toLowerCase();
      return profileName === cleanName || profileName.includes(cleanName) || cleanName.includes(profileName);
   });
-  
-  if (matchedProfiles.length === 0) {
+
+  const updatePosition = useCallback(() => {
+    const anchor = buttonRef.current;
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const spaceAbove = rect.top;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const placement = spaceBelow >= 280 || spaceBelow >= spaceAbove ? 'below' : 'above';
+    setPosition({
+      left: Math.min(Math.max(rect.left, 8), window.innerWidth - 8),
+      top: placement === 'below' ? rect.bottom + 8 : rect.top - 8,
+      placement
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [open, updatePosition]);
+
+  useLayoutEffect(() => {
+    if (!open || !popoverRef.current) return;
+    const frame = window.requestAnimationFrame(() => {
+      const rect = popoverRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const horizontalOffset = rect.left < 8 ? 8 - rect.left : rect.right > window.innerWidth - 8 ? window.innerWidth - 8 - rect.right : 0;
+      const verticalOffset = rect.top < 8 ? 8 - rect.top : rect.bottom > window.innerHeight - 8 ? window.innerHeight - 8 - rect.bottom : 0;
+      if (horizontalOffset || verticalOffset) {
+        setPosition((current) => ({ ...current, left: current.left + horizontalOffset, top: current.top + verticalOffset }));
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [open, position.left, position.top]);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnOutsidePress = (event: PointerEvent): void => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (!buttonRef.current?.contains(target) && !popoverRef.current?.contains(target)) setOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', closeOnOutsidePress);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsidePress);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [open]);
+
+  if (!unit || matchedProfiles.length === 0) {
     return <span style={{ fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)' }}>{name}</span>;
   }
-  
-  const handleOpen = () => {
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setCoords({ top: rect.top, left: rect.left + rect.width / 2, bottom: window.innerHeight - rect.top });
-    }
-    setOpen(true);
-  };
-  
+
   return (
-    <span style={{ display: 'inline-flex' }} onMouseLeave={() => setOpen(false)}>
+    <span className="weapon-inline">
       <button 
         ref={buttonRef}
-        type="button" 
-        onClick={(e) => { e.preventDefault(); if(open) setOpen(false); else handleOpen(); }}
-        onMouseEnter={handleOpen}
-        onFocus={handleOpen}
-        onBlur={() => setOpen(false)}
-        style={{ 
-          background: 'none', border: 'none', padding: 0, margin: 0, font: 'inherit',
-          cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textDecorationColor: 'var(--gold)',
-          fontWeight: 600, textTransform: 'capitalize', color: 'var(--ink)'
-        }}
+        type="button"
+        className="weapon-profile-trigger"
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        onClick={() => setOpen((current) => !current)}
       >
         {name}
       </button>
-      {open && (
-        <div style={{
-          position: 'fixed', zIndex: 99999, 
-          bottom: coords.bottom + 8 + 'px', 
-          left: coords.left + 'px', 
-          transform: 'translateX(-50%)',
-          background: 'var(--paper)', border: '1px solid var(--gold)', borderRadius: '0.5rem', padding: '0.5rem',
-          width: 'max-content', maxWidth: 'calc(100vw - 2rem)', boxShadow: '0 8px 32px rgba(58, 43, 20, 0.4)',
-          fontSize: '0.75rem', textAlign: 'left', lineHeight: 1.4, color: 'var(--ink)'
-        }} 
-        ref={node => {
-          if (node) {
-            const rect = node.getBoundingClientRect();
-            if (rect.left < 10) {
-              node.style.left = '10px';
-              node.style.transform = 'none';
-            } else if (rect.right > window.innerWidth - 10) {
-              node.style.left = 'auto';
-              node.style.right = '10px';
-              node.style.transform = 'none';
-            }
-          }
-        }}
-        onMouseDown={(e) => e.preventDefault()}>
+      {open && createPortal(
+        <section
+          ref={popoverRef}
+          className="weapon-profile-popover"
+          role="dialog"
+          aria-label={`${display.term(name) || name} — ${isFrench ? 'profil d’arme' : 'weapon profile'}`}
+          style={{ left: `${position.left}px`, top: `${position.top}px`, transform: position.placement === 'above' ? 'translateY(-100%)' : undefined }}
+        >
+          <header className="weapon-profile-popover-heading">
+            <strong>{display.term(name) || name}</strong>
+            <button type="button" className="weapon-profile-popover-close" onClick={() => { setOpen(false); buttonRef.current?.focus(); }} aria-label={isFrench ? 'Fermer le profil d’arme' : 'Close weapon profile'}>×</button>
+          </header>
           <WeaponTable profiles={matchedProfiles} display={display} compact={true} />
-        </div>
+        </section>,
+        document.body
       )}
     </span>
   );
@@ -788,7 +828,7 @@ function WargearDescription({ model, display, t, unit }: { model: any, display: 
       <>
         {parts.map((part, index) => (
           <span key={index} style={{ display: 'inline-flex', alignItems: 'center' }}>
-            <WeaponInline name={part} unit={unit} display={display} t={t} />
+            <WeaponInline name={part} unit={unit} display={display} />
             {index < parts.length - 1 && <span style={{ fontWeight: 400, margin: '0 0.35rem', color: 'var(--ink-soft)' }}>{separator}</span>}
           </span>
         ))}
@@ -899,6 +939,7 @@ export default function App(): React.JSX.Element {
   const databaseInputRef = useRef<HTMLInputElement>(null);
   const inventoryInputRef = useRef<HTMLInputElement>(null);
   const listInputRef = useRef<HTMLInputElement>(null);
+  const profileInputRef = useRef<HTMLInputElement>(null);
 
   const display = useMemo(
     () => createCatalogLocalization(locale, catalogOverlay, catalogLocaleStatus),
@@ -1326,6 +1367,73 @@ export default function App(): React.JSX.Element {
     }
   };
 
+  const exportUserProfile = (): void => {
+    const currentDraft = database && draft ? {
+      id: draft.id,
+      name: draft.name.trim() || (locale === 'fr' ? 'Liste sans nom' : 'Unnamed list'),
+      updatedAt: new Date().toISOString(),
+      databaseFingerprint: database.fingerprint,
+      draft
+    } : null;
+    const profile = createUserProfile({
+      locale,
+      favorites,
+      savedDrafts: currentDraft ? [currentDraft, ...savedDraftsRef.current.filter((saved) => saved.id !== currentDraft.id)].slice(0, 50) : savedDraftsRef.current,
+      activeDraftId: draft?.id ?? readActiveDraftId(),
+      localInventory: inventory?.sourceKind === 'local' ? inventory : undefined
+    });
+    const date = profile.exportedAt.slice(0, 10);
+    downloadJson(`profil-warforge-${date}.json`, profile);
+    setNotice(locale === 'fr' ? 'Profil exporté : listes, favoris, langue et inventaire personnel.' : 'Profile exported: lists, favourites, language and personal inventory.');
+  };
+
+  const importUserProfile = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      const profile = parseUserProfile(JSON.parse(await file.text()) as unknown);
+      if (!profile) throw new Error(locale === 'fr' ? 'Ce fichier ne correspond pas à une sauvegarde de profil Warforge.' : 'This file is not a Warforge profile backup.');
+      const message = locale === 'fr'
+        ? `Restaurer ce profil ? Il remplacera vos ${profile.savedDrafts.length} liste(s), vos favoris et votre langue sur cet appareil.`
+        : `Restore this profile? It will replace your ${profile.savedDrafts.length} saved list(s), favourites and language on this device.`;
+      if (!window.confirm(message)) return;
+
+      const restoredDrafts = profile.savedDrafts.slice(0, 50).map((saved) => ({
+        ...saved,
+        draft: { ...saved.draft, items: saved.draft.items.map(normalizeRosterItemWargear) }
+      }));
+      if (!writeSavedDrafts(restoredDrafts)) throw new Error(locale === 'fr' ? 'Les listes du profil ne peuvent pas être enregistrées dans ce navigateur.' : 'The profile lists could not be saved in this browser.');
+      writeFavorites(profile.favorites);
+      if (!writeActiveDraftId(profile.activeDraftId ?? '')) throw new Error(locale === 'fr' ? 'La liste active du profil ne peut pas être enregistrée dans ce navigateur.' : 'The profile active list could not be saved in this browser.');
+      savedDraftsRef.current = restoredDrafts;
+      setSavedDrafts(restoredDrafts);
+      setFavorites(profile.favorites);
+      changeLocale(profile.locale);
+
+      const activeSaved = profile.activeDraftId ? restoredDrafts.find((saved) => saved.id === profile.activeDraftId) : undefined;
+      const restoredActiveDraft = database && activeSaved ? restoreSavedDraft(activeSaved, database) : null;
+      if (restoredActiveDraft) {
+        setDraft(restoredActiveDraft);
+        setSelectedUnitId(null);
+        setVisibleUnits(60);
+      }
+
+      if (profile.localInventory) {
+        await cacheInventory(profile.localInventory);
+        if (database && profile.localInventory.databaseFingerprint === database.fingerprint) await installInventory(profile.localInventory);
+      }
+
+      const compatibleCount = database ? restoredDrafts.filter((saved) => restoreSavedDraft(saved, database) !== null).length : 0;
+      setNotice(locale === 'fr'
+        ? `Profil restauré : ${compatibleCount} liste(s) disponible(s) avec le catalogue actuel.`
+        : `Profile restored: ${compatibleCount} list(s) are available for the current catalog.`);
+    } catch (importError) {
+      setError(importError instanceof Error ? importError.message : (locale === 'fr' ? 'Impossible d’importer ce profil.' : 'Unable to import this profile.'));
+    } finally {
+      event.target.value = '';
+    }
+  };
+
   const toggleFavorite = (unitId: string): void => {
     const next = favorites.includes(unitId) ? favorites.filter((id) => id !== unitId) : [...favorites, unitId];
     setFavorites(next);
@@ -1340,33 +1448,45 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'weapons';
   };
 
-  const openLearning = (): void => {
-    window.location.hash = 'learning';
-  };
+  const globalNavigation = <GlobalNavigation activeView={view} locale={locale} onChangeLocale={changeLocale} onExportProfile={exportUserProfile} onImportProfile={() => profileInputRef.current?.click()} />;
+  const profileImportInput = <input ref={profileInputRef} type="file" accept="application/json,.json" hidden onChange={importUserProfile} />;
 
-  const openBuilder = (): void => {
-    window.location.hash = 'builder';
-  };
+  if (view === 'reference') {
+    return (
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <ReferencePage database={database} locale={locale} />
+      </>
+    );
+  }
 
-  if (view === 'reference') return <ReferencePage database={database} locale={locale} onOpenBuilder={openBuilder} onOpenWeapons={openWeapons} onOpenLearning={openLearning} />;
-
-  if (view === 'weapons' && database) return <WeaponsPage database={database} display={display} locale={locale} onOpenBuilder={openBuilder} onOpenRules={openRules} onOpenLearning={openLearning} />;
+  if (view === 'weapons' && database) {
+    return (
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <WeaponsPage database={database} display={display} locale={locale} />
+      </>
+    );
+  }
 
   if (view === 'learning' && database) {
     return (
-      <LearningPage
-        database={database}
-        display={display}
-        locale={locale}
-        inventory={inventory}
-        inventoryAllocation={inventoryAllocation}
-        activeDraft={draft}
-        favorites={favorites}
-        unitImages={unitImages}
-        onOpenBuilder={openBuilder}
-        onOpenRules={openRules}
-        onOpenWeapons={openWeapons}
-      />
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <LearningPage
+          database={database}
+          display={display}
+          locale={locale}
+          inventory={inventory}
+          inventoryAllocation={inventoryAllocation}
+          activeDraft={draft}
+          favorites={favorites}
+          unitImages={unitImages}
+        />
+      </>
     );
   }
 
@@ -1411,7 +1531,10 @@ export default function App(): React.JSX.Element {
   };
 
   return (
-    <main className="app-shell">
+    <>
+      {globalNavigation}
+      {profileImportInput}
+      <main className="app-shell">
       {notice && <div className="toast" role="status">{notice}<button onClick={() => setNotice(null)}>×</button></div>}
       {error && <div className="toast error-toast" role="alert">{error}<button onClick={() => setError(null)}>×</button></div>}
 
@@ -1436,16 +1559,6 @@ export default function App(): React.JSX.Element {
             )}
             <p className="inventory-status">{inventoryStatus}</p>
           </div>
-        </div>
-        <div className="topbar-actions">
-          <button className="secondary action-with-icon" onClick={openLearning}><span className="button-icon" aria-hidden="true">🎓</span>{locale === 'fr' ? 'Apprentissage' : 'Learning'}</button>
-          <label className="language-selector">
-            <span>{t('navigation.language')}</span>
-            <select value={locale} onChange={(event) => changeLocale(event.target.value)} aria-label={t('navigation.language')}>
-              <option value="fr">{t('navigation.french')}</option>
-              <option value="en">{t('navigation.english')}</option>
-            </select>
-          </label>
         </div>
       </header>
 
@@ -1940,6 +2053,7 @@ export default function App(): React.JSX.Element {
           </section>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }

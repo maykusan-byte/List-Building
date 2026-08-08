@@ -49,10 +49,7 @@ export function LearningPage({
   inventoryAllocation,
   activeDraft,
   favorites,
-  unitImages,
-  onOpenBuilder,
-  onOpenRules,
-  onOpenWeapons
+  unitImages
 }: {
   database: NormalizedDatabase;
   display: CatalogLocalization;
@@ -62,9 +59,6 @@ export function LearningPage({
   activeDraft: RosterDraft | null;
   favorites: string[];
   unitImages: ReadonlyMap<string, UnitImageEntry>;
-  onOpenBuilder: () => void;
-  onOpenRules: () => void;
-  onOpenWeapons: () => void;
 }): React.JSX.Element {
 
 
@@ -260,20 +254,6 @@ export function LearningPage({
                 : 'Test and memorize unit stats and keywords'}
             </p>
           </div>
-        </div>
-        <div className="weapons-topbar-actions" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <button className="secondary action-with-icon" onClick={onOpenBuilder}>
-            <span className="button-icon" aria-hidden="true">⌘</span>
-            {isFrench ? 'Créateur de liste' : 'Army Builder'}
-          </button>
-          <button className="secondary action-with-icon" onClick={onOpenRules}>
-            <span className="button-icon" aria-hidden="true">§</span>
-            {isFrench ? 'Règles' : 'Rules'}
-          </button>
-          <button className="secondary action-with-icon" onClick={onOpenWeapons}>
-            <span className="button-icon" aria-hidden="true">✦</span>
-            {isFrench ? 'Arsenal' : 'Armoury'}
-          </button>
         </div>
       </header>
 

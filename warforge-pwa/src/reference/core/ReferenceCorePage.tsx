@@ -84,15 +84,9 @@ function MissionFramework({ document }: { document: RulesDocument }): React.JSX.
 }
 
 export function ReferenceCorePage({
-  locale,
-  onOpenBuilder,
-  onOpenWeapons,
-  onOpenLearning
+  locale
 }: {
   locale: 'fr' | 'en';
-  onOpenBuilder: () => void;
-  onOpenWeapons: () => void;
-  onOpenLearning?: () => void;
 }): React.JSX.Element {
   const [document, setDocument] = useState<RulesDocument | null>(null);
   const [error, setError] = useState<string | null>(null);

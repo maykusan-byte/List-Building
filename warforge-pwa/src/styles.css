@@ -39,6 +39,27 @@ h1 { font-size: clamp(1.65rem, 4vw, 2.35rem); margin-bottom: 0.25rem; }
 h2 { font-size: 1.2rem; margin-bottom: 0.35rem; }
 h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
 p { color: var(--ink-soft); line-height: 1.5; }
+.global-navigation { align-items: center; background: linear-gradient(122deg, var(--navy) 0%, #172b46 60%, var(--navy-soft) 100%); border: 1px solid var(--navy-line); border-top-color: var(--gold-light); border-radius: 1rem; box-shadow: 0 0.8rem 2rem rgba(15, 25, 40, 0.22); display: grid; gap: 0.85rem; grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.35fr) auto; margin: 0.75rem auto 0; max-width: 1720px; padding: 0.6rem 0.85rem; position: sticky; top: 0.5rem; width: calc(100% - 2.5rem); z-index: 20; }
+.global-navigation-brand { align-items: center; color: #fffdf6; display: flex; gap: 0.65rem; min-width: 0; text-decoration: none; }
+.global-navigation-brand .brand-mark { height: 2.45rem; margin: 0; width: 2.25rem; }
+.global-navigation-brand .brand-mark span { font-size: 1.22rem; }
+.global-navigation-brand strong, .global-navigation-brand small { display: block; line-height: 1.1; }
+.global-navigation-brand strong { font-size: 0.88rem; letter-spacing: 0.01em; }
+.global-navigation-brand small { color: #d3deeb; font-size: 0.65rem; margin-top: 0.2rem; }
+.global-navigation-links { align-items: center; background: rgba(3, 10, 22, 0.28); border: 1px solid rgba(230, 214, 163, 0.2); border-radius: 0.75rem; display: flex; gap: 0.2rem; justify-content: center; min-width: 0; padding: 0.22rem; }
+.global-navigation-link { align-items: center; border-radius: 0.52rem; color: #dce6f1; display: inline-flex; flex: 1 1 0; font-size: 0.78rem; font-weight: 800; gap: 0.35rem; justify-content: center; min-height: 2.35rem; padding: 0.4rem 0.55rem; text-decoration: none; transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease; white-space: nowrap; }
+.global-navigation-link:hover { background: rgba(255, 255, 255, 0.14); color: #fffdf6; }
+.global-navigation-link:focus-visible, .global-navigation-brand:focus-visible { outline: 3px solid rgba(241, 200, 78, 0.85); outline-offset: 3px; }
+.global-navigation-link.active { background: #fff4cf; box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.22); color: #162337; }
+.global-navigation-link > span { font-size: 0.95rem; line-height: 1; }
+.global-navigation-utilities { align-items: center; display: flex; gap: 0.5rem; justify-content: flex-end; }
+.global-profile-actions { display: flex; gap: 0.2rem; }
+.global-profile-action { align-items: center; background: transparent; border-color: rgba(237, 221, 178, 0.34); box-shadow: none; color: #e8eff7; display: inline-flex; font-size: 0.68rem; gap: 0.28rem; min-height: 2.35rem; padding: 0.4rem 0.52rem; white-space: nowrap; }
+.global-profile-action:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(241, 200, 78, 0.8); color: #fffdf6; transform: none; }
+.global-profile-action:focus-visible { outline: 3px solid rgba(241, 200, 78, 0.85); outline-offset: 3px; }
+.global-profile-action > span { color: var(--gold-light); font-size: 0.95rem; line-height: 1; }
+.global-navigation-language { align-items: center; color: #d3deeb; display: flex; font-size: 0.64rem; gap: 0.38rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+.global-navigation-language select { background: rgba(255, 255, 255, 0.96); border-color: rgba(237, 221, 178, 0.8); color: #162337; min-height: 2.35rem; min-width: 6.45rem; padding: 0.35rem 1.6rem 0.35rem 0.5rem; width: auto; }
 .app-shell { display: flex; flex-direction: column; margin: 0 auto; max-width: 1720px; padding: 1.25rem; }
 .topbar, .configuration, .scenario-guide, .detachment-section, .library-panel, .roster-panel, .command-center { background: rgba(255, 254, 250, 0.96); border: 1px solid #e1d8ca; border-radius: 1rem; box-shadow: 0 0.65rem 1.8rem rgba(58, 43, 20, 0.08); }
 .topbar { align-items: center; display: flex; gap: 1rem; justify-content: space-between; order: -3; padding: 1.35rem; }
@@ -174,7 +195,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .rules-chapter-heading { align-items: baseline; border-bottom: 1px solid #dfd3c0; display: flex; gap: 0.6rem; margin-bottom: 0.9rem; padding-bottom: 0.7rem; }
 .rules-chapter-heading span, .rules-section-heading > div > span { color: var(--gold-dark); font-size: 0.69rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 .rules-chapter-heading h2 { margin: 0; }
-.rules-section { border-top: 1px solid #e4dbce; padding: 1rem 0; scroll-margin-top: 0.75rem; }
+.rules-section { border-top: 1px solid #e4dbce; padding: 1rem 0; scroll-margin-top: 6rem; }
 .rules-section:first-of-type { border-top: 0; padding-top: 0; }
 .rules-section.targeted { background: #fff9e8; box-shadow: 0 0 0 0.5rem #fff9e8; }
 .rules-section-heading { align-items: start; display: flex; gap: 1rem; justify-content: space-between; }
@@ -381,6 +402,16 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .weapon-tables.compact .weapon-table-section h4 { font-size: 0.67rem; }
 .weapon-tables.compact .weapon-table-scroll table { font-size: 0.66rem; min-width: 34rem; }
 .weapon-tables.compact .weapon-table-scroll th, .weapon-tables.compact .weapon-table-scroll td { padding: 0.3rem; }
+.weapon-inline { display: inline-flex; }
+.weapon-profile-trigger { background: transparent; border: 0; border-radius: 0.2rem; box-shadow: none; color: var(--ink); cursor: pointer; font: inherit; font-weight: 650; margin: 0; padding: 0; text-align: inherit; text-decoration: underline dotted var(--gold-dark); text-decoration-thickness: 2px; text-underline-offset: 0.16rem; text-transform: capitalize; }
+.weapon-profile-trigger:hover { background: transparent; color: var(--gold-dark); transform: none; }
+.weapon-profile-trigger:focus-visible { outline: 3px solid rgba(215, 165, 39, 0.55); outline-offset: 3px; }
+.weapon-profile-popover { background: var(--paper); border: 1px solid var(--gold); border-radius: 0.7rem; box-shadow: 0 0.9rem 2.4rem rgba(15, 25, 40, 0.34); color: var(--ink); font-size: 0.75rem; line-height: 1.4; max-height: min(26rem, calc(100vh - 1rem)); max-width: calc(100vw - 1rem); overflow: auto; padding: 0.65rem; position: fixed; text-align: left; width: min(32rem, calc(100vw - 1rem)); z-index: 50; }
+.weapon-profile-popover .weapon-tables { margin-top: 0.45rem; }
+.weapon-profile-popover-heading { align-items: center; border-bottom: 1px solid #ead8af; display: flex; gap: 0.65rem; justify-content: space-between; padding-bottom: 0.45rem; }
+.weapon-profile-popover-heading strong { color: var(--gold-dark); font-size: 0.8rem; }
+.weapon-profile-popover-close { align-items: center; background: #fff9e8; border-color: #d9c391; box-shadow: none; color: var(--ink); display: inline-flex; font-size: 1.15rem; height: 2rem; justify-content: center; line-height: 1; padding: 0; width: 2rem; }
+.weapon-profile-popover-close:hover { background: #fff0c9; color: var(--red); transform: none; }
 .model-wargear-dropdown { background: #fffdf8; border: 1px solid #e2d8c9; border-radius: 0.65rem; margin-top: 0.55rem; overflow: hidden; }
 .model-wargear-dropdown > summary { align-items: center; color: var(--ink); cursor: pointer; display: flex; font-size: 0.8rem; font-weight: 800; gap: 0.55rem; justify-content: space-between; list-style: none; padding: 0.7rem 0.75rem; }
 .model-wargear-dropdown > summary::-webkit-details-marker { display: none; }
@@ -475,6 +506,16 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .weapons-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
+  .global-navigation { gap: 0.55rem; grid-template-columns: minmax(0, 1fr) auto; padding: 0.5rem 0.6rem; top: 0.3rem; width: calc(100% - 1.3rem); }
+  .global-navigation-brand small, .global-navigation-language > span { display: none; }
+  .global-navigation-utilities { display: contents; }
+  .global-navigation-language { grid-column: 2; grid-row: 1; }
+  .global-profile-actions { grid-column: 1 / -1; grid-row: 3; }
+  .global-profile-action { flex: 1 1 0; justify-content: center; min-height: 2.75rem; }
+  .global-navigation-links { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
+  .global-navigation-links::-webkit-scrollbar { display: none; }
+  .global-navigation-link { flex: 0 0 auto; min-width: max-content; padding-inline: 0.65rem; }
+  .global-navigation-language select { min-width: 5.55rem; }
   .app-shell { padding: 0.65rem; }
   .topbar, .section-heading { align-items: stretch; flex-direction: column; }
   .topbar-actions { justify-content: space-between; width: 100%; flex-wrap: nowrap; gap: 0.5rem; }
