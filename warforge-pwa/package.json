@@ -6,6 +6,7 @@
   "packageManager": "pnpm@11.18.0",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
+    "gdm:import": "node scripts/import-gdmissions-11th.mjs --run",
     "missions:validate": "node scripts/mission-data.mjs --check",
     "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",
     "rules:validate": "node scripts/validate-rules.mjs",

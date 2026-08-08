@@ -30,7 +30,17 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,json,csv}'],
-          maximumFileSizeToCacheInBytes: 45 * 1024 * 1024
+          globIgnores: ['assets/gdm-11th/**/*'],
+          maximumFileSizeToCacheInBytes: 45 * 1024 * 1024,
+          runtimeCaching: [{
+            urlPattern: /\/assets\/gdm-11th\/.+\.(?:png|svg)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gdm-mission-assets',
+              expiration: { maxEntries: 149, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] }
+            }
+          }]
         }
       })
     ],

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { loadValidatedMissionCatalog, validateMissionCatalog } from './mission-data.mjs';
+import { loadValidatedMissionCatalog, validateGdMissionsArchive, validateMissionCatalog } from './mission-data.mjs';
 
 const validSummaryPack = {
   schemaVersion: 'warforge-mission-packs/v1',
@@ -24,8 +24,11 @@ const validSummaryPack = {
 describe('mission data contract', () => {
   it('loads the active pack and verifies its archived source', async () => {
     const catalog = await loadValidatedMissionCatalog();
-    expect(catalog.activePackId).toBe('chapter-approved-play-2026-27');
-    expect(catalog.packs[0].status).toBe('summary-only');
+    const gdm = catalog.packs.find((pack) => pack.id === 'gdm-2026-11th');
+    expect(catalog.activePackId).toBe('gdm-2026-11th');
+    expect(gdm?.status).toBe('trusted-web-cards');
+    expect(gdm?.cards?.primary).toHaveLength(25);
+    expect(gdm?.cards?.secondary).toHaveLength(18);
   });
 
   it('forbids detailed cards in a summary-only pack', () => {
@@ -33,5 +36,9 @@ describe('mission data contract', () => {
     invalid.packs[0].cards = { primary: [], secondary: [] };
 
     expect(validateMissionCatalog(invalid)).toContain('packs[0] ne peut pas contenir de cartes tant que son statut est summary-only.');
+  });
+
+  it('requires the complete local GDM archive shape', () => {
+    expect(validateGdMissionsArchive({ schemaVersion: 'warforge-gdmissions-11th/v1', source: {}, pages: [], assets: [], cards: {} })).not.toHaveLength(0);
   });
 });

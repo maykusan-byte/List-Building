@@ -315,7 +315,7 @@ export function LearningPage({
                 );
               })()
             ) : quizType === 'missions' ? (
-              <div className="score-badge">{isFrench ? 'Référence officielle' : 'Official reference'}</div>
+              <div className="score-badge">{isFrench ? 'Référence de mission' : 'Mission reference'}</div>
             ) : (
               (() => {
                 const s = quizType === 'stats' ? statsScore : quizType === 'weapons' ? weaponsScore : quizType === 'compare' ? compareScore : quizType === 'keywords' ? kwScore : stratScore;

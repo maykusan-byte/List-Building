@@ -1,6 +1,6 @@
 {
   "schemaVersion": "warforge-mission-packs/v1",
-  "activePackId": "chapter-approved-play-2026-27",
+  "activePackId": "gdm-2026-11th",
   "packs": [
     {
       "id": "chapter-approved-play-2026-27",
@@ -27,6 +27,2592 @@
         ]
       },
       "unavailableNotice": "Les textes et barèmes individuels des cartes de Mission Principale et Secondaire ne sont pas publiés intégralement dans les ressources officielles archivées. Ils seront ajoutés après fourniture d’une source officielle versionnée."
+    },
+    {
+      "id": "gdm-2026-11th",
+      "title": "GDM 2026 · Cartes de missions V11",
+      "language": "en",
+      "status": "trusted-web-cards",
+      "source": {
+        "kind": "trusted-web",
+        "url": "https://gdmissions.app/11th",
+        "archivePath": "warforge-pwa/data/missions/gdmissions-11th/archive.json",
+        "scope": "Sitemap V11, contenu rendu côté serveur et ressources /assets/11th/",
+        "title": "GDM 2026 — 11th Edition",
+        "retrievedAt": "2026-08-08T16:10:05.028Z",
+        "pageCount": 93,
+        "assetCount": 149
+      },
+      "summary": {
+        "primary": [
+          "25 cartes de Mission Principale, réparties entre cinq dispositions des forces.",
+          "Les barèmes et conditions sont archivés localement avec chaque carte."
+        ],
+        "secondary": [
+          "18 cartes de Mission Secondaire, avec leurs versions Fixe et Tactique lorsqu’elles existent.",
+          "Les dispositions, la matrice et les 25 confrontations de layouts sont conservées dans l’archive locale."
+        ]
+      },
+      "unavailableNotice": "Archive de développement GDM 2026 importée localement : 93 pages V11 et leurs ressources associées.",
+      "cards": {
+        "primary": [
+          {
+            "name": "Death Trap",
+            "deck": "disruption",
+            "vs": "take-and-hold",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **terrain area trapped** this turn.",
+                    "vp": 2,
+                    "perUnit": true
+                  },
+                  {
+                    "text": "For each of those **terrain areas** that is an **objective**.",
+                    "vp": 3,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units that started the turn within a terrain area were destroyed, if that terrain area is **trapped**.",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Booby Trap",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **objective** (excluding your **home objective**) or within one **terrain area** that is not within your deployment zone, that you have not yet **trapped** (see below)."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Unlimited. Each unit that starts this **action** this phase must be within a different **terrain area**."
+                },
+                {
+                  "k": "Completes",
+                  "v": "Immediately."
+                },
+                {
+                  "k": "Effect",
+                  "v": "That **terrain area** is **trapped**: place one of your **operation markers** within that **terrain area**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/disruption/death-trap",
+            "asset": "/assets/11th/primary-missions/disruption/death-trap-back.png"
+          },
+          {
+            "name": "Delaying Action",
+            "deck": "disruption",
+            "vs": "purge-the-foe",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each enemy unit **destroyed** this turn.",
+                    "vp": 2,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding **home objectives**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives** and one or more **expansion objectives**.",
+                    "vp": 3
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/disruption/delaying-action",
+            "asset": "/assets/11th/primary-missions/disruption/delaying-action.png"
+          },
+          {
+            "name": "Locate and Deny",
+            "deck": "disruption",
+            "vs": "priority-assets",
+            "rule": "**START OF THE BATTLE:** Select five **terrain areas** not within your deployment zone; for each one, place one of your **operation markers** within it. If you cannot, do so for each **terrain area** that is not within your deployment zone.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units that started the turn within range of one or more **objectives** are **destroyed**.",
+                    "vp": 4
+                  },
+                  {
+                    "text": "Only one of your **operation markers** is on the battlefield, if one or more of your units are within the same **terrain area** as that **marker**, and no enemy units are within that **terrain area**.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "Only one of your **operation markers** is on the battlefield, if one or more of your units are within the same **terrain area** as that **marker**, and no enemy units are within that **terrain area**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Sensor Sweep",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **central objective**."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Your unit **performs a sensor sweep**: remove one **operation marker** from the battlefield."
+                },
+                {
+                  "k": "Restriction",
+                  "v": "A unit cannot start this **action** if there is only one **operation marker** on the battlefield."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/disruption/locate-and-deny",
+            "asset": "/assets/11th/primary-missions/disruption/locate-and-deny-back.png"
+          },
+          {
+            "name": "Outmanoeuvre",
+            "deck": "disruption",
+            "vs": "disruption",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 10
+                  }
+                ]
+              },
+              {
+                "when": "FIRST BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 4,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND & THIRD BATTLE ROUND",
+                "trigger": "End of your Command phase",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 5,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "FOURTH BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 6,
+                    "perUnit": true
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/disruption/outmanoeuvre",
+            "asset": "/assets/11th/primary-missions/disruption/outmanoeuvre.png"
+          },
+          {
+            "name": "Smoke and Mirrors",
+            "deck": "disruption",
+            "vs": "reconnaissance",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **objective** that is **decoyed** (see reverse).",
+                    "vp": 2,
+                    "perUnit": true
+                  },
+                  {
+                    "text": "For each of those **objectives** that is within your opponent's territory.",
+                    "vp": 2,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "**Four or more objectives** are **decoyed**.",
+                    "vp": 10,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Decoy",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **objective** (excluding your **home objective**) that is not **decoyed** (see below)."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Unlimited. Each unit that starts this **action** this phase must be within range of a different **objective**."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "That **objective** is **decoyed**: place one of your **operation markers** within range of that **objective**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/disruption/smoke-and-mirrors",
+            "asset": "/assets/11th/primary-missions/disruption/smoke-and-mirrors-back.png"
+          },
+          {
+            "name": "Extract Relic",
+            "deck": "priority-assets",
+            "vs": "disruption",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "A friendly unit **performed a sensor sweep** this turn.",
+                    "vp": 4
+                  },
+                  {
+                    "text": "One or more enemy units that started the turn within range of one or more **objectives** are **destroyed**.",
+                    "vp": 3
+                  },
+                  {
+                    "text": "Only one of your opponent's **operation markers** is on the battlefield, if one or more of your units are within the same **terrain area** as that **operation marker**, and no enemy units are within that **terrain area**.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "Only one of your opponent's **operation markers** is on the battlefield, if one or more of your units are within the same **terrain area** as that **operation marker**, and no enemy units are within that **terrain area**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Sensor Sweep",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **central objective**."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Your unit **performs a sensor sweep**: remove one **operation marker** from the battlefield."
+                },
+                {
+                  "k": "Restrictions",
+                  "v": "A unit cannot start this action if there is only one **operation marker** on the battlefield."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/priority-assets/extract-relic",
+            "asset": "/assets/11th/primary-missions/priority-assets/extract-relic-back.png"
+          },
+          {
+            "name": "Sabotage",
+            "deck": "priority-assets",
+            "vs": "priority-assets",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each friendly unit that **committed sabotage** this turn (see reverse).",
+                    "vp": 3,
+                    "perUnit": true
+                  },
+                  {
+                    "text": "For each of those units that is within range of one or more **objectives** in your opponent's territory.",
+                    "vp": 2,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Sabotage",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One unit within range of one **objective** (excluding your **home objective**)."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Unlimited. Each unit that starts this **action** this phase must be within range of a different **objective**."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if that unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Your unit **commits sabotage**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/priority-assets/sabotage",
+            "asset": "/assets/11th/primary-missions/priority-assets/sabotage-back.png"
+          },
+          {
+            "name": "Secure Asset",
+            "deck": "priority-assets",
+            "vs": "take-and-hold",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "A friendly unit **secured the asset** this turn (see reverse).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "One or more enemy units that started the turn within range of one or more **central objectives** are **destroyed**.",
+                    "vp": 2
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "You control three or more **objectives**.",
+                    "vp": 4
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Secure Asset",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **objective** (excluding your **home objective**)."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Your unit **secures the asset**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/priority-assets/secure-asset",
+            "asset": "/assets/11th/primary-missions/priority-assets/secure-asset-back.png"
+          },
+          {
+            "name": "Vanguard Operation",
+            "deck": "priority-assets",
+            "vs": "reconnaissance",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "A friendly unit **performed a vanguard operation** this turn.",
+                    "vp": 4
+                  },
+                  {
+                    "text": "One or more enemy units were **destroyed** this turn.",
+                    "vp": 2
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 10,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Vanguard Operation",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within one terrain area that is within your **opponent's territory**."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if no enemy units are within that **terrain area**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Your unit **performs a vanguard operation**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/priority-assets/vanguard-operation",
+            "asset": "/assets/11th/primary-missions/priority-assets/vanguard-operation-back.png"
+          },
+          {
+            "name": "Vital Link",
+            "deck": "priority-assets",
+            "vs": "purge-the-foe",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives**.",
+                    "vp": 2
+                  },
+                  {
+                    "text": "For each of your **operation markers** within range of one of those **objectives** (see reverse).",
+                    "vp": 1,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "One or more of those **objectives** is a **central objective**.",
+                    "vp": 4,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 10,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Maintain Control",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **central objective**."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Place one of your **operation markers** within range of that **objective**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/priority-assets/vital-link",
+            "asset": "/assets/11th/primary-missions/priority-assets/vital-link-back.png"
+          },
+          {
+            "name": "Consecrate",
+            "deck": "purge-the-foe",
+            "vs": "reconnaissance",
+            "rule": "Each time a friendly unit **destroys** a unit, that friendly unit becomes a **consecration** unit. At the end of your turn, for each of your **consecration** units, you can select one **objective** it is within range of (excluding your **home objective**) that has not been **consecrated**. If you do, place one of your operation markers within range of that **objective** – that **objective** is **consecrated** and that unit is no longer a **consecration** unit.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or two **objectives** are **consecrated**.",
+                    "vp": 3
+                  },
+                  {
+                    "text": "Three or more **objectives** are **consecrated**.",
+                    "vp": 6,
+                    "or": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "Your opponent's **home objective** is **consecrated**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/purge-the-foe/consecrate",
+            "asset": "/assets/11th/primary-missions/purge-the-foe/consecrate.png"
+          },
+          {
+            "name": "Destroyer's Wrath",
+            "deck": "purge-the-foe",
+            "vs": "priority-assets",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units were **destroyed** this turn.",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 6
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "More enemy units were **destroyed** this turn than friendly units were **destroyed** in the previous turn.",
+                    "vp": 4
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/purge-the-foe/destroyers-wrath",
+            "asset": "/assets/11th/primary-missions/purge-the-foe/destroyers-wrath.png"
+          },
+          {
+            "name": "Meatgrinder",
+            "deck": "purge-the-foe",
+            "vs": "purge-the-foe",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units were **destroyed** this turn.",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "More enemy units were **destroyed** this turn than friendly units were **destroyed** in the previous turn.",
+                    "vp": 5
+                  },
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 5
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/purge-the-foe/meatgrinder",
+            "asset": "/assets/11th/primary-missions/purge-the-foe/meatgrinder.png"
+          },
+          {
+            "name": "Punishment",
+            "deck": "purge-the-foe",
+            "vs": "disruption",
+            "rule": "**START OF YOUR TURN:** Select one to three enemy units that are on the battlefield and within range of **objectives** and/or that **destroyed** one or more friendly units in the previous turn. If you cannot, select one enemy unit that is on the battlefield. Until the start of your next turn, those units are **condemned**.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of a turn",
+                "tiers": [
+                  {
+                    "text": "One or more **condemned** enemy units left the battlefield this turn.",
+                    "vp": 5
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your home **objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 5
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 8,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/purge-the-foe/punishment",
+            "asset": "/assets/11th/primary-missions/purge-the-foe/punishment.png"
+          },
+          {
+            "name": "Unstoppable Force",
+            "deck": "purge-the-foe",
+            "vs": "take-and-hold",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units were **destroyed** this turn.",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 4,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** you did not control at the start of the turn (excluding your **home objective**).",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/purge-the-foe/unstoppable-force",
+            "asset": "/assets/11th/primary-missions/purge-the-foe/unstoppable-force.png"
+          },
+          {
+            "name": "Gather Intel",
+            "deck": "reconnaissance",
+            "vs": "reconnaissance",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "FIRST BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives**.",
+                    "vp": 6
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each friendly unit that completed the **Extract Intelligence action** this turn.",
+                    "vp": 7,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "Three or more of your **operation markers** are on the battlefield.",
+                    "vp": 5,
+                    "kind": "eob"
+                  },
+                  {
+                    "text": "One of your **operation markers** is within range of your opponent's **home objective**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Extract Intelligence",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase, from the second battle round onwards."
+                },
+                {
+                  "k": "Units",
+                  "v": "One unit within range of one **objective** (excluding your **home objective**) that does not have any of your **operation markers** within range of it."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Unlimited. Each unit that starts this action this phase must be within range of a different **objective**."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Place one of your **operation markers** within range of that **objective**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/reconnaissance/gather-intel",
+            "asset": "/assets/11th/primary-missions/reconnaissance/gather-intel-back.png"
+          },
+          {
+            "name": "Reconnaissance Sweep",
+            "deck": "reconnaissance",
+            "vs": "take-and-hold",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "Three or more friendly units are wholly within three different table quarters and not within 6\" of the centre of the battlefield.",
+                    "vp": 3
+                  },
+                  {
+                    "text": "Four or more friendly units are wholly within four different table quarters and not within 6\" of the centre of the battlefield.",
+                    "vp": 6,
+                    "or": true
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each enemy unit **destroyed** this turn.",
+                    "vp": 1,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 3
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/reconnaissance/reconnaissance-sweep",
+            "asset": "/assets/11th/primary-missions/reconnaissance/reconnaissance-sweep.png"
+          },
+          {
+            "name": "Search and Scour",
+            "deck": "reconnaissance",
+            "vs": "priority-assets",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives**.",
+                    "vp": 3
+                  },
+                  {
+                    "text": "One or more enemy units that started the turn within a **terrain area** are **destroyed**.",
+                    "vp": 2
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 4,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "No enemy units are wholly within your territory.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/reconnaissance/search-and-scour",
+            "asset": "/assets/11th/primary-missions/reconnaissance/search-and-scour.png"
+          },
+          {
+            "name": "Surveil the Foe",
+            "deck": "reconnaissance",
+            "vs": "disruption",
+            "rule": "Each time a friendly unit ends a move within range of one **objective** that has any of your **opponent's operation** markers within range of it, remove those **operation markers** from the battlefield.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units were **surveilled** this turn (see reverse), unless each of those units is within range of one or more **objectives** that have one or more **operation markers** within range of them.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  },
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "None of your opponent's **operation markers** are on the battlefield.",
+                    "vp": 5
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Surveil the Foe",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Unlimited."
+                },
+                {
+                  "k": "Completes",
+                  "v": "Immediately."
+                },
+                {
+                  "k": "Effect",
+                  "v": "Select one enemy unit within 18\" of and visible to your unit that has not been **surveilled** this turn: until the end of the turn, that enemy unit is **surveilled**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/reconnaissance/surveil-the-foe",
+            "asset": "/assets/11th/primary-missions/reconnaissance/surveil-the-foe-back.png"
+          },
+          {
+            "name": "Triangulation",
+            "deck": "reconnaissance",
+            "vs": "purge-the-foe",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** (excluding your **home objective**).",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One **objective** is **triangulated** (see reverse).",
+                    "vp": 3
+                  },
+                  {
+                    "text": "Two **objectives** are **triangulated**.",
+                    "vp": 6,
+                    "or": true
+                  },
+                  {
+                    "text": "Three or more **objectives** are **triangulated**.",
+                    "vp": 10,
+                    "or": true
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control four or more **objectives**.",
+                    "vp": 10,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": {
+              "title": "Triangulate",
+              "rows": [
+                {
+                  "k": "Starts",
+                  "v": "Your Shooting phase, from the second battle round onwards."
+                },
+                {
+                  "k": "Units",
+                  "v": "One friendly unit within range of one **objective** (excluding your **home objective**)."
+                },
+                {
+                  "k": "Use limit",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "Completes",
+                  "v": "End of your turn, if your unit controls that **objective**."
+                },
+                {
+                  "k": "Effect",
+                  "v": "That **objective** is **triangulated**: place one of your **operation markers** within range of that **objective**."
+                }
+              ]
+            },
+            "sourcePath": "/11th/primary-missions/reconnaissance/triangulation",
+            "asset": "/assets/11th/primary-missions/reconnaissance/triangulation-back.png"
+          },
+          {
+            "name": "Battlefield Dominance",
+            "deck": "take-and-hold",
+            "vs": "take-and-hold",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "FIRST & SECOND BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 2
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control.",
+                    "vp": 3,
+                    "perUnit": true
+                  },
+                  {
+                    "text": "For each of those **objectives** (excluding your **home objective**) if you control your **home objective**.",
+                    "vp": 2,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/take-and-hold/battlefield-dominance",
+            "asset": "/assets/11th/primary-missions/take-and-hold/battlefield-dominance.png"
+          },
+          {
+            "name": "Determined Acquisition",
+            "deck": "take-and-hold",
+            "vs": "disruption",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control that you did not control at the start of the turn (excluding your **home objective**).",
+                    "vp": 2,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control.",
+                    "vp": 3,
+                    "perUnit": true
+                  },
+                  {
+                    "text": "For each of those **objectives** that is within your opponent's territory.",
+                    "vp": 3,
+                    "perUnit": true,
+                    "cumulative": true
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/take-and-hold/determined-acquisition",
+            "asset": "/assets/11th/primary-missions/take-and-hold/determined-acquisition.png"
+          },
+          {
+            "name": "Immovable Object",
+            "deck": "take-and-hold",
+            "vs": "purge-the-foe",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **central objectives**.",
+                    "vp": 3
+                  }
+                ]
+              },
+              {
+                "when": "SECOND TO FOURTH BATTLE ROUND",
+                "trigger": "End of your Command phase",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 5,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "FIFTH BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 5,
+                    "perUnit": true
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/take-and-hold/immovable-object",
+            "asset": "/assets/11th/primary-missions/take-and-hold/immovable-object.png"
+          },
+          {
+            "name": "Inescapable Dominion",
+            "deck": "take-and-hold",
+            "vs": "priority-assets",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control three or more **objectives**.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "You control two or more **objectives**.",
+                    "vp": 5
+                  },
+                  {
+                    "text": "You control more **objectives** than your opponent.",
+                    "vp": 4
+                  }
+                ]
+              },
+              {
+                "when": "END OF BATTLE",
+                "headerKind": "eob",
+                "tiers": [
+                  {
+                    "text": "You control your opponent's **home objective**.",
+                    "vp": 5,
+                    "kind": "eob"
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/take-and-hold/inescapable-dominion",
+            "asset": "/assets/11th/primary-missions/take-and-hold/inescapable-dominion.png"
+          },
+          {
+            "name": "Purge and Secure",
+            "deck": "take-and-hold",
+            "vs": "reconnaissance",
+            "rule": "$undefined",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "One or more enemy units were **destroyed** this turn by a friendly unit that was within range of one or more **objectives**.",
+                    "vp": 3
+                  },
+                  {
+                    "text": "One or more enemy units that started the turn within range of one or more **objectives** were **destroyed** this turn.",
+                    "vp": 3,
+                    "or": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your Command phase (or the end of your turn in the fifth battle round)",
+                "tiers": [
+                  {
+                    "text": "For each **objective** you control (excluding your **home objective**).",
+                    "vp": 4,
+                    "perUnit": true
+                  }
+                ]
+              },
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your turn",
+                "tiers": [
+                  {
+                    "text": "You control one or more **objectives** you did not control at the start of the turn (excluding your **home objective**).",
+                    "vp": 3
+                  }
+                ]
+              }
+            ],
+            "back": null,
+            "sourcePath": "/11th/primary-missions/take-and-hold/purge-and-secure",
+            "asset": "/assets/11th/primary-missions/take-and-hold/purge-and-secure.png"
+          }
+        ],
+        "secondary": [
+          {
+            "name": "A Grievous Blow",
+            "nameSize": 42,
+            "kindLabel": "SECONDARY · FIXED / TACTICAL",
+            "whenDrawn": "<b>WHEN DRAWN:</b> If there are no enemy units with a <b>starting strength</b> of 13 or more on the battlefield, <u>you can</u> discard this card and draw one new <b>Secondary Mission</b> card.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "headerKind": "fixed",
+                "chip": "FIXED",
+                "trigger": "End of a turn",
+                "perEvent": true,
+                "rows": [
+                  {
+                    "text": "For each enemy unit with a <b>starting strength</b> of 13 or more that is <b>destroyed</b> this turn.",
+                    "vp": "4",
+                    "kind": "fixed"
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "chip": "TACTICAL",
+                "trigger": "End of a turn",
+                "rows": [
+                  {
+                    "text": "One or more enemy units with a <b>starting strength</b> of 13 or more were <b>destroyed</b> this turn.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/a-grievous-blow-defender",
+            "asset": "/assets/11th/secondary-missions/defender/a-grievous-blow.png"
+          },
+          {
+            "name": "A Tempting Target",
+            "nameSize": 42,
+            "whenDrawn": "<b>WHEN DRAWN:</b> Your opponent selects one <b>objective</b> (excluding <b>home objectives</b>) within No Man's Land to be your <b>tempting target</b>.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "You control your <b>tempting target</b>.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/a-tempting-target-defender",
+            "asset": "/assets/11th/secondary-missions/defender/a-tempting-target.png"
+          },
+          {
+            "name": "Assassination",
+            "nameSize": 50,
+            "kindLabel": "SECONDARY · FIXED / TACTICAL",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "headerKind": "fixed",
+                "chip": "FIXED",
+                "trigger": "While this card is active",
+                "perEvent": true,
+                "rows": [
+                  {
+                    "text": "For each enemy <b>CHARACTER</b> model <b>destroyed</b> this turn.",
+                    "vp": "3",
+                    "kind": "fixed"
+                  },
+                  {
+                    "text": "For each of those models with a <b>W</b> of 4 or more.",
+                    "vp": "+1",
+                    "kind": "fixed",
+                    "plus": true,
+                    "cumulative": true
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "chip": "TACTICAL",
+                "trigger": "End of either player's turn",
+                "rows": [
+                  {
+                    "text": "One or more enemy <b>CHARACTER</b> models were <b>destroyed</b> this turn.",
+                    "vp": "5"
+                  },
+                  {
+                    "text": "All enemy <b>CHARACTER</b> models have been <b>destroyed</b> during the battle.",
+                    "vp": "5",
+                    "or": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/assassination-defender",
+            "asset": "/assets/11th/secondary-missions/defender/assassination.png"
+          },
+          {
+            "name": "Beacon",
+            "whenDrawn": "<b>WHEN DRAWN:</b> Select one friendly unit on the battlefield or embarked within a <b>TRANSPORT</b> on the battlefield to be your <span class=\"cB__mark\">beacon</span> unit.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your opponent's turn or the end of the fifth battle round (whichever comes first)",
+                "rows": [
+                  {
+                    "text": "Your <span class=\"cB__mark\">beacon</span> unit is on the battlefield and not within your deployment zone.",
+                    "vp": "3"
+                  },
+                  {
+                    "text": "Your <span class=\"cB__mark\">beacon</span> unit is on the battlefield and not within your territory.",
+                    "vp": "5",
+                    "or": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/beacon-defender",
+            "asset": "/assets/11th/secondary-missions/defender/beacon.png"
+          },
+          {
+            "name": "Behind Enemy Lines",
+            "nameSize": 42,
+            "whenDrawn": "<b>WHEN DRAWN:</b> If it is the first battle round, <u>you can</u> draw one new <b>Secondary Mission</b> card and shuffle this card back into your <b>Secondary</b> <b>Mission</b> deck.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "cap": "MAX 5VP",
+                "rows": [
+                  {
+                    "text": "For each friendly unit (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) wholly within your opponent's deployment zone.",
+                    "vp": "3"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/behind-enemy-lines-defender",
+            "asset": "/assets/11th/secondary-missions/defender/behind-enemy-lines.png"
+          },
+          {
+            "name": "Bring It Down",
+            "kindLabel": "SECONDARY · FIXED / TACTICAL",
+            "whenDrawn": "<b>WHEN DRAWN:</b> If there are no enemy models with a <b>Wounds</b> characteristic of 10 or more on the battlefield, <u>you can</u> discard this card and draw one new <b>Secondary Mission</b> card.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "headerKind": "fixed",
+                "chip": "FIXED",
+                "trigger": "End of a turn",
+                "perEvent": true,
+                "rows": [
+                  {
+                    "text": "For each enemy model with a <b>Wounds</b> characteristic of 10 or more that is <b>destroyed</b> this turn.",
+                    "vp": "4",
+                    "kind": "fixed"
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "chip": "TACTICAL",
+                "trigger": "End of a turn",
+                "rows": [
+                  {
+                    "text": "One or more enemy models with a <b>Wounds</b> characteristic of 10 or more were <b>destroyed</b> this turn.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/bring-it-down-defender",
+            "asset": "/assets/11th/secondary-missions/defender/bring-it-down.png"
+          },
+          {
+            "name": "Burden of Trust",
+            "whenDrawn": "<b>WHEN DRAWN/START OF YOUR TURN:</b> For each <b>objective</b>, you can select one friendly unit on the battlefield to <b>guard</b> that <b>objective</b>. Until the start of your next turn, while that unit is within range of that <b>objective</b> and while you control that <b>objective</b>, that <b>objective</b> is <span class=\"cB__mark\">guarded</span> by your army.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your opponent's turn or the end of the fifth battle round (whichever comes first)",
+                "cap": "MAX 5VP",
+                "rows": [
+                  {
+                    "text": "For each <b>objective</b> <span class=\"cB__mark\">guarded</span> by your army.",
+                    "vp": "2"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/burden-of-trust-defender",
+            "asset": "/assets/11th/secondary-missions/defender/burden-of-trust.png"
+          },
+          {
+            "name": "Centre Ground",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "One or more friendly units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) are within 3\" of the centre of the battlefield, and <u>no</u> enemy units are within <u>3\"</u> of the centre of the battlefield.",
+                    "vp": "3"
+                  },
+                  {
+                    "text": "One or more friendly units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) are within 3\" of the centre of the battlefield, and <u>no</u> enemy units are within <u>6\"</u> of the centre of the battlefield.",
+                    "vp": "5",
+                    "or": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/centre-ground-defender",
+            "asset": "/assets/11th/secondary-missions/defender/centre-ground.png"
+          },
+          {
+            "name": "Cleanse",
+            "whenDrawn": "<b>WHEN DRAWN:</b> If the Plunder <b>Secondary Mission</b> is active for you, <u>you can</u> draw one new <b>Secondary Mission</b> card and shuffle this card back into your <b>Secondary Mission</b> deck.",
+            "action": {
+              "title": "CLEANSE",
+              "rows": [
+                {
+                  "k": "STARTS",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "UNITS",
+                  "v": "One friendly unit within range of one <b>objective</b> (excluding your <b>home objective</b>)."
+                },
+                {
+                  "k": "USE LIMIT",
+                  "v": "Unlimited. Each unit that starts this <b>action</b> this phase must be within range of a different <b>objective</b>."
+                },
+                {
+                  "k": "COMPLETES",
+                  "v": "End of your turn, if that unit is controlling that <b>objective</b>."
+                },
+                {
+                  "k": "EFFECT",
+                  "v": "That <b>objective</b> is <span class=\"cB__mark\">cleansed</span> by your army."
+                }
+              ]
+            },
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "One <b>objective</b> was <span class=\"cB__mark\">cleansed</span> by your army this turn.",
+                    "vp": "2"
+                  },
+                  {
+                    "text": "Two or more <b>objectives</b> were <span class=\"cB__mark\">cleansed</span> by your army this turn.",
+                    "vp": "5",
+                    "or": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/cleanse-defender",
+            "asset": "/assets/11th/secondary-missions/defender/cleanse.png"
+          },
+          {
+            "name": "Defend Stronghold",
+            "nameSize": 42,
+            "whenDrawn": "<b>WHEN DRAWN:</b> If it is the first battle round, draw one new <b>Secondary Mission</b> card and shuffle this card back into your <b>Secondary Mission</b> deck.",
+            "sections": [
+              {
+                "when": "SECOND BATTLE ROUND ONWARDS",
+                "trigger": "End of your opponent's turn or the end of the fifth battle round (whichever comes first)",
+                "rows": [
+                  {
+                    "text": "You control your <b>home objective</b>.",
+                    "vp": "3"
+                  },
+                  {
+                    "text": "No enemy units are within your deployment zone.",
+                    "vp": "+2",
+                    "plus": true,
+                    "cumulative": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/defend-stronghold-defender",
+            "asset": "/assets/11th/secondary-missions/defender/defend-stronghold.png"
+          },
+          {
+            "name": "Display of Might",
+            "nameSize": 44,
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "There are more friendly units than enemy units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) wholly within No Man's Land.",
+                    "vp": "2"
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your opponent's turn",
+                "rows": [
+                  {
+                    "text": "There are more friendly units than enemy units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) wholly within No Man's Land.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/display-of-might-defender",
+            "asset": "/assets/11th/secondary-missions/defender/display-of-might.png"
+          },
+          {
+            "name": "Engage on All Fronts",
+            "nameSize": 38,
+            "kindLabel": "SECONDARY · FIXED / TACTICAL",
+            "whenDrawn": "If one or more friendly units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) are wholly within a table quarter, and those units are not within 6\" of the centre of the battlefield, you have a <span class=\"cB__mark\">presence</span> in that table quarter.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "headerKind": "fixed",
+                "chip": "FIXED",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "You have a <span class=\"cB__mark\">presence</span> in <span class=\"cB__wmWord\" data-n=\"3\">three</span> table quarters.",
+                    "vp": "2",
+                    "kind": "fixed",
+                    "wm": true
+                  },
+                  {
+                    "text": "You have a <span class=\"cB__mark\">presence</span> in <span class=\"cB__wmWord\" data-n=\"4\">four</span> table quarters.",
+                    "vp": "4",
+                    "kind": "fixed",
+                    "or": true,
+                    "wm": true
+                  }
+                ]
+              },
+              {
+                "when": "ANY BATTLE ROUND",
+                "chip": "TACTICAL",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "You have a <span class=\"cB__mark\">presence</span> in <span class=\"cB__wmWord\" data-n=\"3\">three</span> table quarters.",
+                    "vp": "3",
+                    "wm": true
+                  },
+                  {
+                    "text": "You have a <span class=\"cB__mark\">presence</span> in <span class=\"cB__wmWord\" data-n=\"4\">four</span> table quarters.",
+                    "vp": "5",
+                    "or": true,
+                    "wm": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/engage-on-all-fronts-defender",
+            "asset": "/assets/11th/secondary-missions/defender/engage-on-all-fronts.png"
+          },
+          {
+            "name": "Forward Position",
+            "whenDrawn": "<b>WHEN DRAWN:</b> If it is the first battle round, <u>you can</u> draw one new <b>Secondary Mission</b> card and shuffle this card back into your <b>Secondary</b> <b>Mission</b> deck.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "You control your opponent's <b>home objective</b> and/or each <b>expansion objective</b>.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/forward-position-defender",
+            "asset": "/assets/11th/secondary-missions/defender/forward-position.png"
+          },
+          {
+            "name": "No Prisoners",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of a turn",
+                "cap": "MAX 5VP",
+                "rows": [
+                  {
+                    "text": "For each enemy unit <b>destroyed</b> this turn.",
+                    "vp": "2"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/no-prisoners-defender",
+            "asset": "/assets/11th/secondary-missions/defender/no-prisoners.png"
+          },
+          {
+            "name": "Outflank",
+            "designerNote": "<b>Designer's Note:</b> Opposite battlefield edges are those parallel to each other.",
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "One or more friendly units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) are within 6\" of one or more battlefield edges and not within your territory.",
+                    "vp": "3"
+                  },
+                  {
+                    "text": "Two or more friendly units (excluding <b>AIRCRAFT</b> and <b>battle-shocked</b> units) are within 6\" of opposite battlefield edges and one or more of those units is not within your territory.",
+                    "vp": "5",
+                    "or": true
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/outflank-defender",
+            "asset": "/assets/11th/secondary-missions/defender/outflank.png"
+          },
+          {
+            "name": "Overwhelming Force",
+            "nameSize": 40,
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of a turn",
+                "cap": "MAX 5VP",
+                "rows": [
+                  {
+                    "text": "For each enemy unit that started the turn within range of one or more <b>objectives</b> and is <b>destroyed</b>.",
+                    "vp": "3"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/overwhelming-force-defender",
+            "asset": "/assets/11th/secondary-missions/defender/overwhelming-force.png"
+          },
+          {
+            "name": "Plunder",
+            "whenDrawn": "<b>WHEN DRAWN:</b> If the Cleanse <b>Secondary Mission</b> is active for you, <u>you can</u> draw one new <b>Secondary Mission</b> card and shuffle this card back into your <b>Secondary Mission</b> deck.",
+            "action": {
+              "title": "PLUNDER",
+              "rows": [
+                {
+                  "k": "STARTS",
+                  "v": "Your Shooting phase."
+                },
+                {
+                  "k": "UNITS",
+                  "v": "One unit within a <b>terrain area</b> that is not within your territory."
+                },
+                {
+                  "k": "USE LIMIT",
+                  "v": "Once per turn."
+                },
+                {
+                  "k": "COMPLETES",
+                  "v": "Immediately."
+                },
+                {
+                  "k": "EFFECT",
+                  "v": "That <b>terrain area</b> is <span class=\"cB__mark\">plundered</span>."
+                }
+              ]
+            },
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "A <b>terrain area</b> was <span class=\"cB__mark\">plundered</span> this turn.",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/plunder-defender",
+            "asset": "/assets/11th/secondary-missions/defender/plunder.png"
+          },
+          {
+            "name": "Secure No Man's Land",
+            "nameSize": 40,
+            "sections": [
+              {
+                "when": "ANY BATTLE ROUND",
+                "trigger": "End of your turn",
+                "rows": [
+                  {
+                    "text": "You control two or more <b>objectives</b> within No Man's Land (excluding your <b>home objective</b>).",
+                    "vp": "5"
+                  }
+                ]
+              }
+            ],
+            "sourcePath": "/11th/secondary-missions/secure-no-man-s-land-defender",
+            "asset": "/assets/11th/secondary-missions/defender/secure-no-man-s-land.png"
+          }
+        ],
+        "layouts": [
+          {
+            "sourcePath": "/11th/layouts/disruption/disruption",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-mirror-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-mirror-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-mirror-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-mirror-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-mirror-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-mirror-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/disruption/priority-assets",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/disruption/purge-the-foe",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/disruption/reconnaissance",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/disruption/take-and-hold",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/priority-assets/disruption",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-priority-assets-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-priority-assets-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/priority-assets/priority-assets",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-mirror-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-mirror-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-mirror-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-mirror-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-mirror-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-mirror-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/priority-assets/purge-the-foe",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/priority-assets/reconnaissance",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/priority-assets/take-and-hold",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/purge-the-foe/disruption",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-purge-the-foe-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-purge-the-foe-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/purge-the-foe/priority-assets",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-priority-assets-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-priority-assets-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/purge-the-foe/purge-the-foe",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-mirror-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-mirror-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-mirror-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-mirror-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-mirror-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-mirror-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/purge-the-foe/reconnaissance",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/purge-the-foe/take-and-hold",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/reconnaissance/disruption",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/disruption-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/disruption-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/reconnaissance/priority-assets",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/priority-assets-vs-reconnaissance-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/priority-assets-vs-reconnaissance-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/reconnaissance/purge-the-foe",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/purge-the-foe-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/purge-the-foe-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/reconnaissance/reconnaissance",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/reconnaissance-mirror-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/reconnaissance-mirror-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/reconnaissance-mirror-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/reconnaissance-mirror-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/reconnaissance-mirror-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/reconnaissance-mirror-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/reconnaissance/take-and-hold",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/take-and-hold/disruption",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-disruption-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-disruption-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/take-and-hold/priority-assets",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-priority-assets-3-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-priority-assets-3-portrait.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/take-and-hold/purge-the-foe",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-1-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-1-portrait.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-2.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-2.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-purge-the-foe-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-purge-the-foe-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/take-and-hold/reconnaissance",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-vs-reconnaissance-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-vs-reconnaissance-3.png"
+              }
+            ]
+          },
+          {
+            "sourcePath": "/11th/layouts/take-and-hold/take-and-hold",
+            "layouts": [
+              {
+                "number": 1,
+                "name": "Layout 1",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-mirror-1.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-mirror-1.png"
+              },
+              {
+                "number": 2,
+                "name": "Layout 2",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-mirror-2-portrait.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-mirror-2-portrait.png"
+              },
+              {
+                "number": 3,
+                "name": "Layout 3",
+                "image": "/assets/11th/layouts/no-measurements/take-and-hold-mirror-3.png",
+                "measurementsImage": "/assets/11th/layouts/with-measurements/take-and-hold-mirror-3.png"
+              }
+            ]
+          }
+        ],
+        "forceDispositions": [
+          {
+            "sourcePath": "/11th/force-disposition/disruption",
+            "title": "Disruption - Force Disposition | GDM 2026",
+            "asset": "/assets/11th/force-disposition/disruption.png"
+          },
+          {
+            "sourcePath": "/11th/force-disposition/priority-assets",
+            "title": "Priority Assets - Force Disposition | GDM 2026",
+            "asset": "/assets/11th/force-disposition/priority-assets.png"
+          },
+          {
+            "sourcePath": "/11th/force-disposition/purge-the-foe",
+            "title": "Purge the Foe - Force Disposition | GDM 2026",
+            "asset": "/assets/11th/force-disposition/purge-the-foe.png"
+          },
+          {
+            "sourcePath": "/11th/force-disposition/reconnaissance",
+            "title": "Reconnaissance - Force Disposition | GDM 2026",
+            "asset": "/assets/11th/force-disposition/reconnaissance.png"
+          },
+          {
+            "sourcePath": "/11th/force-disposition/take-and-hold",
+            "title": "Take and Hold - Force Disposition | GDM 2026",
+            "asset": "/assets/11th/force-disposition/take-and-hold.png"
+          }
+        ],
+        "matrix": {
+          "sourcePath": "/11th/matrix"
+        }
+      }
     }
   ]
 }

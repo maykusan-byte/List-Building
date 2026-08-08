@@ -28,8 +28,9 @@ En tant qu'expert React/Vite/Tailwind, nous devons concevoir des composants atom
 Toutes les données sont déjà majoritairement consolidées dans :
 - `catalog.json` & `locales/fr/catalog.json` pour le contenu des codex.
 - `data/missions/mission-packs.json` pour les packs de mission, généré vers
-  `public/data/missions.json`. Les cartes détaillées ne sont publiées que si
-  leur PDF officiel, sa version et sa date sont archivés.
+  `public/data/missions.json`. Les cartes détaillées proviennent soit d’un PDF
+  officiel archivé, soit d’une archive locale de source web explicitement
+  approuvée, avec les empreintes de ses pages et de ses ressources.
 - `core-rules-fr.json` pour les règles.
 
 La logique de chargement (Data Access Layer) devra extraire dynamiquement ces ressources (idéalement via le Worker existant ou des hooks optimisés) pour instancier les vues `/reference/`.

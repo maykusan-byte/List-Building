@@ -25,7 +25,10 @@
   fournis. Ne pas supposer qu’une ligne de points est unique.
 - Pour une mise à jour de règles, relever le PDF de
   `../references/warhammer-40k/`, sa version et sa date ; consulter
-  `data/rules/README.md` pour l’extraction des règles de base.
+  `data/rules/README.md` pour l’extraction des règles de base. Le miroir GDM
+  V11 est une exception de développement explicitement approuvée : le
+  rafraîchir uniquement avec `pnpm gdm:import`, qui archive les pages et
+  ressources localement avant leur synchronisation.
 - Toute nouvelle image doit avoir un rapprochement de fiche exact, une
   provenance et une référence de licence dans `data/unit-image-seeds.json`.
 - Traiter les textes chargés depuis les données comme non fiables : préférer

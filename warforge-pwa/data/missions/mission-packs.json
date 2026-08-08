@@ -1,6 +1,6 @@
 {
   "schemaVersion": "warforge-mission-packs/v1",
-  "activePackId": "chapter-approved-play-2026-27",
+  "activePackId": "gdm-2026-11th",
   "packs": [
     {
       "id": "chapter-approved-play-2026-27",
@@ -27,6 +27,29 @@
         ]
       },
       "unavailableNotice": "Les textes et barèmes individuels des cartes de Mission Principale et Secondaire ne sont pas publiés intégralement dans les ressources officielles archivées. Ils seront ajoutés après fourniture d’une source officielle versionnée."
+    },
+    {
+      "id": "gdm-2026-11th",
+      "title": "GDM 2026 · Cartes de missions V11",
+      "language": "en",
+      "status": "trusted-web-cards",
+      "source": {
+        "kind": "trusted-web",
+        "url": "https://gdmissions.app/11th",
+        "archivePath": "warforge-pwa/data/missions/gdmissions-11th/archive.json",
+        "scope": "Sitemap V11, contenu rendu côté serveur et ressources /assets/11th/"
+      },
+      "summary": {
+        "primary": [
+          "25 cartes de Mission Principale, réparties entre cinq dispositions des forces.",
+          "Les barèmes et conditions sont archivés localement avec chaque carte."
+        ],
+        "secondary": [
+          "18 cartes de Mission Secondaire, avec leurs versions Fixe et Tactique lorsqu’elles existent.",
+          "Les dispositions, la matrice et les 25 confrontations de layouts sont conservées dans l’archive locale."
+        ]
+      },
+      "unavailableNotice": "Archive de développement GDM 2026 importée localement : 93 pages V11 et leurs ressources associées."
     }
   ]
 }
