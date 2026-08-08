@@ -86,10 +86,7 @@ export function LearningPage({
     return 'all';
   });
   const [quizType, setQuizType] = useState<QuizType>('all');
-  const [allQuizSubtype, setAllQuizSubtype] = useState<'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions'>('stats');
-
-
-  const [missionsScore, setMissionsScore] = useState<{ correct: number; total: number; streak: number }>({ correct: 0, total: 0, streak: 0 });
+  const [allQuizSubtype, setAllQuizSubtype] = useState<'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare'>('stats');
   const [stratScore, setStratScore] = useState<{ correct: number; total: number; streak: number }>({ correct: 0, total: 0, streak: 0 });
   const [stratSeedIndex, setStratSeedIndex] = useState<number>(0);
 
@@ -216,20 +213,19 @@ export function LearningPage({
 
   // Helper to pick next random subtype when advancing in 'all' mode
   const pickNextAllSubtype = () => {
-    const options: ('stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions')[] = [];
+    const options: ('stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare')[] = [];
     if (eligibleUnits.length > 0) {
       options.push('stats', 'keywords', 'weapons', 'compare');
     }
     if (eligibleDetachments.length > 0) {
       options.push('stratagems');
     }
-    options.push('missions');
     if (options.length === 0) return;
     const next = options[Math.floor(Math.random() * options.length)];
     setAllQuizSubtype(next);
   };
 
-  const effectiveQuizType: 'stats' | 'keywords' | 'stratagems' | 'weapons' | 'compare' | 'missions' = useMemo(() => {
+  const effectiveQuizType: Exclude<QuizType, 'all'> = useMemo(() => {
     if (quizType !== 'all') return quizType;
     if (allQuizSubtype === 'stratagems' && eligibleDetachments.length === 0 && eligibleUnits.length > 0) {
       return 'stats';
@@ -309,8 +305,8 @@ export function LearningPage({
           <div className="learning-scores score-display">
             {quizType === 'all' ? (
               (() => {
-                const totalCorr = statsScore.correct + weaponsScore.correct + kwScore.correct + stratScore.correct + compareScore.correct + missionsScore.correct;
-                const totalTot = statsScore.total + weaponsScore.total + kwScore.total + stratScore.total + compareScore.total + missionsScore.total;
+                const totalCorr = statsScore.correct + weaponsScore.correct + kwScore.correct + stratScore.correct + compareScore.correct;
+                const totalTot = statsScore.total + weaponsScore.total + kwScore.total + stratScore.total + compareScore.total;
                 return (
                   <>
                     <div className="score-badge">🎯 {isFrench ? 'Score Global' : 'Overall Score'} : {totalCorr}/{totalTot}</div>
@@ -318,6 +314,8 @@ export function LearningPage({
                   </>
                 );
               })()
+            ) : quizType === 'missions' ? (
+              <div className="score-badge">{isFrench ? 'Référence officielle' : 'Official reference'}</div>
             ) : (
               (() => {
                 const s = quizType === 'stats' ? statsScore : quizType === 'weapons' ? weaponsScore : quizType === 'compare' ? compareScore : quizType === 'keywords' ? kwScore : stratScore;
@@ -483,17 +481,7 @@ export function LearningPage({
             />
           </div>
           <div style={{ display: effectiveQuizType === 'missions' ? 'block' : 'none' }}>
-            <MissionsQuiz
-              isFrench={isFrench}
-              onAdvance={pickNextAllSubtype}
-              onScoreUpdate={(isCorrect: boolean) => {
-                setMissionsScore((prev) => ({
-                  correct: prev.correct + (isCorrect ? 1 : 0),
-                  total: prev.total + 1,
-                  streak: isCorrect ? prev.streak + 1 : 0
-                }));
-              }}
-            />
+            <MissionsQuiz isFrench={isFrench} />
           </div>
           <div style={{ display: effectiveQuizType === 'stratagems' ? 'block' : 'none' }}>
             <StratagemsQuiz

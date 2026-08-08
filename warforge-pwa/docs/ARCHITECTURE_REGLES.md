@@ -2,7 +2,7 @@
 
 ## 1. État de l'Existant
 Actuellement, l'application propose les règles sous deux formes isolées :
-- `src/rules/RulesPage.tsx` : Affichage séquentiel du *Core Rulebook* (Livre de Règles de Base).
+- `src/reference/core/ReferenceCorePage.tsx` : Affichage séquentiel du *Core Rulebook* (Livre de Règles de Base).
 - `src/learning/` : Module de quiz pour les missions, sans page de référence passive.
 - `public/data/catalog.json` : Contient toute la richesse des Factions (Règles d'armée, Détachements, Stratagèmes, Améliorations), mais aucune interface ne les exploite purement comme un "Codex" numérique.
 
@@ -22,14 +22,14 @@ En tant qu'expert React/Vite/Tailwind, nous devons concevoir des composants atom
 
 - `StratagemCard` : Header avec couleur de Faction, coût en CP (Point de Commandement), Phase (icône), Type (Tactique de Bataille, Acte Épique, etc.), Cible, Effet, et Restrictions.
 - `EnhancementCard` : Nom, Coût en points, Effet.
-- `MissionCard` : Layout reprenant la structure "deck" (When, Trigger, Points).
-- `RuleTooltip` : Un composant d'UI permettant de survoler un Mot-Clé (ex: *Létal*, *Frapper en Profondeur*) pour lire sa définition sans quitter la page active.
 - Intégration des *FAQ / Errata* directement dans les composants concernés (via un badge ou un callout d'information).
 
 ## 4. Modélisation et Flux de Données
 Toutes les données sont déjà majoritairement consolidées dans :
 - `catalog.json` & `locales/fr/catalog.json` pour le contenu des codex.
-- `missions.json` & `locales/fr/missions.json` pour les missions.
+- `data/missions/mission-packs.json` pour les packs de mission, généré vers
+  `public/data/missions.json`. Les cartes détaillées ne sont publiées que si
+  leur PDF officiel, sa version et sa date sont archivés.
 - `core-rules-fr.json` pour les règles.
 
 La logique de chargement (Data Access Layer) devra extraire dynamiquement ces ressources (idéalement via le Worker existant ou des hooks optimisés) pour instancier les vues `/reference/`.

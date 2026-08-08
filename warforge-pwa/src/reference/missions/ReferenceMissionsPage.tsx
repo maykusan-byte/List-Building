@@ -1,111 +1,62 @@
 import { useEffect, useState } from 'react';
-import type { RulesDocument } from '../core/types';
-import { MissionCard } from '../components';
-
-const RULES_URL = `${import.meta.env.BASE_URL}data/rules/core-rules-fr.json`;
+import { activeMissionPack, formatMissionSourceDate, MISSION_DATA_URL, missionSourceFilename } from '../../domain/mission-packs';
+import type { MissionPack } from '../../domain/mission-packs';
 
 export interface ReferenceMissionsPageProps {
   locale: 'en' | 'fr';
 }
 
-export function ReferenceMissionsPage({ locale }: ReferenceMissionsPageProps) {
-  const [document, setDocument] = useState<RulesDocument | null>(null);
+export function ReferenceMissionsPage({ locale }: ReferenceMissionsPageProps): React.JSX.Element {
+  const [pack, setPack] = useState<MissionPack | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(RULES_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
+    const controller = new AbortController();
+    setError(null);
+    void fetch(MISSION_DATA_URL, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const value: unknown = await response.json();
+        const nextPack = activeMissionPack(value);
+        if (!nextPack) throw new Error('invalid-schema');
+        setPack(nextPack);
       })
-      .then((data: RulesDocument) => {
-        setDocument(data);
-      })
-      .catch((err) => {
-        console.error('Failed to load missions data', err);
-        setError('Impossible de charger les données de missions.');
+      .catch((loadError: unknown) => {
+        if (controller.signal.aborted) return;
+        setError(locale === 'fr' ? 'Impossible de charger le pack de missions.' : 'Unable to load the mission pack.');
       });
-  }, []);
+    return () => controller.abort();
+  }, [locale]);
 
   if (error) {
-    return (
-      <section className="rules-loading">
-        <h2 style={{ color: 'var(--ink)' }}>{locale === 'en' ? 'Error' : 'Erreur'}</h2>
-        <p className="error-text">{error}</p>
-      </section>
-    );
+    return <section className="rules-loading"><h2>{locale === 'fr' ? 'Erreur' : 'Error'}</h2><p className="error-text">{error}</p></section>;
   }
-
-  if (!document) {
-    return (
-      <section className="rules-loading">
-        <h2 style={{ color: 'var(--ink)' }}>{locale === 'en' ? 'Loading missions...' : 'Chargement des missions...'}</h2>
-      </section>
-    );
-  }
-
-  const { missionFramework } = document;
-
-  if (!missionFramework) {
-    return (
-      <div style={{ padding: '0 1.5rem' }}>
-        <p>{locale === 'en' ? 'No missions found.' : 'Aucune mission trouvée.'}</p>
-      </div>
-    );
+  if (!pack) {
+    return <section className="rules-loading"><h2>{locale === 'fr' ? 'Chargement des missions…' : 'Loading missions…'}</h2></section>;
   }
 
   return (
     <div style={{ padding: '0 1.5rem 2rem' }}>
       <header style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{missionFramework.packName}</h2>
-        <p style={{ color: 'var(--ink-soft)' }}>{missionFramework.status === 'public-summary' ? 'Résumé Public' : missionFramework.status}</p>
+        <span className="eyebrow">{locale === 'fr' ? 'SOURCE OFFICIELLE ARCHIVÉE' : 'ARCHIVED OFFICIAL SOURCE'}</span>
+        <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{pack.title}</h2>
+        <p className="muted">
+          {missionSourceFilename(pack.source.relativePath)} · {formatMissionSourceDate(pack.source.createdAt, locale)} · {pack.source.pageCount} {locale === 'fr' ? 'pages' : 'pages'}
+        </p>
       </header>
 
-      {missionFramework.unavailableNotice && (
-        <div style={{ padding: '1rem', background: '#ffebee', color: '#c62828', borderRadius: '0.5rem', marginBottom: '2rem' }}>
-          <strong>Attention: </strong>
-          {missionFramework.unavailableNotice}
-        </div>
-      )}
+      <aside className="mission-unavailable"><strong>{locale === 'fr' ? 'Cartes détaillées non intégrées' : 'Detailed cards are not integrated'}</strong><p>{pack.unavailableNotice}</p></aside>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
-        <section>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--ink)', paddingBottom: '0.5rem' }}>
-            {locale === 'en' ? 'Primary Missions' : 'Missions Principales'}
-          </h3>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', paddingLeft: '1.5rem' }}>
-            {missionFramework.primary?.map((rule, idx) => (
-              <li key={idx}>{rule}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--ink)', paddingBottom: '0.5rem' }}>
-            {locale === 'en' ? 'Secondary Missions' : 'Missions Secondaires'}
-          </h3>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', paddingLeft: '1.5rem' }}>
-            {missionFramework.secondary?.map((rule, idx) => (
-              <li key={idx}>{rule}</li>
-            ))}
-          </ul>
-        </section>
+      <div className="mission-score-grid">
+        <article>
+          <h3>{locale === 'fr' ? 'Mission principale' : 'Primary mission'}</h3>
+          <ul>{pack.summary.primary.map((rule) => <li key={rule}>{rule}</li>)}</ul>
+        </article>
+        <article>
+          <h3>{locale === 'fr' ? 'Missions secondaires' : 'Secondary missions'}</h3>
+          <ul>{pack.summary.secondary.map((rule) => <li key={rule}>{rule}</li>)}</ul>
+        </article>
       </div>
-
-      {missionFramework.sources && missionFramework.sources.length > 0 && (
-        <section style={{ marginTop: '3rem' }}>
-          <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>{locale === 'en' ? 'Sources & Links' : 'Sources & Liens'}</h3>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingLeft: '1.5rem' }}>
-            {missionFramework.sources.map((source, idx) => (
-              <li key={idx}>
-                <a href={source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--interactive)' }}>
-                  {source.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </div>
   );
 }

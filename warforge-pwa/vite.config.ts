@@ -35,7 +35,8 @@ export default defineConfig(({ mode }) => {
       })
     ],
     test: {
-      environment: 'jsdom'
+      environment: 'jsdom',
+      include: ['src/**/*.{test,spec}.{ts,tsx}', 'scripts/**/*.{test,spec}.mjs']
     }
   };
 });

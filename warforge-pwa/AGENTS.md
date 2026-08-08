@@ -10,10 +10,11 @@
 - `data/inventory/datasheet_x_figs.csv` est l’inventaire actif versionné. Ses
   colonnes contractuelles sont `DatabaseFingerprint`, `UnitId`,
   `ID_figurine` et `Type` (`real` ou `proxy`).
-- `data/locales/`, `data/rules/` et `data/unit-image-seeds.json` sont les
-  entrées versionnées de leurs domaines. `public/data/catalog.json`, les
-  locales publiques, l’inventaire public et les règles publiques sont générés
-  par `pnpm sync-data` ; ne pas les éditer manuellement.
+- `data/locales/`, `data/rules/`, `data/missions/` et
+  `data/unit-image-seeds.json` sont les entrées versionnées de leurs domaines.
+  `public/data/catalog.json`, les locales publiques, les missions publiques,
+  l’inventaire public et les règles publiques sont générés par `pnpm sync-data`
+  ; ne pas les éditer manuellement.
 - `../legacy/warorgan/master_warorgan.json` sert uniquement aux migrations
   historiques. Les scripts `inventory:migrate` et `inventory:rebase` ne sont
   jamais des vérifications courantes et peuvent réécrire l’inventaire.

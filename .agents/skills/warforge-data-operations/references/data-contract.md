@@ -8,6 +8,7 @@
 | French locales | `warforge-pwa/data/locales/fr/official.json` | `warforge-pwa/public/data/locales/fr/catalog.json` |
 | Inventory | `warforge-pwa/data/inventory/datasheet_x_figs.csv` | `warforge-pwa/public/data/datasheet_x_figs.csv` |
 | Core rules | `references/warhammer-40k/rules/core/` | `warforge-pwa/data/rules/core-rules-fr.json` then public copy |
+| Mission packs | `warforge-pwa/data/missions/mission-packs.json` with an archived official PDF | `warforge-pwa/public/data/missions.json` |
 | Unit images | `warforge-pwa/data/unit-image-seeds.json` and validated WebP assets | `warforge-pwa/public/data/unit-images.json` |
 | Historical migration | `legacy/warorgan/master_warorgan.json` | Never loaded by the PWA |
 
@@ -22,5 +23,7 @@
   `ID_figurine`, and `Type`; the latter is exactly `real` or `proxy`.
 - French core rules are generated from the archived French PDF. The English
   core PDF and faction packs are contextual references, not automatic inputs.
+- A mission pack records its exact PDF hash, creation date, page count and card
+  availability. A `summary-only` pack must not contain detailed mission cards.
 - Images require an exact seeded match and source/license metadata. The missing
   image report is a validation queue, not a license to add approximate matches.
