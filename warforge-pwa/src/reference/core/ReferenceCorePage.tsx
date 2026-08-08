@@ -69,22 +69,26 @@ function RuleQuickCard({ section, locale, kind }: { section: RulesSection; local
   );
 }
 
-function RulesContent({ document, selectedSectionId }: { document: RulesDocument; selectedSectionId: string | null }): React.JSX.Element {
+function RulesContent({ document, selectedSectionId, locale }: { document: RulesDocument; selectedSectionId: string | null; locale: 'fr' | 'en' }): React.JSX.Element {
+  const isFrench = locale === 'fr';
   return (
     <div className="rules-content">
-      {document.chapters.map((chapter) => (
+      {document.chapters.map((chapter, chapterIndex) => (
         <section className="rules-chapter" key={chapter.id} aria-labelledby={`chapter-${chapter.id}`}>
-          <div className="rules-chapter-heading"><span>{sourcePageLabel(chapter.sourcePages)}</span><h2 id={`chapter-${chapter.id}`}>{chapter.title}</h2></div>
+          <div className="rules-chapter-heading">
+            <div><span>{isFrench ? `CHAPITRE ${String(chapterIndex + 1).padStart(2, '0')}` : `CHAPTER ${String(chapterIndex + 1).padStart(2, '0')}`}</span><h2 id={`chapter-${chapter.id}`}>{chapter.title}</h2></div>
+            <p><strong>{chapter.sections.length}</strong> {isFrench ? `section${chapter.sections.length > 1 ? 's' : ''}` : `section${chapter.sections.length > 1 ? 's' : ''}`} · {sourcePageLabel(chapter.sourcePages)}</p>
+          </div>
           {chapter.sections.map((section) => (
             <article id={`rule-${section.id}`} className={`rules-section ${selectedSectionId === section.id ? 'targeted' : ''}`} key={section.id} tabIndex={-1}>
               <div className="rules-section-heading">
-                <div><span>{section.reference ?? 'RÉFÉRENCE'}</span><h3>{section.title}</h3></div>
-                <a href={`#rules/${encodeURIComponent(section.id)}`} aria-label={`Lien direct vers ${section.title}`}>#{sourcePageLabel(section.sourcePages)}</a>
+                <div><span className="rules-section-reference">{section.reference ?? (isFrench ? 'RÉFÉRENCE' : 'REFERENCE')}</span><h3>{section.title}</h3></div>
+                <a href={`#rules/${encodeURIComponent(section.id)}`} aria-label={isFrench ? `Lien direct vers ${section.title}` : `Direct link to ${section.title}`}><span aria-hidden="true">#</span>{sourcePageLabel(section.sourcePages)}</a>
               </div>
               {section.pages.map((page) => (
                 <section className="rules-page" key={page.id} aria-label={`Page source ${page.printedPage}`}>
                   <span className="rules-page-number">Source p. {page.printedPage}</span>
-                  {page.blocks.map(renderBlock)}
+                  <div className="rules-page-content">{page.blocks.map(renderBlock)}</div>
                 </section>
               ))}
             </article>
@@ -199,6 +203,11 @@ export function ReferenceCorePage({ locale }: { locale: 'fr' | 'en' }): React.JS
   }, [document, selectedSectionId, view]);
 
   const results = useMemo(() => document ? searchRules(document, query).slice(0, 30) : [], [document, query]);
+  const referenceStats = useMemo(() => {
+    if (!document) return null;
+    const sections = document.chapters.flatMap((chapter) => chapter.sections);
+    return { chapters: document.chapters.length, sections: sections.length, pages: sections.flatMap((section) => section.pages).length };
+  }, [document]);
   const selectedSection = document ? rulesSectionById(document, selectedSectionId) : null;
   const openSection = (section: RulesSection): void => {
     setTocOpen(false);
@@ -236,6 +245,11 @@ export function ReferenceCorePage({ locale }: { locale: 'fr' | 'en' }): React.JS
             <section id="rules-reference" className="rules-reference-view" role="tabpanel" aria-label={isFrench ? 'Référence complète des règles de base' : 'Complete core rules reference'}>
               <div className="rules-reference-view-heading">
                 <div><span className="eyebrow">{isFrench ? 'TEXTE STRUCTURÉ' : 'STRUCTURED TEXT'}</span><h2>{isFrench ? 'Référence complète' : 'Complete reference'}</h2><p>{isFrench ? 'Le corpus intégral reste disponible, avec sa pagination source et des liens directs pérennes.' : 'The complete corpus remains available with source pagination and stable direct links.'}</p></div>
+                {referenceStats && <dl className="rules-reference-stats" aria-label={isFrench ? 'Contenu de la référence' : 'Reference contents'}>
+                  <div><dt>{referenceStats.chapters}</dt><dd>{isFrench ? 'chapitres' : 'chapters'}</dd></div>
+                  <div><dt>{referenceStats.sections}</dt><dd>{isFrench ? 'sections' : 'sections'}</dd></div>
+                  <div><dt>{referenceStats.pages}</dt><dd>{isFrench ? 'pages source' : 'source pages'}</dd></div>
+                </dl>}
                 <button className="secondary rules-toc-toggle" type="button" aria-expanded={tocOpen} onClick={() => setTocOpen((open) => !open)}>{isFrench ? 'Sommaire' : 'Contents'}</button>
               </div>
               <div className="rules-layout">
@@ -243,7 +257,7 @@ export function ReferenceCorePage({ locale }: { locale: 'fr' | 'en' }): React.JS
                   <div className="rules-toc-heading"><h2>{isFrench ? 'Sommaire' : 'Contents'}</h2><button className="secondary" type="button" onClick={() => setTocOpen(false)}>{isFrench ? 'Fermer' : 'Close'}</button></div>
                   {document.chapters.map((chapter) => <section key={chapter.id}><h3>{chapter.title}</h3><ul>{chapter.sections.map((section) => <li key={section.id}><button className={selectedSection?.id === section.id ? 'active' : ''} onClick={() => openSection(section)}>{section.reference && <span>{section.reference}</span>}{section.title}<small>{sourcePageLabel(section.sourcePages)}</small></button></li>)}</ul></section>)}
                 </aside>
-                <RulesContent document={document} selectedSectionId={selectedSectionId} />
+                <RulesContent document={document} selectedSectionId={selectedSectionId} locale={locale} />
               </div>
             </section>
           )}
