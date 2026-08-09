@@ -250,6 +250,37 @@ p { color: var(--ink-soft); line-height: 1.5; }
 .mission-layout-card { background: #fffdf8; border: 1px solid #dfd2bf; border-radius: 0.8rem; margin: 0; overflow: hidden; }
 .mission-layout-card img { display: block; height: auto; width: 100%; }
 .mission-layout-card figcaption { color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; padding: 0.65rem 0.75rem; }
+.mission-disposition-entry { display: grid; gap: 0.65rem; }
+.strategy-brief { background: #f7f2e8; border: 1px solid #d8c9b6; border-radius: 0.65rem; color: var(--ink); font-size: 0.82rem; margin-top: 0.9rem; }
+.strategy-brief summary { align-items: center; color: var(--ink); cursor: pointer; display: flex; font-weight: 800; gap: 0.5rem; justify-content: space-between; list-style: none; padding: 0.7rem 0.75rem; }
+.strategy-brief summary::-webkit-details-marker { display: none; }
+.strategy-brief summary::after { color: var(--gold-dark); content: '+'; font-size: 1.1rem; line-height: 1; }
+.strategy-brief[open] summary { border-bottom: 1px solid #dfd2bf; }
+.strategy-brief[open] summary::after { content: '−'; }
+.strategy-brief__tier { background: #e8decb; border-radius: 999px; color: #5c472b; font-size: 0.66rem; letter-spacing: 0.03em; padding: 0.2rem 0.45rem; text-transform: uppercase; white-space: nowrap; }
+.strategy-brief__content { padding: 0.75rem; }
+.strategy-brief__content > :first-child { margin-top: 0; }
+.strategy-brief__content > :last-child { margin-bottom: 0; }
+.strategy-brief__content h4 { color: var(--gold-dark); font-size: 0.72rem; letter-spacing: 0.05em; margin: 0.85rem 0 0.35rem; text-transform: uppercase; }
+.strategy-brief__content ul { margin: 0; padding-left: 1.1rem; }
+.strategy-brief__content li + li { margin-top: 0.3rem; }
+.strategy-brief__axes { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; padding: 0 !important; }
+.strategy-brief__axes li { background: #ece3d3; border-radius: 999px; color: #5c472b; font-size: 0.72rem; font-weight: 800; padding: 0.25rem 0.5rem; }
+.strategy-brief__evidence { color: var(--ink-soft); font-size: 0.75rem; line-height: 1.45; margin: 0.9rem 0 0; }
+.strategy-brief__limits { border-top: 1px solid #dfd2bf; margin-top: 0.8rem; }
+.strategy-brief__columns { display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+.strategy-reference-roster { align-items: center; background: #fffaf0; border: 1px solid #dfd2bf; border-radius: 0.45rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; margin-top: 0.75rem; padding: 0.6rem; }
+.strategy-reference-roster button { font-size: 0.75rem; }
+.strategy-axis-ratings { display: grid; gap: 0.45rem; list-style: none; padding: 0 !important; }
+.strategy-axis-ratings li { background: #fffaf0; border: 1px solid #dfd2bf; border-radius: 0.45rem; display: grid; gap: 0.2rem; padding: 0.5rem 0.6rem; }
+.strategy-axis-ratings span { color: var(--ink-soft); line-height: 1.4; }
+.strategy-synergy-list { display: grid; gap: 0.7rem; }
+.strategy-synergy { background: rgba(255, 250, 240, 0.66); border: 1px solid #dfd2bf; border-radius: 0.55rem; padding: 0.75rem; }
+.strategy-synergy h5 { color: var(--gold-dark); font-size: 0.9rem; margin: 0; }
+.strategy-synergy h6 { color: var(--ink); font-size: 0.72rem; margin: 0; text-transform: uppercase; }
+.strategy-synergy > p { line-height: 1.45; }
+.strategy-synergy__columns { display: grid; gap: 0.6rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.strategy-synergy__columns ul { font-size: 0.76rem; }
 .mission-matrix-scroll { overflow-x: auto; }
 .mission-matrix { border-collapse: collapse; font-size: 0.8rem; min-width: 48rem; width: 100%; }
 .mission-matrix caption { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; text-align: left; }
@@ -740,6 +771,7 @@ p { color: var(--ink-soft); line-height: 1.5; }
   .rules-introduction { align-items: stretch; grid-template-columns: 1fr; }
   .rules-toc-toggle { display: inline-block; }
   .mission-score-grid { grid-template-columns: 1fr; }
+  .strategy-synergy__columns { grid-template-columns: 1fr; }
   .rules-chapter, .mission-framework, .rules-results { padding: 0.8rem; }
   .rules-section.targeted { box-shadow: 0 0 0 0.25rem #fff9e8; }
 }

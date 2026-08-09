@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { activeMissionPack, formatMissionSourceDate, isTrustedWebMissionPack, MISSION_DATA_URL, missionSourceDate, missionSourceFilename } from '../../domain/mission-packs';
 import type { MissionPack } from '../../domain/mission-packs';
+import { loadStrategyKnowledge } from '../../domain/strategy-knowledge';
+import type { StrategyKnowledge } from '../../domain/strategy-knowledge';
 import { MissionLibrary } from './MissionLibrary';
 
 export interface ReferenceMissionsPageProps {
@@ -9,6 +11,7 @@ export interface ReferenceMissionsPageProps {
 
 export function ReferenceMissionsPage({ locale }: ReferenceMissionsPageProps): React.JSX.Element {
   const [pack, setPack] = useState<MissionPack | null>(null);
+  const [strategy, setStrategy] = useState<StrategyKnowledge | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -28,6 +31,14 @@ export function ReferenceMissionsPage({ locale }: ReferenceMissionsPageProps): R
       });
     return () => controller.abort();
   }, [locale]);
+
+  useEffect(() => {
+    let active = true;
+    void loadStrategyKnowledge().then((knowledge) => {
+      if (active) setStrategy(knowledge);
+    });
+    return () => { active = false; };
+  }, []);
 
   if (error) return <section className="rules-loading"><h2>{locale === 'fr' ? 'Erreur' : 'Error'}</h2><p className="error-text">{error}</p></section>;
   if (!pack) return <section className="rules-loading"><h2>{locale === 'fr' ? 'Chargement des missions…' : 'Loading missions…'}</h2></section>;
@@ -49,7 +60,7 @@ export function ReferenceMissionsPage({ locale }: ReferenceMissionsPageProps): R
         <article><h3>{locale === 'fr' ? 'Mission principale' : 'Primary mission'}</h3><ul>{pack.summary.primary.map((rule) => <li key={rule}>{rule}</li>)}</ul></article>
         <article><h3>{locale === 'fr' ? 'Missions secondaires' : 'Secondary missions'}</h3><ul>{pack.summary.secondary.map((rule) => <li key={rule}>{rule}</li>)}</ul></article>
       </div>
-      <MissionLibrary pack={pack} locale={locale} />
+      <MissionLibrary pack={pack} strategy={strategy} locale={locale} />
     </div>
   );
 }

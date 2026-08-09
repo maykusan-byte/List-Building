@@ -1,140 +1,87 @@
 # Contrat de connaissance stratégique Warforge
 
-## Périmètre et emplacement
+## Source de vérité et cycle de publication
 
-Ce contrat prépare une future source versionnée
-warforge-pwa/data/strategy/knowledge-base.json. Aucun fichier de ce domaine
-n'est encore chargé par la PWA. Lors de l'intégration, le fichier source devra
-être synchronisé vers une copie publique générée et validé par le script fourni.
+La source est `warforge-pwa/data/strategy/knowledge-base.json`. Son miroir généré est `warforge-pwa/public/data/strategy-knowledge.json` et ne doit jamais être modifié directement. La commande `pnpm --dir warforge-pwa strategy:validate` vérifie le schéma, les liens aux cartes GDM et au catalogue, les références internes et les SHA-256 des archives locales. `pnpm --dir warforge-pwa build` exécute cette validation puis régénère le miroir.
 
-Le document porte sur la V11 uniquement. Sa compatibilité épingle :
+Le document est exclusivement V11 et utilise `schemaVersion: "warforge-strategy-knowledge/v3"`. Sa compatibilité doit épingler `warforge-catalog/v2`, la valeur présente dans `data/units/DataInfo.json`, et les identifiants des packs de mission applicables.
 
-- catalogSchema : warforge-catalog/v2 ;
-- catalogDataVersion : valeur de data/units/DataInfo.json:Version ;
-- missionPackIds : identifiants de data/missions/mission-packs.json.
+Les identifiants `catalogUnitId` et `catalogDetachmentId` sont des identifiants normalisés (`book-…:unit:n`, `book-…:detachment:n`) de la version de catalogue épinglée, jamais des noms visibles.
 
-Une unité ou un détachement est référencé par son identifiant normalisé
-(book-…:unit:n ou book-…:detachment:n), jamais par son nom affiché. Ces
-identifiants sont stables seulement pour la version de catalogue épinglée.
+## Niveaux de connaissance
 
-## Strates de connaissance
+| Niveau | Usage | Preuve minimale |
+| --- | --- | --- |
+| Fait officiel | règles, mission, FAQ, points, catalogue | document officiel versionné et daté |
+| Archive de mission approuvée | contexte de mission GDM | archive locale, empreinte et autorité `approved-archive` |
+| Observation | résultats de tournois ou mesures de jeu | période, population, méthode, archive et limites |
+| Inférence | rôle, synergie, lecture stratégique | sources résolues, préconditions et limites |
+| Hypothèse | piste de test | statut `needs-review`; jamais publiée comme conseil |
 
-| Strate | Objet | Niveau de confiance possible | Exigence minimale |
-| --- | --- | --- | --- |
-| Fait officiel | règle, points, catalogue, mission, FAQ | élevé | source officielle, version/date et empreinte |
-| Observation | résultats d'événement ou playtest | faible à élevé | population, période, méthode et archive |
-| Inférence | rôle, synergie, plan de jeu | faible à élevé | sources qui la soutiennent, conditions et limites |
-| Hypothèse | piste à tester | faible | protocole de test ; jamais une recommandation publiée |
+Une archive GDM est une source `trusted-mission-archive` d’autorité `approved-archive`. Elle est bien prise en compte pour les scénarios, dispositions et layouts, mais n’est pas une source officielle de règle. Une métrique de méta archivée est `tournament-meta-snapshot` d’autorité `observational`; elle décrit une corrélation observée, jamais une causalité.
 
-Ne fusionnez pas ces strates. Une source communautaire peut soutenir une
-inférence, mais ne devient pas une règle officielle.
+## Racine et registre de sources
 
-## Document racine
+La racine comprend `knowledgeVersion`, `status` (`draft`, `reviewed`, `published`), `updatedAt`, `compatibility`, `catalogProvenanceSourceId`, `sources`, `ruleNodes`, `scenarios`, `forceDispositions`, `layoutContexts`, `unitProfiles`, `detachmentProfiles`, `synergies`, `metaSnapshots`, `matchupPlans`, `recommendations`, `victoryPlans` et `referenceRosters`. `catalogProvenanceSourceId` désigne l’unique manifeste de catalogue compatible.
 
-Le fichier utilise schemaVersion: "warforge-strategy-knowledge/v1" et contient :
+Chaque source comporte au minimum `id`, `kind`, `authority`, `title`, `retrievedAt`, `sha256` et un chemin local vérifiable (`relativePath` ou `archivePath`).
 
-| Champ | Rôle |
-| --- | --- |
-| knowledgeVersion, updatedAt, status | cycle de vie de la base |
-| compatibility | édition, catalogue et packs de mission compatibles |
-| sources | registre de preuves, daté et archivé |
-| scenarios | profils de missions et axes de victoire |
-| unitProfiles, detachmentProfiles | évaluations contextuelles liées au catalogue |
-| synergies | interactions et contreparties explicites |
-| metaSnapshots | mesures datées, jamais une impression non chiffrée |
-| recommendations | conclusions dérivées, contextualisées et révisables |
+- Les documents `official-rule`, `official-mission`, `official-points` et `official-errata` ont `authority: "official"`, `documentVersion`, `validity` et `publishedAt` ou `documentCreatedAt`.
+- Une archive GDM a `kind: "trusted-mission-archive"`, `authority: "approved-archive"` et `archivePath`.
+- Une archive méta a `kind: "tournament-meta-snapshot"`, `authority: "observational"`, une `url` et une copie locale.
+- Le manifeste du catalogue a `kind: "catalog-manifest"`, `authority: "local-verified"`, `catalogSchema`, `catalogDataVersion`, un `relativePath` vers `warforge-pwa/data/units/DataInfo.json` et son SHA-256. Le validateur vérifie cette empreinte et résout les identifiants contre le catalogue épinglé.
+- Pour un PDF paginé, renseigner `pageCount`. Les `sourcePages` d’un profil ou d’une synergie doivent être positives, sans doublon et ne pas dépasser le nombre de pages connu.
 
-Le statut initial skeleton autorise seulement une structure vide. Utilisez
-draft, reviewed ou published dès que des enregistrements apparaissent.
+## Scénarios et évaluations
 
-## Sources
+Les axes contrôlés sont `primary-scoring`, `secondary-scoring`, `board-control`, `tempo`, `mobility`, `durability`, `damage-projection`, `resource-efficiency`, `denial` et `trading`.
 
-Chaque entrée sources possède un identifiant stable, un type, une autorité, une
-date de publication, une date de récupération, un unique emplacement (url ou
-relativePath) et l'empreinte SHA-256 de la ressource consultée. Quand
-l'emplacement est une URL, archivePath peut désigner sa copie locale vérifiable.
-Les documents officiels utilisent nécessairement authority: "official".
+Les notes d’axe sont des entiers de 0 à 4. Elles expriment une contribution contextuelle, ni probabilité de victoire ni mesure de dégâts. Chaque profil garde une base explicite, des limites, une confiance et une date `reviewBy`.
 
-Types admis :
+Les scénarios, dispositions et contextes de layout GDM doivent couvrir exactement les cartes archivées. Une carte GDM ne doit pas être réécrite au-delà de la limite de résumé autorisée par son pack.
 
-- official-rule, official-mission, official-points, official-errata
-- event-results, community-analysis, playtest
+## Graphe de règles, profils, synergies et méta
 
-Une source web ou un export de résultats doit être archivé localement avant
-publication d'une recommandation. Une source ne suffit pas à établir une
-causalité : résumer sa méthode et ses limites dans l'enregistrement concerné.
+Un `ruleNode` est un fait sourcé, et non une conclusion tactique. Il possède `kind` (`army-rule`, `detachment-rule`, `stratagem`, `enhancement`, `datasheet-ability` ou `mission-rule`), un `owner` `{ type: "unit" | "detachment", catalogId }`, des `requiresParticipants` optionnels pour les prérequis de composition, `fact`, `timing`, `target`, `activation`, `effectTags`, `sourceIds`, `sourcePages`, des `limitations` et `reviewBy`. Un nœud `selected-enhancement` doit aussi porter le nom exact `catalogEnhancementName` présent dans le catalogue épinglé. Son sélecteur cible peut restreindre la faction, les identifiants d’unité et les mots-clés requis ou exclus.
 
-## Axes et évaluations
+Le résolveur de graphe est volontairement limité à la composition de liste : propriétaire sélectionné, unité présente, mots-clés du catalogue et amélioration effectivement sélectionnée. Une règle ainsi résolue est **applicable à la composition**, mais elle n’est pas automatiquement active pendant la partie. Les PC, phases, distances, cibles, actions, états cachés, jets et conditions de score restent des préconditions textuelles et ne doivent jamais être présentés comme satisfaits.
 
-Les axes contrôlés sont :
+Un profil d’unité ou de détachement contient `catalogDataVersion`, `catalogUnitId` ou `catalogDetachmentId`, `faction`, `title`, `roles`, `rationale`, `preconditions`, `limitations`, `axisRatings`, `sourcePages`, `sourceIds`, `sourceTier`, `confidence`, `status` et `reviewBy`. Un profil d’unité possède en plus `detachmentProfileIds` non vide : chaque identifiant doit résoudre vers un profil de détachement de même faction et de même version de catalogue ; un profil d’unité `reviewed` ne peut cibler que des détachements `reviewed`.
 
-primary-scoring, secondary-scoring, board-control, tempo, mobility,
-durability, damage-projection, resource-efficiency, denial, trading.
+Une synergie est une arête d’inférence entre au moins deux participants `{ type: "unit" | "detachment", catalogId }` et une ou plusieurs règles factuelles `ruleIds`. Elle ajoute `relationKind` (`enables`, `amplifies`, `protects`, `repositions`, `denies`, `scores` ou `coordinates`), puis `claim`, `timing`, `preconditions`, `counterplay`, `tradeoffs`, `limitations`, `axisEffects`, `evidenceKind`, les éléments de preuve et `reviewBy`. Les `ruleIds` sont uniques, résolvent vers des nœuds existants et, pour une arête `reviewed`, uniquement vers des nœuds `reviewed`; les sources de l’arête doivent recouper celles de ses nœuds. `rules-supported` cite au moins une source officielle; `tested` exigerait une source de test/résultats compatible; `hypothesis` reste `needs-review`.
 
-Une évaluation utilise un entier de 0 à 4 :
+Un `metaSnapshot` possède une fenêtre (`id`, `coverageThrough`, nombre d’événements et de parties), des métriques de factions, des limitations et des sources `tournament-meta-snapshot`. Ne pas extrapoler au-delà de la population mesurée.
 
-- 0 : aucune contribution démontrée ;
-- 1 : contribution rare ou coûteuse ;
-- 2 : contribution normale, dépendante du contexte ;
-- 3 : contribution forte dans le contexte décrit ;
-- 4 : contribution déterminante, avec limites documentées.
+Un `victoryPlan` est une inférence expliquée liée à une seule mission principale, un profil de détachement, au moins une règle et une synergie. Il explicite ses axes prioritaires, prérequis, contre-jeux, compromis et limites. Il n’autorise pas le résolveur à supposer un état de partie. Un `referenceRoster` est une liste d’exemple liée à un `victoryPlan` : son catalogue, son format, sa disposition, sa mission principale, ses détachements, ses unités, ses options et son total doivent être validables. Elle est toujours chargée dans l’application comme une copie éditable.
 
-Cette échelle exprime une appréciation tactique, pas une probabilité de victoire
-ni une mesure de dégâts. Chaque profil comporte une justification, des sources
-et une confiance. Les profils d'unité et de détachement exigent une
-catalogDataVersion renseignée.
+## Recommandations futures
 
-## Enregistrements stratégiques
+Une recommandation, même vide aujourd’hui, suit ce contrat :
 
-### Scénario
+```json
+{
+  "id": "identifiant-stable",
+  "title": "Conclusion conditionnelle",
+  "kind": "list-construction | play-pattern | matchup-plan",
+  "statement": "Conseil contextualisé, sans promesse de victoire.",
+  "sourceTier": "inference | hypothesis",
+  "sourceIds": ["source-resolue"],
+  "confidence": "low | medium | high",
+  "status": "draft | needs-review | reviewed | published",
+  "scope": {
+    "scenarioIds": ["optionnel"],
+    "synergyIds": ["optionnel"],
+    "metaSnapshotIds": ["optionnel"],
+    "detachmentProfileIds": ["optionnel"]
+  },
+  "tradeoffs": ["coût ou contrepartie"],
+  "limitations": ["condition ou incertitude"],
+  "reviewBy": "YYYY-MM-DD"
+}
+```
 
-Un scénario identifie le pack de mission, les cartes ou dispositions lorsqu'elles
-sont légalement et réellement disponibles, ses fenêtres de score et un
-classement des axes. Son sourceIds doit pointer vers une source de mission.
-N'ajoutez aucun détail de carte à un pack summary-only.
-
-### Profil d'unité ou de détachement
-
-Un profil est lié au catalogue épinglé et contient des rôles contrôlés, des
-évaluations d'axes, une conclusion courte, des limites, des sources et une
-confiance. Il ne remplace pas les caractéristiques ou règles sources.
-
-### Synergie
-
-Une synergie fournit au moins deux participants (unité, détachement,
-stratagème ou amélioration), une affirmation, les préconditions, le timing,
-les contre-jeux, les coûts d'opportunité, des effets d'axe et les sources.
-evidenceKind: "rules-supported" exige au moins une source officielle ;
-"tested" exige une source de playtest ou de résultats ; "hypothesis" reste au
-statut needs-review.
-
-### Snapshot de meta
-
-Un snapshot contient une fenêtre d'observation, un format, une méthode, une
-description de l'échantillon, les métriques et les limites. Ses sources doivent
-être des résultats, des analyses communautaires ou des playtests ; ne dérivez
-pas une métrique au-delà de ce que la source mesure.
-
-### Recommandation
-
-Une recommandation est toujours une inférence. Elle référence un ou plusieurs
-scénarios, synergies ou snapshots existants, indique son contexte, ses
-compromis, sa confiance, son statut et reviewBy. Une recommandation published
-doit avoir une preuve traçable et ne peut pas reposer sur une synergie
-hypothétique.
+Au moins une liste de `scope` doit être non vide et tous ses identifiants doivent résoudre. Une hypothèse est `needs-review`. Une recommandation `published` est une `inference`, cite une source officielle, est ancrée dans un scénario ou une synergie, et ne peut pas dépendre d’une synergie hypothétique.
 
 ## Porte de publication
 
-Avant l'intégration à la PWA :
-
-1. Exécuter le validateur sur le fichier source.
-2. Vérifier que les références de catalogue et de missions existent dans les
-   versions épinglées.
-3. Relire les conclusions affichables : contexte, limites, contre-jeu et date
-   de révision doivent être visibles.
-4. Ajouter les tests de chargement et de rendu texte lors du branchement à
-   l'interface.
-
-Le validateur vérifie le contrat structurel et les relations internes. La
-validation humaine confirme la fidélité des règles, la pertinence des sources
-et les identifiants réels de catalogue.
+Avant tout affichage ou conseil : valider la base, vérifier la version et la date des sources, relire le contexte/les limites/les contre-jeux, puis exécuter tests, lint et build de la PWA. La validation automatique assure la cohérence structurelle; la revue humaine confirme la fidélité des règles et l’utilité tactique.

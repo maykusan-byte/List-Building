@@ -11,6 +11,7 @@
     "sync-data": "node scripts/sync-data.mjs",
     "gdm:import": "node scripts/import-gdmissions-11th.mjs --run",
     "missions:validate": "node scripts/mission-data.mjs --check",
+    "strategy:validate": "node scripts/strategy-knowledge.mjs --check",
     "faction-packs:validate": "node scripts/faction-pack-audit.mjs --check",
     "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",
     "rules:validate": "node scripts/validate-rules.mjs",

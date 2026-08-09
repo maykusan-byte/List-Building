@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { buildCatalog } from './build-catalog.mjs';
 import { buildCatalogLocales } from './build-locales.mjs';
 import { syncMissionData } from './sync-missions.mjs';
+import { syncStrategyKnowledge } from './strategy-knowledge.mjs';
 
 function fingerprintRaw(raw) {
   let hash = 0x811c9dc5;
@@ -17,6 +18,7 @@ try {
   const { outputPath } = await buildCatalog();
   await buildCatalogLocales();
   await syncMissionData();
+  await syncStrategyKnowledge();
   await import('./build-unit-image-manifest.mjs');
   const source = resolve(import.meta.dirname, '../data/inventory/datasheet_x_figs.csv');
   const destination = resolve(import.meta.dirname, '../public/data/datasheet_x_figs.csv');

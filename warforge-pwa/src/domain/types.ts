@@ -212,6 +212,8 @@ export interface RosterDraft {
   name: string;
   primaryFaction: string;
   battleSizePoints: number;
+  /** Optional strategic context. It never changes the catalogue legality rules. */
+  primaryMissionId?: string;
   scenario: string;
   detachmentIds: string[];
   items: RosterItem[];

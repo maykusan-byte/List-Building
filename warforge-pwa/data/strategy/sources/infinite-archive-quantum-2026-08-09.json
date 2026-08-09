@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "warforge-meta-source-snapshot/v1",
+  "capturedAt": "2026-08-09",
+  "source": {
+    "publisher": "The Infinite Archive",
+    "title": "Quantum - Warhammer 40k Tournament Data Dashboard",
+    "url": "https://www.infinitearchive.org/quantum",
+    "methodology": "The dashboard reports its own first-party Best Coast Pairings tournament pull, editorially curated, restricted to 5+ round events and faction-anonymous. Win rate is wins / (wins + losses + draws)."
+  },
+  "window": {
+    "id": "weekly-2026-W31",
+    "coverageThrough": "2026-08-07",
+    "eventCount": 21,
+    "gameCount": 2770,
+    "format": "combined"
+  },
+  "factionMetrics": [
+    { "faction": "Space Marines", "winRate": 47.3, "fieldShare": 5.7, "sampleSize": 306, "victoryPointDifference": -2.4, "top3Rate": 11 },
+    { "faction": "Dark Angels", "winRate": 54.3, "fieldShare": 5.1, "sampleSize": 274, "victoryPointDifference": 4.7, "top3Rate": 25 },
+    { "faction": "Blood Angels", "winRate": 50.4, "fieldShare": 2.2, "sampleSize": 116, "victoryPointDifference": -3.5, "top3Rate": 0 },
+    { "faction": "Astra Militarum", "winRate": 45.5, "fieldShare": 2.6, "sampleSize": 138, "victoryPointDifference": -3, "top3Rate": 7 },
+    { "faction": "Orks", "winRate": 56.5, "fieldShare": 7.2, "sampleSize": 390, "victoryPointDifference": 4.4, "top3Rate": 50 },
+    { "faction": "Tau Empire", "sourceFaction": "T’au Empire", "winRate": 50.8, "fieldShare": 5.1, "sampleSize": 275, "victoryPointDifference": -2.6, "top3Rate": 14 },
+    { "faction": "Thousand Sons", "winRate": 49.5, "fieldShare": 3.8, "sampleSize": 207, "victoryPointDifference": -1.8, "top3Rate": 33 }
+  ],
+  "limitations": [
+    "This is an observational weekly tournament snapshot, not a balance rule or a forecast.",
+    "Faction performance is not a causal explanation of a unit, detachment, player skill, terrain set, or pairing.",
+    "Confidence intervals and the source methodology must be consulted before comparing small samples."
+  ]
+}

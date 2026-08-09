@@ -1,8 +1,19 @@
 import { useMemo, useState } from 'react';
+import { forceDispositionBrief, layoutContextBrief, missionBrief } from '../../domain/strategy-knowledge';
+import type { StrategyEvidence, StrategyKnowledge } from '../../domain/strategy-knowledge';
 import { missionAssetUrl } from '../../domain/mission-packs';
 import type { MissionPack, MissionScoreTier, PrimaryMissionCard, SecondaryMissionCard } from '../../domain/mission-packs';
 
 type LibrarySection = 'primary' | 'secondary' | 'dispositions' | 'layouts' | 'matrix';
+
+const AXIS_LABELS: Record<string, { fr: string; en: string }> = {
+  'primary-scoring': { fr: 'Score principal', en: 'Primary scoring' },
+  'secondary-scoring': { fr: 'Score secondaire', en: 'Secondary scoring' },
+  'board-control': { fr: 'Contrôle de table', en: 'Board control' },
+  mobility: { fr: 'Mobilité', en: 'Mobility' },
+  tempo: { fr: 'Tempo', en: 'Tempo' },
+  'damage-projection': { fr: 'Projection de dégâts', en: 'Damage projection' },
+};
 
 function humanize(value: string): string {
   return value.split('-').map((word) => word[0]?.toUpperCase() + word.slice(1)).join(' ');
@@ -28,7 +39,64 @@ function ScoreLine({ tier }: { tier: MissionScoreTier }): React.JSX.Element {
   );
 }
 
-function PrimaryCard({ card }: { card: PrimaryMissionCard }): React.JSX.Element {
+function StrategyBrief({ brief, knowledge, locale }: {
+  brief: StrategyEvidence & Partial<{ victoryAxes: string[]; scoringWindows: string[] }>;
+  knowledge: StrategyKnowledge;
+  locale: 'en' | 'fr';
+}): React.JSX.Element {
+  const sourceTitles = brief.sourceIds
+    .map((sourceId) => knowledge.sources.find((source) => source.id === sourceId)?.title ?? sourceId)
+    .join(' · ');
+  const confidence = brief.confidence === 'high'
+    ? (locale === 'fr' ? 'élevée' : 'high')
+    : brief.confidence === 'medium'
+      ? (locale === 'fr' ? 'moyenne' : 'medium')
+      : (locale === 'fr' ? 'limitée' : 'limited');
+  const isArchive = brief.sourceTier === 'trusted-archive';
+  const axes = brief.victoryAxes ?? [];
+  const windows = brief.scoringWindows ?? [];
+
+  return (
+    <details className="strategy-brief">
+      <summary>
+        <span>{locale === 'fr' ? 'Briefing stratégique neutre' : 'Neutral strategy briefing'}</span>
+        <span className="strategy-brief__tier">{isArchive ? (locale === 'fr' ? 'Archive GDM' : 'GDM archive') : brief.sourceTier}</span>
+      </summary>
+      <div className="strategy-brief__content">
+        {brief.summary && <p>{brief.summary}</p>}
+        {axes.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Axes de victoire' : 'Victory axes'}</h4>
+            <ul className="strategy-brief__axes">
+              {axes.map((axis) => <li key={axis}>{AXIS_LABELS[axis]?.[locale] ?? axis}</li>)}
+            </ul>
+          </section>
+        )}
+        {windows.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Fenêtres de score' : 'Scoring windows'}</h4>
+            <ul>{windows.map((window) => <li key={window}>{window}</li>)}</ul>
+          </section>
+        )}
+        <p className="strategy-brief__evidence">
+          {locale === 'fr' ? 'Source : ' : 'Source: '}{sourceTitles}
+          {' · '}{locale === 'fr' ? 'Confiance : ' : 'Confidence: '}{confidence}.
+        </p>
+        <section className="strategy-brief__limits">
+          <h4>{locale === 'fr' ? 'Limites' : 'Limits'}</h4>
+          <ul>{brief.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}</ul>
+        </section>
+      </div>
+    </details>
+  );
+}
+
+function PrimaryCard({ card, brief, knowledge, locale }: {
+  card: PrimaryMissionCard;
+  brief: ReturnType<typeof missionBrief>;
+  knowledge: StrategyKnowledge | null;
+  locale: 'en' | 'fr';
+}): React.JSX.Element {
   const image = missionAssetUrl(card.asset);
   return (
     <article className="mission-reference-card">
@@ -43,12 +111,18 @@ function PrimaryCard({ card }: { card: PrimaryMissionCard }): React.JSX.Element 
             <ul>{section.tiers.map((tier, tierIndex) => <ScoreLine key={`${tier.text}-${tierIndex}`} tier={tier} />)}</ul>
           </section>
         ))}
+        {brief && knowledge && <StrategyBrief brief={brief} knowledge={knowledge} locale={locale} />}
       </div>
     </article>
   );
 }
 
-function SecondaryCard({ card }: { card: SecondaryMissionCard }): React.JSX.Element {
+function SecondaryCard({ card, brief, knowledge, locale }: {
+  card: SecondaryMissionCard;
+  brief: ReturnType<typeof missionBrief>;
+  knowledge: StrategyKnowledge | null;
+  locale: 'en' | 'fr';
+}): React.JSX.Element {
   const image = missionAssetUrl(card.asset);
   return (
     <article className="mission-reference-card">
@@ -64,16 +138,18 @@ function SecondaryCard({ card }: { card: SecondaryMissionCard }): React.JSX.Elem
             <ul>{section.rows.map((row, rowIndex) => <ScoreLine key={`${row.text}-${rowIndex}`} tier={row} />)}</ul>
           </section>
         ))}
+        {brief && knowledge && <StrategyBrief brief={brief} knowledge={knowledge} locale={locale} />}
       </div>
     </article>
   );
 }
 
-function Layouts({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): React.JSX.Element {
+function Layouts({ pack, strategy, locale }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr' }): React.JSX.Element {
   const matchups = pack.cards?.layouts ?? [];
   const [selectedSourcePath, setSelectedSourcePath] = useState(matchups[0]?.sourcePath ?? '');
   const [showMeasurements, setShowMeasurements] = useState(false);
   const selected = matchups.find((matchup) => matchup.sourcePath === selectedSourcePath) ?? matchups[0];
+  const brief = selected && strategy ? layoutContextBrief(strategy, pack.id, selected.sourcePath) : null;
 
   if (!selected) return <p className="muted">{locale === 'fr' ? 'Aucun layout de terrain n’a été importé.' : 'No terrain layout was imported.'}</p>;
   return (
@@ -87,6 +163,7 @@ function Layouts({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): 
         </label>
         <label className="mission-checkbox"><input type="checkbox" checked={showMeasurements} onChange={(event) => setShowMeasurements(event.target.checked)} /> {locale === 'fr' ? 'Afficher les mesures' : 'Show measurements'}</label>
       </div>
+      {brief && strategy && <StrategyBrief brief={brief} knowledge={strategy} locale={locale} />}
       <div className="mission-layout-grid">
         {selected.layouts.map((layout) => (
           <figure key={layout.number} className="mission-layout-card">
@@ -116,7 +193,7 @@ function Matrix({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): R
   );
 }
 
-export function MissionLibrary({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): React.JSX.Element {
+export function MissionLibrary({ pack, strategy, locale }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr' }): React.JSX.Element {
   const hasCards = pack.cards && pack.cards.primary.length > 0;
   const [section, setSection] = useState<LibrarySection>('primary');
   const primaryCards = useMemo(() => [...(pack.cards?.primary ?? [])].sort((left, right) => left.name.localeCompare(right.name)), [pack.cards]);
@@ -133,10 +210,13 @@ export function MissionLibrary({ pack, locale }: { pack: MissionPack; locale: 'e
       <div className="mission-library-tabs" role="tablist" aria-label={locale === 'fr' ? 'Catégories de missions' : 'Mission categories'}>
         {(Object.keys(labels) as LibrarySection[]).map((entry) => <button key={entry} type="button" role="tab" aria-selected={section === entry} className={section === entry ? 'active' : ''} onClick={() => setSection(entry)}>{labels[entry]}</button>)}
       </div>
-      {section === 'primary' && <div className="mission-reference-grid">{primaryCards.map((card) => <PrimaryCard key={card.sourcePath} card={card} />)}</div>}
-      {section === 'secondary' && <div className="mission-reference-grid">{secondaryCards.map((card) => <SecondaryCard key={card.sourcePath} card={card} />)}</div>}
-      {section === 'dispositions' && <div className="mission-disposition-grid">{pack.cards?.forceDispositions.map((card) => <figure key={card.sourcePath} className="mission-layout-card">{missionAssetUrl(card.asset) && <img src={missionAssetUrl(card.asset) ?? undefined} alt={card.title ?? card.sourcePath} loading="lazy" />}<figcaption>{card.title?.replace(' - 11th Edition | GDM 2026', '') ?? card.sourcePath}</figcaption></figure>)}</div>}
-      {section === 'layouts' && <Layouts pack={pack} locale={locale} />}
+      {section === 'primary' && <div className="mission-reference-grid">{primaryCards.map((card) => <PrimaryCard key={card.sourcePath} card={card} brief={missionBrief(strategy, pack.id, card.sourcePath)} knowledge={strategy} locale={locale} />)}</div>}
+      {section === 'secondary' && <div className="mission-reference-grid">{secondaryCards.map((card) => <SecondaryCard key={card.sourcePath} card={card} brief={missionBrief(strategy, pack.id, card.sourcePath)} knowledge={strategy} locale={locale} />)}</div>}
+      {section === 'dispositions' && <div className="mission-disposition-grid">{pack.cards?.forceDispositions.map((card) => {
+        const brief = strategy ? forceDispositionBrief(strategy, pack.id, card.sourcePath) : null;
+        return <div key={card.sourcePath} className="mission-disposition-entry"><figure className="mission-layout-card">{missionAssetUrl(card.asset) && <img src={missionAssetUrl(card.asset) ?? undefined} alt={card.title ?? card.sourcePath} loading="lazy" />}<figcaption>{card.title?.replace(' - 11th Edition | GDM 2026', '') ?? card.sourcePath}</figcaption></figure>{brief && strategy && <StrategyBrief brief={brief} knowledge={strategy} locale={locale} />}</div>;
+      })}</div>}
+      {section === 'layouts' && <Layouts pack={pack} strategy={strategy} locale={locale} />}
       {section === 'matrix' && <Matrix pack={pack} locale={locale} />}
     </section>
   );

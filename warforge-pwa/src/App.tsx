@@ -10,6 +10,7 @@ import { analyzeRoster } from './domain/analysis';
 import { allocateInventory, getInventoryAvailability, getProxySourceUnits, getReservedProxySources, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
+import { detachmentSynergies, forceDispositionAxisFit, loadStrategyKnowledge, primaryMissionBrief, primaryMissionsForDisposition, referenceRostersForVictoryPlan, resolveRuleGraph, victoryPlansForContext } from './domain/strategy-knowledge';
 import { acknowledgeProjectStatus, cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, hasAcknowledgedProjectStatus, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
 import { ReferencePage } from './reference/ReferencePage';
@@ -29,6 +30,7 @@ import { createUserProfile, parseUserProfile } from './domain/user-profile';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
 import type { UnitImageEntry, UnitImageStatus } from './domain/unit-images';
+import type { StrategyKnowledge, StrategyReferenceRoster, StrategySelectedEnhancement } from './domain/strategy-knowledge';
 import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
@@ -69,6 +71,7 @@ function newDraft(database: NormalizedDatabase): RosterDraft {
     name: 'Nouvelle liste',
     primaryFaction: database.factions[0]?.id ?? '',
     battleSizePoints: format?.PointsTotal ?? 2000,
+    primaryMissionId: undefined,
     scenario: 'TAKE AND HOLD',
     detachmentIds: [],
     items: []
@@ -88,6 +91,7 @@ function restoreSavedDraft(saved: SavedDraft, database: NormalizedDatabase): Ros
     ...stored,
     id: saved.id,
     name: typeof stored.name === 'string' ? stored.name : saved.name,
+    primaryMissionId: typeof stored.primaryMissionId === 'string' ? stored.primaryMissionId : undefined,
     scenario: keepSelectableScenario(detachments, stored.scenario),
     items: stored.items.map(normalizeRosterItemWargear)
   };
@@ -611,6 +615,118 @@ function CompactRule({ detachment, display }: { detachment: NormalizedDetachment
   );
 }
 
+const BUILDER_AXIS_LABELS: Record<string, { fr: string; en: string }> = {
+  'primary-scoring': { fr: 'Score principal', en: 'Primary scoring' },
+  'secondary-scoring': { fr: 'Score secondaire', en: 'Secondary scoring' },
+  'board-control': { fr: 'Contrôle de table', en: 'Board control' },
+  tempo: { fr: 'Tempo', en: 'Tempo' },
+  mobility: { fr: 'Mobilité', en: 'Mobility' },
+  durability: { fr: 'Endurance', en: 'Durability' },
+  'damage-projection': { fr: 'Projection de dégâts', en: 'Damage projection' },
+  'resource-efficiency': { fr: 'Efficience des ressources', en: 'Resource efficiency' },
+  denial: { fr: 'Déni', en: 'Denial' },
+  trading: { fr: 'Échanges', en: 'Trading' }
+};
+
+function BuilderStrategyHint({ detachmentId, disposition, dispositionLabel, primaryMissionId, locale, strategy, selectedDetachmentIds, selectedUnitIds, units, selectedEnhancements, onLoadReferenceRoster }: {
+  detachmentId: string;
+  disposition: string;
+  dispositionLabel: string;
+  primaryMissionId?: string;
+  locale: 'en' | 'fr';
+  strategy: StrategyKnowledge | null;
+  selectedDetachmentIds: string[];
+  selectedUnitIds: string[];
+  units: NormalizedUnit[];
+  selectedEnhancements: StrategySelectedEnhancement[];
+  onLoadReferenceRoster: (roster: StrategyReferenceRoster) => void;
+}): React.JSX.Element | null {
+  const rawFit = forceDispositionAxisFit(strategy, detachmentId, disposition);
+  const mission = primaryMissionBrief(strategy, primaryMissionId);
+  const victoryPlans = victoryPlansForContext(strategy, detachmentId, primaryMissionId);
+  if (!rawFit && victoryPlans.length === 0) return null;
+  const fit = rawFit ?? { scenarioCount: 0, matches: [], cautions: [], sourceIds: [] };
+  const synergies = detachmentSynergies(strategy, detachmentId);
+  const graph = resolveRuleGraph(strategy, {
+    detachmentIds: selectedDetachmentIds,
+    unitIds: selectedUnitIds,
+    units,
+    selectedEnhancements
+  });
+  const activeGraphSynergies = graph.activeSynergies.filter((synergy) => synergy.participants
+    .some((participant) => participant.type === 'detachment' && participant.catalogId === detachmentId));
+  const activeRuleIds = new Set(activeGraphSynergies.flatMap((synergy) => synergy.ruleIds));
+  const activeRules = graph.activeRules.filter((entry) => activeRuleIds.has(entry.rule.id));
+  const sourceTitles = fit.sourceIds.map((id) => strategy?.sources.find((source) => source.id === id)?.title ?? id).join(' · ');
+  const labels = BUILDER_AXIS_LABELS;
+  return (
+    <details className="strategy-brief builder-strategy-brief">
+      <summary>
+        <span>{locale === 'fr' ? 'Repères de mission sourcés' : 'Sourced mission signals'}</span>
+        <span className="strategy-brief__tier">{locale === 'fr' ? 'Inférence conditionnelle' : 'Conditional inference'}</span>
+      </summary>
+      <div className="strategy-brief__content">
+        <p>{locale === 'fr'
+          ? `Lecture pour ${dispositionLabel} : comparaison des axes de ce détachement avec ${fit.scenarioCount} configurations de mission principale GDM.`
+          : `Readout for ${dispositionLabel}: this detachment's axes compared with ${fit.scenarioCount} GDM primary-mission configurations.`}</p>
+        {mission && <p className="muted">{locale === 'fr' ? `Mission principale sélectionnée : ${mission.title}.` : `Selected primary mission: ${mission.title}.`}</p>}
+        {victoryPlans.map((plan) => {
+          const referenceRosters = referenceRostersForVictoryPlan(strategy, plan.id);
+          return (
+            <section key={plan.id}>
+              <h4>{locale === 'fr' ? 'Plan de victoire conditionnel' : 'Conditional victory plan'}</h4>
+              <p>{plan.statement}</p>
+              <p><strong>{locale === 'fr' ? 'Axes prioritaires : ' : 'Priority axes: '}</strong>{plan.priorityAxes.map((axis) => labels[axis]?.[locale] ?? axis).join(' · ')}</p>
+              <div className="strategy-brief__columns">
+                <div><strong>{locale === 'fr' ? 'Prérequis' : 'Prerequisites'}</strong><ul>{plan.preconditions.map((entry) => <li key={entry}>{entry}</li>)}</ul></div>
+                <div><strong>{locale === 'fr' ? 'Contre-jeux' : 'Counterplay'}</strong><ul>{plan.counterplay.map((entry) => <li key={entry}>{entry}</li>)}</ul></div>
+              </div>
+              <div><strong>{locale === 'fr' ? 'Compromis' : 'Trade-offs'}</strong><ul>{plan.tradeoffs.map((entry) => <li key={entry}>{entry}</li>)}</ul></div>
+              {referenceRosters.map((roster) => (
+                <div className="strategy-reference-roster" key={roster.id}>
+                  <strong>{roster.title}</strong>
+                  <button className="secondary" type="button" onClick={() => onLoadReferenceRoster(roster)}>{locale === 'fr' ? 'Charger une copie dans le builder' : 'Load a copy into the builder'}</button>
+                </div>
+              ))}
+            </section>
+          );
+        })}
+        {fit.matches.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Axes couverts par le détachement' : 'Axes covered by the detachment'}</h4>
+            <ul className="strategy-brief__axes">
+              {fit.matches.map((match) => <li key={match.axis}>{labels[match.axis]?.[locale] ?? match.axis} · {match.detachmentScore}/4 · {match.scenarioCount}/{fit.scenarioCount}</li>)}
+            </ul>
+          </section>
+        )}
+        {fit.cautions.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Axes à compléter dans la liste' : 'Axes to cover elsewhere in the list'}</h4>
+            <ul>{fit.cautions.map((axis) => <li key={axis}>{labels[axis]?.[locale] ?? axis}</li>)}</ul>
+          </section>
+        )}
+        {synergies.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Interactions référencées' : 'Referenced interactions'}</h4>
+            <ul>{synergies.map((synergy) => <li key={synergy.id}>{synergy.title}</li>)}</ul>
+          </section>
+        )}
+        {activeGraphSynergies.length > 0 && (
+          <section>
+            <h4>{locale === 'fr' ? 'Graphe de règles applicable à cette liste' : 'Rule graph applicable to this roster'}</h4>
+            <ul>{activeGraphSynergies.map((synergy) => <li key={synergy.id}>{synergy.title}</li>)}</ul>
+            <p className="muted">{locale === 'fr' ? 'Règles factuelles applicables selon la composition : ' : 'Factual rules applicable from this roster composition: '}{activeRules.map((entry) => entry.rule.title).join(' · ')}</p>
+          </section>
+        )}
+        <p className="strategy-brief__evidence">{locale === 'fr' ? 'Sources : ' : 'Sources: '}{sourceTitles}</p>
+        <p className="strategy-brief__limits">{locale === 'fr'
+          ? 'Cette correspondance compare des axes de jeu documentés. Elle ne prédit ni une victoire, ni une performance de tournoi, ni un appariement favorable.'
+          : 'This comparison matches documented game axes. It does not predict a win, tournament performance, or a favourable matchup.'}</p>
+      </div>
+    </details>
+  );
+}
+
 interface RosterCardProps {
   database: NormalizedDatabase;
   item: RosterItem;
@@ -907,6 +1023,7 @@ export default function App(): React.JSX.Element {
   const [database, setDatabase] = useState<NormalizedDatabase | null>(null);
   const [draft, setDraft] = useState<RosterDraft | null>(null);
   const [inventory, setInventory] = useState<InventoryDataset | null>(null);
+  const [strategy, setStrategy] = useState<StrategyKnowledge | null>(null);
   const [inventoryStatus, setInventoryStatus] = useState('Inventaire en attente de la base.');
   const [status, setStatus] = useState(() => t('feedback.loading'));
   const [error, setError] = useState<string | null>(null);
@@ -960,6 +1077,14 @@ export default function App(): React.JSX.Element {
     const onHashChange = (): void => setView(viewFromHash());
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    void loadStrategyKnowledge().then((knowledge) => {
+      if (active) setStrategy(knowledge);
+    });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
@@ -1149,6 +1274,15 @@ export default function App(): React.JSX.Element {
     () => database && draft ? getSelectedDetachments(database, draft.detachmentIds) : [],
     [database, draft]
   );
+  const selectedStrategyEnhancements = useMemo<StrategySelectedEnhancement[]>(() => {
+    if (!database || !draft) return [];
+    return draft.items.flatMap((item) => {
+      if (!item.enhancement) return [];
+      const detachment = database.detachments.find((candidate) => candidate.id === item.enhancement?.detachmentId);
+      const name = detachment?.Enhancements?.[item.enhancement.enhancementIndex]?.Name;
+      return name ? [{ detachmentId: item.enhancement.detachmentId, name }] : [];
+    });
+  }, [database, draft]);
   const detachmentPoints = selectedDetachments.reduce((total, detachment) => total + getDetachmentCost(detachment), 0);
   const rosterTotal = database && draft ? calculateRosterTotal(database, draft.items, draft.detachmentIds) : 0;
   const customAnalysisTarget = useMemo<AnalysisTarget | undefined>(() => {
@@ -1224,6 +1358,10 @@ export default function App(): React.JSX.Element {
     () => selectableScenarios(selectedDetachments),
     [selectedDetachments]
   );
+  const availablePrimaryMissions = useMemo(
+    () => draft ? primaryMissionsForDisposition(strategy, draft.scenario) : [],
+    [draft, strategy]
+  );
   const compatibleSavedDrafts = useMemo(
     () => database ? savedDrafts.filter((saved) => restoreSavedDraft(saved, database) !== null) : [],
     [database, savedDrafts]
@@ -1269,6 +1407,36 @@ export default function App(): React.JSX.Element {
     setNotice(t('feedback.newList'));
   };
 
+  const loadReferenceRoster = (reference: StrategyReferenceRoster): void => {
+    if (!database) return;
+    if (database.dataInfo?.Version !== reference.catalogDataVersion) {
+      setError(locale === 'fr'
+        ? `La liste de référence exige le catalogue ${reference.catalogDataVersion}; le catalogue chargé n'est pas compatible.`
+        : `The reference roster requires catalog ${reference.catalogDataVersion}; the loaded catalog is incompatible.`);
+      return;
+    }
+    const next: RosterDraft = {
+      ...reference.draft,
+      id: crypto.randomUUID(),
+      name: reference.title,
+      items: reference.draft.items.map((item) => ({ ...item, id: crypto.randomUUID() }))
+    };
+    const errors = validateDraft(database, next).filter((issue) => issue.level === 'error');
+    const total = calculateRosterTotal(database, next.items, next.detachmentIds);
+    if (errors.length > 0 || total !== next.battleSizePoints) {
+      setError(locale === 'fr'
+        ? 'La liste de référence ne peut pas être chargée : le catalogue courant ne la valide plus.'
+        : 'The reference roster cannot be loaded: the current catalog no longer validates it.');
+      return;
+    }
+    setDraft(next);
+    writeActiveDraftId(next.id);
+    setSelectedUnitId(null);
+    setVisibleUnits(60);
+    persistDraft(next);
+    setNotice(locale === 'fr' ? 'Copie de la liste de référence chargée dans le builder.' : 'A copy of the reference roster was loaded into the builder.');
+  };
+
   const deleteSavedDraft = (saved: SavedDraft): void => {
     if (!database) return;
     const next = savedDraftsRef.current.filter((candidate) => candidate.id !== saved.id);
@@ -1295,17 +1463,19 @@ export default function App(): React.JSX.Element {
         ? current.detachmentIds.filter((id) => id !== detachmentId)
         : [...current.detachmentIds, detachmentId];
       const nextDetachments = database.detachments.filter((candidate) => detachmentIds.includes(candidate.id));
+      const scenario = keepSelectableScenario(nextDetachments, current.scenario);
       return {
         ...current,
         detachmentIds,
-        scenario: keepSelectableScenario(nextDetachments, current.scenario)
+        scenario,
+        primaryMissionId: scenario === current.scenario ? current.primaryMissionId : undefined
       };
     });
   };
 
   const changeFaction = (nextFaction: string): void => {
     if (!draft) return;
-    updateDraft((current) => ({ ...current, primaryFaction: nextFaction, items: [], detachmentIds: [] }));
+    updateDraft((current) => ({ ...current, primaryFaction: nextFaction, primaryMissionId: undefined, items: [], detachmentIds: [] }));
     setSelectedUnitId(null);
     setVisibleUnits(60);
   };
@@ -1701,6 +1871,19 @@ export default function App(): React.JSX.Element {
                       {t('roster.scenario', { scenario: (detachment.ForceDispositions ?? []).map(scenarioTitle).join(' · ') || t('app.unknown') })}
                     </p>
                     <div className="tag-row">{(detachment.Tags ?? []).map((tag) => <span key={tag}>{display.term(tag)}</span>)}</div>
+                    <BuilderStrategyHint
+                      detachmentId={detachment.id}
+                      disposition={draft.scenario}
+                      dispositionLabel={scenarioTitle(draft.scenario)}
+                      primaryMissionId={draft.primaryMissionId}
+                      locale={locale}
+                      strategy={strategy}
+                      selectedDetachmentIds={draft.detachmentIds}
+                      selectedUnitIds={draft.items.map((item) => item.unitId)}
+                      units={database.units}
+                      selectedEnhancements={selectedStrategyEnhancements}
+                      onLoadReferenceRoster={loadReferenceRoster}
+                    />
                     <button className={selected ? 'secondary' : ''} onClick={() => toggleDetachment(detachment.id)}>
                       {selected ? t('action.remove') : t('action.add')}
                     </button>
@@ -1715,8 +1898,15 @@ export default function App(): React.JSX.Element {
         <div style={{ marginTop: '1rem' }}>
           <label>
             {locale === 'fr' ? 'Disposition des Forces' : 'Force disposition'}
-            <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value }))}>
+            <select value={draft.scenario} onChange={(event) => updateDraft((current) => ({ ...current, scenario: event.target.value, primaryMissionId: undefined }))}>
               {availableScenarios.map((scenario) => <option key={scenario.id} value={scenario.id}>{scenarioTitle(scenario.id)}</option>)}
+            </select>
+          </label>
+          <label>
+            {locale === 'fr' ? 'Mission principale' : 'Primary mission'}
+            <select value={draft.primaryMissionId ?? ''} onChange={(event) => updateDraft((current) => ({ ...current, primaryMissionId: event.target.value || undefined }))}>
+              <option value="">{locale === 'fr' ? 'Aucune mission stratégique sélectionnée' : 'No strategic mission selected'}</option>
+              {availablePrimaryMissions.map((mission) => <option key={mission.id} value={mission.id}>{mission.title}</option>)}
             </select>
           </label>
         </div>
