@@ -10,11 +10,12 @@ import { analyzeRoster } from './domain/analysis';
 import { allocateInventory, getInventoryAvailability, getProxySourceUnits, getReservedProxySources, parseInventoryCsv } from './domain/inventory';
 import { normalizeDatabase } from './domain/normalize';
 import { keepSelectableScenario, selectableScenarios } from './domain/scenarios';
-import { cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
+import { acknowledgeProjectStatus, cacheDatabase, cacheInventory, getCachedDatabase, getCachedInventory, hasAcknowledgedProjectStatus, readActiveDraftId, readFavorites, readSavedDrafts, writeActiveDraftId, writeFavorites, writeLocale, writeSavedDrafts } from './domain/storage';
 import { localeTag, supportedLocale } from './i18n';
 import { ReferencePage } from './reference/ReferencePage';
 import { WeaponsPage } from './weapons/WeaponsPage';
 import { LearningPage } from './learning/LearningPage';
+import { InventoryPage } from './inventory/InventoryPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
@@ -23,6 +24,7 @@ import { validateDraft } from './domain/validation';
 import { normalizeRosterItemWargear, optionQuantityLimit, resolveWargear, ruleLimit, selectionQuantity, updateModelCount, updateWargearQuantity, weaponProfiles } from './domain/wargear';
 import { BrandMark } from './components/BrandMark';
 import { GlobalNavigation } from './components/GlobalNavigation';
+import { ProjectStatusDialog } from './components/ProjectStatusDialog';
 import { createUserProfile, parseUserProfile } from './domain/user-profile';
 import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
@@ -32,12 +34,13 @@ import './styles.css';
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
-type AppView = 'builder' | 'reference' | 'weapons' | 'learning';
+type AppView = 'builder' | 'reference' | 'weapons' | 'learning' | 'inventory';
 
 function viewFromHash(): AppView {
   if (window.location.hash.startsWith('#rules') || window.location.hash.startsWith('#reference')) return 'reference';
   if (window.location.hash.startsWith('#weapons')) return 'weapons';
   if (window.location.hash.startsWith('#learning')) return 'learning';
+  if (window.location.hash.startsWith('#inventory')) return 'inventory';
   return 'builder';
 }
 
@@ -931,6 +934,7 @@ export default function App(): React.JSX.Element {
   const [deletingListId, setDeletingListId] = useState<string | null>(null);
   const [visibleUnits, setVisibleUnits] = useState(60);
   const [notice, setNotice] = useState<string | null>(null);
+  const [projectStatusMode, setProjectStatusMode] = useState<'welcome' | 'details' | null>(() => hasAcknowledgedProjectStatus() ? null : 'welcome');
   const [catalogOverlay, setCatalogOverlay] = useState<CatalogLocaleOverlay | null>(null);
   const [catalogLocaleStatus, setCatalogLocaleStatus] = useState<CatalogLocaleStatus>(locale === 'fr' ? 'unavailable' : 'not-needed');
   const [unitImages, setUnitImages] = useState<ReadonlyMap<string, UnitImageEntry>>(() => new Map());
@@ -1320,13 +1324,26 @@ export default function App(): React.JSX.Element {
     }
   };
 
+  const importInventoryFile = async (file: File): Promise<void> => {
+    if (!database) throw new Error(t('feedback.invalidInventory'));
+    const parsed = parseInventoryCsv(await file.text(), database, t('status.imported', { name: file.name }), 'local');
+    await installInventory(parsed);
+    setNotice(t('feedback.inventoryReplaced'));
+  };
+
+  const savePersonalInventory = async (nextInventory: InventoryDataset): Promise<void> => {
+    if (!database || nextInventory.databaseFingerprint !== database.fingerprint) {
+      throw new Error(t('feedback.invalidInventory'));
+    }
+    await installInventory(nextInventory);
+    setNotice(locale === 'fr' ? 'Inventaire personnel mis à jour.' : 'Personal inventory updated.');
+  };
+
   const loadExternalInventory = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0];
-    if (!file || !database) return;
+    if (!file) return;
     try {
-      const parsed = parseInventoryCsv(await file.text(), database, t('status.imported', { name: file.name }), 'local');
-      await installInventory(parsed);
-      setNotice(t('feedback.inventoryReplaced'));
+      await importInventoryFile(file);
     } catch (importError) {
       setError(importError instanceof Error ? importError.message : t('feedback.invalidInventory'));
     } finally {
@@ -1448,7 +1465,15 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'weapons';
   };
 
-  const globalNavigation = <GlobalNavigation activeView={view} locale={locale} onChangeLocale={changeLocale} onExportProfile={exportUserProfile} onImportProfile={() => profileInputRef.current?.click()} />;
+  const projectStatusDialog = projectStatusMode && (
+    <ProjectStatusDialog
+      locale={locale}
+      mode={projectStatusMode}
+      onAcknowledge={() => { acknowledgeProjectStatus(); setProjectStatusMode(null); }}
+      onClose={() => setProjectStatusMode(null)}
+    />
+  );
+  const globalNavigation = <GlobalNavigation activeView={view} locale={locale} onChangeLocale={changeLocale} onExportProfile={exportUserProfile} onImportProfile={() => profileInputRef.current?.click()} onOpenProjectStatus={() => setProjectStatusMode('details')} />;
   const profileImportInput = <input ref={profileInputRef} type="file" accept="application/json,.json" hidden onChange={importUserProfile} />;
 
   if (view === 'reference') {
@@ -1457,6 +1482,7 @@ export default function App(): React.JSX.Element {
         {globalNavigation}
         {profileImportInput}
         <ReferencePage database={database} locale={locale} />
+        {projectStatusDialog}
       </>
     );
   }
@@ -1467,6 +1493,7 @@ export default function App(): React.JSX.Element {
         {globalNavigation}
         {profileImportInput}
         <WeaponsPage database={database} display={display} locale={locale} />
+        {projectStatusDialog}
       </>
     );
   }
@@ -1486,6 +1513,26 @@ export default function App(): React.JSX.Element {
           favorites={favorites}
           unitImages={unitImages}
         />
+        {projectStatusDialog}
+      </>
+    );
+  }
+
+  if (view === 'inventory' && database) {
+    return (
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <InventoryPage
+          database={database}
+          display={display}
+          locale={locale}
+          inventory={inventory}
+          inventoryAllocation={inventoryAllocation}
+          onSave={savePersonalInventory}
+          onImport={importInventoryFile}
+        />
+        {projectStatusDialog}
       </>
     );
   }
@@ -2054,6 +2101,7 @@ export default function App(): React.JSX.Element {
         </div>
       )}
       </main>
+      {projectStatusDialog}
     </>
   );
 }

@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(({ mode }) => {
-  const base = mode === 'github-pages' ? '/List-Building/' : '/';
+  const isDesktop = mode === 'desktop';
+  const isAndroid = mode === 'android';
+  const base = mode === 'github-pages' ? '/List-Building/' : isDesktop ? './' : '/';
 
   return {
     base,
@@ -15,6 +17,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       VitePWA({
+        disable: isDesktop || isAndroid,
         registerType: 'autoUpdate',
         includeAssets: ['data/catalog.json', 'data/locales/fr/catalog.json', 'data/datasheet_x_figs.csv', 'data/unit-images.json', 'data/rules/core-rules-fr.json'],
         manifest: {

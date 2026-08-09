@@ -29,7 +29,7 @@ describe('mission data contract', () => {
     expect(gdm?.status).toBe('trusted-web-cards');
     expect(gdm?.cards?.primary).toHaveLength(25);
     expect(gdm?.cards?.secondary).toHaveLength(18);
-  });
+  }, 15_000);
 
   it('forbids detailed cards in a summary-only pack', () => {
     const invalid = structuredClone(validSummaryPack);

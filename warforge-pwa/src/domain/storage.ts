@@ -10,6 +10,7 @@ const DRAFTS_KEY = 'warforge.saved-drafts.v2';
 const ACTIVE_DRAFT_KEY = 'warforge.active-draft.v1';
 const FAVORITES_KEY = 'warforge.favourites.v2';
 const LOCALE_KEY = 'warforge.locale.v1';
+const PROJECT_STATUS_ACKNOWLEDGEMENT_KEY = 'warforge.project-status.v1';
 
 export type StoredLocale = 'fr' | 'en';
 
@@ -24,6 +25,23 @@ export function readLocale(): StoredLocale {
 export function writeLocale(locale: StoredLocale): boolean {
   try {
     localStorage.setItem(LOCALE_KEY, locale);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function hasAcknowledgedProjectStatus(): boolean {
+  try {
+    return localStorage.getItem(PROJECT_STATUS_ACKNOWLEDGEMENT_KEY) === 'acknowledged';
+  } catch {
+    return false;
+  }
+}
+
+export function acknowledgeProjectStatus(): boolean {
+  try {
+    localStorage.setItem(PROJECT_STATUS_ACKNOWLEDGEMENT_KEY, 'acknowledged');
     return true;
   } catch {
     return false;

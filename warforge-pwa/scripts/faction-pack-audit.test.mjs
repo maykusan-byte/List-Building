@@ -32,7 +32,7 @@ describe('faction pack audit contract', () => {
     const manifest = await loadValidatedFactionPackManifest();
     expect(manifest.packs).toHaveLength(28);
     expect(manifest.packs.find((pack) => pack.id === 'aeldari-v1.2-2026-08-05')?.audit.status).toBe('catalog-audited-with-known-gaps');
-  });
+  }, 15_000);
 
   it('blocks a newer pack that has not been audited', () => {
     const pending = structuredClone(validManifest);

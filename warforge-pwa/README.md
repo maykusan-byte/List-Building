@@ -69,6 +69,16 @@ Les ressources statiques utilisées par l’application, notamment les images d�
 doivent être placées dans `public/data/`. Le dossier `dist/` est généré et est remplacé
 à chaque build.
 
+## Créer l’installeur Windows
+
+Depuis Windows, cette commande génère l’installeur x64 autonome dans `release/` :
+
+```powershell
+pnpm build:desktop
+```
+
+L’installeur embarque le catalogue et les ressources locales de Warforge ; il ne démarre aucun serveur. Il n’est pas signé avec un certificat de distribution : Windows peut donc demander une confirmation lors de la première installation.
+
 ## Images d’unités
 
 Les miniatures du catalogue sont locales, donc disponibles hors ligne. Leur source de
@@ -91,6 +101,23 @@ pnpm images:validate # vérification stricte : toutes les fiches d’inventaire 
 `data/unit-image-missing.json` est la file de validation : il recense les fiches encore
 sans rapprochement suffisamment certain. Ne pas utiliser de nom de fichier ou de
 recherche approximative comme identifiant d’unité.
+
+## APK Android de test
+
+La distribution Android privée est un conteneur Capacitor : l’application et ses
+données sont embarquées, sans serveur ni compte requis. La commande suivante compile
+une APK de test signée par la clé de débogage locale et la dépose dans `release/` :
+
+```powershell
+$env:JAVA_HOME = 'C:\Program Files\Microsoft\jdk-21.0.12.8-hotspot'
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
+pnpm build:android
+```
+
+Les testeurs installent l’APK depuis leur téléphone après avoir autorisé cette source
+de fichiers. Elle est destinée à des essais privés : avant toute distribution plus
+large, créer et sauvegarder une clé de signature de publication distincte.
 
 ## Déploiement GitHub Pages
 

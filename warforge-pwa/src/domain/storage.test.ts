@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { readActiveDraftId, readLocale, readSavedDrafts, writeActiveDraftId, writeLocale, writeSavedDrafts } from './storage';
+import { acknowledgeProjectStatus, hasAcknowledgedProjectStatus, readActiveDraftId, readLocale, readSavedDrafts, writeActiveDraftId, writeLocale, writeSavedDrafts } from './storage';
 import type { SavedDraft } from './types';
 
 function savedDraft(id = 'saved-list'): SavedDraft {
@@ -61,5 +61,11 @@ describe('saved list storage', () => {
     vi.stubGlobal('localStorage', { getItem: () => null, setItem: () => { throw new Error('blocked'); } });
     expect(writeSavedDrafts([savedDraft()])).toBe(false);
     expect(writeActiveDraftId('saved-list')).toBe(false);
+  });
+
+  it('records the acknowledgement of the private test-build status locally', () => {
+    expect(hasAcknowledgedProjectStatus()).toBe(false);
+    expect(acknowledgeProjectStatus()).toBe(true);
+    expect(hasAcknowledgedProjectStatus()).toBe(true);
   });
 });

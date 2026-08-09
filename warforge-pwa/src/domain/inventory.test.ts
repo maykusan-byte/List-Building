@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { allocateInventory, getInventoryAvailability, hasFreeInventory, parseInventoryCsv } from './inventory';
+import {
+  addOwnedFigures,
+  addProxyAssociation,
+  allocateInventory,
+  getInventoryAvailability,
+  hasFreeInventory,
+  inventoryFigures,
+  inventoryToCsv,
+  nextInventoryFigureId,
+  parseInventoryCsv,
+  removeInventoryAssociation
+} from './inventory';
 import type { NormalizedDatabase, RosterItem } from './types';
 
 const unitA = 'book-0-test:unit:0';
@@ -97,5 +108,34 @@ describe('inventory CSV', () => {
     expect(hasFreeInventory(inventory, emptyAllocation, unitC)).toBe(false);
     expect(hasFreeInventory(inventory, reservedAllocation, unitA)).toBe(false);
     expect(hasFreeInventory(null, emptyAllocation, unitA)).toBe(false);
+  });
+
+  it('adds uniquely identified owned figures and groups their associations by physical miniature', () => {
+    const inventory = parseInventoryCsv(csv([
+      `${database.fingerprint},${unitA},4,real,Alpha`,
+      `${database.fingerprint},${unitB},4,real,Beta`
+    ]), database, 'test');
+    const updated = addOwnedFigures(inventory, unitA, 2);
+
+    expect(nextInventoryFigureId(inventory)).toBe(5);
+    expect(updated.entries.slice(-2)).toEqual([
+      { databaseFingerprint: database.fingerprint, unitId: unitA, figureId: 5, type: 'real' },
+      { databaseFingerprint: database.fingerprint, unitId: unitA, figureId: 6, type: 'real' }
+    ]);
+    expect(inventoryFigures(updated).find((figure) => figure.figureId === 4)).toEqual({
+      figureId: 4,
+      realUnitIds: [unitA, unitB],
+      proxyUnitIds: []
+    });
+  });
+
+  it('creates, exports and removes a proxy association without changing the CSV contract', () => {
+    const inventory = parseInventoryCsv(csv([`${database.fingerprint},${unitA},1,real,Alpha`]), database, 'test');
+    const withProxy = addProxyAssociation(inventory, 1, unitB);
+    const roundTrip = parseInventoryCsv(inventoryToCsv(withProxy), database, 'export');
+
+    expect(roundTrip.entries).toEqual(withProxy.entries);
+    expect(removeInventoryAssociation(withProxy, 1, unitB).entries).toEqual(inventory.entries);
+    expect(() => addProxyAssociation(inventory, 99, unitB)).toThrow('réellement possédée');
   });
 });

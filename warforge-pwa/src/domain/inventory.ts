@@ -40,12 +40,24 @@ export interface InventoryAvailability {
   total: number;
 }
 
+/**
+ * One physical miniature can be associated with more than one datasheet. The
+ * association is deliberate: it is how the existing inventory format models a
+ * legal stand-in without allowing the miniature to be allocated twice.
+ */
+export interface InventoryFigure {
+  figureId: number;
+  realUnitIds: string[];
+  proxyUnitIds: string[];
+}
+
 interface CsvRow {
   line: number;
   cells: string[];
 }
 
 const REQUIRED_COLUMNS = ['DatabaseFingerprint', 'UnitId', 'ID_figurine', 'Type'] as const;
+const INVENTORY_CSV_HEADER = REQUIRED_COLUMNS.join(',');
 
 function parseCsv(raw: string): CsvRow[] {
   const rows: CsvRow[] = [];
@@ -162,6 +174,85 @@ function entriesForUnit(inventory: InventoryDataset, unitId: string): InventoryE
   return inventory.entries
     .filter((entry) => entry.unitId === unitId)
     .sort((left, right) => (left.type === right.type ? left.figureId - right.figureId : left.type === 'real' ? -1 : 1));
+}
+
+export function inventoryFigures(inventory: InventoryDataset | null): InventoryFigure[] {
+  if (!inventory) return [];
+  const figures = new Map<number, InventoryFigure>();
+  for (const entry of inventory.entries) {
+    const figure = figures.get(entry.figureId) ?? {
+      figureId: entry.figureId,
+      realUnitIds: [],
+      proxyUnitIds: []
+    };
+    const unitIds = entry.type === 'real' ? figure.realUnitIds : figure.proxyUnitIds;
+    unitIds.push(entry.unitId);
+    figures.set(entry.figureId, figure);
+  }
+  return [...figures.values()]
+    .map((figure) => ({
+      ...figure,
+      realUnitIds: [...figure.realUnitIds].sort(),
+      proxyUnitIds: [...figure.proxyUnitIds].sort()
+    }))
+    .sort((left, right) => left.figureId - right.figureId);
+}
+
+export function nextInventoryFigureId(inventory: InventoryDataset): number {
+  const highestId = inventory.entries.reduce((highest, entry) => Math.max(highest, entry.figureId), 0);
+  if (highestId >= Number.MAX_SAFE_INTEGER) throw new Error('Impossible d’attribuer un nouvel ID de figurine.');
+  return highestId + 1;
+}
+
+export function addOwnedFigures(inventory: InventoryDataset, unitId: string, count: number): InventoryDataset {
+  if (!Number.isSafeInteger(count) || count <= 0) throw new Error('Le nombre de figurines doit être un entier positif.');
+  const firstFigureId = nextInventoryFigureId(inventory);
+  if (firstFigureId + count - 1 > Number.MAX_SAFE_INTEGER) throw new Error('Impossible d’attribuer ces IDs de figurines.');
+  const newEntries = Array.from({ length: count }, (_, index): InventoryEntry => ({
+    databaseFingerprint: inventory.databaseFingerprint,
+    unitId,
+    figureId: firstFigureId + index,
+    type: 'real'
+  }));
+  return { ...inventory, entries: [...inventory.entries, ...newEntries] };
+}
+
+export function addProxyAssociation(inventory: InventoryDataset, figureId: number, unitId: string): InventoryDataset {
+  if (!Number.isSafeInteger(figureId) || figureId <= 0) throw new Error('ID de figurine invalide.');
+  const figureEntries = inventory.entries.filter((entry) => entry.figureId === figureId);
+  if (!figureEntries.some((entry) => entry.type === 'real')) {
+    throw new Error('Un proxy doit être rattaché à une figurine réellement possédée.');
+  }
+  if (figureEntries.some((entry) => entry.unitId === unitId)) {
+    throw new Error('Cette figurine est déjà associée à cette unité.');
+  }
+  return {
+    ...inventory,
+    entries: [...inventory.entries, {
+      databaseFingerprint: inventory.databaseFingerprint,
+      unitId,
+      figureId,
+      type: 'proxy'
+    }]
+  };
+}
+
+export function removeInventoryAssociation(inventory: InventoryDataset, figureId: number, unitId: string): InventoryDataset {
+  const entries = inventory.entries.filter((entry) => entry.figureId !== figureId || entry.unitId !== unitId);
+  if (entries.length === inventory.entries.length) throw new Error('Association d’inventaire introuvable.');
+  return { ...inventory, entries };
+}
+
+function csvCell(value: string | number): string {
+  const text = String(value);
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+export function inventoryToCsv(inventory: InventoryDataset): string {
+  const rows = [...inventory.entries]
+    .sort((left, right) => left.figureId - right.figureId || left.unitId.localeCompare(right.unitId))
+    .map((entry) => [entry.databaseFingerprint, entry.unitId, entry.figureId, entry.type].map(csvCell).join(','));
+  return `\uFEFF${INVENTORY_CSV_HEADER}\n${rows.join('\n')}\n`;
 }
 
 export function allocateInventory(

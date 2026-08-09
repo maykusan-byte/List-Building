@@ -1,5 +1,12 @@
 node_modules/
 dist/
+release/
+release-desktop/
+android/.gradle/
+android/.idea/
+android/**/build/
+android/local.properties
+private-signing/
 public/data/catalog.json
 public/data/locales/
 public/data/datasheet_x_figs.csv

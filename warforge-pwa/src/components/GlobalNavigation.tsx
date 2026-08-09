@@ -1,6 +1,6 @@
 import { BrandMark } from './BrandMark';
 
-export type GlobalNavigationView = 'builder' | 'reference' | 'weapons' | 'learning';
+export type GlobalNavigationView = 'builder' | 'reference' | 'weapons' | 'learning' | 'inventory';
 
 interface GlobalNavigationProps {
   activeView: GlobalNavigationView;
@@ -8,16 +8,18 @@ interface GlobalNavigationProps {
   onChangeLocale: (locale: string) => void;
   onExportProfile: () => void;
   onImportProfile: () => void;
+  onOpenProjectStatus: () => void;
 }
 
 const destinations: Array<{ view: GlobalNavigationView; hash: string; icon: string; fr: string; en: string }> = [
   { view: 'builder', hash: '#builder', icon: '⌘', fr: 'Liste', en: 'Builder' },
   { view: 'reference', hash: '#reference/core', icon: '§', fr: 'Règles', en: 'Rules' },
   { view: 'weapons', hash: '#weapons', icon: '✦', fr: 'Arsenal', en: 'Armoury' },
-  { view: 'learning', hash: '#learning', icon: '🎓', fr: 'Apprendre', en: 'Learning' }
+  { view: 'learning', hash: '#learning', icon: '🎓', fr: 'Apprendre', en: 'Learning' },
+  { view: 'inventory', hash: '#inventory', icon: '▦', fr: 'Inventaire', en: 'Inventory' }
 ];
 
-export function GlobalNavigation({ activeView, locale, onChangeLocale, onExportProfile, onImportProfile }: GlobalNavigationProps): React.JSX.Element {
+export function GlobalNavigation({ activeView, locale, onChangeLocale, onExportProfile, onImportProfile, onOpenProjectStatus }: GlobalNavigationProps): React.JSX.Element {
   const isFrench = locale === 'fr';
 
   return (
@@ -47,6 +49,9 @@ export function GlobalNavigation({ activeView, locale, onChangeLocale, onExportP
       </nav>
       <div className="global-navigation-utilities">
         <div className="global-profile-actions" role="group" aria-label={isFrench ? 'Sauvegarde du profil' : 'Profile backup'}>
+          <button type="button" className="global-profile-action global-project-status" onClick={onOpenProjectStatus} title={isFrench ? 'Statut du projet et mentions' : 'Project status and notices'}>
+            <span aria-hidden="true">i</span>{isFrench ? 'Prototype' : 'Prototype'}
+          </button>
           <button type="button" className="global-profile-action" onClick={onExportProfile} title={isFrench ? 'Exporter le profil' : 'Export profile'}>
             <span aria-hidden="true">⇧</span>{isFrench ? 'Exporter' : 'Export'}
           </button>
