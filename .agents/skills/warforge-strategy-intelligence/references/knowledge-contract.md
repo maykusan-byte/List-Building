@@ -4,7 +4,7 @@
 
 La source est `warforge-pwa/data/strategy/knowledge-base.json`. Son miroir généré est `warforge-pwa/public/data/strategy-knowledge.json` et ne doit jamais être modifié directement. La commande `pnpm --dir warforge-pwa strategy:validate` vérifie le schéma, les liens aux cartes GDM et au catalogue, les références internes et les SHA-256 des archives locales. `pnpm --dir warforge-pwa build` exécute cette validation puis régénère le miroir.
 
-Le document est exclusivement V11 et utilise `schemaVersion: "warforge-strategy-knowledge/v3"`. Sa compatibilité doit épingler `warforge-catalog/v2`, la valeur présente dans `data/units/DataInfo.json`, et les identifiants des packs de mission applicables.
+Le document est exclusivement V11 et utilise `schemaVersion: "warforge-strategy-knowledge/v5"`. Sa compatibilité doit épingler `warforge-catalog/v2`, la valeur présente dans `data/units/DataInfo.json`, et les identifiants des packs de mission applicables.
 
 Les identifiants `catalogUnitId` et `catalogDetachmentId` sont des identifiants normalisés (`book-…:unit:n`, `book-…:detachment:n`) de la version de catalogue épinglée, jamais des noms visibles.
 
@@ -22,7 +22,7 @@ Une archive GDM est une source `trusted-mission-archive` d’autorité `approved
 
 ## Racine et registre de sources
 
-La racine comprend `knowledgeVersion`, `status` (`draft`, `reviewed`, `published`), `updatedAt`, `compatibility`, `catalogProvenanceSourceId`, `sources`, `ruleNodes`, `scenarios`, `forceDispositions`, `layoutContexts`, `unitProfiles`, `detachmentProfiles`, `synergies`, `metaSnapshots`, `matchupPlans`, `recommendations`, `victoryPlans` et `referenceRosters`. `catalogProvenanceSourceId` désigne l’unique manifeste de catalogue compatible.
+La racine comprend `knowledgeVersion`, `status` (`draft`, `reviewed`, `published`), `updatedAt`, `compatibility`, `catalogProvenanceSourceId`, `sources`, `ruleNodes`, `scenarios`, `forceDispositions`, `layoutContexts`, `unitProfiles`, `detachmentProfiles`, `synergies`, `metaSnapshots`, `recommendations`, `victoryPlans`, `referenceRosters`, `tacticalClaims`, `matchupGuides`, `workedExamples`, `secondaryMissionFrameworks`, `secondaryMissionFamilies`, `secondaryMissionGuides` et `secondaryDecisionExamples`. `catalogProvenanceSourceId` désigne l’unique manifeste de catalogue compatible.
 
 Chaque source comporte au minimum `id`, `kind`, `authority`, `title`, `retrievedAt`, `sha256` et un chemin local vérifiable (`relativePath` ou `archivePath`).
 
@@ -40,6 +40,12 @@ Les notes d’axe sont des entiers de 0 à 4. Elles expriment une contribution c
 
 Les scénarios, dispositions et contextes de layout GDM doivent couvrir exactement les cartes archivées. Une carte GDM ne doit pas être réécrite au-delà de la limite de résumé autorisée par son pack.
 
+Un `tacticalClaim` contient une seule conclusion tactique réutilisable, classée comme inférence : camp concerné, scénarios et layouts, affirmation, justification, préconditions, contre-jeu, compromis, effets d’axe, sources, confiance et date de revue. Un `matchupGuide` compose ces claims pour une confrontation non ordonnée de dispositions ; la matrice des cinq dispositions doit produire exactement quinze guides. Un `workedExample` est un registre pédagogique de cinq rounds, plafonné à 15 VP de primaire par round et 45 VP au total. Il n’est ni une simulation probabiliste ni une observation de performance.
+
+Les narrations et guides Markdown sont des projections éditoriales. Ils ne deviennent jamais des sources de règles ou de points. Une liste n’est liée à un guide qu’après validation par `referenceRoster`; toute absence reste visible dans le rapport de couverture.
+
+Les secondaires suivent le contrat détaillé du skill `warforge-secondary-mission-analysis`. Le framework porte les règles officielles du portefeuille Tactique ; les quatre familles partitionnent exactement les 18 cartes ; chaque guide compose les huit types de claims requis et au moins un exemple décisionnel à deux branches. Toute création commence en `draft` et exige une revue humaine explicite avant `reviewed`.
+
 ## Graphe de règles, profils, synergies et méta
 
 Un `ruleNode` est un fait sourcé, et non une conclusion tactique. Il possède `kind` (`army-rule`, `detachment-rule`, `stratagem`, `enhancement`, `datasheet-ability` ou `mission-rule`), un `owner` `{ type: "unit" | "detachment", catalogId }`, des `requiresParticipants` optionnels pour les prérequis de composition, `fact`, `timing`, `target`, `activation`, `effectTags`, `sourceIds`, `sourcePages`, des `limitations` et `reviewBy`. Un nœud `selected-enhancement` doit aussi porter le nom exact `catalogEnhancementName` présent dans le catalogue épinglé. Son sélecteur cible peut restreindre la faction, les identifiants d’unité et les mots-clés requis ou exclus.
@@ -52,7 +58,7 @@ Une synergie est une arête d’inférence entre au moins deux participants `{ t
 
 Un `metaSnapshot` possède une fenêtre (`id`, `coverageThrough`, nombre d’événements et de parties), des métriques de factions, des limitations et des sources `tournament-meta-snapshot`. Ne pas extrapoler au-delà de la population mesurée.
 
-Un `victoryPlan` est une inférence expliquée liée à une seule mission principale, un profil de détachement, au moins une règle et une synergie. Il explicite ses axes prioritaires, prérequis, contre-jeux, compromis et limites. Il n’autorise pas le résolveur à supposer un état de partie. Un `referenceRoster` est une liste d’exemple liée à un `victoryPlan` : son catalogue, son format, sa disposition, sa mission principale, ses détachements, ses unités, ses options et son total doivent être validables. Elle est toujours chargée dans l’application comme une copie éditable.
+Un `victoryPlan` est une inférence expliquée liée à une seule mission principale, un profil de détachement, au moins une règle et une synergie. Il explicite ses axes prioritaires, prérequis, contre-jeux, compromis et limites. Ses `operationalStages` ordonnent des séquences conditionnelles : objectif, exécution, seuil de décision, condition d’abandon et références à des règles ou synergies déjà portées par le plan. Ses `decisionBranches` associent un signal observable, une ligne conseillée, un repli plus sûr et des garde-fous à ces mêmes références. Ces objets ne peuvent pas supposer une position, des PC, une cible, un timing ou un score acquis. Un `referenceRoster` est une liste d’exemple liée à un `victoryPlan` : son catalogue, son format, sa disposition, sa mission principale, ses détachements, ses unités, ses options et son total doivent être validables. Elle est toujours chargée dans l’application comme une copie éditable.
 
 ## Recommandations futures
 

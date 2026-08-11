@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
-import { forceDispositionBrief, layoutContextBrief, missionBrief } from '../../domain/strategy-knowledge';
-import type { StrategyEvidence, StrategyKnowledge } from '../../domain/strategy-knowledge';
+import { claimsForGuide, claimsForSecondaryMissionGuide, forceDispositionBrief, layoutContextBrief, matchupGuideForDispositions, matchupGuides, missionBrief, secondaryDecisionExamplesForGuide, secondaryMissionFamilies, secondaryMissionGuide, workedExampleForGuide } from '../../domain/strategy-knowledge';
+import type { StrategyEvidence, StrategyKnowledge, StrategyMatchupGuide } from '../../domain/strategy-knowledge';
 import { missionAssetUrl } from '../../domain/mission-packs';
 import type { MissionPack, MissionScoreTier, PrimaryMissionCard, SecondaryMissionCard } from '../../domain/mission-packs';
 
-type LibrarySection = 'primary' | 'secondary' | 'dispositions' | 'layouts' | 'matrix';
+type LibrarySection = 'primary' | 'secondary' | 'secondary-strategy' | 'dispositions' | 'layouts' | 'matrix' | 'guides';
 
 const AXIS_LABELS: Record<string, { fr: string; en: string }> = {
   'primary-scoring': { fr: 'Score principal', en: 'Primary scoring' },
@@ -117,6 +117,31 @@ function PrimaryCard({ card, brief, knowledge, locale }: {
   );
 }
 
+const SECONDARY_CLAIM_LABELS: Record<string, string> = {
+  'scoring-model': 'Rendement tactique', 'list-construction': 'Construction de liste', advantage: 'Opportunité',
+  pitfall: 'Mode d’échec', counterplay: 'Contre-jeu', 'play-pattern': 'Séquence', tradeoff: 'Arbitrage', 'decision-rule': 'Décision'
+};
+
+export function SecondaryStrategyPanel({ scenarioId, knowledge, locale }: { scenarioId: string; knowledge: StrategyKnowledge; locale: 'en' | 'fr' }): React.JSX.Element | null {
+  const guide = secondaryMissionGuide(knowledge, scenarioId);
+  if (!guide) return null;
+  const claims = claimsForSecondaryMissionGuide(knowledge, guide.id);
+  const examples = secondaryDecisionExamplesForGuide(knowledge, guide.id);
+  const sourceTitles = guide.sourceIds.map((id) => knowledge.sources.find((source) => source.id === id)?.title ?? id);
+  return (
+    <details className="strategy-brief secondary-strategy-panel">
+      <summary><span>{locale === 'fr' ? 'Analyse tactique détaillée' : 'Detailed tactical analysis (FR)'}</span><span className="strategy-brief__tier">{guide.status}</span></summary>
+      <div className="strategy-brief__content">
+        {locale === 'en' && <aside className="mission-unavailable"><strong>Contenu canonique français</strong><p>This reviewed strategic content is maintained in French.</p></aside>}
+        <section><h4>Capacités requises</h4><ul>{guide.capabilityRequirements.map((entry) => <li key={entry.capability}><code>{entry.capability}</code> · {entry.importance} — {entry.rationale}</li>)}</ul></section>
+        <div className="secondary-strategy-panel__claims">{claims.map((claim) => <section key={claim.id}><h4>{SECONDARY_CLAIM_LABELS[claim.kind] ?? claim.kind}</h4><p>{claim.statement}</p><small>{claim.rationale}</small>{claim.counterplay.length > 0 && <p><b>Menaces : </b>{claim.counterplay.join(' ')}</p>}{claim.tradeoffs.length > 0 && <p><b>Arbitrages : </b>{claim.tradeoffs.join(' ')}</p>}</section>)}</div>
+        {examples.map((example) => <section className="secondary-strategy-panel__example" key={example.id}><h4>Exemple décisionnel</h4><p>{example.setup.join(' ')}</p><p><b>Décision : </b>{example.decisionPoint}</p><ul>{example.branches.map((branch) => <li key={branch.id}><b>Si {branch.condition}</b> {branch.line}</li>)}</ul></section>)}
+        <p className="strategy-brief__evidence">Sources : {sourceTitles.join(' · ')} · confiance {guide.confidence} · revue avant le {guide.reviewBy}.</p>
+      </div>
+    </details>
+  );
+}
+
 function SecondaryCard({ card, brief, knowledge, locale }: {
   card: SecondaryMissionCard;
   brief: ReturnType<typeof missionBrief>;
@@ -139,9 +164,27 @@ function SecondaryCard({ card, brief, knowledge, locale }: {
           </section>
         ))}
         {brief && knowledge && <StrategyBrief brief={brief} knowledge={knowledge} locale={locale} />}
+        {brief && knowledge && <SecondaryStrategyPanel scenarioId={brief.id} knowledge={knowledge} locale={locale} />}
       </div>
     </article>
   );
+}
+
+export function SecondaryStrategyLibrary({ strategy, locale }: { strategy: StrategyKnowledge | null; locale: 'en' | 'fr' }): React.JSX.Element {
+  const families = secondaryMissionFamilies(strategy);
+  const capabilities = [...new Set(families.flatMap((family) => family.capabilityTags))].sort();
+  const [capability, setCapability] = useState('');
+  if (!strategy || families.length === 0) return <p className="muted">{locale === 'fr' ? 'Aucune analyse secondaire validée.' : 'No reviewed secondary analysis.'}</p>;
+  const framework = strategy.secondaryMissionFrameworks.find((entry) => entry.status === 'reviewed' || entry.status === 'published');
+  return <section className="secondary-strategy-library">
+    {locale === 'en' && <aside className="mission-unavailable"><strong>Contenu canonique français</strong><p>The reviewed secondary mission knowledge is currently maintained in French.</p></aside>}
+    {framework && <article className="mission-guide"><h3>Gestion du portefeuille actif</h3><p>Deux nouvelles cartes sont piochées à chaque phase de Commandement. Les cartes non accomplies et non défaussées restent actives : comparez leurs horizons et leur concurrence pour les mêmes unités.</p><p><b>Décisions : </b>conserver active · défausser en fin de son tour pour 1 PC · remplacement immédiat à 1 PC une fois par bataille.</p></article>}
+    <div className="mission-library-controls"><label>Filtre de capacité<select value={capability} onChange={(event) => setCapability(event.target.value)}><option value="">Toutes</option>{capabilities.map((entry) => <option key={entry} value={entry}>{entry}</option>)}</select></label></div>
+    {families.filter((family) => !capability || family.capabilityTags.includes(capability as never)).map((family) => {
+      const familyClaims = strategy.tacticalClaims.filter((claim) => family.claimIds.includes(claim.id) && (claim.status === 'reviewed' || claim.status === 'published'));
+      return <article className="mission-guide" key={family.id}><h3>{family.title}</h3><p><b>Capacités : </b>{family.capabilityTags.join(' · ')}</p>{familyClaims.map((claim) => <p key={claim.id}>{claim.statement}</p>)}<ul>{family.scenarioIds.map((id) => <li key={id}>{strategy.scenarios.find((entry) => entry.id === id)?.title.replace(/ — briefing GDM$/, '')}</li>)}</ul></article>;
+    })}
+  </section>;
 }
 
 function Layouts({ pack, strategy, locale }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr' }): React.JSX.Element {
@@ -176,7 +219,33 @@ function Layouts({ pack, strategy, locale }: { pack: MissionPack; strategy: Stra
   );
 }
 
-function Matrix({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): React.JSX.Element {
+function GuideLibrary({ pack, strategy, locale, selectedGuideId, onSelectGuide }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr'; selectedGuideId: string; onSelectGuide: (id: string) => void }): React.JSX.Element {
+  const guides = matchupGuides(strategy);
+  const selected = guides.find((guide) => guide.id === selectedGuideId) ?? guides[0];
+  if (!strategy || !selected) return <p className="muted">{locale === 'fr' ? 'Aucun guide validé.' : 'No validated guide.'}</p>;
+  const claims = claimsForGuide(strategy, selected.id);
+  const example = workedExampleForGuide(strategy, selected.id);
+  const layoutContext = strategy.layoutContexts.find((entry) => entry.id === selected.layoutContextId);
+  const layout = pack.cards?.layouts.find((entry) => entry.sourcePath === layoutContext?.sourcePath)?.layouts.find((entry) => entry.number === selected.selectedLayoutId);
+  const sideLabel = (side: StrategyMatchupGuide['sides'][number]) => strategy.forceDispositions.find((entry) => entry.id === side.forceDispositionId)?.title ?? side.forceDispositionId;
+  const sideClaims = (side: 'alpha' | 'beta' | 'global') => claims.filter((claim) => claim.side === side);
+  return (
+    <section className="mission-guide-library">
+      {locale === 'en' && <aside className="mission-unavailable"><strong>French canonical content</strong><p>The strategic guide is currently reviewed and maintained in French.</p></aside>}
+      <div className="mission-library-controls"><label>{locale === 'fr' ? 'Guide spécialisé' : 'Specialist guide'}<select value={selected.id} onChange={(event) => onSelectGuide(event.target.value)}>{guides.map((guide) => <option key={guide.id} value={guide.id}>{guide.title}</option>)}</select></label></div>
+      <article className="mission-guide">
+        <header><span className="eyebrow">GUIDE {guides.indexOf(selected) + 1}/15 · INFÉRENCE SOURCÉE</span><h3>{selected.title}</h3><p>{selected.overview}</p></header>
+        {layout && <figure className="mission-guide__layout"><img src={missionAssetUrl(layout.measurementsImage ?? layout.image) ?? undefined} alt={`${selected.title} — ${layout.name}`} loading="lazy" /><figcaption>{layout.name}</figcaption></figure>}
+        <div className="mission-guide__sides">{selected.sides.map((side) => <section key={side.side}><h4>{sideLabel(side)}</h4><p className="muted">{strategy.scenarios.find((entry) => entry.id === side.scenarioId)?.title}</p>{sideClaims(side.side).map((claim) => <article className="mission-guide__claim" key={claim.id}><strong>{claim.title}</strong><p>{claim.statement}</p><small>{claim.rationale}</small>{claim.counterplay.length > 0 && <p><b>Contre-jeu : </b>{claim.counterplay.join(' ')}</p>}</article>)}{side.referenceRosterIds.length > 0 && <div className="strategy-reference-roster"><strong>Listes validées</strong><span>{side.referenceRosterIds.map((id) => strategy.referenceRosters.find((roster) => roster.id === id)?.title ?? id).join(' · ')}</span></div>}</section>)}</div>
+        <section><h4>Analyse globale</h4>{sideClaims('global').map((claim) => <article className="mission-guide__claim" key={claim.id}><strong>{claim.title}</strong><p>{claim.statement}</p><small>{claim.rationale}</small></article>)}</section>
+        {example && <section><h4>Exemple pédagogique — primaire uniquement</h4><p className="muted">{example.assumptions.join(' ')}</p><div className="mission-matrix-scroll"><table className="mission-matrix"><thead><tr><th>Round</th><th>{sideLabel(selected.sides[0])}</th><th>{sideLabel(selected.sides[1])}</th></tr></thead><tbody>{example.rounds.map((round) => <tr key={round.round}><th>{round.round}</th><td>{round.turns[0].roundTotal} VP · cumul {round.turns[0].cumulativeTotal}</td><td>{round.turns[1].roundTotal} VP · cumul {round.turns[1].cumulativeTotal}</td></tr>)}</tbody><tfoot><tr><th>Final</th><td>{example.finalScores.alpha} VP</td><td>{example.finalScores.beta} VP</td></tr></tfoot></table></div></section>}
+        <p className="strategy-brief__evidence">Archive GDM approuvée pour le contexte de mission · règles officielles pour le cadre événementiel · conseils classés comme inférences.</p>
+      </article>
+    </section>
+  );
+}
+
+function Matrix({ pack, strategy, locale, onOpenGuide }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr'; onOpenGuide: (guideId: string) => void }): React.JSX.Element {
   const cards = pack.cards?.primary ?? [];
   const decks = [...new Set(cards.map((card) => card.deck))].sort();
   return (
@@ -186,7 +255,8 @@ function Matrix({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): R
         <thead><tr><th scope="col">{locale === 'fr' ? 'Votre disposition' : 'Your disposition'}</th>{decks.map((deck) => <th key={deck} scope="col">vs {humanize(deck)}</th>)}</tr></thead>
         <tbody>{decks.map((deck) => <tr key={deck}><th scope="row">{humanize(deck)}</th>{decks.map((opponent) => {
           const card = cards.find((entry) => entry.deck === deck && entry.vs === opponent);
-          return <td key={opponent}>{card?.name ?? '—'}</td>;
+          const guide = matchupGuideForDispositions(strategy, deck, opponent);
+          return <td key={opponent}>{guide ? <button className="mission-matrix__guide-link" type="button" onClick={() => onOpenGuide(guide.id)}>{card?.name ?? '—'}</button> : (card?.name ?? '—')}</td>;
         })}</tr>)}</tbody>
       </table>
     </div>
@@ -196,14 +266,15 @@ function Matrix({ pack, locale }: { pack: MissionPack; locale: 'en' | 'fr' }): R
 export function MissionLibrary({ pack, strategy, locale }: { pack: MissionPack; strategy: StrategyKnowledge | null; locale: 'en' | 'fr' }): React.JSX.Element {
   const hasCards = pack.cards && pack.cards.primary.length > 0;
   const [section, setSection] = useState<LibrarySection>('primary');
+  const [selectedGuideId, setSelectedGuideId] = useState('');
   const primaryCards = useMemo(() => [...(pack.cards?.primary ?? [])].sort((left, right) => left.name.localeCompare(right.name)), [pack.cards]);
   const secondaryCards = useMemo(() => [...(pack.cards?.secondary ?? [])].sort((left, right) => left.name.localeCompare(right.name)), [pack.cards]);
 
   if (!hasCards) return <aside className="mission-unavailable"><strong>{locale === 'fr' ? 'Cartes détaillées non intégrées' : 'Detailed cards are not integrated'}</strong><p>{pack.unavailableNotice}</p></aside>;
 
   const labels: Record<LibrarySection, string> = locale === 'fr'
-    ? { primary: 'Missions principales', secondary: 'Secondaires', dispositions: 'Dispositions', layouts: 'Layouts', matrix: 'Matrice' }
-    : { primary: 'Primary missions', secondary: 'Secondary missions', dispositions: 'Dispositions', layouts: 'Layouts', matrix: 'Matrix' };
+    ? { primary: 'Missions principales', secondary: 'Secondaires', 'secondary-strategy': 'Analyse secondaires', dispositions: 'Dispositions', layouts: 'Layouts', matrix: 'Matrice', guides: 'Guides' }
+    : { primary: 'Primary missions', secondary: 'Secondary missions', 'secondary-strategy': 'Secondary strategy (FR)', dispositions: 'Dispositions', layouts: 'Layouts', matrix: 'Matrix', guides: 'Guides (FR)' };
 
   return (
     <section className="mission-library" aria-label={locale === 'fr' ? 'Bibliothèque de missions' : 'Mission library'}>
@@ -212,12 +283,14 @@ export function MissionLibrary({ pack, strategy, locale }: { pack: MissionPack; 
       </div>
       {section === 'primary' && <div className="mission-reference-grid">{primaryCards.map((card) => <PrimaryCard key={card.sourcePath} card={card} brief={missionBrief(strategy, pack.id, card.sourcePath)} knowledge={strategy} locale={locale} />)}</div>}
       {section === 'secondary' && <div className="mission-reference-grid">{secondaryCards.map((card) => <SecondaryCard key={card.sourcePath} card={card} brief={missionBrief(strategy, pack.id, card.sourcePath)} knowledge={strategy} locale={locale} />)}</div>}
+      {section === 'secondary-strategy' && <SecondaryStrategyLibrary strategy={strategy} locale={locale} />}
       {section === 'dispositions' && <div className="mission-disposition-grid">{pack.cards?.forceDispositions.map((card) => {
         const brief = strategy ? forceDispositionBrief(strategy, pack.id, card.sourcePath) : null;
         return <div key={card.sourcePath} className="mission-disposition-entry"><figure className="mission-layout-card">{missionAssetUrl(card.asset) && <img src={missionAssetUrl(card.asset) ?? undefined} alt={card.title ?? card.sourcePath} loading="lazy" />}<figcaption>{card.title?.replace(' - 11th Edition | GDM 2026', '') ?? card.sourcePath}</figcaption></figure>{brief && strategy && <StrategyBrief brief={brief} knowledge={strategy} locale={locale} />}</div>;
       })}</div>}
       {section === 'layouts' && <Layouts pack={pack} strategy={strategy} locale={locale} />}
-      {section === 'matrix' && <Matrix pack={pack} locale={locale} />}
+      {section === 'matrix' && <Matrix pack={pack} strategy={strategy} locale={locale} onOpenGuide={(guideId) => { setSelectedGuideId(guideId); setSection('guides'); }} />}
+      {section === 'guides' && <GuideLibrary pack={pack} strategy={strategy} locale={locale} selectedGuideId={selectedGuideId} onSelectGuide={setSelectedGuideId} />}
     </section>
   );
 }

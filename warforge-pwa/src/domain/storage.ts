@@ -1,10 +1,12 @@
 import type { InventoryDataset } from './inventory';
 import type { NormalizedDatabase, SavedDraft } from './types';
+import type { UnitStatisticalProfile } from './statistics';
 
 const DATABASE_NAME = 'warforge-40k';
-const DATABASE_VERSION = 3;
+const DATABASE_VERSION = 4;
 const DATA_STORE = 'datasets';
 const INVENTORY_STORE = 'inventory';
+const STATISTICS_STORE = 'statistics';
 const DATA_KEY = 'catalog-v2';
 const DRAFTS_KEY = 'warforge.saved-drafts.v2';
 const ACTIVE_DRAFT_KEY = 'warforge.active-draft.v1';
@@ -13,6 +15,11 @@ const LOCALE_KEY = 'warforge.locale.v1';
 const PROJECT_STATUS_ACKNOWLEDGEMENT_KEY = 'warforge.project-status.v1';
 
 export type StoredLocale = 'fr' | 'en';
+
+interface StatisticsCacheEntry {
+  storedAt: number;
+  profiles: UnitStatisticalProfile[];
+}
 
 export function readLocale(): StoredLocale {
   try {
@@ -54,10 +61,50 @@ function openDatabase(): Promise<IDBDatabase> {
     request.onupgradeneeded = () => {
       if (!request.result.objectStoreNames.contains(DATA_STORE)) request.result.createObjectStore(DATA_STORE);
       if (!request.result.objectStoreNames.contains(INVENTORY_STORE)) request.result.createObjectStore(INVENTORY_STORE);
+      if (!request.result.objectStoreNames.contains(STATISTICS_STORE)) request.result.createObjectStore(STATISTICS_STORE);
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
+}
+
+export async function cacheStatisticsProfiles(key: string, profiles: UnitStatisticalProfile[]): Promise<void> {
+  const connection = await openDatabase();
+  await new Promise<void>((resolve, reject) => {
+    const transaction = connection.transaction(STATISTICS_STORE, 'readwrite');
+    transaction.objectStore(STATISTICS_STORE).put({ storedAt: Date.now(), profiles } satisfies StatisticsCacheEntry, key);
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  const entries = await new Promise<Array<{ key: IDBValidKey; storedAt: number }>>((resolve, reject) => {
+    const transaction = connection.transaction(STATISTICS_STORE, 'readonly');
+    const keysRequest = transaction.objectStore(STATISTICS_STORE).getAllKeys();
+    const valuesRequest = transaction.objectStore(STATISTICS_STORE).getAll();
+    transaction.oncomplete = () => resolve(keysRequest.result.map((entryKey, index) => ({ key: entryKey, storedAt: Number((valuesRequest.result[index] as Partial<StatisticsCacheEntry> | undefined)?.storedAt ?? 0) })));
+    transaction.onerror = () => reject(transaction.error);
+  });
+  const stale = entries.sort((left, right) => right.storedAt - left.storedAt).slice(8);
+  if (stale.length > 0) await new Promise<void>((resolve, reject) => {
+    const transaction = connection.transaction(STATISTICS_STORE, 'readwrite');
+    stale.forEach((entry) => transaction.objectStore(STATISTICS_STORE).delete(entry.key));
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+  connection.close();
+}
+
+export async function getCachedStatisticsProfiles(key: string): Promise<UnitStatisticalProfile[] | null> {
+  const connection = await openDatabase();
+  const result = await new Promise<UnitStatisticalProfile[] | null>((resolve, reject) => {
+    const request = connection.transaction(STATISTICS_STORE, 'readonly').objectStore(STATISTICS_STORE).get(key);
+    request.onsuccess = () => {
+      const entry = request.result as Partial<StatisticsCacheEntry> | undefined;
+      resolve(entry && Array.isArray(entry.profiles) ? entry.profiles : null);
+    };
+    request.onerror = () => reject(request.error);
+  });
+  connection.close();
+  return result;
 }
 
 export async function cacheDatabase(database: NormalizedDatabase): Promise<void> {

@@ -17,6 +17,7 @@ import { ReferencePage } from './reference/ReferencePage';
 import { WeaponsPage } from './weapons/WeaponsPage';
 import { LearningPage } from './learning/LearningPage';
 import { InventoryPage } from './inventory/InventoryPage';
+import { StatisticsPage } from './statistics/StatisticsPage';
 import type { InventoryDataset, InventoryReservation } from './domain/inventory';
 import type { AdvancedCatalogFilters } from './domain/advanced-filters';
 import type { AnalysisTarget, ListAnalysis } from './domain/analysis';
@@ -31,16 +32,18 @@ import type { SelectedWeaponProfile } from './domain/wargear';
 import type { CatalogLocaleOverlay, CatalogLocaleStatus, CatalogLocalization } from './domain/catalog-localization';
 import type { UnitImageEntry, UnitImageStatus } from './domain/unit-images';
 import type { StrategyKnowledge, StrategyReferenceRoster, StrategySelectedEnhancement } from './domain/strategy-knowledge';
+import type { UnitConfiguration } from './domain/statistics';
 import './styles.css';
 
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
-type AppView = 'builder' | 'reference' | 'weapons' | 'learning' | 'inventory';
+type AppView = 'builder' | 'reference' | 'weapons' | 'statistics' | 'learning' | 'inventory';
 
 function viewFromHash(): AppView {
   if (window.location.hash.startsWith('#rules') || window.location.hash.startsWith('#reference')) return 'reference';
   if (window.location.hash.startsWith('#weapons')) return 'weapons';
+  if (window.location.hash.startsWith('#statistics')) return 'statistics';
   if (window.location.hash.startsWith('#learning')) return 'learning';
   if (window.location.hash.startsWith('#inventory')) return 'inventory';
   return 'builder';
@@ -682,6 +685,33 @@ function BuilderStrategyHint({ detachmentId, disposition, dispositionLabel, prim
                 <div><strong>{locale === 'fr' ? 'Contre-jeux' : 'Counterplay'}</strong><ul>{plan.counterplay.map((entry) => <li key={entry}>{entry}</li>)}</ul></div>
               </div>
               <div><strong>{locale === 'fr' ? 'Compromis' : 'Trade-offs'}</strong><ul>{plan.tradeoffs.map((entry) => <li key={entry}>{entry}</li>)}</ul></div>
+              <section className="strategy-playbook">
+                <h4>{locale === 'fr' ? 'Plan opérationnel — séquence conditionnelle' : 'Operational plan — conditional sequence'}</h4>
+                <ol className="strategy-playbook__stages">
+                  {plan.operationalStages.map((stage) => (
+                    <li key={stage.id}>
+                      <strong>{stage.title}</strong>
+                      <p>{stage.objective}</p>
+                      <ul>{stage.execution.map((entry) => <li key={entry}>{entry}</li>)}</ul>
+                      <p className="strategy-playbook__gate"><strong>{locale === 'fr' ? 'Seuil de décision : ' : 'Decision gate: '}</strong>{stage.decisionGate}</p>
+                      <p className="strategy-playbook__abort"><strong>{locale === 'fr' ? 'Ne pas forcer si : ' : 'Do not force it if: '}</strong>{stage.abortCondition}</p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+              <section className="strategy-decision-branches">
+                <h4>{locale === 'fr' ? 'Arbres de décision' : 'Decision branches'}</h4>
+                <div>
+                  {plan.decisionBranches.map((branch) => (
+                    <article key={branch.id}>
+                      <p><strong>{locale === 'fr' ? 'Signal : ' : 'Signal: '}</strong>{branch.signal}</p>
+                      <p><strong>{locale === 'fr' ? 'Ligne conseillée : ' : 'Recommended line: '}</strong>{branch.recommendation}</p>
+                      <p><strong>{locale === 'fr' ? 'Sinon : ' : 'Otherwise: '}</strong>{branch.fallback}</p>
+                      <ul>{branch.guardrails.map((entry) => <li key={entry}>{entry}</li>)}</ul>
+                    </article>
+                  ))}
+                </div>
+              </section>
               {referenceRosters.map((roster) => (
                 <div className="strategy-reference-roster" key={roster.id}>
                   <strong>{roster.title}</strong>
@@ -1635,6 +1665,36 @@ export default function App(): React.JSX.Element {
     window.location.hash = 'weapons';
   };
 
+  const addStatisticalConfiguration = (unitId: string, configuration: UnitConfiguration): void => {
+    if (!database || !draft) return;
+    if (configuration.aggregate) {
+      setNotice(locale === 'fr' ? 'Choisissez une configuration exacte avant de l’ajouter à la liste.' : 'Choose an exact configuration before adding it to the roster.');
+      return;
+    }
+    const unit = database.units.find((candidate) => candidate.id === unitId);
+    if (!unit || !isUnitAvailableToFaction(database, draft.primaryFaction, unit)) {
+      setNotice(locale === 'fr' ? 'Cette unité n’est pas disponible pour la faction de la liste active.' : 'This unit is not available to the active roster faction.');
+      return;
+    }
+    const selectedDetachmentNames = database.detachments.filter((detachment) => draft.detachmentIds.includes(detachment.id)).map((detachment) => detachment.Name ?? detachment.displayName);
+    const missingDetachment = configuration.requiredDetachments.find((required) => !selectedDetachmentNames.some((selected) => selected.trim().toLocaleLowerCase() === required.trim().toLocaleLowerCase()));
+    if (missingDetachment) {
+      setNotice(locale === 'fr' ? `Cette configuration exige le détachement « ${missingDetachment} ».` : `This configuration requires the “${missingDetachment}” detachment.`);
+      return;
+    }
+    const item: RosterItem = {
+      id: crypto.randomUUID(),
+      unitId,
+      pointIndex: configuration.pointIndex,
+      modelCounts: configuration.modelCounts,
+      wargearSelections: {},
+      wargearSelectionCounts: configuration.wargearSelectionCounts
+    };
+    updateDraft((current) => ({ ...current, items: [...current.items, item] }));
+    setNotice(locale === 'fr' ? 'Configuration ajoutée à la liste active.' : 'Configuration added to the active roster.');
+    window.location.hash = 'builder';
+  };
+
   const projectStatusDialog = projectStatusMode && (
     <ProjectStatusDialog
       locale={locale}
@@ -1663,6 +1723,17 @@ export default function App(): React.JSX.Element {
         {globalNavigation}
         {profileImportInput}
         <WeaponsPage database={database} display={display} locale={locale} />
+        {projectStatusDialog}
+      </>
+    );
+  }
+
+  if (view === 'statistics' && database) {
+    return (
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <StatisticsPage database={database} display={display} locale={locale} onAddConfiguration={addStatisticalConfiguration} />
         {projectStatusDialog}
       </>
     );

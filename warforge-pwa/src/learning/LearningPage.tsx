@@ -257,6 +257,11 @@ export function LearningPage({
         </div>
       </header>
 
+      <section className="learning-statistics-guide" aria-label={isFrench ? 'Guide des statistiques' : 'Statistics guide'}>
+        <div><strong>{isFrench ? 'Comprendre les statistiques calculées' : 'Understand calculated statistics'}</strong><p>{isFrench ? 'Moyenne, quantiles, fiabilité, dégâts utiles, efficience et percentiles expliqués pas à pas.' : 'Means, quantiles, reliability, useful damage, efficiency and percentiles explained step by step.'}</p></div>
+        <a href="#statistics/guide/quick-read">{isFrench ? 'Ouvrir le guide complet' : 'Open the complete guide'}</a>
+      </section>
+
       {/* Mode Navigation & Score Header */}
       <section className="command-center learning-command-center">
         <div className="learning-topbar">

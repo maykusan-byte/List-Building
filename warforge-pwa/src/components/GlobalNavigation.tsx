@@ -1,6 +1,6 @@
 import { BrandMark } from './BrandMark';
 
-export type GlobalNavigationView = 'builder' | 'reference' | 'weapons' | 'learning' | 'inventory';
+export type GlobalNavigationView = 'builder' | 'reference' | 'weapons' | 'statistics' | 'learning' | 'inventory';
 
 interface GlobalNavigationProps {
   activeView: GlobalNavigationView;
@@ -12,6 +12,7 @@ interface GlobalNavigationProps {
 }
 
 const destinations: Array<{ view: GlobalNavigationView; hash: string; icon: string; fr: string; en: string }> = [
+  { view: 'statistics', hash: '#statistics', icon: 'Σ', fr: 'Statistiques', en: 'Statistics' },
   { view: 'builder', hash: '#builder', icon: '⌘', fr: 'Liste', en: 'Builder' },
   { view: 'reference', hash: '#reference/core', icon: '§', fr: 'Règles', en: 'Rules' },
   { view: 'weapons', hash: '#weapons', icon: '✦', fr: 'Arsenal', en: 'Armoury' },

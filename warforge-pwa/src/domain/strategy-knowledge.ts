@@ -170,6 +170,162 @@ export interface StrategyRecommendation extends Omit<StrategyEvidence, 'missionP
   reviewBy: string;
 }
 
+export type StrategyTacticalClaimKind = 'advantage' | 'play-pattern' | 'pitfall' | 'counterplay' | 'scoring-model' | 'tradeoff' | 'list-construction' | 'decision-rule';
+export type StrategyGuideSide = 'alpha' | 'beta' | 'global';
+
+export type StrategySecondaryMissionCapability = 'action-capacity' | 'concentrated-damage' | 'distributed-damage' | 'durable-presence' | 'independent-units' | 'objective-control' | 'screening' | 'target-access' | 'territorial-projection' | 'unit-redundancy';
+export type StrategySecondaryMissionFamilyId = 'destruction-targeted' | 'objective-control' | 'territorial-projection' | 'actions-operations';
+
+export interface StrategySecondaryMissionFramework extends Omit<StrategyEvidence, 'missionPackId'> {
+  missionPackId: string;
+  mode: 'tactical';
+  cardsDrawnPerCommandPhase: 2;
+  uncompletedCardsRemainActive: true;
+  completedCardsAreDiscarded: true;
+  voluntaryEndTurnDiscard: { allowsMultiple: true; commandPointsGained: 1 };
+  oncePerBattleRedraw: { commandPointCost: 1; discardedCards: 1; drawnCards: 1 };
+  victoryPointCaps: { battle: 45; round: 15 };
+  reviewBy: string;
+}
+
+export interface StrategySecondaryMissionFamily extends Omit<StrategyEvidence, 'missionPackId'> {
+  familyId: StrategySecondaryMissionFamilyId;
+  scenarioIds: string[];
+  capabilityTags: StrategySecondaryMissionCapability[];
+  claimIds: string[];
+  reviewBy: string;
+}
+
+export interface StrategyMissionCapabilityRequirement {
+  capability: StrategySecondaryMissionCapability;
+  importance: 'core' | 'supporting';
+  rationale: string;
+}
+
+export interface StrategySecondaryMissionGuide extends Omit<StrategyEvidence, 'missionPackId'> {
+  locale: 'fr';
+  mode: 'tactical';
+  scenarioId: string;
+  familyId: StrategySecondaryMissionFamilyId;
+  capabilityRequirements: StrategyMissionCapabilityRequirement[];
+  claimIds: string[];
+  decisionExampleIds: string[];
+  reviewBy: string;
+}
+
+export interface StrategySecondaryDecisionBranch {
+  id: string;
+  condition: string;
+  line: string;
+  rationale: string;
+  risks: string[];
+  claimIds: string[];
+}
+
+export interface StrategySecondaryDecisionExample extends Omit<StrategyEvidence, 'missionPackId'> {
+  scenarioId: string;
+  setup: string[];
+  assumptions: string[];
+  decisionPoint: string;
+  branches: StrategySecondaryDecisionBranch[];
+  lessonClaimIds: string[];
+  reviewBy: string;
+}
+
+/** A small, reusable tactical conclusion. Rules text remains in mission/catalogue data. */
+export interface StrategyTacticalClaim extends Omit<StrategyEvidence, 'missionPackId'> {
+  kind: StrategyTacticalClaimKind;
+  side: StrategyGuideSide;
+  scenarioIds: string[];
+  layoutContextIds: string[];
+  statement: string;
+  rationale: string;
+  preconditions: string[];
+  counterplay: string[];
+  tradeoffs: string[];
+  axisEffects: StrategyAxisRating[];
+  reviewBy: string;
+}
+
+export interface StrategyMatchupGuideSide {
+  side: Exclude<StrategyGuideSide, 'global'>;
+  forceDispositionId: string;
+  scenarioId: string;
+  claimIds: string[];
+  victoryPlanIds: string[];
+  referenceRosterIds: string[];
+}
+
+/** Editorial composition of atomic claims for one unordered disposition pairing. */
+export interface StrategyMatchupGuide extends Omit<StrategyEvidence, 'missionPackId'> {
+  slug: string;
+  locale: 'fr';
+  layoutContextId: string;
+  selectedLayoutId: number;
+  overview: string;
+  sides: [StrategyMatchupGuideSide, StrategyMatchupGuideSide];
+  globalClaimIds: string[];
+  workedExampleId: string;
+  narrativeSourcePath: string;
+  reviewBy: string;
+}
+
+export interface StrategyScoreItem {
+  label: string;
+  vp: number;
+}
+
+export interface StrategyWorkedExampleTurn {
+  side: Exclude<StrategyGuideSide, 'global'>;
+  summary: string;
+  scoreItems: StrategyScoreItem[];
+  roundTotal: number;
+  cumulativeTotal: number;
+}
+
+export interface StrategyWorkedExampleRound {
+  round: number;
+  turns: [StrategyWorkedExampleTurn, StrategyWorkedExampleTurn];
+}
+
+/** A bounded teaching ledger, never evidence that an outcome is probable. */
+export interface StrategyWorkedExample extends Omit<StrategyEvidence, 'missionPackId'> {
+  guideId: string;
+  layoutId: number;
+  assumptions: string[];
+  rounds: StrategyWorkedExampleRound[];
+  finalScores: { alpha: number; beta: number };
+  lessonClaimIds: string[];
+  reviewBy: string;
+}
+
+/**
+ * A bounded, ordered part of a victory plan. It is decision support rather
+ * than a turn simulator: its gates must remain observable by the player and
+ * any rules it relies on must be part of the plan's explicit rule graph.
+ */
+export interface StrategyOperationalStage {
+  id: string;
+  title: string;
+  objective: string;
+  execution: string[];
+  decisionGate: string;
+  abortCondition: string;
+  ruleIds: string[];
+  synergyIds: string[];
+}
+
+/** A conditional branch with an explicit safer fallback, never a guarantee. */
+export interface StrategyDecisionBranch {
+  id: string;
+  signal: string;
+  recommendation: string;
+  fallback: string;
+  guardrails: string[];
+  ruleIds: string[];
+  synergyIds: string[];
+}
+
 /**
  * An explainable, scenario-specific inference. It deliberately describes
  * composition and intended roles; it does not evaluate live game state.
@@ -184,6 +340,8 @@ export interface StrategyVictoryPlan extends Omit<StrategyEvidence, 'missionPack
   preconditions: string[];
   counterplay: string[];
   tradeoffs: string[];
+  operationalStages: StrategyOperationalStage[];
+  decisionBranches: StrategyDecisionBranch[];
   reviewBy: string;
 }
 
@@ -220,7 +378,7 @@ export interface StrategyForceDispositionFit {
 }
 
 export interface StrategyKnowledge {
-  schemaVersion: 'warforge-strategy-knowledge/v3';
+  schemaVersion: 'warforge-strategy-knowledge/v5';
   knowledgeVersion: string;
   catalogProvenanceSourceId: string;
   compatibility: StrategyCompatibility;
@@ -236,6 +394,13 @@ export interface StrategyKnowledge {
   recommendations: StrategyRecommendation[];
   victoryPlans: StrategyVictoryPlan[];
   referenceRosters: StrategyReferenceRoster[];
+  tacticalClaims: StrategyTacticalClaim[];
+  matchupGuides: StrategyMatchupGuide[];
+  workedExamples: StrategyWorkedExample[];
+  secondaryMissionFrameworks: StrategySecondaryMissionFramework[];
+  secondaryMissionFamilies: StrategySecondaryMissionFamily[];
+  secondaryMissionGuides: StrategySecondaryMissionGuide[];
+  secondaryDecisionExamples: StrategySecondaryDecisionExample[];
 }
 
 export interface StrategyRuleGraphUnit {
@@ -522,6 +687,222 @@ function isRecommendation(value: unknown): value is StrategyRecommendation {
     && typeof value.reviewBy === 'string';
 }
 
+function isTacticalClaim(value: unknown): value is StrategyTacticalClaim {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && ['advantage', 'play-pattern', 'pitfall', 'counterplay', 'scoring-model', 'tradeoff', 'list-construction', 'decision-rule'].includes(String(value.kind))
+    && ['alpha', 'beta', 'global'].includes(String(value.side))
+    && isStringList(value.scenarioIds)
+    && value.scenarioIds.length > 0
+    && isStringList(value.layoutContextIds)
+    && typeof value.statement === 'string'
+    && typeof value.rationale === 'string'
+    && isStringList(value.preconditions)
+    && isStringList(value.counterplay)
+    && isStringList(value.tradeoffs)
+    && isAxisRatings(value.axisEffects)
+    && isSourceTier(value.sourceTier)
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+const secondaryCapabilities: StrategySecondaryMissionCapability[] = ['action-capacity', 'concentrated-damage', 'distributed-damage', 'durable-presence', 'independent-units', 'objective-control', 'screening', 'target-access', 'territorial-projection', 'unit-redundancy'];
+const secondaryFamilyIds: StrategySecondaryMissionFamilyId[] = ['destruction-targeted', 'objective-control', 'territorial-projection', 'actions-operations'];
+
+function isSecondaryCapability(value: unknown): value is StrategySecondaryMissionCapability {
+  return secondaryCapabilities.includes(value as StrategySecondaryMissionCapability);
+}
+
+function isSecondaryMissionFramework(value: unknown): value is StrategySecondaryMissionFramework {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.missionPackId === 'string'
+    && value.mode === 'tactical'
+    && value.cardsDrawnPerCommandPhase === 2
+    && value.uncompletedCardsRemainActive === true
+    && value.completedCardsAreDiscarded === true
+    && isRecord(value.voluntaryEndTurnDiscard)
+    && value.voluntaryEndTurnDiscard.allowsMultiple === true
+    && value.voluntaryEndTurnDiscard.commandPointsGained === 1
+    && isRecord(value.oncePerBattleRedraw)
+    && value.oncePerBattleRedraw.commandPointCost === 1
+    && value.oncePerBattleRedraw.discardedCards === 1
+    && value.oncePerBattleRedraw.drawnCards === 1
+    && isRecord(value.victoryPointCaps)
+    && value.victoryPointCaps.battle === 45
+    && value.victoryPointCaps.round === 15
+    && value.sourceTier === 'official'
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+function isSecondaryMissionFamily(value: unknown): value is StrategySecondaryMissionFamily {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && secondaryFamilyIds.includes(value.familyId as StrategySecondaryMissionFamilyId)
+    && isStringList(value.scenarioIds)
+    && value.scenarioIds.length > 0
+    && Array.isArray(value.capabilityTags)
+    && value.capabilityTags.length > 0
+    && value.capabilityTags.every(isSecondaryCapability)
+    && isStringList(value.claimIds)
+    && value.claimIds.length > 0
+    && value.sourceTier === 'inference'
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+function isCapabilityRequirement(value: unknown): value is StrategyMissionCapabilityRequirement {
+  return isRecord(value)
+    && isSecondaryCapability(value.capability)
+    && (value.importance === 'core' || value.importance === 'supporting')
+    && typeof value.rationale === 'string';
+}
+
+function isSecondaryMissionGuide(value: unknown): value is StrategySecondaryMissionGuide {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && value.locale === 'fr'
+    && value.mode === 'tactical'
+    && typeof value.scenarioId === 'string'
+    && secondaryFamilyIds.includes(value.familyId as StrategySecondaryMissionFamilyId)
+    && Array.isArray(value.capabilityRequirements)
+    && value.capabilityRequirements.length > 0
+    && value.capabilityRequirements.every(isCapabilityRequirement)
+    && isStringList(value.claimIds)
+    && value.claimIds.length > 0
+    && isStringList(value.decisionExampleIds)
+    && value.decisionExampleIds.length > 0
+    && value.sourceTier === 'inference'
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+function isSecondaryDecisionExample(value: unknown): value is StrategySecondaryDecisionExample {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.scenarioId === 'string'
+    && isStringList(value.setup)
+    && value.setup.length > 0
+    && isStringList(value.assumptions)
+    && value.assumptions.length > 0
+    && typeof value.decisionPoint === 'string'
+    && Array.isArray(value.branches)
+    && value.branches.length >= 2
+    && value.branches.every((branch) => isRecord(branch)
+      && typeof branch.id === 'string'
+      && typeof branch.condition === 'string'
+      && typeof branch.line === 'string'
+      && typeof branch.rationale === 'string'
+      && isStringList(branch.risks)
+      && isStringList(branch.claimIds)
+      && branch.claimIds.length > 0)
+    && isStringList(value.lessonClaimIds)
+    && value.lessonClaimIds.length > 0
+    && value.sourceTier === 'inference'
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+function isMatchupGuideSide(value: unknown): value is StrategyMatchupGuideSide {
+  return isRecord(value)
+    && (value.side === 'alpha' || value.side === 'beta')
+    && typeof value.forceDispositionId === 'string'
+    && typeof value.scenarioId === 'string'
+    && isStringList(value.claimIds)
+    && value.claimIds.length > 0
+    && isStringList(value.victoryPlanIds)
+    && isStringList(value.referenceRosterIds);
+}
+
+function isMatchupGuide(value: unknown): value is StrategyMatchupGuide {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.slug === 'string'
+    && value.locale === 'fr'
+    && typeof value.layoutContextId === 'string'
+    && Number.isInteger(value.selectedLayoutId)
+    && typeof value.overview === 'string'
+    && Array.isArray(value.sides)
+    && value.sides.length === 2
+    && value.sides.every(isMatchupGuideSide)
+    && isStringList(value.globalClaimIds)
+    && value.globalClaimIds.length > 0
+    && typeof value.workedExampleId === 'string'
+    && typeof value.narrativeSourcePath === 'string'
+    && isSourceTier(value.sourceTier)
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
+function isWorkedExample(value: unknown): value is StrategyWorkedExample {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.guideId === 'string'
+    && Number.isInteger(value.layoutId)
+    && isStringList(value.assumptions)
+    && Array.isArray(value.rounds)
+    && value.rounds.length === 5
+    && value.rounds.every((round, index) => isRecord(round)
+      && round.round === index + 1
+      && Array.isArray(round.turns)
+      && round.turns.length === 2
+      && round.turns.every((turn) => isRecord(turn)
+        && (turn.side === 'alpha' || turn.side === 'beta')
+        && typeof turn.summary === 'string'
+        && Array.isArray(turn.scoreItems)
+        && turn.scoreItems.every((item) => isRecord(item) && typeof item.label === 'string' && typeof item.vp === 'number' && Number.isInteger(item.vp) && item.vp >= 0)
+        && typeof turn.roundTotal === 'number'
+        && Number.isInteger(turn.roundTotal)
+        && turn.roundTotal >= 0
+        && turn.roundTotal <= 15
+        && typeof turn.cumulativeTotal === 'number'
+        && Number.isInteger(turn.cumulativeTotal)
+        && turn.cumulativeTotal >= 0
+        && turn.cumulativeTotal <= 45))
+    && isRecord(value.finalScores)
+    && typeof value.finalScores.alpha === 'number'
+    && Number.isInteger(value.finalScores.alpha)
+    && typeof value.finalScores.beta === 'number'
+    && Number.isInteger(value.finalScores.beta)
+    && value.finalScores.alpha >= 0
+    && value.finalScores.alpha <= 45
+    && value.finalScores.beta >= 0
+    && value.finalScores.beta <= 45
+    && isStringList(value.lessonClaimIds)
+    && isSourceTier(value.sourceTier)
+    && isStringList(value.sourceIds)
+    && isConfidence(value.confidence)
+    && isStatus(value.status)
+    && isStringList(value.limitations)
+    && typeof value.reviewBy === 'string';
+}
+
 function isRosterItem(value: unknown): value is RosterItem {
   return isRecord(value)
     && typeof value.id === 'string'
@@ -538,6 +919,33 @@ function isRosterItem(value: unknown): value is RosterItem {
       && value.enhancement.enhancementIndex >= 0));
 }
 
+function isOperationalStage(value: unknown): value is StrategyOperationalStage {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.objective === 'string'
+    && isStringList(value.execution)
+    && value.execution.length > 0
+    && typeof value.decisionGate === 'string'
+    && typeof value.abortCondition === 'string'
+    && isStringList(value.ruleIds)
+    && isStringList(value.synergyIds)
+    && (value.ruleIds.length > 0 || value.synergyIds.length > 0);
+}
+
+function isDecisionBranch(value: unknown): value is StrategyDecisionBranch {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.signal === 'string'
+    && typeof value.recommendation === 'string'
+    && typeof value.fallback === 'string'
+    && isStringList(value.guardrails)
+    && value.guardrails.length > 0
+    && isStringList(value.ruleIds)
+    && isStringList(value.synergyIds)
+    && (value.ruleIds.length > 0 || value.synergyIds.length > 0);
+}
+
 function isVictoryPlan(value: unknown): value is StrategyVictoryPlan {
   return isRecord(value)
     && typeof value.id === 'string'
@@ -551,6 +959,12 @@ function isVictoryPlan(value: unknown): value is StrategyVictoryPlan {
     && isStringList(value.preconditions)
     && isStringList(value.counterplay)
     && isStringList(value.tradeoffs)
+    && Array.isArray(value.operationalStages)
+    && value.operationalStages.length > 0
+    && value.operationalStages.every(isOperationalStage)
+    && Array.isArray(value.decisionBranches)
+    && value.decisionBranches.length > 0
+    && value.decisionBranches.every(isDecisionBranch)
     && isSourceTier(value.sourceTier)
     && isStringList(value.sourceIds)
     && isConfidence(value.confidence)
@@ -665,16 +1079,102 @@ function hasResolvedVictoryPlans(
       && roster.sourceIds.every((sourceId) => sourceIds.has(sourceId))));
 }
 
+function hasResolvedSecondaryMissionKnowledge(value: {
+  sources: StrategySource[];
+  scenarios: StrategyScenario[];
+  tacticalClaims: StrategyTacticalClaim[];
+  secondaryMissionFrameworks: StrategySecondaryMissionFramework[];
+  secondaryMissionFamilies: StrategySecondaryMissionFamily[];
+  secondaryMissionGuides: StrategySecondaryMissionGuide[];
+  secondaryDecisionExamples: StrategySecondaryDecisionExample[];
+}): boolean {
+  const sourceIds = new Set(value.sources.map((source) => source.id));
+  const secondaryScenarioIds = value.scenarios.filter((scenario) => scenario.kind === 'secondary-card').map((scenario) => scenario.id).sort();
+  const claimById = new Map(value.tacticalClaims.map((claim) => [claim.id, claim]));
+  const familyById = new Map(value.secondaryMissionFamilies.map((family) => [family.familyId, family]));
+  const exampleById = new Map(value.secondaryDecisionExamples.map((example) => [example.id, example]));
+  const requiredKinds = new Set<StrategyTacticalClaimKind>(['scoring-model', 'list-construction', 'advantage', 'pitfall', 'counterplay', 'play-pattern', 'tradeoff', 'decision-rule']);
+  const partition = value.secondaryMissionFamilies.flatMap((family) => family.scenarioIds).sort();
+  if (secondaryScenarioIds.length === 0
+    && value.secondaryMissionFrameworks.length === 0
+    && value.secondaryMissionFamilies.length === 0
+    && value.secondaryMissionGuides.length === 0
+    && value.secondaryDecisionExamples.length === 0) return true;
+  if (value.secondaryMissionFrameworks.length !== 1
+    || secondaryScenarioIds.length !== 18
+    || partition.length !== 18
+    || new Set(partition).size !== 18
+    || partition.some((scenarioId, index) => scenarioId !== secondaryScenarioIds[index])) return false;
+  if (!value.secondaryMissionFrameworks.every((framework) => framework.sourceIds.every((sourceId) => sourceIds.has(sourceId)))) return false;
+  if (!value.secondaryMissionFamilies.every((family) => family.sourceIds.every((sourceId) => sourceIds.has(sourceId))
+    && family.claimIds.every((claimId) => {
+      const claim = claimById.get(claimId);
+      return claim?.side === 'global' && family.scenarioIds.every((scenarioId) => claim.scenarioIds.includes(scenarioId));
+    }))) return false;
+  if (value.secondaryMissionGuides.length !== 18 || new Set(value.secondaryMissionGuides.map((guide) => guide.scenarioId)).size !== 18) return false;
+  return value.secondaryMissionGuides.every((guide) => {
+    const family = familyById.get(guide.familyId);
+    const claims = guide.claimIds.map((claimId) => claimById.get(claimId));
+    const kinds = new Set(claims.map((claim) => claim?.kind));
+    return sourceIds.has(guide.sourceIds[0])
+      && guide.sourceIds.every((sourceId) => sourceIds.has(sourceId))
+      && family?.scenarioIds.includes(guide.scenarioId)
+      && claims.every((claim) => claim?.side === 'global' && claim.scenarioIds.includes(guide.scenarioId))
+      && [...requiredKinds].every((kind) => kinds.has(kind))
+      && guide.decisionExampleIds.every((exampleId) => {
+        const example = exampleById.get(exampleId);
+        return example?.scenarioId === guide.scenarioId
+          && example.sourceIds.every((sourceId) => sourceIds.has(sourceId))
+          && example.lessonClaimIds.every((claimId) => claimById.get(claimId)?.scenarioIds.includes(guide.scenarioId))
+          && example.branches.every((branch) => branch.claimIds.every((claimId) => claimById.get(claimId)?.scenarioIds.includes(guide.scenarioId)));
+      });
+  });
+}
+
 export function strategyKnowledge(value: unknown): StrategyKnowledge | null {
-  if (!isRecord(value) || value.schemaVersion !== 'warforge-strategy-knowledge/v3' || typeof value.knowledgeVersion !== 'string' || typeof value.catalogProvenanceSourceId !== 'string') return null;
-  if (!isCompatibility(value.compatibility) || !Array.isArray(value.sources) || !Array.isArray(value.scenarios) || !Array.isArray(value.forceDispositions) || !Array.isArray(value.layoutContexts) || !Array.isArray(value.ruleNodes) || !Array.isArray(value.unitProfiles) || !Array.isArray(value.detachmentProfiles) || !Array.isArray(value.synergies) || !Array.isArray(value.metaSnapshots) || !Array.isArray(value.recommendations) || !Array.isArray(value.victoryPlans) || !Array.isArray(value.referenceRosters)) return null;
+  if (!isRecord(value) || value.schemaVersion !== 'warforge-strategy-knowledge/v5' || typeof value.knowledgeVersion !== 'string' || typeof value.catalogProvenanceSourceId !== 'string') return null;
+  if (!isCompatibility(value.compatibility) || !Array.isArray(value.sources) || !Array.isArray(value.scenarios) || !Array.isArray(value.forceDispositions) || !Array.isArray(value.layoutContexts) || !Array.isArray(value.ruleNodes) || !Array.isArray(value.unitProfiles) || !Array.isArray(value.detachmentProfiles) || !Array.isArray(value.synergies) || !Array.isArray(value.metaSnapshots) || !Array.isArray(value.recommendations) || !Array.isArray(value.victoryPlans) || !Array.isArray(value.referenceRosters) || !Array.isArray(value.tacticalClaims) || !Array.isArray(value.matchupGuides) || !Array.isArray(value.workedExamples) || !Array.isArray(value.secondaryMissionFrameworks) || !Array.isArray(value.secondaryMissionFamilies) || !Array.isArray(value.secondaryMissionGuides) || !Array.isArray(value.secondaryDecisionExamples)) return null;
   if (!value.sources.every(isStrategySource)) return null;
   if (!value.scenarios.every(isScenario) || !value.forceDispositions.every(isForceDisposition) || !value.layoutContexts.every(isLayoutContext) || !value.ruleNodes.every(isRuleNode) || !value.unitProfiles.every(isUnitProfile) || !value.detachmentProfiles.every(isDetachmentProfile) || !value.synergies.every(isSynergy) || !value.metaSnapshots.every(isMetaSnapshot) || !value.recommendations.every(isRecommendation) || !value.victoryPlans.every(isVictoryPlan) || !value.referenceRosters.every(isReferenceRoster)) return null;
+  if (!value.tacticalClaims.every(isTacticalClaim) || !value.matchupGuides.every(isMatchupGuide) || !value.workedExamples.every(isWorkedExample)) return null;
+  if (!value.secondaryMissionFrameworks.every(isSecondaryMissionFramework) || !value.secondaryMissionFamilies.every(isSecondaryMissionFamily) || !value.secondaryMissionGuides.every(isSecondaryMissionGuide) || !value.secondaryDecisionExamples.every(isSecondaryDecisionExample)) return null;
   if (!hasResolvedCatalogProvenance(value.sources, value.catalogProvenanceSourceId, value.compatibility)) return null;
   if (!hasResolvedUnitDetachmentContexts(value.unitProfiles, value.detachmentProfiles)) return null;
   if (!hasResolvedRuleGraph(value.sources, value.ruleNodes, value.synergies)) return null;
   if (!hasResolvedVictoryPlans(value.sources, value.scenarios, value.ruleNodes, value.detachmentProfiles, value.synergies, value.victoryPlans, value.referenceRosters)) return null;
+  if (!hasResolvedSecondaryMissionKnowledge(value as unknown as StrategyKnowledge)) return null;
   return value as unknown as StrategyKnowledge;
+}
+
+export function secondaryMissionGuide(knowledge: StrategyKnowledge | null, scenarioId: string): StrategySecondaryMissionGuide | null {
+  return knowledge?.secondaryMissionGuides.find((guide) => guide.scenarioId === scenarioId
+    && (guide.status === 'reviewed' || guide.status === 'published')) ?? null;
+}
+
+export function secondaryMissionFamilies(knowledge: StrategyKnowledge | null): StrategySecondaryMissionFamily[] {
+  return knowledge?.secondaryMissionFamilies.filter((family) => family.status === 'reviewed' || family.status === 'published') ?? [];
+}
+
+export function secondaryDecisionExamplesForGuide(knowledge: StrategyKnowledge | null, guideId: string): StrategySecondaryDecisionExample[] {
+  if (!knowledge) return [];
+  const guide = knowledge.secondaryMissionGuides.find((entry) => entry.id === guideId);
+  if (!guide || (guide.status !== 'reviewed' && guide.status !== 'published')) return [];
+  const ids = new Set(guide.decisionExampleIds);
+  return knowledge.secondaryDecisionExamples.filter((example) => ids.has(example.id)
+    && (example.status === 'reviewed' || example.status === 'published'));
+}
+
+export function secondaryMissionRequirements(knowledge: StrategyKnowledge | null, scenarioId: string): StrategyMissionCapabilityRequirement[] {
+  return secondaryMissionGuide(knowledge, scenarioId)?.capabilityRequirements ?? [];
+}
+
+export function claimsForSecondaryMissionGuide(knowledge: StrategyKnowledge | null, guideId: string): StrategyTacticalClaim[] {
+  if (!knowledge) return [];
+  const guide = knowledge.secondaryMissionGuides.find((entry) => entry.id === guideId);
+  if (!guide || (guide.status !== 'reviewed' && guide.status !== 'published')) return [];
+  const ids = new Set(guide.claimIds);
+  return knowledge.tacticalClaims.filter((claim) => ids.has(claim.id)
+    && (claim.status === 'reviewed' || claim.status === 'published'));
 }
 
 let strategyKnowledgePromise: Promise<StrategyKnowledge | null> | undefined;
@@ -755,6 +1255,33 @@ export function victoryPlansForContext(knowledge: StrategyKnowledge | null, cata
 
 export function referenceRostersForVictoryPlan(knowledge: StrategyKnowledge | null, victoryPlanId: string): StrategyReferenceRoster[] {
   return knowledge?.referenceRosters.filter((roster) => roster.status === 'reviewed' && roster.victoryPlanId === victoryPlanId) ?? [];
+}
+
+export function matchupGuides(knowledge: StrategyKnowledge | null): StrategyMatchupGuide[] {
+  return knowledge?.matchupGuides.filter((guide) => guide.status === 'reviewed' || guide.status === 'published') ?? [];
+}
+
+export function matchupGuideForDispositions(knowledge: StrategyKnowledge | null, leftDeck: string, rightDeck: string): StrategyMatchupGuide | null {
+  if (!knowledge) return null;
+  const decks = [normalizeDeck(leftDeck), normalizeDeck(rightDeck)].sort();
+  return matchupGuides(knowledge).find((guide) => guide.sides
+    .map((side) => normalizeDeck(knowledge.forceDispositions.find((entry) => entry.id === side.forceDispositionId)?.deck ?? ''))
+    .sort()
+    .every((deck, index) => deck === decks[index])) ?? null;
+}
+
+export function claimsForGuide(knowledge: StrategyKnowledge | null, guideId: string): StrategyTacticalClaim[] {
+  if (!knowledge) return [];
+  const guide = knowledge.matchupGuides.find((entry) => entry.id === guideId);
+  if (!guide) return [];
+  const ids = new Set([...guide.globalClaimIds, ...guide.sides.flatMap((side) => side.claimIds)]);
+  return knowledge.tacticalClaims.filter((claim) => ids.has(claim.id) && (claim.status === 'reviewed' || claim.status === 'published'));
+}
+
+export function workedExampleForGuide(knowledge: StrategyKnowledge | null, guideId: string): StrategyWorkedExample | null {
+  const guide = knowledge?.matchupGuides.find((entry) => entry.id === guideId);
+  if (!guide) return null;
+  return knowledge?.workedExamples.find((example) => example.id === guide.workedExampleId && (example.status === 'reviewed' || example.status === 'published')) ?? null;
 }
 
 function normalizeRuleTerm(value: string): string {

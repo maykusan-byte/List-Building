@@ -1,7 +1,7 @@
 {
   "name": "warforge-pwa",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Application locale de création de listes Warhammer 40,000.",
   "author": "Warforge",
   "type": "module",
@@ -11,6 +11,8 @@
     "sync-data": "node scripts/sync-data.mjs",
     "gdm:import": "node scripts/import-gdmissions-11th.mjs --run",
     "missions:validate": "node scripts/mission-data.mjs --check",
+    "strategy:seed-guides": "node scripts/seed-primary-guides.mjs",
+    "strategy:generate-secondary": "node scripts/strategy-knowledge.mjs --generate-secondary",
     "strategy:validate": "node scripts/strategy-knowledge.mjs --check",
     "faction-packs:validate": "node scripts/faction-pack-audit.mjs --check",
     "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",

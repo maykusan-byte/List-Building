@@ -326,7 +326,7 @@ function addProfile(target: SelectedWeaponProfile[], profileIndexes: Map<string,
 
 function profileMatches(profile: RawWeaponProfile, equipment: string): boolean {
   const weaponName = canonical(profile.Name);
-  const baseName = canonical((profile.Name ?? '').replace(/\s*[–—-]\s*(?:standard|supercharge).*$/iu, ''));
+  const baseName = canonical((profile.Name ?? '').split(/\s+[–—-]\s+/u)[0]);
   const equipmentName = canonical(equipment);
   if (!weaponName || !equipmentName) return false;
   return weaponName === equipmentName || baseName === equipmentName;

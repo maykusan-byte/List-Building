@@ -19,11 +19,15 @@ Read [knowledge-contract.md](references/knowledge-contract.md) completely before
    - **inference**: contextual tactical conclusion derived from cited evidence;
    - **hypothesis**: candidate to test, never published as advice.
 4. Model the scenario before units. Capture scoring windows, board constraints, and prioritised victory axes without copying unsupported mission-card content.
+   - For secondary missions, also use the dedicated `warforge-secondary-mission-analysis` skill; it owns the portfolio, family, claim and decision-example workflow.
+   - For a primary-mission guide, run `node warforge-pwa/scripts/seed-primary-guides.mjs` only when intentionally rebuilding the complete 15-guide matrix.
+   - Break advice into atomic `tacticalClaims`: one statement, one rationale, explicit preconditions, counterplay, trade-offs, axes, sources and review date.
+   - Compose claims through `matchupGuides`; keep worked score ledgers in `workedExamples`. Narrative exports are generated projections, never sources of rules.
 5. Model official rules before tactical conclusions. Add a V3 `ruleNode` for each rule, stratagem, enhancement, mission rule, army rule, or datasheet ability: stable owner ID, optional composition prerequisites, factual wording, timing, target selector, activation mode, official source/page, limitations, and review date.
 6. Use pinned normalised catalogue IDs for unit and detachment profiles. Never link strategy data with a displayed unit name.
 7. Model each synergy as an inference edge: participants, non-empty `ruleIds`, a bounded `relationKind`, preconditions, timing, counterplay, trade-offs, limitations, axis effects, sources, and review date. A reviewed edge can reference only reviewed rule nodes.
 8. Treat the roster resolver as a composition check, not a game-state simulator. It may resolve selected detachments, units, catalogue keywords, and selected enhancements; it must not silently assume CP, distances, target legality, phase timing, dice results, hidden state, or mission scoring are satisfied.
-9. Add a recommendation or victory plan only when every cited source and contextual reference resolves. A victory plan binds one precise primary mission, a detachment profile, rule nodes and synergy edges; state confidence, counterplay, limitations, trade-offs, and a review date.
+9. Add a recommendation or victory plan only when every cited source and contextual reference resolves. A victory plan binds one precise primary mission, a detachment profile, rule nodes and synergy edges; add ordered operational stages and decision branches with explicit gates, safer fallbacks, and only rule/synergy IDs already owned by the plan. State confidence, counterplay, limitations, trade-offs, and a review date.
 10. Pin each reference roster to its catalogue version, precise primary mission and victory plan. Validate its exact points total and canonical roster legality; loading it in the builder must create an editable copy, never overwrite a user list.
 11. Run the canonical validation and synchronize the generated public mirror:
 
@@ -31,6 +35,8 @@ Read [knowledge-contract.md](references/knowledge-contract.md) completely before
    pnpm --dir warforge-pwa strategy:validate
    pnpm --dir warforge-pwa build
    ~~~
+
+   Review `warforge-pwa/public/data/strategy-guides/coverage.json`: missing validated roster sides are an explicit review queue and must never be filled with inferred points or unvalidated lists.
 
    The skill relay is available for a workspace-level check, but delegates to the exact same validator:
 
@@ -50,7 +56,7 @@ Read [knowledge-contract.md](references/knowledge-contract.md) completely before
 
 ## Integration boundary
 
-The source lives in `warforge-pwa/data/strategy/knowledge-base.json`. `pnpm build` first validates it and then copies it to `warforge-pwa/public/data/strategy-knowledge.json`; the latter is generated and must not be edited manually.
+The source lives in `warforge-pwa/data/strategy/knowledge-base.json`. `pnpm build` first validates it and then copies it to `warforge-pwa/public/data/strategy-knowledge.json`; the latter and the secondary-mission report are generated and must not be edited manually.
 
 Before changing catalogue, rules, French locales, missions, points, inventory, or image metadata, read and follow the `warforge-data-operations` skill. Read `warforge-pwa/AGENTS.md` before application changes. Keep strategic claims, data operations, and UI changes in focused commits or reviews.
 

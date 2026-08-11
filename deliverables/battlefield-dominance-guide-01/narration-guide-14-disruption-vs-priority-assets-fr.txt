@@ -1,0 +1,135 @@
+Guide quatorze sur quinze : Disruption contre Priority Assets. Locate and Deny face à Extract Relic.
+
+Cette confrontation est inhabituelle parce que les deux joueurs manipulent le même ensemble de marqueurs. Au début de la bataille, le joueur Disruption place cinq marqueurs dans des zones de terrain. Les deux camps peuvent ensuite effectuer des balayages depuis les objectifs centraux pour retirer ces marqueurs un par un, jusqu’à n’en laisser qu’un seul.
+
+Ce dernier marqueur devient alors le cœur de la partie. Pour le sécuriser, un joueur doit avoir au moins une unité dans sa zone de terrain et aucune unité ennemie ne doit y être présente. La mission comporte donc trois batailles simultanées : contrôler le centre pour réussir les balayages, choisir dans quel ordre éliminer les emplacements possibles, puis occuper exclusivement la zone du marqueur final.
+
+L’exemple utilise le deuxième layout, en déploiement Tipping Point. Il comprend un objectif de zone pour chaque camp, deux objectifs centraux très proches, deux objectifs latéraux dans le no man’s land et plusieurs zones de terrain réparties entre le centre et les flancs. Le regroupement des centraux facilite leur contestation. Mais la zone finale peut se trouver dans une ruine périphérique, créant un second front très éloigné de l’opération Sensor Sweep.
+
+Commençons par la mécanique commune des cinq marqueurs.
+
+Au début de la bataille, Disruption sélectionne cinq zones de terrain qui ne se trouvent pas dans sa propre zone de déploiement et place un marqueur d’opération dans chacune. S’il existe moins de cinq zones éligibles, il en place un dans chaque zone disponible.
+
+Ce placement n’est pas une simple formalité. Il définit les cinq futurs possibles de la partie. Un joueur qui choisit quatre zones facilement accessibles à l’adversaire et une seule position véritablement favorable à son armée donne à Priority Assets un choix évident : supprimer la zone favorable lors d’un balayage et conserver les emplacements les plus simples à exploiter.
+
+Les deux cartes utilisent ensuite la même opération, Sensor Sweep. Elle commence pendant la phase de Tir avec une unité amie à portée d’un objectif central, une seule fois par tour. Elle s’achève à la fin du tour si l’unité choisie contrôle toujours cet objectif. En cas de réussite, l’unité effectue un balayage et le joueur retire un marqueur d’opération de son choix, n’importe où sur le champ de bataille.
+
+L’opérateur central n’a donc pas besoin d’être proche du marqueur supprimé. Il peut retirer à distance un emplacement situé sur le flanc opposé. Cette distinction sépare la mission en deux géographies : le centre donne le droit de choisir, tandis que les zones de terrain déterminent le lieu du futur affrontement.
+
+Sensor Sweep ne peut pas être commencé lorsqu’il ne reste qu’un seul marqueur. Avec cinq emplacements initiaux, quatre balayages réussis suffisent. On passe de cinq à quatre, puis trois, puis deux, et enfin un marqueur final. À partir de cet instant, aucun nouveau balayage ne peut commencer et aucun marqueur ne peut être ajouté. La zone survivante devient l’enjeu principal jusqu’à la fin de la bataille.
+
+Passons à Locate and Deny, la mission du camp Disruption.
+
+À la fin de chacun de ses tours, Disruption marque quatre points si une ou plusieurs unités ennemies qui avaient commencé le tour à portée d’un objectif ont été détruites pendant ce tour.
+
+Cette condition demande de mémoriser la position initiale des unités ennemies. Une unité qui commence sur un objectif, puis recule ou se déplace ailleurs, reste une cible éligible pendant tout le tour. À l’inverse, une unité qui commence hors de portée d’un objectif et charge ensuite dessus ne devient pas rétroactivement éligible. La détruire peut être utile militairement, mais ne produit pas ces quatre points.
+
+Le bonus est binaire. Détruire une ou plusieurs unités compatibles rapporte toujours quatre points. Un simple Battleshock ne suffit pas, et une unité qui survit avec une seule figurine ne compte pas comme détruite. Il est donc utile de marquer mentalement, ou physiquement, les cibles qui se trouvaient sur des objectifs au début du tour.
+
+Disruption marque également quatre points à la fin de son tour si trois conditions sont réunies : il ne reste exactement qu’un marqueur, au moins une unité amie se trouve dans la même zone de terrain, et aucune unité ennemie n’est présente dans cette zone.
+
+Il n’est pas nécessaire que le terrain contienne un objectif. Il n’est pas nécessaire de contrôler un marqueur d’objectif à proximité. L’unité présente n’a pas besoin d’avoir effectué un balayage, et Disruption n’a même pas besoin d’être le camp ayant retiré le quatrième marqueur. La vérification porte uniquement sur l’occupation exclusive de la zone de terrain.
+
+Si une unité des deux camps se trouve dans la zone, personne ne marque ce bonus. La simple présence d’un socle ennemi suffit à bloquer la condition, indépendamment de son OC. C’est une différence importante avec le contrôle d’un objectif : ici, un Scarab, un Lictor ou une figurine isolée peut nier quatre points même avec un Contrôle d’Objectif nul ou très faible.
+
+À partir du deuxième round, Disruption marque quatre points à la fin de sa phase de Commandement s’il contrôle au moins un objectif autre que son objectif de zone. Au cinquième round, cette vérification se fait à la fin du tour. Enfin, à la fin de la bataille, il ajoute cinq points si la zone du marqueur final est occupée exclusivement par une unité Disruption.
+
+À partir du deuxième round, le tour normal peut donc produire quatre points de contrôle, quatre points pour une destruction compatible et quatre points pour la relique, soit douze. Au round cinq, les cinq points finaux portent le total brut à dix-sept, ramené au plafond de quinze.
+
+La subtilité majeure de Locate and Deny est que Sensor Sweep ne rapporte aucun point direct. Chaque balayage doit avoir une justification stratégique. Il peut supprimer un emplacement favorable à Priority Assets, préparer une zone finale défendable, modifier la parité des balayages ou accompagner l’arrivée prochaine d’une unité dans la zone survivante. Effectuer l’opération mécaniquement chaque tour peut donner à l’adversaire le dernier choix sans aucune rémunération immédiate.
+
+La parité détermine souvent qui choisit le dernier emplacement. Supposons que Disruption joue en premier et que chaque camp réussisse un balayage par round. Disruption retire le premier marqueur et il en reste quatre. Priority Assets retire le deuxième et il en reste trois. Au round suivant, Disruption en laisse deux. Priority Assets effectue alors le quatrième balayage, choisit lequel des deux derniers marqueurs supprimer et détermine la zone finale.
+
+Disruption peut modifier cette séquence en refusant volontairement un balayage. S’il ne balaie pas au premier round, Priority Assets fait passer le total de cinq à quatre. Au round deux, Disruption descend à trois, puis Priority Assets à deux. Au round trois, Disruption effectue le balayage décisif et choisit cette fois l’emplacement final. Le refus coûte du tempo central, mais il peut être correct lorsque les deux derniers terrains favorisent nettement des camps différents.
+
+Le placement initial doit donc proposer plusieurs options crédibles. Une bonne structure comprend deux zones favorables à Disruption, deux zones relativement neutres et une zone plus risquée ou éloignée. Priority Assets ne peut alors pas éliminer toutes les positions confortables sans laisser survivre une option neutre exploitable.
+
+Avant de passer de deux marqueurs à un, le joueur doit préparer l’occupation. Il lui faut idéalement une unité rapide proche de plusieurs zones candidates, une relève, une ligne de tir sur les accès et un moyen de limiter les arrivées depuis les Réserves. Un Lictor ou Deathleaper peut occuper discrètement la zone, mais une simple présence infiltrée ne garantit pas la victoire contre une véritable unité d’extraction.
+
+Passons maintenant à Extract Relic, la mission Priority Assets.
+
+À la fin de chacun de ses tours, Priority Assets marque quatre points si une unité amie a réussi un balayage pendant ce tour. Il marque trois points si une ou plusieurs unités ennemies ayant commencé le tour à portée d’un objectif ont été détruites. Il marque enfin quatre points si le marqueur final existe, qu’une unité amie se trouve dans sa zone et qu’aucune unité adverse n’y est présente.
+
+À partir du deuxième round, le joueur ajoute quatre points s’il contrôle au moins un objectif autre que son objectif de zone. Au cinquième round, ce contrôle est vérifié à la fin du tour. À la fin de la bataille, il gagne cinq points supplémentaires si l’occupation exclusive de la zone finale est maintenue.
+
+Extract Relic est mieux rémunérée pendant la phase de recherche. Avant qu’il ne reste qu’un marqueur, sa trajectoire naturelle peut donner quatre points pour Sensor Sweep, trois pour une destruction compatible, puis quatre de contrôle à partir du deuxième round. Cela représente sept points au premier tour et onze à partir du deuxième, avant même que la relique finale n’existe.
+
+Lorsque le dernier balayage est effectué pendant un tour où Priority Assets occupe déjà la future zone, le rendement peut atteindre directement le plafond : quatre points pour le balayage, trois pour la destruction, quatre pour l’occupation du marqueur et quatre pour le contrôle extérieur. Cela donne quinze points.
+
+Aux tours suivants, Sensor Sweep n’est plus disponible. Le socle devient trois points pour une destruction compatible, quatre pour le contrôle et quatre pour la relique, soit onze. Au cinquième round, le bonus final de cinq points permet de dépasser le plafond brut.
+
+Le joueur Priority Assets ne doit toutefois pas confondre revenu immédiat et choix final. Le balayage rapporte quatre points, mais il réduit le nombre d’emplacements. Lorsqu’il ne reste que deux marqueurs, le prochain balayage décide de la zone définitive. Si aucune unité ne peut atteindre ou tenir l’emplacement conservé, quatre points immédiats peuvent être suivis de plusieurs tours sans les quatre points de relique.
+
+Il peut donc être correct de renoncer temporairement à un balayage lorsque les deux zones restantes favorisent Disruption, que l’armée n’est pas encore positionnée, que l’opérateur central risque d’échouer ou que l’adversaire peut occuper immédiatement la future relique. L’action est rémunérée, mais elle n’est pas automatiquement bonne.
+
+Chaque balayage est aussi une arme géographique. Priority Assets doit retirer d’abord les marqueurs proches des infiltrateurs adverses, protégés par un gros monstre, difficiles à atteindre depuis les Réserves ou situés dans une ruine offrant une excellente protection. Les zones faciles à rejoindre doivent rester parmi les derniers candidats.
+
+La zone finale doit être tenue, pas seulement atteinte. Une petite unité peut entrer dans le terrain pour empêcher Disruption de marquer : c’est une contestation sacrificielle. Mais pour marquer elle-même, Priority Assets doit éliminer toutes les unités adverses présentes, conserver au moins une unité amie dans la zone et empêcher le retour ennemi avant la fenêtre de score. C’est l’extraction réelle.
+
+Le centre et la relique peuvent être très éloignés. L’opération se déroule sur un objectif central, mais le marqueur final peut survivre sur un flanc. Pendant la phase de recherche, l’armée doit donc maintenir deux groupes fonctionnels : un opérateur central qui permet les balayages et une force d’extraction capable de se rapprocher des zones candidates. Concentrer toute l’armée sur une ruine trop tôt peut abandonner le centre et interrompre la sélection.
+
+La mission se divise ainsi en deux actes.
+
+Dans la phase de recherche, tant qu’au moins deux marqueurs subsistent, les deux camps se disputent les centraux et chaque balayage modifie la géographie future. Disruption cherche la bonne parité ; Priority Assets construit son score grâce aux opérations réussies.
+
+Dans la phase d’extraction, après le quatrième retrait, les balayages s’arrêtent. Le centre reste utile pour les quatre points de contrôle, mais il n’a plus de fonction dans la mécanique des marqueurs. L’attention se déplace vers la dernière zone et la destruction des unités qui l’occupent.
+
+À chaque tour, le joueur doit arbitrer entre trois tâches : tenir le centre pour effectuer le balayage, détruire une unité qui avait commencé sur un objectif, et projeter une unité vers la future relique. Une seule formation ne peut pas toujours remplir les trois. Une liste pertinente doit donc contenir une ancre centrale, des unités capables d’achever les cibles éligibles et des infiltrateurs ou éléments rapides.
+
+Il faut aussi distinguer objectif et terrain. La clause de destruction concerne les objectifs. La clause de la relique concerne une zone de terrain. Détruire une unité dans la ruine finale ne donne pas automatiquement les points de destruction : cette unité devait également avoir commencé le tour à portée d’un objectif. À l’inverse, une unité détruite sur un objectif éloigné de la relique peut parfaitement valider le bonus létal.
+
+Si une unité Tyranide et une unité Nécron se trouvent toutes deux dans la zone finale, aucun camp ne marque les quatre points d’occupation. Si cette contestation persiste jusqu’à la fin, aucun n’obtient non plus les cinq points finaux. Un unique socle survivant peut ainsi empêcher huit points combinés pendant un round, puis dix points répartis entre les deux camps lors de la conclusion.
+
+Regardons maintenant les listes d’exemple.
+
+Le camp Disruption utilise les Tyranides en Synaptic Nexus. La liste comprend un Hive Tyrant à cent quatre-vingt-quinze points avec Psychostatic Disruption à trente ; un Norn Emissary à deux cent cinquante ; deux Maleceptors pour trois cent quatre-vingts ; deux Exocrines pour deux cent quatre-vingts ; deux Tyrannofex pour trois cent soixante ; Deathleaper à quatre-vingts ; deux Lictors pour cent vingt ; vingt Hormagaunts à cent vingt ; dix Gargoyles à quatre-vingts ; dix Termagants à soixante ; et un Pyrovore à quarante-cinq. Le total est de deux mille points pour quinze unités.
+
+Au début de chaque round, Synaptic Nexus peut activer un Impératif différent : sauvegarde invulnérable à cinq plus, bonus aux Avances et aux Charges, ou bonus de touche au corps à corps. Cette flexibilité correspond aux deux phases de la mission. La protection aide pendant la recherche, la vitesse facilite la convergence vers la relique et le bonus offensif soutient le combat final.
+
+Le Norn est l’ancre centrale et l’opérateur principal. Les Maleceptors protègent le centre et contrôlent l’espace. Le Hive Tyrant fournit le soutien synaptique ; Psychostatic Disruption limite les arrivées depuis les Réserves près de la future zone. Lictors et Deathleaper occupent les terrains candidats. Hormagaunts et Gargoyles contestent ou forment des écrans. Les Exocrines détruisent les unités Nécrons installées sur les objectifs. Les Tyrannofex ciblent les Doomsday Arks ou les Wraiths. Termagants et Pyrovore assurent une présence économique.
+
+Le Norn ne doit pas forcément choisir la future zone finale avec Singular Purpose. Pendant les deux premiers rounds, l’objectif central peut être beaucoup plus important, surtout tant que la parité des balayages n’est pas résolue.
+
+Le camp Priority Assets utilise les Nécrons en Cryptek Conclave. La liste comprend Illuminor Szeras à cent soixante-quinze points ; deux Technomancers pour cent soixante-dix ; deux unités de six Wraiths pour quatre cent soixante ; un Plasmancer à cinquante-cinq ; deux unités de dix Immortals pour deux cent quatre-vingts ; un Chronomancer à soixante-dix ; vingt Warriors à cent quatre-vingt-dix ; deux Doomsday Arks pour quatre cent vingt ; deux unités de trois Scarab Swarms pour quatre-vingts ; cinq Deathmarks à soixante ; Atomic Disintegrators à dix ; Quantum Abacus à quinze ; et Gravitic Bolas à quinze. Le total est de deux mille points.
+
+Chaque Technomancer rejoint six Wraiths. Le Plasmancer avec Atomic Disintegrators accompagne dix Immortals. Le Chronomancer avec Gravitic Bolas rejoint les dix autres. Les Warriors opèrent près d’Illuminor Szeras.
+
+Les Crypteks peuvent adapter leurs armes pendant la phase de Tir, avec notamment Anti-Infantry, Anti-Mounted, Assault, Heavy ou Ignores Cover. La liste sait tenir deux positions séparées : Wraiths et Technomancers au centre ou sur la relique, Immortals et Warriors sur les objectifs, et Doomsday Arks en soutien longue portée.
+
+Les Wraiths combinent mouvement de dix pouces, bon OC et Feel No Pain à cinq plus grâce au Technomancer. Le Chronomancer autorise un mouvement normal de cinq pouces après le tir, excellent pour entrer dans la zone finale. Gravitic Bolas ralentit une unité Tyranide touchée. Szeras renforce les Battleline proches. Les Doomsday Arks menacent les monstres et apportent un OC de cinq. Les Scarabs peuvent contester la zone de manière sacrificielle. Les Deathmarks surveillent les arrivées. Quantum Abacus peut récupérer des points de Commandement, et Atomic Disintegrators offre une option Anti-Monster à l’unité du Plasmancer.
+
+Voici maintenant une partie illustrative. Elle montre une séquence crédible, sans prétendre mesurer statistiquement le matchup.
+
+Les Tyranides sont Attaquant, dans la zone rouge, et jouent en premier. Les Nécrons sont Défenseur. Disruption place ses cinq marqueurs dans une ruine centrale gauche, une ruine centrale droite, une grande ruine du flanc gauche, une ruine avancée côté Nécron et une petite zone latérale accessible aux Lictors.
+
+Les Tyranides souhaitent que la petite zone latérale reste l’emplacement final. Les Nécrons préfèrent la grande ruine du flanc gauche, accessible aux Wraiths.
+
+Au premier round, le Norn contrôle un objectif central et réussit Sensor Sweep. Les Tyranides retirent un marqueur situé dans une zone particulièrement favorable aux Wraiths. Il reste quatre marqueurs. Une Exocrine détruit une unité de Scarabs qui avait commencé le tour sur un objectif. Locate and Deny marque quatre points pour cette destruction.
+
+Les Nécrons effectuent à leur tour un balayage avec les Wraiths et retirent la petite zone latérale favorable aux Lictors. Il reste trois marqueurs. Une Doomsday Ark détruit les Termagants qui avaient commencé le tour sur un objectif. Extract Relic marque quatre points pour le balayage et trois pour la destruction, soit sept. Le score est de sept à quatre pour les Nécrons.
+
+Au deuxième round, les Tyranides effectuent un second balayage et retirent une nouvelle zone favorable aux Nécrons. Il ne reste que deux marqueurs : la grande ruine du flanc gauche et une ruine avancée, plus proche de la moitié Nécron. Disruption contrôle un objectif extérieur et détruit des Immortals qui avaient commencé sur un objectif. Il marque quatre points de contrôle et quatre de destruction, soit huit.
+
+Les Nécrons effectuent le quatrième balayage. Ils retirent la ruine avancée et choisissent donc la grande ruine du flanc gauche comme emplacement final. Un bloc de Wraiths avec Technomancer se trouve déjà dans cette zone, sans unité Tyranide présente. Les Nécrons détruisent aussi les Gargoyles qui occupaient un objectif. Extract Relic marque quatre points pour le balayage, trois pour la destruction, quatre pour l’occupation exclusive et quatre pour le contrôle extérieur. Le total atteint directement quinze. Le cumul passe à vingt-deux contre douze pour les Nécrons.
+
+Au troisième round, les balayages ne sont plus possibles. Deathleaper et un Lictor entrent dans la grande ruine. Les Wraiths sont toujours présentes : la zone devient contestée. Les Tyranides détruisent une unité de Warriors qui avait commencé sur un objectif et conservent un objectif extérieur. Ils marquent quatre points de destruction et quatre de contrôle, soit huit, mais aucun point pour la relique.
+
+Les Nécrons éliminent le Lictor et Deathleaper. Cependant, ces unités n’avaient pas commencé le tour à portée d’un objectif : leur destruction ne produit pas les trois points d’Extract Relic. À la fin du tour, seules les Wraiths occupent la zone finale. Les Nécrons marquent quatre points de contrôle et quatre pour la relique, soit huit. Le cumul est de trente contre vingt.
+
+Au quatrième round, les Tyranides activent un Impératif offensif. Un Maleceptor et le Norn convergent vers la ruine. Les premières Wraiths sont détruites, tandis qu’un Tyrannofex élimine ailleurs une unité Nécron qui avait commencé sur un objectif. À la fin du tour, seul le Maleceptor demeure dans la zone finale. Disruption marque quatre points de destruction, quatre de contrôle et quatre pour la relique, soit douze.
+
+Les Nécrons envoient leur second bloc de Wraiths, mais ne parviennent pas à détruire le Maleceptor. Les deux camps ont désormais des unités dans la zone. Priority Assets marque trois points pour une destruction compatible réalisée ailleurs et quatre de contrôle. Il ne marque pas la relique. Le total est de sept. Le cumul se resserre à trente-sept contre trente-deux pour les Nécrons.
+
+Au cinquième round, le Norn et le Maleceptor détruisent les dernières Wraiths présentes dans la zone. Une Exocrine élimine également des Immortals qui avaient commencé leur tour sur un objectif. À la fin du tour, seuls les Tyranides occupent la ruine finale. Locate and Deny obtient quatre points de destruction, quatre de contrôle, quatre pour l’occupation exclusive et cinq de fin de bataille. Dix-sept points bruts, ramenés à quinze. Les Tyranides atteignent le plafond global de quarante-cinq.
+
+Les Nécrons tentent une dernière contestation avec les Scarabs survivants et l’unité du Chronomancer, mais n’atteignent pas la zone. Ils détruisent une unité Tyranide qui avait commencé sur un objectif et conservent un objectif extérieur. Ils marquent trois points de destruction et quatre de contrôle, soit sept. Le résultat final est de quarante-cinq à quarante-quatre pour les Tyranides.
+
+Les Nécrons ont dominé la phase de recherche et choisi l’emplacement final. Mais ce choix n’a pas garanti la victoire. Les Tyranides ont engagé davantage de ressources dans la grande ruine aux rounds quatre et cinq et ont remporté la phase d’extraction.
+
+Pour bien jouer Locate and Deny, photographiez ou notez précisément les cinq emplacements initiaux. Ne créez pas une seule zone vraiment favorable et quatre positions faciles à abandonner. Comptez la parité avant chaque balayage et ne lancez pas Sensor Sweep automatiquement, puisqu’il ne rapporte aucun point direct. Identifiez au début de chaque tour les unités ennemies qui se trouvent sur des objectifs. Prépositionnez Lictors ou unités rapides près de plusieurs zones candidates et conservez une relève. Utilisez Psychostatic Disruption pour limiter les arrivées ennemies. Au round cinq, éliminer la dernière unité adverse dans le terrain peut produire à la fois les quatre points d’occupation et les cinq points finaux.
+
+Pour bien jouer Extract Relic, souvenez-vous que les quatre points du balayage sont importants, mais que le quatrième balayage choisit la zone finale. Supprimez d’abord les marqueurs proches des infiltrateurs adverses. Placez des Wraiths près des deux emplacements que vous souhaitez conserver et gardez un opérateur central jusqu’à ce qu’il ne reste qu’un marqueur. Une fois la relique déterminée, redéployez les ressources du centre. Les Scarabs peuvent contester la zone et empêcher quatre points sans avoir besoin de gagner un contrôle d’objectif. Gardez les Doomsday Arks sur des lignes de tir utiles et exploitez le mouvement après tir du Chronomancer pour une entrée tardive. Ne comptez jamais une destruction si la victime n’avait pas commencé le tour sur un objectif.
+
+Le verdict est nuancé. Extract Relic est favorisé pendant la recherche, car chaque balayage réussi rapporte quatre points. Priority Assets peut prendre une avance rapide tout en influençant le dernier emplacement. Locate and Deny possède un meilleur rendement lors des tours de destruction et contrôle la carte initiale des possibilités. Disruption peut aussi manipuler la parité en refusant une opération.
+
+La phrase à retenir est la suivante : les cinq marqueurs ne sont pas cinq objectifs à visiter. Ce sont cinq futurs possibles qu’il faut éliminer dans le bon ordre. Le joueur qui choisit le dernier emplacement ne gagne pas automatiquement ; il doit encore être capable de le tenir.

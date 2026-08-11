@@ -1,0 +1,521 @@
+════════════════════════════════════════════════════════════
+GUIDE 6/15 — Take and Hold contre Purge the Foe
+VERSION SOURCE FOURNIE POUR LA SÉRIE AUDIO
+════════════════════════════════════════════════════════════
+
+Cette rencontre inaugure les scénarios asymétriques de la matrice. Les deux camps disputent les mêmes objectifs, mais ne valorisent pas les mêmes événements :
+
+- **Take and Hold** veut conserver des positions jusqu’à ses fenêtres de score.
+- **Purge the Foe** veut tuer, conquérir une nouvelle position et transformer cette conquête en contrôle durable.
+
+Le scénario oppose donc une logique d’**ancrage** à une logique de **rupture-exploitation**.
+
+════════════════════════════════════════════════════════════
+## 1. Cadre commun
+
+Dans le format événementiel :
+
+- La bataille dure cinq rounds.
+- Le primaire est plafonné à **15 VP par round** et **45 VP au total**.
+- La détermination de l’Attaquant et du Défenseur est distincte du jet de premier tour.
+- Chaque combinaison de missions dispose de trois layouts recommandés.
+
+Ces éléments proviennent du [Warhammer Event Companion officiel](https://assets.warhammer-community.com/eng_12-06_warhammer40000_event_companion-s3bfb5f9s1-ivswuij3fo.pdf).
+
+Pour l’exemple, j’utilise le layout **Take & Hold vs Purge the Foe 1 — Sweeping Engagement** :
+
+- 6 objectifs ;
+- 2 objectifs de zone de déploiement ;
+- 2 objectifs centraux ;
+- 2 objectifs de no man’s land ;
+- déploiements sur les grands côtés, avec plusieurs couloirs diagonaux.
+
+Le [plan détaillé du layout](</D:/askel/Documents/List Building/warforge-pwa/data/missions/gdmissions-11th/assets/layouts/with-measurements/take-and-hold-vs-purge-the-foe-1-portrait.png>) montre un champ de bataille relativement fragmenté : les deux objectifs centraux ne forment pas une seule mêlée, mais deux points d’appui pouvant être disputés séparément.
+
+════════════════════════════════════════════════════════════
+# 2. Camp Take and Hold — Immovable Object
+
+## Rappel exact des règles
+
+### À la fin de chacun de vos tours
+
+Vous marquez **3 VP** si vous contrôlez un ou plusieurs objectifs centraux.
+
+Ce bonus est binaire : contrôler deux objectifs centraux ne rapporte toujours que 3 VP.
+
+### Rounds 2 à 4 — fin de votre phase de Commandement
+
+Vous marquez **5 VP par objectif contrôlé**, à l’exclusion de votre objectif de zone de déploiement.
+
+Les objectifs centraux sont bien comptabilisés parmi ces objectifs non domestiques.
+
+### Round 5 — fin de votre tour
+
+Vous marquez **5 VP par objectif contrôlé**, toujours à l’exclusion de votre objectif domestique.
+
+La fenêtre est déplacée à la fin du tour : au dernier round, vous pouvez donc vous déplacer, charger et combattre avant de déterminer votre contrôle.
+
+Référence : [carte Immovable Object — GDM 2026](https://gdmissions.app/11th/primary-missions/take-and-hold/immovable-object).
+
+## Barème pratique
+
+| Situation | Score brut |
+|---|---:|
+| Round 1 : au moins un central à la fin du tour | 3 |
+| Rounds 2–4 : un objectif non domestique au Commandement | 5 |
+| Un objectif au Commandement + central à la fin du tour | 8 |
+| Deux objectifs au Commandement + central à la fin du tour | 13 |
+| Trois objectifs au Commandement | 15, plafond atteint |
+| Round 5 : deux objectifs dont un central | 13 |
+
+Le véritable palier de performance est donc **13 VP** : deux objectifs non domestiques conservés jusqu’au Commandement, dont au moins un central encore tenu à la fin du tour.
+
+════════════════════════════════════════════════════════════
+## Analyse du camp Take and Hold
+
+### Condition de victoire
+
+Votre priorité n’est pas de contrôler beaucoup d’objectifs momentanément. Elle est de commencer vos phases de Commandement avec deux positions non domestiques encore intactes.
+
+Le plan idéal est généralement :
+
+1. Sécuriser un objectif central.
+2. Établir un second ancrage sur un objectif de no man’s land.
+3. Garder une unité de remplacement derrière chacun.
+4. N’engager vos réserves offensives que pour empêcher la rupture de cette structure.
+
+Une armée Take and Hold peut perdre davantage d’unités que l’adversaire et néanmoins gagner si ses pertes arrivent **après** ses fenêtres de score.
+
+### Le centre vaut plus pour vous
+
+Un objectif central peut produire :
+
+- 5 VP au Commandement ;
+- puis 3 VP à la fin du même tour.
+
+Une seule position centrale peut donc représenter **8 VP dans le round**.
+
+Cela ne signifie pas qu’il faut toujours se jeter au centre au premier tour. Les 3 VP du round 1 sont intéressants, mais pas si leur acquisition offre aux Purge :
+
+- une unité facile à détruire ;
+- un objectif nouvellement conquis ;
+- puis 4 VP supplémentaires au Commandement suivant.
+
+Un gain immédiat de 3 VP peut alors donner naissance à une séquence adverse de 10 VP.
+
+### Protéger la fenêtre, pas seulement le marqueur
+
+Votre unité doit survivre jusqu’au début de votre tour. Il faut donc évaluer une position selon trois critères :
+
+- peut-elle être ciblée efficacement au tir ?
+- peut-elle subir plusieurs charges coordonnées ?
+- existe-t-il une seconde unité capable de reprendre ou contester l’objectif ?
+
+Un contrôle fondé sur une unique unité, même très résistante, reste fragile face à Purge the Foe. L’adversaire est récompensé précisément lorsqu’il détruit cette unité puis occupe sa position.
+
+### Gestion des petites unités
+
+Les unités légères ne doivent pas être offertes séparément.
+
+Purge ne gagne que 3 VP pour avoir détruit **une ou plusieurs unités** dans le tour. Détruire trois unités n’augmente pas ce bonus primaire. Il en découle une règle pratique :
+
+> Si une de vos unités doit presque certainement mourir ce tour, le sacrifice d’une seconde unité peut être acceptable si celle-ci protège un objectif ou bloque une charge importante.
+
+À l’inverse, exposer une petite unité pendant un tour où aucune autre perte n’était probable donne gratuitement les 3 VP de destruction.
+
+### Plan par round
+
+**Round 1 :** prenez le centre uniquement si l’unité engagée peut être protégée ou si elle force Purge à investir des ressources disproportionnées.
+
+**Round 2 :** cherchez le premier palier de 13 VP. C’est souvent le round où votre structure défensive est la plus complète.
+
+**Round 3 :** acceptez éventuellement un round à 8 VP plutôt que de perdre deux ancrages en voulant absolument rester à 13.
+
+**Round 4 :** rétablissez deux positions. Les ressources adverses de projection commencent normalement à diminuer.
+
+**Round 5 :** la durabilité préalable compte moins. Les unités rapides, les débarquements, les charges de contestation et l’OC disponible deviennent déterminants puisque vous marquez à la fin du tour.
+
+════════════════════════════════════════════════════════════
+# 3. Camp Purge the Foe — Unstoppable Force
+
+## Rappel exact des règles
+
+### À la fin de chacun de vos tours
+
+Vous marquez **3 VP** si une ou plusieurs unités ennemies ont été détruites pendant ce tour.
+
+Le nombre d’unités détruites ne change pas le score : une destruction et quatre destructions rapportent chacune 3 VP.
+
+### À partir du round 2
+
+À la fin de votre phase de Commandement — ou à la fin de votre tour au round 5 — vous marquez **4 VP par objectif contrôlé**, à l’exclusion de votre objectif domestique.
+
+### À partir du round 2 — fin de votre tour
+
+Vous marquez **3 VP** si vous contrôlez au moins un objectif non domestique que vous ne contrôliez pas au début de votre tour.
+
+Ce bonus est lui aussi binaire. Conquérir plusieurs nouveaux objectifs ne rapporte pas davantage de VP par cette condition.
+
+### À la fin de la bataille
+
+Vous marquez **5 VP** si vous contrôlez un ou plusieurs objectifs centraux.
+
+Référence : [carte Unstoppable Force — GDM 2026](https://gdmissions.app/11th/primary-missions/purge-the-foe/unstoppable-force).
+
+## Barème pratique
+
+| Situation à partir du round 2 | Score brut |
+|---|---:|
+| Un objectif au Commandement | 4 |
+| Un objectif + destruction | 7 |
+| Un objectif + destruction + nouvelle conquête | 10 |
+| Deux objectifs + destruction | 11 |
+| Deux objectifs + destruction + nouvelle conquête | 14 |
+| Trois objectifs + destruction | 15, plafond atteint |
+| Contrôle d’un central à la fin de la bataille | +5, sous réserve du plafond total |
+
+Votre palier naturel est **10 VP**. Le palier supérieur est **14 VP**, obtenu avec deux objectifs conservés, au moins une destruction et une nouvelle conquête.
+
+════════════════════════════════════════════════════════════
+## Analyse du camp Purge the Foe
+
+### Condition de victoire
+
+Votre tour idéal suit trois étapes :
+
+1. Détruire l’unité qui tient une position importante.
+2. Prendre cet objectif avant la fin du tour.
+3. Conserver la position jusqu’à votre prochain Commandement.
+
+La destruction seule ne rapporte que 3 VP. La conquête seule ne rapporte que 3 VP immédiats. Mais la séquence complète peut produire :
+
+- 3 VP pour la destruction ;
+- 3 VP pour la nouvelle conquête ;
+- puis 4 VP au round suivant si la position est conservée.
+
+Une rupture réussie vaut donc potentiellement **10 VP répartis sur deux fenêtres**.
+
+### Ne pas confondre carnage et efficacité
+
+Le bonus de destruction est binaire. Une fois une unité ennemie détruite, les éliminations supplémentaires ne rapportent directement aucun primaire supplémentaire pendant ce tour.
+
+Elles restent utiles si elles :
+
+- libèrent un objectif ;
+- détruisent une contre-charge ;
+- réduisent le score futur de Take and Hold ;
+- sécurisent un central pour la fin de bataille.
+
+Après la première destruction, votre question ne doit plus être « que puis-je encore tuer ? », mais « quelle élimination transforme le plus fortement la carte ? ».
+
+### La nouvelle conquête doit être préparée
+
+La carte compare votre contrôle de fin de tour avec celui du **début du tour**.
+
+Conserver un objectif déjà tenu ne déclenche pas les 3 VP. Il faut véritablement obtenir le contrôle d’au moins une nouvelle position non domestique.
+
+Vous devez donc identifier avant de déplacer vos unités :
+
+- l’objectif de conquête principal ;
+- l’unité chargée de supprimer son défenseur ;
+- l’unité ou l’OC qui terminera sur le marqueur ;
+- le plan de repli si la destruction échoue.
+
+### Le centre est une réserve de 5 VP
+
+Contrairement à Take and Hold, le centre n’offre pas un bonus récurrent de 3 VP. Il offre 5 VP en fin de bataille.
+
+Vous pouvez donc temporairement abandonner un central si cela permet de :
+
+- détruire un second ancrage ;
+- conquérir un objectif plus accessible ;
+- conserver vos unités de projection pour les rounds 4 et 5.
+
+En revanche, à partir du round 4, vous devez préparer une présence capable de terminer sur au moins l’un des deux centraux.
+
+### Outils particulièrement adaptés
+
+- Les unités capables de **charger après une Advance** ouvrent des conquêtes inattendues.
+- Les unités de mêlée à fort OC doivent terminer sur l’objectif, pas seulement à portée de la cible.
+- Les effets de contrôle persistant, comme ceux des Jakhals ou **Blood Offering**, permettent de conserver une position malgré la destruction de l’unité qui l’a conquise.
+- Une unité de contre-charge doit rester disponible : la conquête n’a de pleine valeur que si l’objectif survit jusqu’au Commandement suivant.
+
+════════════════════════════════════════════════════════════
+# 4. Analyse globale de la rencontre
+
+## Le conflit central
+
+Take and Hold place ses unités exactement là où Purge souhaite trouver ses cibles : sur les objectifs non domestiques.
+
+Chaque ancrage de Take représente pour Purge :
+
+- une unité à détruire ;
+- un objectif potentiellement nouveau ;
+- une source de 4 VP au round suivant ;
+- une réduction immédiate du prochain score de Take.
+
+Purge peut donc provoquer des bascules très importantes. Détruire une unité centrale avant sa phase de Commandement peut créer un écart de :
+
+- **−5 VP** pour Take ;
+- **+3 VP** de destruction pour Purge ;
+- **+3 VP** de conquête pour Purge.
+
+La séquence produit jusqu’à **11 VP d’écart immédiat**, avant même le score de contrôle futur.
+
+## Avantage structurel de chaque camp
+
+**Take and Hold possède le meilleur rendement passif.** Deux objectifs stables, dont un central, suffisent à produire 13 VP.
+
+**Purge the Foe possède le meilleur potentiel de bascule.** Deux objectifs, une destruction et une nouvelle conquête produisent 14 VP.
+
+Ainsi :
+
+- une partie calme favorise Take ;
+- une partie faite d’échanges et de changements de contrôle favorise Purge ;
+- une partie extrêmement meurtrière ne favorise pas automatiquement Purge, car les destructions multiples ne multiplient pas son bonus.
+
+## Impact du premier tour
+
+Le joueur qui commence :
+
+- dispose de la première fenêtre de 3 VP au centre pour Take ;
+- peut essayer de produire la première destruction pour Purge ;
+- doit cependant conserver ses objectifs pendant deux tours adverses avant son score du round 2.
+
+Le second joueur :
+
+- peut répondre aux mouvements adverses ;
+- dispose du dernier mouvement de contrôle au round 5 ;
+- peut être particulièrement dangereux avec Unstoppable Force, car son score d’objectifs et sa conquête sont alors calculés après toutes ses actions.
+
+Sur ce scénario, le second tour n’est donc absolument pas une position automatiquement défavorable.
+
+════════════════════════════════════════════════════════════
+# 5. Deux listes pertinentes à 2 000 points
+
+Les valeurs suivantes utilisent le catalogue Warforge V11 **1.2.13.0**, publié le 24 juillet 2026, cohérent avec le [Munitorum Field Manual actualisé le 22 juillet 2026](https://www.warhammer-community.com/en-gb/downloads/warhammer-40000/).
+
+## Camp Take and Hold — Death Guard
+
+**Détachement : Champions of Contagion — 2 DP**  
+**Force Disposition : Take and Hold**
+
+| Unité | Coût |
+|---|---:|
+| Mortarion | 390 |
+| Typhus | 100 |
+| Lord of Virulence | 100 |
+| Biologus Putrifier | 60 |
+| Final Ingredient | 20 |
+| Foul Blightspawn | 65 |
+| 10 Plague Marines | 180 |
+| 10 Plague Marines | 180 |
+| 6 Deathshroud Terminators | 305 |
+| 6 Deathshroud Terminators | 305 |
+| Chaos Rhino | 75 |
+| Chaos Rhino | 75 |
+| Foetid Bloat-drone | 100 |
+| 3 Nurglings | 45 |
+| **Total** | **2 000** |
+
+Catalogue : [Death Guard.json](</D:/askel/Documents/List Building/warforge-pwa/data/units/Death Guard.json>).
+
+### Organisation
+
+- Typhus rejoint une unité de Deathshrouds.
+- Le Lord of Virulence rejoint l’autre.
+- Le Biologus et le Foul Blightspawn accompagnent une même unité de Plague Marines.
+- Chaque unité de Plague Marines commence dans un Rhino.
+- Les Nurglings sont employés comme écran dissimulé, pas comme offrande avancée.
+- Mortarion soutient la zone centrale et rend coûteuse toute tentative de rupture.
+
+### Pourquoi cette liste fonctionne
+
+Elle offre plusieurs couches de contrôle :
+
+- deux briques de Deathshrouds capables de survivre jusqu’au Commandement ;
+- deux unités de Plague Marines transportées ;
+- Mortarion comme ancrage central ;
+- un Bloat-drone pour contester ou reprendre tardivement ;
+- plusieurs contre-charges.
+
+Le duo Biologus–Blightspawn est particulièrement gênant pour les World Eaters. Le Foul Blightspawn peut conférer une fois par bataille **Fights First**, tandis que le détachement peut employer **Rabid Infusion** sur une unité accompagnée de deux personnages.
+
+Sa faiblesse est son nombre d’unités opérationnelles limité. Une fois une brique détruite, elle est difficile à remplacer.
+
+════════════════════════════════════════════════════════════
+## Camp Purge the Foe — World Eaters
+
+**Détachement : Berzerker Warband — 3 DP**  
+**Force Disposition : Purge the Foe**
+
+| Unité | Coût |
+|---|---:|
+| Angron | 330 |
+| Lord Invocatus | 100 |
+| Master of Executions | 60 |
+| Berzerker Glaive | 35 |
+| 10 Khorne Berzerkers | 170 |
+| 10 Khorne Berzerkers | 170 |
+| Chaos Rhino | 75 |
+| Chaos Rhino | 75 |
+| 6 Exalted Eightbound | 265 |
+| 6 Exalted Eightbound | 265 |
+| 3 Eightbound | 125 |
+| 3 Eightbound | 125 |
+| 10 Jakhals | 65 |
+| Maulerfiend | 140 |
+| **Total** | **2 000** |
+
+Catalogue : [World Eaters.json](</D:/askel/Documents/List Building/warforge-pwa/data/units/World Eaters.json>).
+
+### Organisation
+
+- Le Master of Executions, équipé de la Berzerker Glaive, rejoint une unité de Berzerkers dans un Rhino.
+- La seconde unité de Berzerkers occupe l’autre Rhino.
+- Lord Invocatus peut rejoindre une unité d’Exalted Eightbound.
+- Les deux petites unités d’Eightbound couvrent les flancs et recherchent les conquêtes.
+- Les Jakhals stabilisent une position grâce à leur contrôle persistant.
+- Angron et le Maulerfiend forment les marteaux de rupture.
+
+### Pourquoi cette liste fonctionne
+
+Elle peut attaquer plusieurs zones sans consacrer Angron à chaque cible.
+
+La règle **Relentless Rage** du Berzerker Warband améliore les unités qui chargent de +1 Attaque et +2 Force au corps à corps. La liste possède donc suffisamment de puissance pour détruire un ancrage, mais aussi assez de mobilité pour terminer sur son objectif.
+
+Le danger est la sur-extension : envoyer simultanément Angron, les deux unités d’Exalted Eightbound et les deux Rhinos peut gagner un round spectaculaire, puis laisser trop peu de ressources pour les rounds 4 et 5.
+
+════════════════════════════════════════════════════════════
+# 6. Exemple crédible de partie
+
+## Mise en place
+
+- Layout : Sweeping Engagement, six objectifs.
+- Death Guard : Défenseur, côté bleu, joue en second.
+- World Eaters : Attaquant, côté rouge, joue en premier.
+- Les Deathshrouds de Typhus défendent le central inférieur.
+- Les Deathshrouds du Lord of Virulence menacent le central supérieur.
+- Mortarion reste derrière la ruine médiane.
+- Les Rhinos Death Guard se répartissent vers le central inférieur et l’objectif de no man’s land droit.
+- Les World Eaters conservent une unité d’Exalted Eightbound comme seconde vague.
+
+## Round 1
+
+Les World Eaters avancent sans lancer Angron dans une brique protégée. Aucun objectif de destruction fiable n’est disponible : ils ne marquent pas.
+
+La Death Guard avance sur le central inférieur avec les Deathshrouds de Typhus. Les Nurglings restent cachés. Elle contrôle un central à la fin du tour.
+
+**Score primaire : Death Guard 3 – World Eaters 0.**
+
+## Round 2
+
+Les World Eaters commencent avec un objectif non domestique : **4 VP**.
+
+Une unité d’Eightbound détruit ensuite les Nurglings et les Exalted Eightbound prennent le central supérieur :
+
+- 3 VP pour la destruction ;
+- 3 VP pour la nouvelle conquête.
+
+Ils marquent **10 VP**.
+
+La Death Guard possède encore, à son Commandement, le central inférieur et un objectif de no man’s land : **10 VP**. Elle conserve le central jusqu’à la fin du tour : **+3 VP**.
+
+**Cumul : Death Guard 16 – World Eaters 10.**
+
+## Round 3
+
+Les World Eaters ont conservé deux objectifs non domestiques : **8 VP**. Angron détruit un Rhino, mais aucune nouvelle position n’est conquise : **+3 VP**, soit **11 VP**.
+
+La perte du Rhino et la pression sur le flanc empêchent la Death Guard de commencer son tour sur deux positions. Elle ne possède que le central inférieur :
+
+- 5 VP au Commandement ;
+- 3 VP en fin de tour.
+
+Elle marque **8 VP**.
+
+**Cumul : Death Guard 24 – World Eaters 21.**
+
+## Round 4
+
+Les World Eaters ne commencent plus qu’avec un objectif non domestique : **4 VP**.
+
+Le Master of Executions et ses Berzerkers détruisent l’unité de Plague Marines qui tient le flanc, puis prennent son objectif :
+
+- 3 VP pour la destruction ;
+- 3 VP pour la conquête.
+
+Ils marquent **10 VP**.
+
+La Death Guard contre-attaque sans chercher à nettoyer toute l’armée adverse. Mortarion et le Bloat-drone rétablissent le contrôle du central inférieur et de l’objectif de no man’s land. Au Commandement, ces positions étaient encore tenues grâce aux Deathshrouds et au contrôle résiduel :
+
+- 10 VP pour deux objectifs ;
+- 3 VP pour le central.
+
+Elle marque **13 VP**.
+
+**Cumul : Death Guard 37 – World Eaters 31.**
+
+## Round 5
+
+Les World Eaters jouent en premier.
+
+Ils contrôlent à la fin de leur tour :
+
+- le central supérieur ;
+- leur objectif de no man’s land.
+
+Cela représente **8 VP**. Ils ne détruisent aucune unité et ne prennent aucune nouvelle position. À la fin de la bataille, le central supérieur leur rapporte **5 VP**.
+
+Ils terminent donc à **44 VP primaires**.
+
+La Death Guard joue en dernier. Le Bloat-drone conteste le flanc tandis que Mortarion et les Deathshrouds sécurisent le central inférieur. Elle contrôle deux objectifs non domestiques, dont un central :
+
+- 10 VP pour les objectifs ;
+- 3 VP pour le central.
+
+Son total brut atteindrait 50 VP, mais le primaire est plafonné à **45 VP**.
+
+## Résultat primaire
+
+| Round | Death Guard | World Eaters |
+|---|---:|---:|
+| 1 | 3 | 0 |
+| 2 | 13 | 10 |
+| 3 | 8 | 11 |
+| 4 | 13 | 10 |
+| 5 et fin de bataille | 13 brut, plafonné | 13 |
+| **Total** | **45** | **44** |
+
+Ce résultat n’est pas une prédiction statistique : c’est un exemple pédagogique construit à partir d’événements de jeu plausibles.
+
+════════════════════════════════════════════════════════════
+# 7. Enseignements essentiels
+
+### Pour Take and Hold
+
+- Deux positions solides valent mieux que trois positions fragiles.
+- Le central est votre accélérateur de score.
+- Votre véritable défense doit agir avant votre phase de Commandement.
+- N’offrez pas une petite unité isolée pendant un tour autrement dépourvu de destruction.
+- Au round 5, passez d’une logique de survie à une logique de contrôle final.
+
+### Pour Purge the Foe
+
+- Une destruction n’a de grande valeur que si elle ouvre la carte.
+- Cherchez chaque round une seule nouvelle conquête fiable.
+- Ne gaspillez pas plusieurs unités offensives pour multiplier un bonus de destruction qui reste limité à 3 VP.
+- Conservez une seconde vague pour les rounds 4 et 5.
+- Préparez le contrôle d’un central dès le round 4 afin de sécuriser les 5 VP de fin de bataille.
+
+### Verdict global
+
+**Léger avantage structurel à Take and Hold si la partie se stabilise ; avantage dynamique à Purge the Foe si les objectifs changent régulièrement de mains.**
+
+Le point décisif n’est pas le nombre total d’unités détruites. C’est le nombre de fois où Purge parvient à enchaîner :
+
+**destruction → conquête → conservation jusqu’au prochain Commandement.**
+
+Inversement, Take gagne lorsqu’il force Purge à dépenser ses meilleures unités uniquement pour interrompre temporairement son score, sans pouvoir conserver les positions conquises.
+
+Les règles, calculs et recommandations stratégiques ont ici été volontairement séparés ; les listes utilisent les coûts vérifiés du catalogue, tandis que la partie d’exemple reste une simulation pédagogique.

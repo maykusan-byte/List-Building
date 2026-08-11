@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "warforge-strategy-knowledge/v5",
+  "guideCount": 15,
+  "claimCount": 298,
+  "workedExampleCount": 15,
+  "validatedRosterSideCount": 1,
+  "rosterBacklog": [
+    {
+      "guideId": "primary-guide-take-and-hold-vs-take-and-hold",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-take-and-hold",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-purge-the-foe",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-immovable-object-take-and-hold-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-purge-the-foe",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-unstoppable-force-purge-the-foe-vs-take-and-hold"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-disruption",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-determined-acquisition-take-and-hold-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-disruption",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-death-trap-disruption-vs-take-and-hold"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-reconnaissance",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-purge-and-secure-take-and-hold-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-reconnaissance",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-reconnaissance-sweep-reconnaissance-vs-take-and-hold"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-priority-assets",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-purge-the-foe",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-meatgrinder-purge-the-foe-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-purge-the-foe",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-meatgrinder-purge-the-foe-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-disruption",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-punishment-purge-the-foe-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-disruption",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-delaying-action-disruption-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-reconnaissance",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-consecrate-purge-the-foe-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-reconnaissance",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-triangulation-reconnaissance-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-priority-assets",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-destroyer-s-wrath-purge-the-foe-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-priority-assets",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-disruption",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-outmanoeuvre-disruption-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-disruption",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-outmanoeuvre-disruption-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-reconnaissance",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-smoke-and-mirrors-disruption-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-reconnaissance",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-surveil-the-foe-reconnaissance-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-priority-assets",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-locate-and-deny-disruption-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-disruption-vs-priority-assets",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+    },
+    {
+      "guideId": "primary-guide-reconnaissance-vs-reconnaissance",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-gather-intel-reconnaissance-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-reconnaissance-vs-reconnaissance",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-gather-intel-reconnaissance-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-reconnaissance-vs-priority-assets",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-search-and-scour-reconnaissance-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-reconnaissance-vs-priority-assets",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+    },
+    {
+      "guideId": "primary-guide-priority-assets-vs-priority-assets",
+      "side": "alpha",
+      "scenarioId": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-priority-assets-vs-priority-assets",
+      "side": "beta",
+      "scenarioId": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+    }
+  ]
+}

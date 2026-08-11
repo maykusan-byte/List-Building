@@ -4,11 +4,11 @@ import publicPayload from '../../public/data/strategy-knowledge.json';
 import catalogPayload from '../../public/data/catalog.json';
 import { calculateRosterTotal } from './calculations';
 import { normalizeDatabase } from './normalize';
-import { detachmentBrief, detachmentSynergies, forceDispositionAxisFit, forceDispositionBrief, layoutContextBrief, missionBrief, primaryMissionBrief, primaryMissionsForDisposition, referenceRostersForVictoryPlan, resolveRuleGraph, strategyKnowledge, unitBrief, unitBriefs, unitSynergies, victoryPlansForContext } from './strategy-knowledge';
+import { claimsForGuide, claimsForSecondaryMissionGuide, detachmentBrief, detachmentSynergies, forceDispositionAxisFit, forceDispositionBrief, layoutContextBrief, matchupGuideForDispositions, matchupGuides, missionBrief, primaryMissionBrief, primaryMissionsForDisposition, referenceRostersForVictoryPlan, resolveRuleGraph, secondaryDecisionExamplesForGuide, secondaryMissionFamilies, secondaryMissionGuide, secondaryMissionRequirements, strategyKnowledge, unitBrief, unitBriefs, unitSynergies, victoryPlansForContext, workedExampleForGuide } from './strategy-knowledge';
 import { validateDraft } from './validation';
 
 const validKnowledge = {
-  schemaVersion: 'warforge-strategy-knowledge/v3',
+  schemaVersion: 'warforge-strategy-knowledge/v5',
   knowledgeVersion: '2.0.0',
   catalogProvenanceSourceId: 'catalog',
   compatibility: {
@@ -70,7 +70,14 @@ const validKnowledge = {
   metaSnapshots: [],
   recommendations: [],
   victoryPlans: [],
-  referenceRosters: []
+  referenceRosters: [],
+  tacticalClaims: [],
+  matchupGuides: [],
+  workedExamples: [],
+  secondaryMissionFrameworks: [],
+  secondaryMissionFamilies: [],
+  secondaryMissionGuides: [],
+  secondaryDecisionExamples: []
 };
 
 describe('strategy knowledge access', () => {
@@ -86,6 +93,18 @@ describe('strategy knowledge access', () => {
     expect(knowledge?.metaSnapshots).toHaveLength(1);
     expect(knowledge?.victoryPlans).toHaveLength(2);
     expect(knowledge?.referenceRosters).toHaveLength(2);
+    expect(knowledge?.tacticalClaims).toHaveLength(298);
+    expect(secondaryMissionFamilies(knowledge)).toHaveLength(4);
+    const secondary = secondaryMissionGuide(knowledge, 'gdm-2026-secondary-cleanse');
+    expect(secondary).not.toBeNull();
+    expect(claimsForSecondaryMissionGuide(knowledge, secondary?.id ?? '')).toHaveLength(8);
+    expect(secondaryDecisionExamplesForGuide(knowledge, secondary?.id ?? '')[0]?.branches).toHaveLength(2);
+    expect(secondaryMissionRequirements(knowledge, 'gdm-2026-secondary-cleanse').map((entry) => entry.capability)).toContain('action-capacity');
+    expect(matchupGuides(knowledge)).toHaveLength(15);
+    const finalGuide = matchupGuideForDispositions(knowledge, 'reconnaissance', 'priority assets');
+    expect(finalGuide?.slug).toBe('reconnaissance-vs-priority-assets');
+    expect(claimsForGuide(knowledge, finalGuide?.id ?? '')).toHaveLength(10);
+    expect(workedExampleForGuide(knowledge, finalGuide?.id ?? '')?.rounds).toHaveLength(5);
     expect(forceDispositionAxisFit(knowledge, 'book-tau-empire:detachment:0', 'purge-the-foe')).toMatchObject({
       deck: 'purge-the-foe',
       scenarioCount: 5
@@ -102,6 +121,12 @@ describe('strategy knowledge access', () => {
     expect(primaryMissionBrief(knowledge, 'gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold')?.title).toContain('Secure Asset');
     expect(victoryPlansForContext(knowledge, 'book-space-marines:detachment:4', 'gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold').map((plan) => plan.id)).toEqual(['victory-plan-space-marines-firestorm-secure-asset']);
     expect(referenceRostersForVictoryPlan(knowledge, 'victory-plan-salamanders-forgefather-secure-asset')).toHaveLength(1);
+    const firestormPlan = victoryPlansForContext(knowledge, 'book-space-marines:detachment:4', 'gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold')[0];
+    const forgefatherPlan = victoryPlansForContext(knowledge, 'book-salamanders:detachment:0', 'gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold')[0];
+    expect(firestormPlan?.operationalStages).toHaveLength(3);
+    expect(firestormPlan?.decisionBranches.map((branch) => branch.id)).toContain('immolation-cp-threshold');
+    expect(forgefatherPlan?.operationalStages.map((stage) => stage.id)).toContain('verify-the-action-engine');
+    expect(forgefatherPlan?.decisionBranches.map((branch) => branch.id)).toContain('incoming-charge-on-torrent-holder');
   });
 
   it('only activates graph edges whose units and selected enhancements are present in the roster', () => {
@@ -197,6 +222,8 @@ describe('strategy knowledge access', () => {
     invalidCatalogProvenance.catalogProvenanceSourceId = 'missing-catalog-manifest';
     const invalidUnitDetachmentLink = structuredClone(sourcePayload);
     invalidUnitDetachmentLink.unitProfiles[0].detachmentProfileIds = ['missing-detachment-profile'];
+    const invalidPlaybook = structuredClone(sourcePayload);
+    invalidPlaybook.victoryPlans[0].operationalStages = [];
     const knowledge = strategyKnowledge(draft);
 
     expect(missionBrief(knowledge, 'gdm-2026-11th', '/11th/primary-missions/example')).toBeNull();
@@ -204,6 +231,7 @@ describe('strategy knowledge access', () => {
     expect(strategyKnowledge({ ...validKnowledge, catalogProvenanceSourceId: 7 })).toBeNull();
     expect(strategyKnowledge(invalidCatalogProvenance)).toBeNull();
     expect(strategyKnowledge(invalidUnitDetachmentLink)).toBeNull();
+    expect(strategyKnowledge(invalidPlaybook)).toBeNull();
   });
 
   it('resolves reviewed detachment profiles and their sourced synergies only', () => {
@@ -276,5 +304,26 @@ describe('strategy knowledge access', () => {
       matches: [{ axis: 'board-control', detachmentScore: 2, scenarioCount: 1 }],
       cautions: ['primary-scoring']
     });
+  });
+
+  it('excludes draft secondary guides and examples from public selectors', () => {
+    const draftPayload = structuredClone(sourcePayload);
+    draftPayload.secondaryMissionGuides[0].status = 'draft';
+    draftPayload.secondaryDecisionExamples[0].status = 'draft';
+    const knowledge = strategyKnowledge(draftPayload);
+
+    expect(knowledge).not.toBeNull();
+    expect(secondaryMissionGuide(knowledge, draftPayload.secondaryMissionGuides[0].scenarioId)).toBeNull();
+    expect(secondaryDecisionExamplesForGuide(knowledge, draftPayload.secondaryMissionGuides[0].id)).toEqual([]);
+  });
+
+  it('rejects unresolved secondary guide and example references in V5', () => {
+    const invalidGuidePayload = JSON.parse(JSON.stringify(sourcePayload));
+    invalidGuidePayload.secondaryMissionGuides[0].claimIds[0] = 'missing-claim';
+    expect(strategyKnowledge(invalidGuidePayload)).toBeNull();
+
+    const invalidExamplePayload = JSON.parse(JSON.stringify(sourcePayload));
+    invalidExamplePayload.secondaryDecisionExamples[0].branches[0].claimIds[0] = 'missing-claim';
+    expect(strategyKnowledge(invalidExamplePayload)).toBeNull();
   });
 });

@@ -311,6 +311,10 @@
 .mission-quiz-rules--compact .mission-rule-section { margin-top: 0.45rem; padding-top: 0.45rem; }
 .mission-quiz-rules--compact .mission-score-line { font-size: 0.72rem; padding: 0.25rem 0; }
 .mission-text-underline { text-decoration: underline; }
+.learning-statistics-guide { align-items: center; background: linear-gradient(115deg, #173040, #2d5368); border-radius: 0.9rem; color: #fff; display: flex; gap: 1rem; justify-content: space-between; margin: 1rem 0; padding: 1rem 1.2rem; }
+.learning-statistics-guide p { color: #dce9ee; margin: 0.2rem 0 0; }
+.learning-statistics-guide a { background: #d7a72b; border-radius: 0.55rem; color: #171108; font-weight: 900; padding: 0.65rem 0.8rem; text-decoration: none; white-space: nowrap; }
+@media (max-width: 650px) { .learning-statistics-guide { align-items: flex-start; flex-direction: column; } }
 .mission-quiz-options { display: grid; gap: 0.65rem; padding: 1rem; }
 .mission-quiz-options--rules { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
 .mission-quiz-option { align-items: center; background: #fff; border: 2px solid #ded1bf; border-radius: 0.65rem; color: var(--ink); cursor: pointer; display: flex; font: inherit; font-size: 0.93rem; font-weight: 800; justify-content: space-between; min-height: 3rem; padding: 0.75rem; text-align: left; transition: border-color 150ms ease, background 150ms ease, color 150ms ease; }

@@ -20,6 +20,9 @@ présente dans cette archive doit être préservée.
   Le catalogue actif provient de `warforge-pwa/data/units/`.
 - `.agents/skills/warforge-data-operations/` guide les opérations sensibles sur
   le catalogue, les règles, les locales, l’inventaire et les images.
+- `.agents/skills/warforge-secondary-mission-analysis/` est obligatoire pour
+  toute création, révision, comparaison ou publication d’analyse de mission
+  secondaire V11.
 
 ## Règles de travail
 
@@ -31,3 +34,5 @@ présente dans cette archive doit être préservée.
   de règles et refactorings esthétiques.
 - Vérifier les changements depuis `warforge-pwa/` avec les commandes définies
   dans son `package.json`.
+- Router les analyses secondaires vers le skill spécialisé ; toute nouvelle
+  analyse reste `draft` jusqu’à une revue humaine explicite.

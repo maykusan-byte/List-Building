@@ -50,6 +50,23 @@ une unité avec plusieurs tailles, l’inventaire et les références de règles
 Ne lancer `pnpm rules:extract`, une migration d’inventaire ou le téléchargement
 d’images qu’avec une source et un objectif explicites.
 
+## Connaissance stratégique
+
+- Utiliser le skill `warforge-strategy-intelligence` avant toute création ou révision de conseil tactique.
+- Utiliser en plus `warforge-secondary-mission-analysis` pour toute analyse de mission secondaire V11.
+- Enregistrer les règles et cartes dans leurs domaines factuels ; la base stratégique ne contient que des références, observations, inférences et exemples explicitement classés.
+- Atomiser les conseils dans `tacticalClaims`, composer les quinze confrontations dans `matchupGuides` et conserver les simulations pédagogiques dans `workedExamples`.
+- `data/strategy/knowledge-base.json` est l’unique source stratégique. Le rapport
+  `docs/ANALYSE_MISSIONS_SECONDAIRES_GDM_2026.md` et le miroir public sont
+  générés et ne doivent jamais être édités manuellement.
+- Toute nouvelle analyse secondaire commence en `draft` et exige une revue
+  humaine avant `reviewed`. La publication doit préserver les règles de
+  conservation, accomplissement, défausse volontaire et remplacement unique.
+- Ne relier une liste à un guide qu’après validation canonique de sa version, de sa disposition et de son total. Le rapport de couverture est une file de revue, pas une autorisation d’inférer les points.
+- Ne jamais modifier manuellement le miroir public ni les guides Markdown générés.
+- Pour tout changement stratégique, exécuter `pnpm strategy:validate`,
+  `pnpm test` et `pnpm build`.
+
 ## Publication GitHub Pages
 
 - Les livraisons validées de Warforge sont publiées par le workflow

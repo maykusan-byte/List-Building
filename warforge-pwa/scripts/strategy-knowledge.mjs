@@ -1,13 +1,16 @@
 import { createHash } from 'node:crypto';
-import { copyFile, mkdir, readFile, readdir, stat } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import { dirname, relative, resolve, sep } from 'node:path';
+import { renderSecondaryMissionReport } from './secondary-report.mjs';
 
-export const STRATEGY_KNOWLEDGE_SCHEMA = 'warforge-strategy-knowledge/v3';
+export const STRATEGY_KNOWLEDGE_SCHEMA = 'warforge-strategy-knowledge/v5';
 
 const projectRoot = resolve(import.meta.dirname, '..');
 const workspaceRoot = resolve(projectRoot, '..');
 const sourcePath = resolve(projectRoot, 'data/strategy/knowledge-base.json');
 const outputPath = resolve(projectRoot, 'public/data/strategy-knowledge.json');
+const guideOutputDirectory = resolve(projectRoot, 'public/data/strategy-guides');
+const secondaryReportPath = resolve(projectRoot, 'docs/ANALYSE_MISSIONS_SECONDAIRES_GDM_2026.md');
 const unitsDirectory = resolve(projectRoot, 'data/units');
 const dataInfoPath = resolve(unitsDirectory, 'DataInfo.json');
 const axes = new Set([
@@ -35,6 +38,10 @@ const sourceKinds = new Set([
 const recommendationKinds = new Set(['list-construction', 'play-pattern', 'matchup-plan']);
 const ruleKinds = new Set(['army-rule', 'detachment-rule', 'stratagem', 'enhancement', 'datasheet-ability', 'mission-rule']);
 const ruleRelationKinds = new Set(['enables', 'amplifies', 'protects', 'repositions', 'denies', 'scores', 'coordinates']);
+const tacticalClaimKinds = new Set(['advantage', 'play-pattern', 'pitfall', 'counterplay', 'scoring-model', 'tradeoff', 'list-construction', 'decision-rule']);
+const requiredSecondaryClaimKinds = new Set(['advantage', 'play-pattern', 'pitfall', 'counterplay', 'scoring-model', 'tradeoff', 'list-construction', 'decision-rule']);
+const secondaryFamilyIds = new Set(['destruction-targeted', 'objective-control', 'territorial-projection', 'actions-operations']);
+const secondaryCapabilities = new Set(['action-capacity', 'concentrated-damage', 'distributed-damage', 'durable-presence', 'independent-units', 'objective-control', 'screening', 'target-access', 'territorial-projection', 'unit-redundancy']);
 
 function isRecord(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -155,7 +162,7 @@ function validateEvidence(entry, label, sourceIds, errors) {
   if (!Array.isArray(entry.sourceIds) || entry.sourceIds.length === 0) errors.push(label + '.sourceIds ne peut pas etre vide.');
   if (!stringList(entry.sourceIds) || !entry.sourceIds.every((id) => sourceIds.has(id))) errors.push(label + '.sourceIds doit référencer des sources connues.');
   if (!['low', 'medium', 'high'].includes(entry.confidence)) errors.push(label + '.confidence est invalide.');
-  if (!['draft', 'needs-review', 'reviewed'].includes(entry.status)) errors.push(label + '.status est invalide.');
+  if (!['draft', 'needs-review', 'reviewed', 'published'].includes(entry.status)) errors.push(label + '.status est invalide.');
 }
 
 function validPercentage(value) {
@@ -423,6 +430,300 @@ function validateRecommendation(entry, label, context, errors) {
   }
 }
 
+function validateTacticalClaim(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !tacticalClaimKinds.has(entry.kind)
+    || !['alpha', 'beta', 'global'].includes(entry.side)
+    || !nonEmptyStringList(entry.scenarioIds)
+    || !Array.isArray(entry.layoutContextIds)
+    || !stringList(entry.layoutContextIds)
+    || !text(entry.statement)
+    || !text(entry.rationale)
+    || !stringList(entry.preconditions)
+    || !stringList(entry.counterplay)
+    || !stringList(entry.tradeoffs)
+    || !Array.isArray(entry.axisEffects)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  validateAxisRatings(entry.axisEffects, label + '.axisEffects', errors);
+  if (entry.sourceTier !== 'inference') errors.push(label + '.sourceTier doit etre inference.');
+  entry.scenarioIds.forEach((id) => {
+    if (!context.scenarioById.has(id)) errors.push(label + '.scenarioIds reference une mission inconnue: ' + id + '.');
+  });
+  entry.layoutContextIds.forEach((id) => {
+    if (!context.layoutById.has(id)) errors.push(label + '.layoutContextIds reference un layout inconnu: ' + id + '.');
+  });
+}
+
+function validateSecondaryMissionFramework(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !text(entry.missionPackId)
+    || entry.mode !== 'tactical'
+    || entry.cardsDrawnPerCommandPhase !== 2
+    || entry.uncompletedCardsRemainActive !== true
+    || entry.completedCardsAreDiscarded !== true
+    || !isRecord(entry.voluntaryEndTurnDiscard)
+    || entry.voluntaryEndTurnDiscard.allowsMultiple !== true
+    || entry.voluntaryEndTurnDiscard.commandPointsGained !== 1
+    || !isRecord(entry.oncePerBattleRedraw)
+    || entry.oncePerBattleRedraw.commandPointCost !== 1
+    || entry.oncePerBattleRedraw.discardedCards !== 1
+    || entry.oncePerBattleRedraw.drawnCards !== 1
+    || !isRecord(entry.victoryPointCaps)
+    || entry.victoryPointCaps.battle !== 45
+    || entry.victoryPointCaps.round !== 15
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  if (entry.sourceTier !== 'official' || !entry.sourceIds.some((id) => context.sourceById.get(id)?.authority === 'official')) errors.push(label + ' doit citer le Compagnon officiel.');
+}
+
+function validateSecondaryMissionFamily(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !secondaryFamilyIds.has(entry.familyId)
+    || !nonEmptyStringList(entry.scenarioIds)
+    || !nonEmptyStringList(entry.capabilityTags)
+    || !entry.capabilityTags.every((capability) => secondaryCapabilities.has(capability))
+    || !nonEmptyStringList(entry.claimIds)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  if (entry.sourceTier !== 'inference') errors.push(label + '.sourceTier doit etre inference.');
+  entry.scenarioIds.forEach((id) => {
+    if (context.scenarioById.get(id)?.kind !== 'secondary-card') errors.push(label + '.scenarioIds reference une mission non secondaire: ' + id + '.');
+  });
+  entry.claimIds.forEach((id) => {
+    const claim = context.claimById.get(id);
+    if (!claim || claim.side !== 'global' || !entry.scenarioIds.every((scenarioId) => claim.scenarioIds.includes(scenarioId))) errors.push(label + '.claimIds reference un claim familial incompatible: ' + id + '.');
+  });
+}
+
+function validateSecondaryMissionGuide(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || entry.locale !== 'fr'
+    || entry.mode !== 'tactical'
+    || !text(entry.scenarioId)
+    || !secondaryFamilyIds.has(entry.familyId)
+    || !Array.isArray(entry.capabilityRequirements)
+    || entry.capabilityRequirements.length === 0
+    || !nonEmptyStringList(entry.claimIds)
+    || !nonEmptyStringList(entry.decisionExampleIds)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  if (entry.sourceTier !== 'inference') errors.push(label + '.sourceTier doit etre inference.');
+  if (context.scenarioById.get(entry.scenarioId)?.kind !== 'secondary-card') errors.push(label + '.scenarioId doit referencer une mission secondaire.');
+  const family = context.familyByFamilyId.get(entry.familyId);
+  if (!family?.scenarioIds.includes(entry.scenarioId)) errors.push(label + '.familyId ne contient pas la mission.');
+  const seenCapabilities = new Set();
+  entry.capabilityRequirements.forEach((requirement, index) => {
+    if (!isRecord(requirement) || !secondaryCapabilities.has(requirement.capability) || !['core', 'supporting'].includes(requirement.importance) || !text(requirement.rationale)) errors.push(label + '.capabilityRequirements[' + index + '] est invalide.');
+    if (seenCapabilities.has(requirement.capability)) errors.push(label + '.capabilityRequirements contient un doublon: ' + requirement.capability + '.');
+    seenCapabilities.add(requirement.capability);
+  });
+  const seenKinds = new Set();
+  entry.claimIds.forEach((id) => {
+    const claim = context.claimById.get(id);
+    if (!claim || claim.side !== 'global' || !claim.scenarioIds.includes(entry.scenarioId)) {
+      errors.push(label + '.claimIds reference un claim incompatible: ' + id + '.');
+      return;
+    }
+    if (['reviewed', 'published'].includes(entry.status) && !['reviewed', 'published'].includes(claim.status)) errors.push(label + '.claimIds doit referencer un claim revu: ' + id + '.');
+    seenKinds.add(claim.kind);
+  });
+  requiredSecondaryClaimKinds.forEach((kind) => {
+    if (!seenKinds.has(kind)) errors.push(label + '.claimIds doit couvrir le type ' + kind + '.');
+  });
+}
+
+function validateSecondaryDecisionExample(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !text(entry.scenarioId)
+    || !nonEmptyStringList(entry.setup)
+    || !nonEmptyStringList(entry.assumptions)
+    || !text(entry.decisionPoint)
+    || !Array.isArray(entry.branches)
+    || entry.branches.length < 2
+    || !nonEmptyStringList(entry.lessonClaimIds)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  if (entry.sourceTier !== 'inference') errors.push(label + '.sourceTier doit etre inference.');
+  if (context.scenarioById.get(entry.scenarioId)?.kind !== 'secondary-card') errors.push(label + '.scenarioId doit referencer une mission secondaire.');
+  const branchIds = new Set();
+  entry.branches.forEach((branch, index) => {
+    const branchLabel = label + '.branches[' + index + ']';
+    if (!isRecord(branch) || !text(branch.id) || !text(branch.condition) || !text(branch.line) || !text(branch.rationale) || !stringList(branch.risks) || !nonEmptyStringList(branch.claimIds)) {
+      errors.push(branchLabel + ' est invalide.');
+      return;
+    }
+    if (branchIds.has(branch.id)) errors.push(branchLabel + '.id est duplique.');
+    branchIds.add(branch.id);
+    branch.claimIds.forEach((id) => {
+      if (!context.claimById.get(id)?.scenarioIds.includes(entry.scenarioId)) errors.push(branchLabel + '.claimIds reference un claim incompatible: ' + id + '.');
+    });
+  });
+  entry.lessonClaimIds.forEach((id) => {
+    if (!context.claimById.get(id)?.scenarioIds.includes(entry.scenarioId)) errors.push(label + '.lessonClaimIds reference un claim incompatible: ' + id + '.');
+  });
+}
+
+function validateMatchupGuide(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !text(entry.slug)
+    || entry.locale !== 'fr'
+    || !text(entry.layoutContextId)
+    || !Number.isInteger(entry.selectedLayoutId)
+    || !text(entry.overview)
+    || !Array.isArray(entry.sides)
+    || entry.sides.length !== 2
+    || !nonEmptyStringList(entry.globalClaimIds)
+    || !text(entry.workedExampleId)
+    || !text(entry.narrativeSourcePath)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  const layout = context.layoutById.get(entry.layoutContextId);
+  if (!layout || !layout.layoutIds.includes(entry.selectedLayoutId)) errors.push(label + '.selectedLayoutId ne correspond pas au contexte de layout.');
+  const sideNames = new Set();
+  const pairDecks = [];
+  entry.sides.forEach((side, index) => {
+    const sideLabel = label + '.sides[' + index + ']';
+    if (!isRecord(side)
+      || !['alpha', 'beta'].includes(side.side)
+      || !text(side.forceDispositionId)
+      || !text(side.scenarioId)
+      || !nonEmptyStringList(side.claimIds)
+      || !Array.isArray(side.victoryPlanIds)
+      || !stringList(side.victoryPlanIds)
+      || !Array.isArray(side.referenceRosterIds)
+      || !stringList(side.referenceRosterIds)) {
+      errors.push(sideLabel + ' est incomplet.');
+      return;
+    }
+    if (sideNames.has(side.side)) errors.push(sideLabel + '.side est duplique.');
+    sideNames.add(side.side);
+    const scenario = context.scenarioById.get(side.scenarioId);
+    const force = context.forceById.get(side.forceDispositionId);
+    if (!scenario || scenario.kind !== 'primary-card' || scenario.forceDispositionId !== side.forceDispositionId) errors.push(sideLabel + ' ne correspond pas a une mission primaire de cette disposition.');
+    if (force) pairDecks.push(force.deck);
+    side.claimIds.forEach((id) => {
+      const claim = context.claimById.get(id);
+      if (!claim || claim.side !== side.side || !claim.scenarioIds.includes(side.scenarioId)) errors.push(sideLabel + '.claimIds reference un claim incompatible: ' + id + '.');
+    });
+    side.victoryPlanIds.forEach((id) => {
+      if (!context.victoryPlanById.has(id)) errors.push(sideLabel + '.victoryPlanIds reference un plan inconnu: ' + id + '.');
+    });
+    side.referenceRosterIds.forEach((id) => {
+      if (!context.rosterById.has(id)) errors.push(sideLabel + '.referenceRosterIds reference une liste inconnue: ' + id + '.');
+    });
+  });
+  entry.globalClaimIds.forEach((id) => {
+    if (context.claimById.get(id)?.side !== 'global') errors.push(label + '.globalClaimIds reference un claim non global: ' + id + '.');
+  });
+  if (layout && pairDecks.length === 2) {
+    const expected = [layout.deck, layout.opponentDeck].sort().join('|');
+    if (pairDecks.sort().join('|') !== expected) errors.push(label + ' ne correspond pas aux dispositions du layout.');
+  }
+}
+
+function validateWorkedExample(entry, label, context, errors) {
+  if (!isRecord(entry)
+    || !text(entry.title)
+    || !text(entry.guideId)
+    || !Number.isInteger(entry.layoutId)
+    || !nonEmptyStringList(entry.assumptions)
+    || !Array.isArray(entry.rounds)
+    || entry.rounds.length !== 5
+    || !isRecord(entry.finalScores)
+    || !nonEmptyStringList(entry.lessonClaimIds)
+    || !date(entry.reviewBy)) {
+    errors.push(label + ' est incomplet.');
+    return;
+  }
+  validateEvidence(entry, label, context.sourceIds, errors);
+  const guide = context.guideById.get(entry.guideId);
+  if (!guide || guide.workedExampleId !== entry.id || guide.selectedLayoutId !== entry.layoutId) errors.push(label + ' ne correspond pas a son guide.');
+  const cumulative = { alpha: 0, beta: 0 };
+  entry.rounds.forEach((round, roundIndex) => {
+    const roundLabel = label + '.rounds[' + roundIndex + ']';
+    if (!isRecord(round) || round.round !== roundIndex + 1 || !Array.isArray(round.turns) || round.turns.length !== 2) {
+      errors.push(roundLabel + ' est invalide.');
+      return;
+    }
+    const seenSides = new Set();
+    round.turns.forEach((turn, turnIndex) => {
+      const turnLabel = roundLabel + '.turns[' + turnIndex + ']';
+      if (!isRecord(turn) || !['alpha', 'beta'].includes(turn.side) || !text(turn.summary) || !Array.isArray(turn.scoreItems)) {
+        errors.push(turnLabel + ' est invalide.');
+        return;
+      }
+      if (seenSides.has(turn.side)) errors.push(turnLabel + '.side est duplique.');
+      seenSides.add(turn.side);
+      const computed = turn.scoreItems.reduce((sum, item) => sum + (isRecord(item) && text(item.label) && Number.isInteger(item.vp) && item.vp >= 0 ? item.vp : 1000), 0);
+      const capped = Math.min(15, computed);
+      cumulative[turn.side] = Math.min(45, cumulative[turn.side] + capped);
+      if (turn.roundTotal !== capped || turn.cumulativeTotal !== cumulative[turn.side]) errors.push(turnLabel + ' contient un calcul de VP incoherent.');
+    });
+  });
+  if (entry.finalScores.alpha !== cumulative.alpha || entry.finalScores.beta !== cumulative.beta) errors.push(label + '.finalScores est incoherent.');
+  entry.lessonClaimIds.forEach((id) => {
+    if (!context.claimById.has(id)) errors.push(label + '.lessonClaimIds reference un claim inconnu: ' + id + '.');
+  });
+}
+
+function validateVictoryPlanPlaybook(entries, label, planRuleIds, planSynergyIds, errors, kind) {
+  if (!Array.isArray(entries) || entries.length === 0) {
+    errors.push(label + ' doit contenir au moins un element.');
+    return;
+  }
+  const entryIds = new Set();
+  entries.forEach((entry, index) => {
+    const itemLabel = label + '[' + index + ']';
+    const shared = !isRecord(entry)
+      || !text(entry.id)
+      || !Array.isArray(entry.ruleIds)
+      || !stringList(entry.ruleIds)
+      || !Array.isArray(entry.synergyIds)
+      || !stringList(entry.synergyIds)
+      || (entry.ruleIds.length === 0 && entry.synergyIds.length === 0);
+    const specific = kind === 'stage'
+      ? !isRecord(entry) || !text(entry.title) || !text(entry.objective) || !nonEmptyStringList(entry.execution) || !text(entry.decisionGate) || !text(entry.abortCondition)
+      : !isRecord(entry) || !text(entry.signal) || !text(entry.recommendation) || !text(entry.fallback) || !nonEmptyStringList(entry.guardrails);
+    if (shared || specific) {
+      errors.push(itemLabel + ' est incomplet.');
+      return;
+    }
+    if (entryIds.has(entry.id)) errors.push(label + ' contient un identifiant duplique: ' + entry.id + '.');
+    entryIds.add(entry.id);
+    entry.ruleIds.forEach((ruleId) => {
+      if (!planRuleIds.has(ruleId)) errors.push(itemLabel + '.ruleIds doit rester dans les regles du plan: ' + ruleId + '.');
+    });
+    entry.synergyIds.forEach((synergyId) => {
+      if (!planSynergyIds.has(synergyId)) errors.push(itemLabel + '.synergyIds doit rester dans les synergies du plan: ' + synergyId + '.');
+    });
+  });
+}
+
 function validateVictoryPlan(entry, label, context, errors) {
   if (!isRecord(entry)
     || !text(entry.title)
@@ -466,6 +767,8 @@ function validateVictoryPlan(entry, label, context, errors) {
   if (entry.status === 'reviewed' && !entry.sourceIds.some((id) => context.sourceById.get(id)?.authority === 'official')) {
     errors.push(label + ' reviewed doit citer au moins une source officielle.');
   }
+  validateVictoryPlanPlaybook(entry.operationalStages, label + '.operationalStages', ruleIds, synergyIds, errors, 'stage');
+  validateVictoryPlanPlaybook(entry.decisionBranches, label + '.decisionBranches', ruleIds, synergyIds, errors, 'branch');
 }
 
 function resolvedPointCost(unit, pointIndex, occurrence) {
@@ -593,7 +896,7 @@ async function loadCatalogIndex() {
 export function validateStrategyKnowledge(value, archive, catalogIndex) {
   const errors = [];
   if (!isRecord(value)) return ['La base stratégique doit être un objet JSON.'];
-  const required = ['schemaVersion', 'knowledgeVersion', 'status', 'updatedAt', 'catalogProvenanceSourceId', 'compatibility', 'sources', 'scenarios', 'forceDispositions', 'layoutContexts', 'ruleNodes', 'unitProfiles', 'detachmentProfiles', 'synergies', 'metaSnapshots', 'recommendations', 'victoryPlans', 'referenceRosters'];
+  const required = ['schemaVersion', 'knowledgeVersion', 'status', 'updatedAt', 'catalogProvenanceSourceId', 'compatibility', 'sources', 'scenarios', 'forceDispositions', 'layoutContexts', 'ruleNodes', 'unitProfiles', 'detachmentProfiles', 'synergies', 'metaSnapshots', 'recommendations', 'victoryPlans', 'referenceRosters', 'tacticalClaims', 'matchupGuides', 'workedExamples', 'secondaryMissionFrameworks', 'secondaryMissionFamilies', 'secondaryMissionGuides', 'secondaryDecisionExamples'];
   if (!['draft', 'reviewed', 'published'].includes(value.status)) errors.push('root.status est invalide.');
   if (!date(value.updatedAt)) errors.push('root.updatedAt est invalide.');
   required.forEach((field) => {
@@ -621,6 +924,13 @@ export function validateStrategyKnowledge(value, archive, catalogIndex) {
   const recommendations = Array.isArray(value.recommendations) ? value.recommendations : [];
   const victoryPlans = Array.isArray(value.victoryPlans) ? value.victoryPlans : [];
   const referenceRosters = Array.isArray(value.referenceRosters) ? value.referenceRosters : [];
+  const tacticalClaims = Array.isArray(value.tacticalClaims) ? value.tacticalClaims : [];
+  const matchupGuides = Array.isArray(value.matchupGuides) ? value.matchupGuides : [];
+  const workedExamples = Array.isArray(value.workedExamples) ? value.workedExamples : [];
+  const secondaryMissionFrameworks = Array.isArray(value.secondaryMissionFrameworks) ? value.secondaryMissionFrameworks : [];
+  const secondaryMissionFamilies = Array.isArray(value.secondaryMissionFamilies) ? value.secondaryMissionFamilies : [];
+  const secondaryMissionGuides = Array.isArray(value.secondaryMissionGuides) ? value.secondaryMissionGuides : [];
+  const secondaryDecisionExamples = Array.isArray(value.secondaryDecisionExamples) ? value.secondaryDecisionExamples : [];
   const scenarioIds = addUniqueIds(scenarios, 'scenarios', errors);
   addUniqueIds(forceDispositions, 'forceDispositions', errors);
   addUniqueIds(layoutContexts, 'layoutContexts', errors);
@@ -632,6 +942,13 @@ export function validateStrategyKnowledge(value, archive, catalogIndex) {
   addUniqueIds(recommendations, 'recommendations', errors);
   addUniqueIds(victoryPlans, 'victoryPlans', errors);
   addUniqueIds(referenceRosters, 'referenceRosters', errors);
+  addUniqueIds(tacticalClaims, 'tacticalClaims', errors);
+  addUniqueIds(matchupGuides, 'matchupGuides', errors);
+  addUniqueIds(workedExamples, 'workedExamples', errors);
+  addUniqueIds(secondaryMissionFrameworks, 'secondaryMissionFrameworks', errors);
+  addUniqueIds(secondaryMissionFamilies, 'secondaryMissionFamilies', errors);
+  addUniqueIds(secondaryMissionGuides, 'secondaryMissionGuides', errors);
+  addUniqueIds(secondaryDecisionExamples, 'secondaryDecisionExamples', errors);
 
   const sourceById = new Map((Array.isArray(value.sources) ? value.sources : []).filter(isRecord).map((source) => [source.id, source]));
   const ruleById = new Map(ruleNodes.filter(isRecord).map((rule) => [rule.id, rule]));
@@ -639,6 +956,10 @@ export function validateStrategyKnowledge(value, archive, catalogIndex) {
   const detachmentProfileById = new Map(detachmentProfiles.filter(isRecord).map((profile) => [profile.id, profile]));
   const scenarioById = new Map(scenarios.filter(isRecord).map((scenario) => [scenario.id, scenario]));
   const victoryPlanById = new Map(victoryPlans.filter(isRecord).map((plan) => [plan.id, plan]));
+  const rosterById = new Map(referenceRosters.filter(isRecord).map((roster) => [roster.id, roster]));
+  const claimById = new Map(tacticalClaims.filter(isRecord).map((claim) => [claim.id, claim]));
+  const guideById = new Map(matchupGuides.filter(isRecord).map((guide) => [guide.id, guide]));
+  const secondaryFamilyByFamilyId = new Map(secondaryMissionFamilies.filter(isRecord).map((family) => [family.familyId, family]));
   const gdmSource = [...sourceById.values()].find((source) => source.kind === 'trusted-mission-archive');
   const catalogManifestSources = [...sourceById.values()].filter((source) => source.kind === 'catalog-manifest');
   if (catalogManifestSources.length !== 1
@@ -650,6 +971,7 @@ export function validateStrategyKnowledge(value, archive, catalogIndex) {
   if (!gdmSource || gdmSource.authority !== 'approved-archive' || !text(gdmSource.archivePath)) errors.push('Une archive de mission GDM approuvée est requise.');
 
   const forceById = new Map(forceDispositions.filter(isRecord).map((entry) => [entry.id, entry]));
+  const layoutById = new Map(layoutContexts.filter(isRecord).map((entry) => [entry.id, entry]));
   const primaryByPath = new Map((archive?.cards?.primary ?? []).map((card) => [card.sourcePath, card]));
   const secondaryByPath = new Map((archive?.cards?.secondary ?? []).map((card) => [card.sourcePath, card]));
   const dispositionByPath = new Map((archive?.cards?.forceDispositions ?? []).map((card) => [card.sourcePath, card]));
@@ -810,6 +1132,104 @@ export function validateStrategyKnowledge(value, archive, catalogIndex) {
     }, errors);
   });
 
+  tacticalClaims.forEach((claim, index) => {
+    validateTacticalClaim(claim, 'tacticalClaims[' + index + ']', {
+      sourceIds,
+      scenarioById,
+      layoutById
+    }, errors);
+  });
+
+  matchupGuides.forEach((guide, index) => {
+    validateMatchupGuide(guide, 'matchupGuides[' + index + ']', {
+      sourceIds,
+      scenarioById,
+      forceById,
+      layoutById,
+      claimById,
+      victoryPlanById,
+      rosterById
+    }, errors);
+  });
+
+  secondaryMissionFrameworks.forEach((framework, index) => {
+    validateSecondaryMissionFramework(framework, 'secondaryMissionFrameworks[' + index + ']', {
+      sourceIds,
+      sourceById
+    }, errors);
+  });
+  if (secondaryMissionFrameworks.length !== 1 || secondaryMissionFrameworks[0]?.missionPackId !== 'gdm-2026-11th') {
+    errors.push('secondaryMissionFrameworks doit contenir exactement le framework Tactique GDM 2026.');
+  }
+
+  secondaryMissionFamilies.forEach((family, index) => {
+    validateSecondaryMissionFamily(family, 'secondaryMissionFamilies[' + index + ']', {
+      sourceIds,
+      scenarioById,
+      claimById
+    }, errors);
+  });
+  if (secondaryMissionFamilies.length !== secondaryFamilyIds.size || secondaryFamilyByFamilyId.size !== secondaryFamilyIds.size) {
+    errors.push('secondaryMissionFamilies doit contenir exactement les quatre familles canoniques.');
+  }
+  const familyScenarioIds = secondaryMissionFamilies.flatMap((family) => Array.isArray(family?.scenarioIds) ? family.scenarioIds : []);
+  const expectedSecondaryScenarioIds = secondaryProfiles.map((scenario) => scenario.id).sort();
+  if (familyScenarioIds.length !== expectedSecondaryScenarioIds.length
+    || new Set(familyScenarioIds).size !== expectedSecondaryScenarioIds.length
+    || JSON.stringify([...new Set(familyScenarioIds)].sort()) !== JSON.stringify(expectedSecondaryScenarioIds)) {
+    errors.push('Les familles secondaires doivent partitionner exactement les 18 missions secondaires.');
+  }
+
+  secondaryMissionGuides.forEach((guide, index) => {
+    validateSecondaryMissionGuide(guide, 'secondaryMissionGuides[' + index + ']', {
+      sourceIds,
+      scenarioById,
+      claimById,
+      familyByFamilyId: secondaryFamilyByFamilyId
+    }, errors);
+  });
+  const guidedScenarioIds = secondaryMissionGuides.map((guide) => guide?.scenarioId);
+  if (secondaryMissionGuides.length !== expectedSecondaryScenarioIds.length
+    || new Set(guidedScenarioIds).size !== expectedSecondaryScenarioIds.length
+    || JSON.stringify([...new Set(guidedScenarioIds)].sort()) !== JSON.stringify(expectedSecondaryScenarioIds)) {
+    errors.push('secondaryMissionGuides doit couvrir exactement les 18 missions secondaires, une fois chacune.');
+  }
+
+  secondaryDecisionExamples.forEach((example, index) => {
+    validateSecondaryDecisionExample(example, 'secondaryDecisionExamples[' + index + ']', {
+      sourceIds,
+      scenarioById,
+      claimById
+    }, errors);
+  });
+  secondaryMissionGuides.forEach((guide, index) => {
+    for (const exampleId of Array.isArray(guide?.decisionExampleIds) ? guide.decisionExampleIds : []) {
+      const example = secondaryDecisionExamples.find((candidate) => candidate?.id === exampleId);
+      if (!example || example.scenarioId !== guide.scenarioId) errors.push('secondaryMissionGuides[' + index + '].decisionExampleIds ne se resout pas dans le meme scenario.');
+      if (guide.status === 'reviewed' && example?.status !== 'reviewed' && example?.status !== 'published') errors.push('secondaryMissionGuides[' + index + '] reviewed exige des exemples revus.');
+    }
+  });
+
+  const unorderedDispositionPairs = new Set();
+  matchupGuides.forEach((guide) => {
+    if (!isRecord(guide) || !Array.isArray(guide.sides) || guide.sides.length !== 2) return;
+    const decks = guide.sides.map((side) => forceById.get(side?.forceDispositionId)?.deck).filter(text).sort();
+    if (decks.length === 2) unorderedDispositionPairs.add(decks.join('|'));
+  });
+  const expectedPairCount = forceDispositions.length * (forceDispositions.length + 1) / 2;
+  if (matchupGuides.length !== expectedPairCount || unorderedDispositionPairs.size !== expectedPairCount) errors.push('matchupGuides doit couvrir exactement les ' + expectedPairCount + ' confrontations non ordonnees.');
+
+  workedExamples.forEach((example, index) => {
+    validateWorkedExample(example, 'workedExamples[' + index + ']', {
+      sourceIds,
+      guideById,
+      claimById
+    }, errors);
+  });
+  matchupGuides.forEach((guide, index) => {
+    if (!workedExamples.some((example) => example.id === guide?.workedExampleId && example.guideId === guide.id)) errors.push('matchupGuides[' + index + '].workedExampleId ne se resout pas.');
+  });
+
   return errors;
 }
 
@@ -840,10 +1260,56 @@ export async function syncStrategyKnowledge() {
   await stat(sourcePath);
   await mkdir(dirname(outputPath), { recursive: true });
   await copyFile(sourcePath, outputPath);
-  console.log('Connaissance stratégique synchronisée : ' + knowledge.scenarios.length + ' profils de mission, ' + knowledge.forceDispositions.length + ' dispositions.');
+  await mkdir(guideOutputDirectory, { recursive: true });
+  const claimById = new Map(knowledge.tacticalClaims.map((claim) => [claim.id, claim]));
+  const scenarioById = new Map(knowledge.scenarios.map((scenario) => [scenario.id, scenario]));
+  const forceById = new Map(knowledge.forceDispositions.map((force) => [force.id, force]));
+  const exampleById = new Map(knowledge.workedExamples.map((example) => [example.id, example]));
+  for (const guide of knowledge.matchupGuides) {
+    const lines = [`# ${guide.title}`, '', guide.overview, ''];
+    for (const side of guide.sides) {
+      lines.push(`## ${forceById.get(side.forceDispositionId)?.title ?? side.forceDispositionId}`, '', `Mission : ${scenarioById.get(side.scenarioId)?.title ?? side.scenarioId}`, '');
+      for (const claimId of side.claimIds) {
+        const claim = claimById.get(claimId);
+        if (claim) lines.push(`### ${claim.title}`, '', claim.statement, '', claim.rationale, '');
+      }
+    }
+    lines.push('## Analyse globale', '');
+    for (const claimId of guide.globalClaimIds) {
+      const claim = claimById.get(claimId);
+      if (claim) lines.push(`### ${claim.title}`, '', claim.statement, '', claim.rationale, '');
+    }
+    const example = exampleById.get(guide.workedExampleId);
+    if (example) {
+      lines.push('## Exemple pédagogique', '', '| Round | Camp alpha | Camp bêta |', '| ---: | ---: | ---: |');
+      for (const round of example.rounds) lines.push(`| ${round.round} | ${round.turns[0].roundTotal} VP (${round.turns[0].cumulativeTotal}) | ${round.turns[1].roundTotal} VP (${round.turns[1].cumulativeTotal}) |`);
+      lines.push('', `Score final : ${example.finalScores.alpha}–${example.finalScores.beta}.`, '');
+    }
+    lines.push('---', '', 'Contenu stratégique en français. Les règles doivent être vérifiées dans les sources officielles et la carte de mission archivée.');
+    await writeFile(resolve(guideOutputDirectory, guide.slug + '.md'), lines.join('\n') + '\n', 'utf8');
+  }
+  const rosterBacklog = knowledge.matchupGuides.flatMap((guide) => guide.sides.filter((side) => side.referenceRosterIds.length === 0).map((side) => ({ guideId: guide.id, side: side.side, scenarioId: side.scenarioId })));
+  await writeFile(resolve(guideOutputDirectory, 'coverage.json'), JSON.stringify({ schemaVersion: STRATEGY_KNOWLEDGE_SCHEMA, guideCount: knowledge.matchupGuides.length, claimCount: knowledge.tacticalClaims.length, workedExampleCount: knowledge.workedExamples.length, validatedRosterSideCount: knowledge.matchupGuides.reduce((sum, guide) => sum + guide.sides.filter((side) => side.referenceRosterIds.length > 0).length, 0), rosterBacklog }, null, 2) + '\n', 'utf8');
+  console.log('Connaissance stratégique synchronisée : ' + knowledge.scenarios.length + ' profils de mission, ' + knowledge.forceDispositions.length + ' dispositions, ' + knowledge.matchupGuides.length + ' guides.');
+}
+
+if (process.argv.includes('--generate-secondary')) {
+  const knowledge = await loadValidatedStrategyKnowledge();
+  await writeFile(secondaryReportPath, renderSecondaryMissionReport(knowledge), 'utf8');
+  console.log('Rapport des missions secondaires généré depuis la base V5.');
 }
 
 if (process.argv.includes('--check')) {
-  await loadValidatedStrategyKnowledge();
+  const knowledge = await loadValidatedStrategyKnowledge();
+  const report = await readFile(secondaryReportPath, 'utf8');
+  if (report !== renderSecondaryMissionReport(knowledge)) throw new Error('Le rapport des missions secondaires dérive de la base canonique. Exécuter strategy:generate-secondary.');
+  const archiveSource = knowledge.sources.find((source) => source.kind === 'trusted-mission-archive');
+  const archive = JSON.parse(await readFile(resolve(workspaceRoot, archiveSource.archivePath), 'utf8'));
+  const reportMissionTitles = [...report.matchAll(/^### (.+)$/gm)].map((match) => match[1]);
+  const archiveMissionTitles = archive.cards.secondary.map((card) => card.name);
+  if (reportMissionTitles.length !== archiveMissionTitles.length
+    || archiveMissionTitles.some((title) => reportMissionTitles.filter((candidate) => candidate === title).length !== 1)) {
+    throw new Error('Le rapport doit contenir exactement une fiche pour chacune des 18 cartes secondaires archivées.');
+  }
   console.log('Connaissance stratégique validée.');
 }
