@@ -2,3 +2,4 @@ packages:
   - warforge-pwa
 allowBuilds:
   electron-winstaller: false
+  esbuild: true

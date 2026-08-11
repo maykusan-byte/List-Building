@@ -14,6 +14,7 @@
     "strategy:seed-guides": "node scripts/seed-primary-guides.mjs",
     "strategy:generate-secondary": "node scripts/strategy-knowledge.mjs --generate-secondary",
     "strategy:validate": "node scripts/strategy-knowledge.mjs --check",
+    "reports:statistics": "pnpm sync-data && tsx scripts/generate-statistics-reports.ts",
     "faction-packs:validate": "node scripts/faction-pack-audit.mjs --check",
     "rules:extract": "python scripts/extract-core-rules.py && node scripts/validate-rules.mjs",
     "rules:validate": "node scripts/validate-rules.mjs",
@@ -59,6 +60,7 @@
     "electron": "43.3.0",
     "electron-builder": "26.15.3",
     "jsdom": "30.0.1",
+    "tsx": "4.23.12",
     "typescript": "7.0.2",
     "vitest": "4.1.10"
   },

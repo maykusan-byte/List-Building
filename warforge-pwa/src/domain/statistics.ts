@@ -77,6 +77,28 @@ export interface UnitAnalysisContext {
   baseline: 'neutral';
 }
 
+export const STATISTICS_DISTANCE_BANDS = [0, 9, 12, 18, 24, 36] as const;
+
+export type StatisticsAttackMode = 'melee' | 'pistol' | 'standard-ranged' | 'vehicle-combined';
+
+export interface StatisticsDistanceContext {
+  distance: number;
+  mode: StatisticsAttackMode;
+}
+
+export interface StatisticsDistanceOffenseResult {
+  distance: number;
+  mode: StatisticsAttackMode;
+  rawDamage: ProbabilityDistribution;
+  usefulDamage: ProbabilityDistribution;
+  destroyProbability: number;
+  expectedModelsDestroyed: number;
+  oneShotDamage: ProbabilityDistribution;
+  hazardousTests: number;
+  activeProfiles: string[];
+  assumptions: string[];
+}
+
 export interface UnitConfiguration {
   id: string;
   unitId: string;
@@ -395,7 +417,45 @@ function saveFailureChance(target: Pick<StatisticsTarget, 'save' | 'invulnerable
   return required > 6 ? 1 : 1 - successChance(required);
 }
 
-function damageAfterSave(profile: RawWeaponProfile, target: StatisticsTarget, automaticWound = false): ProbabilityMass {
+function shiftedMass(mass: ProbabilityMass, bonus: number): ProbabilityMass {
+  return bonus === 0 ? mass : mass.map(([value, probability]) => [value + bonus, probability] as const);
+}
+
+function keywordBonus(keywords: string, pattern: RegExp): number {
+  const match = keywords.match(pattern);
+  return match ? Number(match[1] || 1) : 0;
+}
+
+function rapidFireBonus(keywords: string): number {
+  return keywordBonus(keywords, /(?:rapid fire|tirs rapides?)\s*(\d+)?/i);
+}
+
+function meltaBonus(keywords: string): number {
+  return keywordBonus(keywords, /(?:melta|fusion)\s*(\d+)?/i);
+}
+
+function profileRange(profile: RawWeaponProfile): number | null {
+  if (normalized(profile.Range) === 'melee') return 0;
+  const value = numeric(profile.Range, Number.NaN);
+  return Number.isFinite(value) ? value : null;
+}
+
+function profileAvailableAtDistance(profile: RawWeaponProfile, distance?: number): boolean {
+  if (distance === undefined) return true;
+  const range = profileRange(profile);
+  if (range === 0) return distance === 0;
+  if (range === null || distance > range) return false;
+  if (distance === 0) return normalized(profile.Keywords).includes('pistol');
+  return true;
+}
+
+function halfRangeActive(profile: RawWeaponProfile, distance?: number): boolean {
+  if (distance === undefined || distance <= 0) return false;
+  const range = profileRange(profile);
+  return range !== null && range > 0 && distance <= range / 2;
+}
+
+function damageAfterSave(profile: RawWeaponProfile, target: StatisticsTarget, automaticWound = false, damageBonus = 0): ProbabilityMass {
   const keywords = normalized(profile.Keywords);
   const strength = numeric(profile.Strength);
   const anti = antiRequired(keywords, target);
@@ -409,15 +469,15 @@ function damageAfterSave(profile: RawWeaponProfile, target: StatisticsTarget, au
   const damagingChance = keywords.includes('devastating wounds')
     ? Math.min(1, Math.max(0, woundChance - criticalChance) * saveFailure + criticalChance)
     : woundChance * saveFailure;
-  const damageMass = parseDiceMass(profile.Damage);
+  const damageMass = shiftedMass(parseDiceMass(profile.Damage), damageBonus);
   const result = new Map<number, number>([[0, 1 - damagingChance]]);
   for (const [damage, probability] of damageMass) result.set(damage, (result.get(damage) ?? 0) + damagingChance * probability);
   return normalizeMass(result);
 }
 
-function singleAttackDamage(profile: RawWeaponProfile, target: StatisticsTarget): ProbabilityMass {
+function singleAttackDamage(profile: RawWeaponProfile, target: StatisticsTarget, damageBonus = 0): ProbabilityMass {
   const keywords = normalized(profile.Keywords);
-  if (keywords.includes('torrent')) return damageAfterSave(profile, target);
+  if (keywords.includes('torrent')) return damageAfterSave(profile, target, false, damageBonus);
   const hitRequired = Math.min(6, Math.max(2, numeric(profile.ToHit, 7)));
   const hitChance = successChance(hitRequired);
   const criticalHitChance = 1 / 6;
@@ -428,21 +488,27 @@ function singleAttackDamage(profile: RawWeaponProfile, target: StatisticsTarget)
   const addBranch = (mass: ProbabilityMass, branchProbability: number): void => {
     for (const [value, probability] of mass) result.set(value, (result.get(value) ?? 0) + probability * branchProbability);
   };
-  addBranch(damageAfterSave(profile, target), normalHitChance);
-  let criticalMass: ProbabilityMass = lethal ? damageAfterSave(profile, target, true) : damageAfterSave(profile, target);
-  if (sustained > 0) criticalMass = convolve(criticalMass, repeatMass(damageAfterSave(profile, target), sustained));
+  addBranch(damageAfterSave(profile, target, false, damageBonus), normalHitChance);
+  let criticalMass: ProbabilityMass = lethal ? damageAfterSave(profile, target, true, damageBonus) : damageAfterSave(profile, target, false, damageBonus);
+  if (sustained > 0) criticalMass = convolve(criticalMass, repeatMass(damageAfterSave(profile, target, false, damageBonus), sustained));
   addBranch(criticalMass, criticalHitChance);
   return normalizeMass(result);
 }
 
-export function weaponDamageMass(profile: RawWeaponProfile, target: StatisticsTarget, instances = 1): ProbabilityMass {
+export function weaponDamageMass(profile: RawWeaponProfile, target: StatisticsTarget, instances = 1, distance?: number): ProbabilityMass {
+  if (!profileAvailableAtDistance(profile, distance)) return [[0, 1]];
   let attacks = parseDiceMass(profile.Attacks);
   const keywords = normalized(profile.Keywords);
+  const halfRange = halfRangeActive(profile, distance);
+  if (halfRange) {
+    const bonus = rapidFireBonus(keywords);
+    if (bonus > 0) attacks = attacks.map(([value, probability]) => [value + bonus, probability] as const);
+  }
   if (keywords.includes('blast')) {
     const bonus = Math.floor(target.models / 5);
     attacks = attacks.map(([value, probability]) => [value + bonus, probability] as const);
   }
-  const perAttack = singleAttackDamage(profile, target);
+  const perAttack = singleAttackDamage(profile, target, halfRange ? meltaBonus(keywords) : 0);
   let oneWeapon = new Map<number, number>();
   for (const [attackCount, attackProbability] of attacks) {
     for (const [damage, damageProbability] of repeatMass(perAttack, attackCount)) {
@@ -457,18 +523,18 @@ function statisticalModeKey(entry: SelectedWeaponProfile): string {
   return `${entry.melee ? 'melee' : 'ranged'}\u0000${normalized(name || modeKey(entry))}`;
 }
 
-function bestModes(profiles: SelectedWeaponProfile[], target: StatisticsTarget): SelectedWeaponProfile[] {
+function bestModes(profiles: SelectedWeaponProfile[], target: StatisticsTarget, distance?: number): SelectedWeaponProfile[] {
   const modes = new Map<string, SelectedWeaponProfile>();
   for (const entry of profiles) {
     const key = statisticalModeKey(entry);
     const current = modes.get(key);
-    if (!current || summarizeMass(weaponDamageMass(entry.profile, target, entry.count)).mean > summarizeMass(weaponDamageMass(current.profile, target, current.count)).mean) modes.set(key, entry);
+    if (!current || summarizeMass(weaponDamageMass(entry.profile, target, entry.count, distance)).mean > summarizeMass(weaponDamageMass(current.profile, target, current.count, distance)).mean) modes.set(key, entry);
   }
   return [...modes.values()];
 }
 
-function combineWeapons(profiles: SelectedWeaponProfile[], target: StatisticsTarget): ProbabilityMass {
-  return profiles.reduce((mass, entry) => convolve(mass, weaponDamageMass(entry.profile, target, entry.count)), [[0, 1]] as ProbabilityMass);
+function combineWeapons(profiles: SelectedWeaponProfile[], target: StatisticsTarget, distance?: number): ProbabilityMass {
+  return profiles.reduce((mass, entry) => convolve(mass, weaponDamageMass(entry.profile, target, entry.count, distance)), [[0, 1]] as ProbabilityMass);
 }
 
 function compositionSelectedProfiles(profiles: SelectedWeaponProfile[], modelCount: number, target: StatisticsTarget, melee: boolean, oneShot: boolean): SelectedWeaponProfile[] {
@@ -496,6 +562,72 @@ function compositionSelectedProfiles(profiles: SelectedWeaponProfile[], modelCou
 
 function selectedSalvoProfiles(resolved: WargearResolution, target: StatisticsTarget, melee: boolean, oneShot = false): SelectedWeaponProfile[] {
   return resolved.byComposition.flatMap((composition) => compositionSelectedProfiles(composition.profiles, composition.composition.count, target, melee, oneShot));
+}
+
+function selectedProfilesForDistance(
+  resolved: WargearResolution,
+  target: StatisticsTarget,
+  context: StatisticsDistanceContext,
+  oneShot: boolean
+): SelectedWeaponProfile[] {
+  if (context.mode === 'melee') return selectedSalvoProfiles(resolved, target, true, oneShot);
+  return resolved.byComposition.flatMap((composition) => {
+    const candidates = bestModes(composition.profiles.filter((entry) => {
+      if (entry.melee || normalized(entry.profile.Keywords).includes('one shot') !== oneShot) return false;
+      const pistol = normalized(entry.profile.Keywords).includes('pistol');
+      if (context.mode === 'pistol') return pistol;
+      if (context.mode === 'standard-ranged') return !pistol;
+      return true;
+    }), target, context.distance);
+    return candidates.filter((entry) => profileAvailableAtDistance(entry.profile, context.distance));
+  });
+}
+
+export function calculateConfigurationOffenseAtDistance(
+  unit: NormalizedUnit,
+  configuration: UnitConfiguration,
+  target: StatisticsTarget,
+  context: StatisticsDistanceContext
+): StatisticsDistanceOffenseResult {
+  const item: RosterItem = {
+    id: configuration.id,
+    unitId: unit.id,
+    pointIndex: configuration.pointIndex,
+    modelCounts: configuration.modelCounts,
+    wargearSelections: {},
+    wargearSelectionCounts: configuration.wargearSelectionCounts
+  };
+  const resolved = resolveWargear(unit, item, configuration.requiredDetachments);
+  const unitKeywords = normalized([...(unit.Keywords ?? []), ...(unit.FactionKeywords ?? [])].join(' '));
+  const combinedAllowed = unitKeywords.includes('monster') || unitKeywords.includes('vehicle');
+  const profiles = context.mode === 'vehicle-combined' && !combinedAllowed
+    ? []
+    : selectedProfilesForDistance(resolved, target, context, false);
+  const oneShotProfiles = context.mode === 'vehicle-combined' && !combinedAllowed
+    ? []
+    : selectedProfilesForDistance(resolved, target, context, true);
+  const rawMass = combineWeapons(profiles, target, context.distance);
+  const allocation = allocateSelectedProfiles(profiles, target, context.distance);
+  const oneShotAllocation = allocateSelectedProfiles(oneShotProfiles, target, context.distance);
+  const activeProfiles = profiles.filter((entry) => summarizeMass(weaponDamageMass(entry.profile, target, entry.count, context.distance)).mean > 0);
+  return {
+    distance: context.distance,
+    mode: context.mode,
+    rawDamage: summarizeMass(rawMass),
+    usefulDamage: summarizeMass(allocation.usefulDamage),
+    destroyProbability: allocation.destroyProbability,
+    expectedModelsDestroyed: summarizeMass(allocation.modelsDestroyed).mean,
+    oneShotDamage: summarizeMass(oneShotAllocation.usefulDamage),
+    hazardousTests: activeProfiles.filter((entry) => normalized(entry.profile.Keywords).includes('hazardous')).reduce((sum, entry) => sum + entry.count, 0),
+    activeProfiles: activeProfiles.map((entry) => `${entry.count}x ${entry.profile.Name ?? entry.group}`),
+    assumptions: [
+      `distance-${context.distance}`,
+      `attack-mode-${context.mode}`,
+      'rapid-fire-and-melta-active-at-or-below-half-range',
+      'melee-and-shooting-separated',
+      ...(context.mode === 'vehicle-combined' && !combinedAllowed ? ['vehicle-combined-mode-not-legal'] : [])
+    ]
+  };
 }
 
 function capMass(mass: ProbabilityMass, maximum: number): ProbabilityMass {
@@ -597,22 +729,29 @@ export function allocateDamageMass(perAttack: ProbabilityMass, attackCounts: Pro
   return summarizeAllocation(applyVariableAttacks(initial, attackCounts, modelWounds, () => perAttack), modelWounds);
 }
 
-function weaponAttackCounts(profile: RawWeaponProfile, targetModels: number): ProbabilityMass {
+function weaponAttackCounts(profile: RawWeaponProfile, targetModels: number, distance?: number): ProbabilityMass {
+  if (!profileAvailableAtDistance(profile, distance)) return [[0, 1]];
   let attacks = parseDiceMass(profile.Attacks);
-  if (normalized(profile.Keywords).includes('blast')) {
+  const keywords = normalized(profile.Keywords);
+  if (halfRangeActive(profile, distance)) {
+    const bonus = rapidFireBonus(keywords);
+    if (bonus > 0) attacks = attacks.map(([value, probability]) => [value + bonus, probability] as const);
+  }
+  if (keywords.includes('blast')) {
     const bonus = Math.floor(targetModels / 5);
     attacks = attacks.map(([value, probability]) => [value + bonus, probability] as const);
   }
   return attacks;
 }
 
-function allocateSelectedProfiles(profiles: SelectedWeaponProfile[], target: StatisticsTarget): DamageAllocationResult {
+function allocateSelectedProfiles(profiles: SelectedWeaponProfile[], target: StatisticsTarget, distance?: number): DamageAllocationResult {
   const modelWounds = Array.from({ length: target.models }, () => target.woundsPerModel);
   if (modelWounds.length === 0) return { usefulDamage: [[0, 1]], modelsDestroyed: [[0, 1]], destroyProbability: 1 };
   let states = new Map<string, AllocationState>([[allocationKey(0, modelWounds[0]), { modelIndex: 0, remainingWounds: modelWounds[0], probability: 1 }]]);
   for (const entry of profiles) {
     for (let instance = 0; instance < entry.count; instance += 1) {
-      states = applyVariableAttacks(states, weaponAttackCounts(entry.profile, target.models), modelWounds, () => singleAttackDamage(entry.profile, target));
+      const damageBonus = halfRangeActive(entry.profile, distance) ? meltaBonus(normalized(entry.profile.Keywords)) : 0;
+      states = applyVariableAttacks(states, weaponAttackCounts(entry.profile, target.models, distance), modelWounds, () => singleAttackDamage(entry.profile, target, damageBonus));
     }
   }
   return summarizeAllocation(states, modelWounds);
@@ -650,6 +789,78 @@ function enumerateCompositions(unit: NormalizedUnit, pointIndex: number): Array<
   return results.length > 0 ? results : [Object.fromEntries(base.map((entry) => [entry.id, entry.count]))];
 }
 
+function equipmentPieces(value: string): Array<{ name: string; count: number }> {
+  return value
+    .replace(/[–—]/g, '-')
+    .split(/\s*(?:,|\band\b)\s*/iu)
+    .flatMap((part) => {
+      const match = part.trim().match(/^(\d+)\s+(.+)$/u);
+      const name = normalized(match?.[2] ?? part);
+      return name ? [{ name, count: Number(match?.[1] ?? 1) }] : [];
+    });
+}
+
+function replacementSelectionIsPossible(
+  unit: NormalizedUnit,
+  compositions: ReturnType<typeof resolveModelCompositions>,
+  rules: ReturnType<typeof getWargearRules>,
+  selections: WargearSelectionCounts
+): boolean {
+  const available = new Map<string, number>();
+  unit.UnitComposition?.ModelCompositions?.forEach((composition, compositionIndex) => {
+    const compositionId = `c${compositionIndex}`;
+    const count = compositions.find((entry) => entry.id === compositionId)?.count ?? 0;
+    composition.Wargear?.forEach((wargear) => wargear.InitalWargear?.forEach((entry) => {
+      equipmentPieces(entry).forEach((piece) => {
+        const key = `${compositionId}:${piece.name}`;
+        available.set(key, (available.get(key) ?? 0) + piece.count * count);
+      });
+    }));
+  });
+  const used = new Map<string, number>();
+  for (const rule of rules) {
+    const selectedTotal = Object.values(selections[rule.id] ?? {}).reduce((sum, count) => sum + count, 0);
+    if (selectedTotal === 0) continue;
+    for (const replaced of rule.replaces) {
+      for (const piece of equipmentPieces(replaced)) {
+        const key = `${rule.compositionId}:${piece.name}`;
+        const next = (used.get(key) ?? 0) + piece.count * selectedTotal;
+        if (next > (available.get(key) ?? 0)) return false;
+        used.set(key, next);
+      }
+    }
+  }
+  return true;
+}
+
+function partialSelectionSignature(
+  rules: ReturnType<typeof getWargearRules>,
+  selections: WargearSelectionCounts
+): string {
+  const additions = new Map<string, number>();
+  const replacements = new Map<string, number>();
+  const detachments = new Set<string>();
+  const add = (target: Map<string, number>, key: string, count: number) => target.set(key, (target.get(key) ?? 0) + count);
+  for (const rule of rules) {
+    const selected = selections[rule.id] ?? {};
+    const selectedTotal = Object.values(selected).reduce((sum, count) => sum + count, 0);
+    if (selectedTotal === 0) continue;
+    if (rule.requiredDetachment) detachments.add(normalized(rule.requiredDetachment));
+    for (const [option, count] of Object.entries(selected)) {
+      // The public configuration identity is an aggregate statistical arsenal.
+      // Equipment assigned to two compositions is interchangeable when its
+      // global profile/count is identical; legality still remains separated
+      // below through composition-scoped replacement consumption.
+      for (const piece of equipmentPieces(option)) add(additions, piece.name, piece.count * count);
+    }
+    for (const replaced of rule.replaces) {
+      for (const piece of equipmentPieces(replaced)) add(replacements, `${rule.compositionId}:${piece.name}`, piece.count * selectedTotal);
+    }
+  }
+  const sorted = (values: Map<string, number>) => [...values].sort(([left], [right]) => left.localeCompare(right));
+  return JSON.stringify({ additions: sorted(additions), replacements: sorted(replacements), detachments: [...detachments].sort() });
+}
+
 export function enumerateUnitConfigurations(unit: NormalizedUnit): UnitConfiguration[] {
   const configurations: UnitConfiguration[] = [];
   const seen = new Set<string>();
@@ -659,10 +870,17 @@ export function enumerateUnitConfigurations(unit: NormalizedUnit): UnitConfigura
       const compositions = resolveModelCompositions(unit, baseItem);
       const rules = getWargearRules(unit);
       let selections: WargearSelectionCounts[] = [{}];
-      for (const rule of rules) {
+      for (const [ruleIndex, rule] of rules.entries()) {
         const compositionCount = compositions.find((entry) => entry.id === rule.compositionId)?.count ?? 0;
         const variants = enumerateCounts(rule.options, ruleLimit(rule, compositionCount, point.modelCount));
-        selections = selections.flatMap((existing) => variants.map((variant) => Object.keys(variant).length > 0 ? { ...existing, [rule.id]: variant } : existing));
+        const appliedRules = rules.slice(0, ruleIndex + 1);
+        const candidates = selections.flatMap((existing) => variants.flatMap((variant) => {
+          const candidate = Object.keys(variant).length > 0 ? { ...existing, [rule.id]: variant } : existing;
+          // Over-replacing initial equipment cannot be repaired by a later
+          // rule. Pruning this exact constraint avoids huge illegal products.
+          return replacementSelectionIsPossible(unit, compositions, appliedRules, candidate) ? [candidate] : [];
+        }));
+        selections = [...new Map(candidates.map((candidate) => [partialSelectionSignature(appliedRules, candidate), candidate])).values()];
       }
       for (const wargearSelectionCounts of selections) {
         const item: RosterItem = { ...baseItem, wargearSelectionCounts };

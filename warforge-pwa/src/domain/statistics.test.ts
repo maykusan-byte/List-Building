@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allocateDamageMass, attachBenchmarks, calculateUnitStatisticalProfile, convolve, defaultUnitConfiguration, enumerateUnitConfigurations, normalizeMass, parseDiceMass, percentile, repeatMass, summarizeMass, weaponDamageMass, type StatisticsTarget } from './statistics';
+import { allocateDamageMass, attachBenchmarks, calculateConfigurationOffenseAtDistance, calculateUnitStatisticalProfile, convolve, defaultUnitConfiguration, enumerateUnitConfigurations, normalizeMass, parseDiceMass, percentile, repeatMass, summarizeMass, weaponDamageMass, type StatisticsTarget } from './statistics';
 import type { NormalizedDatabase, NormalizedUnit } from './types';
 
 const infantry: StatisticsTarget = {
@@ -55,6 +55,42 @@ describe('statistics probability engine', () => {
     expect(damage.mass.reduce((sum, [, probability]) => sum + probability, 0)).toBeCloseTo(1, 12);
   });
 
+  it('activates rapid fire and melta at the inclusive half-range breakpoint', () => {
+    const rapid = { Name: 'Rapid rifle', Range: '24', Attacks: '1', ToHit: 'N/A', Strength: '12', AP: '-4', Damage: '1', Keywords: 'TORRENT RAPID FIRE 1' };
+    const melta = { Name: 'Meltagun', Range: '12', Attacks: '1', ToHit: 'N/A', Strength: '12', AP: '-4', Damage: '1', Keywords: 'TORRENT MELTA 2' };
+    const rapidAtTwelve = summarizeMass(weaponDamageMass(rapid, infantry, 1, 12)).mean;
+    const rapidAtEighteen = summarizeMass(weaponDamageMass(rapid, infantry, 1, 18)).mean;
+    expect(rapidAtTwelve).toBeCloseTo(rapidAtEighteen * 2, 10);
+    expect(summarizeMass(weaponDamageMass(melta, infantry, 1, 6)).mean).toBeCloseTo(summarizeMass(weaponDamageMass(melta, infantry, 1, 6.01)).mean * 3, 10);
+    expect(summarizeMass(weaponDamageMass(melta, infantry, 1, 12.01)).mean).toBe(0);
+  });
+
+  it('separates pistol, standard shooting and melee at zero inches', () => {
+    const unit: NormalizedUnit = {
+      id: 'book:test:unit:distance', bookId: 'book:test', sourceKey: 'test', sourceIndex: 4,
+      factionName: 'Test', displayName: 'Range modes', Name: 'Range modes', Keywords: ['Infantry'],
+      Points: [{ ModelCount: 1, Cost: 100 }],
+      StatLines: [{ Movement: '6', Toughness: '4', Save: '3+', Wounds: '2', Leadership: '7+', OC: '1' }],
+      UnitComposition: { ModelCompositions: [{ ModelName: 'Tester', Wargear: [{ InitalWargear: ['Bolt pistol', 'Bolt rifle', 'Blade'] }] }] },
+      Weapons: [
+        { Name: 'Ranged', Weapons: [
+          { Name: 'Bolt pistol', Range: '12', Attacks: '1', ToHit: 'N/A', Strength: '12', AP: '-4', Damage: '1', Keywords: 'TORRENT PISTOL' },
+          { Name: 'Bolt rifle', Range: '24', Attacks: '2', ToHit: 'N/A', Strength: '12', AP: '-4', Damage: '1', Keywords: 'TORRENT' }
+        ] },
+        { Name: 'Melee', IsMelee: true, Weapons: [{ Name: 'Blade', Range: 'Melee', Attacks: '3', ToHit: 'N/A', Strength: '12', AP: '-4', Damage: '1', Keywords: 'TORRENT' }] }
+      ]
+    };
+    const configuration = defaultUnitConfiguration(unit)!;
+    const pistol = calculateConfigurationOffenseAtDistance(unit, configuration, infantry, { distance: 0, mode: 'pistol' });
+    const standard = calculateConfigurationOffenseAtDistance(unit, configuration, infantry, { distance: 0, mode: 'standard-ranged' });
+    const melee = calculateConfigurationOffenseAtDistance(unit, configuration, infantry, { distance: 0, mode: 'melee' });
+    expect(pistol.rawDamage.mean).toBeGreaterThan(0);
+    expect(standard.rawDamage.mean).toBe(0);
+    expect(melee.rawDamage.mean).toBeGreaterThan(pistol.rawDamage.mean);
+    expect(pistol.activeProfiles).toEqual(['1x Bolt pistol']);
+    expect(melee.activeProfiles).toEqual(['1x Blade']);
+  });
+
   it('rerolls critical wounds correctly for twin-linked devastating attacks', () => {
     const damage = summarizeMass(weaponDamageMass({ Attacks: '1', ToHit: 'N/A', Strength: '1', AP: '0', Damage: '1', Keywords: 'TORRENT TWIN-LINKED DEVASTATING WOUNDS ANTI-INFANTRY 4+' }, infantry));
     expect(damage.mean).toBeCloseTo(0.75, 10);
@@ -97,6 +133,30 @@ describe('statistics probability engine', () => {
     const configurations = enumerateUnitConfigurations(unit);
     expect(configurations.map((configuration) => configuration.points).sort()).toEqual([100, 110]);
     expect(configurations.find((configuration) => configuration.points === 110)?.requiredDetachments).toEqual(['TEST FORCE']);
+  });
+
+  it('prunes impossible double replacements and deduplicates interchangeable slots', () => {
+    const unit: NormalizedUnit = {
+      id: 'book:test:unit:slots', bookId: 'book:test', sourceKey: 'test', sourceIndex: 8,
+      factionName: 'Test', displayName: 'Slots', Name: 'Slots', Points: [{ ModelCount: 1, Cost: 100 }],
+      UnitComposition: { ModelCompositions: [{ ModelName: 'Tester', Wargear: [{
+        InitalWargear: ['Pistol'], Options: [
+          { Replaces: ['Pistol'], Options: ['Sword'] },
+          { Replaces: ['Pistol'], Options: ['Hammer'] },
+          { Options: ['Drone A', 'Drone B'] },
+          { Options: ['Drone A', 'Drone B'] }
+        ]
+      }] }] },
+      Weapons: [{ Name: 'Weapons', Weapons: [
+        { Name: 'Pistol', Range: '12', Attacks: '1', ToHit: '3+', Strength: '4', AP: '0', Damage: '1' },
+        { Name: 'Sword', Range: 'Melee', Attacks: '2', ToHit: '3+', Strength: '5', AP: '-1', Damage: '1' },
+        { Name: 'Hammer', Range: 'Melee', Attacks: '1', ToHit: '4+', Strength: '8', AP: '-2', Damage: '2' }
+      ] }]
+    };
+    const configurations = enumerateUnitConfigurations(unit);
+    expect(configurations).toHaveLength(18);
+    expect(configurations.some((configuration) => configuration.label.includes('Sword') && configuration.label.includes('Hammer'))).toBe(false);
+    expect(new Set(configurations.map((configuration) => configuration.configurationHash)).size).toBe(configurations.length);
   });
 
   it('aggregates heterogeneous model profiles and separates one-shot risk metrics', () => {
