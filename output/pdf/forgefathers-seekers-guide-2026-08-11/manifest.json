@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "warforge-tactical-guide-manifest/v1",
+  "guideVersion": "forgefathers-seekers-guide/v1.0.0",
+  "generatedAt": "2026-08-11",
+  "catalogVersion": "1.2.13.0",
+  "engineVersion": "warforge-statistics/v1.1.0",
+  "pageCount": 22,
+  "files": {
+    "guide-forgefathers-seekers.pdf": {
+      "sha256": "f36f38ed54bba9c2e1b87651a1582cd9242111eca31160ef9dc35f4efffd3e7a",
+      "bytes": 254582
+    },
+    "guide-forgefathers-seekers.md": {
+      "sha256": "21236750be6f8a989354a94ec530f98af7a34dd5f04930706fa88b4898c5c89e",
+      "bytes": 16832
+    },
+    "guide-data.json": {
+      "sha256": "ddfcf2f00e904bcbf64021a4a857a825a35f817eafe69ea1c00612a0dda6c84a",
+      "bytes": 173554
+    },
+    "chart-audit.json": {
+      "sha256": "9b1e85c47a4324724de31a5936d91c21653efb2cfb6d45d1dc1c710f53b5818d",
+      "bytes": 2678
+    }
+  },
+  "sources": [
+    {
+      "path": "warforge-pwa/data/strategy/knowledge-base.json",
+      "sha256": "6c96ed082b5d4f4723aab3afd285789321725d0a9ee448e29d42542b24444623"
+    },
+    {
+      "path": "warforge-pwa/data/units/DataInfo.json",
+      "sha256": "f3e636fc47a546bafd4205d04c59c8227058bfd759e355e14bb4c9de3ee51524"
+    },
+    {
+      "path": "warforge-pwa/data/units/Salamanders.json",
+      "sha256": "1a41ef83b9efe1dc9ef7ba3e3e8f70fa096ab13b8ced1cb53599947db0970cb9"
+    },
+    {
+      "path": "warforge-pwa/data/units/Space Marines.json",
+      "sha256": "3f4558d6c168a4fa8620b09aae5334b0375930d7de6ebc8a3335efef20078831"
+    },
+    {
+      "path": "warforge-pwa/data/inventory/datasheet_x_figs.csv",
+      "sha256": "5247e96bfdbb71950521f9d67491e98c9555c950c379ef6227981d00b4b6d09f"
+    },
+    {
+      "path": "output/pdf/detachment-inventory-report-2026-08-11/assessments.json",
+      "sha256": "b78f2ed1f1f6d7efa7244a5a2c428aca8e413b343f396f09a58fe8726d98884e"
+    },
+    {
+      "path": "output/pdf/detachment-inventory-expert-report-2026-08-11/expert-assessments.json",
+      "sha256": "daef06b04714dc461a657925808c65f4f0a4d85cc98b615458c9a757db0d2f6c"
+    },
+    {
+      "path": "deliverables/statistics-reports/2026-08-11-catalog-1.2.13.0-engine-v1.1.0/snapshot-statistique-exhaustif.json.gz",
+      "sha256": "2fe5b00ab5aa435dec25ecf49d97173ed92471131d3862d1d44568bf05bc4bd8"
+    }
+  ],
+  "checks": {
+    "mainRosterPoints": 2000,
+    "strictRosterPoints": 2000,
+    "primaryMatchups": 5,
+    "secondaryMissions": 18,
+    "capabilities": 10,
+    "inventoryExceptionCount": 1,
+    "physicalFigureReuse": false,
+    "chartAuditPassed": true
+  }
+}

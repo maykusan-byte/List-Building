@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "warforge-chart-audit/v1",
+  "charts": [
+    {
+      "id": "group-points",
+      "type": "horizontal-bar",
+      "title": "Repartition des 2 000 points par ensemble operationnel",
+      "population": "Liste principale, n=6 ensembles",
+      "xAxis": {
+        "label": "Cout",
+        "unit": "points",
+        "minimum": 0,
+        "maximum": 500,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ]
+      },
+      "yAxis": {
+        "label": "Ensembles",
+        "unit": "categorie",
+        "ticks": [
+          "Moteur de mission",
+          "Paquet de percee",
+          "Batterie anti-char",
+          "Contre-charge",
+          "Ecrans et rotation",
+          "Canon de milieu"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "role-heatmap",
+      "type": "heatmap",
+      "title": "Responsabilites des ensembles",
+      "population": "Liste principale, n=6 ensembles",
+      "xAxis": {
+        "label": "Fonctions tactiques",
+        "unit": "categorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Dommages",
+          "Durabilite",
+          "Mobilite",
+          "Denial"
+        ]
+      },
+      "yAxis": {
+        "label": "Ensembles",
+        "unit": "categorie",
+        "ticks": [
+          "Moteur mission",
+          "Paquet percee",
+          "Batterie antichar",
+          "Contre-charge",
+          "Ecrans/rotation",
+          "Canon milieu"
+        ]
+      },
+      "colorScale": {
+        "label": "Responsabilite",
+        "unit": "niveau 0-4",
+        "minimum": 0,
+        "maximum": 4,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "distance-damage",
+      "type": "line",
+      "title": "Profil de pression selon la distance",
+      "population": "Configurations minimales du snapshot, cible Infanterie E4/Sv3+/2PV, n=3 unites",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Degats utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    }
+  ],
+  "allChartsHaveAxesUnitsTicksScales": true
+}

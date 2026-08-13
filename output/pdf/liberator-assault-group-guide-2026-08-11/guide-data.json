@@ -1,0 +1,2952 @@
+{
+  "schemaVersion": "warforge-detachment-tactical-guide/v1.0.0",
+  "guideVersion": "liberator-assault-group-guide/v1.0.0",
+  "status": "draft/preliminary",
+  "snapshotDate": "2026-08-11",
+  "catalogVersion": "1.2.13.0",
+  "engineVersion": "warforge-statistics/v1.1.0",
+  "missionPackId": "gdm-2026-11th",
+  "faction": "Blood Angels",
+  "detachment": {
+    "id": "book-blood-angels:detachment:0",
+    "name": "LIBERATOR ASSAULT GROUP",
+    "costDP": 3,
+    "forceDisposition": "TAKE AND HOLD",
+    "rule": {
+      "Restrictions": "Your army can include Blood Angels units, but it cannot include any Adeptus Astartes units drawn from any other Chapter.",
+      "Title": "RED THIRST",
+      "Text": "Each time an Adeptus Astartes unit from your army is selected to fight, if that unit made a Charge move this turn, until the end of the phase, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
+    },
+    "stratagems": [
+      {
+        "Name": "Angelic Grace",
+        "Category": "LIBERATOR ASSAULT GROUP - STRATEGIC PLOY STRATAGEM",
+        "CPCost": 1,
+        "Phase": "any",
+        "When": "Any phase, just after an Adeptus Astartes unit from your army has a mortal wound allocated to it.",
+        "Target": "That Adeptus Astartes unit.",
+        "Effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability against mortal wounds."
+      },
+      {
+        "Name": "Armour of Contempt",
+        "Category": "LIBERATOR ASSAULT GROUP - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "any",
+        "When": "Your opponent's Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+        "Target": "One Adeptus Astartes unit from your army that was selected as the target of one or more of the attacking unit's attacks.",
+        "Effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+        "Name": "Savage Echoes",
+        "Category": "LIBERATOR ASSAULT GROUP - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "opponent",
+        "When": "Your opponent's Charge phase.",
+        "Target": "TARGET: One Adeptus Astartes unit from your army that was just charged by an enemy unit.",
+        "Effect": "Select either the Strength or Attacks characteristic of melee weapons equipped by models in your unit. Until the end of the turn, add 1 to the selected characteristic. You can instead Choose for your unit to give in to the Red Thirst; if it does, it becomes Battle-shocked (but the effects of this Stratagem still apply to it) and until the end of the turn, add 1 to the Strength and Attacks characteristics of melee weapons equipped by models in your unit."
+      },
+      {
+        "Name": "Red Rampage",
+        "Category": "LIBERATOR ASSAULT GROUP - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "any",
+        "When": "Fight phase.",
+        "Target": "One Adeptus Astartes unit from your army that has not been selected to fight this phase.",
+        "Effect": "Select either the [LANCE] or [LETHAL HITS] abilities. Until the end of the phase, melee weapons equipped by models in your unit have the selected ability. You can instead choose for your unit to give in to the Red Thirst; if it does, then it becomes Battle-shocked (but the effects of this Stratagem still apply to it) and until the end of the phase, melee weapons equipped by models in your unit have the [LANCE] and [LETHAL HITS] abilities."
+      },
+      {
+        "Name": "Aggressive Onslaught",
+        "Category": "LIBERATOR ASSAULT GROUP - STRATEGIC PLOY STRATAGEM",
+        "CPCost": 1,
+        "Phase": "friendly",
+        "When": "Your Movement phase, just after an Adeptus Astartes unit from your army has Advanced.",
+        "Target": "That Adeptus Astartes unit.",
+        "Effect": "Until the end of the turn, your unit is eligible to either shoot or declare a charge, even though it Advanced. You can instead choose for your unit  to give in to the Red Thirst; if it does, it becomes Battle-shocked (but the effects of this Stratagem still apply to it) and until the end of the turn, your unit is eligible to both shoot and declare a charge, even  though it Advanced."
+      },
+      {
+        "Name": "Relentless Assault",
+        "Category": "LIBERATOR ASSAULT GROUP - STRATEGIC PLOY STRATAGEM",
+        "CPCost": 1,
+        "Phase": "friendly",
+        "When": " Your Movement phase, just after an Adeptus Astartes unit from your army Falls Back.",
+        "Target": "That Adeptus Astartes unit.",
+        "Effect": "Until the end of the turn, your unit is eligible to either shoot or declare a charge even though it Fell Back. You can instead choose for your unit to give in to the Red Thirst; if it does, it becomes Battle-shocked (but the effects of this Stratagem still apply to it) and until the end of the turn, your unit is eligible to both shoot and declare a charge, even thougj it Fell Back."
+      }
+    ],
+    "enhancements": [
+      {
+        "Name": "Speed of the Primarch",
+        "Description": "Adeptus Astartes model only. Once per battle, at the start of the Fight phase, the bearer can use this Enhancement. If it does, until the end of the phase, models in the bearer's unit have the Fights First ability.",
+        "Cost": 25,
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "Rage‑fuelled Warrior",
+        "Description": "Adeptus Astartes model only. Once per battle, at the start of the Fight phase, the bearer can use this Enhancement. If it does, until the end of the phase, the bearer’s melee weapons have the [SUSTAINED HITS 3] ability.",
+        "Cost": 35,
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "Icon of the Angel",
+        "Description": "Adeptus Astartes model only. Each time an enemy unit (excluding Monsters and Vehicles) within Engagement Range of the bearer’s unit is selected to Fall Back, models in that enemy unit must take Desperate Escape tests as if their unit was Battle-shocked, When doing so, if that enemy unit is also Battle-shocked by other means, subtract 1 from each of those Desperate Escape tests.",
+        "Cost": 20,
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "Gift of Foresight",
+        "Description": "Adeptus Astartes model only. Once per battle round, just after making a Hit roll, a Wound roll or a saving throw for the bearer, you can treat the result as an unmodified roll of 6 instead.",
+        "Cost": 15,
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      }
+    ]
+  },
+  "mainRoster": {
+    "points": 2000,
+    "units": [
+      {
+        "itemId": "dante",
+        "unitId": "book-blood-angels:unit:3",
+        "name": "COMMANDER DANTE",
+        "models": 1,
+        "points": 125,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          25
+        ]
+      },
+      {
+        "itemId": "sanguinary-guard",
+        "unitId": "book-blood-angels:unit:9",
+        "name": "SANGUINARY GUARD",
+        "models": 3,
+        "points": 125,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "hors inventaire autorise",
+        "figureIds": []
+      },
+      {
+        "itemId": "astorath",
+        "unitId": "book-blood-angels:unit:0",
+        "name": "ASTORATH",
+        "models": 1,
+        "points": 85,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          33
+        ]
+      },
+      {
+        "itemId": "death-company",
+        "unitId": "book-blood-angels:unit:7",
+        "name": "DEATH COMPANY MARINES WITH JUMP PACKS",
+        "models": 10,
+        "points": 230,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164
+        ]
+      },
+      {
+        "itemId": "jump-captain",
+        "unitId": "book-blood-angels:unit:19",
+        "name": "CAPTAIN WITH JUMP PACK",
+        "models": 1,
+        "points": 80,
+        "enhancement": "Speed of the Primarch",
+        "enhancementCost": 25,
+        "availability": "hors inventaire autorise",
+        "figureIds": []
+      },
+      {
+        "itemId": "vanguard",
+        "unitId": "book-blood-angels:unit:44",
+        "name": "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+        "models": 10,
+        "points": 220,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154
+        ]
+      },
+      {
+        "itemId": "jump-intercessors",
+        "unitId": "book-blood-angels:unit:96",
+        "name": "ASSAULT INTERCESSORS WITH JUMP PACKS",
+        "models": 5,
+        "points": 95,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          140,
+          141,
+          142,
+          143,
+          144
+        ]
+      },
+      {
+        "itemId": "inceptors",
+        "unitId": "book-blood-angels:unit:60",
+        "name": "INCEPTOR SQUAD",
+        "models": 3,
+        "points": 125,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          134,
+          135,
+          136
+        ]
+      },
+      {
+        "itemId": "scouts-a",
+        "unitId": "book-blood-angels:unit:39",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          180,
+          181,
+          182,
+          183,
+          184
+        ]
+      },
+      {
+        "itemId": "scouts-b",
+        "unitId": "book-blood-angels:unit:39",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          185,
+          186,
+          187,
+          188,
+          189
+        ]
+      },
+      {
+        "itemId": "lancer",
+        "unitId": "book-blood-angels:unit:75",
+        "name": "GLADIATOR LANCER",
+        "models": 1,
+        "points": 160,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          12
+        ]
+      },
+      {
+        "itemId": "ballistus-a",
+        "unitId": "book-blood-angels:unit:56",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          4
+        ]
+      },
+      {
+        "itemId": "ballistus-b",
+        "unitId": "book-blood-angels:unit:56",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          5
+        ]
+      },
+      {
+        "itemId": "intercessors",
+        "unitId": "book-blood-angels:unit:31",
+        "name": "INTERCESSOR SQUAD",
+        "models": 5,
+        "points": 80,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          43,
+          44,
+          45,
+          46,
+          47
+        ]
+      },
+      {
+        "itemId": "hellblasters",
+        "unitId": "book-blood-angels:unit:65",
+        "name": "HELLBLASTER SQUAD",
+        "models": 10,
+        "points": 220,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57
+        ]
+      }
+    ],
+    "physicalFigureReuse": false
+  },
+  "inventoryStrictRoster": {
+    "points": 2000,
+    "units": [
+      {
+        "itemId": "dante",
+        "unitId": "book-blood-angels:unit:3",
+        "name": "COMMANDER DANTE",
+        "models": 1,
+        "points": 125,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          25
+        ]
+      },
+      {
+        "itemId": "astorath",
+        "unitId": "book-blood-angels:unit:0",
+        "name": "ASTORATH",
+        "models": 1,
+        "points": 85,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          33
+        ]
+      },
+      {
+        "itemId": "death-company",
+        "unitId": "book-blood-angels:unit:7",
+        "name": "DEATH COMPANY MARINES WITH JUMP PACKS",
+        "models": 10,
+        "points": 230,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164
+        ]
+      },
+      {
+        "itemId": "vanguard",
+        "unitId": "book-blood-angels:unit:44",
+        "name": "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+        "models": 10,
+        "points": 220,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154
+        ]
+      },
+      {
+        "itemId": "jump-intercessors",
+        "unitId": "book-blood-angels:unit:96",
+        "name": "ASSAULT INTERCESSORS WITH JUMP PACKS",
+        "models": 5,
+        "points": 95,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          140,
+          141,
+          142,
+          143,
+          144
+        ]
+      },
+      {
+        "itemId": "inceptors",
+        "unitId": "book-blood-angels:unit:60",
+        "name": "INCEPTOR SQUAD",
+        "models": 3,
+        "points": 125,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          134,
+          135,
+          136
+        ]
+      },
+      {
+        "itemId": "scouts-a",
+        "unitId": "book-blood-angels:unit:39",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          180,
+          181,
+          182,
+          183,
+          184
+        ]
+      },
+      {
+        "itemId": "scouts-b",
+        "unitId": "book-blood-angels:unit:39",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          185,
+          186,
+          187,
+          188,
+          189
+        ]
+      },
+      {
+        "itemId": "lancer",
+        "unitId": "book-blood-angels:unit:75",
+        "name": "GLADIATOR LANCER",
+        "models": 1,
+        "points": 160,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          12
+        ]
+      },
+      {
+        "itemId": "ballistus-a",
+        "unitId": "book-blood-angels:unit:56",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          4
+        ]
+      },
+      {
+        "itemId": "ballistus-b",
+        "unitId": "book-blood-angels:unit:56",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          5
+        ]
+      },
+      {
+        "itemId": "intercessors",
+        "unitId": "book-blood-angels:unit:31",
+        "name": "INTERCESSOR SQUAD",
+        "models": 5,
+        "points": 80,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          43,
+          44,
+          45,
+          46,
+          47
+        ]
+      },
+      {
+        "itemId": "hellblasters",
+        "unitId": "book-blood-angels:unit:65",
+        "name": "HELLBLASTER SQUAD",
+        "models": 10,
+        "points": 220,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57
+        ]
+      },
+      {
+        "itemId": "lieutenant",
+        "unitId": "book-blood-angels:unit:22",
+        "name": "LIEUTENANT",
+        "models": 1,
+        "points": 45,
+        "enhancement": "Speed of the Primarch",
+        "enhancementCost": 25,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          26
+        ]
+      },
+      {
+        "itemId": "bladeguard",
+        "unitId": "book-blood-angels:unit:43",
+        "name": "BLADEGUARD VETERAN SQUAD",
+        "models": 3,
+        "points": 85,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          18,
+          19,
+          20
+        ]
+      },
+      {
+        "itemId": "reivers",
+        "unitId": "book-blood-angels:unit:47",
+        "name": "REIVER SQUAD",
+        "models": 5,
+        "points": 75,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          68,
+          69,
+          70,
+          71,
+          72
+        ]
+      }
+    ],
+    "physicalFigureReuse": false
+  },
+  "inventoryExceptions": [
+    "3 Sanguinary Guard : unite-cle pour donner a Dante une escorte de frappe et un paquet de projection coherent.",
+    "Captain with Jump Pack : second cadre aerien, ajoute pour que les Vanguard aient leur propre Leader sans reutiliser la figurine physique de Dante."
+  ],
+  "strictLoss": "La variante stricte remplace exactement la Sanguinary Guard et le Captain with Jump Pack par un Lieutenant avec Speed of the Primarch, trois Bladeguard et cinq Reivers. Elle conserve 2 000 points, mais perd une vague de charge aerienne et transforme 230 points de projection en presence de milieu et outil de mission.",
+  "groups": [
+    [
+      "Garde du ciel",
+      250,
+      "Dante et 3 Sanguinary Guard",
+      "Choisir la cible structurante et garder une sortie apres l'echange."
+    ],
+    [
+      "Compagnie de la mort",
+      315,
+      "Astorath et 10 Death Company Marines with Jump Packs",
+      "Premiere vague de rupture ou menace qui force l'ecran adverse."
+    ],
+    [
+      "Vague Liberator",
+      325,
+      "Captain with Jump Pack, Speed of the Primarch et 10 Vanguard Veterans",
+      "Menace de contre-charge et paquet qui ne doit pas etre depense avant la bascule centrale."
+    ],
+    [
+      "Mission rapide",
+      350,
+      "5 Jump Intercessors, 3 Inceptors et 2 x 5 Scouts",
+      "Actions, largeur, ecrans, secondaires et reserve du cinquieme round."
+    ],
+    [
+      "Couverture antichar",
+      460,
+      "Gladiator Lancer et 2 Ballistus",
+      "Ouvrir les transports, casser les briques qui empechent les charges utiles."
+    ],
+    [
+      "Socle flexible",
+      300,
+      "5 Intercessors et 10 Hellblasters",
+      "Home, tir intermediaire et unite qui n'a pas besoin de charger pour contribuer."
+    ]
+  ],
+  "scenarioPlans": [
+    {
+      "mission": "Battlefield Dominance",
+      "opponent": "Take and Hold",
+      "missionId": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold",
+      "thesis": "Gagner la majorite par vagues : construire deux objectifs solides, puis rendre instable le troisieme objectif adverse.",
+      "support": "Un objectif central-decale avec deux zones de staging, afin que deux vagues Jump ne soient jamais exposees au meme contre-feu.",
+      "preserve": "une vague de charge, une unite rapide de secondaire et au moins deux plateformes antichar",
+      "first": "Installer les Scouts et les lanes; menacer deux charges sans livrer la Death Company avant que l'ecran adverse soit identifie.",
+      "second": "Utiliser la derniere information pour lancer une seule vague utile, puis placer la suivante hors de la reponse directe.",
+      "lesson": "Red Thirst augmente une charge utile; il ne transforme pas une charge sans plan de controle en bonne decision.",
+      "rounds": [
+        "R1 : mesurer les axes, proteger les operateurs et refuser l'exposition simultanee des couches.",
+        "R2 : engager une seule ressource offensive et conserver une releve a distance de la reponse adverse.",
+        "R3 : remplacer la premiere couche usee, puis choisir si le centre ou un flanc devient la priorite.",
+        "R4 : attribuer des maintenant chaque unite survivante au primaire, a une secondaire ou a la bascule finale.",
+        "R5 : compter l'OC et les positions legales avant les dommages; la derniere unite mobile ne poursuit pas une cible secondaire."
+      ],
+      "abort": "Si operateur, releve et soutien peuvent etre touches par la meme reponse, reduire l'ambition et reconstruire la profondeur.",
+      "fallback": "Tenir deux positions, nettoyer l'unite qui produit le double rendement adverse et reporter l'activation de score plutot que l'annoncer acquise.",
+      "secondary": "Confier la carte a l'unite la moins structurante. Une Scout ou une petite unite mobile porte l'Action laterale; la brique centrale ne quitte le primaire que si les deux objectifs se superposent vraiment.",
+      "setup": "Au debut du round 3 de Battlefield Dominance, l'adversaire peut contester l'objectif cle avec une unite ecran et garde sa piece de contre-attaque en retrait.",
+      "decision": "Envoyer la piece la plus puissante maintenant, ou retirer l'ecran avec une couche secondaire avant de basculer ?",
+      "a": "Si le nettoyage ouvre l'objectif sans exposer la releve, utiliser le tir ou la petite vague, puis conserver la brique principale pour la reprise.",
+      "b": "Si la cible restera contestee ou si le contre-jeu prend deux couches a la fois, tenir la position, ecranter et reporter la bascule."
+    },
+    {
+      "mission": "Immovable Object",
+      "opponent": "Purge the Foe",
+      "missionId": "gdm-2026-primary-immovable-object-take-and-hold-vs-purge-the-foe",
+      "thesis": "Refuser les activations faciles : chaque unite exposee doit acheter du score, du tempo ou une reprise, jamais seulement des dommages.",
+      "support": "Un objectif central-decale avec deux zones de staging, afin que deux vagues Jump ne soient jamais exposees au meme contre-feu.",
+      "preserve": "une vague de charge, une unite rapide de secondaire et au moins deux plateformes antichar",
+      "first": "Installer les Scouts et les lanes; menacer deux charges sans livrer la Death Company avant que l'ecran adverse soit identifie.",
+      "second": "Utiliser la derniere information pour lancer une seule vague utile, puis placer la suivante hors de la reponse directe.",
+      "lesson": "Red Thirst augmente une charge utile; il ne transforme pas une charge sans plan de controle en bonne decision.",
+      "rounds": [
+        "R1 : mesurer les axes, proteger les operateurs et refuser l'exposition simultanee des couches.",
+        "R2 : engager une seule ressource offensive et conserver une releve a distance de la reponse adverse.",
+        "R3 : remplacer la premiere couche usee, puis choisir si le centre ou un flanc devient la priorite.",
+        "R4 : attribuer des maintenant chaque unite survivante au primaire, a une secondaire ou a la bascule finale.",
+        "R5 : compter l'OC et les positions legales avant les dommages; la derniere unite mobile ne poursuit pas une cible secondaire."
+      ],
+      "abort": "Si operateur, releve et soutien peuvent etre touches par la meme reponse, reduire l'ambition et reconstruire la profondeur.",
+      "fallback": "Tenir deux positions, nettoyer l'unite qui produit le double rendement adverse et reporter l'activation de score plutot que l'annoncer acquise.",
+      "secondary": "Confier la carte a l'unite la moins structurante. Une Scout ou une petite unite mobile porte l'Action laterale; la brique centrale ne quitte le primaire que si les deux objectifs se superposent vraiment.",
+      "setup": "Au debut du round 3 de Immovable Object, l'adversaire peut contester l'objectif cle avec une unite ecran et garde sa piece de contre-attaque en retrait.",
+      "decision": "Envoyer la piece la plus puissante maintenant, ou retirer l'ecran avec une couche secondaire avant de basculer ?",
+      "a": "Si le nettoyage ouvre l'objectif sans exposer la releve, utiliser le tir ou la petite vague, puis conserver la brique principale pour la reprise.",
+      "b": "Si la cible restera contestee ou si le contre-jeu prend deux couches a la fois, tenir la position, ecranter et reporter la bascule."
+    },
+    {
+      "mission": "Determined Acquisition",
+      "opponent": "Disruption",
+      "missionId": "gdm-2026-primary-determined-acquisition-take-and-hold-vs-disruption",
+      "thesis": "Proteger la sequence : distinguer l'operateur, l'ecran et l'unite qui retire le verrou adverse.",
+      "support": "Un objectif central-decale avec deux zones de staging, afin que deux vagues Jump ne soient jamais exposees au meme contre-feu.",
+      "preserve": "une vague de charge, une unite rapide de secondaire et au moins deux plateformes antichar",
+      "first": "Installer les Scouts et les lanes; menacer deux charges sans livrer la Death Company avant que l'ecran adverse soit identifie.",
+      "second": "Utiliser la derniere information pour lancer une seule vague utile, puis placer la suivante hors de la reponse directe.",
+      "lesson": "Red Thirst augmente une charge utile; il ne transforme pas une charge sans plan de controle en bonne decision.",
+      "rounds": [
+        "R1 : mesurer les axes, proteger les operateurs et refuser l'exposition simultanee des couches.",
+        "R2 : engager une seule ressource offensive et conserver une releve a distance de la reponse adverse.",
+        "R3 : remplacer la premiere couche usee, puis choisir si le centre ou un flanc devient la priorite.",
+        "R4 : attribuer des maintenant chaque unite survivante au primaire, a une secondaire ou a la bascule finale.",
+        "R5 : compter l'OC et les positions legales avant les dommages; la derniere unite mobile ne poursuit pas une cible secondaire."
+      ],
+      "abort": "Si operateur, releve et soutien peuvent etre touches par la meme reponse, reduire l'ambition et reconstruire la profondeur.",
+      "fallback": "Tenir deux positions, nettoyer l'unite qui produit le double rendement adverse et reporter l'activation de score plutot que l'annoncer acquise.",
+      "secondary": "Confier la carte a l'unite la moins structurante. Une Scout ou une petite unite mobile porte l'Action laterale; la brique centrale ne quitte le primaire que si les deux objectifs se superposent vraiment.",
+      "setup": "Au debut du round 3 de Determined Acquisition, l'adversaire peut contester l'objectif cle avec une unite ecran et garde sa piece de contre-attaque en retrait.",
+      "decision": "Envoyer la piece la plus puissante maintenant, ou retirer l'ecran avec une couche secondaire avant de basculer ?",
+      "a": "Si le nettoyage ouvre l'objectif sans exposer la releve, utiliser le tir ou la petite vague, puis conserver la brique principale pour la reprise.",
+      "b": "Si la cible restera contestee ou si le contre-jeu prend deux couches a la fois, tenir la position, ecranter et reporter la bascule."
+    },
+    {
+      "mission": "Purge and Secure",
+      "opponent": "Reconnaissance",
+      "missionId": "gdm-2026-primary-purge-and-secure-take-and-hold-vs-reconnaissance",
+      "thesis": "Ne pas courir apres toute la largeur : fermer l'axe qui change le primaire et conceder temporairement le flanc secondaire.",
+      "support": "Un objectif central-decale avec deux zones de staging, afin que deux vagues Jump ne soient jamais exposees au meme contre-feu.",
+      "preserve": "une vague de charge, une unite rapide de secondaire et au moins deux plateformes antichar",
+      "first": "Installer les Scouts et les lanes; menacer deux charges sans livrer la Death Company avant que l'ecran adverse soit identifie.",
+      "second": "Utiliser la derniere information pour lancer une seule vague utile, puis placer la suivante hors de la reponse directe.",
+      "lesson": "Red Thirst augmente une charge utile; il ne transforme pas une charge sans plan de controle en bonne decision.",
+      "rounds": [
+        "R1 : mesurer les axes, proteger les operateurs et refuser l'exposition simultanee des couches.",
+        "R2 : engager une seule ressource offensive et conserver une releve a distance de la reponse adverse.",
+        "R3 : remplacer la premiere couche usee, puis choisir si le centre ou un flanc devient la priorite.",
+        "R4 : attribuer des maintenant chaque unite survivante au primaire, a une secondaire ou a la bascule finale.",
+        "R5 : compter l'OC et les positions legales avant les dommages; la derniere unite mobile ne poursuit pas une cible secondaire."
+      ],
+      "abort": "Si operateur, releve et soutien peuvent etre touches par la meme reponse, reduire l'ambition et reconstruire la profondeur.",
+      "fallback": "Tenir deux positions, nettoyer l'unite qui produit le double rendement adverse et reporter l'activation de score plutot que l'annoncer acquise.",
+      "secondary": "Confier la carte a l'unite la moins structurante. Une Scout ou une petite unite mobile porte l'Action laterale; la brique centrale ne quitte le primaire que si les deux objectifs se superposent vraiment.",
+      "setup": "Au debut du round 3 de Purge and Secure, l'adversaire peut contester l'objectif cle avec une unite ecran et garde sa piece de contre-attaque en retrait.",
+      "decision": "Envoyer la piece la plus puissante maintenant, ou retirer l'ecran avec une couche secondaire avant de basculer ?",
+      "a": "Si le nettoyage ouvre l'objectif sans exposer la releve, utiliser le tir ou la petite vague, puis conserver la brique principale pour la reprise.",
+      "b": "Si la cible restera contestee ou si le contre-jeu prend deux couches a la fois, tenir la position, ecranter et reporter la bascule."
+    },
+    {
+      "mission": "Inescapable Dominion",
+      "opponent": "Priority Assets",
+      "missionId": "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+      "thesis": "Casser le tempo de l'operateur adverse tout en gardant sa propre majorite ou sa propre ressource defendable.",
+      "support": "Un objectif central-decale avec deux zones de staging, afin que deux vagues Jump ne soient jamais exposees au meme contre-feu.",
+      "preserve": "une vague de charge, une unite rapide de secondaire et au moins deux plateformes antichar",
+      "first": "Installer les Scouts et les lanes; menacer deux charges sans livrer la Death Company avant que l'ecran adverse soit identifie.",
+      "second": "Utiliser la derniere information pour lancer une seule vague utile, puis placer la suivante hors de la reponse directe.",
+      "lesson": "Red Thirst augmente une charge utile; il ne transforme pas une charge sans plan de controle en bonne decision.",
+      "rounds": [
+        "R1 : mesurer les axes, proteger les operateurs et refuser l'exposition simultanee des couches.",
+        "R2 : engager une seule ressource offensive et conserver une releve a distance de la reponse adverse.",
+        "R3 : remplacer la premiere couche usee, puis choisir si le centre ou un flanc devient la priorite.",
+        "R4 : attribuer des maintenant chaque unite survivante au primaire, a une secondaire ou a la bascule finale.",
+        "R5 : compter l'OC et les positions legales avant les dommages; la derniere unite mobile ne poursuit pas une cible secondaire."
+      ],
+      "abort": "Si operateur, releve et soutien peuvent etre touches par la meme reponse, reduire l'ambition et reconstruire la profondeur.",
+      "fallback": "Tenir deux positions, nettoyer l'unite qui produit le double rendement adverse et reporter l'activation de score plutot que l'annoncer acquise.",
+      "secondary": "Confier la carte a l'unite la moins structurante. Une Scout ou une petite unite mobile porte l'Action laterale; la brique centrale ne quitte le primaire que si les deux objectifs se superposent vraiment.",
+      "setup": "Au debut du round 3 de Inescapable Dominion, l'adversaire peut contester l'objectif cle avec une unite ecran et garde sa piece de contre-attaque en retrait.",
+      "decision": "Envoyer la piece la plus puissante maintenant, ou retirer l'ecran avec une couche secondaire avant de basculer ?",
+      "a": "Si le nettoyage ouvre l'objectif sans exposer la releve, utiliser le tir ou la petite vague, puis conserver la brique principale pour la reprise.",
+      "b": "Si la cible restera contestee ou si le contre-jeu prend deux couches a la fois, tenir la position, ecranter et reporter la bascule."
+    }
+  ],
+  "primaryMatchups": [
+    {
+      "guideId": "primary-guide-take-and-hold-vs-take-and-hold",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold",
+        "kind": "primary-card",
+        "title": "Battlefield Dominance — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/take-and-hold/battlefield-dominance",
+        "forceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control"
+        ],
+        "scoringWindows": [
+          "Fenêtre archivée : FIRST & SECOND BATTLE ROUND — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round)."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-take-and-hold-alpha-scoring",
+        "primary-guide-take-and-hold-vs-take-and-hold-alpha-plan",
+        "primary-guide-take-and-hold-vs-take-and-hold-alpha-pitfall",
+        "primary-guide-take-and-hold-vs-take-and-hold-alpha-counterplay",
+        "primary-guide-take-and-hold-vs-take-and-hold-global-interaction",
+        "primary-guide-take-and-hold-vs-take-and-hold-global-round-five"
+      ]
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-disruption",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-determined-acquisition-take-and-hold-vs-disruption",
+        "kind": "primary-card",
+        "title": "Determined Acquisition — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/take-and-hold/determined-acquisition",
+        "forceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-disruption",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round)."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-disruption-alpha-scoring",
+        "primary-guide-take-and-hold-vs-disruption-alpha-plan",
+        "primary-guide-take-and-hold-vs-disruption-alpha-pitfall",
+        "primary-guide-take-and-hold-vs-disruption-alpha-counterplay",
+        "primary-guide-take-and-hold-vs-disruption-global-interaction",
+        "primary-guide-take-and-hold-vs-disruption-global-round-five"
+      ]
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-purge-the-foe",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-immovable-object-take-and-hold-vs-purge-the-foe",
+        "kind": "primary-card",
+        "title": "Immovable Object — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/take-and-hold/immovable-object",
+        "forceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-purge-the-foe",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "Fenêtre archivée : SECOND TO FOURTH BATTLE ROUND — à la fin de votre phase de Commandement.",
+          "Fenêtre archivée : FIFTH BATTLE ROUND — à la fin de votre tour."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-purge-the-foe-alpha-scoring",
+        "primary-guide-take-and-hold-vs-purge-the-foe-alpha-plan",
+        "primary-guide-take-and-hold-vs-purge-the-foe-alpha-pitfall",
+        "primary-guide-take-and-hold-vs-purge-the-foe-alpha-counterplay",
+        "primary-guide-take-and-hold-vs-purge-the-foe-global-interaction",
+        "primary-guide-take-and-hold-vs-purge-the-foe-global-round-five"
+      ]
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-priority-assets",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+        "kind": "primary-card",
+        "title": "Inescapable Dominion — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/take-and-hold/inescapable-dominion",
+        "forceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round).",
+          "À la fin de la bataille — déclencheur archivé : None."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-priority-assets-alpha-scoring",
+        "primary-guide-take-and-hold-vs-priority-assets-alpha-plan",
+        "primary-guide-take-and-hold-vs-priority-assets-alpha-pitfall",
+        "primary-guide-take-and-hold-vs-priority-assets-alpha-counterplay",
+        "primary-guide-take-and-hold-vs-priority-assets-global-interaction",
+        "primary-guide-take-and-hold-vs-priority-assets-global-round-five"
+      ]
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-reconnaissance",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-purge-and-secure-take-and-hold-vs-reconnaissance",
+        "kind": "primary-card",
+        "title": "Purge and Secure — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/take-and-hold/purge-and-secure",
+        "forceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-reconnaissance",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo",
+          "damage-projection"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round).",
+          "À partir du deuxième round de bataille — à la fin de votre tour."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-reconnaissance-alpha-scoring",
+        "primary-guide-take-and-hold-vs-reconnaissance-alpha-plan",
+        "primary-guide-take-and-hold-vs-reconnaissance-alpha-pitfall",
+        "primary-guide-take-and-hold-vs-reconnaissance-alpha-counterplay",
+        "primary-guide-take-and-hold-vs-reconnaissance-global-interaction",
+        "primary-guide-take-and-hold-vs-reconnaissance-global-round-five"
+      ]
+    }
+  ],
+  "secondaryMissions": [
+    {
+      "id": "secondary-guide-a-grievous-blow",
+      "title": "A Grievous Blow",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-a-grievous-blow-scoring-model",
+        "secondary-a-grievous-blow-list-construction",
+        "secondary-a-grievous-blow-advantage",
+        "secondary-a-grievous-blow-pitfall",
+        "secondary-a-grievous-blow-counterplay",
+        "secondary-a-grievous-blow-play-pattern",
+        "secondary-a-grievous-blow-tradeoff",
+        "secondary-a-grievous-blow-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-a-grievous-blow"
+      ]
+    },
+    {
+      "id": "secondary-guide-a-tempting-target",
+      "title": "A Tempting Target",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-a-tempting-target-scoring-model",
+        "secondary-a-tempting-target-list-construction",
+        "secondary-a-tempting-target-advantage",
+        "secondary-a-tempting-target-pitfall",
+        "secondary-a-tempting-target-counterplay",
+        "secondary-a-tempting-target-play-pattern",
+        "secondary-a-tempting-target-tradeoff",
+        "secondary-a-tempting-target-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-a-tempting-target"
+      ]
+    },
+    {
+      "id": "secondary-guide-assassination",
+      "title": "Assassination",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-assassination-scoring-model",
+        "secondary-assassination-list-construction",
+        "secondary-assassination-advantage",
+        "secondary-assassination-pitfall",
+        "secondary-assassination-counterplay",
+        "secondary-assassination-play-pattern",
+        "secondary-assassination-tradeoff",
+        "secondary-assassination-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-assassination"
+      ]
+    },
+    {
+      "id": "secondary-guide-beacon",
+      "title": "Beacon",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "action-capacity",
+          "importance": "supporting",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        }
+      ],
+      "claimIds": [
+        "secondary-beacon-scoring-model",
+        "secondary-beacon-list-construction",
+        "secondary-beacon-advantage",
+        "secondary-beacon-pitfall",
+        "secondary-beacon-counterplay",
+        "secondary-beacon-play-pattern",
+        "secondary-beacon-tradeoff",
+        "secondary-beacon-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-beacon"
+      ]
+    },
+    {
+      "id": "secondary-guide-behind-enemy-lines",
+      "title": "Behind Enemy Lines",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-behind-enemy-lines-scoring-model",
+        "secondary-behind-enemy-lines-list-construction",
+        "secondary-behind-enemy-lines-advantage",
+        "secondary-behind-enemy-lines-pitfall",
+        "secondary-behind-enemy-lines-counterplay",
+        "secondary-behind-enemy-lines-play-pattern",
+        "secondary-behind-enemy-lines-tradeoff",
+        "secondary-behind-enemy-lines-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-behind-enemy-lines"
+      ]
+    },
+    {
+      "id": "secondary-guide-bring-it-down",
+      "title": "Bring It Down",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-bring-it-down-scoring-model",
+        "secondary-bring-it-down-list-construction",
+        "secondary-bring-it-down-advantage",
+        "secondary-bring-it-down-pitfall",
+        "secondary-bring-it-down-counterplay",
+        "secondary-bring-it-down-play-pattern",
+        "secondary-bring-it-down-tradeoff",
+        "secondary-bring-it-down-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-bring-it-down"
+      ]
+    },
+    {
+      "id": "secondary-guide-burden-of-trust",
+      "title": "Burden of Trust",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-burden-of-trust-scoring-model",
+        "secondary-burden-of-trust-list-construction",
+        "secondary-burden-of-trust-advantage",
+        "secondary-burden-of-trust-pitfall",
+        "secondary-burden-of-trust-counterplay",
+        "secondary-burden-of-trust-play-pattern",
+        "secondary-burden-of-trust-tradeoff",
+        "secondary-burden-of-trust-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-burden-of-trust"
+      ]
+    },
+    {
+      "id": "secondary-guide-centre-ground",
+      "title": "Centre Ground",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-centre-ground-scoring-model",
+        "secondary-centre-ground-list-construction",
+        "secondary-centre-ground-advantage",
+        "secondary-centre-ground-pitfall",
+        "secondary-centre-ground-counterplay",
+        "secondary-centre-ground-play-pattern",
+        "secondary-centre-ground-tradeoff",
+        "secondary-centre-ground-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-centre-ground"
+      ]
+    },
+    {
+      "id": "secondary-guide-cleanse",
+      "title": "Cleanse",
+      "familyId": "actions-operations",
+      "capabilityRequirements": [
+        {
+          "capability": "action-capacity",
+          "importance": "core",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "objective-control",
+          "importance": "supporting",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        }
+      ],
+      "claimIds": [
+        "secondary-cleanse-scoring-model",
+        "secondary-cleanse-list-construction",
+        "secondary-cleanse-advantage",
+        "secondary-cleanse-pitfall",
+        "secondary-cleanse-counterplay",
+        "secondary-cleanse-play-pattern",
+        "secondary-cleanse-tradeoff",
+        "secondary-cleanse-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-cleanse"
+      ]
+    },
+    {
+      "id": "secondary-guide-defend-stronghold",
+      "title": "Defend Stronghold",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-defend-stronghold-scoring-model",
+        "secondary-defend-stronghold-list-construction",
+        "secondary-defend-stronghold-advantage",
+        "secondary-defend-stronghold-pitfall",
+        "secondary-defend-stronghold-counterplay",
+        "secondary-defend-stronghold-play-pattern",
+        "secondary-defend-stronghold-tradeoff",
+        "secondary-defend-stronghold-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-defend-stronghold"
+      ]
+    },
+    {
+      "id": "secondary-guide-display-of-might",
+      "title": "Display of Might",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-display-of-might-scoring-model",
+        "secondary-display-of-might-list-construction",
+        "secondary-display-of-might-advantage",
+        "secondary-display-of-might-pitfall",
+        "secondary-display-of-might-counterplay",
+        "secondary-display-of-might-play-pattern",
+        "secondary-display-of-might-tradeoff",
+        "secondary-display-of-might-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-display-of-might"
+      ]
+    },
+    {
+      "id": "secondary-guide-engage-on-all-fronts",
+      "title": "Engage on All Fronts",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-engage-on-all-fronts-scoring-model",
+        "secondary-engage-on-all-fronts-list-construction",
+        "secondary-engage-on-all-fronts-advantage",
+        "secondary-engage-on-all-fronts-pitfall",
+        "secondary-engage-on-all-fronts-counterplay",
+        "secondary-engage-on-all-fronts-play-pattern",
+        "secondary-engage-on-all-fronts-tradeoff",
+        "secondary-engage-on-all-fronts-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-engage-on-all-fronts"
+      ]
+    },
+    {
+      "id": "secondary-guide-forward-position",
+      "title": "Forward Position",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-forward-position-scoring-model",
+        "secondary-forward-position-list-construction",
+        "secondary-forward-position-advantage",
+        "secondary-forward-position-pitfall",
+        "secondary-forward-position-counterplay",
+        "secondary-forward-position-play-pattern",
+        "secondary-forward-position-tradeoff",
+        "secondary-forward-position-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-forward-position"
+      ]
+    },
+    {
+      "id": "secondary-guide-no-prisoners",
+      "title": "No Prisoners",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-no-prisoners-scoring-model",
+        "secondary-no-prisoners-list-construction",
+        "secondary-no-prisoners-advantage",
+        "secondary-no-prisoners-pitfall",
+        "secondary-no-prisoners-counterplay",
+        "secondary-no-prisoners-play-pattern",
+        "secondary-no-prisoners-tradeoff",
+        "secondary-no-prisoners-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-no-prisoners"
+      ]
+    },
+    {
+      "id": "secondary-guide-outflank",
+      "title": "Outflank",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-outflank-scoring-model",
+        "secondary-outflank-list-construction",
+        "secondary-outflank-advantage",
+        "secondary-outflank-pitfall",
+        "secondary-outflank-counterplay",
+        "secondary-outflank-play-pattern",
+        "secondary-outflank-tradeoff",
+        "secondary-outflank-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-outflank"
+      ]
+    },
+    {
+      "id": "secondary-guide-overwhelming-force",
+      "title": "Overwhelming Force",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-overwhelming-force-scoring-model",
+        "secondary-overwhelming-force-list-construction",
+        "secondary-overwhelming-force-advantage",
+        "secondary-overwhelming-force-pitfall",
+        "secondary-overwhelming-force-counterplay",
+        "secondary-overwhelming-force-play-pattern",
+        "secondary-overwhelming-force-tradeoff",
+        "secondary-overwhelming-force-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-overwhelming-force"
+      ]
+    },
+    {
+      "id": "secondary-guide-plunder",
+      "title": "Plunder",
+      "familyId": "actions-operations",
+      "capabilityRequirements": [
+        {
+          "capability": "action-capacity",
+          "importance": "core",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "territorial-projection",
+          "importance": "supporting",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        }
+      ],
+      "claimIds": [
+        "secondary-plunder-scoring-model",
+        "secondary-plunder-list-construction",
+        "secondary-plunder-advantage",
+        "secondary-plunder-pitfall",
+        "secondary-plunder-counterplay",
+        "secondary-plunder-play-pattern",
+        "secondary-plunder-tradeoff",
+        "secondary-plunder-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-plunder"
+      ]
+    },
+    {
+      "id": "secondary-guide-secure-no-man-s-land",
+      "title": "Secure No Man's Land",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-secure-no-man-s-land-scoring-model",
+        "secondary-secure-no-man-s-land-list-construction",
+        "secondary-secure-no-man-s-land-advantage",
+        "secondary-secure-no-man-s-land-pitfall",
+        "secondary-secure-no-man-s-land-counterplay",
+        "secondary-secure-no-man-s-land-play-pattern",
+        "secondary-secure-no-man-s-land-tradeoff",
+        "secondary-secure-no-man-s-land-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-secure-no-man-s-land"
+      ]
+    }
+  ],
+  "capabilities": [
+    "action-capacity",
+    "concentrated-damage",
+    "distributed-damage",
+    "durable-presence",
+    "independent-units",
+    "objective-control",
+    "screening",
+    "target-access",
+    "territorial-projection",
+    "unit-redundancy"
+  ],
+  "statistics": {
+    "distances": [
+      0,
+      9,
+      12,
+      18,
+      24,
+      36
+    ],
+    "series": [
+      [
+        "Death Company Jump",
+        [
+          [
+            0,
+            3.3332109880766954
+          ],
+          [
+            9,
+            0.8333333333333335
+          ],
+          [
+            12,
+            0.8333333333333335
+          ],
+          [
+            18,
+            0.8333333333333335
+          ],
+          [
+            24,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ],
+      [
+        "Vanguard Veterans",
+        [
+          [
+            0,
+            4.442655833367322
+          ],
+          [
+            9,
+            0.5555555555555556
+          ],
+          [
+            12,
+            0.5555555555555556
+          ],
+          [
+            18,
+            0
+          ],
+          [
+            24,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ],
+      [
+        "Gladiator Lancer",
+        [
+          [
+            0,
+            0.33333333333333337
+          ],
+          [
+            9,
+            3.111110637895733
+          ],
+          [
+            12,
+            3.111110637895733
+          ],
+          [
+            18,
+            2.666666666666667
+          ],
+          [
+            24,
+            2.666666666666667
+          ],
+          [
+            36,
+            2.2222222222222223
+          ]
+        ]
+      ]
+    ],
+    "assumptions": [
+      "catalogue-only",
+      "neutral-baseline",
+      "target-visible",
+      "no-cover",
+      "no-external-buffs",
+      "melee-and-shooting-separated",
+      "rapid-fire-and-melta-active-at-inclusive-half-range",
+      "pistol-and-standard-ranged-are-exclusive-for-non-monster-non-vehicle",
+      "unsupported-effects-never-applied"
+    ],
+    "catalogFingerprint": "fnv1a-32fc3f46-5031198"
+  },
+  "analyses": {
+    "prudent": {
+      "id": "blood-angels:2000:liberator-assault-group",
+      "factionId": "Blood Angels",
+      "battleSize": 2000,
+      "dpBudget": 3,
+      "kind": "single",
+      "detachmentIds": [
+        "book-blood-angels:detachment:0"
+      ],
+      "detachmentNames": [
+        "LIBERATOR ASSAULT GROUP"
+      ],
+      "detachmentSources": [
+        "Blood Angels"
+      ],
+      "dpCost": 3,
+      "chapterLock": "Blood Angels",
+      "forceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "primaryMissionScores": [
+        {
+          "id": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold",
+          "title": "Battlefield Dominance — briefing GDM",
+          "score": 88.73
+        },
+        {
+          "id": "gdm-2026-primary-determined-acquisition-take-and-hold-vs-disruption",
+          "title": "Determined Acquisition — briefing GDM",
+          "score": 88.39
+        },
+        {
+          "id": "gdm-2026-primary-immovable-object-take-and-hold-vs-purge-the-foe",
+          "title": "Immovable Object — briefing GDM",
+          "score": 88.73
+        },
+        {
+          "id": "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+          "title": "Inescapable Dominion — briefing GDM",
+          "score": 88.73
+        },
+        {
+          "id": "gdm-2026-primary-purge-and-secure-take-and-hold-vs-reconnaissance",
+          "title": "Purge and Secure — briefing GDM",
+          "score": 88.55
+        }
+      ],
+      "secondaryMissionScores": [
+        {
+          "id": "gdm-2026-secondary-a-grievous-blow",
+          "title": "A Grievous Blow",
+          "familyId": "destruction-targeted",
+          "score": 89.17
+        },
+        {
+          "id": "gdm-2026-secondary-a-tempting-target",
+          "title": "A Tempting Target",
+          "familyId": "objective-control",
+          "score": 88.56
+        },
+        {
+          "id": "gdm-2026-secondary-assassination",
+          "title": "Assassination",
+          "familyId": "destruction-targeted",
+          "score": 89.17
+        },
+        {
+          "id": "gdm-2026-secondary-beacon",
+          "title": "Beacon",
+          "familyId": "territorial-projection",
+          "score": 86.96
+        },
+        {
+          "id": "gdm-2026-secondary-behind-enemy-lines",
+          "title": "Behind Enemy Lines",
+          "familyId": "territorial-projection",
+          "score": 86.44
+        },
+        {
+          "id": "gdm-2026-secondary-bring-it-down",
+          "title": "Bring It Down",
+          "familyId": "destruction-targeted",
+          "score": 89.17
+        },
+        {
+          "id": "gdm-2026-secondary-burden-of-trust",
+          "title": "Burden of Trust",
+          "familyId": "objective-control",
+          "score": 88.56
+        },
+        {
+          "id": "gdm-2026-secondary-centre-ground",
+          "title": "Centre Ground",
+          "familyId": "territorial-projection",
+          "score": 86.46
+        },
+        {
+          "id": "gdm-2026-secondary-cleanse",
+          "title": "Cleanse",
+          "familyId": "actions-operations",
+          "score": 88.54
+        },
+        {
+          "id": "gdm-2026-secondary-defend-stronghold",
+          "title": "Defend Stronghold",
+          "familyId": "objective-control",
+          "score": 88.56
+        },
+        {
+          "id": "gdm-2026-secondary-display-of-might",
+          "title": "Display of Might",
+          "familyId": "territorial-projection",
+          "score": 86.46
+        },
+        {
+          "id": "gdm-2026-secondary-engage-on-all-fronts",
+          "title": "Engage on All Fronts",
+          "familyId": "territorial-projection",
+          "score": 86.46
+        },
+        {
+          "id": "gdm-2026-secondary-forward-position",
+          "title": "Forward Position",
+          "familyId": "objective-control",
+          "score": 88.56
+        },
+        {
+          "id": "gdm-2026-secondary-no-prisoners",
+          "title": "No Prisoners",
+          "familyId": "destruction-targeted",
+          "score": 89.17
+        },
+        {
+          "id": "gdm-2026-secondary-outflank",
+          "title": "Outflank",
+          "familyId": "territorial-projection",
+          "score": 86.44
+        },
+        {
+          "id": "gdm-2026-secondary-overwhelming-force",
+          "title": "Overwhelming Force",
+          "familyId": "destruction-targeted",
+          "score": 89.17
+        },
+        {
+          "id": "gdm-2026-secondary-plunder",
+          "title": "Plunder",
+          "familyId": "actions-operations",
+          "score": 88.27
+        },
+        {
+          "id": "gdm-2026-secondary-secure-no-man-s-land",
+          "title": "Secure No Man's Land",
+          "familyId": "objective-control",
+          "score": 88.56
+        }
+      ],
+      "capabilityScores": {
+        "action-capacity": 89.13,
+        "concentrated-damage": 89.13,
+        "distributed-damage": 89.13,
+        "durable-presence": 89.33,
+        "independent-units": 85.71,
+        "objective-control": 89.12,
+        "screening": 86.33,
+        "target-access": 89.33,
+        "territorial-projection": 87.7,
+        "unit-redundancy": 85.67
+      },
+      "scores": {
+        "primary": 88.6,
+        "secondary": 87.46,
+        "inventory": 94.38,
+        "ruleAndStratagem": 79.59,
+        "enhancement": 85.35,
+        "flexibility": 91.4,
+        "total": 87.48
+      },
+      "analyticalCoverage": 27.27,
+      "confidence": "low",
+      "supportedEffects": 0,
+      "partialEffects": 5,
+      "unsupportedEffects": 6,
+      "warnings": [
+        "Inférence préliminaire : les conditions de phase, de portée, de cible et de PC ne sont pas supposées satisfaites.",
+        "6 effet(s) non classé(s) contribuent à la baisse de couverture."
+      ],
+      "rank": 1,
+      "core": [
+        {
+          "unitId": "book-blood-angels:unit:96",
+          "name": "ASSAULT INTERCESSORS WITH JUMP PACKS",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 95,
+          "minimumModels": 5,
+          "figureIds": [
+            140,
+            141,
+            142,
+            143,
+            144
+          ],
+          "realCount": 0,
+          "proxyCount": 5,
+          "capabilities": [
+            "screening",
+            "action-capacity",
+            "independent-units"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/assault-intercessors-with-jump-packs.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 3.33,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-blood-angels:unit:44",
+          "name": "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 110,
+          "minimumModels": 5,
+          "figureIds": [
+            145,
+            146,
+            147,
+            148,
+            149
+          ],
+          "realCount": 5,
+          "proxyCount": 0,
+          "capabilities": [
+            "screening",
+            "action-capacity",
+            "independent-units"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Melta",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/vanguard-veteran-squad.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 4.44,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.56,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.56,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-blood-angels:unit:57",
+          "name": "OUTRIDER SQUAD",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 75,
+          "minimumModels": 3,
+          "figureIds": [
+            137,
+            138,
+            139
+          ],
+          "realCount": 3,
+          "proxyCount": 0,
+          "capabilities": [
+            "durable-presence",
+            "objective-control",
+            "independent-units"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Melta"
+          ],
+          "imageAsset": "img/units/outrider-squad.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 2.56,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 3.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 3.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 3.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 3.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-blood-angels:unit:61",
+          "name": "LAND SPEEDER",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 105,
+          "minimumModels": 1,
+          "figureIds": [
+            7
+          ],
+          "realCount": 1,
+          "proxyCount": 0,
+          "capabilities": [
+            "action-capacity",
+            "independent-units",
+            "screening"
+          ],
+          "weaponKeywords": [
+            "Melta",
+            "Torrent"
+          ],
+          "imageAsset": "img/units/land-speeder.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 0.44,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 4.7,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 4.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 4.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 2.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0.93,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-blood-angels:unit:7",
+          "name": "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 120,
+          "minimumModels": 5,
+          "figureIds": [
+            150,
+            151,
+            152,
+            153,
+            154
+          ],
+          "realCount": 0,
+          "proxyCount": 5,
+          "capabilities": [
+            "screening",
+            "territorial-projection",
+            "target-access"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Melta",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/death-company-marines.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 3.33,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-blood-angels:unit:48",
+          "name": "AGGRESSOR SQUAD",
+          "assignedDetachmentId": "book-blood-angels:detachment:0",
+          "assignedDetachmentName": "LIBERATOR ASSAULT GROUP",
+          "points": 80,
+          "minimumModels": 3,
+          "figureIds": [
+            120,
+            121,
+            122
+          ],
+          "realCount": 0,
+          "proxyCount": 3,
+          "capabilities": [
+            "concentrated-damage",
+            "distributed-damage",
+            "unit-redundancy"
+          ],
+          "weaponKeywords": [
+            "Torrent"
+          ],
+          "imageAsset": "img/units/aggressor-squad.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 7.41,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 3.37,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 3.37,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "unitId": "book-blood-angels:unit:82",
+          "name": "REPULSOR",
+          "points": 170,
+          "reason": "Alternative possédée couvrant distributed-damage et durable-presence."
+        },
+        {
+          "unitId": "book-blood-angels:unit:84",
+          "name": "RHINO",
+          "points": 65,
+          "reason": "Alternative possédée couvrant action-capacity et durable-presence."
+        },
+        {
+          "unitId": "book-blood-angels:unit:81",
+          "name": "LAND RAIDER REDEEMER",
+          "points": 250,
+          "reason": "Alternative possédée couvrant action-capacity et concentrated-damage."
+        },
+        {
+          "unitId": "book-blood-angels:unit:85",
+          "name": "RAZORBACK",
+          "points": 85,
+          "reason": "Alternative possédée couvrant action-capacity et durable-presence."
+        }
+      ]
+    },
+    "expert": {
+      "id": "expert:blood-angels:2000:liberator-assault-group",
+      "factionId": "Blood Angels",
+      "battleSize": 2000,
+      "dpBudget": 3,
+      "kind": "single",
+      "detachmentIds": [
+        "book-blood-angels:detachment:0"
+      ],
+      "detachmentNames": [
+        "LIBERATOR ASSAULT GROUP"
+      ],
+      "detachmentSources": [
+        "Blood Angels"
+      ],
+      "dpCost": 3,
+      "forceDispositions": [
+        "TAKE AND HOLD"
+      ],
+      "prudentScores": {
+        "primary": 88.6,
+        "secondary": 87.46,
+        "inventory": 94.38,
+        "ruleAndStratagem": 79.59,
+        "enhancement": 85.35,
+        "flexibility": 91.4,
+        "total": 87.48
+      },
+      "expertScores": {
+        "primary": 99.96,
+        "secondary": 96.17,
+        "inventory": 99.52,
+        "ruleAndStratagem": 82.94,
+        "enhancement": 87.39,
+        "flexibility": 99.96,
+        "total": 94.26
+      },
+      "favorableScores": {
+        "primary": 100,
+        "secondary": 97.41,
+        "inventory": 100,
+        "ruleAndStratagem": 84.95,
+        "enhancement": 90.15,
+        "flexibility": 100,
+        "total": 95.36
+      },
+      "scoreRange": {
+        "prudent": 87.48,
+        "central": 94.26,
+        "favorable": 95.36
+      },
+      "capabilityScores": {
+        "action-capacity": 100,
+        "concentrated-damage": 100,
+        "distributed-damage": 100,
+        "durable-presence": 100,
+        "independent-units": 88.41,
+        "objective-control": 100,
+        "screening": 91.49,
+        "target-access": 100,
+        "territorial-projection": 100,
+        "unit-redundancy": 93.77
+      },
+      "capabilityAdjustments": {
+        "action-capacity": 14.88,
+        "concentrated-damage": 15,
+        "distributed-damage": 15,
+        "durable-presence": 15,
+        "independent-units": 2.7,
+        "objective-control": 11.4,
+        "screening": 5.16,
+        "target-access": 15,
+        "territorial-projection": 15,
+        "unit-redundancy": 8.1
+      },
+      "favorableCapabilityAdjustments": {
+        "action-capacity": 15,
+        "concentrated-damage": 15,
+        "distributed-damage": 15,
+        "durable-presence": 15,
+        "independent-units": 3.6,
+        "objective-control": 15,
+        "screening": 13.2,
+        "target-access": 15,
+        "territorial-projection": 15,
+        "unit-redundancy": 10.8
+      },
+      "primaryMissionScores": [
+        {
+          "id": "gdm-2026-primary-battlefield-dominance-take-and-hold-vs-take-and-hold",
+          "title": "Battlefield Dominance — briefing GDM",
+          "score": 100
+        },
+        {
+          "id": "gdm-2026-primary-determined-acquisition-take-and-hold-vs-disruption",
+          "title": "Determined Acquisition — briefing GDM",
+          "score": 99.7
+        },
+        {
+          "id": "gdm-2026-primary-immovable-object-take-and-hold-vs-purge-the-foe",
+          "title": "Immovable Object — briefing GDM",
+          "score": 100
+        },
+        {
+          "id": "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+          "title": "Inescapable Dominion — briefing GDM",
+          "score": 100
+        },
+        {
+          "id": "gdm-2026-primary-purge-and-secure-take-and-hold-vs-reconnaissance",
+          "title": "Purge and Secure — briefing GDM",
+          "score": 100
+        }
+      ],
+      "secondaryMissionScores": [
+        {
+          "id": "gdm-2026-secondary-a-grievous-blow",
+          "title": "A Grievous Blow",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-a-tempting-target",
+          "title": "A Tempting Target",
+          "familyId": "objective-control",
+          "score": 98.04,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-assassination",
+          "title": "Assassination",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-beacon",
+          "title": "Beacon",
+          "familyId": "territorial-projection",
+          "score": 95.21,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "action-capacity",
+              "importance": "supporting",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-behind-enemy-lines",
+          "title": "Behind Enemy Lines",
+          "familyId": "territorial-projection",
+          "score": 93.61,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-bring-it-down",
+          "title": "Bring It Down",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-burden-of-trust",
+          "title": "Burden of Trust",
+          "familyId": "objective-control",
+          "score": 98.04,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-centre-ground",
+          "title": "Centre Ground",
+          "familyId": "territorial-projection",
+          "score": 94.1,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-cleanse",
+          "title": "Cleanse",
+          "familyId": "actions-operations",
+          "score": 98.83,
+          "capabilityRequirements": [
+            {
+              "capability": "action-capacity",
+              "importance": "core",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "objective-control",
+              "importance": "supporting",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-defend-stronghold",
+          "title": "Defend Stronghold",
+          "familyId": "objective-control",
+          "score": 98.04,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-display-of-might",
+          "title": "Display of Might",
+          "familyId": "territorial-projection",
+          "score": 94.1,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-engage-on-all-fronts",
+          "title": "Engage on All Fronts",
+          "familyId": "territorial-projection",
+          "score": 94.1,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-forward-position",
+          "title": "Forward Position",
+          "familyId": "objective-control",
+          "score": 98.04,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-no-prisoners",
+          "title": "No Prisoners",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-outflank",
+          "title": "Outflank",
+          "familyId": "territorial-projection",
+          "score": 93.61,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-overwhelming-force",
+          "title": "Overwhelming Force",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-plunder",
+          "title": "Plunder",
+          "familyId": "actions-operations",
+          "score": 98.83,
+          "capabilityRequirements": [
+            {
+              "capability": "action-capacity",
+              "importance": "core",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "territorial-projection",
+              "importance": "supporting",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-secure-no-man-s-land",
+          "title": "Secure No Man's Land",
+          "familyId": "objective-control",
+          "score": 98.04,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        }
+      ],
+      "interpretationCoverage": 72.73,
+      "evidenceConfidence": 76.25,
+      "inferenceShare": 7.19,
+      "conditionalityIndex": 39.46,
+      "inferenceIds": [
+        "expert-blood-angels-book-blood-angels-detachment-0-detachment-rule-book-blood-angels-detachment-0-rule-concentrated-damage-distributed-da-0a0332aeb1",
+        "expert-blood-angels-book-blood-angels-detachment-0-stratagem-book-blood-angels-detachment-0-stratagems-0-durable-presence-objective-contr-312497374a",
+        "expert-blood-angels-book-blood-angels-detachment-0-stratagem-book-blood-angels-detachment-0-stratagems-1-concentrated-damage-durable-pres-54cd311b2e",
+        "expert-blood-angels-book-blood-angels-detachment-0-stratagem-book-blood-angels-detachment-0-stratagems-2-concentrated-damage-distributed--876629da3c",
+        "expert-blood-angels-book-blood-angels-detachment-0-stratagem-book-blood-angels-detachment-0-stratagems-3-concentrated-damage-distributed--62576fc9e4",
+        "expert-blood-angels-book-blood-angels-detachment-0-stratagem-book-blood-angels-detachment-0-stratagems-4-action-capacity-target-access-te-2d885b8fdc",
+        "expert-blood-angels-book-blood-angels-detachment-0-enhancement-book-blood-angels-detachment-0-enhancements-1-concentrated-damage-distribu-8d23c85c11",
+        "expert-blood-angels-book-blood-angels-detachment-0-enhancement-book-blood-angels-detachment-0-enhancements-2-action-capacity-durable-pres-b9a4b24d4c",
+        "expert-blood-angels-unit-ability-book-blood-angels-unit-7-unitabilities-0-action-capacity-concentrated-damage-distributed-damage-durable--a88dc00471",
+        "expert-blood-angels-chain-book-blood-angels-unit-7-infos-0-durable-presence-independent-units-unit-redundancy-book-blood-angels-unit-7-106656e38a",
+        "expert-blood-angels-unit-ability-book-blood-angels-unit-44-unitabilities-1-concentrated-damage-distributed-damage-book-blood-angels-unit--583b391956",
+        "expert-blood-angels-unit-ability-book-blood-angels-unit-57-unitabilities-0-concentrated-damage-book-blood-angels-unit-57-2e935cd121",
+        "expert-blood-angels-unit-ability-book-blood-angels-unit-61-unitabilities-0-action-capacity-target-access-territorial-projection-book-bloo-e307e5d87b",
+        "expert-blood-angels-chain-book-blood-angels-unit-82-unitabilities-0-action-capacity-durable-presence-screening-target-access-territorial--089d23d21f",
+        "expert-blood-angels-chain-book-blood-angels-unit-82-infos-1-durable-presence-target-access-territorial-projection-book-blood-angels-unit--316c4cd0f3",
+        "expert-blood-angels-unit-ability-book-blood-angels-unit-96-unitabilities-0-durable-presence-screening-book-blood-angels-unit-96-94687b983d"
+      ],
+      "unsupportedEffects": [
+        "Stratagème : Relentless Assault",
+        "Optimisation : Speed of the Primarch",
+        "Optimisation : Gift of Foresight"
+      ],
+      "warnings": [
+        "Inférences expertes préliminaires : aucune condition de jeu, ressource ou cible n’est supposée satisfaite.",
+        "3 effet(s) restent non interprétés."
+      ],
+      "rank": 2
+    }
+  },
+  "assumptions": [
+    "Aucun PC, timing, resultat de des, cible, portee, ligne de vue ou condition de score n'est suppose satisfait.",
+    "Les briefs GDM sont une archive approuvee non officielle; la carte active reste la reference a la table.",
+    "Les valeurs statistiques sont des baselines theoriques et non des promesses de resultat."
+  ]
+}

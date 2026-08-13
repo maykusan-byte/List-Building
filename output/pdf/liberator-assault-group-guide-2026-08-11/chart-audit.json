@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "warforge-chart-audit/v1",
+  "charts": [
+    {
+      "id": "group-points",
+      "type": "horizontal-bar",
+      "title": "Repartition des 2 000 points par ensemble operationnel",
+      "population": "Liste principale, n=6 ensembles",
+      "xAxis": {
+        "label": "Cout",
+        "unit": "points",
+        "minimum": 0,
+        "maximum": 500,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ]
+      },
+      "yAxis": {
+        "label": "Ensembles",
+        "unit": "categorie",
+        "ticks": [
+          "Garde du ciel",
+          "Compagnie de la mort",
+          "Vague Liberator",
+          "Mission rapide",
+          "Couverture antichar",
+          "Socle flexible"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "distance-damage",
+      "type": "line",
+      "title": "Pression theorique selon la distance",
+      "population": "Configurations du snapshot, cible Infanterie E4/Sv3+/2PV, n=3 unites",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Degats utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 6,
+        "ticks": [
+          0.0,
+          1.2,
+          2.4,
+          3.6,
+          4.8,
+          6.0
+        ]
+      },
+      "legend": true
+    }
+  ],
+  "allChartsHaveAxesUnitsTicksScales": true
+}

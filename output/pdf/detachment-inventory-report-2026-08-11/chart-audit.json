@@ -1,0 +1,2200 @@
+{
+  "schemaVersion": "warforge-chart-audit/v1",
+  "charts": [
+    {
+      "id": "chart-1",
+      "type": "bar",
+      "title": "Meilleure option par faction",
+      "population": "4 factions - meilleures combinaisons",
+      "xAxis": {
+        "label": "Score décisionnel",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "Space Marines",
+          "Salamanders",
+          "Dark Angels",
+          "Blood Angels"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-2",
+      "type": "heatmap",
+      "title": "Décomposition des meilleures combinaisons",
+      "population": "Meilleure combinaison de chaque faction",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Space Marines",
+          "Salamanders",
+          "Dark Angels",
+          "Blood Angels"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-3",
+      "type": "heatmap",
+      "title": "Couverture moyenne des familles secondaires",
+      "population": "Meilleure option de chaque faction",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Actions et opérations",
+          "Destruction ciblée",
+          "Contrôle d’objectifs",
+          "Projection territoriale"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Space Marines",
+          "Salamanders",
+          "Dark Angels",
+          "Blood Angels"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-4",
+      "type": "bar",
+      "title": "Top 10 des options à 2 000 points",
+      "population": "Space Marines - détachements et combinaisons légales",
+      "xAxis": {
+        "label": "Score décisionnel",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "FORGEFATHER’S SEEKERS",
+          "RECLAMATION FORCE",
+          "RECLAMATION FORCE + VENGEFUL HOSTS",
+          "FORGEFATHER’S SEEKERS + VENGEFUL HOSTS",
+          "IRONSTORM SPEARHEAD",
+          "IRONSTORM SPEARHEAD + VENGEFUL HOSTS",
+          "ORBITAL ASSAULT FORCE",
+          "ORBITAL ASSAULT FORCE + VENGEFUL HOSTS",
+          "ANVIL SIEGE FORCE + VENGEFUL HOSTS",
+          "FIRESTORM ASSAULT FORCE"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-5",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-6",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-7",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-8",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Plunder",
+          "Behind Enemy Lines",
+          "Outflank",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-9",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-10",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-11",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-12",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-13",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-14",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-15",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "Beacon",
+          "Centre Ground"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-16",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Display of Might",
+          "Engage on All Fronts",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-17",
+      "type": "bar",
+      "title": "Top 10 des options à 2 000 points",
+      "population": "Salamanders - détachements et combinaisons légales",
+      "xAxis": {
+        "label": "Score décisionnel",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "FORGEFATHER’S SEEKERS",
+          "FORGEFATHER’S SEEKERS + VENGEFUL HOSTS",
+          "IRONSTORM SPEARHEAD",
+          "IRONSTORM SPEARHEAD + VENGEFUL HOSTS",
+          "ORBITAL ASSAULT FORCE",
+          "ORBITAL ASSAULT FORCE + VENGEFUL HOSTS",
+          "ANVIL SIEGE FORCE + VENGEFUL HOSTS",
+          "FIRESTORM ASSAULT FORCE",
+          "FIRESTORM ASSAULT FORCE + VENGEFUL HOSTS",
+          "BASTION TASK FORCE + VENGEFUL HOSTS"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-18",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-19",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-20",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-21",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-22",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-23",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-24",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "Beacon",
+          "A Tempting Target"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-25",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-26",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-27",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-28",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Plunder",
+          "Behind Enemy Lines",
+          "Outflank",
+          "A Grievous Blow",
+          "Assassination"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-29",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-30",
+      "type": "bar",
+      "title": "Top 10 des options à 2 000 points",
+      "population": "Dark Angels - détachements et combinaisons légales",
+      "xAxis": {
+        "label": "Score décisionnel",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "INNER CIRCLE TASK FORCE",
+          "FIRESTORM ASSAULT FORCE",
+          "IRONSTORM SPEARHEAD",
+          "INNER CIRCLE TASK FORCE + VENGEFUL HOSTS",
+          "IRONSTORM SPEARHEAD + VENGEFUL HOSTS",
+          "FIRESTORM ASSAULT FORCE + VENGEFUL HOSTS",
+          "UNFORGIVEN TASK FORCE + VENGEFUL HOSTS",
+          "ORBITAL ASSAULT FORCE",
+          "ORBITAL ASSAULT FORCE + VENGEFUL HOSTS",
+          "UNFORGIVEN TASK FORCE"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-31",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-32",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-33",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "Beacon",
+          "A Tempting Target"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-34",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-35",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-36",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-37",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-38",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-39",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-40",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-41",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-42",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-43",
+      "type": "bar",
+      "title": "Top 10 des options à 2 000 points",
+      "population": "Blood Angels - détachements et combinaisons légales",
+      "xAxis": {
+        "label": "Score décisionnel",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "LIBERATOR ASSAULT GROUP",
+          "FIRESTORM ASSAULT FORCE",
+          "IRONSTORM SPEARHEAD",
+          "IRONSTORM SPEARHEAD + VENGEFUL HOSTS",
+          "FIRESTORM ASSAULT FORCE + VENGEFUL HOSTS",
+          "RAGE-CURSED ONSLAUGHT",
+          "THE ANGELIC HOST + VENGEFUL HOSTS",
+          "ORBITAL ASSAULT FORCE + VENGEFUL HOSTS",
+          "ORBITAL ASSAULT FORCE",
+          "ANVIL SIEGE FORCE + VENGEFUL HOSTS"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-44",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-45",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-46",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold",
+          "Forward Position"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-47",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Secure No Man's Land",
+          "Cleanse",
+          "Plunder",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-48",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-49",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 5,
+        "ticks": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-50",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust",
+          "Defend Stronghold"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-51",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Forward Position",
+          "Secure No Man's Land",
+          "Plunder",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-52",
+      "type": "heatmap",
+      "title": "Profil de score de l’option",
+      "population": "Une option - six dimensions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Primaire",
+          "Secondaire",
+          "Inventaire",
+          "Règle/strat.",
+          "Optimisations",
+          "Flexibilité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option approfondie"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-53",
+      "type": "line",
+      "title": "Dégâts utiles par palier de distance contre Infanterie",
+      "population": "Unités du noyau - moteur exact Warforge",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-54",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 1/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "Assassination",
+          "Bring It Down",
+          "No Prisoners",
+          "Overwhelming Force",
+          "Plunder",
+          "Cleanse",
+          "A Tempting Target",
+          "Burden of Trust"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-55",
+      "type": "heatmap",
+      "title": "Couverture des missions secondaires - volet 2/2",
+      "population": "Dix capacités contrôlées - mode Tactique",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Forward Position",
+          "Secure No Man's Land",
+          "Beacon",
+          "Centre Ground",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Behind Enemy Lines",
+          "Outflank"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Option"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    }
+  ]
+}

@@ -1,0 +1,4286 @@
+{
+  "schemaVersion": "warforge-expert-chart-audit/v1",
+  "charts": [
+    {
+      "id": "chart-1",
+      "type": "bar",
+      "title": "Meilleure option experte par faction",
+      "population": "4 factions, format 2 000 points / 3 DP",
+      "xAxis": {
+        "label": "Score central",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100
+        ]
+      },
+      "yAxis": {
+        "label": "Options comparées",
+        "unit": "catégorie",
+        "ticks": [
+          "Space Marines",
+          "Salamanders",
+          "Dark Angels",
+          "Blood Angels"
+        ]
+      },
+      "legend": false
+    },
+    {
+      "id": "chart-2",
+      "type": "heatmap",
+      "title": "Plage de score et qualité d’interprétation",
+      "population": "Meilleure combinaison de chaque faction ; échelle commune 0-100",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Central",
+          "Favorable",
+          "Couverture",
+          "Confiance",
+          "Conditionnalité"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Space Marines",
+          "Salamanders",
+          "Dark Angels",
+          "Blood Angels"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-3",
+      "type": "waterfall",
+      "title": "Space Marines — formation du score central",
+      "population": "Meilleure option du classement expert",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-4",
+      "type": "waterfall",
+      "title": "Salamanders — formation du score central",
+      "population": "Meilleure option du classement expert",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-5",
+      "type": "waterfall",
+      "title": "Dark Angels — formation du score central",
+      "population": "Meilleure option du classement expert",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-6",
+      "type": "waterfall",
+      "title": "Blood Angels — formation du score central",
+      "population": "Meilleure option du classement expert",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-7",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-8",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-9",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Armour Of Contempt",
+          "Crucible Of Battle",
+          "Immolation Protocols"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-10",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-11",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-12",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "5 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-13",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-14",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-15",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS + VENGEFUL HOSTS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-16",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-17",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Armour Of Contempt",
+          "Crucible Of Battle",
+          "Immolation Protocols"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-18",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-19",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-20",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM",
+          "Battlefield Dominance — briefing GDM",
+          "Determined Acquisition — briefing GDM",
+          "Immovable Object — briefing GDM",
+          "Inescapable Dominion — briefing GDM",
+          "Purge and Secure — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-21",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-22",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-23",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS + SUBVERSION ASSETS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-24",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-25",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "ELIMINATOR SQUAD - Mark the Target",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "INFILTRATOR SQUAD - Omni-scramblers",
+          "REIVER SQUAD - Terror Troops",
+          "OUTRIDER SQUAD - Thunderous Impact"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-26",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-27",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-28",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Death Trap — briefing GDM",
+          "Delaying Action — briefing GDM",
+          "Locate and Deny — briefing GDM",
+          "Outmanoeuvre — briefing GDM",
+          "Smoke and Mirrors — briefing GDM",
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-29",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-30",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-31",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-32",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-33",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Armour Of Contempt",
+          "Crucible Of Battle",
+          "Immolation Protocols"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-34",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-35",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-36",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "5 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-37",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-38",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-39",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS + VENGEFUL HOSTS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-40",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-41",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Armour Of Contempt",
+          "Crucible Of Battle",
+          "Immolation Protocols"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-42",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-43",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-44",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM",
+          "Battlefield Dominance — briefing GDM",
+          "Determined Acquisition — briefing GDM",
+          "Immovable Object — briefing GDM",
+          "Inescapable Dominion — briefing GDM",
+          "Purge and Secure — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-45",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-46",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-47",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FORGEFATHER’S SEEKERS + SUBVERSION ASSETS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-48",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-49",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "ELIMINATOR SQUAD - Mark the Target",
+          "VULKAN’S QUEST",
+          "Adamantine Mantle",
+          "Immolator",
+          "INFILTRATOR SQUAD - Omni-scramblers",
+          "REIVER SQUAD - Terror Troops",
+          "OUTRIDER SQUAD - Thunderous Impact"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-50",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-51",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "ADRAX AGATONE",
+          "CAPTAIN WITH JUMP PACK",
+          "CAPTAIN",
+          "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "REPULSOR"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-52",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Death Trap — briefing GDM",
+          "Delaying Action — briefing GDM",
+          "Locate and Deny — briefing GDM",
+          "Outmanoeuvre — briefing GDM",
+          "Smoke and Mirrors — briefing GDM",
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-53",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-54",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-55",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "INNER CIRCLE TASK FORCE",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-56",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-57",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Deathwing Assault",
+          "VOWED TARGET",
+          "Champion of the Deathwing",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Singular Will",
+          "REPULSOR - TRANSPORT",
+          "RHINO - TRANSPORT",
+          "Armour of Contempt"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-58",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-59",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-60",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "5 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-61",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-62",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-63",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "INNER CIRCLE TASK FORCE + VENGEFUL HOSTS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-64",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-65",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Deathwing Assault",
+          "VOWED TARGET",
+          "Champion of the Deathwing",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Singular Will",
+          "REPULSOR - TRANSPORT",
+          "RHINO - TRANSPORT",
+          "Armour of Contempt"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "LAND SPEEDER",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-66",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "LAND SPEEDER",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-67",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "LAND SPEEDER",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-68",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM",
+          "Battlefield Dominance — briefing GDM",
+          "Determined Acquisition — briefing GDM",
+          "Immovable Object — briefing GDM",
+          "Inescapable Dominion — briefing GDM",
+          "Purge and Secure — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-69",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-70",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-71",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "INNER CIRCLE TASK FORCE + SUBVERSION ASSETS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-72",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-73",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Deathwing Assault",
+          "ELIMINATOR SQUAD - Mark the Target",
+          "VOWED TARGET",
+          "Champion of the Deathwing",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "INFILTRATOR SQUAD - Omni-scramblers",
+          "REIVER SQUAD - Terror Troops",
+          "Singular Will"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-74",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-75",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATHWING KNIGHTS",
+          "BELIAL",
+          "CAPTAIN IN TERMINATOR ARMOUR",
+          "LIBRARIAN IN TERMINATOR ARMOUR",
+          "EZEKIEL",
+          "AZRAEL",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-76",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Death Trap — briefing GDM",
+          "Delaying Action — briefing GDM",
+          "Locate and Deny — briefing GDM",
+          "Outmanoeuvre — briefing GDM",
+          "Smoke and Mirrors — briefing GDM",
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-77",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-78",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-79",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FIRESTORM ASSAULT FORCE",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-80",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-81",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "CLOSE-RANGE ERADICATION",
+          "Adamantine Mantle",
+          "DEATH COMPANY MARINES WITH JUMP PACKS - Black Rage",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "REPULSOR - TRANSPORT",
+          "Armour of Contempt",
+          "Crucible of Battle"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "REPULSOR",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-82",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "REPULSOR",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-83",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "REPULSOR",
+          "OUTRIDER SQUAD"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-84",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "5 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-85",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-86",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-87",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "FIRESTORM ASSAULT FORCE + VENGEFUL HOSTS",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-88",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-89",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "War-Tempered Artifice",
+          "CLOSE-RANGE ERADICATION",
+          "Adamantine Mantle",
+          "DEATH COMPANY MARINES WITH JUMP PACKS - Black Rage",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "REPULSOR - TRANSPORT",
+          "Armour of Contempt",
+          "Crucible of Battle"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "DEATH COMPANY MARINES",
+          "COMMANDER DANTE"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-90",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "DEATH COMPANY MARINES",
+          "COMMANDER DANTE"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-91",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "ASTORATH",
+          "DEATH COMPANY MARINES",
+          "COMMANDER DANTE"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-92",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "10 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Extract Relic — briefing GDM",
+          "Sabotage — briefing GDM",
+          "Secure Asset — briefing GDM",
+          "Vanguard Operation — briefing GDM",
+          "Vital Link — briefing GDM",
+          "Battlefield Dominance — briefing GDM",
+          "Determined Acquisition — briefing GDM",
+          "Immovable Object — briefing GDM",
+          "Inescapable Dominion — briefing GDM",
+          "Purge and Secure — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-93",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-94",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-95",
+      "type": "waterfall",
+      "title": "Formation du score central",
+      "population": "RAGE-CURSED ONSLAUGHT",
+      "xAxis": {
+        "label": "Étapes de formation du score",
+        "unit": "catégorie",
+        "ticks": [
+          "Prudent",
+          "Principales",
+          "Secondaires",
+          "Inventaire",
+          "Règles",
+          "Optimisations",
+          "Flexibilité",
+          "Central"
+        ]
+      },
+      "yAxis": {
+        "label": "Score cumulé",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-96",
+      "type": "line",
+      "title": "Projection offensive aux six paliers de distance",
+      "population": "Noyau possédé ; meilleure option contre Infanterie par palier",
+      "xAxis": {
+        "label": "Distance",
+        "unit": "pouces",
+        "minimum": 0,
+        "maximum": 36,
+        "ticks": [
+          0,
+          9,
+          12,
+          18,
+          24,
+          36
+        ]
+      },
+      "yAxis": {
+        "label": "Dégâts utiles moyens",
+        "unit": "PV",
+        "minimum": 0,
+        "maximum": 10,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-97",
+      "type": "heatmap",
+      "title": "Matrice unités × règles interprétées",
+      "population": "Noyau possédé ; affinité normalisée 0-100 selon contribution explicite",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Sanguinary Tear (Aura)",
+          "DEATH COMPANY MARINES WITH JUMP PACKS - Black Rage",
+          "OUTRIDER SQUAD - Thunderous Impact",
+          "Angel’s Fang",
+          "REPULSOR - TRANSPORT",
+          "A Grim Warning",
+          "Armour of Contempt",
+          "Limb From Limb"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "REPULSOR",
+          "OUTRIDER SQUAD",
+          "LAND SPEEDER"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-98",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 1",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "REPULSOR",
+          "OUTRIDER SQUAD",
+          "LAND SPEEDER"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-99",
+      "type": "heatmap",
+      "title": "Matrice unités × missions secondaires — bloc 2",
+      "population": "Noyau possédé ; adéquation analytique 0-100 aux capacités requises",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "DEATH COMPANY MARINES WITH JUMP PACKS",
+          "REPULSOR",
+          "OUTRIDER SQUAD",
+          "LAND SPEEDER"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-100",
+      "type": "heatmap",
+      "title": "Missions principales ouvertes",
+      "population": "5 missions ouvertes par les Force Dispositions",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Consecrate — briefing GDM",
+          "Destroyer's Wrath — briefing GDM",
+          "Meatgrinder — briefing GDM",
+          "Punishment — briefing GDM",
+          "Unstoppable Force — briefing GDM"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-101",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 1",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "A Grievous Blow",
+          "A Tempting Target",
+          "Assassination",
+          "Beacon",
+          "Behind Enemy Lines",
+          "Bring It Down",
+          "Burden of Trust",
+          "Centre Ground",
+          "Cleanse"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    },
+    {
+      "id": "chart-102",
+      "type": "heatmap",
+      "title": "Missions secondaires tactiques — bloc 2",
+      "population": "9 missions ; couverture totale attendue 18",
+      "xAxis": {
+        "label": "Dimensions",
+        "unit": "catégorie",
+        "ticks": [
+          "Defend Stronghold",
+          "Display of Might",
+          "Engage on All Fronts",
+          "Forward Position",
+          "No Prisoners",
+          "Outflank",
+          "Overwhelming Force",
+          "Plunder",
+          "Secure No Man's Land"
+        ]
+      },
+      "yAxis": {
+        "label": "Options",
+        "unit": "catégorie",
+        "ticks": [
+          "Score expert"
+        ]
+      },
+      "colorScale": {
+        "label": "Score",
+        "unit": "points sur 100",
+        "minimum": 0,
+        "maximum": 100,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ]
+      },
+      "legend": true
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "warforge-tactical-guide-manifest/v1",
+  "guideVersion": "liberator-assault-group-guide/v1.0.0",
+  "generatedAt": "2026-08-11",
+  "catalogVersion": "1.2.13.0",
+  "engineVersion": "warforge-statistics/v1.1.0",
+  "pageCount": 21,
+  "files": {
+    "guide-liberator-assault-group.pdf": {
+      "sha256": "e24db882f220205a4cffbf7d3a282ddf639aaee6ee733fd73ba00ec3247d2934",
+      "bytes": 219534
+    },
+    "guide-liberator-assault-group.md": {
+      "sha256": "60d34efe48dcee8d1aefbd072372f77e2c31a7040e2a6df54a9951132c3ca188",
+      "bytes": 21037
+    },
+    "guide-data.json": {
+      "sha256": "f00e74c7d4ba968af9b10d8082622ed24a803480e684107c5eef43966fbeca12",
+      "bytes": 113505
+    },
+    "chart-audit.json": {
+      "sha256": "a602e34488216b55eb624737f32355c610cdf26ac50a0250038bef9a217606c5",
+      "bytes": 1659
+    }
+  },
+  "sources": [
+    {
+      "path": "warforge-pwa/data/strategy/knowledge-base.json",
+      "sha256": "6c96ed082b5d4f4723aab3afd285789321725d0a9ee448e29d42542b24444623"
+    },
+    {
+      "path": "warforge-pwa/data/units/DataInfo.json",
+      "sha256": "f3e636fc47a546bafd4205d04c59c8227058bfd759e355e14bb4c9de3ee51524"
+    },
+    {
+      "path": "warforge-pwa/data/units/Blood Angels.json",
+      "sha256": "5e8f98925fd8b00dd82f45f6109b3c06a9be67ca29b7f0a46ad754e8830fedef"
+    },
+    {
+      "path": "warforge-pwa/data/inventory/datasheet_x_figs.csv",
+      "sha256": "5247e96bfdbb71950521f9d67491e98c9555c950c379ef6227981d00b4b6d09f"
+    },
+    {
+      "path": "output/pdf/detachment-inventory-report-2026-08-11/assessments.json",
+      "sha256": "b78f2ed1f1f6d7efa7244a5a2c428aca8e413b343f396f09a58fe8726d98884e"
+    },
+    {
+      "path": "output/pdf/detachment-inventory-expert-report-2026-08-11/expert-assessments.json",
+      "sha256": "daef06b04714dc461a657925808c65f4f0a4d85cc98b615458c9a757db0d2f6c"
+    },
+    {
+      "path": "deliverables/statistics-reports/2026-08-11-catalog-1.2.13.0-engine-v1.1.0/snapshot-statistique-exhaustif.json.gz",
+      "sha256": "2fe5b00ab5aa435dec25ecf49d97173ed92471131d3862d1d44568bf05bc4bd8"
+    }
+  ],
+  "checks": {
+    "mainRosterPoints": 2000,
+    "strictRosterPoints": 2000,
+    "primaryMatchups": 5,
+    "secondaryMissions": 18,
+    "capabilities": 10,
+    "inventoryExceptionCount": 2,
+    "physicalFigureReuse": false,
+    "chartAuditPassed": true
+  }
+}

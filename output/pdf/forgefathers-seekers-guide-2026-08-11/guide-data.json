@@ -1,0 +1,4358 @@
+{
+  "schemaVersion": "warforge-detachment-tactical-guide/v1.0.0",
+  "guideVersion": "forgefathers-seekers-guide/v1.0.0",
+  "status": "draft/preliminary",
+  "snapshotDate": "2026-08-11",
+  "catalogVersion": "1.2.13.0",
+  "engineVersion": "warforge-statistics/v1.1.0",
+  "missionPackId": "gdm-2026-11th",
+  "detachment": {
+    "id": "book-salamanders:detachment:0",
+    "name": "FORGEFATHER’S SEEKERS",
+    "costDP": 2,
+    "forceDisposition": "PRIORITY ASSETS",
+    "rule": {
+      "Restrictions": "Your army can include Salamanders units, but it cannot include any Adeptus Astartes units drawn from any other Chapter.",
+      "Title": "VULKAN’S QUEST",
+      "Text": "Ranged weapons equipped by Adeptus Astartes models from your army have the [ASSAULT] ability, and each time an attack made with such a weapon targets a unit within 12\", add 1 to the Strength characteristic of that attack.\n\nSEEKER’S COMPANIONS\nIf your army includes Vulkan He’stan, during your turn, each Infernus Squad unit from your army is eligible to do one of the following:\n▪ Start to perform an Action in a turn in which it Advanced.\n▪ Shoot in a turn in which it started to perform an Action."
+    },
+    "stratagems": [
+      {
+        "Name": "Armour Of Contempt",
+        "Category": "FORGEFATHER’S SEEKERS - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "any",
+        "When": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+        "Target": "One Adeptus Astartes unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+        "Effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+        "Name": "Crucible Of Battle",
+        "Category": "FORGEFATHER’S SEEKERS - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "any",
+        "When": "Your Shooting phase or the Fight phase.",
+        "Target": "One Adeptus Astartes Infantry unit from your army that has not been selected to shoot or fight this phase.",
+        "Effect": "Until the end of the phase, each time a model in your unit makes an attack that targets the closest eligible target within 6\", add 1 to the Wound roll."
+      },
+      {
+        "Name": "Wrathful Inferno",
+        "Category": "FORGEFATHER’S SEEKERS - STRATEGIC PLOY STRATAGEM",
+        "CPCost": 1,
+        "Phase": "friendly",
+        "When": "Your Movement phase, just after an Adeptus Astartes Infantry unit from your army Falls Back.",
+        "Target": "That unit.",
+        "Effect": "Until the end of the turn, your unit is eligible to shoot in a turn in which it Fell Back."
+      },
+      {
+        "Name": "Immolation Protocols",
+        "Category": "FORGEFATHER’S SEEKERS - BATTLE TACTIC STRATAGEM",
+        "CPCost": 2,
+        "Phase": "friendly",
+        "When": "Your Shooting phase.",
+        "Target": "One Adeptus Astartes unit from your army that has not been selected to shoot this phase.",
+        "Effect": "Until the end of the phase, Torrent weapons equipped by models in your unit have the [Devastating Wounds] ability."
+      },
+      {
+        "Name": "Burning Vengeance",
+        "Category": "FORGEFATHER’S SEEKERS - BATTLE TACTIC STRATAGEM",
+        "CPCost": 1,
+        "Phase": "opponent",
+        "When": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+        "Target": "One Adeptus Astartes Transport unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+        "Effect": "One unit embarked within that Transport can disembark as if it were your Movement phase, and can then shoot as if it were your Shooting phase, but must target only that enemy unit when doing so, and can only do so if that enemy unit is an eligible target."
+      },
+      {
+        "Name": "Blazing Earth",
+        "Category": "FORGEFATHER’S SEEKERS - STRATEGIC PLOY STRATAGEM",
+        "CPCost": 1,
+        "Phase": "opponent",
+        "When": "Start of your opponent’s Charge phase.",
+        "Target": "One Adeptus Astartes unit from your army equipped with one or more Torrent weapons.",
+        "Effect": "Select one enemy unit (excluding Monsters and Vehicles and units with the Fly keyword) within 12\" of and visible to your unit. Until the end of the phase, each time that enemy unit declares a charge, subtract 2 from the Charge roll (this is not cumulative with any other negative modifiers to that Charge roll)."
+      }
+    ],
+    "enhancements": [
+      {
+        "Name": "Immolator",
+        "Description": "Adeptus Astartes model only. Add 1 to the Attacks characteristics of Torrent weapons equipped by models in the bearer’s unit.",
+        "Cost": 10,
+        "Features": "IsLeaderEnhancement",
+        "WeaponStatAdjustments": [
+          {
+            "Value": "1",
+            "Type": "Add",
+            "Scope": "Unit",
+            "Target": "Attacks",
+            "WeaponScope": "All",
+            "IncludedKeywords": [
+              "Torrent"
+            ]
+          }
+        ],
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "War-Tempered Artifice",
+        "Description": "Adeptus Astartes Infantry model only. Add 3 to the Strength characteristic of the bearer’s melee weapons.",
+        "Cost": 25,
+        "WeaponStatAdjustments": [
+          {
+            "Value": "3",
+            "Type": "Add",
+            "Target": "Strength"
+          }
+        ],
+        "RequiredKeywords": [
+          "Adeptus Astartes",
+          "Infantry"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "Forged In Battle",
+        "Description": "Adeptus Astartes model only. While the bearer is leading a unit, once per turn, after making a Hit roll or a saving throw for a model in that unit, you can change the result of that roll to an unmodified 6.",
+        "Cost": 15,
+        "Features": "IsLeaderEnhancement",
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      },
+      {
+        "Name": "Adamantine Mantle",
+        "Description": "Adeptus Astartes model only. Each time an attack is allocated to the bearer, subtract 1 from the Damage characteristic of that attack. If that attack was made with a Melta or Torrent weapon, change the Damage characteristic of that attack to 1 instead.",
+        "Cost": 20,
+        "RequiredKeywords": [
+          "Adeptus Astartes"
+        ],
+        "RequiredOneOfKeywords": [],
+        "ExcludedKeywords": [],
+        "RequiredAbilities": []
+      }
+    ]
+  },
+  "mainRoster": {
+    "title": "Salamanders Chercheurs du Père de la Forge — Secure Asset — 2 000 pts",
+    "points": 2000,
+    "enhancementPoints": 25,
+    "units": [
+      {
+        "itemId": "ref-forgefather-vulkan",
+        "unitId": "book-salamanders:unit:1",
+        "name": "VULKAN HE’STAN",
+        "models": 1,
+        "points": 85,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "hors inventaire autorise",
+        "figureIds": []
+      },
+      {
+        "itemId": "ref-forgefather-infernus-a",
+        "unitId": "book-space-marines:unit:17",
+        "name": "INFERNUS SQUAD",
+        "models": 10,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-infernus-b",
+        "unitId": "book-space-marines:unit:17",
+        "name": "INFERNUS SQUAD",
+        "models": 10,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-redeemer",
+        "unitId": "book-space-marines:unit:66",
+        "name": "LAND RAIDER REDEEMER",
+        "models": 1,
+        "points": 250,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          1
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-eradicators",
+        "unitId": "book-space-marines:unit:52",
+        "name": "ERADICATOR SQUAD",
+        "models": 6,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          120,
+          121,
+          122,
+          123,
+          124,
+          125
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-aggressors",
+        "unitId": "book-space-marines:unit:33",
+        "name": "AGGRESSOR SQUAD",
+        "models": 6,
+        "points": 165,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          131,
+          132,
+          133,
+          126,
+          127,
+          128
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-bladeguard",
+        "unitId": "book-space-marines:unit:28",
+        "name": "BLADEGUARD VETERAN SQUAD",
+        "models": 3,
+        "points": 80,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          83,
+          84,
+          85
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-assault-intercessors",
+        "unitId": "book-space-marines:unit:18",
+        "name": "ASSAULT INTERCESSOR SQUAD",
+        "models": 10,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          63,
+          64,
+          65,
+          66,
+          67,
+          48,
+          49,
+          50,
+          51,
+          52
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-captain",
+        "unitId": "book-space-marines:unit:3",
+        "name": "CAPTAIN",
+        "models": 1,
+        "points": 80,
+        "enhancement": "War-Tempered Artifice",
+        "enhancementCost": 25,
+        "availability": "inventaire",
+        "figureIds": [
+          26
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-scouts-a",
+        "unitId": "book-space-marines:unit:24",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          180,
+          181,
+          182,
+          183,
+          184
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-scouts-b",
+        "unitId": "book-space-marines:unit:24",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          185,
+          186,
+          187,
+          188,
+          189
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-lancer",
+        "unitId": "book-space-marines:unit:60",
+        "name": "GLADIATOR LANCER",
+        "models": 1,
+        "points": 160,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          12
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-ballistus",
+        "unitId": "book-space-marines:unit:41",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          5
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-vindicator",
+        "unitId": "book-space-marines:unit:63",
+        "name": "VINDICATOR",
+        "models": 1,
+        "points": 185,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          11
+        ]
+      }
+    ],
+    "inventoryException": {
+      "unitId": "book-salamanders:unit:1",
+      "name": "VULKAN HE'STAN",
+      "reason": "Cle du moteur Compagnons du Chercheur et du plan OC/Torrent-Melta."
+    }
+  },
+  "inventoryStrictRoster": {
+    "points": 2000,
+    "units": [
+      {
+        "itemId": "ref-forgefather-infernus-a",
+        "unitId": "book-space-marines:unit:17",
+        "name": "INFERNUS SQUAD",
+        "models": 10,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-infernus-b",
+        "unitId": "book-space-marines:unit:17",
+        "name": "INFERNUS SQUAD",
+        "models": 10,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-redeemer",
+        "unitId": "book-space-marines:unit:66",
+        "name": "LAND RAIDER REDEEMER",
+        "models": 1,
+        "points": 250,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          1
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-eradicators",
+        "unitId": "book-space-marines:unit:52",
+        "name": "ERADICATOR SQUAD",
+        "models": 6,
+        "points": 180,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          120,
+          121,
+          122,
+          123,
+          124,
+          125
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-aggressors",
+        "unitId": "book-space-marines:unit:33",
+        "name": "AGGRESSOR SQUAD",
+        "models": 6,
+        "points": 165,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          131,
+          132,
+          133,
+          126,
+          127,
+          128
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-bladeguard",
+        "unitId": "book-space-marines:unit:28",
+        "name": "BLADEGUARD VETERAN SQUAD",
+        "models": 3,
+        "points": 80,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          83,
+          84,
+          85
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-assault-intercessors",
+        "unitId": "book-space-marines:unit:18",
+        "name": "ASSAULT INTERCESSOR SQUAD",
+        "models": 10,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          63,
+          64,
+          65,
+          66,
+          67,
+          48,
+          49,
+          50,
+          51,
+          52
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-captain",
+        "unitId": "book-space-marines:unit:3",
+        "name": "CAPTAIN",
+        "models": 1,
+        "points": 80,
+        "enhancement": "War-Tempered Artifice",
+        "enhancementCost": 25,
+        "availability": "inventaire",
+        "figureIds": [
+          26
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-scouts-a",
+        "unitId": "book-space-marines:unit:24",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          180,
+          181,
+          182,
+          183,
+          184
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-scouts-b",
+        "unitId": "book-space-marines:unit:24",
+        "name": "SCOUT SQUAD",
+        "models": 5,
+        "points": 65,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          185,
+          186,
+          187,
+          188,
+          189
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-lancer",
+        "unitId": "book-space-marines:unit:60",
+        "name": "GLADIATOR LANCER",
+        "models": 1,
+        "points": 160,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          12
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-ballistus",
+        "unitId": "book-space-marines:unit:41",
+        "name": "BALLISTUS DREADNOUGHT",
+        "models": 1,
+        "points": 150,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          5
+        ]
+      },
+      {
+        "itemId": "ref-forgefather-vindicator",
+        "unitId": "book-space-marines:unit:63",
+        "name": "VINDICATOR",
+        "models": 1,
+        "points": 185,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire",
+        "figureIds": [
+          11
+        ]
+      },
+      {
+        "itemId": "inventory-strict-infernus-c",
+        "unitId": "book-space-marines:unit:17",
+        "name": "INFERNUS SQUAD",
+        "models": 5,
+        "points": 85,
+        "enhancement": null,
+        "enhancementCost": 0,
+        "availability": "inventaire - proxy",
+        "figureIds": [
+          43,
+          44,
+          45,
+          46,
+          47
+        ]
+      }
+    ],
+    "lostEffects": [
+      "Seeker's Companions",
+      "Inspiring Commander",
+      "Forgefather",
+      "Seeker of the Unfound"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Moteur de mission",
+      "points": 445,
+      "units": "Vulkan He'stan + 2 x 10 Infernus",
+      "roles": "Action, OC, pression Torrent, ancre",
+      "preserve": "Vulkan et au moins un operateur Infernus",
+      "abandon": "Si l'Action n'est ni legale ni rentable, redevenir une bulle de pression."
+    },
+    {
+      "name": "Paquet de percee",
+      "points": 415,
+      "units": "Land Raider Redeemer + 6 Aggressors",
+      "roles": "Transport, anti-infanterie, contre-attaque",
+      "preserve": "Redeemer jusqu'a la livraison ou au pivot de table",
+      "abandon": "Ne pas forcer la sortie si elle expose les Aggressors sans echange utile."
+    },
+    {
+      "name": "Batterie anti-char",
+      "points": 490,
+      "units": "6 Eradicators + Gladiator Lancer + Ballistus",
+      "roles": "Dommages concentres, acces aux cibles, lanes",
+      "preserve": "Deux angles differents plutot qu'une batterie compacte",
+      "abandon": "Changer de cible si l'ecran rend la cible prioritaire inaccessible."
+    },
+    {
+      "name": "Contre-charge",
+      "points": 335,
+      "units": "Captain + 3 Bladeguard + 10 Assault Intercessors",
+      "roles": "OC, echange melee, reserve de milieu",
+      "preserve": "Le Captain et son unite tant que le centre n'a pas bascule",
+      "abandon": "Ne pas charger seulement pour faire des degats si cela perd l'objectif."
+    },
+    {
+      "name": "Ecrans et rotation",
+      "points": 130,
+      "units": "2 x 5 Scouts",
+      "roles": "Infiltration, ecran, Action, reserve du R5",
+      "preserve": "Au moins une unite pour le dernier tiers de partie",
+      "abandon": "Sacrifier seulement contre un gain de tempo ou de score identifie."
+    },
+    {
+      "name": "Canon de milieu",
+      "points": 185,
+      "units": "Vindicator",
+      "roles": "Menace centrale, denial, echange robuste",
+      "preserve": "Tant qu'il interdit un couloir ou force une reaction",
+      "abandon": "Accepter l'echange si cela securise le moteur d'Action."
+    }
+  ],
+  "scenarioPlans": [
+    {
+      "mission": "Secure Asset",
+      "opponent": "Take and Hold",
+      "opponent_id": "take-and-hold",
+      "mission_id": "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold",
+      "thesis": "Construire un socle autour d'une ressource exterieure fiable puis empecher Take and Hold de transformer trois objectifs en majorite.",
+      "support": "Objectif exterieur protege, accessible aux Infernus et couvert par le Redeemer ou le Vindicator.",
+      "priority": "Retirer ou contester l'unite adverse qui cree son troisieme objectif, plutot que surinvestir dans un duel deja gagne.",
+      "preserve": "Un operateur Infernus, une releve Scout et une plateforme de tir capable de nettoyer la contestation.",
+      "trade": "Une unite Scout peut etre echangee pour casser la majorite; Vulkan ne doit pas etre expose pour un simple gain de dommage.",
+      "first": "Securiser une position sans montrer les trois plateformes lourdes; garder une deuxieme couche hors de la reponse adverse.",
+      "second": "Utiliser la derniere activation pour contester le troisieme objectif adverse puis verrouiller la ressource.",
+      "rounds": [
+        "R1 : etablir la ressource et conserver une sortie sure.",
+        "R2 : produire le cycle Action + controle et tester le troisieme objectif.",
+        "R3 : remplacer l'operateur, ne pas vider le home.",
+        "R4 : conserver deux menaces entre centre et home adverse.",
+        "R5 : jouer la derniere bascule d'OC avec les Scouts ou les Assault Intercessors."
+      ],
+      "abort": "Abandonner l'Action si l'operateur ne peut pas encore controler en fin de tour ou si son exposition donne une majorite facile.",
+      "fallback": "Tirer avec les Infernus, tenir deux positions et utiliser les plateformes pour retirer le troisieme objectif adverse.",
+      "secondaries": "Naturels : Cleanse, Secure No Man's Land et Centre Ground. Plus couteux : Behind Enemy Lines si les Scouts sont deja requis pour le primaire.",
+      "setup": "Une Infernus est a portee de la ressource; une unite adverse menace la contestation et le Redeemer peut ouvrir un angle.",
+      "decision": "Commencer l'Action maintenant ou nettoyer d'abord la contestation ?",
+      "a": "Si la contestation peut etre retiree sans exposer la releve, Action puis tir Infernus; conserver le Redeemer comme mur.",
+      "b": "Si la contestation survivra probablement, ne pas declarer l'Action comme un acquis : nettoyer, ecranter et reporter le cycle.",
+      "lesson": "Le plan n'est pas 'faire l'Action'; il est 'finir le tour avec un operateur qui controle encore'."
+    },
+    {
+      "mission": "Vital Link",
+      "opponent": "Purge the Foe",
+      "opponent_id": "purge-the-foe",
+      "mission_id": "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe",
+      "thesis": "Maintenir la liaison de ressource sans offrir a Purge the Foe des unites faciles a detruire ni des echanges unitaires successifs.",
+      "support": "Un objectif d'appui couvert par plusieurs portees; Scouts et Infernus alternent les taches, les vehicules absorbent la pression.",
+      "priority": "Supprimer l'outil adverse qui combine destruction et prise d'objectif; eviter les cibles secondaires qui ne changent pas le score.",
+      "preserve": "Les Scouts jusqu'a une fenetre de mission claire et au moins deux sources anti-char reparties.",
+      "trade": "Le Vindicator peut etre offert pour casser le tempo adverse; une Infernus ne doit pas etre isolee en avant du dispositif.",
+      "first": "Prendre l'espace avec le Redeemer sans debarquer automatiquement; refuser un premier echange facile.",
+      "second": "Punir l'unite adverse exposee, puis avancer l'operateur derriere la zone nettoyee.",
+      "rounds": [
+        "R1 : refuser les pertes gratuites et definir la liaison.",
+        "R2 : choisir un seul echange favorable et tenir la ressource.",
+        "R3 : faire pivoter le Redeemer ou le Vindicator sur l'axe menace.",
+        "R4 : proteger les petites unites encore capables d'Actions.",
+        "R5 : convertir les survivants en controle, pas en poursuite de destruction."
+      ],
+      "abort": "Si la liaison exige d'offrir deux unites pour une seule fenetre, reduire l'ambition territoriale.",
+      "fallback": "Jouer une bulle compacte, forcer Purge a venir et utiliser Torrent/contre-charge pour gagner l'echange.",
+      "secondaries": "Naturels : Bring It Down et No Prisoners seulement si les cibles existent. Garder une carte d'Action ne doit pas obliger a alimenter le moteur de destruction adverse.",
+      "setup": "Une Scout peut avancer vers la liaison, mais une unite adverse menace de la tuer puis de prendre la position.",
+      "decision": "Envoyer la Scout seule ou investir une escorte ?",
+      "a": "Si le Redeemer peut couper la ligne de reponse, envoyer la Scout comme operateur et garder l'Infernus comme releve.",
+      "b": "Si l'adversaire marque sur la destruction et la position, ne pas nourrir ce double rendement : temporiser derriere le couvert.",
+      "lesson": "Face a Purge, une activation de score ne doit pas devenir simultanement une cible de score adverse."
+    },
+    {
+      "mission": "Extract Relic",
+      "opponent": "Disruption",
+      "opponent_id": "disruption",
+      "mission_id": "gdm-2026-primary-extract-relic-priority-assets-vs-disruption",
+      "thesis": "Creer un convoi en trois couches : operateur, ecran et force de nettoyage, tout en empechant Disruption d'interrompre le passage cle.",
+      "support": "Choisir la route qui garde deux couverts successifs et un angle de Redeemer; eviter le couloir le plus court s'il est facile a bloquer.",
+      "priority": "Detruire ou repousser l'unite capable d'interrompre l'extraction, pas necessairement la plus dangereuse en degats.",
+      "preserve": "Un Scout pour l'ouverture, une Infernus pour la releve et le Redeemer comme obstacle mobile.",
+      "trade": "Les Assault Intercessors peuvent nettoyer un verrou; les Eradicators ne doivent pas devenir des operateurs de mission.",
+      "first": "Occuper la route sans engager l'operateur final; montrer un faux axe avec une Scout.",
+      "second": "Laisser Disruption reveler son verrou puis choisir la route opposee ou le supprimer par le feu.",
+      "rounds": [
+        "R1 : reconnaitre deux routes et poser les ecrans.",
+        "R2 : engager l'operateur uniquement si la releve existe.",
+        "R3 : franchir la zone de rupture avec Redeemer/Vindicator.",
+        "R4 : proteger l'extraction plutot que chercher un nouveau front.",
+        "R5 : reserver une unite mobile pour la derniere interruption ou la derniere reprise."
+      ],
+      "abort": "Si le passage exige d'exposer operateur et releve au meme tir, arreter l'extraction et nettoyer d'abord.",
+      "fallback": "Transformer le convoi en ancre locale, tirer sur les outils de disruption et reprendre la sequence au tour suivant.",
+      "secondaries": "Projection et Actions sont compatibles si les Scouts empruntent des axes differents. Eviter d'empiler deux Actions sur le meme operateur.",
+      "setup": "La route courte est menacee; la route longue demande une Avance Infernus mais reste masquee.",
+      "decision": "Prendre la route courte ou utiliser Compagnons du Chercheur sur la route longue ?",
+      "a": "Si Vulkan est vivant et l'Action reste legale apres Avance, choisir la route longue et proteger l'arrivee.",
+      "b": "Sans Vulkan ou sans releve, ne pas inferer la permission : nettoyer la route courte et retarder l'operateur.",
+      "lesson": "La mobilite utile est celle qui conserve la legalite et la survie de l'Action, pas seulement la distance parcourue."
+    },
+    {
+      "mission": "Vanguard Operation",
+      "opponent": "Reconnaissance",
+      "opponent_id": "reconnaissance",
+      "mission_id": "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance",
+      "thesis": "Avancer par bonds proteges pendant que Reconnaissance cherche la largeur, l'information et plusieurs zones independantes.",
+      "support": "Un objectif d'appui central-decale, assez proche pour les Infernus mais pas sur l'axe de toutes les unites de projection adverses.",
+      "priority": "Retirer la premiere unite independante qui ouvre une nouvelle zone de score, puis ecranter la seconde vague.",
+      "preserve": "Les deux Scouts ne doivent pas etre depensees au meme round; une plateforme longue portee garde le flanc faible.",
+      "trade": "Accepter un flanc secondaire si le centre et l'objectif d'appui restent stables.",
+      "first": "Infiltrer les Scouts avec une voie de retrait; ne pas transformer l'avance en exposition simultanee.",
+      "second": "Utiliser les lignes longues pour retirer une unite de reconnaissance apres qu'elle s'est declaree.",
+      "rounds": [
+        "R1 : mesurer la largeur adverse et conserver les Scouts.",
+        "R2 : etablir le premier bond Infernus/vehicule.",
+        "R3 : casser une branche de projection adverse.",
+        "R4 : preparer la reserve mobile et fermer les coins.",
+        "R5 : choisir entre bascule de zone et protection de l'objectif d'appui."
+      ],
+      "abort": "Si l'avance ouvre simultanement deux angles adverses, tenir la position et forcer Reconnaissance a s'etirer davantage.",
+      "fallback": "Jouer le centre avec Redeemer/Vindicator et deleguer les bords aux Scouts en rotation.",
+      "secondaries": "Centre Ground et Display of Might sont coherents. Behind Enemy Lines et Outflank deviennent couteux si les Scouts doivent aussi fermer les zones adverses.",
+      "setup": "L'adversaire montre deux petites unites sur deux flancs; une seule peut etre retiree ce tour.",
+      "decision": "Eliminer l'unite la plus proche ou celle qui ouvre le plus de zones ?",
+      "a": "Tirer sur l'unite qui cree une nouvelle zone de score si sa perte ferme aussi un couloir.",
+      "b": "Si elle est trop protegee, bloquer son mouvement avec un ecran et tuer la cible accessible sans disperser toute la liste.",
+      "lesson": "Contre Reconnaissance, deny une zone peut valoir plus que maximiser les degats sur une unite centrale."
+    },
+    {
+      "mission": "Sabotage",
+      "opponent": "Priority Assets",
+      "opponent_id": "priority-assets",
+      "mission_id": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets",
+      "thesis": "Dans le miroir, gagner le tempo des operateurs : obliger l'adversaire a nettoyer avant d'agir pendant que les Infernus peuvent agir et rester offensives.",
+      "support": "Une ressource exterieure avec deux voies d'acces et une releve; refuser une ancre unique que l'adversaire peut bloquer.",
+      "priority": "Neutraliser l'operateur ou retirer son controle en fin de tour; le reste de l'armee n'est prioritaire que s'il protege cette fonction.",
+      "preserve": "Vulkan, une Infernus et une Scout jusqu'au dernier round; garder 1 PC si Blazing Earth protege la sequence.",
+      "trade": "Le Redeemer peut contester physiquement; ne pas depenser 2 PC offensifs si cela ouvre la charge decisive adverse.",
+      "first": "Declarer une ressource defendable et presenter une deuxieme menace sans depenser les deux Scouts.",
+      "second": "Contester l'Action adverse en fin de tour, puis effectuer la sienne sur un autre axe.",
+      "rounds": [
+        "R1 : etablir deux operateurs potentiels.",
+        "R2 : forcer l'adversaire a choisir entre score et nettoyage.",
+        "R3 : remplacer l'operateur avant qu'il ne soit detruit.",
+        "R4 : garder les PC pour le duel de ressource.",
+        "R5 : prioriser OC et timing final plutot que l'attrition generale."
+      ],
+      "abort": "Si les deux operateurs sont exposes au meme paquet adverse, renoncer a l'un des axes et concentrer la releve.",
+      "fallback": "Contester avec un vehicule, tirer avec les Infernus et conserver l'Action pour une fenetre plus sure.",
+      "secondaries": "Les deux camps aiment les Actions; Cleanse et Plunder ne doivent pas consommer l'unique operateur du primaire. Les Scouts portent les cartes laterales.",
+      "setup": "Les deux camps peuvent agir sur des ressources opposees; vous pouvez depenser 2 PC offensifs ou conserver 1 PC defensif.",
+      "decision": "Immolation Protocols maintenant ou reserve pour Blazing Earth/Armour of Contempt ?",
+      "a": "Depenser offensivement seulement si la cible retire l'operateur ou la releve adverse et que la position reste defendable.",
+      "b": "Sinon, tirer sans bonus et garder le PC qui protege la charge ou la sauvegarde critique.",
+      "lesson": "Dans le miroir, le meilleur stratageme est celui qui change l'etat de la ressource, pas celui qui produit le plus de degats bruts."
+    }
+  ],
+  "primaryMatchups": [
+    {
+      "guideId": "primary-guide-disruption-vs-priority-assets",
+      "title": "Disruption contre Ressources prioritaires — guide spécialisé",
+      "layoutContextId": "gdm-2026-layout-priority-assets-vs-disruption",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-extract-relic-priority-assets-vs-disruption",
+        "kind": "primary-card",
+        "title": "Extract Relic — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/priority-assets/extract-relic",
+        "forceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-disruption",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo",
+          "damage-projection"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round).",
+          "À la fin de la bataille — déclencheur archivé : None."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-disruption-vs-priority-assets-beta-scoring",
+        "primary-guide-disruption-vs-priority-assets-beta-plan",
+        "primary-guide-disruption-vs-priority-assets-beta-pitfall",
+        "primary-guide-disruption-vs-priority-assets-beta-counterplay",
+        "primary-guide-disruption-vs-priority-assets-global-interaction",
+        "primary-guide-disruption-vs-priority-assets-global-round-five"
+      ],
+      "claims": [
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-beta-scoring",
+          "title": "Ressources prioritaires — modèle de score",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "scoring-model",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "rationale": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-beta-plan",
+          "title": "Ressources prioritaires — plan directeur",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "Désigner avant la partie les unités qui effectueront les actions et séparer les opérateurs des unités chargées de nettoyer leur zone.",
+          "rationale": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire."
+          ],
+          "tradeoffs": [
+            "Ce plan doit être abandonné si son coût compromet une condition de score plus sûre."
+          ],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-beta-pitfall",
+          "title": "Ressources prioritaires — erreur fréquente",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "pitfall",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "Faire agir une unité offensive majeure lui retire fréquemment le tir ou la charge dont dépendait le nettoyage de la position.",
+          "rationale": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "resource-efficiency",
+              "score": 3,
+              "basis": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-beta-counterplay",
+          "title": "Ressources prioritaires — contre-jeu",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "counterplay",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire.",
+          "rationale": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "denial",
+              "score": 3,
+              "basis": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-global-interaction",
+          "title": "Interaction centrale",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "advantage",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-locate-and-deny-disruption-vs-priority-assets",
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "La rencontre oppose le moteur Disruption au moteur Ressources prioritaires : la priorité est d’identifier quelle ressource de table alimente simultanément son score et le déni adverse.",
+          "rationale": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Refuser les échanges qui améliorent les deux moteurs adverses à la fois."
+          ],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "tempo",
+              "score": 3,
+              "basis": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-disruption-vs-priority-assets-global-round-five",
+          "title": "Réserve du cinquième round",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-locate-and-deny-disruption-vs-priority-assets",
+            "gdm-2026-primary-extract-relic-priority-assets-vs-disruption"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-disruption"
+          ],
+          "statement": "Conserver une unité de bascule jusqu’au cinquième round est prioritaire lorsque le score d’objectif est évalué à la fin du tour.",
+          "rationale": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Écranter les couloirs de reprise et préserver assez de CO pour empêcher la bascule."
+          ],
+          "tradeoffs": [
+            "Une unité gardée trop longtemps en réserve contribue moins aux rounds intermédiaires."
+          ],
+          "axisEffects": [
+            {
+              "axis": "mobility",
+              "score": 3,
+              "basis": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant."
+            }
+          ]
+        }
+      ],
+      "workedExampleId": "worked-example-disruption-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-priority-assets-vs-priority-assets",
+      "title": "Ressources prioritaires contre Ressources prioritaires — guide spécialisé",
+      "layoutContextId": "gdm-2026-layout-priority-assets-vs-priority-assets",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets",
+        "kind": "primary-card",
+        "title": "Sabotage — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/priority-assets/sabotage",
+        "forceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round)."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-priority-assets-vs-priority-assets-alpha-scoring",
+        "primary-guide-priority-assets-vs-priority-assets-alpha-plan",
+        "primary-guide-priority-assets-vs-priority-assets-alpha-pitfall",
+        "primary-guide-priority-assets-vs-priority-assets-alpha-counterplay",
+        "primary-guide-priority-assets-vs-priority-assets-global-interaction",
+        "primary-guide-priority-assets-vs-priority-assets-global-round-five"
+      ],
+      "claims": [
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-alpha-scoring",
+          "title": "Ressources prioritaires — modèle de score",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "scoring-model",
+          "side": "alpha",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "rationale": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-alpha-plan",
+          "title": "Ressources prioritaires — plan directeur",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "alpha",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "Désigner avant la partie les unités qui effectueront les actions et séparer les opérateurs des unités chargées de nettoyer leur zone.",
+          "rationale": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire."
+          ],
+          "tradeoffs": [
+            "Ce plan doit être abandonné si son coût compromet une condition de score plus sûre."
+          ],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-alpha-pitfall",
+          "title": "Ressources prioritaires — erreur fréquente",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "pitfall",
+          "side": "alpha",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "Faire agir une unité offensive majeure lui retire fréquemment le tir ou la charge dont dépendait le nettoyage de la position.",
+          "rationale": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "resource-efficiency",
+              "score": 3,
+              "basis": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-alpha-counterplay",
+          "title": "Ressources prioritaires — contre-jeu",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "counterplay",
+          "side": "alpha",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire.",
+          "rationale": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "denial",
+              "score": 3,
+              "basis": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-global-interaction",
+          "title": "Interaction centrale",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "advantage",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "La rencontre oppose le moteur Ressources prioritaires au moteur Ressources prioritaires : la priorité est d’identifier quelle ressource de table alimente simultanément son score et le déni adverse.",
+          "rationale": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Refuser les échanges qui améliorent les deux moteurs adverses à la fois."
+          ],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "tempo",
+              "score": 3,
+              "basis": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-priority-assets-vs-priority-assets-global-round-five",
+          "title": "Réserve du cinquième round",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-priority-assets-vs-priority-assets"
+          ],
+          "statement": "Conserver une unité de bascule jusqu’au cinquième round est prioritaire lorsque le score d’objectif est évalué à la fin du tour.",
+          "rationale": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Écranter les couloirs de reprise et préserver assez de CO pour empêcher la bascule."
+          ],
+          "tradeoffs": [
+            "Une unité gardée trop longtemps en réserve contribue moins aux rounds intermédiaires."
+          ],
+          "axisEffects": [
+            {
+              "axis": "mobility",
+              "score": 3,
+              "basis": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant."
+            }
+          ]
+        }
+      ],
+      "workedExampleId": "worked-example-priority-assets-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-take-and-hold-vs-priority-assets",
+      "title": "Take and Hold contre Ressources prioritaires — guide spécialisé",
+      "layoutContextId": "gdm-2026-layout-take-and-hold-vs-priority-assets",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold",
+        "kind": "primary-card",
+        "title": "Secure Asset — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/priority-assets/secure-asset",
+        "forceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-take-and-hold",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo",
+          "damage-projection"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round)."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-take-and-hold-vs-priority-assets-beta-scoring",
+        "primary-guide-take-and-hold-vs-priority-assets-beta-plan",
+        "primary-guide-take-and-hold-vs-priority-assets-beta-pitfall",
+        "primary-guide-take-and-hold-vs-priority-assets-beta-counterplay",
+        "primary-guide-take-and-hold-vs-priority-assets-global-interaction",
+        "primary-guide-take-and-hold-vs-priority-assets-global-round-five"
+      ],
+      "claims": [
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-beta-scoring",
+          "title": "Ressources prioritaires — modèle de score",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "scoring-model",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "rationale": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-beta-plan",
+          "title": "Ressources prioritaires — plan directeur",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "Désigner avant la partie les unités qui effectueront les actions et séparer les opérateurs des unités chargées de nettoyer leur zone.",
+          "rationale": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire."
+          ],
+          "tradeoffs": [
+            "Ce plan doit être abandonné si son coût compromet une condition de score plus sûre."
+          ],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-beta-pitfall",
+          "title": "Ressources prioritaires — erreur fréquente",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "pitfall",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "Faire agir une unité offensive majeure lui retire fréquemment le tir ou la charge dont dépendait le nettoyage de la position.",
+          "rationale": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "resource-efficiency",
+              "score": 3,
+              "basis": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-beta-counterplay",
+          "title": "Ressources prioritaires — contre-jeu",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "counterplay",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire.",
+          "rationale": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "denial",
+              "score": 3,
+              "basis": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-global-interaction",
+          "title": "Interaction centrale",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "advantage",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "La rencontre oppose le moteur Take and Hold au moteur Ressources prioritaires : la priorité est d’identifier quelle ressource de table alimente simultanément son score et le déni adverse.",
+          "rationale": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Refuser les échanges qui améliorent les deux moteurs adverses à la fois."
+          ],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "tempo",
+              "score": 3,
+              "basis": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-take-and-hold-vs-priority-assets-global-round-five",
+          "title": "Réserve du cinquième round",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-inescapable-dominion-take-and-hold-vs-priority-assets",
+            "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-take-and-hold-vs-priority-assets"
+          ],
+          "statement": "Conserver une unité de bascule jusqu’au cinquième round est prioritaire lorsque le score d’objectif est évalué à la fin du tour.",
+          "rationale": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Écranter les couloirs de reprise et préserver assez de CO pour empêcher la bascule."
+          ],
+          "tradeoffs": [
+            "Une unité gardée trop longtemps en réserve contribue moins aux rounds intermédiaires."
+          ],
+          "axisEffects": [
+            {
+              "axis": "mobility",
+              "score": 3,
+              "basis": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant."
+            }
+          ]
+        }
+      ],
+      "workedExampleId": "worked-example-take-and-hold-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-reconnaissance-vs-priority-assets",
+      "title": "Reconnaissance contre Ressources prioritaires — guide spécialisé",
+      "layoutContextId": "gdm-2026-layout-reconnaissance-vs-priority-assets",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance",
+        "kind": "primary-card",
+        "title": "Vanguard Operation — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/priority-assets/vanguard-operation",
+        "forceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-reconnaissance",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo",
+          "damage-projection"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round).",
+          "À la fin de la bataille — déclencheur archivé : None."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-reconnaissance-vs-priority-assets-beta-scoring",
+        "primary-guide-reconnaissance-vs-priority-assets-beta-plan",
+        "primary-guide-reconnaissance-vs-priority-assets-beta-pitfall",
+        "primary-guide-reconnaissance-vs-priority-assets-beta-counterplay",
+        "primary-guide-reconnaissance-vs-priority-assets-global-interaction",
+        "primary-guide-reconnaissance-vs-priority-assets-global-round-five"
+      ],
+      "claims": [
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-beta-scoring",
+          "title": "Ressources prioritaires — modèle de score",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "scoring-model",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "rationale": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-beta-plan",
+          "title": "Ressources prioritaires — plan directeur",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "Désigner avant la partie les unités qui effectueront les actions et séparer les opérateurs des unités chargées de nettoyer leur zone.",
+          "rationale": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire."
+          ],
+          "tradeoffs": [
+            "Ce plan doit être abandonné si son coût compromet une condition de score plus sûre."
+          ],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-beta-pitfall",
+          "title": "Ressources prioritaires — erreur fréquente",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "pitfall",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "Faire agir une unité offensive majeure lui retire fréquemment le tir ou la charge dont dépendait le nettoyage de la position.",
+          "rationale": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "resource-efficiency",
+              "score": 3,
+              "basis": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-beta-counterplay",
+          "title": "Ressources prioritaires — contre-jeu",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "counterplay",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire.",
+          "rationale": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "denial",
+              "score": 3,
+              "basis": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-global-interaction",
+          "title": "Interaction centrale",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "advantage",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-search-and-scour-reconnaissance-vs-priority-assets",
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "La rencontre oppose le moteur Reconnaissance au moteur Ressources prioritaires : la priorité est d’identifier quelle ressource de table alimente simultanément son score et le déni adverse.",
+          "rationale": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Refuser les échanges qui améliorent les deux moteurs adverses à la fois."
+          ],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "tempo",
+              "score": 3,
+              "basis": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-reconnaissance-vs-priority-assets-global-round-five",
+          "title": "Réserve du cinquième round",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-search-and-scour-reconnaissance-vs-priority-assets",
+            "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-reconnaissance-vs-priority-assets"
+          ],
+          "statement": "Conserver une unité de bascule jusqu’au cinquième round est prioritaire lorsque le score d’objectif est évalué à la fin du tour.",
+          "rationale": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Écranter les couloirs de reprise et préserver assez de CO pour empêcher la bascule."
+          ],
+          "tradeoffs": [
+            "Une unité gardée trop longtemps en réserve contribue moins aux rounds intermédiaires."
+          ],
+          "axisEffects": [
+            {
+              "axis": "mobility",
+              "score": 3,
+              "basis": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant."
+            }
+          ]
+        }
+      ],
+      "workedExampleId": "worked-example-reconnaissance-vs-priority-assets"
+    },
+    {
+      "guideId": "primary-guide-purge-the-foe-vs-priority-assets",
+      "title": "Purge the Foe contre Ressources prioritaires — guide spécialisé",
+      "layoutContextId": "gdm-2026-layout-purge-the-foe-vs-priority-assets",
+      "layoutId": 1,
+      "scenario": {
+        "id": "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe",
+        "kind": "primary-card",
+        "title": "Vital Link — briefing GDM",
+        "missionPackId": "gdm-2026-11th",
+        "sourceTier": "trusted-archive",
+        "cardSourcePath": "/11th/primary-missions/priority-assets/vital-link",
+        "forceDispositionId": "gdm-2026-force-disposition-priority-assets",
+        "opponentForceDispositionId": "gdm-2026-force-disposition-purge-the-foe",
+        "victoryAxes": [
+          "primary-scoring",
+          "board-control",
+          "mobility",
+          "tempo"
+        ],
+        "scoringWindows": [
+          "Chaque round de bataille — à la fin de votre tour.",
+          "À partir du deuxième round de bataille — à la fin de votre phase de Commandement (ou à la fin de votre tour au cinquième round).",
+          "À la fin de la bataille — déclencheur archivé : None."
+        ],
+        "sourceIds": [
+          "approved-gdm-2026-11th-archive"
+        ],
+        "confidence": "low",
+        "status": "reviewed",
+        "limitations": [
+          "GDM est une archive de missions approuvée, mais non une publication officielle de Games Workshop.",
+          "Les axes décrivent la structure de score et constituent une inférence stratégique ; ils ne remplacent pas le texte de la carte.",
+          "Ce briefing ne formule aucune recommandation de liste, d’unité ou de détachement."
+        ]
+      },
+      "claimIds": [
+        "primary-guide-purge-the-foe-vs-priority-assets-beta-scoring",
+        "primary-guide-purge-the-foe-vs-priority-assets-beta-plan",
+        "primary-guide-purge-the-foe-vs-priority-assets-beta-pitfall",
+        "primary-guide-purge-the-foe-vs-priority-assets-beta-counterplay",
+        "primary-guide-purge-the-foe-vs-priority-assets-global-interaction",
+        "primary-guide-purge-the-foe-vs-priority-assets-global-round-five"
+      ],
+      "claims": [
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-beta-scoring",
+          "title": "Ressources prioritaires — modèle de score",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "scoring-model",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "rationale": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Le séquençage des fenêtres détermine quelles unités doivent survivre et jusqu’à quel moment."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-beta-plan",
+          "title": "Ressources prioritaires — plan directeur",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "Désigner avant la partie les unités qui effectueront les actions et séparer les opérateurs des unités chargées de nettoyer leur zone.",
+          "rationale": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire."
+          ],
+          "tradeoffs": [
+            "Ce plan doit être abandonné si son coût compromet une condition de score plus sûre."
+          ],
+          "axisEffects": [
+            {
+              "axis": "primary-scoring",
+              "score": 3,
+              "basis": "Cette disposition concentre souvent le rendement sur une ressource, une action ou une infrastructure précise."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-beta-pitfall",
+          "title": "Ressources prioritaires — erreur fréquente",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "pitfall",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "Faire agir une unité offensive majeure lui retire fréquemment le tir ou la charge dont dépendait le nettoyage de la position.",
+          "rationale": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "resource-efficiency",
+              "score": 3,
+              "basis": "La mission sanctionne les activations dépensées sans produire de score, de déni ou de relève."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-beta-counterplay",
+          "title": "Ressources prioritaires — contre-jeu",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "counterplay",
+          "side": "beta",
+          "scenarioIds": [
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "Contester la zone d’action avec une unité peu coûteuse et obliger l’adversaire à dépenser une activation supplémentaire.",
+          "rationale": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "denial",
+              "score": 3,
+              "basis": "Le déni le plus rentable vise le moteur de score adverse plutôt que la seule destruction brute."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-global-interaction",
+          "title": "Interaction centrale",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "advantage",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-destroyer-s-wrath-purge-the-foe-vs-priority-assets",
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "La rencontre oppose le moteur Purge the Foe au moteur Ressources prioritaires : la priorité est d’identifier quelle ressource de table alimente simultanément son score et le déni adverse.",
+          "rationale": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Refuser les échanges qui améliorent les deux moteurs adverses à la fois."
+          ],
+          "tradeoffs": [],
+          "axisEffects": [
+            {
+              "axis": "tempo",
+              "score": 3,
+              "basis": "Une même activation peut parfois marquer pour un camp tout en supprimant la prochaine fenêtre de l’autre."
+            }
+          ]
+        },
+        {
+          "id": "primary-guide-purge-the-foe-vs-priority-assets-global-round-five",
+          "title": "Réserve du cinquième round",
+          "sourceTier": "inference",
+          "sourceIds": [
+            "official-event-companion-2026-27-v1-1",
+            "approved-gdm-2026-11th-archive"
+          ],
+          "confidence": "medium",
+          "status": "reviewed",
+          "limitations": [
+            "Conseil contextuel : vérifier la carte, le layout, les armées et l’état réel de la partie."
+          ],
+          "reviewBy": "2026-11-30",
+          "kind": "play-pattern",
+          "side": "global",
+          "scenarioIds": [
+            "gdm-2026-primary-destroyer-s-wrath-purge-the-foe-vs-priority-assets",
+            "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe"
+          ],
+          "layoutContextIds": [
+            "gdm-2026-layout-purge-the-foe-vs-priority-assets"
+          ],
+          "statement": "Conserver une unité de bascule jusqu’au cinquième round est prioritaire lorsque le score d’objectif est évalué à la fin du tour.",
+          "rationale": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant.",
+          "preconditions": [
+            "La condition de score correspondante reste atteignable selon la carte et l’état de table."
+          ],
+          "counterplay": [
+            "Écranter les couloirs de reprise et préserver assez de CO pour empêcher la bascule."
+          ],
+          "tradeoffs": [
+            "Une unité gardée trop longtemps en réserve contribue moins aux rounds intermédiaires."
+          ],
+          "axisEffects": [
+            {
+              "axis": "mobility",
+              "score": 3,
+              "basis": "La fenêtre du dernier round permet une reprise immédiate mais ne répare pas une armée entièrement consommée auparavant."
+            }
+          ]
+        }
+      ],
+      "workedExampleId": "worked-example-purge-the-foe-vs-priority-assets"
+    }
+  ],
+  "secondaryMissions": [
+    {
+      "id": "secondary-guide-a-grievous-blow",
+      "title": "A Grievous Blow — briefing GDM",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-a-grievous-blow-scoring-model",
+        "secondary-a-grievous-blow-list-construction",
+        "secondary-a-grievous-blow-advantage",
+        "secondary-a-grievous-blow-pitfall",
+        "secondary-a-grievous-blow-counterplay",
+        "secondary-a-grievous-blow-play-pattern",
+        "secondary-a-grievous-blow-tradeoff",
+        "secondary-a-grievous-blow-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-a-grievous-blow"
+      ]
+    },
+    {
+      "id": "secondary-guide-a-tempting-target",
+      "title": "A Tempting Target — briefing GDM",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-a-tempting-target-scoring-model",
+        "secondary-a-tempting-target-list-construction",
+        "secondary-a-tempting-target-advantage",
+        "secondary-a-tempting-target-pitfall",
+        "secondary-a-tempting-target-counterplay",
+        "secondary-a-tempting-target-play-pattern",
+        "secondary-a-tempting-target-tradeoff",
+        "secondary-a-tempting-target-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-a-tempting-target"
+      ]
+    },
+    {
+      "id": "secondary-guide-assassination",
+      "title": "Assassination — briefing GDM",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-assassination-scoring-model",
+        "secondary-assassination-list-construction",
+        "secondary-assassination-advantage",
+        "secondary-assassination-pitfall",
+        "secondary-assassination-counterplay",
+        "secondary-assassination-play-pattern",
+        "secondary-assassination-tradeoff",
+        "secondary-assassination-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-assassination"
+      ]
+    },
+    {
+      "id": "secondary-guide-beacon",
+      "title": "Beacon — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "action-capacity",
+          "importance": "supporting",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        }
+      ],
+      "claimIds": [
+        "secondary-beacon-scoring-model",
+        "secondary-beacon-list-construction",
+        "secondary-beacon-advantage",
+        "secondary-beacon-pitfall",
+        "secondary-beacon-counterplay",
+        "secondary-beacon-play-pattern",
+        "secondary-beacon-tradeoff",
+        "secondary-beacon-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-beacon"
+      ]
+    },
+    {
+      "id": "secondary-guide-behind-enemy-lines",
+      "title": "Behind Enemy Lines — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-behind-enemy-lines-scoring-model",
+        "secondary-behind-enemy-lines-list-construction",
+        "secondary-behind-enemy-lines-advantage",
+        "secondary-behind-enemy-lines-pitfall",
+        "secondary-behind-enemy-lines-counterplay",
+        "secondary-behind-enemy-lines-play-pattern",
+        "secondary-behind-enemy-lines-tradeoff",
+        "secondary-behind-enemy-lines-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-behind-enemy-lines"
+      ]
+    },
+    {
+      "id": "secondary-guide-bring-it-down",
+      "title": "Bring It Down — briefing GDM",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-bring-it-down-scoring-model",
+        "secondary-bring-it-down-list-construction",
+        "secondary-bring-it-down-advantage",
+        "secondary-bring-it-down-pitfall",
+        "secondary-bring-it-down-counterplay",
+        "secondary-bring-it-down-play-pattern",
+        "secondary-bring-it-down-tradeoff",
+        "secondary-bring-it-down-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-bring-it-down"
+      ]
+    },
+    {
+      "id": "secondary-guide-burden-of-trust",
+      "title": "Burden of Trust — briefing GDM",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-burden-of-trust-scoring-model",
+        "secondary-burden-of-trust-list-construction",
+        "secondary-burden-of-trust-advantage",
+        "secondary-burden-of-trust-pitfall",
+        "secondary-burden-of-trust-counterplay",
+        "secondary-burden-of-trust-play-pattern",
+        "secondary-burden-of-trust-tradeoff",
+        "secondary-burden-of-trust-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-burden-of-trust"
+      ]
+    },
+    {
+      "id": "secondary-guide-centre-ground",
+      "title": "Centre Ground — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-centre-ground-scoring-model",
+        "secondary-centre-ground-list-construction",
+        "secondary-centre-ground-advantage",
+        "secondary-centre-ground-pitfall",
+        "secondary-centre-ground-counterplay",
+        "secondary-centre-ground-play-pattern",
+        "secondary-centre-ground-tradeoff",
+        "secondary-centre-ground-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-centre-ground"
+      ]
+    },
+    {
+      "id": "secondary-guide-cleanse",
+      "title": "Cleanse — briefing GDM",
+      "familyId": "actions-operations",
+      "capabilityRequirements": [
+        {
+          "capability": "action-capacity",
+          "importance": "core",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "objective-control",
+          "importance": "supporting",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        }
+      ],
+      "claimIds": [
+        "secondary-cleanse-scoring-model",
+        "secondary-cleanse-list-construction",
+        "secondary-cleanse-advantage",
+        "secondary-cleanse-pitfall",
+        "secondary-cleanse-counterplay",
+        "secondary-cleanse-play-pattern",
+        "secondary-cleanse-tradeoff",
+        "secondary-cleanse-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-cleanse"
+      ]
+    },
+    {
+      "id": "secondary-guide-defend-stronghold",
+      "title": "Defend Stronghold — briefing GDM",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-defend-stronghold-scoring-model",
+        "secondary-defend-stronghold-list-construction",
+        "secondary-defend-stronghold-advantage",
+        "secondary-defend-stronghold-pitfall",
+        "secondary-defend-stronghold-counterplay",
+        "secondary-defend-stronghold-play-pattern",
+        "secondary-defend-stronghold-tradeoff",
+        "secondary-defend-stronghold-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-defend-stronghold"
+      ]
+    },
+    {
+      "id": "secondary-guide-display-of-might",
+      "title": "Display of Might — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-display-of-might-scoring-model",
+        "secondary-display-of-might-list-construction",
+        "secondary-display-of-might-advantage",
+        "secondary-display-of-might-pitfall",
+        "secondary-display-of-might-counterplay",
+        "secondary-display-of-might-play-pattern",
+        "secondary-display-of-might-tradeoff",
+        "secondary-display-of-might-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-display-of-might"
+      ]
+    },
+    {
+      "id": "secondary-guide-engage-on-all-fronts",
+      "title": "Engage on All Fronts — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        }
+      ],
+      "claimIds": [
+        "secondary-engage-on-all-fronts-scoring-model",
+        "secondary-engage-on-all-fronts-list-construction",
+        "secondary-engage-on-all-fronts-advantage",
+        "secondary-engage-on-all-fronts-pitfall",
+        "secondary-engage-on-all-fronts-counterplay",
+        "secondary-engage-on-all-fronts-play-pattern",
+        "secondary-engage-on-all-fronts-tradeoff",
+        "secondary-engage-on-all-fronts-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-engage-on-all-fronts"
+      ]
+    },
+    {
+      "id": "secondary-guide-forward-position",
+      "title": "Forward Position — briefing GDM",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-forward-position-scoring-model",
+        "secondary-forward-position-list-construction",
+        "secondary-forward-position-advantage",
+        "secondary-forward-position-pitfall",
+        "secondary-forward-position-counterplay",
+        "secondary-forward-position-play-pattern",
+        "secondary-forward-position-tradeoff",
+        "secondary-forward-position-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-forward-position"
+      ]
+    },
+    {
+      "id": "secondary-guide-no-prisoners",
+      "title": "No Prisoners — briefing GDM",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-no-prisoners-scoring-model",
+        "secondary-no-prisoners-list-construction",
+        "secondary-no-prisoners-advantage",
+        "secondary-no-prisoners-pitfall",
+        "secondary-no-prisoners-counterplay",
+        "secondary-no-prisoners-play-pattern",
+        "secondary-no-prisoners-tradeoff",
+        "secondary-no-prisoners-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-no-prisoners"
+      ]
+    },
+    {
+      "id": "secondary-guide-outflank",
+      "title": "Outflank — briefing GDM",
+      "familyId": "territorial-projection",
+      "capabilityRequirements": [
+        {
+          "capability": "territorial-projection",
+          "importance": "core",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        },
+        {
+          "capability": "independent-units",
+          "importance": "core",
+          "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-outflank-scoring-model",
+        "secondary-outflank-list-construction",
+        "secondary-outflank-advantage",
+        "secondary-outflank-pitfall",
+        "secondary-outflank-counterplay",
+        "secondary-outflank-play-pattern",
+        "secondary-outflank-tradeoff",
+        "secondary-outflank-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-outflank"
+      ]
+    },
+    {
+      "id": "secondary-guide-overwhelming-force",
+      "title": "Overwhelming Force — briefing GDM",
+      "familyId": "destruction-targeted",
+      "capabilityRequirements": [
+        {
+          "capability": "concentrated-damage",
+          "importance": "core",
+          "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+        },
+        {
+          "capability": "distributed-damage",
+          "importance": "core",
+          "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+        },
+        {
+          "capability": "target-access",
+          "importance": "supporting",
+          "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+        }
+      ],
+      "claimIds": [
+        "secondary-overwhelming-force-scoring-model",
+        "secondary-overwhelming-force-list-construction",
+        "secondary-overwhelming-force-advantage",
+        "secondary-overwhelming-force-pitfall",
+        "secondary-overwhelming-force-counterplay",
+        "secondary-overwhelming-force-play-pattern",
+        "secondary-overwhelming-force-tradeoff",
+        "secondary-overwhelming-force-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-overwhelming-force"
+      ]
+    },
+    {
+      "id": "secondary-guide-plunder",
+      "title": "Plunder — briefing GDM",
+      "familyId": "actions-operations",
+      "capabilityRequirements": [
+        {
+          "capability": "action-capacity",
+          "importance": "core",
+          "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "unit-redundancy",
+          "importance": "supporting",
+          "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+        },
+        {
+          "capability": "territorial-projection",
+          "importance": "supporting",
+          "rationale": "Déployer rapidement une présence dans des zones éloignées."
+        }
+      ],
+      "claimIds": [
+        "secondary-plunder-scoring-model",
+        "secondary-plunder-list-construction",
+        "secondary-plunder-advantage",
+        "secondary-plunder-pitfall",
+        "secondary-plunder-counterplay",
+        "secondary-plunder-play-pattern",
+        "secondary-plunder-tradeoff",
+        "secondary-plunder-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-plunder"
+      ]
+    },
+    {
+      "id": "secondary-guide-secure-no-man-s-land",
+      "title": "Secure No Man's Land — briefing GDM",
+      "familyId": "objective-control",
+      "capabilityRequirements": [
+        {
+          "capability": "objective-control",
+          "importance": "core",
+          "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+        },
+        {
+          "capability": "durable-presence",
+          "importance": "core",
+          "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+        },
+        {
+          "capability": "screening",
+          "importance": "supporting",
+          "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+        }
+      ],
+      "claimIds": [
+        "secondary-secure-no-man-s-land-scoring-model",
+        "secondary-secure-no-man-s-land-list-construction",
+        "secondary-secure-no-man-s-land-advantage",
+        "secondary-secure-no-man-s-land-pitfall",
+        "secondary-secure-no-man-s-land-counterplay",
+        "secondary-secure-no-man-s-land-play-pattern",
+        "secondary-secure-no-man-s-land-tradeoff",
+        "secondary-secure-no-man-s-land-decision-rule"
+      ],
+      "decisionExampleIds": [
+        "secondary-example-secure-no-man-s-land"
+      ]
+    }
+  ],
+  "capabilities": [
+    "action-capacity",
+    "concentrated-damage",
+    "distributed-damage",
+    "durable-presence",
+    "independent-units",
+    "objective-control",
+    "screening",
+    "target-access",
+    "territorial-projection",
+    "unit-redundancy"
+  ],
+  "statistics": {
+    "distances": [
+      0,
+      9,
+      12,
+      18,
+      24,
+      36
+    ],
+    "series": [
+      [
+        "Infernus (5)",
+        [
+          [
+            0,
+            1.6666666371481302
+          ],
+          [
+            9,
+            5.781304461351742
+          ],
+          [
+            12,
+            5.781304461351742
+          ],
+          [
+            18,
+            0
+          ],
+          [
+            24,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ],
+      [
+        "Land Raider Redeemer",
+        [
+          [
+            0,
+            0.8333333333333337
+          ],
+          [
+            9,
+            9.498338101720767
+          ],
+          [
+            12,
+            9.498338101720767
+          ],
+          [
+            18,
+            1.777777777777778
+          ],
+          [
+            24,
+            1.777777777777778
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ],
+      [
+        "Aggressors (3)",
+        [
+          [
+            0,
+            7.40542091354277
+          ],
+          [
+            9,
+            3.3746346707539217
+          ],
+          [
+            12,
+            3.3746346707539217
+          ],
+          [
+            18,
+            0
+          ],
+          [
+            24,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ]
+    ],
+    "assumptions": [
+      "catalogue-only",
+      "neutral-baseline",
+      "target-visible",
+      "no-cover",
+      "no-external-buffs",
+      "melee-and-shooting-separated",
+      "rapid-fire-and-melta-active-at-inclusive-half-range",
+      "pistol-and-standard-ranged-are-exclusive-for-non-monster-non-vehicle",
+      "unsupported-effects-never-applied"
+    ],
+    "catalogFingerprint": "fnv1a-32fc3f46-5031198"
+  },
+  "analyses": {
+    "prudent": {
+      "id": "space-marines:2000:forgefather-s-seekers",
+      "factionId": "Space Marines",
+      "battleSize": 2000,
+      "dpBudget": 3,
+      "kind": "single",
+      "detachmentIds": [
+        "book-salamanders:detachment:0"
+      ],
+      "detachmentNames": [
+        "FORGEFATHER’S SEEKERS"
+      ],
+      "detachmentSources": [
+        "Salamanders"
+      ],
+      "dpCost": 2,
+      "chapterLock": "Salamanders",
+      "forceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "primaryMissionScores": [
+        {
+          "id": "gdm-2026-primary-extract-relic-priority-assets-vs-disruption",
+          "title": "Extract Relic — briefing GDM",
+          "score": 86.27
+        },
+        {
+          "id": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets",
+          "title": "Sabotage — briefing GDM",
+          "score": 85.57
+        },
+        {
+          "id": "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold",
+          "title": "Secure Asset — briefing GDM",
+          "score": 86.27
+        },
+        {
+          "id": "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance",
+          "title": "Vanguard Operation — briefing GDM",
+          "score": 86.27
+        },
+        {
+          "id": "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe",
+          "title": "Vital Link — briefing GDM",
+          "score": 85.57
+        }
+      ],
+      "secondaryMissionScores": [
+        {
+          "id": "gdm-2026-secondary-a-grievous-blow",
+          "title": "A Grievous Blow",
+          "familyId": "destruction-targeted",
+          "score": 89.03
+        },
+        {
+          "id": "gdm-2026-secondary-a-tempting-target",
+          "title": "A Tempting Target",
+          "familyId": "objective-control",
+          "score": 87.3
+        },
+        {
+          "id": "gdm-2026-secondary-assassination",
+          "title": "Assassination",
+          "familyId": "destruction-targeted",
+          "score": 89.03
+        },
+        {
+          "id": "gdm-2026-secondary-beacon",
+          "title": "Beacon",
+          "familyId": "territorial-projection",
+          "score": 88.67
+        },
+        {
+          "id": "gdm-2026-secondary-behind-enemy-lines",
+          "title": "Behind Enemy Lines",
+          "familyId": "territorial-projection",
+          "score": 88.13
+        },
+        {
+          "id": "gdm-2026-secondary-bring-it-down",
+          "title": "Bring It Down",
+          "familyId": "destruction-targeted",
+          "score": 89.03
+        },
+        {
+          "id": "gdm-2026-secondary-burden-of-trust",
+          "title": "Burden of Trust",
+          "familyId": "objective-control",
+          "score": 87.3
+        },
+        {
+          "id": "gdm-2026-secondary-centre-ground",
+          "title": "Centre Ground",
+          "familyId": "territorial-projection",
+          "score": 88.62
+        },
+        {
+          "id": "gdm-2026-secondary-cleanse",
+          "title": "Cleanse",
+          "familyId": "actions-operations",
+          "score": 87.84
+        },
+        {
+          "id": "gdm-2026-secondary-defend-stronghold",
+          "title": "Defend Stronghold",
+          "familyId": "objective-control",
+          "score": 87.3
+        },
+        {
+          "id": "gdm-2026-secondary-display-of-might",
+          "title": "Display of Might",
+          "familyId": "territorial-projection",
+          "score": 88.62
+        },
+        {
+          "id": "gdm-2026-secondary-engage-on-all-fronts",
+          "title": "Engage on All Fronts",
+          "familyId": "territorial-projection",
+          "score": 88.62
+        },
+        {
+          "id": "gdm-2026-secondary-forward-position",
+          "title": "Forward Position",
+          "familyId": "objective-control",
+          "score": 87.3
+        },
+        {
+          "id": "gdm-2026-secondary-no-prisoners",
+          "title": "No Prisoners",
+          "familyId": "destruction-targeted",
+          "score": 89.03
+        },
+        {
+          "id": "gdm-2026-secondary-outflank",
+          "title": "Outflank",
+          "familyId": "territorial-projection",
+          "score": 88.13
+        },
+        {
+          "id": "gdm-2026-secondary-overwhelming-force",
+          "title": "Overwhelming Force",
+          "familyId": "destruction-targeted",
+          "score": 89.03
+        },
+        {
+          "id": "gdm-2026-secondary-plunder",
+          "title": "Plunder",
+          "familyId": "actions-operations",
+          "score": 88.57
+        },
+        {
+          "id": "gdm-2026-secondary-secure-no-man-s-land",
+          "title": "Secure No Man's Land",
+          "familyId": "objective-control",
+          "score": 87.3
+        }
+      ],
+      "capabilityScores": {
+        "action-capacity": 88.92,
+        "concentrated-damage": 89.02,
+        "distributed-damage": 88.97,
+        "durable-presence": 89.13,
+        "independent-units": 88.97,
+        "objective-control": 86.23,
+        "screening": 86.02,
+        "target-access": 89.13,
+        "territorial-projection": 90.12,
+        "unit-redundancy": 85.51
+      },
+      "scores": {
+        "primary": 85.82,
+        "secondary": 87.94,
+        "inventory": 94.43,
+        "ruleAndStratagem": 84.52,
+        "enhancement": 98.61,
+        "flexibility": 91.31,
+        "total": 89.37
+      },
+      "analyticalCoverage": 47.27,
+      "confidence": "medium",
+      "supportedEffects": 1,
+      "partialEffects": 7,
+      "unsupportedEffects": 3,
+      "warnings": [
+        "Inférence préliminaire : les conditions de phase, de portée, de cible et de PC ne sont pas supposées satisfaites.",
+        "3 effet(s) non classé(s) contribuent à la baisse de couverture."
+      ],
+      "rank": 1,
+      "core": [
+        {
+          "unitId": "book-space-marines:unit:17",
+          "name": "INFERNUS SQUAD",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 85,
+          "minimumModels": 5,
+          "figureIds": [
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "realCount": 0,
+          "proxyCount": 5,
+          "capabilities": [
+            "distributed-damage",
+            "unit-redundancy",
+            "objective-control"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Torrent"
+          ],
+          "imageAsset": "img/units/infernus-squad.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 1.67,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 5.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 5.78,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-space-marines:unit:46",
+          "name": "LAND SPEEDER",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 105,
+          "minimumModels": 1,
+          "figureIds": [
+            7
+          ],
+          "realCount": 1,
+          "proxyCount": 0,
+          "capabilities": [
+            "action-capacity",
+            "independent-units",
+            "screening"
+          ],
+          "weaponKeywords": [
+            "Melta",
+            "Torrent"
+          ],
+          "imageAsset": "img/units/land-speeder.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 0.44,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 4.7,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 4.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 4.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 2.47,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0.93,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-space-marines:unit:81",
+          "name": "ASSAULT INTERCESSORS WITH JUMP PACKS",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 85,
+          "minimumModels": 5,
+          "figureIds": [
+            140,
+            141,
+            142,
+            143,
+            144
+          ],
+          "realCount": 0,
+          "proxyCount": 5,
+          "capabilities": [
+            "screening",
+            "action-capacity",
+            "territorial-projection"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/assault-intercessors-with-jump-packs.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 3.33,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0.83,
+              "mode": "pistol"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ]
+        },
+        {
+          "unitId": "book-space-marines:unit:64",
+          "name": "LAND RAIDER",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 220,
+          "minimumModels": 1,
+          "figureIds": [
+            1
+          ],
+          "realCount": 0,
+          "proxyCount": 1,
+          "capabilities": [
+            "target-access",
+            "durable-presence",
+            "independent-units"
+          ],
+          "weaponKeywords": [
+            "Rapid Fire",
+            "Melta"
+          ],
+          "imageAsset": "img/units/land-raider.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 0.83,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 5.68,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 5.68,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 5.68,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 5.68,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 5.68,
+              "mode": "standard-ranged"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "unitId": "book-space-marines:unit:42",
+          "name": "OUTRIDER SQUAD",
+          "points": 70,
+          "reason": "Alternative possédée couvrant action-capacity et concentrated-damage."
+        },
+        {
+          "unitId": "book-space-marines:unit:29",
+          "name": "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "points": 105,
+          "reason": "Alternative possédée couvrant action-capacity et distributed-damage."
+        },
+        {
+          "unitId": "book-space-marines:unit:67",
+          "name": "REPULSOR",
+          "points": 170,
+          "reason": "Alternative possédée couvrant distributed-damage et durable-presence."
+        },
+        {
+          "unitId": "book-space-marines:unit:69",
+          "name": "RHINO",
+          "points": 65,
+          "reason": "Alternative possédée couvrant action-capacity et durable-presence."
+        }
+      ]
+    },
+    "expert": {
+      "id": "expert:space-marines:2000:forgefather-s-seekers",
+      "factionId": "Space Marines",
+      "battleSize": 2000,
+      "dpBudget": 3,
+      "kind": "single",
+      "detachmentIds": [
+        "book-salamanders:detachment:0"
+      ],
+      "detachmentNames": [
+        "FORGEFATHER’S SEEKERS"
+      ],
+      "detachmentSources": [
+        "Salamanders"
+      ],
+      "dpCost": 2,
+      "forceDispositions": [
+        "PRIORITY ASSETS"
+      ],
+      "prudentScores": {
+        "primary": 85.82,
+        "secondary": 87.94,
+        "inventory": 94.43,
+        "ruleAndStratagem": 84.52,
+        "enhancement": 98.61,
+        "flexibility": 91.31,
+        "total": 89.37
+      },
+      "expertScores": {
+        "primary": 98.52,
+        "secondary": 98.01,
+        "inventory": 100,
+        "ruleAndStratagem": 88.51,
+        "enhancement": 100,
+        "flexibility": 100,
+        "total": 96.91
+      },
+      "favorableScores": {
+        "primary": 100,
+        "secondary": 100,
+        "inventory": 100,
+        "ruleAndStratagem": 91.21,
+        "enhancement": 100,
+        "flexibility": 100,
+        "total": 98.24
+      },
+      "scoreRange": {
+        "prudent": 89.37,
+        "central": 96.91,
+        "favorable": 98.24
+      },
+      "capabilityScores": {
+        "action-capacity": 100,
+        "concentrated-damage": 100,
+        "distributed-damage": 100,
+        "durable-presence": 100,
+        "independent-units": 98.72,
+        "objective-control": 97.48,
+        "screening": 92.5,
+        "target-access": 100,
+        "territorial-projection": 100,
+        "unit-redundancy": 95.26
+      },
+      "capabilityAdjustments": {
+        "action-capacity": 15,
+        "concentrated-damage": 15,
+        "distributed-damage": 15,
+        "durable-presence": 15,
+        "independent-units": 9.75,
+        "objective-control": 11.25,
+        "screening": 6.48,
+        "target-access": 15,
+        "territorial-projection": 15,
+        "unit-redundancy": 9.75
+      },
+      "favorableCapabilityAdjustments": {
+        "action-capacity": 15,
+        "concentrated-damage": 15,
+        "distributed-damage": 15,
+        "durable-presence": 15,
+        "independent-units": 15,
+        "objective-control": 15,
+        "screening": 14.4,
+        "target-access": 15,
+        "territorial-projection": 15,
+        "unit-redundancy": 15
+      },
+      "primaryMissionScores": [
+        {
+          "id": "gdm-2026-primary-extract-relic-priority-assets-vs-disruption",
+          "title": "Extract Relic — briefing GDM",
+          "score": 99.32
+        },
+        {
+          "id": "gdm-2026-primary-sabotage-priority-assets-vs-priority-assets",
+          "title": "Sabotage — briefing GDM",
+          "score": 98.07
+        },
+        {
+          "id": "gdm-2026-primary-secure-asset-priority-assets-vs-take-and-hold",
+          "title": "Secure Asset — briefing GDM",
+          "score": 99.32
+        },
+        {
+          "id": "gdm-2026-primary-vanguard-operation-priority-assets-vs-reconnaissance",
+          "title": "Vanguard Operation — briefing GDM",
+          "score": 99.32
+        },
+        {
+          "id": "gdm-2026-primary-vital-link-priority-assets-vs-purge-the-foe",
+          "title": "Vital Link — briefing GDM",
+          "score": 98.07
+        }
+      ],
+      "secondaryMissionScores": [
+        {
+          "id": "gdm-2026-secondary-a-grievous-blow",
+          "title": "A Grievous Blow",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-a-tempting-target",
+          "title": "A Tempting Target",
+          "familyId": "objective-control",
+          "score": 97.3,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-assassination",
+          "title": "Assassination",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-beacon",
+          "title": "Beacon",
+          "familyId": "territorial-projection",
+          "score": 98.71,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "action-capacity",
+              "importance": "supporting",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-behind-enemy-lines",
+          "title": "Behind Enemy Lines",
+          "familyId": "territorial-projection",
+          "score": 97.31,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-bring-it-down",
+          "title": "Bring It Down",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-burden-of-trust",
+          "title": "Burden of Trust",
+          "familyId": "objective-control",
+          "score": 97.3,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-centre-ground",
+          "title": "Centre Ground",
+          "familyId": "territorial-projection",
+          "score": 98.41,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-cleanse",
+          "title": "Cleanse",
+          "familyId": "actions-operations",
+          "score": 98.64,
+          "capabilityRequirements": [
+            {
+              "capability": "action-capacity",
+              "importance": "core",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "objective-control",
+              "importance": "supporting",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-defend-stronghold",
+          "title": "Defend Stronghold",
+          "familyId": "objective-control",
+          "score": 97.3,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-display-of-might",
+          "title": "Display of Might",
+          "familyId": "territorial-projection",
+          "score": 98.41,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-engage-on-all-fronts",
+          "title": "Engage on All Fronts",
+          "familyId": "territorial-projection",
+          "score": 98.41,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-forward-position",
+          "title": "Forward Position",
+          "familyId": "objective-control",
+          "score": 97.3,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-no-prisoners",
+          "title": "No Prisoners",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-outflank",
+          "title": "Outflank",
+          "familyId": "territorial-projection",
+          "score": 97.31,
+          "capabilityRequirements": [
+            {
+              "capability": "territorial-projection",
+              "importance": "core",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            },
+            {
+              "capability": "independent-units",
+              "importance": "core",
+              "rationale": "Occuper plusieurs zones sans dépendre d’un unique bloc."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-overwhelming-force",
+          "title": "Overwhelming Force",
+          "familyId": "destruction-targeted",
+          "score": 100,
+          "capabilityRequirements": [
+            {
+              "capability": "concentrated-damage",
+              "importance": "core",
+              "rationale": "Pouvoir achever une cible robuste dans la fenêtre de score."
+            },
+            {
+              "capability": "distributed-damage",
+              "importance": "core",
+              "rationale": "Pouvoir répartir les destructions entre plusieurs unités éligibles."
+            },
+            {
+              "capability": "target-access",
+              "importance": "supporting",
+              "rationale": "Atteindre les cibles pertinentes malgré écrans, lignes de vue ou protection."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-plunder",
+          "title": "Plunder",
+          "familyId": "actions-operations",
+          "score": 99.11,
+          "capabilityRequirements": [
+            {
+              "capability": "action-capacity",
+              "importance": "core",
+              "rationale": "Conserver des unités capables de consacrer une activation à une action sans abandonner le plan principal."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "unit-redundancy",
+              "importance": "supporting",
+              "rationale": "Disposer d’une solution de repli si la première unité de mission est neutralisée."
+            },
+            {
+              "capability": "territorial-projection",
+              "importance": "supporting",
+              "rationale": "Déployer rapidement une présence dans des zones éloignées."
+            }
+          ]
+        },
+        {
+          "id": "gdm-2026-secondary-secure-no-man-s-land",
+          "title": "Secure No Man's Land",
+          "familyId": "objective-control",
+          "score": 97.3,
+          "capabilityRequirements": [
+            {
+              "capability": "objective-control",
+              "importance": "core",
+              "rationale": "Gagner ou contester le contrôle des objectifs pertinents."
+            },
+            {
+              "capability": "durable-presence",
+              "importance": "core",
+              "rationale": "Rester présent jusqu’à la fenêtre de score malgré la réponse adverse."
+            },
+            {
+              "capability": "screening",
+              "importance": "supporting",
+              "rationale": "Limiter les accès adverses tout en protégeant les unités de mission."
+            }
+          ]
+        }
+      ],
+      "interpretationCoverage": 90.91,
+      "evidenceConfidence": 88.24,
+      "inferenceShare": 7.78,
+      "conditionalityIndex": 34.2,
+      "inferenceIds": [
+        "expert-space-marines-book-salamanders-detachment-0-detachment-rule-book-salamanders-detachment-0-rule-action-capacity-concentrated-damage-e5de9482a2",
+        "expert-space-marines-book-salamanders-detachment-0-stratagem-book-salamanders-detachment-0-stratagems-0-concentrated-damage-durable-prese-68a0e929b2",
+        "expert-space-marines-book-salamanders-detachment-0-stratagem-book-salamanders-detachment-0-stratagems-1-concentrated-damage-target-access-af1443052b",
+        "expert-space-marines-book-salamanders-detachment-0-stratagem-book-salamanders-detachment-0-stratagems-3-concentrated-damage-distributed-d-ec2e70e3bb",
+        "expert-space-marines-book-salamanders-detachment-0-stratagem-book-salamanders-detachment-0-stratagems-4-action-capacity-concentrated-dama-f85dfd1f8e",
+        "expert-space-marines-book-salamanders-detachment-0-stratagem-book-salamanders-detachment-0-stratagems-5-concentrated-damage-distributed-d-2dcd6a0829",
+        "expert-space-marines-book-salamanders-detachment-0-enhancement-book-salamanders-detachment-0-enhancements-0-concentrated-damage-distribut-ecb04aa31a",
+        "expert-space-marines-book-salamanders-detachment-0-enhancement-book-salamanders-detachment-0-enhancements-1-concentrated-damage-book-impe-ca0bd05d9f",
+        "expert-space-marines-book-salamanders-detachment-0-enhancement-book-salamanders-detachment-0-enhancements-2-durable-presence-independent--fbb91f2eb6",
+        "expert-space-marines-book-salamanders-detachment-0-enhancement-book-salamanders-detachment-0-enhancements-3-concentrated-damage-distribut-47b9646e57",
+        "expert-space-marines-unit-ability-book-space-marines-unit-29-unitabilities-1-concentrated-damage-distributed-damage-book-space-marines-un-c8a4fb31a1",
+        "expert-space-marines-unit-ability-book-space-marines-unit-42-unitabilities-0-concentrated-damage-book-space-marines-unit-42-5895eb83d1",
+        "expert-space-marines-unit-ability-book-space-marines-unit-46-unitabilities-0-action-capacity-target-access-territorial-projection-book-sp-85499e0505",
+        "expert-space-marines-chain-book-space-marines-unit-67-unitabilities-0-action-capacity-durable-presence-screening-target-access-territoria-b9aec7b484",
+        "expert-space-marines-chain-book-space-marines-unit-67-infos-1-durable-presence-target-access-territorial-projection-book-space-marines-un-c10813e3a8",
+        "expert-space-marines-chain-book-space-marines-unit-69-infos-0-durable-presence-target-access-territorial-projection-book-space-marines-un-54cd9cd9a6",
+        "expert-space-marines-unit-ability-book-space-marines-unit-81-unitabilities-0-durable-presence-screening-book-space-marines-unit-81-a21c36ecc9"
+      ],
+      "unsupportedEffects": [
+        "Stratagème : Wrathful Inferno"
+      ],
+      "warnings": [
+        "Inférences expertes préliminaires : aucune condition de jeu, ressource ou cible n’est supposée satisfaite.",
+        "1 effet(s) restent non interprétés."
+      ],
+      "rank": 1,
+      "core": [
+        {
+          "unitId": "book-salamanders:unit:0",
+          "name": "ADRAX AGATONE",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 80,
+          "minimumModels": 1,
+          "figureIds": [
+            24
+          ],
+          "realCount": 1,
+          "proxyCount": 0,
+          "capabilities": [
+            "concentrated-damage"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Torrent"
+          ],
+          "imageAsset": "img/units/adrax-agatone.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 4.63,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 1.63,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 1.63,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ],
+          "inferenceContribution": 32.25
+        },
+        {
+          "unitId": "book-space-marines:unit:4",
+          "name": "CAPTAIN WITH JUMP PACK",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 75,
+          "minimumModels": 1,
+          "figureIds": [
+            25
+          ],
+          "realCount": 0,
+          "proxyCount": 1,
+          "capabilities": [
+            "action-capacity",
+            "territorial-projection",
+            "target-access"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/captain-with-jump-pack.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 1.46,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.21,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.21,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0.21,
+              "mode": "pistol"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ],
+          "inferenceContribution": 29.25
+        },
+        {
+          "unitId": "book-space-marines:unit:3",
+          "name": "CAPTAIN",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 80,
+          "minimumModels": 1,
+          "figureIds": [
+            26
+          ],
+          "realCount": 1,
+          "proxyCount": 0,
+          "capabilities": [
+            "unit-redundancy"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/captain.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 0.83,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.83,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.83,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0.83,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0.83,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ],
+          "inferenceContribution": 29.25
+        },
+        {
+          "unitId": "book-space-marines:unit:29",
+          "name": "VANGUARD VETERAN SQUAD WITH JUMP PACKS",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 105,
+          "minimumModels": 5,
+          "figureIds": [
+            140,
+            141,
+            142,
+            143,
+            144
+          ],
+          "realCount": 5,
+          "proxyCount": 0,
+          "capabilities": [
+            "screening",
+            "territorial-projection",
+            "action-capacity"
+          ],
+          "weaponKeywords": [
+            "Pistol",
+            "Melta",
+            "Torrent",
+            "Plasma"
+          ],
+          "imageAsset": "img/units/vanguard-veteran-squad.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 4.44,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 0.56,
+              "mode": "pistol"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 0.56,
+              "mode": "pistol"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 0,
+              "mode": "standard-ranged"
+            }
+          ],
+          "inferenceContribution": 26.85
+        },
+        {
+          "unitId": "book-space-marines:unit:67",
+          "name": "REPULSOR",
+          "assignedDetachmentId": "book-salamanders:detachment:0",
+          "assignedDetachmentName": "FORGEFATHER’S SEEKERS",
+          "points": 170,
+          "minimumModels": 1,
+          "figureIds": [
+            2
+          ],
+          "realCount": 1,
+          "proxyCount": 0,
+          "capabilities": [
+            "target-access",
+            "durable-presence",
+            "distributed-damage"
+          ],
+          "weaponKeywords": [],
+          "imageAsset": "img/units/repulsor.webp",
+          "distanceCurve": [
+            {
+              "distance": 0,
+              "usefulDamage": 0.83,
+              "mode": "melee"
+            },
+            {
+              "distance": 9,
+              "usefulDamage": 6.25,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 12,
+              "usefulDamage": 6.25,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 18,
+              "usefulDamage": 6.25,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 24,
+              "usefulDamage": 6.25,
+              "mode": "standard-ranged"
+            },
+            {
+              "distance": 36,
+              "usefulDamage": 2.02,
+              "mode": "standard-ranged"
+            }
+          ],
+          "inferenceContribution": 26.1
+        }
+      ],
+      "alternatives": [
+        {
+          "unitId": "book-space-marines:unit:42",
+          "name": "OUTRIDER SQUAD",
+          "points": 70,
+          "reason": "Alternative possédée, contribution experte potentielle 25.65."
+        },
+        {
+          "unitId": "book-space-marines:unit:46",
+          "name": "LAND SPEEDER",
+          "points": 105,
+          "reason": "Alternative possédée, contribution experte potentielle 23.85."
+        },
+        {
+          "unitId": "book-space-marines:unit:69",
+          "name": "RHINO",
+          "points": 65,
+          "reason": "Alternative possédée, contribution experte potentielle 19.8."
+        },
+        {
+          "unitId": "book-space-marines:unit:18",
+          "name": "ASSAULT INTERCESSOR SQUAD",
+          "points": 75,
+          "reason": "Alternative possédée, contribution experte potentielle 18.75."
+        }
+      ]
+    }
+  },
+  "assumptions": [
+    "Aucun PC, timing, resultat de des, cible, portee, ligne de vue ou condition de score n'est suppose satisfait.",
+    "Les briefs GDM sont une archive approuvee non officielle; la carte active reste la reference a la table.",
+    "Les valeurs statistiques sont des baselines theoriques et non des promesses de resultat."
+  ]
+}

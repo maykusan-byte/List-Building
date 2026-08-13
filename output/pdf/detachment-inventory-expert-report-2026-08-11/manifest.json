@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "warforge-expert-report-manifest/v1",
+  "generatedAt": "2026-08-11T14:23:24.736Z",
+  "snapshotDate": "2026-08-11",
+  "reportSchema": "warforge-detachment-inventory-expert-report/v1.0.0",
+  "inferenceSchema": "warforge-expert-inferences/v1.0.0",
+  "methodologyVersion": "warforge-detachment-expert-methodology/v1.0.0",
+  "inputs": {
+    "catalog": {
+      "path": "warforge-pwa/public/data/catalog.json",
+      "sha256": "b655b71438f47a0fe99f237e240a5ff29ff9809b6ffea715e0f4361c49584f44",
+      "fingerprint": "fnv1a-32fc3f46-5031198",
+      "version": "1.2.13.0"
+    },
+    "inventory": {
+      "path": "warforge-pwa/data/inventory/datasheet_x_figs.csv",
+      "sha256": "5247e96bfdbb71950521f9d67491e98c9555c950c379ef6227981d00b4b6d09f"
+    },
+    "strategy": {
+      "path": "warforge-pwa/data/strategy/knowledge-base.json",
+      "sha256": "6c96ed082b5d4f4723aab3afd285789321725d0a9ee448e29d42542b24444623",
+      "schemaVersion": "warforge-strategy-knowledge/v5",
+      "knowledgeVersion": "4.0.0"
+    },
+    "missions": {
+      "path": "warforge-pwa/public/data/missions.json",
+      "sha256": "1466812b3625ec0a89535a2e10187d8650c4815a5a7e99e931082aeb86b314c5",
+      "activePackId": "gdm-2026-11th"
+    },
+    "statistics": {
+      "path": "deliverables/statistics-reports/2026-08-11-catalog-1.2.13.0-engine-v1.1.0/snapshot-statistique-exhaustif.json.gz",
+      "sha256": "2fe5b00ab5aa435dec25ecf49d97173ed92471131d3862d1d44568bf05bc4bd8",
+      "schemaVersion": "warforge-statistics-report/v1.0.0",
+      "engineVersion": "warforge-statistics/v1.1.0",
+      "distances": [
+        0,
+        9,
+        12,
+        18,
+        24,
+        36
+      ]
+    },
+    "images": {
+      "path": "warforge-pwa/public/data/unit-images.json",
+      "sha256": "d6964c9f091082a64704baf578e9ca6353e112ac814602209673acd870d6f38f",
+      "schemaVersion": "warforge-unit-images/v1"
+    },
+    "prudentReport": {
+      "path": "output/pdf/detachment-inventory-report-2026-08-11/assessments.json",
+      "sha256": "b78f2ed1f1f6d7efa7244a5a2c428aca8e413b343f396f09a58fe8726d98884e"
+    }
+  },
+  "outputs": [
+    "00-synthese-experte.pdf",
+    "01-space-marines-expert.pdf",
+    "02-salamanders-expert.pdf",
+    "03-dark-angels-expert.pdf",
+    "04-blood-angels-expert.pdf",
+    "expert-assessments.json",
+    "expert-inferences.json",
+    "expert-scores.csv",
+    "methodologie-experte.md",
+    "chart-audit.json"
+  ],
+  "qualityGates": {
+    "applicationChanged": false,
+    "gameDataChanged": false,
+    "externalSourcesUsed": false,
+    "preliminaryInferences": true,
+    "winProbabilityReported": false
+  }
+}
