@@ -67,6 +67,21 @@ d’images qu’avec une source et un objectif explicites.
 - Pour tout changement stratégique, exécuter `pnpm strategy:validate`,
   `pnpm test` et `pnpm build`.
 
+## Simulateur tactique
+
+- `data/simulator/` est la source versionnée des manifests, rulepacks, profils
+  physiques et scénarios. `public/data/simulator/` est généré et ne doit jamais
+  être modifié manuellement.
+- Utiliser le skill `warforge-simulator-development` pour tout changement sous
+  `src/simulator/`, `data/simulator/` ou `docs/simulator/`.
+- Lire `docs/simulator/PLAN.md`, `STATUS.md`, `project-state.json`,
+  `model-routing.json` et les ADR applicables avant de commencer.
+- Exécuter `pnpm simulator:project:check`, reprendre l'unique tâche en cours et
+  livrer code, tests, preuves et statut synchronisés dans le même changement.
+- Utiliser en plus `warforge-data-operations` pour toute donnée de simulateur.
+- Ne déclarer une règle ou une liste supportée que si la matrice de couverture
+  et les tests de conformité le prouvent.
+
 ## Publication GitHub Pages
 
 - Les livraisons validées de Warforge sont publiées par le workflow

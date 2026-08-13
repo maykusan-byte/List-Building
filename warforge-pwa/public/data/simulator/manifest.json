@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "warforge-simulator-manifest/v1",
+  "version": "0.1.0",
+  "engineVersion": "0.1.0",
+  "catalog": {
+    "dataVersion": "1.2.13.0",
+    "publishDate": "2026-07-24T20:15:05.0043058Z"
+  },
+  "sources": [
+    {
+      "id": "warforge-core-rules-fr-2026-07",
+      "kind": "official-pdf",
+      "title": "Règles de base Warhammer 40,000 — français",
+      "version": "archive-2026-07-28",
+      "effectiveDate": null,
+      "retrievedAt": "2026-07-28",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/rules/core/fre_01-06_warhammer40k_new40k_core_rules-ooyuallyp9-s4aczdfbm2_copie.pdf",
+      "sha256": "36c934dd62ea00800b38924424ed58f442ade9c4079451fa61c731be9e10bee6"
+    },
+    {
+      "id": "warforge-catalog-1.2.13.0",
+      "kind": "versioned-catalog",
+      "title": "Catalogue Warforge 40k 11th",
+      "version": "1.2.13.0",
+      "effectiveDate": "2026-07-24",
+      "status": "active",
+      "path": "data/units/DataInfo.json"
+    }
+  ],
+  "artifacts": {
+    "coverage": "coverage.json",
+    "physicalProfiles": "physical-profiles.json",
+    "scenarios": "scenarios.json",
+    "rulepacks": "rulepacks.json"
+  }
+}

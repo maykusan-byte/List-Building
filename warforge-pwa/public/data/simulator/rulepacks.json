@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "warforge-simulator-rulepacks/v1",
+  "manifestVersion": "0.1.0",
+  "rulepacks": [
+    {
+      "id": "core-basic-shooting-v1",
+      "title": "Séquence d'attaque à distance — corpus fermé",
+      "version": "1.0.0",
+      "status": "covered",
+      "sourceIds": ["warforge-core-rules-fr-2026-07"],
+      "sourcePages": [16, 18, 19, 50],
+      "ruleIds": ["core.basic-ranged-attack", "core.benefit-of-cover"],
+      "rules": [
+        {
+          "id": "core.benefit-of-cover",
+          "title": "Bénéfice du Couvert",
+          "source": {
+            "sourceId": "warforge-core-rules-fr-2026-07",
+            "version": "archive-2026-07-28",
+            "effectiveDate": null,
+            "retrievedAt": "2026-07-28",
+            "reference": "13.08",
+            "printedPage": 50
+          },
+          "trigger": "ranged-attack-targeting",
+          "conditions": {
+            "allTargetModelsMatchAny": [
+              {
+                "keywordsAny": ["INFANTRY", "BEAST", "SWARM"],
+                "insideTerrainZone": true
+              },
+              {
+                "notEntirelyVisibleDueToTerrain": true
+              }
+            ]
+          },
+          "effect": {
+            "kind": "degrade-characteristic",
+            "characteristic": "ballistic-skill",
+            "amount": 1
+          }
+        }
+      ],
+      "included": [
+        "visibilité fournie par le moteur géométrique",
+        "portée",
+        "jets de touche et de blessure",
+        "sauvegarde d'armure, dégâts fixes, allocation et destruction",
+        "Bénéfice du Couvert 13.08 par dégradation de CT"
+      ],
+      "excluded": [
+        "aptitudes d'arme et d'unité",
+        "relances, sauvegardes invulnérables et blessures mortelles",
+        "stratagèmes, règles d'armée et règles de détachement"
+      ]
+    }
+  ]
+}

@@ -36,3 +36,10 @@ présente dans cette archive doit être préservée.
   dans son `package.json`.
 - Router les analyses secondaires vers le skill spécialisé ; toute nouvelle
   analyse reste `draft` jusqu’à une revue humaine explicite.
+
+## Simulateur tactique
+
+- Utiliser `.agents/skills/warforge-simulator-development/` pour toute
+  architecture, implémentation, revue, donnée ou reprise du simulateur.
+- Reprendre exclusivement l'état versionné dans
+  `warforge-pwa/docs/simulator/` et conserver une seule tâche `in_progress`.

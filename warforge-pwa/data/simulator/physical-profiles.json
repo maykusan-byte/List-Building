@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "warforge-simulator-physical-profiles/v1",
+  "manifestVersion": "0.1.0",
+  "conventions": [
+    {
+      "id": "closed-core-infantry-geometry-v1",
+      "kind": "local-reviewed-decision",
+      "title": "Géométrie synthétique de l'infanterie du duel fermé",
+      "version": "1.0.0",
+      "effectiveDate": "2026-08-13",
+      "decisionReference": "ADR-002-spatial-model",
+      "scope": "closed-core-shooting-duel-v1",
+      "reviewedBy": "project-owner",
+      "reviewedAt": "2026-08-13",
+      "statement": "Socle circulaire de 32 mm et hauteur conventionnelle de 40 mm pour les seules fixtures du duel fermé."
+    }
+  ],
+  "profiles": [
+    {
+      "id": "training-infantry-32mm-v1",
+      "displayName": "Infanterie d'entraînement — socle 32 mm",
+      "shape": { "kind": "circle", "radius": 160 },
+      "height": 400,
+      "visibilityPoints": [
+        { "x": 0, "y": 0, "z": 320 },
+        { "x": 0, "y": 0, "z": 400 }
+      ],
+      "provenance": {
+        "kind": "warforge-convention",
+        "sourceId": "closed-core-infantry-geometry-v1",
+        "version": "1.0.0",
+        "effectiveDate": "2026-08-13"
+      },
+      "reviewStatus": "human-reviewed",
+      "approval": {
+        "scope": "closed-core-shooting-duel-v1",
+        "reviewedBy": "project-owner",
+        "reviewedAt": "2026-08-13"
+      }
+    }
+  ]
+}

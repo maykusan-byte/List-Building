@@ -9,6 +9,13 @@
   "packageManager": "pnpm@11.18.0",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
+    "simulator:project": "node scripts/simulator-project.mjs",
+    "simulator:project:check": "node scripts/simulator-project.mjs check",
+    "simulator:project:render": "node scripts/simulator-project.mjs render",
+    "simulator:project:status": "node scripts/simulator-project.mjs status",
+    "simulator:status": "node scripts/simulator-project.mjs render",
+    "simulator:validate": "node scripts/validate-simulator-data.mjs",
+    "simulator:data:sync": "node scripts/sync-simulator-data.mjs",
     "gdm:import": "node scripts/import-gdmissions-11th.mjs --run",
     "missions:validate": "node scripts/mission-data.mjs --check",
     "strategy:seed-guides": "node scripts/seed-primary-guides.mjs",
@@ -43,22 +50,27 @@
     "preview": "vite preview",
     "lint": "tsc -b",
     "test": "vitest run --config vite.config.ts",
-    "verify": "pnpm faction-packs:validate && pnpm sync-data && pnpm missions:validate && pnpm images:validate && pnpm rules:validate && pnpm test && pnpm build",
+    "test:browser": "playwright test",
+    "verify": "pnpm simulator:project:check && pnpm simulator:validate && pnpm faction-packs:validate && pnpm sync-data && pnpm missions:validate && pnpm images:validate && pnpm rules:validate && pnpm test && pnpm test:browser && pnpm build",
     "test:watch": "vitest --config vite.config.ts"
   },
   "dependencies": {
     "@capacitor/android": "8.5.0",
     "@capacitor/core": "8.5.0",
     "@vitejs/plugin-react": "6.0.5",
+    "@xstate/react": "^6.1.0",
     "i18next": "26.3.6",
+    "pixi.js": "^8.19.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-i18next": "17.0.11",
     "vite": "8.1.5",
-    "vite-plugin-pwa": "1.3.0"
+    "vite-plugin-pwa": "1.3.0",
+    "xstate": "^5.32.5"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.0",
+    "@playwright/test": "^1.62.1",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "electron": "43.3.0",

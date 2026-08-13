@@ -1,0 +1,308 @@
+import { assign, createActor, setup, type ActorRefFrom } from 'xstate';
+import { executeGameCommand, type CommandExecution, type GameCommand, type GameState, type RuleRejection, type SimulatorPhase } from '../domain';
+import type { SimulationAutosaveController } from '../persistence';
+import type { SimulationCompatibilityReport } from './compatibility';
+import { isSessionCompatible } from './compatibility';
+import { executeBasicShootingCommand, type ShootingEnvironment } from './shooting';
+
+const COVERAGE_RULE_ID = 'simulator.core.coverage-compatibility';
+
+export type SimulatorMachineEvent =
+  | { readonly type: 'COMMAND'; readonly command: GameCommand }
+  | { readonly type: 'CLEAR_REJECTION' };
+
+/**
+ * The statechart owns only orchestration metadata.  `gameState` is the exact
+ * reducer result; phases, events and rules are never reimplemented here.
+ */
+export interface SimulatorMachineContext {
+  readonly initialState: GameState;
+  readonly gameState: GameState;
+  readonly compatibility: SimulationCompatibilityReport | null;
+  readonly lastRejection: RuleRejection | null;
+}
+
+export interface CreateSimulatorMachineInput {
+  /** The event-free state from which the event log can be replayed. */
+  readonly initialState: GameState;
+  /** Use when restoring an already played save; defaults to `initialState`. */
+  readonly gameState?: GameState;
+  /** Required to start a new session; restored sessions preserve the original gate. */
+  readonly compatibility?: SimulationCompatibilityReport | null;
+  /** Immutable, trusted scenario/rulepack/geometry facts for shooting commands. */
+  readonly shootingEnvironment?: ShootingEnvironment;
+}
+
+type PhaseMachineState = SimulatorPhase;
+
+function rejectionForIncompleteCoverage(command: Extract<GameCommand, { readonly type: 'setup-session' }>): RuleRejection {
+  return {
+    commandId: command.id,
+    code: 'incomplete-coverage',
+    message: 'La partie ne peut pas démarrer tant que toutes ses dépendances ne sont pas couvertes.',
+    sourceRuleIds: [COVERAGE_RULE_ID]
+  };
+}
+
+function executeOrchestratedCommand(context: SimulatorMachineContext, command: GameCommand, shootingEnvironment?: ShootingEnvironment): CommandExecution {
+  if (command.type === 'setup-session' && (!context.compatibility || !isSessionCompatible(command.session, context.compatibility))) {
+    return { accepted: false, state: context.gameState, rejection: rejectionForIncompleteCoverage(command) };
+  }
+  if (command.type === 'setup-session' && shootingEnvironment && command.session.shootingEnvironmentFingerprint !== shootingEnvironment.fingerprint) {
+    return {
+      accepted: false,
+      state: context.gameState,
+      rejection: {
+        commandId: command.id,
+        code: 'shooting-environment-mismatch',
+        message: 'L’environnement de tir ne correspond pas à la session.',
+        sourceRuleIds: ['simulator.core.trusted-shooting-environment']
+      }
+    };
+  }
+  if (command.type === 'resolve-basic-shooting') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-shooting-environment-required',
+          message: 'Le tir doit être résolu par un environnement spatial autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-shooting-environment']
+        }
+      };
+    }
+    return executeBasicShootingCommand(context.gameState, command, shootingEnvironment);
+  }
+  return executeGameCommand(context.gameState, command);
+}
+
+function commandReachesPhase(context: SimulatorMachineContext, event: SimulatorMachineEvent, expected: PhaseMachineState, shootingEnvironment?: ShootingEnvironment): boolean {
+  if (event.type !== 'COMMAND') return false;
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  return execution.accepted && execution.state.phase === expected;
+}
+
+function commandOpensDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): boolean {
+  if (event.type !== 'COMMAND') return false;
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  return execution.accepted && context.gameState.pendingDecisions.length === 0 && execution.state.pendingDecisions.length > 0;
+}
+
+function commandClosesDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): boolean {
+  if (event.type !== 'COMMAND') return false;
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  return execution.accepted && context.gameState.pendingDecisions.length > 0 && execution.state.pendingDecisions.length === 0;
+}
+
+function phaseIs(context: SimulatorMachineContext, expected: PhaseMachineState): boolean {
+  return context.gameState.phase === expected;
+}
+
+function hasPendingDecision(context: SimulatorMachineContext): boolean {
+  return context.gameState.pendingDecisions.length > 0;
+}
+
+function applyCommand(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): SimulatorMachineContext {
+  if (event.type !== 'COMMAND') return context;
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  return execution.accepted
+    ? { ...context, gameState: execution.state, lastRejection: null }
+    : { ...context, lastRejection: execution.rejection };
+}
+
+/**
+ * Creates the XState v5 orchestration chart.  It is intentionally recreated
+ * for each session so that no state leaks between concurrent local games.
+ */
+export function createSimulatorMachine(input: CreateSimulatorMachineInput) {
+  const initialContext: SimulatorMachineContext = {
+    initialState: input.initialState,
+    gameState: input.gameState ?? input.initialState,
+    compatibility: input.compatibility ?? null,
+    lastRejection: null
+  };
+
+  return setup({
+    types: {
+      context: {} as SimulatorMachineContext,
+      events: {} as SimulatorMachineEvent
+    },
+    actions: {
+      applyCommand: assign(({ context, event }) => applyCommand(context, event, input.shootingEnvironment)),
+      clearRejection: assign(({ context }) => ({ ...context, lastRejection: null }))
+    },
+    guards: {
+      commandReachesPhase: ({ context, event }, parameters: { readonly phase: PhaseMachineState }) => commandReachesPhase(context, event, parameters.phase, input.shootingEnvironment),
+      commandOpensDecision: ({ context, event }) => commandOpensDecision(context, event, input.shootingEnvironment),
+      commandClosesDecision: ({ context, event }) => commandClosesDecision(context, event, input.shootingEnvironment),
+      hasPendingDecision: ({ context }) => hasPendingDecision(context),
+      phaseIs: ({ context }, parameters: { readonly phase: PhaseMachineState }) => phaseIs(context, parameters.phase)
+    }
+  }).createMachine({
+    id: 'warforge-simulator',
+    initial: 'active',
+    context: initialContext,
+    states: {
+      active: {
+        initial: 'synchronizing',
+        on: {
+          CLEAR_REJECTION: { actions: 'clearRejection' }
+        },
+        states: {
+          synchronizing: {
+            always: [
+              { guard: 'hasPendingDecision', target: 'decision' },
+              ...(['setup', 'deployment', 'command', 'movement', 'shooting', 'charge', 'fight', 'completed'] as const).map((phase) => ({
+                guard: { type: 'phaseIs' as const, params: { phase } },
+                target: phase
+              }))
+            ]
+          },
+          setup: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'deployment' } }, actions: 'applyCommand', target: 'deployment' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          deployment: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'command' } }, actions: 'applyCommand', target: 'command' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          command: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'movement' } }, actions: 'applyCommand', target: 'movement' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          movement: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'shooting' } }, actions: 'applyCommand', target: 'shooting' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          shooting: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'charge' } }, actions: 'applyCommand', target: 'charge' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          charge: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'fight' } }, actions: 'applyCommand', target: 'fight' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          fight: {
+            on: {
+              COMMAND: [
+                { guard: 'commandOpensDecision', actions: 'applyCommand', target: 'decision' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'completed' } }, actions: 'applyCommand', target: 'completed' },
+                { guard: { type: 'commandReachesPhase', params: { phase: 'command' } }, actions: 'applyCommand', target: 'command' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          },
+          completed: {
+            on: { COMMAND: { actions: 'applyCommand' } }
+          },
+          decision: {
+            on: {
+              COMMAND: [
+                { guard: 'commandClosesDecision', actions: 'applyCommand', target: 'synchronizing' },
+                { actions: 'applyCommand' }
+              ]
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+export type SimulatorActor = ActorRefFrom<ReturnType<typeof createSimulatorMachine>>;
+
+export function createSimulatorActor(input: CreateSimulatorMachineInput): SimulatorActor {
+  return createActor(createSimulatorMachine(input));
+}
+
+/** Stable command boundary for UI/adapters; callers never send reducer events directly. */
+export function dispatchGameCommand(actor: SimulatorActor, command: GameCommand): void {
+  actor.send({ type: 'COMMAND', command });
+}
+
+export function clearSimulatorRejection(actor: SimulatorActor): void {
+  actor.send({ type: 'CLEAR_REJECTION' });
+}
+
+export function getSimulatorGameState(actor: SimulatorActor): GameState {
+  return actor.getSnapshot().context.gameState;
+}
+
+export function getSimulatorInitialState(actor: SimulatorActor): GameState {
+  return actor.getSnapshot().context.initialState;
+}
+
+export interface SimulatorAutosaveSubscription {
+  /** Resolves once every accepted command observed so far has been persisted. */
+  flush(): Promise<void>;
+  unsubscribe(): void;
+}
+
+/**
+ * Persists only reducer-produced event-log changes.  Rejections and visual
+ * statechart transitions do not create durable records, preserving a compact
+ * replay log.
+ */
+export function attachSimulatorAutosave(actor: SimulatorActor, controller: SimulationAutosaveController): SimulatorAutosaveSubscription {
+  let lastEventCount = actor.getSnapshot().context.gameState.eventLog.length;
+  let queue: Promise<void> = Promise.resolve();
+  let recoveredWriteError: unknown = null;
+  let hasRecoveredWriteError = false;
+  const subscription = actor.subscribe({
+    next(snapshot) {
+      const { initialState, gameState } = snapshot.context;
+      if (gameState.eventLog.length === lastEventCount) return;
+      lastEventCount = gameState.eventLog.length;
+      // A failed write must not prevent a later accepted command from trying
+      // again. Keep the failure for `flush()` rather than silently dropping it.
+      queue = queue.catch((error: unknown) => {
+        recoveredWriteError = error;
+        hasRecoveredWriteError = true;
+      }).then(() => controller.autosave(initialState, gameState).then(() => undefined));
+    }
+  });
+  return {
+    flush: async () => {
+      await queue;
+      if (hasRecoveredWriteError) {
+        const error = recoveredWriteError;
+        recoveredWriteError = null;
+        hasRecoveredWriteError = false;
+        throw error;
+      }
+    },
+    unsubscribe: () => subscription.unsubscribe()
+  };
+}

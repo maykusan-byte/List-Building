@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "warforge-simulator-ai-calibration/v1",
+  "version": "1.0.0",
+  "policyVersion": "1.0.0",
+  "recalibrateAfterRepresentativeTasks": 5,
+  "scenarios": [
+    {
+      "id": "CAL-01",
+      "title": "Formaliser une règle de tir sourcée",
+      "executionProfiles": ["rules-formalization"],
+      "requiredEvidence": ["source-page", "golden-test", "independent-review"]
+    },
+    {
+      "id": "CAL-02",
+      "title": "Implémenter un prédicat géométrique avec cas limites",
+      "executionProfiles": ["implementation-complex"],
+      "requiredEvidence": ["property-tests", "boundary-tests", "independent-review"]
+    },
+    {
+      "id": "CAL-03",
+      "title": "Implémenter une interaction React/PixiJS bornée",
+      "executionProfiles": ["implementation-routine", "implementation-complex"],
+      "requiredEvidence": ["browser-test", "typecheck"]
+    },
+    {
+      "id": "CAL-04",
+      "title": "Ajouter un profil physique avec provenance",
+      "executionProfiles": ["implementation-routine"],
+      "requiredEvidence": ["simulator-data-validation", "human-review-status"]
+    },
+    {
+      "id": "CAL-05",
+      "title": "Mettre à jour mécaniquement le tracker",
+      "executionProfiles": ["mechanical"],
+      "requiredEvidence": ["tracker-check", "generated-status-check"]
+    }
+  ],
+  "measures": [
+    "acceptanceCriteria",
+    "functionalAccuracy",
+    "reviewDefects",
+    "rework",
+    "validationResults",
+    "duration",
+    "consumptionWhenAvailable"
+  ]
+}

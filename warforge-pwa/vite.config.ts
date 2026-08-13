@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         disable: isDesktop || isAndroid,
         registerType: 'autoUpdate',
-        includeAssets: ['data/catalog.json', 'data/locales/fr/catalog.json', 'data/datasheet_x_figs.csv', 'data/unit-images.json', 'data/rules/core-rules-fr.json'],
+        includeAssets: ['data/catalog.json', 'data/locales/fr/catalog.json', 'data/datasheet_x_figs.csv', 'data/unit-images.json', 'data/rules/core-rules-fr.json', 'data/simulator/manifest.json', 'data/simulator/coverage.json', 'data/simulator/physical-profiles.json', 'data/simulator/scenarios.json', 'data/simulator/rulepacks.json'],
         manifest: {
           name: 'Warforge 40k',
           short_name: 'Warforge',

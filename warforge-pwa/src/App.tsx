@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateItemCost, calculateRosterTotal, enhancementIsEligible, getDetachmentCost, getPointSizes, getSelectedDetachments, occurrenceForItem, resolvePointOption } from './domain/calculations';
@@ -35,16 +35,19 @@ import type { StrategyKnowledge, StrategyReferenceRoster, StrategySelectedEnhanc
 import type { UnitConfiguration } from './domain/statistics';
 import './styles.css';
 
+const SimulatorPage = lazy(() => import('./simulator/ui/SimulatorPage'));
+
 const NEW_SCHEMA = 'warforge-list/v1';
 const DATA_BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
-type AppView = 'builder' | 'reference' | 'weapons' | 'statistics' | 'learning' | 'inventory';
+type AppView = 'builder' | 'reference' | 'weapons' | 'statistics' | 'learning' | 'inventory' | 'simulator';
 
 function viewFromHash(): AppView {
   if (window.location.hash.startsWith('#rules') || window.location.hash.startsWith('#reference')) return 'reference';
   if (window.location.hash.startsWith('#weapons')) return 'weapons';
   if (window.location.hash.startsWith('#statistics')) return 'statistics';
   if (window.location.hash.startsWith('#learning')) return 'learning';
+  if (window.location.hash.startsWith('#simulator')) return 'simulator';
   if (window.location.hash.startsWith('#inventory')) return 'inventory';
   return 'builder';
 }
@@ -1705,6 +1708,19 @@ export default function App(): React.JSX.Element {
   );
   const globalNavigation = <GlobalNavigation activeView={view} locale={locale} onChangeLocale={changeLocale} onExportProfile={exportUserProfile} onImportProfile={() => profileInputRef.current?.click()} onOpenProjectStatus={() => setProjectStatusMode('details')} />;
   const profileImportInput = <input ref={profileInputRef} type="file" accept="application/json,.json" hidden onChange={importUserProfile} />;
+
+  if (view === 'simulator') {
+    return (
+      <>
+        {globalNavigation}
+        {profileImportInput}
+        <Suspense fallback={<main className="loading-shell"><div className="loading-card"><p>{locale === 'fr' ? 'Chargement du laboratoire géométrique…' : 'Loading geometry laboratory…'}</p></div></main>}>
+          <SimulatorPage locale={locale} />
+        </Suspense>
+        {projectStatusDialog}
+      </>
+    );
+  }
 
   if (view === 'reference') {
     return (

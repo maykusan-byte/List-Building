@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "warforge-simulator-coverage/v1",
+  "manifestVersion": "0.1.0",
+  "status": "closed-duel-covered",
+  "supportedPhases": ["deployment", "command", "movement", "shooting"],
+  "supportedRuleIds": ["core-basic-shooting-v1"],
+  "supportedUnitIds": [],
+  "supportedFixtureUnitIds": [
+    "closed-core-red-unit-v1",
+    "closed-core-blue-unit-v1"
+  ],
+  "supportedScenarioIds": ["closed-core-shooting-duel-v1"],
+  "supportedWeaponIds": ["closed-core-training-rifle-v1"],
+  "supportedPhysicalProfileIds": ["training-infantry-32mm-v1"],
+  "limitations": [
+    "Couverture limitée au duel fermé synthétique, à son fusil d'entraînement et à sa convention physique revue.",
+    "Le corpus fermé exclut les aptitudes d'arme, d'unité, d'armée et de détachement."
+  ]
+}

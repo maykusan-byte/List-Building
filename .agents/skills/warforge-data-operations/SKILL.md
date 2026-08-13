@@ -49,6 +49,16 @@ and effective date whenever game content changes.
   `images:validate` in that order.
 - Do not identify a unit by approximate filename matching.
 
+### Tactical simulator
+
+- Use `warforge-simulator-development` as well for `data/simulator/` changes.
+- Keep manifests, rulepacks, physical profiles, scenarios and coverage in the
+  versioned source directory; never edit `public/data/simulator/`.
+- Require provenance, version and effective date for executable game rules.
+- Mark project-specific geometry assumptions as conventions requiring human
+  review; do not present inferred heights or silhouettes as official data.
+- Run `pnpm simulator:validate`, `pnpm test` and `pnpm build`.
+
 ## Finish every operation
 
 - Run the domain-specific command plus `pnpm test`; run `pnpm build` whenever

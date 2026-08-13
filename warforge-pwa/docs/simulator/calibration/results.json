@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "warforge-simulator-ai-calibration-results/v1",
+  "corpusVersion": "1.0.0",
+  "runs": [
+    {
+      "scenarioId": "CAL-01",
+      "taskId": "SIM-M3-T01",
+      "configuration": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "result": "passed-after-review",
+      "acceptanceCriteria": true,
+      "functionalAccuracy": true,
+      "reviewDefects": 6,
+      "reworkRounds": 2,
+      "validationResults": ["source 13.08 page 50 verified", "34 validator tests passed", "independent Sol audit passed"],
+      "duration": null,
+      "consumption": null,
+      "notes": "La revue a fermé la provenance PDF, le schéma exact du couvert et les identités catalogue récursives."
+    },
+    {
+      "scenarioId": "CAL-02",
+      "taskId": "SIM-M2-T02",
+      "configuration": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "result": "passed-after-review",
+      "acceptanceCriteria": true,
+      "functionalAccuracy": true,
+      "reviewDefects": 6,
+      "reworkRounds": 3,
+      "validationResults": ["25 geometry tests passed", "50625 rectangle pairs audited", "independent Sol audit passed"],
+      "duration": null,
+      "consumption": null,
+      "notes": "Les audits ont ajouté les régressions AABB orientée, CCD colinéaire, pose nulle, singleton et multipolygones colinéaires."
+    },
+    {
+      "scenarioId": "CAL-03",
+      "taskId": "SIM-M2-T03",
+      "configuration": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
+      "result": "passed-after-review",
+      "acceptanceCriteria": true,
+      "functionalAccuracy": true,
+      "reviewDefects": 1,
+      "reworkRounds": 1,
+      "validationResults": ["4 UI tests passed", "Playwright numeric evidence passed", "reference snapshot passed"],
+      "duration": null,
+      "consumption": null,
+      "notes": "La revue a demandé des assertions numériques sémantiques en plus de la capture visuelle."
+    },
+    {
+      "scenarioId": "CAL-04",
+      "taskId": "SIM-M3-T01",
+      "configuration": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "result": "passed-after-review",
+      "acceptanceCriteria": true,
+      "functionalAccuracy": true,
+      "reviewDefects": 2,
+      "reworkRounds": 1,
+      "validationResults": ["project-owner approval validated", "convention registry cross-reference passed", "source/public mirrors identical"],
+      "duration": null,
+      "consumption": null,
+      "notes": "Le profil 32 mm / 40 mm reste une convention locale limitée au duel fermé."
+    },
+    {
+      "scenarioId": "CAL-05",
+      "taskId": "SIM-M0-T02",
+      "configuration": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "result": "passed-after-review",
+      "acceptanceCriteria": true,
+      "functionalAccuracy": true,
+      "reviewDefects": 8,
+      "reworkRounds": 3,
+      "validationResults": ["12 tracker tests passed", "generated status synchronized", "independent audit passed"],
+      "duration": null,
+      "consumption": null,
+      "notes": "Ce run valide le corpus mais pas encore la préférence Terra low du profil mécanique ; le routage 1.0.0 reste inchangé."
+    }
+  ]
+}

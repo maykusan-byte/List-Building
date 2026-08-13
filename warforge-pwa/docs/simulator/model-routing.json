@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "warforge-simulator-model-routing/v1",
+  "policyVersion": "1.0.0",
+  "updatedAt": "2026-08-13T00:00:00.000Z",
+  "availability": {
+    "knownAvailable": ["gpt-5.6-sol", "gpt-5.6-terra"],
+    "notAvailable": ["gpt-5.6-luna"],
+    "policy": "Le routage est une préférence avec fallback. Il ne doit jamais bloquer une tâche mécanique."
+  },
+  "defaults": {
+    "maxConcurrentDelegations": 3,
+    "defaultConcurrentDelegations": 2,
+    "requiresIndependentScopes": true
+  },
+  "profiles": {
+    "architecture-critical": {
+      "purpose": "Architecture, invariants, règles ambiguës et ADR majeurs.",
+      "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "validation": "Seconde lecture en contexte frais.",
+      "requiresIndependentReview": true
+    },
+    "rules-formalization": {
+      "purpose": "Transformation d'une règle sourcée en comportement exécutable.",
+      "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "validation": "Golden tests et revue humaine si ambiguïté.",
+      "requiresIndependentReview": true
+    },
+    "implementation-complex": {
+      "purpose": "Moteur, statechart, géométrie et persistance.",
+      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "fallback": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "validation": "Tests puis revue Sol high pour les composants critiques.",
+      "requiresIndependentReview": true
+    },
+    "implementation-routine": {
+      "purpose": "UI bornée, adaptateurs et tests standards.",
+      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "validation": "Tests et revue du coordinateur.",
+      "requiresIndependentReview": false
+    },
+    "mechanical": {
+      "purpose": "Renommages, index, documentation générée et fixtures simples.",
+      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "low" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "medium" },
+      "validation": "Contrôle automatique et lecture rapide.",
+      "requiresIndependentReview": false
+    },
+    "milestone-audit": {
+      "purpose": "Acceptation de jalon, risques et couverture.",
+      "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "validation": "Contexte limité aux artefacts et preuves.",
+      "requiresIndependentReview": true
+    }
+  },
+  "guardrails": [
+    "Ne pas déléguer à un petit modèle une interprétation de règle, une migration sensible ou une acceptation de jalon.",
+    "Une sortie d'un modèle moins puissant exige les validations prévues ; une compilation réussie ne suffit pas.",
+    "Utiliser max uniquement après preuve de gain sur une tâche critique.",
+    "Enregistrer le modèle, l'effort et le contexte réellement utilisés à la clôture de chaque tâche."
+  ],
+  "calibration": {
+    "recalibrateAfterRepresentativeTasks": 5,
+    "recalibrateOnMajorModelChange": true,
+    "scenarios": [
+      "Formalisation d'une règle de tir depuis une page officielle.",
+      "Prédicat géométrique avec cas limites.",
+      "Interaction React/PixiJS bornée.",
+      "Profil physique avec validation de provenance.",
+      "Mise à jour mécanique du tracker et du statut."
+    ],
+    "measures": ["acceptanceCriteria", "functionalAccuracy", "reviewDefects", "rework", "validationResults", "duration", "consumptionWhenAvailable"]
+  }
+}

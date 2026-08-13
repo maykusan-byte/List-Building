@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "warforge-simulator-scenarios/v1",
+  "manifestVersion": "0.1.0",
+  "fixtureUnitTemplates": [
+    {
+      "id": "closed-core-training-infantry-v1",
+      "physicalProfileId": "training-infantry-32mm-v1",
+      "keywords": ["INFANTRY"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 2
+      },
+      "weapons": [
+        {
+          "id": "closed-core-training-rifle-v1",
+          "name": "Fusil d'entraînement",
+          "range": 6096,
+          "attacks": 2,
+          "ballisticSkill": 3,
+          "strength": 4,
+          "armourPenetration": -1,
+          "damage": 1
+        }
+      ]
+    }
+  ],
+  "fixtureUnits": [
+    {
+      "id": "closed-core-red-unit-v1",
+      "subjectType": "fixture-unit",
+      "status": "ready",
+      "templateId": "closed-core-training-infantry-v1",
+      "modelCount": 5
+    },
+    {
+      "id": "closed-core-blue-unit-v1",
+      "subjectType": "fixture-unit",
+      "status": "ready",
+      "templateId": "closed-core-training-infantry-v1",
+      "modelCount": 5
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "closed-core-shooting-duel-v1",
+      "title": "Duel fermé — séquence de tir de base",
+      "status": "covered",
+      "board": { "width": 11176, "height": 7620 },
+      "physicalProfileIds": ["training-infantry-32mm-v1"],
+      "rulepackIds": ["core-basic-shooting-v1"],
+      "terrainZones": [
+        {
+          "id": "light-cover-zone-v1",
+          "terrainType": "light",
+          "footprint": [
+            { "x": 7000, "y": 3150 },
+            { "x": 8300, "y": 3150 },
+            { "x": 8300, "y": 4500 },
+            { "x": 7000, "y": 4500 }
+          ],
+          "ruleIds": ["core.benefit-of-cover"],
+          "visual": {
+            "fill": "#7d9660",
+            "opacity": 0.45,
+            "label": "Zone de terrain léger — Bénéfice du Couvert"
+          }
+        }
+      ],
+      "players": [
+        {
+          "id": "red",
+          "fixtureUnitId": "closed-core-red-unit-v1",
+          "modelPositions": [
+            { "x": 3000, "y": 3500 },
+            { "x": 3360, "y": 3500 },
+            { "x": 3720, "y": 3500 },
+            { "x": 3180, "y": 3860 },
+            { "x": 3540, "y": 3860 }
+          ]
+        },
+        {
+          "id": "blue",
+          "fixtureUnitId": "closed-core-blue-unit-v1",
+          "modelPositions": [
+            { "x": 7200, "y": 3500 },
+            { "x": 7560, "y": 3500 },
+            { "x": 7920, "y": 3500 },
+            { "x": 7380, "y": 3860 },
+            { "x": 7740, "y": 3860 }
+          ]
+        }
+      ],
+      "acceptance": "Couverture fermée validée par les golden tests, la revue humaine de la convention physique et l'audit SIM-M3-T02."
+    }
+  ]
+}

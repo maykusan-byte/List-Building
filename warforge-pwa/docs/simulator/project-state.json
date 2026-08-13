@@ -1,0 +1,852 @@
+{
+  "schemaVersion": "warforge-simulator-project/v1",
+  "planVersion": "1.1.0",
+  "planChange": {
+    "version": "1.1.0",
+    "adrId": "ADR-005"
+  },
+  "updatedAt": "2026-08-13T11:37:35.702Z",
+  "currentMilestoneId": "M3",
+  "currentTaskId": null,
+  "milestones": [
+    {
+      "id": "M0",
+      "title": "Gouvernance et politique IA",
+      "status": "accepted",
+      "taskIds": [
+        "SIM-M0-T01",
+        "SIM-M0-T02",
+        "SIM-M0-T03",
+        "SIM-M0-T04"
+      ],
+      "acceptanceCriteria": [
+        "Une nouvelle session retrouve l'état, la prochaine action et le profil IA sans historique conversationnel."
+      ],
+      "acceptedAt": "2026-08-13T08:01:22.857Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audits engine_m1 et m1_independent_audit",
+        "result": "passed",
+        "scope": "M0 artefacts, tracker, skill, calibration et preuves",
+        "reviewer": "engine_m1-terra-xhigh+m1-independent-audit-sol-high",
+        "recordedAt": "2026-08-13T08:01:22.857Z",
+        "notes": "Le tracker a ete durci jusqu'au verdict final PASS Sol."
+      }
+    },
+    {
+      "id": "M1",
+      "title": "Fondations techniques",
+      "status": "accepted",
+      "taskIds": [
+        "SIM-M1-T01",
+        "SIM-M1-T02",
+        "SIM-M1-T03"
+      ],
+      "acceptanceCriteria": [
+        "Le moteur est rejouable, sérialisable et testé sans UI."
+      ],
+      "acceptedAt": "2026-08-13T08:01:53.203Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit final m1_independent_audit et suite complete",
+        "result": "passed",
+        "scope": "M1 domaine, statechart, compatibilite, persistence, schemas et preuves",
+        "reviewer": "m1-independent-audit-sol-high+engine_m1-terra-xhigh",
+        "recordedAt": "2026-08-13T08:01:53.203Z",
+        "notes": "M1-T01 et M1-T02 PASS Sol; M1-T03 PASS audit croise."
+      }
+    },
+    {
+      "id": "M2",
+      "title": "Laboratoire spatial",
+      "status": "accepted",
+      "taskIds": [
+        "SIM-M2-T01",
+        "SIM-M2-T02",
+        "SIM-M2-T03"
+      ],
+      "acceptanceCriteria": [
+        "Les cas géométriques de référence donnent des verdicts stables et explicables."
+      ],
+      "acceptedAt": "2026-08-13T09:10:35.420Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit Sol high: targeted geometry/UI tests, Playwright and evidence review",
+        "result": "passed",
+        "scope": "SIM-M2-T01..T03 artifacts and evidence",
+        "reviewer": "/root/audit_m2_milestone gpt-5.6-sol high",
+        "recordedAt": "2026-08-13T09:10:35.420Z",
+        "notes": "PASS sans finding, laboratoire déterministe et explicable."
+      }
+    },
+    {
+      "id": "M3",
+      "title": "Vertical slice de tir",
+      "status": "accepted",
+      "taskIds": [
+        "SIM-M3-T01",
+        "SIM-M3-T02",
+        "SIM-M3-T03"
+      ],
+      "acceptanceCriteria": [
+        "Deux unités fermées de cinq modèles réalisent une séquence de tir complète, sauvegardable et rejouable."
+      ],
+      "acceptedAt": "2026-08-13T11:37:35.702Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit Sol high: M3 data, engine, V2 persistence, UI, Playwright and adversarial probes",
+        "result": "passed",
+        "scope": "SIM-M3-T01..T03 artifacts, sources and evidence",
+        "reviewer": "/root/audit_m3_milestone gpt-5.6-sol high",
+        "recordedAt": "2026-08-13T11:37:35.702Z",
+        "notes": "PASS sans finding; duel fermé jouable, sauvegardable et rejouable."
+      }
+    },
+    {
+      "id": "M4",
+      "title": "Intégration Warforge",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M4-T01",
+        "SIM-M4-T02",
+        "SIM-M4-T03"
+      ],
+      "acceptanceCriteria": [
+        "Deux RosterDraft supportés sont importables et les éléments non couverts sont bloqués explicitement."
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Extension des règles",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M5-T01",
+        "SIM-M5-T02",
+        "SIM-M5-T03"
+      ],
+      "acceptanceCriteria": [
+        "La couverture annoncée correspond intégralement au catalogue actif et à ses sources."
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "SIM-M0-T01",
+      "milestoneId": "M0",
+      "title": "Créer les sources de vérité du programme",
+      "status": "done",
+      "dependencies": [],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le plan, le routage et l'état initial sont versionnés.",
+          "evidenceIds": [
+            "EVD-M0-T01-001"
+          ]
+        },
+        {
+          "id": "AC-02",
+          "description": "L'état identifie la tâche active et une reprise déterministe.",
+          "evidenceIds": [
+            "EVD-M0-T01-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M0-T01-001",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "docs/simulator/PLAN.md, project-state.json, model-routing.json, STATUS.md",
+          "recordedAt": "2026-08-13T08:01:20.649Z"
+        },
+        {
+          "id": "EVD-M0-T01-002",
+          "kind": "independent-review",
+          "command": "audit engine_m1 gouvernance",
+          "result": "passed",
+          "scope": "sources de verite M0",
+          "recordedAt": "2026-08-13T08:01:20.765Z",
+          "notes": "Fallback versionne: slot Sol indisponible lors du premier audit.",
+          "reviewer": "engine_m1-terra-xhigh"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Architecture et gouvernance du programme simulateur.",
+        "recordedAt": "2026-08-13T08:01:20.543Z"
+      },
+      "updatedAt": "2026-08-13T08:01:20.872Z"
+    },
+    {
+      "id": "SIM-M0-T02",
+      "milestoneId": "M0",
+      "title": "Implémenter le tracker et son contrôle",
+      "status": "done",
+      "dependencies": [
+        "SIM-M0-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le tracker valide les états, preuves, dépendances, ADR, routage et statut généré.",
+          "evidenceIds": [
+            "EVD-M0-T02-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M0-T02-001",
+          "kind": "validation",
+          "command": "pnpm vitest run scripts/simulator-project.test.mjs --config vite.config.ts",
+          "result": "passed",
+          "scope": "tracker, transitions, preuves, routage, bloqueurs, jalons",
+          "recordedAt": "2026-08-13T08:01:21.263Z"
+        },
+        {
+          "id": "EVD-M0-T02-002",
+          "kind": "independent-review",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M0-T02 et 12 tests",
+          "recordedAt": "2026-08-13T08:01:21.364Z",
+          "reviewer": "m1-independent-audit-sol-high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Durcissement du tracker apres audits independants iteratifs.",
+        "recordedAt": "2026-08-13T08:01:21.165Z"
+      },
+      "updatedAt": "2026-08-13T08:01:21.480Z"
+    },
+    {
+      "id": "SIM-M0-T03",
+      "milestoneId": "M0",
+      "title": "Créer les consignes IA spécialisées",
+      "status": "done",
+      "dependencies": [
+        "SIM-M0-T01"
+      ],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les consignes imposent lecture, routage, validation et reprise du simulateur.",
+          "evidenceIds": [
+            "EVD-M0-T03-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M0-T03-001",
+          "kind": "validation",
+          "command": "quick_validate.py warforge-simulator-development",
+          "result": "passed",
+          "scope": ".agents/skills/warforge-simulator-development et AGENTS.md",
+          "recordedAt": "2026-08-13T08:01:21.946Z"
+        },
+        {
+          "id": "EVD-M0-T03-002",
+          "kind": "independent-review",
+          "command": "audit engine_m1 ressources IA",
+          "result": "passed",
+          "scope": "skill, AGENTS et politique de reprise",
+          "recordedAt": "2026-08-13T08:01:22.066Z",
+          "notes": "Fallback versionne: premier audit en Terra xhigh.",
+          "reviewer": "engine_m1-terra-xhigh"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Creation du skill simulateur et integration des consignes AGENTS.",
+        "recordedAt": "2026-08-13T08:01:21.826Z"
+      },
+      "updatedAt": "2026-08-13T08:01:22.179Z"
+    },
+    {
+      "id": "SIM-M0-T04",
+      "milestoneId": "M0",
+      "title": "Initialiser le corpus de calibration IA",
+      "status": "done",
+      "dependencies": [
+        "SIM-M0-T02",
+        "SIM-M0-T03"
+      ],
+      "executionProfile": "mechanical",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les cinq scénarios et leurs mesures sont versionnés.",
+          "evidenceIds": [
+            "EVD-M0-T04-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M0-T04-001",
+          "kind": "validation",
+          "command": "audit corpus calibration",
+          "result": "passed",
+          "scope": "docs/simulator/calibration/corpus.json et results.json",
+          "recordedAt": "2026-08-13T08:01:22.619Z"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Corpus de calibration et mesures de routage versionnes.",
+        "recordedAt": "2026-08-13T08:01:22.504Z"
+      },
+      "updatedAt": "2026-08-13T08:01:22.732Z"
+    },
+    {
+      "id": "SIM-M1-T01",
+      "milestoneId": "M1",
+      "title": "Établir les contrats et le journal déterministe",
+      "status": "done",
+      "dependencies": [
+        "SIM-M0-T02",
+        "SIM-M0-T03",
+        "SIM-M0-T04"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Commandes, événements, reducer et PRNG sont purs et rejouables.",
+          "evidenceIds": [
+            "EVD-M1-T01-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M1-T01-001",
+          "kind": "validation",
+          "command": "pnpm vitest run src/simulator/domain/foundation.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "domaine pur, PRNG, commandes, evenements, replay, sauvegardes",
+          "recordedAt": "2026-08-13T08:01:51.739Z"
+        },
+        {
+          "id": "EVD-M1-T01-002",
+          "kind": "independent-review",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M1-T01, etat initial et PRNG event-free",
+          "recordedAt": "2026-08-13T08:01:51.848Z",
+          "reviewer": "m1-independent-audit-sol-high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Contrats, reducer, PRNG, replay et gardes de serialisation durcis.",
+        "recordedAt": "2026-08-13T08:01:51.626Z"
+      },
+      "updatedAt": "2026-08-13T08:01:51.946Z"
+    },
+    {
+      "id": "SIM-M1-T02",
+      "milestoneId": "M1",
+      "title": "Construire le statechart racine",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les phases et fenêtres de décision sont contrôlées sans saut illégal.",
+          "evidenceIds": [
+            "EVD-M1-T02-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M1-T02-001",
+          "kind": "validation",
+          "command": "pnpm vitest run src/simulator/orchestration/machine.test.ts src/simulator/persistence/persistence.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "phases, decisions, terminaison, compatibilite, autosave et persistence",
+          "recordedAt": "2026-08-13T08:01:52.327Z"
+        },
+        {
+          "id": "EVD-M1-T02-002",
+          "kind": "independent-review",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M1-T02, fingerprint, decisions, completed et replay impossible",
+          "recordedAt": "2026-08-13T08:01:52.429Z",
+          "reviewer": "m1-independent-audit-sol-high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Statechart XState, decisions exclusives, compatibilite session et persistance.",
+        "recordedAt": "2026-08-13T08:01:52.236Z"
+      },
+      "updatedAt": "2026-08-13T08:01:52.533Z"
+    },
+    {
+      "id": "SIM-M1-T03",
+      "milestoneId": "M1",
+      "title": "Créer les schémas et la matrice de couverture",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T01"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les données du simulateur et leur couverture sont validables.",
+          "evidenceIds": [
+            "EVD-M1-T03-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M1-T03-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "data/simulator et public/data/simulator",
+          "recordedAt": "2026-08-13T08:01:52.985Z",
+          "notes": "Audit engine_m1 PASS avec reserve de durcissement future sur les references catalogue."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Schemas, matrice de couverture et synchronisation des donnees simulateur.",
+        "recordedAt": "2026-08-13T08:01:52.884Z"
+      },
+      "updatedAt": "2026-08-13T08:01:53.087Z"
+    },
+    {
+      "id": "SIM-M2-T01",
+      "milestoneId": "M2",
+      "title": "Construire la scène et les interactions de plateau",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Caméra, sélection, zoom, déplacement et réglette sont disponibles.",
+          "evidenceIds": [
+            "EVD-M2-T01-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M2-T01-001",
+          "kind": "validation",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "route lazy #simulator, canvas Pixi, drag, zoom et reglette",
+          "recordedAt": "2026-08-13T08:01:53.763Z"
+        },
+        {
+          "id": "EVD-M2-T01-002",
+          "kind": "independent-review",
+          "command": "audit m1_independent_audit et pnpm test:browser",
+          "result": "passed",
+          "scope": "scene Pixi, camera, selection, drag, zoom, reset et reglette",
+          "recordedAt": "2026-08-13T08:04:00.883Z",
+          "reviewer": "m1-independent-audit-sol-high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Laboratoire PixiJS, interactions et test navigateur Playwright.",
+        "recordedAt": "2026-08-13T08:01:53.609Z"
+      },
+      "updatedAt": "2026-08-13T08:04:00.968Z"
+    },
+    {
+      "id": "SIM-M2-T02",
+      "milestoneId": "M2",
+      "title": "Implémenter la géométrie déterministe",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Collisions, trajectoires, cohérence et LoS sont stables sur les cas de référence.",
+          "evidenceIds": [
+            "EVD-M2-T02-001",
+            "EVD-M2-T02-002"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M2-T02-001",
+          "kind": "independent-review",
+          "command": "audit engine_m1 geometrie",
+          "result": "failed",
+          "scope": "empreintes, mouvement balaye, multipolygones, trous, frontieres et property tests",
+          "recordedAt": "2026-08-13T08:01:54.326Z",
+          "notes": "Le socle passe ses tests mais ne satisfait pas encore toute l'acceptation M2.",
+          "reviewer": "engine_m1-terra-xhigh"
+        },
+        {
+          "id": "EVD-M2-T02-002",
+          "kind": "independent-review",
+          "command": "pnpm vitest run src/simulator/geometry/geometry.test.ts --config vite.config.ts && pnpm lint && independent exhaustive rectangle harness",
+          "result": "passed",
+          "scope": "src/simulator/geometry: footprints, sweep CCD, board bounds, coherency, multipolygons, LoS, spatial hash",
+          "recordedAt": "2026-08-13T08:51:59.112Z",
+          "notes": "PASS sans finding; 25 tests et 50625 paires de rectangles.",
+          "reviewer": "/root/audit_m2_final gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Géométrie M2 complète : empreintes, terrains, mouvement balayé, limites, LoS et propriétés.",
+        "recordedAt": "2026-08-13T08:20:59.525Z"
+      },
+      "updatedAt": "2026-08-13T08:51:59.197Z"
+    },
+    {
+      "id": "SIM-M2-T03",
+      "milestoneId": "M2",
+      "title": "Afficher les verdicts géométriques",
+      "status": "done",
+      "dependencies": [
+        "SIM-M2-T01",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les rayons, bloqueurs et mesures sont expliqués visuellement.",
+          "evidenceIds": [
+            "EVD-M2-T03-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M2-T03-001",
+          "kind": "independent-review",
+          "command": "pnpm vitest run src/simulator/ui/laboratory.test.ts src/simulator/geometry/geometry.test.ts --config vite.config.ts && pnpm test:browser",
+          "result": "passed",
+          "scope": "M2 visual verdicts, numeric geometry evidence, camera interactions and reference snapshot",
+          "recordedAt": "2026-08-13T09:10:35.220Z",
+          "notes": "PASS sans finding; 29 unit tests et Playwright 1/1.",
+          "reviewer": "/root/audit_m2_milestone gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Verdicts visuels M2, tests Playwright et capture de référence.",
+        "recordedAt": "2026-08-13T08:51:59.504Z"
+      },
+      "updatedAt": "2026-08-13T09:10:35.327Z"
+    },
+    {
+      "id": "SIM-M3-T01",
+      "milestoneId": "M3",
+      "title": "Fournir le scénario de duel fermé",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T03",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Deux unités de cinq modèles et leurs données couvertes sont disponibles.",
+          "evidenceIds": [
+            "EVD-M3-T01-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M3-T01-001",
+          "kind": "independent-review",
+          "command": "pnpm simulator:validate && pnpm vitest run scripts/validate-simulator-data.test.mjs --config vite.config.ts",
+          "result": "passed",
+          "scope": "synthetic fixture units, physical convention approval, official source provenance, cover 13.08 and catalog-identity exclusions",
+          "recordedAt": "2026-08-13T09:33:19.089Z",
+          "notes": "PASS sans finding; 34 validator tests and adversarial probes.",
+          "reviewer": "/root/audit_m3_fixture gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Formalisation sourcée des fixtures M3 et de la règle de couvert V11.",
+        "recordedAt": "2026-08-13T09:10:35.717Z"
+      },
+      "updatedAt": "2026-08-13T09:33:19.191Z"
+    },
+    {
+      "id": "SIM-M3-T02",
+      "milestoneId": "M3",
+      "title": "Résoudre la séquence de tir",
+      "status": "done",
+      "dependencies": [
+        "SIM-M1-T02",
+        "SIM-M2-T02",
+        "SIM-M3-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Portée, LoS, couvert, jets, dégâts et pertes sont déterministes et explicables.",
+          "evidenceIds": [
+            "EVD-M3-T02-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M3-T02-001",
+          "kind": "independent-review",
+          "command": "pnpm vitest run src/simulator/domain src/simulator/rules src/simulator/orchestration src/simulator/persistence --config vite.config.ts && pnpm test && pnpm lint",
+          "result": "passed",
+          "scope": "authoritative M3 shooting command-event-state, staged rolls 05.01-05.04, cover 13.08, geometry-bound replay and compatibility",
+          "recordedAt": "2026-08-13T10:45:58.856Z",
+          "notes": "PASS final; 41 targeted, 222 full tests, adversarial probes.",
+          "reviewer": "/root/audit_m3_engine gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Moteur de tir déterministe intégré Command→Event→State, géométrie autoritaire et tests golden.",
+        "recordedAt": "2026-08-13T09:33:19.497Z"
+      },
+      "updatedAt": "2026-08-13T10:45:58.946Z"
+    },
+    {
+      "id": "SIM-M3-T03",
+      "milestoneId": "M3",
+      "title": "Ajouter sauvegarde et replay du duel",
+      "status": "done",
+      "dependencies": [
+        "SIM-M3-T02"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "La même graine et le même journal rejouent exactement la partie.",
+          "evidenceIds": [
+            "EVD-M3-T03-001"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M3-T03-001",
+          "kind": "independent-review",
+          "command": "pnpm simulator:validate && pnpm vitest run src/simulator --config vite.config.ts && pnpm test:browser && pnpm build",
+          "result": "passed",
+          "scope": "Save V2/V1 coexistence, closed duel runtime, authoritative UI, import/replay/IndexedDB resume and coverage promotion",
+          "recordedAt": "2026-08-13T11:37:35.473Z",
+          "notes": "PASS final sans finding; 77 simulator tests, Playwright 2/2 and adversarial import/autosave probes.",
+          "reviewer": "/root/audit_m3_milestone gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Interface de duel, Save V2 coexistante, assemblage des données, autosave/reprise/replay et Playwright.",
+        "recordedAt": "2026-08-13T10:45:59.281Z"
+      },
+      "updatedAt": "2026-08-13T11:37:35.583Z"
+    },
+    {
+      "id": "SIM-M4-T01",
+      "milestoneId": "M4",
+      "title": "Implémenter l'adaptateur de roster",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M3-T01"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Deux RosterDraft peuvent être adaptés ou refusés avec les manques exhaustifs.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T02",
+      "milestoneId": "M4",
+      "title": "Produire le rapport de compatibilité",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T01",
+        "SIM-M1-T03"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Une partie ne démarre que si toutes ses dépendances sont couvertes.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T03",
+      "milestoneId": "M4",
+      "title": "Ajouter reprise et journal pas à pas",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M3-T03"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Autosauvegarde, reprise et inspection du journal sont disponibles.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T01",
+      "milestoneId": "M5",
+      "title": "Compléter tir et mots-clés",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M3-T02"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les mots-clés de tir couverts disposent de source et golden tests.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T02",
+      "milestoneId": "M5",
+      "title": "Ajouter les phases et systèmes restants",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T01",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Charge, combat, commandement, objectifs, réserves, transports et missions sont couverts progressivement.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T03",
+      "milestoneId": "M5",
+      "title": "Étendre la couverture de factions",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T02",
+        "SIM-M4-T02"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Chaque faction ajoutée possède fixtures et non-régressions ; la couverture annoncée est auditée.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T00:00:00.000Z"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "BLK-001",
+      "taskId": "SIM-M2-T02",
+      "reason": "Completer capsules, multipolygones/trous, volume balaye non circulaire, frontieres de plateau et tests de proprietes avant revue independante.",
+      "recordedAt": "2026-08-13T08:04:01.157Z",
+      "resolvedAt": "2026-08-13T08:20:59.332Z",
+      "resolution": "Reprendre la géométrie générique : capsules, multipolygones à trous, mouvement balayé, limites et propriétés."
+    }
+  ],
+  "openQuestions": [],
+  "resumeContext": {
+    "taskId": null,
+    "lastCompleted": "SIM-M3-T03 terminée.",
+    "nextAction": "Duel fermé, Save V2 et replay validés par audit Sol high.",
+    "files": [],
+    "updatedAt": "2026-08-13T11:37:35.583Z"
+  }
+}
