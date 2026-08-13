@@ -443,8 +443,8 @@ export function markTaskScopeUpdated(state, taskId, { files = [], note, now = ne
   if (task.status === 'done') task.status = 'ready';
   for (const dependantId of transitiveDependants(state, task.id)) {
     const dependant = getTask(state, dependantId);
-    if (dependant.status === 'done') {
-      reopenAcceptedMilestone(state, dependant.milestoneId, `Dépendance ${task.id} modifiée.`, now);
+    if (dependant.status === 'done' || dependant.status === 'ready') {
+      if (dependant.status === 'done') reopenAcceptedMilestone(state, dependant.milestoneId, `Dépendance ${task.id} modifiée.`, now);
       dependant.status = 'planned';
       dependant.scopeUpdatedAt = nowIso(now);
       dependant.updatedAt = nowIso(now);

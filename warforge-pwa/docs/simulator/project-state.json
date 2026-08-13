@@ -1,12 +1,12 @@
 {
   "schemaVersion": "warforge-simulator-project/v1",
-  "planVersion": "1.1.0",
+  "planVersion": "2.0.0",
   "planChange": {
-    "version": "1.1.0",
-    "adrId": "ADR-005"
+    "version": "2.0.0",
+    "adrId": "ADR-006"
   },
-  "updatedAt": "2026-08-13T11:37:35.702Z",
-  "currentMilestoneId": "M3",
+  "updatedAt": "2026-08-13T13:00:00.000Z",
+  "currentMilestoneId": "M4",
   "currentTaskId": null,
   "milestones": [
     {
@@ -104,28 +104,119 @@
     },
     {
       "id": "M4",
-      "title": "Intégration Warforge",
+      "title": "Duel réel pilote Salamanders–Blood Angels",
       "status": "planned",
       "taskIds": [
         "SIM-M4-T01",
         "SIM-M4-T02",
-        "SIM-M4-T03"
+        "SIM-M4-T03",
+        "SIM-M4-T04",
+        "SIM-M4-T05",
+        "SIM-M4-T06"
       ],
       "acceptanceCriteria": [
-        "Deux RosterDraft supportés sont importables et les éléments non couverts sont bloqués explicitement."
+        "Deux petits RosterDraft réels, Salamanders et Blood Angels, terminent le duel de mouvement et de tir sans règle obligatoire ignorée."
       ]
     },
     {
       "id": "M5",
-      "title": "Extension des règles",
+      "title": "Tir étendu fiable",
       "status": "planned",
       "taskIds": [
         "SIM-M5-T01",
         "SIM-M5-T02",
-        "SIM-M5-T03"
+        "SIM-M5-T03",
+        "SIM-M5-T04",
+        "SIM-M5-T05",
+        "SIM-M5-T06"
       ],
       "acceptanceCriteria": [
-        "La couverture annoncée correspond intégralement au catalogue actif et à ses sources."
+        "Les capacités de tir annoncées sont sourcées, déterministes, rejouables et intégrées aux deux rosters pilotes."
+      ]
+    },
+    {
+      "id": "M6",
+      "title": "Extension des forces pilotes",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M6-T01",
+        "SIM-M6-T02",
+        "SIM-M6-T03",
+        "SIM-M6-T04"
+      ],
+      "acceptanceCriteria": [
+        "Salamanders et Blood Angels gagnent des unités, options et règles de détachement par lots entièrement couverts."
+      ]
+    },
+    {
+      "id": "M7",
+      "title": "Charge et Combat",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M7-T01",
+        "SIM-M7-T02",
+        "SIM-M7-T03",
+        "SIM-M7-T04",
+        "SIM-M7-T05"
+      ],
+      "acceptanceCriteria": [
+        "Une séquence complète de charge et combat est légale, déterministe, explicable et rejouable."
+      ]
+    },
+    {
+      "id": "M8",
+      "title": "Commandement, statuts et objectifs",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M8-T01",
+        "SIM-M8-T02",
+        "SIM-M8-T03",
+        "SIM-M8-T04"
+      ],
+      "acceptanceCriteria": [
+        "Les ressources, statuts durables et contrôles d'objectifs sont portés par l'état et le journal."
+      ]
+    },
+    {
+      "id": "M9",
+      "title": "Missions et score",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M9-T01",
+        "SIM-M9-T02",
+        "SIM-M9-T03",
+        "SIM-M9-T04"
+      ],
+      "acceptanceCriteria": [
+        "Une mission fermée complète calcule et explique son score depuis des données versionnées."
+      ]
+    },
+    {
+      "id": "M10",
+      "title": "Réserves, transports et déploiements spéciaux",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M10-T01",
+        "SIM-M10-T02",
+        "SIM-M10-T03",
+        "SIM-M10-T04"
+      ],
+      "acceptanceCriteria": [
+        "Les changements de zone, réserves et transports sont déterministes et couverts spatialement."
+      ]
+    },
+    {
+      "id": "M11",
+      "title": "Déploiement progressif du catalogue",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M11-T01",
+        "SIM-M11-T02",
+        "SIM-M11-T03",
+        "SIM-M11-T04"
+      ],
+      "acceptanceCriteria": [
+        "Chaque lot de faction est sourcé et audité ; toute promesse de couverture correspond exactement au catalogue actif."
       ]
     }
   ],
@@ -704,95 +795,229 @@
     {
       "id": "SIM-M4-T01",
       "milestoneId": "M4",
-      "title": "Implémenter l'adaptateur de roster",
-      "status": "planned",
-      "dependencies": [
-        "SIM-M3-T01"
-      ],
-      "executionProfile": "implementation-routine",
-      "critical": false,
-      "acceptanceCriteria": [
-        {
-          "id": "AC-01",
-          "description": "Deux RosterDraft peuvent être adaptés ou refusés avec les manques exhaustifs.",
-          "evidenceIds": []
-        }
-      ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
-    },
-    {
-      "id": "SIM-M4-T02",
-      "milestoneId": "M4",
-      "title": "Produire le rapport de compatibilité",
-      "status": "planned",
-      "dependencies": [
-        "SIM-M4-T01",
-        "SIM-M1-T03"
-      ],
-      "executionProfile": "implementation-routine",
-      "critical": false,
-      "acceptanceCriteria": [
-        {
-          "id": "AC-01",
-          "description": "Une partie ne démarre que si toutes ses dépendances sont couvertes.",
-          "evidenceIds": []
-        }
-      ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
-    },
-    {
-      "id": "SIM-M4-T03",
-      "milestoneId": "M4",
-      "title": "Ajouter reprise et journal pas à pas",
-      "status": "planned",
+      "title": "Sélectionner et figer les deux rosters pilotes",
+      "status": "ready",
       "dependencies": [
         "SIM-M3-T03"
-      ],
-      "executionProfile": "implementation-routine",
-      "critical": false,
-      "acceptanceCriteria": [
-        {
-          "id": "AC-01",
-          "description": "Autosauvegarde, reprise et inspection du journal sont disponibles.",
-          "evidenceIds": []
-        }
-      ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
-    },
-    {
-      "id": "SIM-M5-T01",
-      "milestoneId": "M5",
-      "title": "Compléter tir et mots-clés",
-      "status": "planned",
-      "dependencies": [
-        "SIM-M3-T02"
       ],
       "executionProfile": "rules-formalization",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Les mots-clés de tir couverts disposent de source et golden tests.",
+          "description": "Deux compositions réelles de deux à quatre fiches par camp, leurs options et détachements sont sourcés, légaux, versionnés et approuvés humainement.",
+          "evidenceIds": []
+        },
+        {
+          "id": "AC-02",
+          "description": "Les exclusions de phase et les règles obligatoires du scénario real-roster-shooting-duel-v1 sont explicites.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T02",
+      "milestoneId": "M4",
+      "title": "Compiler les RosterDraft vers la session",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T01",
+        "SIM-M1-T03"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "L'adaptateur produit des identifiants stables et un refus exhaustif pour toute unité, option ou équipement non couvert.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T03",
+      "milestoneId": "M4",
+      "title": "Couvrir les profils et règles des unités choisies",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T01"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Profils physiques, armes et aptitudes pertinentes des unités pilotes sont sourcés, validés et liés au catalogue exact.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T04",
+      "milestoneId": "M4",
+      "title": "Assembler la session réelle et sa compatibilité",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T02",
+        "SIM-M4-T03",
+        "SIM-M3-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "La session autoritaire lie roster, catalogue, profils, armes, règles et scénario par empreinte et bloque tout manque avant démarrage.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T05",
+      "milestoneId": "M4",
+      "title": "Livrer le parcours de duel réel",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T04"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "L'UI charge les deux rosters, permet mouvement et tir couverts, explique les refus, sauvegarde et reprend la session.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M4-T06",
+      "milestoneId": "M4",
+      "title": "Auditer le duel réel de bout en bout",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T05"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le duel exact Salamanders–Blood Angels passe tests, probes adversariaux, Playwright, export, reprise et replay sans divergence.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T01",
+      "milestoneId": "M5",
+      "title": "Formaliser la matrice du tir étendu",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M4-T06"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les écarts révélés par les rosters pilotes sont ordonnés en capacités atomiques avec sources, décisions et golden cases.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
     },
     {
       "id": "SIM-M5-T02",
       "milestoneId": "M5",
-      "title": "Ajouter les phases et systèmes restants",
+      "title": "Couvrir volumes et modificateurs de tir",
       "status": "planned",
       "dependencies": [
         "SIM-M5-T01",
+        "SIM-M3-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Attaques variables, modificateurs de CT, portée et ordre d'application sont déterministes, sourcés et rejouables.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T03",
+      "milestoneId": "M5",
+      "title": "Couvrir relances et déclencheurs critiques",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Relances, touches et blessures critiques ainsi que leurs mots-clés déclenchés suivent une séquence explicable.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T04",
+      "milestoneId": "M5",
+      "title": "Couvrir sauvegardes et dégâts étendus",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T03"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Sauvegardes alternatives, prévention, réduction et dégâts variables ou spéciaux sont ordonnés, testés et rejouables.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M5-T05",
+      "milestoneId": "M5",
+      "title": "Couvrir ciblage avancé et armes mixtes",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T04",
         "SIM-M2-T02"
       ],
       "executionProfile": "implementation-complex",
@@ -800,35 +1025,567 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Charge, combat, commandement, objectifs, réserves, transports et missions sont couverts progressivement.",
+          "description": "Ciblage avancé, split fire, profils mixtes et décisions de résolution passent par des commandes et événements autoritaires.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z"
     },
     {
-      "id": "SIM-M5-T03",
+      "id": "SIM-M5-T06",
       "milestoneId": "M5",
-      "title": "Étendre la couverture de factions",
+      "title": "Intégrer et auditer le tir étendu",
       "status": "planned",
       "dependencies": [
-        "SIM-M5-T02",
-        "SIM-M4-T02"
+        "SIM-M5-T05",
+        "SIM-M4-T06"
       ],
       "executionProfile": "milestone-audit",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Chaque faction ajoutée possède fixtures et non-régressions ; la couverture annoncée est auditée.",
+          "description": "Les deux rosters pilotes utilisent le pipeline étendu avec UI, golden tests, rejets sans entropie, sauvegarde et replay exact.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T00:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M6-T01",
+      "milestoneId": "M6",
+      "title": "Étendre le pack Salamanders pilote",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T06"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Un premier lot supplémentaire Salamanders est sourcé et entièrement couvert, règles de détachement incluses.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M6-T02",
+      "milestoneId": "M6",
+      "title": "Étendre le pack Blood Angels pilote",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T06"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Un premier lot supplémentaire Blood Angels est sourcé et entièrement couvert, règles de détachement incluses.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M6-T03",
+      "milestoneId": "M6",
+      "title": "Construire les rosters pilotes élargis",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M6-T01",
+        "SIM-M6-T02"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": false,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les nouveaux lots sont sélectionnables sans affaiblir les refus exhaustifs de compatibilité.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M6-T04",
+      "milestoneId": "M6",
+      "title": "Auditer les forces pilotes élargies",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M6-T03"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Chaque variante annoncée possède fixtures, non-régressions et preuve de couverture exhaustive.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M7-T01",
+      "milestoneId": "M7",
+      "title": "Formaliser Charge et Combat",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M5-T06",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Séquences, fenêtres, mouvements et contraintes de Charge/Combat sont reliés aux sources et golden cases.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M7-T02",
+      "milestoneId": "M7",
+      "title": "Implémenter les charges et réactions",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M7-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Déclaration, cible, jet, mouvement balayé et refus de charge sont déterministes et expliqués.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M7-T03",
+      "milestoneId": "M7",
+      "title": "Implémenter les attaques de mêlée",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M7-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Éligibilité, choix d'armes, attaques, allocations et pertes de mêlée suivent le journal événementiel.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M7-T04",
+      "milestoneId": "M7",
+      "title": "Implémenter les mouvements de combat",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M7-T03"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Pile-in, consolidation, engagement et cohérence utilisent la géométrie autoritaire et des preuves visuelles.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M7-T05",
+      "milestoneId": "M7",
+      "title": "Livrer et auditer le vertical slice de combat",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M7-T04"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Une séquence charge-combat complète passe UI, tests, sauvegarde, reprise, replay et audit indépendant.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M8-T01",
+      "milestoneId": "M8",
+      "title": "Étendre l'état aux ressources et statuts",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M7-T05"
+      ],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Ressources, durées, marqueurs et expirations ont des contrats versionnés et rejouables.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M8-T02",
+      "milestoneId": "M8",
+      "title": "Implémenter la phase de Commandement",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M8-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "La phase, ses décisions et ses ressources sont verrouillées par XState et journalisées.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M8-T03",
+      "milestoneId": "M8",
+      "title": "Implémenter objectifs et contrôle",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M8-T01",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Zones d'objectif, présence, contrôle et contestation sont calculés depuis les positions autoritaires.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M8-T04",
+      "milestoneId": "M8",
+      "title": "Auditer Commandement et objectifs",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M8-T02",
+        "SIM-M8-T03"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les ressources, statuts et objectifs survivent exactement à l'export, la reprise et le replay.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M9-T01",
+      "milestoneId": "M9",
+      "title": "Formaliser une mission fermée",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M8-T04"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Déploiement, objectifs, tours, conditions et score de la mission sont sourcés et versionnés.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M9-T02",
+      "milestoneId": "M9",
+      "title": "Implémenter tours et score de mission",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M9-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le statechart conduit la mission et dérive chaque point d'un événement explicable.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M9-T03",
+      "milestoneId": "M9",
+      "title": "Livrer l'interface de partie complète fermée",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M9-T02"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "L'interface rend phase, round, score, décisions et journal lisibles sur toute la mission.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M9-T04",
+      "milestoneId": "M9",
+      "title": "Auditer la mission complète",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M9-T03"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Une mission de bout en bout passe golden score, Playwright, export, reprise et replay exact.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M10-T01",
+      "milestoneId": "M10",
+      "title": "Formaliser zones et transitions hors plateau",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M9-T04"
+      ],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Plateau, réserves, transports et états transitoires possèdent des invariants exclusifs et sérialisables.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M10-T02",
+      "milestoneId": "M10",
+      "title": "Implémenter réserves et arrivées",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Mise en réserve, arrivée, placement et contraintes temporelles sont commandés, expliqués et rejouables.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M10-T03",
+      "milestoneId": "M10",
+      "title": "Implémenter transports et débarquements",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T01",
+        "SIM-M2-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Embarquement, capacité, destruction, débarquement et placement utilisent des états et tests spatiaux autoritaires.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M10-T04",
+      "milestoneId": "M10",
+      "title": "Auditer les déploiements spéciaux",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T02",
+        "SIM-M10-T03"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les changements de zone passent propriétés, scénarios négatifs, sauvegarde et replay sans état impossible.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M11-T01",
+      "milestoneId": "M11",
+      "title": "Industrialiser les packs de couverture",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T04",
+        "SIM-M6-T04"
+      ],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Un pack de faction déclare sources, unités, options, règles, scénarios, limites et non-régressions de façon machine-lisible.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M11-T02",
+      "milestoneId": "M11",
+      "title": "Ajouter les factions par lots audités",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M11-T01"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Chaque lot ajouté est sourcé, borné et refusé hors de sa couverture exacte.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M11-T03",
+      "milestoneId": "M11",
+      "title": "Mesurer la couverture du catalogue actif",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M11-T02"
+      ],
+      "executionProfile": "implementation-routine",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le rapport calcule la couverture depuis les identifiants actifs et n'utilise aucun pourcentage subjectif.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
+    },
+    {
+      "id": "SIM-M11-T04",
+      "milestoneId": "M11",
+      "title": "Auditer la promesse de couverture",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M11-T03"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Toute annonce de support est prouvée par couverture exhaustive, sources à jour et non-régressions de catalogue.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-13T13:00:00.000Z"
     }
   ],
   "blockers": [
@@ -844,9 +1601,13 @@
   "openQuestions": [],
   "resumeContext": {
     "taskId": null,
-    "lastCompleted": "SIM-M3-T03 terminée.",
-    "nextAction": "Duel fermé, Save V2 et replay validés par audit Sol high.",
-    "files": [],
-    "updatedAt": "2026-08-13T11:37:35.583Z"
+    "lastCompleted": "M3 accepté : duel synthétique, Save V2 et replay validés.",
+    "nextAction": "SIM-M4-T01 : sélectionner et faire approuver les compositions pilotes Salamanders et Blood Angels depuis le catalogue actif.",
+    "files": [
+      "docs/simulator/PLAN.md",
+      "docs/simulator/decisions/ADR-006-real-roster-pilot-and-shooting-first.md",
+      "docs/simulator/project-state.json"
+    ],
+    "updatedAt": "2026-08-13T13:00:00.000Z"
   }
 }

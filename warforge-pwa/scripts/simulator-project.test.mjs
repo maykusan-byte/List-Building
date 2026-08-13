@@ -43,8 +43,8 @@ describe('simulator project tracker', () => {
     expect(validateProjectState(project.state, project.routing, project.plan, project.decisions)).toEqual([]);
     expect(committedStatus).toBe(renderStatus(project.state));
     expect(projectProgress(project.state)).toMatchObject({
-      milestones: { total: 6 },
-      tasks: { total: 19 }
+      milestones: { total: 12 },
+      tasks: { total: 50 }
     });
   });
 
@@ -180,6 +180,7 @@ describe('simulator project tracker', () => {
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T01').status).toBe('ready');
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T02').status).toBe('planned');
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T03').status).toBe('planned');
+    expect(state.tasks.find((entry) => entry.id === 'SIM-M4-T01').status).toBe('planned');
     expect(validateProjectState(state, project.routing, project.plan, project.decisions)).toEqual([]);
   });
 
