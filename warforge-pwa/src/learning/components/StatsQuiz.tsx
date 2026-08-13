@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useQuizQueue } from '../useQuizQueue';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { quizOutcome, useQuizQueue, type QuizOutcome } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import {
@@ -42,9 +42,19 @@ export function StatsQuiz({
   const [selectedStatsAbilities, setSelectedStatsAbilities] = useState<Set<string>>(new Set());
   const [inspectedAbilityTitle, setInspectedAbilityTitle] = useState<string | null>(null);
   const [statsChecked, setStatsChecked] = useState<boolean>(false);
+  const validatedRef = useRef(false);
 
   const { currentItem: currentUnit, advance } = useQuizQueue(shuffledUnits, u => u.id);
-  const [lastCorrect, setLastCorrect] = useState(false);
+  const [outcome, setOutcome] = useState<QuizOutcome | null>(null);
+
+  useEffect(() => {
+    setSelectedAnswers({});
+    setSelectedStatsAbilities(new Set());
+    setInspectedAbilityTitle(null);
+    setStatsChecked(false);
+    setOutcome(null);
+    validatedRef.current = false;
+  }, [currentUnit?.id]);
 
   // Stat options generated for the current unit
   const statOptionsMap = useMemo(() => {
@@ -90,13 +100,15 @@ export function StatsQuiz({
     setSelectedStatsAbilities(new Set());
     setInspectedAbilityTitle(null);
     setStatsChecked(false);
-    advance(lastCorrect);
+    advance(outcome ?? 'skipped');
+    setOutcome(null);
     onAdvance();
   };
 
   // Check Stats Answers
   const handleVerifyStats = () => {
-    if (!currentUnit || !currentUnit.StatLines?.[0]) return;
+    if (!currentUnit || !currentUnit.StatLines?.[0] || statsChecked || validatedRef.current) return;
+    validatedRef.current = true;
     const line = currentUnit.StatLines[0];
 
     let numCorrect = 0;
@@ -127,7 +139,7 @@ export function StatsQuiz({
     const isFullyCorrect = allStatsCorrect && abilitiesCorrect;
 
     setStatsChecked(true);
-    setLastCorrect(isFullyCorrect);
+    setOutcome(quizOutcome(isFullyCorrect));
     onScoreUpdate(isFullyCorrect);
   };
 
@@ -367,6 +379,7 @@ export function StatsQuiz({
                         <button
                           type="button"
                           onClick={() => setInspectedAbilityTitle(null)}
+                          aria-label={isFrench ? 'Fermer la description' : 'Close description'}
                           style={{
                             border: 'none',
                             background: 'transparent',

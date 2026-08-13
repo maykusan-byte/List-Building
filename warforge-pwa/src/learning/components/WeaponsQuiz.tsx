@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useQuizQueue } from '../useQuizQueue';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { quizOutcome, useQuizQueue, type QuizOutcome } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit, RawWeaponProfile } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import { generateWeaponStatOptions, shuffleArray } from '../learning-utils';
@@ -36,6 +36,7 @@ export function WeaponsQuiz({
 
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [checked, setChecked] = useState<boolean>(false);
+  const validatedRef = useRef(false);
 
   const weaponPool = useMemo(() => {
     return eligibleUnits.flatMap(unit => 
@@ -46,7 +47,15 @@ export function WeaponsQuiz({
   }, [eligibleUnits]);
 
   const { currentItem: question, advance } = useQuizQueue(weaponPool, q => q.unit.id + '|' + (q.wg.Name||'') + '|' + (q.wp.Name||''));
-  const [lastCorrect, setLastCorrect] = useState(false);
+  const [outcome, setOutcome] = useState<QuizOutcome | null>(null);
+  const questionId = question ? `${question.unit.id}|${question.wg.Name ?? ''}|${question.wp.Name ?? ''}` : null;
+
+  useEffect(() => {
+    setSelectedAnswers({});
+    setChecked(false);
+    setOutcome(null);
+    validatedRef.current = false;
+  }, [questionId]);
 
   const statOptionsMap = useMemo(() => {
     if (!question) return {};
@@ -60,7 +69,8 @@ export function WeaponsQuiz({
   }, [question]);
 
   const handleVerify = () => {
-    if (!question || checked) return;
+    if (!question || checked || validatedRef.current) return;
+    validatedRef.current = true;
     
     let numCorrect = 0;
     for (const { key } of WEAPON_STAT_KEYS) {
@@ -73,13 +83,15 @@ export function WeaponsQuiz({
     
     const isFullyCorrect = numCorrect === WEAPON_STAT_KEYS.length;
     setChecked(true);
+    setOutcome(quizOutcome(isFullyCorrect));
     onScoreUpdate(isFullyCorrect);
   };
 
   const handleNext = () => {
     setSelectedAnswers({});
     setChecked(false);
-    advance(lastCorrect);
+    advance(outcome ?? 'skipped');
+    setOutcome(null);
     onAdvance();
   };
 

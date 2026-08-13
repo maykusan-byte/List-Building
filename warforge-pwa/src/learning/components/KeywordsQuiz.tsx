@@ -1,6 +1,6 @@
 
-import { useMemo, useState } from 'react';
-import { useQuizQueue } from '../useQuizQueue';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { quizOutcome, useQuizQueue, type QuizOutcome } from '../useQuizQueue';
 import type { NormalizedDatabase, NormalizedUnit } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import {
@@ -31,6 +31,7 @@ export function KeywordsQuiz({
 
   const [selectedKwUnitIds, setSelectedKwUnitIds] = useState<Set<string>>(new Set());
   const [kwChecked, setKwChecked] = useState<boolean>(false);
+  const validatedRef = useRef(false);
 
   const { keywords, kwMap } = useMemo(() => {
     if (eligibleUnits.length === 0) return { keywords: [], kwMap: new Map<string, NormalizedUnit[]>() };
@@ -49,7 +50,14 @@ export function KeywordsQuiz({
   }, [eligibleUnits, database]);
 
   const { currentItem: targetKeyword, advance } = useQuizQueue(keywords, k => k);
-  const [lastCorrect, setLastCorrect] = useState(false);
+  const [outcome, setOutcome] = useState<QuizOutcome | null>(null);
+
+  useEffect(() => {
+    setSelectedKwUnitIds(new Set());
+    setKwChecked(false);
+    setOutcome(null);
+    validatedRef.current = false;
+  }, [targetKeyword]);
 
   const kwQuestion = useMemo(() => {
     if (!targetKeyword) return null;
@@ -90,7 +98,8 @@ export function KeywordsQuiz({
   };
 
   const handleVerifyKw = () => {
-    if (!kwQuestion || kwChecked) return;
+    if (!kwQuestion || kwChecked || validatedRef.current) return;
+    validatedRef.current = true;
     setKwChecked(true);
 
     let numCorrect = 0;
@@ -104,13 +113,15 @@ export function KeywordsQuiz({
     }
 
     const isFullyCorrect = numCorrect === total;
+    setOutcome(quizOutcome(isFullyCorrect));
     onScoreUpdate(numCorrect, total, isFullyCorrect);
   };
 
   const handleNextKw = () => {
     setSelectedKwUnitIds(new Set());
     setKwChecked(false);
-    advance(lastCorrect);
+    advance(outcome ?? 'skipped');
+    setOutcome(null);
     onAdvance();
   };
 
@@ -205,8 +216,10 @@ export function KeywordsQuiz({
           }
 
           return (
-            <div className="keyword-card"
-             
+            <button className="keyword-card learning-choice-card"
+              type="button"
+              aria-pressed={isSelected}
+              aria-disabled={kwChecked}
               key={unit.id}
               onClick={() => toggleKwUnit(unit.id)}
               style={{
@@ -265,7 +278,7 @@ export function KeywordsQuiz({
                   </div>
                 </div>
               ) : null}
-            </div>
+            </button>
           );
         })}
       </div>

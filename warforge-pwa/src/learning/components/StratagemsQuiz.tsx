@@ -1,6 +1,6 @@
 
 import { SCENARIOS } from '../../domain/scenarios';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { NormalizedDatabase, NormalizedDetachment } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
@@ -11,6 +11,7 @@ import {
   sanitizeStratagemCategoryForQuiz,
   sanitizeStratagemTextForQuiz
 } from '../learning-utils';
+import { quizOutcome, shouldScheduleRetry, type QuizOutcome } from '../useQuizQueue';
 
 export interface StratagemsQuizProps {
   database: NormalizedDatabase;
@@ -33,7 +34,7 @@ export function StratagemsQuiz({
   const [turn, setTurn] = useState<number>(0);
   const [failedSchedule, setFailedSchedule] = useState<any[]>([]);
   const [stratSeedIndex, setStratSeedIndex] = useState<number>(() => Math.floor(Math.random() * 100000));
-  const [lastCorrect, setLastCorrect] = useState(false);
+  const [outcome, setOutcome] = useState<QuizOutcome | null>(null);
   const [selectedStratagemChoice, setSelectedStratagemChoice] = useState<string | null>(null);
   const [selectedStratagemNames, setSelectedStratagemNames] = useState<Set<string>>(new Set());
   const [selectedCost, setSelectedCost] = useState<number | null>(null);
@@ -48,11 +49,17 @@ export function StratagemsQuiz({
     Effect?: string;
   } | null>(null);
   const [stratChecked, setStratChecked] = useState<boolean>(false);
+  const validatedRef = useRef(false);
 
   const stratagemQuestion = useMemo<any>(() => {
     if (eligibleDetachments.length === 0) return null;
     const scheduled = failedSchedule.find((s: any) => s.turn === turn);
-    if (scheduled) return scheduled.q as any;
+    if (scheduled) {
+      const scheduledDetachmentId = scheduled.q.type === 'identify-detachment'
+        ? scheduled.q.correctDetachment.id
+        : scheduled.q.targetDetachment.id;
+      if (eligibleDetachments.some((detachment) => detachment.id === scheduledDetachmentId)) return scheduled.q as any;
+    }
     
     // Choose the question type: 'identify-detachment' or 'select-stratagems'
     const isIdentify = (Math.abs(stratSeedIndex) % 2) === 0;
@@ -93,7 +100,7 @@ export function StratagemsQuiz({
         proposedStratagems: shuffleArray([...correctStrats, ...chosenDistractors])
       };
     }
-  }, [eligibleDetachments, stratSeedIndex]);
+  }, [eligibleDetachments, failedSchedule, stratSeedIndex, turn]);
 
   const validDetachmentIds = useMemo(() => {
     if (!stratagemQuestion || stratagemQuestion.type !== 'identify-detachment') return new Set<string>();
@@ -110,8 +117,20 @@ export function StratagemsQuiz({
     return validIds;
   }, [stratagemQuestion]);
 
+  useEffect(() => {
+    setSelectedStratagemChoice(null);
+    setSelectedStratagemNames(new Set());
+    setSelectedCost(null);
+    setSelectedForceDisposition(null);
+    setInspectedStratagem(null);
+    setStratChecked(false);
+    setOutcome(null);
+    validatedRef.current = false;
+  }, [stratagemQuestion]);
+
   const handleVerifyStrat = () => {
-    if (!stratagemQuestion || stratChecked) return;
+    if (!stratagemQuestion || stratChecked || validatedRef.current) return;
+    validatedRef.current = true;
     setStratChecked(true);
 
     let isSuccess = false;
@@ -132,16 +151,25 @@ export function StratagemsQuiz({
       isSuccess = stratagemsSuccess && costSuccess && fdSuccess;
     }
 
+    setOutcome(quizOutcome(isSuccess));
     onScoreUpdate(isSuccess);
   };
 
   const handleNextStrat = () => {
+    if (outcome && shouldScheduleRetry(outcome) && stratagemQuestion) {
+      setFailedSchedule((current) => [
+        ...current.filter((entry) => entry.q !== stratagemQuestion),
+        { turn: turn + 5, q: stratagemQuestion }
+      ]);
+    }
+    setTurn((current) => current + 1);
     setSelectedStratagemChoice(null);
     setSelectedStratagemNames(new Set());
     setSelectedCost(null);
     setSelectedForceDisposition(null);
     setInspectedStratagem(null);
     setStratChecked(false);
+    setOutcome(null);
     setStratSeedIndex(Math.floor(Math.random() * 100000));
     onAdvance();
   };
@@ -598,7 +626,9 @@ export function StratagemsQuiz({
                     ⚡ {display.term(inspectedStratagem.Name)}
                   </h4>
                   <button
+                    type="button"
                     onClick={() => setInspectedStratagem(null)}
+                    aria-label={isFrench ? 'Fermer les détails du stratagème' : 'Close stratagem details'}
                     style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem', lineHeight: 1, padding: '0.2rem', color: 'var(--ink-soft)' }}
                   >
                     ×

@@ -1,64 +1,91 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+export type QuizOutcome = 'correct' | 'incorrect' | 'skipped';
+
+export function quizOutcome(isCorrect: boolean): QuizOutcome {
+  return isCorrect ? 'correct' : 'incorrect';
+}
+
+export function shouldScheduleRetry(outcome: QuizOutcome): boolean {
+  return outcome === 'incorrect';
+}
+
+interface ScheduledRetry {
+  turn: number;
+  id: string;
+}
+
+interface QuizQueueState {
+  turn: number;
+  currentId: string | null;
+  failedSchedule: ScheduledRetry[];
+}
+
+function randomItemId<T>(pool: T[], getId: (item: T) => string, excludedId?: string | null): string | null {
+  if (pool.length === 0) return null;
+  const filtered = excludedId && pool.length > 1
+    ? pool.filter((item) => getId(item) !== excludedId)
+    : pool;
+  const candidates = filtered.length > 0 ? filtered : pool;
+  return getId(candidates[Math.floor(Math.random() * candidates.length)]);
+}
 
 export function useQuizQueue<T>(
   pool: T[],
   getId: (item: T) => string
 ) {
-  const [turn, setTurn] = useState(0);
-  const [failedSchedule, setFailedSchedule] = useState<{turn: number, id: string}[]>([]);
-  
-  // To avoid useMemo running and picking a new random item on every render when other state changes,
-  // we must store the current random pick in state.
-  const [randomId, setRandomId] = useState<string | null>(null);
+  const getIdRef = useRef(getId);
+  getIdRef.current = getId;
 
-  // We only want to pick a new random ID when the turn changes or the pool changes significantly.
-  // We can use a ref to track the last values that we generated a random ID for.
-  const lastPoolRef = useRef<T[]>(pool);
-  const lastTurnRef = useRef<number>(turn);
+  const [state, setState] = useState<QuizQueueState>(() => ({
+    turn: 0,
+    currentId: randomItemId(pool, getId),
+    failedSchedule: []
+  }));
 
-  // Synchronously compute the new random ID during render if inputs changed, 
-  // to avoid flicker/useEffect delays. This is a common pattern for derived state.
-  let currentRandomId = randomId;
-  if (pool !== lastPoolRef.current || turn !== lastTurnRef.current) {
-    if (pool.length > 0) {
-      currentRandomId = getId(pool[Math.floor(Math.random() * pool.length)]);
-    } else {
-      currentRandomId = null;
-    }
-    setRandomId(currentRandomId); // will schedule a re-render, but React handles it in the same pass
-    lastPoolRef.current = pool;
-    lastTurnRef.current = turn;
-  }
+  const currentItem = state.currentId
+    ? pool.find((item) => getIdRef.current(item) === state.currentId) ?? null
+    : null;
 
-  const currentItem = useMemo(() => {
-    if (pool.length === 0) return null;
-    
-    // Check if there's a scheduled item for this turn that still exists in the pool
-    const scheduled = failedSchedule.find(s => s.turn === turn);
-    if (scheduled) {
-      const found = pool.find(i => getId(i) === scheduled.id);
-      if (found) return found;
-    }
-    
-    // Otherwise use the randomId
-    if (currentRandomId) {
-       const found = pool.find(i => getId(i) === currentRandomId);
-       if (found) return found;
-    }
-    
-    return pool[Math.floor(Math.random() * pool.length)];
-  }, [pool, turn, failedSchedule, currentRandomId, getId]);
+  useEffect(() => {
+    const availableIds = new Set(pool.map((item) => getIdRef.current(item)));
+    setState((current) => {
+      const failedSchedule = current.failedSchedule.filter((entry) => availableIds.has(entry.id));
+      const currentStillExists = current.currentId !== null && availableIds.has(current.currentId);
+      const currentId = currentStillExists
+        ? current.currentId
+        : randomItemId(pool, getIdRef.current);
 
-  const advance = (isCorrect: boolean) => {
-    if (!isCorrect && currentItem) {
-      // Schedule this item to appear 5 turns from now
-      setFailedSchedule(prev => {
-        // Remove any existing schedules for this id to avoid duplicates
-        const filtered = prev.filter(s => s.id !== getId(currentItem));
-        return [...filtered, { turn: turn + 5, id: getId(currentItem) }];
-      });
-    }
-    setTurn(prev => prev + 1);
+      if (currentId === current.currentId && failedSchedule.length === current.failedSchedule.length) return current;
+      return { ...current, currentId, failedSchedule };
+    });
+  }, [pool]);
+
+  const advance = (outcome: QuizOutcome) => {
+    setState((current) => {
+      const availableIds = new Set(pool.map((item) => getIdRef.current(item)));
+      const activeId = current.currentId && availableIds.has(current.currentId)
+        ? current.currentId
+        : null;
+      let failedSchedule = current.failedSchedule.filter((entry) => availableIds.has(entry.id));
+
+      if (shouldScheduleRetry(outcome) && activeId) {
+        failedSchedule = [
+          ...failedSchedule.filter((entry) => entry.id !== activeId),
+          { turn: current.turn + 5, id: activeId }
+        ];
+      }
+
+      const turn = current.turn + 1;
+      const scheduled = failedSchedule.find((entry) => entry.turn === turn);
+      if (scheduled) failedSchedule = failedSchedule.filter((entry) => entry !== scheduled);
+
+      return {
+        turn,
+        currentId: scheduled?.id ?? randomItemId(pool, getIdRef.current, activeId),
+        failedSchedule
+      };
+    });
   };
 
   return { currentItem, advance };

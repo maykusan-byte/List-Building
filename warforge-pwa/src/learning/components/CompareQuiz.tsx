@@ -1,9 +1,10 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import type { NormalizedDatabase, NormalizedUnit } from '../../domain/types';
 import type { CatalogLocalization } from '../../domain/catalog-localization';
 import { getExpectedStatValue } from '../learning-utils';
 import { ANALYSIS_TARGETS, estimateWeaponProfileDamage, AnalysisTarget, modeKey } from '../../domain/analysis';
 import { weaponProfiles, SelectedWeaponProfile, resolveWargear, getWargearRules, ruleLimit } from '../../domain/wargear';
+import { quizOutcome, shouldScheduleRetry, type QuizOutcome } from '../useQuizQueue';
 
 export interface CompareQuizProps {
   database: NormalizedDatabase;
@@ -39,13 +40,22 @@ export function CompareQuiz({
   const [turn, setTurn] = useState<number>(0);
   const [failedSchedule, setFailedSchedule] = useState<any[]>([]);
   const [seedIndex, setSeedIndex] = useState<number>(() => Math.floor(Math.random() * 100000));
-  const [lastCorrect, setLastCorrect] = useState(false);
+  const [outcome, setOutcome] = useState<QuizOutcome | null>(null);
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
   const [checked, setChecked] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const [question, setQuestion] = useState<any>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(true);
+  const validatedRef = useRef(false);
+
+  useEffect(() => {
+    setSelectedUnitId(null);
+    setChecked(false);
+    setShowDetails(false);
+    setOutcome(null);
+    validatedRef.current = false;
+  }, [question?.unit1?.id, question?.unit2?.id, question?.metricDef?.key, question?.metricDef?.range]);
 
   useEffect(() => {
     setIsGenerating(true);
@@ -58,7 +68,8 @@ export function CompareQuiz({
     const timer = setTimeout(() => {
       // Check schedule
       const scheduled = failedSchedule.find(s => s.turn === turn);
-      if (scheduled) {
+      if (scheduled && eligibleUnits.some((unit) => unit.id === scheduled.q.unit1.id)
+        && eligibleUnits.some((unit) => unit.id === scheduled.q.unit2.id)) {
         setQuestion(scheduled.q);
         setIsGenerating(false);
         return;
@@ -107,7 +118,7 @@ export function CompareQuiz({
       setIsGenerating(false);
     }, 50);
     return () => clearTimeout(timer);
-  }, [eligibleUnits, seedIndex]);
+  }, [eligibleUnits, failedSchedule, seedIndex, turn, display]);
 
   if (isGenerating) {
     return (
@@ -135,20 +146,28 @@ export function CompareQuiz({
   }
 
   const handleVerify = () => {
-    if (!selectedUnitId || checked) return;
+    if (!selectedUnitId || checked || validatedRef.current) return;
+    validatedRef.current = true;
     const isCorrect = selectedUnitId === question.winnerId;
     setChecked(true);
+    setOutcome(quizOutcome(isCorrect));
     onScoreUpdate(isCorrect);
   };
 
   const handleNext = () => {
-    if (!lastCorrect && question) {
-      setFailedSchedule(prev => [...prev, { turn: turn + 5, q: question }]);
+    if (outcome && shouldScheduleRetry(outcome) && question) {
+      setFailedSchedule(prev => [
+        ...prev.filter((entry) => entry.q.winnerId !== question.winnerId
+          || entry.q.unit1.id !== question.unit1.id
+          || entry.q.unit2.id !== question.unit2.id),
+        { turn: turn + 5, q: question }
+      ]);
     }
     setTurn(prev => prev + 1);
     setSelectedUnitId(null);
     setChecked(false);
     setShowDetails(false);
+    setOutcome(null);
     setSeedIndex(Math.floor(Math.random() * 100000));
     onAdvance();
   };
@@ -174,7 +193,11 @@ export function CompareQuiz({
     const img = getUnitImgUrl(unit.id);
 
     return (
-      <div 
+      <button
+        type="button"
+        className="learning-choice-card"
+        aria-pressed={isSelected}
+        aria-disabled={checked}
         onClick={() => !checked && setSelectedUnitId(unit.id)}
         style={{
           border,
@@ -201,7 +224,7 @@ export function CompareQuiz({
         )}
 
         <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', background: '#e1d8ca', flexShrink: 0 }}>
-           {img ? <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem'}}>❓</div>}
+           {img ? <img src={img} alt={display.unitName(unit)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem'}}>❓</div>}
         </div>
         <div style={{ fontWeight: 800, fontSize: '0.95rem' }}>{display.unitName(unit)}</div>
         <div style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>{display.factionName(unit.factionName)}</div>
@@ -218,7 +241,7 @@ export function CompareQuiz({
             )}
           </div>
         )}
-      </div>
+      </button>
     );
   };
 
@@ -241,6 +264,7 @@ export function CompareQuiz({
 
       <div style={{ marginTop: '1.5rem' }}>
         <button 
+          type="button"
           onClick={() => setShowDetails(!showDetails)} 
           style={{ background: 'transparent', border: '1px solid #d4c8b7', color: 'var(--ink)', padding: '0.5rem', width: '100%', borderRadius: '0.5rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 700 }}
         >
@@ -262,15 +286,12 @@ export function CompareQuiz({
       </div>
       
       <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
-        {!checked ? (
-          <button onClick={handleVerify} disabled={!selectedUnitId} style={{ padding: '0.5rem 1.5rem', fontSize: '1rem' }}>
-            ✓ {isFrench ? 'Vérifier' : 'Check'}
-          </button>
-        ) : (
-          <button onClick={handleNext} style={{ padding: '0.5rem 1.5rem', fontSize: '1rem' }}>
-            ➔ {isFrench ? 'Suivant' : 'Next'}
-          </button>
-        )}
+        {!checked && <button type="button" onClick={handleVerify} disabled={!selectedUnitId} style={{ padding: '0.5rem 1.5rem', fontSize: '1rem' }}>
+          ✓ {isFrench ? 'Vérifier' : 'Check'}
+        </button>}
+        <button type="button" onClick={handleNext} className={checked ? '' : 'secondary'} style={{ padding: '0.5rem 1.5rem', fontSize: '1rem' }}>
+          ➔ {isFrench ? 'Suivant' : 'Next'}
+        </button>
       </div>
     </section>
   );
@@ -462,4 +483,3 @@ function FullUnitDetails({ unit, isFrench, display }: { unit: NormalizedUnit, is
     </div>
   );
 }
-

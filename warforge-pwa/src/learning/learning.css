@@ -231,6 +231,18 @@
   transform: scale(0.95);
 }
 
+.learning-choice-card {
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+
+.learning-choice-card:hover {
+  background: inherit;
+  transform: none;
+}
+
 /* Keyword Card */
 .keyword-card {
   transition: all 0.2s ease, transform 0.1s ease;
