@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "warforge-four-army-quick-guide/v1",
+  "generatedAt": "2026-08-18",
+  "status": "draft",
+  "catalogVersion": "1.2.13.0",
+  "missionPackId": "gdm-2026",
+  "armies": [
+    { "name": "Ultramarines", "detachment": "RECLAMATION FORCE", "forceDisposition": "TAKE AND HOLD", "points": 2000, "outsideInventoryCount": 2 },
+    { "name": "Salamanders", "detachment": "FORGEFATHER'S SEEKERS", "forceDisposition": "PRIORITY ASSETS", "points": 2000, "outsideInventoryCount": 1 },
+    { "name": "Dark Angels", "detachment": "INNER CIRCLE TASK FORCE", "forceDisposition": "PRIORITY ASSETS", "points": 2000, "outsideInventoryCount": 1 },
+    { "name": "Blood Angels", "detachment": "LIBERATOR ASSAULT GROUP", "forceDisposition": "TAKE AND HOLD", "points": 2000, "outsideInventoryCount": 2 }
+  ],
+  "checks": {
+    "armyCount": 4,
+    "listsAt2000Points": true,
+    "primaryMatchupsPerArmy": 5,
+    "secondaryFamiliesPerArmy": 4,
+    "secondaryMissionCount": 18
+  },
+  "sources": [
+    "output/ultramarines-reclamation-force-quick-guide-2026-08-18/manifest.json",
+    "output/pdf/forgefathers-seekers-guide-2026-08-11/guide-data.json",
+    "output/pdf/inner-circle-task-force-guide-2026-08-11/guide-data.json",
+    "output/pdf/liberator-assault-group-guide-2026-08-11/guide-data.json",
+    "warforge-pwa/data/strategy/knowledge-base.json"
+  ]
+}

@@ -15,6 +15,12 @@
 .duel-unit { padding: 1rem; border-radius: .6rem; background: rgba(25,47,68,.6); }.duel-unit.red { border-left: 4px solid #ec6a6a; }.duel-unit.blue { border-left: 4px solid #63a8eb; }
 .duel-unit h2 { margin-top: 0; }.duel-unit div { padding: .27rem; }.duel-unit .lost { color: #ff9a9a; text-decoration: line-through; }
 .duel-terrain { grid-column: 1 / -1; color: #cae9ad; }.duel-terrain span { display: block; }.duel-resolution ol { max-height: 16rem; overflow: auto; }.simulator-duel-page textarea { width: 100%; min-height: 9rem; }
+.m4-real-duel-page { background: radial-gradient(circle at 85% 0, #2e5735, transparent 32rem), radial-gradient(circle at 12% 8%, #542934, transparent 30rem), #101827; }
+.m4-status-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; max-width: 1200px; margin: .8rem auto; }
+.m4-status-grid div, .m4-targets { padding: .75rem .9rem; border: 1px solid rgba(189,219,218,.3); border-radius: .65rem; background: rgba(7,15,24,.55); }
+.m4-status-grid span, .m4-unit-selector span { display: block; color: #a7bbc4; font-size: .78rem; }.m4-status-grid strong { color: #fff7e6; }
+.m4-unit-selector, .m4-model, .m4-targets button { display: grid; width: 100%; gap: .15rem; margin: .35rem 0; padding: .52rem .65rem; border: 1px solid #456b7d; border-radius: .45rem; color: #e9f5f5; text-align: left; background: rgba(12,31,45,.7); }
+.m4-unit-selector.active, .m4-model.active, .m4-targets button.active { border-color: #ffdc78; color: #1b1609; background: #ffdc78; }.m4-model { display: inline-block; width: auto; margin-right: .35rem; font-size: .73rem; }.m4-targets { max-width: 1200px; margin: .8rem auto; }.m4-targets h2 { margin: 0 0 .4rem; font-size: 1rem; }.m4-targets button { display: inline-block; width: auto; margin-right: .45rem; }
 
 .simulator-lab-hero,
 .simulator-lab-toolbar,
@@ -250,4 +256,6 @@
   .simulator-pixi-board { min-height: 440px; }
   .simulator-lab-sidebar { grid-template-columns: 1fr; }
   .simulator-board-corner-bottom { display: none; }
+  .m4-status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .m4-targets button { display: block; width: 100%; margin-right: 0; }
 }

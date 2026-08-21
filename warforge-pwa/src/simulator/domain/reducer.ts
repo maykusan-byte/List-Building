@@ -1,6 +1,6 @@
 import { prngStatesEqual, rollDice } from './prng';
 import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, resolveBasicShooting } from '../rules/shooting';
-import type { BasicShootingAttackGroup, BasicShootingResult, GameEvent, GameState, ModelState, PlayerSetup, SessionSetup, SimulatorPhase, SourceReferenceV1, UnitSetup, UnitState, WorldPoint } from './types';
+import type { BasicShootingAttackGroup, BasicShootingResult, GameEvent, GameState, ModelState, OathOfMomentSelectionV1, PlayerSetup, SessionSetup, SimulatorPhase, SourceReferenceV1, UnitSetup, UnitState, WorldPoint } from './types';
 
 const PHASE_TRANSITIONS: Readonly<Record<SimulatorPhase, readonly SimulatorPhase[]>> = {
   setup: ['deployment'],
@@ -45,6 +45,16 @@ function assertValidWeapon(weapon: UnitSetup['weaponProfiles'][number], unitId: 
   assertSourceReferences(weapon.sourceRefs, `Weapon ${weapon.id}`);
 }
 
+function hasValidCoverageSubject(value: UnitSetup['coverageSubject']): boolean {
+  return value === undefined || (
+    typeof value === 'object'
+    && value !== null
+    && (value.subjectType === 'fixture-unit' || value.subjectType === 'unit')
+    && typeof value.subjectId === 'string'
+    && value.subjectId.trim().length > 0
+  );
+}
+
 function assertValidUnits(session: SessionSetup, playerIds: ReadonlySet<string>, modelIds: ReadonlySet<string>, modelOwners: Readonly<Record<string, string>>): void {
   const unitIds = new Set<string>();
   const allocatedModelIds = new Set<string>();
@@ -60,6 +70,9 @@ function assertValidUnits(session: SessionSetup, playerIds: ReadonlySet<string>,
       throw new Error('Session unit setup is malformed.');
     }
     unitIds.add(unit.id);
+    if (!hasValidCoverageSubject(unit.coverageSubject)) {
+      throw new Error('Session unit coverage subject is malformed.');
+    }
     unit.modelIds.forEach((modelId) => allocatedModelIds.add(modelId));
     assertSourceReferences(unit.sourceRefs, `Unit ${unit.id}`);
     unit.weaponProfiles.forEach((weapon) => assertValidWeapon(weapon, unit.id));
@@ -145,6 +158,35 @@ function uniqueSourceReferences(references: readonly SourceReferenceV1[]): reado
   return [...new Map(references.map((reference) => [sourceReferenceKey(reference), reference])).values()];
 }
 
+function attackModifiersFor(state: GameState, attacker: UnitState, target: UnitState): {
+  readonly rerollFailedHits: boolean;
+  readonly woundRollModifier: 0 | 1;
+  readonly sourceRuleIds: readonly string[];
+  readonly sourceRefs: readonly SourceReferenceV1[];
+} {
+  const selection = state.oathOfMomentSelections[attacker.playerId];
+  if (!selection || selection.targetUnitId !== target.id || selection.round !== state.round) {
+    return { rerollFailedHits: false, woundRollModifier: 0, sourceRuleIds: [], sourceRefs: [] };
+  }
+  return {
+    rerollFailedHits: selection.rerollFailedHits,
+    woundRollModifier: selection.woundRollModifier,
+    sourceRuleIds: [selection.ruleId],
+    sourceRefs: selection.sourceRefs
+  };
+}
+
+function isValidOathSelection(selection: OathOfMomentSelectionV1, state: GameState): boolean {
+  return selection.ruleId === 'adeptus-astartes.oath-of-moment'
+    && !!state.players[selection.playerId]
+    && !!state.units[selection.targetUnitId]
+    && state.units[selection.targetUnitId].playerId !== selection.playerId
+    && selection.round === state.round
+    && selection.rerollFailedHits === true
+    && (selection.woundRollModifier === 0 || selection.woundRollModifier === 1)
+    && selection.sourceRefs.length > 0;
+}
+
 function resultFromShootingResolution(resolution: Extract<ReturnType<typeof resolveBasicShooting>, { readonly accepted: true }>): BasicShootingResult {
   return {
     hitRequired: resolution.hitRequired,
@@ -176,6 +218,7 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
         ...state,
         manifest: event.session.manifest,
         shootingEnvironmentFingerprint: event.session.shootingEnvironmentFingerprint ?? null,
+        oathOfMomentSelections: {},
         players: records.players,
         models: records.models,
         units: records.units,
@@ -185,7 +228,12 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
     }
     case 'phase-transitioned': {
       if (state.phase !== event.from || !canTransitionPhase(event.from, event.to)) throw new Error(`Illegal phase transition ${event.from} -> ${event.to}.`);
-      next = { ...state, phase: event.to, round: event.from === 'fight' && event.to === 'command' ? state.round + 1 : state.round };
+      next = {
+        ...state,
+        phase: event.to,
+        round: event.from === 'fight' && event.to === 'command' ? state.round + 1 : state.round,
+        ...(event.to === 'command' ? { oathOfMomentSelections: {} } : {})
+      };
       break;
     }
     case 'model-moved': {
@@ -223,7 +271,7 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
         || !event.shootingEnvironmentFingerprint.trim()) {
         throw new Error(`Basic shooting event ${event.id} does not match the current state.`);
       }
-      const { range, lineOfSight, cover } = event.evidence;
+      const { range, lineOfSight, cover, attackModifiers } = event.evidence;
       const groupIds = event.attackGroups.map((group) => group.firingModelId);
       const groupAssignments = groupIds.map((modelId) => attacker.weaponAssignments.find((assignment) => assignment.modelId === modelId && assignment.weaponProfileId === weapon.id));
       const expectedWeaponCount = groupAssignments.reduce((total, assignment) => total + (assignment?.quantity ?? 0), 0);
@@ -237,6 +285,7 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
         || !lineOfSight.ray
         || new Set(lineOfSight.blockerIds).size !== lineOfSight.blockerIds.length
         || !sameJson(lineOfSight.blockerIds, [...lineOfSight.blockerIds].sort())
+        || !sameJson(attackModifiers, attackModifiersFor(state, attacker, target))
         || !sameJson(event.evidence.weapon, {
           firingModelIds: groupIds,
           weaponCount: expectedWeaponCount,
@@ -268,6 +317,7 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
           targetId: target.id,
           weapon: { ...weapon, attacks: weapon.attacks * group.weaponCount },
           target: { toughness: target.toughness, save: target.save, woundsPerModel: target.woundsPerModel, models: expectedTargetModels, coverBallisticSkillPenalty: group.cover.ballisticSkillPenalty },
+          attackModifiers,
           distance: group.range.edgeToEdgeDistance,
           visible: true
         }, expectedPrng);
@@ -308,7 +358,8 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
         CORE_BASIC_RANGED_ATTACK_SOURCE,
         ...CORE_ATTACK_SEQUENCE_STEP_SOURCES,
         ...weapon.sourceRefs,
-        ...event.attackGroups.flatMap((group) => group.cover.applies ? [CORE_BENEFIT_OF_COVER_SOURCE] : [])
+        ...event.attackGroups.flatMap((group) => group.cover.applies ? [CORE_BENEFIT_OF_COVER_SOURCE] : []),
+        ...attackModifiers.sourceRefs
       ]);
       if (!sameJson(event.sourceRefs, expectedSources)
         || !sameJson(cover, event.attackGroups[0].cover)) {
@@ -329,6 +380,13 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
           [target.id]: { ...target, models: event.targetModelsAfter }
         }
       };
+      break;
+    }
+    case 'oath-of-moment-selected': {
+      if (state.phase !== 'command' || state.oathOfMomentSelections[event.selection.playerId] || !isValidOathSelection(event.selection, state)) {
+        throw new Error(`Oath of Moment event ${event.id} is invalid for the current command phase.`);
+      }
+      next = { ...state, oathOfMomentSelections: { ...state.oathOfMomentSelections, [event.selection.playerId]: event.selection } };
       break;
     }
     case 'decision-requested': {
@@ -365,12 +423,12 @@ export function unsafeReplayGameEvents(initialState: GameState, events: readonly
 
 /** Public reducer for non-spatial M1 events. Shooting requires orchestration verification. */
 export function reduceGameEvent(state: GameState, event: GameEvent): GameState {
-  if (event.type === 'basic-shooting-resolved') throw new Error('Basic shooting events require a trusted shooting environment verifier.');
+  if (event.type === 'basic-shooting-resolved' || event.type === 'oath-of-moment-selected') throw new Error('M4 shooting-rule events require a trusted shooting environment verifier.');
   return unsafeReduceGameEvent(state, event);
 }
 
 /** Public replay for legacy journals that contain no spatial shooting events. */
 export function replayGameEvents(initialState: GameState, events: readonly GameEvent[]): GameState {
-  if (events.some((event) => event.type === 'basic-shooting-resolved')) throw new Error('Basic shooting journals require a trusted shooting environment verifier.');
+  if (events.some((event) => event.type === 'basic-shooting-resolved' || event.type === 'oath-of-moment-selected')) throw new Error('M4 shooting-rule journals require a trusted shooting environment verifier.');
   return unsafeReplayGameEvents(initialState, events);
 }

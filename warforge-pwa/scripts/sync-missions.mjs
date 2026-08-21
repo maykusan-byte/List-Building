@@ -11,7 +11,12 @@ async function syncTrustedWebAssets(catalog) {
   const source = catalog.packs.find((pack) => pack.source?.kind === 'trusted-web')?.source;
   if (!source?.archivePath) return;
   const assetsSourcePath = resolve(dirname(resolve(workspaceRoot, source.archivePath)), 'assets');
-  await rm(gdmAssetOutputPath, { recursive: true, force: true });
+  await rm(gdmAssetOutputPath, {
+    recursive: true,
+    force: true,
+    maxRetries: 5,
+    retryDelay: 250
+  });
   await cp(assetsSourcePath, gdmAssetOutputPath, { recursive: true });
 }
 

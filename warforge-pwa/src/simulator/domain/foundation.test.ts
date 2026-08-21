@@ -89,6 +89,9 @@ describe('simulator domain foundations', () => {
     const save = createSimulationSave(initial, rolled.state.eventLog, '2026-08-13T12:00:00.000Z');
     const serialized = serializeSimulationSave(save);
     expect(deserializeSimulationSave(serialized)).toEqual({ ok: true, save });
+    const legacySnapshot = JSON.parse(serialized) as { initialState: { oathOfMomentSelections?: unknown } };
+    delete legacySnapshot.initialState.oathOfMomentSelections;
+    expect(deserializeSimulationSave(JSON.stringify(legacySnapshot))).toMatchObject({ ok: true, save: { schemaVersion: 'warforge-simulation-save/v1' } });
     expect(deserializeSimulationSave(serialized.replace('warforge-simulation-save/v1', 'warforge-simulation-save/v99')).ok).toBe(false);
     expect(deserializeSimulationSave(serialized.replace('"0.1.0"', '"1.0.0"')).ok).toBe(false);
     expect(deserializeSimulationSave(serialized.replace('"results":[', '"results":[99,')).ok).toBe(false);

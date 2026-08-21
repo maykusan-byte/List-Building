@@ -7,9 +7,53 @@ async function dismissProjectStatus(page: Page): Promise<void> {
   if (await dialog.isVisible()) await dialog.getByRole('button').click();
 }
 
+test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and resumes', async ({ page }) => {
+  await page.goto('/#simulator');
+  await dismissProjectStatus(page);
+  await expect(page.getByRole('heading', { name: /Duel réel Salamanders/ })).toBeVisible();
+  await expect(page.getByTestId('m4-compatibility')).toContainText('Session compatible');
+  await expect(page.getByTestId('m4-phase')).toHaveText('command');
+
+  await page.getByTestId('m4-set-oath').click();
+  await expect(page.getByTestId('m4-notice')).toContainText('Oath of Moment');
+  await page.getByTestId('m4-enter-movement').click();
+  await expect(page.getByTestId('m4-phase')).toHaveText('movement');
+  const beforeIllegal = await page.getByTestId('m4-event-count').innerText();
+  await page.getByTestId('m4-illegal-move').click();
+  await expect(page.getByTestId('m4-notice')).toContainText('movement-too-far');
+  await expect(page.getByTestId('m4-event-count')).toHaveText(beforeIllegal);
+  await page.getByTestId('m4-advance').click();
+  await expect(page.getByTestId('m4-notice')).toContainText('Mouvement normal M4 accepté');
+  await page.getByTestId('m4-enter-shooting').click();
+  await page.getByTestId('m4-next-round').click();
+  await expect(page.getByTestId('m4-phase')).toHaveText('command');
+  await page.getByTestId('m4-set-oath').click();
+  await page.getByTestId('m4-enter-movement').click();
+  await page.getByTestId('m4-advance').click();
+  await page.getByTestId('m4-enter-shooting').click();
+  await page.getByTestId('m4-resolve-shooting').click();
+  await expect(page.getByTestId('m4-notice')).toContainText('Tir M4 résolu');
+  await expect(page.getByTestId('m4-resolution')).toContainText(/Portée et LoS/);
+
+  const expectedEvents = await page.getByTestId('m4-event-count').innerText();
+  const expectedPrng = await page.getByTestId('m4-prng').innerText();
+  await page.getByRole('button', { name: 'Sauvegarder / exporter V2' }).click();
+  const exported = JSON.parse(await page.getByTestId('m4-export-json').inputValue());
+  expect(exported.schemaVersion).toBe('warforge-simulation-save/v2');
+  expect(exported.environment.scenarioId).toBe('real-roster-shooting-duel-v1');
+  await page.getByRole('button', { name: 'Réinitialiser' }).click();
+  await page.getByRole('button', { name: 'Reprendre IndexedDB' }).click();
+  await expect(page.getByTestId('m4-notice')).toContainText('Reprise IndexedDB exacte');
+  await expect(page.getByTestId('m4-event-count')).toHaveText(expectedEvents);
+  await expect(page.getByTestId('m4-prng')).toHaveText(expectedPrng);
+  await page.getByRole('button', { name: 'Rejouer le journal' }).click();
+  await expect(page.getByTestId('m4-notice')).toContainText('Replay exact');
+});
+
 test('closed M3 duel rejects, shoots, exports, imports, replays and resumes IndexedDB exactly', async ({ page }) => {
   await page.goto('/#simulator');
   await dismissProjectStatus(page);
+  await page.getByRole('button', { name: 'Duel fermé M3' }).click();
   await expect(page.getByRole('heading', { name: /Duel fermé d’entraînement/ })).toBeVisible();
   await expect(page.getByTestId('duel-placement')).toBeVisible();
 

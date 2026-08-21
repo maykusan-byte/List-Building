@@ -1,0 +1,21 @@
+{
+  "slideNumber": 10,
+  "imageNumber": 1,
+  "regionNumber": 2,
+  "regionName": "right",
+  "sourceFile": "source-images/slide-10-image-01.jpg",
+  "inputFile": "clean-ocr/input-v2/slide-10-image-01-region-02-right.png",
+  "rotationCounterClockwise": 0,
+  "width": 1756,
+  "height": 3230,
+  "sectionNumber": 1,
+  "sectionName": "top",
+  "sectionFile": "clean-ocr/datasheets/slide-10-image-01-region-02-right-section-01-top.png",
+  "columnNumber": 2,
+  "columnName": "abilities",
+  "datasheetColumnFile": "clean-ocr/datasheet-columns/slide-10-image-01-region-02-right-section-01-top-column-02-abilities.png",
+  "confidence": 95,
+  "text": "",
+  "tsv": "1\t1\t0\t0\t0\t0\t0\t0\t1756\t3230\t-1\t\n2\t1\t1\t0\t0\t0\t0\t0\t1754\t3230\t-1\t\n3\t1\t1\t1\t0\t0\t0\t0\t1754\t3230\t-1\t\n4\t1\t1\t1\t1\t0\t0\t0\t1754\t3230\t-1\t\n5\t1\t1\t1\t1\t1\t0\t0\t1754\t3230\t95.000000\t \n",
+  "blocks": []
+}

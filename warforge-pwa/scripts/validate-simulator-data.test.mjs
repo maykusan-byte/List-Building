@@ -51,6 +51,62 @@ describe('simulator data contract', () => {
   });
 
   it.each([
+    ['covered boolean', (document) => { document.covered = true; }],
+    ['covered coverageStatus', (document) => { document.coverageStatus = 'covered'; }],
+    ['supported alias', (document) => { document.supported = true; }]
+  ])('rejects the M4 draft top-level claim %s', async (_label, mutate) => {
+    await expectInvalidMutation('m4-real-roster-facts.json', mutate, /clés exactes requises/);
+  });
+
+  it('rejects a changed M4 PISTOL formalization', async () => {
+    await expectInvalidMutation('m4-real-roster-facts.json', (document) => {
+      document.mandatoryRules[1].formalizedConstraint = 'Les armes PISTOL peuvent toujours tirer.';
+    }, /contrainte formalisée exacte requise/);
+  });
+
+  it.each([
+    ['legacy visibility points', (document) => { document.physicalProfiles[0].visibilityPoints = [{ x: 0, y: 0, z: 320 }]; }, /points legacy|clés exactes requises/],
+    ['sampled endpoint domain', (document) => { document.lineOfSightConvention.endpointDomain = 'normalized-points'; }, /lineOfSightConvention/],
+    ['sampled policy layout', (document) => { document.lineOfSightConvention.pointLayout.pointsPerHitbox = 14; }, /lineOfSightConvention/],
+    ['sampled policy ray width', (document) => { document.lineOfSightConvention.rayWidthWorldUnits = 1; }, /lineOfSightConvention/],
+    ['sampled policy blocker domain', (document) => { document.lineOfSightConvention.blockerDomain = 'models'; }, /lineOfSightConvention/],
+    ['sampled policy review', (document) => { document.sampledLineOfSightReview.reviewedBy = 'someone-else'; }, /sampledLineOfSightReview/],
+    ['terrain layout review state', (document) => { document.terrainLayout.reviewStatus = 'pending-human-review'; }, /convention de terrain M4 approuvée requise/],
+    ['terrain layout approval', (document) => { document.terrainLayout.approval.reviewedBy = 'someone-else'; }, /terrainLayout\.approval/],
+    ['terrain layout occlusion', (document) => { document.terrainLayout.zones[0].occlusion = 'terrain-blocker'; }, /terrainLayout\.zones\[0\]/],
+    ['terrain layout geometry', (document) => { document.terrainLayout.zones[0].footprint.outer[0].x += 1; }, /terrainLayout\.zones\[0\]/],
+    ['weapon profile', (document) => { document.unitFacts[0].selectedRangedWeapon.strength = 5; }, /selectedRangedWeapon/],
+    ['catalog source', (document) => { document.catalogSnapshots[0].sha256 = '0'.repeat(64); }, /sha256 ne correspond pas/]
+  ])('rejects M4 drift in %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('m4-real-roster-facts.json', mutate, message);
+  });
+
+  it.each([
+    ['physical convention visibility points', (document) => { document.physicalConventions[0].visibilityPoints = [{ x: 0, y: 0, z: 320 }]; }],
+    ['unit fact visibility points', (document) => { document.unitFacts[0].visibilityPoints = [{ x: 0, y: 0, z: 320 }]; }],
+    ['shape finite sampling strategy', (document) => { document.physicalProfiles[0].shape.samplingStrategy = 'finite-normalized-points'; }],
+    ['mandatory-rule visibility points', (document) => { document.mandatoryRules[0].visibilityPoints = [{ x: 0, y: 0, z: 320 }]; }],
+    ['mandatory-rule snake-case visibility points', (document) => { document.mandatoryRules[0].visibility_points = [{ x: 0, y: 0, z: 320 }]; }],
+    ['mandatory-rule sampling object', (document) => { document.mandatoryRules[0].sampling = { mode: 'finite normalized point pairs' }; }]
+  ])('rejects legacy or unversioned M4 point fields through %s', async (_label, mutate) => {
+    await expectInvalidMutation('m4-real-roster-facts.json', mutate, /points legacy|clés exactes requises/);
+  });
+
+  it.each([
+    ['convention statement', (document) => { document.physicalConventions[0].statement += ' La LoS est décidée par cinq sampled-points normalisés.'; }, /statement de convention physique exact requis/],
+    ['profile display name', (document) => { document.physicalProfiles[0].displayName = 'Infanterie réelle M4 — cinq sampled-points normalisés'; }, /displayName exact requis/]
+  ])('rejects contradictory M4 geometry policy text in %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('m4-real-roster-facts.json', mutate, message);
+  });
+
+  it.each([
+    ['sourceId substitution', (document) => { document.legalityAndPhaseDispositions[0].sourceId = 'warforge-catalog-blood-angels-1.2.13.0'; }],
+    ['collection substitution', (document) => { document.legalityAndPhaseDispositions[0].collection = 'Dettachments'; }]
+  ])('rejects M4 disposition %s', async (_label, mutate) => {
+    await expectInvalidMutation('m4-real-roster-facts.json', mutate, /provenance/);
+  });
+
+  it.each([
     ['wrong printed page', (rule) => { rule.source.printedPage = 51; }, /page imprimée 50 requise/],
     ['save characteristic', (rule) => { rule.effect.characteristic = 'save'; }, /la CT doit être dégradée/],
     ['save bonus field', (rule) => { rule.effect.coverSaveBonus = 1; }, /clés exactes requises/],

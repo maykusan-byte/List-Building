@@ -16,7 +16,7 @@ import {
 import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE } from '../rules';
 import { createSessionCompatibilityReport } from './compatibility';
 import { createSimulatorActor, dispatchGameCommand, getSimulatorGameState } from './machine';
-import { createShootingEnvironment, executeBasicShootingCommand, replayGameEventsWithShootingEnvironment, type ShootingEnvironment } from './shooting';
+import { createShootingEnvironment, executeBasicShootingCommand, executeOathOfMomentSelectionCommand, replayGameEventsWithShootingEnvironment, type ShootingEnvironment } from './shooting';
 
 const GOLDEN_SEED = 0x57465247;
 const physicalSource: SourceReferenceV1 = {
@@ -147,6 +147,34 @@ function environment(withCover = false, blocksSight = false, environmentWeapon =
   });
 }
 
+const OATH_SALAMANDERS_SOURCE: SourceReferenceV1 = {
+  sourceId: 'warforge-catalog-salamanders-1.2.13.0',
+  version: '1.2.13.0',
+  effectiveFrom: '2026-07-24'
+};
+const OATH_BLOOD_ANGELS_SOURCE: SourceReferenceV1 = {
+  sourceId: 'warforge-catalog-blood-angels-1.2.13.0',
+  version: '1.2.13.0',
+  effectiveFrom: '2026-07-24'
+};
+
+function oathEnvironment(): ShootingEnvironment {
+  const base = environment();
+  return createShootingEnvironment({
+    physicalProfiles: base.physicalProfiles,
+    weaponProfiles: base.weaponProfiles,
+    terrainZones: base.terrainZones,
+    coverRules: base.coverRules,
+    oathOfMoment: {
+      id: 'adeptus-astartes.oath-of-moment',
+      variants: [
+        { playerId: 'red', rerollFailedHits: true, woundRollModifier: 1, sourceRefs: [OATH_SALAMANDERS_SOURCE] },
+        { playerId: 'blue', rerollFailedHits: true, woundRollModifier: 0, sourceRefs: [OATH_BLOOD_ANGELS_SOURCE] }
+      ]
+    }
+  });
+}
+
 function accept(state: GameState, command: GameCommand): GameState {
   const result = executeGameCommand(state, command);
   expect(result.accepted).toBe(true);
@@ -183,6 +211,53 @@ function coverage(): CoverageReportV1 {
 }
 
 describe('M3 trusted basic shooting path', () => {
+  it('persists and replays the source-backed Oath selection before applying its bounded attack modifiers', () => {
+    const environmentWithOath = oathEnvironment();
+    const oathSession = { ...session(), shootingEnvironmentFingerprint: environmentWithOath.fingerprint };
+    const initial = createInitialGameState('oath-selection', GOLDEN_SEED);
+    let state = accept(initial, { id: 'setup', actorId: 'red', type: 'setup-session', session: oathSession });
+    state = accept(state, { id: 'command', actorId: 'red', type: 'transition-phase', nextPhase: 'command' });
+    const selected = executeOathOfMomentSelectionCommand(state, { id: 'oath', actorId: 'red', type: 'select-oath-of-moment-target', targetUnitId: 'blue-unit' }, environmentWithOath);
+    expect(selected.accepted).toBe(true);
+    if (!selected.accepted) return;
+    expect(selected.state.oathOfMomentSelections.red).toMatchObject({ targetUnitId: 'blue-unit', round: 0, rerollFailedHits: true, woundRollModifier: 1, sourceRefs: [OATH_SALAMANDERS_SOURCE] });
+    state = accept(selected.state, { id: 'movement', actorId: 'red', type: 'transition-phase', nextPhase: 'movement' });
+    state = accept(state, { id: 'shooting', actorId: 'red', type: 'transition-phase', nextPhase: 'shooting' });
+    const shot = executeBasicShootingCommand(state, shootingCommand('oath-shot'), environmentWithOath);
+    expect(shot.accepted).toBe(true);
+    if (!shot.accepted || shot.events[0].type !== 'basic-shooting-resolved') return;
+    expect(shot.events[0].evidence.attackModifiers).toEqual({
+      rerollFailedHits: true,
+      woundRollModifier: 1,
+      sourceRuleIds: ['adeptus-astartes.oath-of-moment'],
+      sourceRefs: [OATH_SALAMANDERS_SOURCE]
+    });
+    expect(shot.events[0].attackGroups[0].result.woundRequired).toBe(3);
+    expect(shot.events[0].sourceRefs).toContainEqual(OATH_SALAMANDERS_SOURCE);
+    expect(replayGameEventsWithShootingEnvironment(initial, shot.state.eventLog, environmentWithOath)).toEqual(shot.state);
+  });
+
+  it('uses the versioned M4 sampled-cylinder convention instead of profile visibility points', () => {
+    const base = environment();
+    const sampled = createShootingEnvironment({
+      physicalProfiles: base.physicalProfiles,
+      weaponProfiles: base.weaponProfiles,
+      terrainZones: base.terrainZones,
+      coverRules: base.coverRules,
+      lineOfSightPolicy: { id: 'm4-sampled-cylinder-los-v1', version: '1.0.0' }
+    });
+    const ready = shootingState(GOLDEN_SEED, { ...session(), shootingEnvironmentFingerprint: sampled.fingerprint });
+    const result = executeBasicShootingCommand(ready.state, shootingCommand('sampled-los'), sampled);
+    expect(result.accepted).toBe(true);
+    if (!result.accepted || result.events[0].type !== 'basic-shooting-resolved') return;
+    expect(result.events[0].evidence.lineOfSight).toMatchObject({
+      visible: true,
+      reason: 'clear',
+      ray: { from: { x: 0, y: 0, z: 0 }, to: { x: 4_000, y: 0, z: 0 } }
+    });
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, result.state.eventLog, sampled)).toEqual(result.state);
+  });
+
   it('keeps command input free of range, visibility and cover facts', () => {
     const { state } = shootingState();
     const command = shootingCommand();

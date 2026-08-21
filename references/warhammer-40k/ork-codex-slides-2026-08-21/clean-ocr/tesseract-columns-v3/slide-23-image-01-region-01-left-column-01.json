@@ -1,0 +1,782 @@
+{
+  "slideNumber": 23,
+  "imageNumber": 1,
+  "regionNumber": 1,
+  "regionName": "left",
+  "sourceFile": "source-images/slide-23-image-01.png",
+  "inputFile": "clean-ocr/input-v2/slide-23-image-01-region-01-left.png",
+  "rotationCounterClockwise": 90,
+  "width": 731,
+  "height": 2014,
+  "columnNumber": 1,
+  "columnName": "left-column",
+  "columnFile": "clean-ocr/columns-v3/slide-23-image-01-region-01-left-column-01.png",
+  "confidence": 87,
+  "text": "While firing their bigages\nlike to feel its bor,\n\n",
+  "tsv": "1\t1\t0\t0\t0\t0\t0\t0\t731\t2014\t-1\t\n2\t1\t1\t0\t0\t0\t301\t1570\t391\t22\t-1\t\n3\t1\t1\t1\t0\t0\t301\t1570\t391\t22\t-1\t\n4\t1\t1\t1\t1\t0\t301\t1570\t391\t22\t-1\t\n5\t1\t1\t1\t1\t1\t301\t1570\t391\t22\t95.000000\t \n2\t1\t2\t0\t0\t0\t0\t0\t731\t1932\t-1\t\n3\t1\t2\t1\t0\t0\t0\t0\t731\t1932\t-1\t\n4\t1\t2\t1\t1\t0\t0\t0\t731\t1932\t-1\t\n5\t1\t2\t1\t1\t1\t0\t0\t731\t1932\t95.000000\t \n2\t1\t3\t0\t0\t0\t414\t1581\t22\t322\t-1\t\n3\t1\t3\t1\t0\t0\t414\t1581\t22\t322\t-1\t\n4\t1\t3\t1\t1\t0\t414\t1581\t22\t322\t-1\t\n5\t1\t3\t1\t1\t1\t414\t1581\t22\t322\t95.000000\t \n2\t1\t4\t0\t0\t0\t422\t1915\t185\t63\t-1\t\n3\t1\t4\t1\t0\t0\t422\t1915\t185\t63\t-1\t\n4\t1\t4\t1\t1\t0\t422\t1915\t185\t41\t-1\t\n5\t1\t4\t1\t1\t1\t422\t1915\t42\t31\t96.467003\tWhile\n5\t1\t4\t1\t1\t2\t468\t1922\t41\t25\t96.306648\tfiring\n5\t1\t4\t1\t1\t3\t515\t1926\t37\t18\t95.325699\ttheir\n5\t1\t4\t1\t1\t4\t556\t1925\t51\t31\t44.823032\tbigages\n4\t1\t4\t1\t2\t0\t457\t1952\t138\t26\t-1\t\n5\t1\t4\t1\t2\t1\t457\t1952\t27\t19\t84.661499\tlike\n5\t1\t4\t1\t2\t2\t489\t1957\t14\t15\t96.749138\tto\n5\t1\t4\t1\t2\t3\t508\t1956\t29\t22\t91.457748\tfeel\n5\t1\t4\t1\t2\t4\t543\t1960\t18\t16\t96.444412\tits\n5\t1\t4\t1\t2\t5\t566\t1961\t29\t17\t58.968933\tbor,\n2\t1\t5\t0\t0\t0\t34\t1981\t43\t33\t-1\t\n3\t1\t5\t1\t0\t0\t34\t1981\t43\t33\t-1\t\n4\t1\t5\t1\t1\t0\t34\t1981\t43\t33\t-1\t\n5\t1\t5\t1\t1\t1\t34\t1981\t43\t33\t95.000000\t \n",
+  "blocks": [
+    {
+      "bbox": {
+        "x0": 422,
+        "y0": 1915,
+        "x1": 607,
+        "y1": 1978
+      },
+      "text": "While firing their bigages\nlike to feel its bor,\n\n",
+      "confidence": 84,
+      "blocktype": 1,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 422,
+            "y0": 1915,
+            "x1": 607,
+            "y1": 1978
+          },
+          "text": "While firing their bigages\nlike to feel its bor,\n\n",
+          "confidence": 84,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 422,
+                "y0": 1915,
+                "x1": 607,
+                "y1": 1956
+              },
+              "text": "While firing their bigages\n",
+              "confidence": 83,
+              "rowAttributes": {
+                "rowHeight": 22,
+                "descenders": 5,
+                "ascenders": 5
+              },
+              "baseline": {
+                "x0": 422,
+                "y0": 1935,
+                "x1": 607,
+                "y1": 1948
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 422,
+                    "y0": 1915,
+                    "x1": 464,
+                    "y1": 1946
+                  },
+                  "text": "While",
+                  "confidence": 96,
+                  "choices": [
+                    {
+                      "text": "While",
+                      "confidence": 96
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 422,
+                        "y0": 1919,
+                        "x1": 437,
+                        "y1": 1935
+                      },
+                      "text": "W",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 430,
+                        "y0": 1915,
+                        "x1": 442,
+                        "y1": 1946
+                      },
+                      "text": "h",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 436,
+                        "y0": 1920,
+                        "x1": 446,
+                        "y1": 1936
+                      },
+                      "text": "i",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 447,
+                        "y0": 1921,
+                        "x1": 455,
+                        "y1": 1938
+                      },
+                      "text": "l",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 456,
+                        "y0": 1926,
+                        "x1": 464,
+                        "y1": 1938
+                      },
+                      "text": "e",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 468,
+                    "y0": 1922,
+                    "x1": 509,
+                    "y1": 1947
+                  },
+                  "text": "firing",
+                  "confidence": 96,
+                  "choices": [
+                    {
+                      "text": "firing",
+                      "confidence": 96
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 468,
+                        "y0": 1922,
+                        "x1": 479,
+                        "y1": 1944
+                      },
+                      "text": "f",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 475,
+                        "y0": 1922,
+                        "x1": 481,
+                        "y1": 1947
+                      },
+                      "text": "i",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 479,
+                        "y0": 1928,
+                        "x1": 485,
+                        "y1": 1939
+                      },
+                      "text": "r",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 485,
+                        "y0": 1924,
+                        "x1": 490,
+                        "y1": 1940
+                      },
+                      "text": "i",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 490,
+                        "y0": 1929,
+                        "x1": 499,
+                        "y1": 1941
+                      },
+                      "text": "n",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 499,
+                        "y0": 1930,
+                        "x1": 509,
+                        "y1": 1947
+                      },
+                      "text": "g",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 515,
+                    "y0": 1926,
+                    "x1": 552,
+                    "y1": 1944
+                  },
+                  "text": "their",
+                  "confidence": 95,
+                  "choices": [
+                    {
+                      "text": "their",
+                      "confidence": 95
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 515,
+                        "y0": 1928,
+                        "x1": 520,
+                        "y1": 1943
+                      },
+                      "text": "t",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 521,
+                        "y0": 1926,
+                        "x1": 530,
+                        "y1": 1943
+                      },
+                      "text": "h",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 530,
+                        "y0": 1926,
+                        "x1": 536,
+                        "y1": 1944
+                      },
+                      "text": "e",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 531,
+                        "y0": 1928,
+                        "x1": 544,
+                        "y1": 1944
+                      },
+                      "text": "i",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 545,
+                        "y0": 1933,
+                        "x1": 552,
+                        "y1": 1944
+                      },
+                      "text": "r",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 556,
+                    "y0": 1925,
+                    "x1": 607,
+                    "y1": 1956
+                  },
+                  "text": "bigages",
+                  "confidence": 44,
+                  "choices": [
+                    {
+                      "text": "bigages",
+                      "confidence": 44
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 556,
+                        "y0": 1929,
+                        "x1": 565,
+                        "y1": 1945
+                      },
+                      "text": "b",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 566,
+                        "y0": 1934,
+                        "x1": 570,
+                        "y1": 1945
+                      },
+                      "text": "i",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 571,
+                        "y0": 1935,
+                        "x1": 580,
+                        "y1": 1951
+                      },
+                      "text": "g",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 580,
+                        "y0": 1925,
+                        "x1": 586,
+                        "y1": 1956
+                      },
+                      "text": "a",
+                      "confidence": 92,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 580,
+                        "y0": 1935,
+                        "x1": 590,
+                        "y1": 1951
+                      },
+                      "text": "g",
+                      "confidence": 93,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 592,
+                        "y0": 1938,
+                        "x1": 596,
+                        "y1": 1947
+                      },
+                      "text": "e",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 598,
+                        "y0": 1936,
+                        "x1": 607,
+                        "y1": 1948
+                      },
+                      "text": "s",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 457,
+                "y0": 1952,
+                "x1": 595,
+                "y1": 1978
+              },
+              "text": "like to feel its bor,\n\n",
+              "confidence": 85,
+              "rowAttributes": {
+                "rowHeight": 22,
+                "descenders": 5,
+                "ascenders": 5
+              },
+              "baseline": {
+                "x0": 457,
+                "y0": 1969,
+                "x1": 595,
+                "y1": 1978
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 457,
+                    "y0": 1952,
+                    "x1": 484,
+                    "y1": 1971
+                  },
+                  "text": "like",
+                  "confidence": 84,
+                  "choices": [
+                    {
+                      "text": "like",
+                      "confidence": 84
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 457,
+                        "y0": 1952,
+                        "x1": 462,
+                        "y1": 1969
+                      },
+                      "text": "l",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 462,
+                        "y0": 1953,
+                        "x1": 466,
+                        "y1": 1969
+                      },
+                      "text": "i",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 466,
+                        "y0": 1953,
+                        "x1": 475,
+                        "y1": 1970
+                      },
+                      "text": "k",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 475,
+                        "y0": 1958,
+                        "x1": 484,
+                        "y1": 1971
+                      },
+                      "text": "e",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 489,
+                    "y0": 1957,
+                    "x1": 503,
+                    "y1": 1972
+                  },
+                  "text": "to",
+                  "confidence": 96,
+                  "choices": [
+                    {
+                      "text": "to",
+                      "confidence": 96
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 489,
+                        "y0": 1957,
+                        "x1": 494,
+                        "y1": 1972
+                      },
+                      "text": "t",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 495,
+                        "y0": 1960,
+                        "x1": 503,
+                        "y1": 1972
+                      },
+                      "text": "o",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 508,
+                    "y0": 1956,
+                    "x1": 537,
+                    "y1": 1978
+                  },
+                  "text": "feel",
+                  "confidence": 91,
+                  "choices": [
+                    {
+                      "text": "feel",
+                      "confidence": 91
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 508,
+                        "y0": 1956,
+                        "x1": 516,
+                        "y1": 1978
+                      },
+                      "text": "f",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 515,
+                        "y0": 1962,
+                        "x1": 523,
+                        "y1": 1974
+                      },
+                      "text": "e",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 524,
+                        "y0": 1962,
+                        "x1": 532,
+                        "y1": 1975
+                      },
+                      "text": "e",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 533,
+                        "y0": 1959,
+                        "x1": 537,
+                        "y1": 1975
+                      },
+                      "text": "l",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 543,
+                    "y0": 1960,
+                    "x1": 561,
+                    "y1": 1976
+                  },
+                  "text": "its",
+                  "confidence": 96,
+                  "choices": [
+                    {
+                      "text": "its",
+                      "confidence": 96
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 543,
+                        "y0": 1960,
+                        "x1": 547,
+                        "y1": 1975
+                      },
+                      "text": "i",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 548,
+                        "y0": 1962,
+                        "x1": 553,
+                        "y1": 1976
+                      },
+                      "text": "t",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 554,
+                        "y0": 1965,
+                        "x1": 561,
+                        "y1": 1976
+                      },
+                      "text": "s",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 566,
+                    "y0": 1961,
+                    "x1": 595,
+                    "y1": 1978
+                  },
+                  "text": "bor,",
+                  "confidence": 58,
+                  "choices": [
+                    {
+                      "text": "bor,",
+                      "confidence": 58
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 566,
+                        "y0": 1961,
+                        "x1": 575,
+                        "y1": 1977
+                      },
+                      "text": "b",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 577,
+                        "y0": 1966,
+                        "x1": 586,
+                        "y1": 1978
+                      },
+                      "text": "o",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 585,
+                        "y0": 1961,
+                        "x1": 591,
+                        "y1": 1978
+                      },
+                      "text": "r",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 593,
+                        "y0": 1967,
+                        "x1": 595,
+                        "y1": 1969
+                      },
+                      "text": ",",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

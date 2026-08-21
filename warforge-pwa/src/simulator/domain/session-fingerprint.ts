@@ -13,7 +13,7 @@ function requirementKey(requirement: SessionCoverageRequirement): string {
 export function sessionCoverageRequirements(session: SessionSetup): readonly SessionCoverageRequirement[] {
   return [...new Map([
     ...(session.units ?? []).flatMap((unit) => [
-      { subjectType: 'fixture-unit' as const, subjectId: unit.fixtureId },
+      unit.coverageSubject ?? { subjectType: 'fixture-unit' as const, subjectId: unit.fixtureId },
       ...unit.weaponProfiles.map((weapon) => ({ subjectType: 'weapon' as const, subjectId: weapon.id })),
       ...(unit.weaponAssignments ?? []).map((assignment) => ({ subjectType: 'weapon' as const, subjectId: assignment.weaponProfileId }))
     ]),
@@ -44,7 +44,7 @@ export function sessionCompatibilityFingerprint(
       position: model.position, orientationDegrees: model.orientationDegrees
     })).sort((left, right) => left.id.localeCompare(right.id)),
     units: [...(session.units ?? [])].map((unit) => ({
-      id: unit.id, fixtureId: unit.fixtureId, playerId: unit.playerId,
+      id: unit.id, fixtureId: unit.fixtureId, coverageSubject: unit.coverageSubject ?? null, playerId: unit.playerId,
       modelIds: [...unit.modelIds], keywords: [...unit.keywords], toughness: unit.toughness,
       save: unit.save, woundsPerModel: unit.woundsPerModel, weaponProfiles: unit.weaponProfiles,
       weaponAssignments: unit.weaponAssignments ?? [], sourceRefs: unit.sourceRefs

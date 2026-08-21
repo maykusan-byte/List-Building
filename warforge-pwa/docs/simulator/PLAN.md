@@ -1,6 +1,6 @@
 # Simulateur tactique Warforge
 
-`planVersion: 2.0.0`
+`planVersion: 2.3.0`
 
 ## Objectif et périmètre
 
@@ -34,7 +34,7 @@ Avant une délégation, le coordinateur produit un TaskBrief avec résultat, fic
 
 ## Géométrie et données
 
-L'unité interne est 0,1 mm (un pouce = 254 unités). Les figurines sont des cercles, capsules ou polygones convexes orientés avec hauteur continue ; les terrains sont des multipolygones, trous, élévations et bandes d'occlusion. Une grille spatiale accélère la broad phase, puis les tests exacts contrôlent collisions, volume balayé, distance, engagement et cohérence. La ligne de vue utilise des rayons entre points normalisés ; son rayon, bloqueur et mesure sont toujours expliqués à l'interface.
+L'unité interne est 0,1 mm (un pouce = 254 unités). Les figurines sont des cercles, capsules ou polygones convexes orientés avec hauteur continue ; les terrains sont des multipolygones, trous, élévations et bandes d'occlusion. Une grille spatiale accélère la broad phase, puis les tests exacts contrôlent collisions, volume balayé, distance, engagement et cohérence. M3 conserve ses rayons normalisés historiques. Pour le pilote M4, la LoS est décidée par la convention locale finie et versionnée de quinze points représentatifs par hitbox cylindrique, conformément à ADR-008 : ce verdict est une approximation assumée, non une visibilité continue ni une règle officielle. Le témoin, le bloqueur et la mesure restent expliqués à l'interface.
 
 Les profils physiques, rulepacks et scénarios sont versionnés sous `data/simulator/`, avec source, version, date d'effet et empreinte. Le texte naturel n'est jamais interprété à l'exécution. Toute convention non officielle est explicitement versionnée et soumise à revue humaine. Les données réelles du catalogue restent sous le protocole `warforge-data-operations` : source officielle, version, date d'effet, validation et synchronisation publique.
 
@@ -66,11 +66,15 @@ Ordre d'exécution :
 1. `SIM-M4-T01` sélectionne et fige les deux compositions pilotes depuis le catalogue actif.
 2. `SIM-M4-T02` compile les `RosterDraft` vers des identifiants de session stables et produit des refus exhaustifs.
 3. `SIM-M4-T03` source les profils physiques, armes, aptitudes et conventions nécessaires aux seules unités choisies.
-4. `SIM-M4-T04` assemble une session autoritaire et son rapport de compatibilité complet.
-5. `SIM-M4-T05` livre le parcours UI import/sélection, mouvement, ciblage, tir, pertes, sauvegarde et reprise.
-6. `SIM-M4-T06` rejoue le duel de bout en bout, exécute les probes adversariaux et audite le jalon.
+4. `SIM-M4-T07` implémente la LoS échantillonnée versionnée entre hitboxes, avec son témoin rejouable, ses limites explicites et ses cas limites.
+5. `SIM-M4-T04` assemble une session autoritaire et son rapport de compatibilité complet.
+6. `SIM-M4-T08` intègre les seules règles et preuves de tir nécessaires au pilote réel, puis transforme la matrice en couverture exécutable.
+7. `SIM-M4-T05` livre le parcours UI import/sélection, mouvement, ciblage, tir, pertes, sauvegarde et reprise.
+8. `SIM-M4-T06` rejoue le duel de bout en bout, exécute les probes adversariaux et audite le jalon.
 
 Critère de sortie : les deux versions exactes des rosters pilotes peuvent terminer le scénario `real-roster-shooting-duel-v1`; une option, arme, aptitude ou donnée physique étrangère au périmètre est refusée avant la partie. M4 n'autorise aucune annonce de support global des Salamanders, des Blood Angels ou des Space Marines.
+
+`SIM-M4-T08` corrige l'ordre initial : la compatibilité exhaustive de T04 a mis en évidence qu'une UI ne peut pas rendre une session jouable tant que le moteur n'exécute pas Oath of Moment, la convention LoS M4, le garde [PISTOL], le couvert et les conditions de mouvement correspondantes. T08 livre uniquement ces contrats bornés, leurs sources, leurs golden tests et leur replay ; M5 reste l'extension générique des capacités de tir.
 
 ## M5 — Tir étendu fiable
 

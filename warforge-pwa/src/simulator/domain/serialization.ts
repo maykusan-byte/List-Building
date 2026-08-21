@@ -26,7 +26,7 @@ function isCompatibleVersion(version: unknown): version is string {
 function isGameEvent(value: unknown): value is GameEvent {
   return isRecord(value) && typeof value.id === 'string' && typeof value.commandId === 'string'
     && typeof value.type === 'string'
-    && ['session-setup', 'phase-transitioned', 'model-moved', 'dice-rolled', 'basic-shooting-resolved', 'decision-requested', 'decision-resolved'].includes(value.type);
+    && ['session-setup', 'phase-transitioned', 'model-moved', 'dice-rolled', 'basic-shooting-resolved', 'oath-of-moment-selected', 'decision-requested', 'decision-resolved'].includes(value.type);
 }
 
 function isInitialState(value: unknown): value is GameState {
@@ -34,7 +34,11 @@ function isInitialState(value: unknown): value is GameState {
     || !isCompatibleVersion(value.simulatorVersion) || value.phase !== 'setup' || value.round !== 0 || value.manifest !== null
     || (value.shootingEnvironmentFingerprint !== null && value.shootingEnvironmentFingerprint !== undefined)
     || !isRecord(value.players) || Object.keys(value.players).length !== 0 || !isRecord(value.models) || Object.keys(value.models).length !== 0
-    || !isRecord(value.units) || Object.keys(value.units).length !== 0 || !Array.isArray(value.pendingDecisions) || value.pendingDecisions.length !== 0
+    || !isRecord(value.units) || Object.keys(value.units).length !== 0
+    // This field was added after V1. It is optional only on an event-free
+    // legacy initial snapshot; the session setup event always materializes it.
+    || (value.oathOfMomentSelections !== undefined && (!isRecord(value.oathOfMomentSelections) || Object.keys(value.oathOfMomentSelections).length !== 0))
+    || !Array.isArray(value.pendingDecisions) || value.pendingDecisions.length !== 0
     || !isRecord(value.diceResults) || Object.keys(value.diceResults).length !== 0 || !Array.isArray(value.eventLog) || value.eventLog.length !== 0) return false;
   try {
     assertPrngState(value.prng as GameState['prng']);
@@ -123,6 +127,6 @@ export function unsafeValidateSimulationSaveWithVerifier(value: unknown, replayV
 }
 
 function verifyReplay(initialState: GameState, events: readonly GameEvent[], replayVerifier?: UnsafeSimulationReplayVerifier): GameState {
-  if (events.some((event) => event.type === 'basic-shooting-resolved') && !replayVerifier) throw new Error('Un journal de tir exige un vérificateur spatial autoritaire.');
+  if (events.some((event) => event.type === 'basic-shooting-resolved' || event.type === 'oath-of-moment-selected') && !replayVerifier) throw new Error('Un journal de tir exige un vérificateur spatial autoritaire.');
   return (replayVerifier ?? replayGameEvents)(initialState, events);
 }

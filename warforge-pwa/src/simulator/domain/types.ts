@@ -109,15 +109,46 @@ export interface CoverageReportV1 {
   readonly entries: readonly CoverageEntryV1[];
 }
 
+/**
+ * M3 sessions use synthetic fixture units while M4 compiles catalog units.
+ * The explicit discriminator prevents real rosters from inheriting fixture
+ * coverage merely because both use the shared UnitSetup transport.
+ */
+export interface UnitCoverageSubjectV1 {
+  readonly subjectType: 'fixture-unit' | 'unit';
+  readonly subjectId: string;
+}
+
 export interface RosterSimulationAdapter<TDraft = unknown> {
   readonly version: string;
   adapt(draft: TDraft): RosterSimulationAdaptation;
+}
+
+/** A deterministic, human-readable reason why a roster cannot be compiled. */
+export interface RosterSimulationRefusal {
+  readonly code: string;
+  readonly subjectId: string;
+  readonly reason: string;
+  readonly expected?: string;
+  readonly actual?: string;
 }
 
 export interface RosterSimulationAdaptation {
   readonly rosterId: string;
   readonly modelIds: readonly string[];
   readonly missingCoverage: readonly CoverageEntryV1[];
+  /**
+   * An adapter may validate roster identity without evaluating executable
+   * simulator coverage. Consumers must not treat `missingCoverage: []` as a
+   * coverage claim when this is `not-assessed`.
+   */
+  readonly coverageStatus?: 'not-assessed' | 'assessed';
+  /**
+   * Roster-identity failures are deliberately separate from rules coverage.
+   * A structurally accepted roster still needs T03/T04 coverage before a
+   * simulator session may start.
+   */
+  readonly refusals?: readonly RosterSimulationRefusal[];
 }
 
 export type SimulatorPhase = 'setup' | 'deployment' | 'command' | 'movement' | 'shooting' | 'charge' | 'fight' | 'completed';
@@ -161,8 +192,10 @@ export interface ModelWeaponAssignmentV1 {
 /** Immutable unit composition used only by the session-setup event. */
 export interface UnitSetup {
   readonly id: string;
-  /** Stable fixture-unit coverage subject used by compatibility gating. */
+  /** Stable internal unit identity retained for existing M3 snapshots. */
   readonly fixtureId: string;
+  /** Defaults to the legacy fixture-unit subject when omitted. */
+  readonly coverageSubject?: UnitCoverageSubjectV1;
   readonly playerId: string;
   /** Actual model IDs, not a count or a profile-derived approximation. */
   readonly modelIds: readonly string[];
@@ -257,6 +290,8 @@ export type GameCommand =
   | (CommandBase & { readonly type: 'roll-dice'; readonly rollId: string; readonly sides: number; readonly count: number; readonly reason: string })
   /** Spatial facts are never command input; the trusted orchestration resolver derives them. */
   | (CommandBase & { readonly type: 'resolve-basic-shooting'; readonly attackerUnitId: string; readonly targetUnitId: string; readonly weaponProfileId: string })
+  /** Target only: the trusted M4 environment derives the selected Oath variant. */
+  | (CommandBase & { readonly type: 'select-oath-of-moment-target'; readonly targetUnitId: string })
   | (CommandBase & { readonly type: 'request-decision'; readonly decision: DecisionRequest })
   | (CommandBase & { readonly type: 'resolve-decision'; readonly decisionId: string; readonly optionId: string });
 
@@ -296,6 +331,13 @@ export interface BasicShootingEvidence {
   readonly range: BasicShootingRangeEvidence;
   readonly lineOfSight: BasicShootingLineOfSightEvidence;
   readonly cover: BasicShootingCoverEvidence;
+  /** Modifiers derived by trusted orchestration; never supplied by the UI. */
+  readonly attackModifiers: {
+    readonly rerollFailedHits: boolean;
+    readonly woundRollModifier: 0 | 1;
+    readonly sourceRuleIds: readonly string[];
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  };
   readonly weapon: {
     readonly firingModelIds: readonly string[];
     readonly weaponCount: number;
@@ -308,6 +350,8 @@ export interface BasicShootingDieStep {
   readonly attackIndex: number;
   readonly outcome: 'missed' | 'failed-to-wound' | 'saved' | 'damaged' | 'destroyed' | 'lost-no-target';
   readonly hitRoll?: number;
+  /** Original failed hit when `hitRoll` is the covered reroll result. */
+  readonly initialHitRoll?: number;
   readonly hit: boolean;
   readonly criticalHit: boolean;
   readonly woundRoll?: number;
@@ -322,7 +366,10 @@ export interface BasicShootingDieStep {
 
 export interface BasicShootingHitRoll {
   readonly attackIndex: number;
+  /** Original D6 result. */
   readonly roll: number;
+  /** Present only when a covered rule rerolls a failed hit. */
+  readonly rerollRoll?: number;
   readonly hit: boolean;
   readonly critical: boolean;
 }
@@ -360,6 +407,17 @@ export interface BasicShootingResult {
   readonly modelsDestroyed: number;
   readonly remainingModels: number;
   readonly remainingWoundsOnDamagedModel: number | null;
+}
+
+/** Current M4 Oath of Moment selection for one player and command round. */
+export interface OathOfMomentSelectionV1 {
+  readonly ruleId: 'adeptus-astartes.oath-of-moment';
+  readonly playerId: string;
+  readonly targetUnitId: string;
+  readonly round: number;
+  readonly rerollFailedHits: true;
+  readonly woundRollModifier: 0 | 1;
+  readonly sourceRefs: readonly SourceReferenceV1[];
 }
 
 export interface BasicShootingAttackGroup {
@@ -405,6 +463,7 @@ export type GameEvent =
     readonly prngAfter: PrngStateV1;
     readonly sourceRefs: readonly SourceReferenceV1[];
   })
+  | (EventBase & { readonly type: 'oath-of-moment-selected'; readonly selection: OathOfMomentSelectionV1 })
   | (EventBase & { readonly type: 'decision-requested'; readonly decision: DecisionRequest })
   | (EventBase & { readonly type: 'decision-resolved'; readonly decisionId: string; readonly optionId: string; readonly playerId: string });
 
@@ -419,6 +478,7 @@ export interface GameState {
   readonly players: Readonly<Record<string, PlayerSetup>>;
   readonly models: Readonly<Record<string, ModelState>>;
   readonly units: Readonly<Record<string, UnitState>>;
+  readonly oathOfMomentSelections: Readonly<Record<string, OathOfMomentSelectionV1>>;
   readonly pendingDecisions: readonly DecisionRequest[];
   readonly diceResults: Readonly<Record<string, readonly number[]>>;
   readonly prng: PrngStateV1;

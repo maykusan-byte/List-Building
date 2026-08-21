@@ -3,7 +3,7 @@ import { executeGameCommand, type CommandExecution, type GameCommand, type GameS
 import type { SimulationAutosaveController } from '../persistence';
 import type { SimulationCompatibilityReport } from './compatibility';
 import { isSessionCompatible } from './compatibility';
-import { executeBasicShootingCommand, type ShootingEnvironment } from './shooting';
+import { executeBasicShootingCommand, executeOathOfMomentSelectionCommand, type ShootingEnvironment } from './shooting';
 
 const COVERAGE_RULE_ID = 'simulator.core.coverage-compatibility';
 
@@ -31,6 +31,12 @@ export interface CreateSimulatorMachineInput {
   readonly compatibility?: SimulationCompatibilityReport | null;
   /** Immutable, trusted scenario/rulepack/geometry facts for shooting commands. */
   readonly shootingEnvironment?: ShootingEnvironment;
+  /** Optional authoritative movement policy for a closed scenario such as M4. */
+  readonly movementCommandResolver?: MovementCommandResolver;
+}
+
+export interface MovementCommandResolver {
+  execute(state: GameState, command: Extract<GameCommand, { readonly type: 'move-model' }>): CommandExecution;
 }
 
 type PhaseMachineState = SimulatorPhase;
@@ -44,7 +50,12 @@ function rejectionForIncompleteCoverage(command: Extract<GameCommand, { readonly
   };
 }
 
-function executeOrchestratedCommand(context: SimulatorMachineContext, command: GameCommand, shootingEnvironment?: ShootingEnvironment): CommandExecution {
+function executeOrchestratedCommand(
+  context: SimulatorMachineContext,
+  command: GameCommand,
+  shootingEnvironment?: ShootingEnvironment,
+  movementCommandResolver?: MovementCommandResolver
+): CommandExecution {
   if (command.type === 'setup-session' && (!context.compatibility || !isSessionCompatible(command.session, context.compatibility))) {
     return { accepted: false, state: context.gameState, rejection: rejectionForIncompleteCoverage(command) };
   }
@@ -75,24 +86,42 @@ function executeOrchestratedCommand(context: SimulatorMachineContext, command: G
     }
     return executeBasicShootingCommand(context.gameState, command, shootingEnvironment);
   }
+  if (command.type === 'select-oath-of-moment-target') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-shooting-environment-required',
+          message: 'Oath of Moment exige un environnement autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-shooting-environment']
+        }
+      };
+    }
+    return executeOathOfMomentSelectionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'move-model' && movementCommandResolver) {
+    return movementCommandResolver.execute(context.gameState, command);
+  }
   return executeGameCommand(context.gameState, command);
 }
 
-function commandReachesPhase(context: SimulatorMachineContext, event: SimulatorMachineEvent, expected: PhaseMachineState, shootingEnvironment?: ShootingEnvironment): boolean {
+function commandReachesPhase(context: SimulatorMachineContext, event: SimulatorMachineEvent, expected: PhaseMachineState, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): boolean {
   if (event.type !== 'COMMAND') return false;
-  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
   return execution.accepted && execution.state.phase === expected;
 }
 
-function commandOpensDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): boolean {
+function commandOpensDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): boolean {
   if (event.type !== 'COMMAND') return false;
-  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
   return execution.accepted && context.gameState.pendingDecisions.length === 0 && execution.state.pendingDecisions.length > 0;
 }
 
-function commandClosesDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): boolean {
+function commandClosesDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): boolean {
   if (event.type !== 'COMMAND') return false;
-  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
   return execution.accepted && context.gameState.pendingDecisions.length > 0 && execution.state.pendingDecisions.length === 0;
 }
 
@@ -104,9 +133,9 @@ function hasPendingDecision(context: SimulatorMachineContext): boolean {
   return context.gameState.pendingDecisions.length > 0;
 }
 
-function applyCommand(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment): SimulatorMachineContext {
+function applyCommand(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): SimulatorMachineContext {
   if (event.type !== 'COMMAND') return context;
-  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment);
+  const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
   return execution.accepted
     ? { ...context, gameState: execution.state, lastRejection: null }
     : { ...context, lastRejection: execution.rejection };
@@ -130,13 +159,13 @@ export function createSimulatorMachine(input: CreateSimulatorMachineInput) {
       events: {} as SimulatorMachineEvent
     },
     actions: {
-      applyCommand: assign(({ context, event }) => applyCommand(context, event, input.shootingEnvironment)),
+      applyCommand: assign(({ context, event }) => applyCommand(context, event, input.shootingEnvironment, input.movementCommandResolver)),
       clearRejection: assign(({ context }) => ({ ...context, lastRejection: null }))
     },
     guards: {
-      commandReachesPhase: ({ context, event }, parameters: { readonly phase: PhaseMachineState }) => commandReachesPhase(context, event, parameters.phase, input.shootingEnvironment),
-      commandOpensDecision: ({ context, event }) => commandOpensDecision(context, event, input.shootingEnvironment),
-      commandClosesDecision: ({ context, event }) => commandClosesDecision(context, event, input.shootingEnvironment),
+      commandReachesPhase: ({ context, event }, parameters: { readonly phase: PhaseMachineState }) => commandReachesPhase(context, event, parameters.phase, input.shootingEnvironment, input.movementCommandResolver),
+      commandOpensDecision: ({ context, event }) => commandOpensDecision(context, event, input.shootingEnvironment, input.movementCommandResolver),
+      commandClosesDecision: ({ context, event }) => commandClosesDecision(context, event, input.shootingEnvironment, input.movementCommandResolver),
       hasPendingDecision: ({ context }) => hasPendingDecision(context),
       phaseIs: ({ context }, parameters: { readonly phase: PhaseMachineState }) => phaseIs(context, parameters.phase)
     }

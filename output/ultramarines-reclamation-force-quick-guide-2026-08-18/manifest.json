@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "warforge-quick-tactical-guide/v1",
+  "guideVersion": "ultramarines-reclamation-force-quick-guide/v1",
+  "generatedAt": "2026-08-18",
+  "status": "draft",
+  "catalogVersion": "1.2.13.0",
+  "detachment": {
+    "id": "book-ultramarines:detachment:1",
+    "name": "RECLAMATION FORCE",
+    "forceDisposition": "TAKE AND HOLD"
+  },
+  "roster": {
+    "points": 2000,
+    "outsideInventory": [
+      "book-ultramarines:unit:3",
+      "book-ultramarines:unit:1"
+    ],
+    "units": [
+      { "id": "book-ultramarines:unit:3", "models": 1, "points": 155 },
+      { "id": "book-ultramarines:unit:1", "models": 1, "points": 105 },
+      { "id": "book-space-marines:unit:3", "models": 1, "points": 80, "enhancement": "Scroll Of Proclamation", "enhancementCost": 15 },
+      { "id": "book-space-marines:unit:33", "models": 6, "points": 165 },
+      { "id": "book-space-marines:unit:52", "models": 6, "points": 180 },
+      { "id": "book-space-marines:unit:66", "models": 1, "points": 250 },
+      { "id": "book-space-marines:unit:28", "models": 6, "points": 160 },
+      { "id": "book-space-marines:unit:50", "models": 10, "points": 220 },
+      { "id": "book-space-marines:unit:45", "models": 3, "points": 125 },
+      { "id": "book-space-marines:unit:24", "models": 5, "points": 65 },
+      { "id": "book-space-marines:unit:24", "models": 5, "points": 65 },
+      { "id": "book-space-marines:unit:60", "models": 1, "points": 160 },
+      { "id": "book-space-marines:unit:41", "models": 1, "points": 150 },
+      { "id": "book-space-marines:unit:29", "models": 5, "points": 105 }
+    ]
+  },
+  "checks": {
+    "pointsTotal": 2000,
+    "chapterRestrictionRespected": true,
+    "physicalFigureReuse": false,
+    "outsideInventoryCount": 2,
+    "expertReportRankAmongSpaceMarines": 4,
+    "expertCentralScore": 94.28,
+    "expertPrudentScore": 88.24
+  }
+}

@@ -48,10 +48,10 @@ export function importSimulation(serialized: string, environment?: ShootingEnvir
   const parsed = unsafeDeserializeSimulationSaveWithVerifier(serialized, verifierFor(environment));
   if (!parsed.ok) return parsed;
   if (environment && parsed.save.schemaVersion === 'warforge-simulation-save/v1') {
-    return { ok: false, errors: ['Une sauvegarde V1 n’est pas automatiquement compatible avec le duel fermé M3.'] };
+    return { ok: false, errors: ['Une sauvegarde V1 n’est pas automatiquement compatible avec une session de tir fermée.'] };
   }
   if (environment && parsed.save.schemaVersion === 'warforge-simulation-save/v2') {
-    if (!expectedManifestFingerprint) return { ok: false, errors: ['Le manifeste de session fermée attendu est obligatoire pour importer une sauvegarde M3.'] };
+    if (!expectedManifestFingerprint) return { ok: false, errors: ['Le manifeste de session fermée attendu est obligatoire pour importer une sauvegarde de tir.'] };
     if (parsed.save.environment.manifestFingerprint !== expectedManifestFingerprint) return { ok: false, errors: ['La sauvegarde ne correspond pas au manifeste de session fermée attendu.'] };
   }
   try {
@@ -91,7 +91,7 @@ export function validateSimulationAutosave(value: unknown, environment?: Shootin
   const validatedSave = unsafeValidateSimulationSaveWithVerifier(value.save, verifierFor(environment));
   if (!validatedSave.ok) errors.push(...validatedSave.errors.map((error) => `Sauvegarde : ${error}`));
   if (environment && validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v1') {
-    errors.push('Sauvegarde : une V1 ne peut pas restaurer automatiquement une session M3.');
+    errors.push('Sauvegarde : une V1 ne peut pas restaurer automatiquement une session de tir fermée.');
   }
   if (environment && validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v2') {
     if (!expectedManifestFingerprint) errors.push('Sauvegarde : le manifeste de session fermée attendu est obligatoire.');

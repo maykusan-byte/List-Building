@@ -1,0 +1,456 @@
+{
+  "schemaVersion": "warforge-simulator-m4-real-roster-facts/v2",
+  "version": "2.2.0",
+  "status": "draft",
+  "effectiveDate": "2026-08-21",
+  "scope": "real-roster-shooting-duel-v1",
+  "proposalReference": "docs/simulator/roster-pilots/real-roster-shooting-duel-v1.proposal.json",
+  "baseManifestVersion": "0.1.0",
+  "coverageClaim": "none",
+  "catalog": {
+    "sourceId": "warforge-catalog-1.2.13.0",
+    "version": "1.2.13.0",
+    "publishDate": "2026-07-24T20:15:05.0043058Z",
+    "fingerprint": "fnv1a-32fc3f46-5031198"
+  },
+  "catalogSnapshots": [
+    {
+      "id": "warforge-catalog-space-marines-1.2.13.0",
+      "path": "data/units/Space Marines.json",
+      "sha256": "3f4558d6c168a4fa8620b09aae5334b0375930d7de6ebc8a3335efef20078831"
+    },
+    {
+      "id": "warforge-catalog-blood-angels-1.2.13.0",
+      "path": "data/units/Blood Angels.json",
+      "sha256": "5e8f98925fd8b00dd82f45f6109b3c06a9be67ca29b7f0a46ad754e8830fedef"
+    },
+    {
+      "id": "warforge-catalog-salamanders-1.2.13.0",
+      "path": "data/units/Salamanders.json",
+      "sha256": "1a41ef83b9efe1dc9ef7ba3e3e8f70fa096ab13b8ced1cb53599947db0970cb9"
+    }
+  ],
+  "physicalConventions": [
+    {
+      "id": "m4-real-infantry-geometry-draft-v1",
+      "kind": "local-draft-convention",
+      "version": "1.0.0",
+      "effectiveDate": "2026-08-21",
+      "scope": "real-roster-shooting-duel-v1",
+      "reviewStatus": "human-reviewed",
+      "reviewedBy": "project-owner",
+      "reviewedAt": "2026-08-21",
+      "statement": "Convention locale limitée au pilote M4 : diamètre du socle repris du catalogue actif et hauteur conventionnelle approuvée par le propriétaire le 2026-08-21. Ces valeurs ne constituent pas des dimensions officielles et ne couvrent aucune session M4 avant T07 et T04."
+    }
+  ],
+  "physicalProfiles": [
+    {
+      "id": "m4-real-infantry-32mm-draft-v1",
+      "displayName": "Infanterie réelle M4 — 32 mm",
+      "shape": { "kind": "circle", "radius": 160 },
+      "height": 400,
+      "provenance": {
+        "kind": "warforge-draft-convention",
+        "sourceId": "m4-real-infantry-geometry-draft-v1",
+        "version": "1.0.0",
+        "effectiveDate": "2026-08-21"
+      },
+      "reviewStatus": "human-reviewed",
+      "approval": {
+        "scope": "real-roster-shooting-duel-v1",
+        "reviewedBy": "project-owner",
+        "reviewedAt": "2026-08-21"
+      }
+    },
+    {
+      "id": "m4-real-infantry-40mm-draft-v1",
+      "displayName": "Infanterie réelle M4 — 40 mm",
+      "shape": { "kind": "circle", "radius": 200 },
+      "height": 450,
+      "provenance": {
+        "kind": "warforge-draft-convention",
+        "sourceId": "m4-real-infantry-geometry-draft-v1",
+        "version": "1.0.0",
+        "effectiveDate": "2026-08-21"
+      },
+      "reviewStatus": "human-reviewed",
+      "approval": {
+        "scope": "real-roster-shooting-duel-v1",
+        "reviewedBy": "project-owner",
+        "reviewedAt": "2026-08-21"
+      }
+    }
+  ],
+  "lineOfSightConvention": {
+    "id": "m4-sampled-cylinder-los-v1",
+    "version": "1.0.0",
+    "decisionReference": "ADR-008-sampled-cylinder-line-of-sight",
+    "endpointDomain": "finite-representative-points",
+    "hitboxKind": "closed-vertical-cylinder",
+    "pointLayout": {
+      "verticalLevels": ["bottom", "middle", "top"],
+      "horizontalPositions": ["center", "east", "north", "west", "south"],
+      "pointsPerHitbox": 15,
+      "candidatePairCount": 225
+    },
+    "endpointContact": "blocks",
+    "terrainBoundaryContact": "blocks",
+    "rayWidthWorldUnits": 0,
+    "blockerDomain": "static-terrain-only",
+    "modelOcclusion": "excluded",
+    "approximation": "finite-representative-points",
+    "implementationStatus": "implemented-closed-m4",
+    "requiredByTask": "SIM-M4-T08",
+    "statement": "La visibilité M4 est décidée par le premier rayon dégagé du produit cartésien ordonné de 15 points représentatifs par hitbox cylindrique. Ce verdict est une approximation locale, versionnée et non officielle ; il ne décide ni le couvert ni la visibilité continue de la figurine."
+  },
+  "terrainLayout": {
+    "id": "m4-central-light-cover-layout-v1",
+    "version": "1.1.0",
+    "scope": "real-roster-shooting-duel-v1",
+    "reviewStatus": "human-reviewed",
+    "approval": {
+      "scope": "real-roster-shooting-duel-v1",
+      "reviewedBy": "project-owner",
+      "reviewedAt": "2026-08-21",
+      "decision": "Le propriétaire approuve le terrain M4 : plateau de 44 × 30 pouces et zone centrale de couvert léger non occlusive."
+    },
+    "board": { "width": 11176, "height": 7620 },
+    "zones": [
+      {
+        "id": "m4-central-light-cover-zone-v1",
+        "label": "Zone centrale — couvert léger local",
+        "occlusion": "none",
+        "ruleIds": ["core.benefit-of-cover"],
+        "footprint": {
+          "outer": [
+            { "x": 4838, "y": 2700 },
+            { "x": 6338, "y": 2700 },
+            { "x": 6338, "y": 4920 },
+            { "x": 4838, "y": 4920 }
+          ]
+        }
+      }
+    ]
+  },
+  "unitFacts": [
+    {
+      "id": "m4-space-marines-assault-intercessors-facts-v1",
+      "catalogLink": {
+        "unitId": "book-space-marines:unit:18",
+        "sourceId": "warforge-catalog-space-marines-1.2.13.0",
+        "sourcePath": "data/units/Space Marines.json",
+        "sourceIndex": 18,
+        "name": "ASSAULT INTERCESSOR SQUAD"
+      },
+      "rosterSides": ["salamanders"],
+      "modelCount": 5,
+      "physicalProfileId": "m4-real-infantry-32mm-draft-v1",
+      "catalogBaseDiameterMm": 32,
+      "factionRuleTitle": "Oath of Moment",
+      "keywords": ["Infantry", "Battleline", "Grenades", "Imperium", "Tacticus", "Assault Intercessor Squad"],
+      "factionKeywords": ["Adeptus Astartes"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 2,
+        "invulnerableSave": null
+      },
+      "selectedRangedWeapon": {
+        "id": "m4-heavy-bolt-pistol-ct3-v1",
+        "catalogName": "Heavy bolt pistol",
+        "equippedCount": 5,
+        "range": 4572,
+        "attacks": 1,
+        "ballisticSkill": 3,
+        "strength": 4,
+        "armourPenetration": -1,
+        "damage": 1,
+        "keywords": ["PISTOL"]
+      },
+      "unitAbilityDispositions": [
+        {
+          "title": "Shock Assault",
+          "status": "excluded-by-scenario-phase",
+          "reason": "L'aptitude modifie exclusivement des attaques de mêlée ; le Combat est exclu du pilote M4."
+        }
+      ],
+      "coreAbilityDispositions": [],
+      "excludedCharacteristics": [
+        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
+        { "name": "OC", "sourceValue": "2", "reason": "Les objectifs et le score sont exclus du pilote M4." }
+      ]
+    },
+    {
+      "id": "m4-space-marines-bladeguard-veterans-facts-v1",
+      "catalogLink": {
+        "unitId": "book-space-marines:unit:28",
+        "sourceId": "warforge-catalog-space-marines-1.2.13.0",
+        "sourcePath": "data/units/Space Marines.json",
+        "sourceIndex": 28,
+        "name": "BLADEGUARD VETERAN SQUAD"
+      },
+      "rosterSides": ["salamanders"],
+      "modelCount": 3,
+      "physicalProfileId": "m4-real-infantry-40mm-draft-v1",
+      "catalogBaseDiameterMm": 40,
+      "factionRuleTitle": "Oath of Moment",
+      "keywords": ["Infantry", "Grenades", "Imperium", "Tacticus", "Bladeguard Veteran Squad"],
+      "factionKeywords": ["Adeptus Astartes"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 3,
+        "invulnerableSave": 4
+      },
+      "selectedRangedWeapon": {
+        "id": "m4-heavy-bolt-pistol-ct3-v1",
+        "catalogName": "Heavy bolt pistol",
+        "equippedCount": 3,
+        "range": 4572,
+        "attacks": 1,
+        "ballisticSkill": 3,
+        "strength": 4,
+        "armourPenetration": -1,
+        "damage": 1,
+        "keywords": ["PISTOL"]
+      },
+      "unitAbilityDispositions": [
+        {
+          "title": "Bladeguard",
+          "status": "excluded-by-scenario-phase",
+          "reason": "L'aptitude se déclenche à la phase de Combat ; le Combat est exclu du pilote M4."
+        }
+      ],
+      "coreAbilityDispositions": [],
+      "excludedCharacteristics": [
+        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
+        { "name": "OC", "sourceValue": "1", "reason": "Les objectifs et le score sont exclus du pilote M4." }
+      ]
+    },
+    {
+      "id": "m4-blood-angels-captain-facts-v1",
+      "catalogLink": {
+        "unitId": "book-blood-angels:unit:12",
+        "sourceId": "warforge-catalog-blood-angels-1.2.13.0",
+        "sourcePath": "data/units/Blood Angels.json",
+        "sourceIndex": 12,
+        "name": "BLOOD ANGELS CAPTAIN"
+      },
+      "rosterSides": ["blood-angels"],
+      "modelCount": 1,
+      "physicalProfileId": "m4-real-infantry-40mm-draft-v1",
+      "catalogBaseDiameterMm": 40,
+      "factionRuleTitle": "Oath of Moment",
+      "keywords": ["Infantry", "Character", "Grenades", "Imperium", "Tacticus", "Captain"],
+      "factionKeywords": ["Adeptus Astartes", "Blood Angels"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 5,
+        "invulnerableSave": 4
+      },
+      "selectedRangedWeapon": {
+        "id": "m4-heavy-bolt-pistol-ct2-v1",
+        "catalogName": "Heavy bolt pistol",
+        "equippedCount": 1,
+        "range": 4572,
+        "attacks": 1,
+        "ballisticSkill": 2,
+        "strength": 4,
+        "armourPenetration": -1,
+        "damage": 1,
+        "keywords": ["PISTOL"]
+      },
+      "unitAbilityDispositions": [
+        {
+          "title": "Rites of Battle",
+          "status": "excluded-by-scenario-phase",
+          "reason": "L'aptitude s'applique à l'utilisation d'un Stratagème ; les Stratagèmes sont exclus du pilote M4."
+        },
+        {
+          "title": "Finest Hour",
+          "status": "excluded-by-scenario-phase",
+          "reason": "L'aptitude se déclenche à la phase de Combat et ne modifie que les armes de mêlée ; le Combat est exclu du pilote M4."
+        }
+      ],
+      "coreAbilityDispositions": [
+        {
+          "title": "Leader",
+          "status": "not-selected-in-approved-roster",
+          "reason": "Le Captain est figé comme unité indépendante dans le roster approuvé ; aucune unité attachée n'est construite pour M4."
+        }
+      ],
+      "excludedCharacteristics": [
+        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
+        { "name": "OC", "sourceValue": "1", "reason": "Les objectifs et le score sont exclus du pilote M4." }
+      ]
+    },
+    {
+      "id": "m4-blood-angels-assault-intercessors-facts-v1",
+      "catalogLink": {
+        "unitId": "book-blood-angels:unit:33",
+        "sourceId": "warforge-catalog-blood-angels-1.2.13.0",
+        "sourcePath": "data/units/Blood Angels.json",
+        "sourceIndex": 33,
+        "name": "ASSAULT INTERCESSOR SQUAD"
+      },
+      "rosterSides": ["blood-angels"],
+      "modelCount": 5,
+      "physicalProfileId": "m4-real-infantry-32mm-draft-v1",
+      "catalogBaseDiameterMm": 32,
+      "factionRuleTitle": "Oath of Moment",
+      "keywords": ["Infantry", "Battleline", "Grenades", "Imperium", "Tacticus", "Assault Intercessor Squad"],
+      "factionKeywords": ["Adeptus Astartes"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 2,
+        "invulnerableSave": null
+      },
+      "selectedRangedWeapon": {
+        "id": "m4-heavy-bolt-pistol-ct3-v1",
+        "catalogName": "Heavy bolt pistol",
+        "equippedCount": 5,
+        "range": 4572,
+        "attacks": 1,
+        "ballisticSkill": 3,
+        "strength": 4,
+        "armourPenetration": -1,
+        "damage": 1,
+        "keywords": ["PISTOL"]
+      },
+      "unitAbilityDispositions": [
+        {
+          "title": "Shock Assault",
+          "status": "excluded-by-scenario-phase",
+          "reason": "L'aptitude modifie exclusivement des attaques de mêlée ; le Combat est exclu du pilote M4."
+        }
+      ],
+      "coreAbilityDispositions": [],
+      "excludedCharacteristics": [
+        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
+        { "name": "OC", "sourceValue": "2", "reason": "Les objectifs et le score sont exclus du pilote M4." }
+      ]
+    }
+  ],
+  "mandatoryRules": [
+    {
+      "id": "adeptus-astartes.oath-of-moment",
+      "category": "army-rule",
+      "implementationStatus": "implemented-closed-m4",
+      "requiredByTask": "SIM-M4-T08",
+      "sourceReferences": [
+        {
+          "sourceId": "warforge-catalog-salamanders-1.2.13.0",
+          "sourcePath": "data/units/Salamanders.json",
+          "collection": "ArmyRules",
+          "title": "OATH OF MOMENT"
+        },
+        {
+          "sourceId": "warforge-catalog-blood-angels-1.2.13.0",
+          "sourcePath": "data/units/Blood Angels.json",
+          "collection": "ArmyRules",
+          "title": "OATH OF MOMENT"
+        }
+      ],
+      "timing": "start-of-command-phase",
+      "duration": "until-start-of-next-command-phase",
+      "variants": [
+        {
+          "side": "salamanders",
+          "rerollHit": true,
+          "woundRollModifier": 1,
+          "condition": "Codex: Space Marines Detachment et aucune unité Blood Angels, Dark Angels, Deathwatch ou Space Wolves dans le roster figé."
+        },
+        {
+          "side": "blood-angels",
+          "rerollHit": true,
+          "woundRollModifier": 0,
+          "condition": "Le roster figé contient une unité avec le mot-clé Blood Angels ; le bonus de blessure ne s'applique pas."
+        }
+      ]
+    },
+    {
+      "id": "weapon.pistol",
+      "category": "weapon-keyword",
+      "implementationStatus": "implemented-closed-m4",
+      "requiredByTask": "SIM-M4-T08",
+      "catalogKeyword": "PISTOL",
+      "normalizedCoreKeyword": "PISTOLET",
+      "source": {
+        "sourceId": "warforge-core-rules-fr-2026-07",
+        "version": "archive-2026-07-28",
+        "effectiveDate": null,
+        "retrievedAt": "2026-07-28",
+        "reference": "24.27",
+        "printedPage": 84,
+        "relatedReferences": [
+          { "reference": "24.07", "printedPage": 81 },
+          { "reference": "10.06", "printedPage": 35 }
+        ]
+      },
+      "formalizedConstraint": "[PISTOLET] est fonctionnellement identique à [COMBAT RAPPROCHÉ] pour l'éligibilité et le choix des armes en tir engagé.",
+      "m4Disposition": "Le scénario empêche toute fin de mouvement en Engagement Range ; le garde [PISTOLET] est exécuté avant toute résolution de tir M4."
+    }
+  ],
+  "legalityAndPhaseDispositions": [
+    {
+      "id": "army-rule.space-marine-chapters.salamanders",
+      "sourceId": "warforge-catalog-salamanders-1.2.13.0",
+      "sourcePath": "data/units/Salamanders.json",
+      "collection": "ArmyRules",
+      "title": "SPACE MARINE CHAPTERS",
+      "status": "validated-legality-only",
+      "reason": "Le roster approuvé ne mélange pas les Chapitres ; cette validation n'annonce aucune couverture de règle de partie."
+    },
+    {
+      "id": "army-rule.the-sons-of-sanguinius.blood-angels",
+      "sourceId": "warforge-catalog-blood-angels-1.2.13.0",
+      "sourcePath": "data/units/Blood Angels.json",
+      "collection": "ArmyRules",
+      "title": "The Sons of Sanguinius",
+      "status": "validated-legality-only",
+      "reason": "Le roster approuvé ne mélange pas les Chapitres ; cette validation n'annonce aucune couverture de règle de partie."
+    },
+    {
+      "id": "stormlance.lightning-assault.salamanders",
+      "sourceId": "warforge-catalog-space-marines-1.2.13.0",
+      "sourcePath": "data/units/Space Marines.json",
+      "collection": "Dettachments",
+      "sourceIndex": 5,
+      "title": "STORMLANCE TASK FORCE",
+      "ruleTitle": "LIGHTNING ASSAULT",
+      "status": "excluded-by-scenario-phase",
+      "reason": "Advance, Fall Back et Charge sont exclus du pilote M4."
+    },
+    {
+      "id": "stormlance.lightning-assault.blood-angels",
+      "sourceId": "warforge-catalog-blood-angels-1.2.13.0",
+      "sourcePath": "data/units/Blood Angels.json",
+      "collection": "Dettachments",
+      "sourceIndex": 13,
+      "title": "STORMLANCE TASK FORCE",
+      "ruleTitle": "LIGHTNING ASSAULT",
+      "status": "excluded-by-scenario-phase",
+      "reason": "Advance, Fall Back et Charge sont exclus du pilote M4."
+    }
+  ],
+  "humanReview": {
+    "status": "human-approved",
+    "scope": "real-roster-shooting-duel-v1",
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-21",
+    "decision": "Les profils 32 mm × 40 mm et 40 mm × 45 mm sont approuvés comme conventions locales physiques du pilote M4."
+  },
+  "sampledLineOfSightReview": {
+    "status": "human-approved",
+    "scope": "real-roster-shooting-duel-v1",
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-21",
+    "decision": "Le propriétaire approuve une convention M4 de ligne de vue par un nombre fini de points représentatifs, versionnée et explicitement approximative."
+  }
+}

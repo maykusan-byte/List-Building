@@ -1,0 +1,1320 @@
+{
+  "slideNumber": 16,
+  "imageNumber": 1,
+  "regionNumber": 1,
+  "regionName": "left",
+  "sourceFile": "source-images/slide-16-image-01.jpg",
+  "inputFile": "clean-ocr/input-v2/slide-16-image-01-region-01-left.png",
+  "rotationCounterClockwise": 90,
+  "width": 1800,
+  "height": 2067,
+  "sectionNumber": 2,
+  "sectionName": "bottom",
+  "sectionFile": "clean-ocr/datasheets/slide-16-image-01-region-01-left-section-02-bottom.png",
+  "columnNumber": 1,
+  "columnName": "profiles",
+  "datasheetColumnFile": "clean-ocr/datasheet-columns/slide-16-image-01-region-01-left-section-02-bottom-column-01-profiles.png",
+  "confidence": 43,
+  "text": "} CHARACTER\n\n;\ng\n2\n§\ng\n ]\n;\ni\n\nREY NGR0S INFANTRY) BEAST SKASEA\n\nbe\n\n",
+  "tsv": "1\t1\t0\t0\t0\t0\t0\t0\t1800\t2067\t-1\t\n2\t1\t1\t0\t0\t0\t1220\t1415\t150\t30\t-1\t\n3\t1\t1\t1\t0\t0\t1220\t1415\t150\t30\t-1\t\n4\t1\t1\t1\t1\t0\t1220\t1415\t150\t30\t-1\t\n5\t1\t1\t1\t1\t1\t1220\t1418\t10\t27\t13.730347\t}\n5\t1\t1\t1\t1\t2\t1237\t1415\t133\t30\t25.685959\tCHARACTER\n2\t1\t2\t0\t0\t0\t903\t612\t505\t31\t-1\t\n3\t1\t2\t1\t0\t0\t903\t612\t505\t31\t-1\t\n4\t1\t2\t1\t1\t0\t1342\t620\t66\t22\t-1\t\n5\t1\t2\t1\t1\t1\t1342\t620\t66\t22\t0.000000\t;\n4\t1\t2\t1\t2\t0\t1280\t620\t60\t23\t-1\t\n5\t1\t2\t1\t2\t1\t1280\t620\t60\t23\t27.494667\tg\n4\t1\t2\t1\t3\t0\t1245\t618\t32\t22\t-1\t\n5\t1\t2\t1\t3\t1\t1245\t618\t32\t22\t76.506134\t2\n4\t1\t2\t1\t4\t0\t1181\t618\t59\t21\t-1\t\n5\t1\t2\t1\t4\t1\t1181\t618\t59\t21\t79.337700\t§\n4\t1\t2\t1\t5\t0\t1117\t615\t60\t26\t-1\t\n5\t1\t2\t1\t5\t1\t1117\t615\t60\t26\t80.374565\tg\n4\t1\t2\t1\t6\t0\t1091\t622\t19\t13\t-1\t\n5\t1\t2\t1\t6\t1\t1091\t622\t19\t13\t16.295128\t ]\n4\t1\t2\t1\t7\t0\t970\t613\t118\t27\t-1\t\n5\t1\t2\t1\t7\t1\t970\t613\t118\t27\t48.132034\t;\n4\t1\t2\t1\t8\t0\t903\t612\t60\t20\t-1\t\n5\t1\t2\t1\t8\t1\t903\t612\t60\t20\t63.031929\ti\n2\t1\t3\t0\t0\t0\t773\t1397\t445\t42\t-1\t\n3\t1\t3\t1\t0\t0\t773\t1397\t445\t42\t-1\t\n4\t1\t3\t1\t1\t0\t773\t1397\t445\t42\t-1\t\n5\t1\t3\t1\t1\t1\t773\t1401\t63\t25\t0.000000\tREY\n5\t1\t3\t1\t1\t2\t844\t1405\t65\t25\t0.000000\tNGR0S\n5\t1\t3\t1\t1\t3\t922\t1406\t296\t33\t66.892044\tINFANTRY)\n5\t1\t3\t1\t1\t4\t1060\t1393\t64\t50\t92.805717\tBEAST\n5\t1\t3\t1\t1\t5\t1135\t1406\t83\t33\t0.000000\tSKASEA\n2\t1\t4\t0\t0\t0\t770\t1451\t24\t26\t-1\t\n3\t1\t4\t1\t0\t0\t770\t1451\t24\t26\t-1\t\n4\t1\t4\t1\t1\t0\t770\t1451\t24\t26\t-1\t\n5\t1\t4\t1\t1\t1\t770\t1451\t24\t26\t64.940826\tbe\n2\t1\t5\t0\t0\t0\t0\t0\t1800\t2067\t-1\t\n3\t1\t5\t1\t0\t0\t0\t0\t1800\t2067\t-1\t\n4\t1\t5\t1\t1\t0\t0\t0\t1800\t2067\t-1\t\n5\t1\t5\t1\t1\t1\t0\t0\t1800\t2067\t95.000000\t \n",
+  "blocks": [
+    {
+      "bbox": {
+        "x0": 1220,
+        "y0": 1415,
+        "x1": 1370,
+        "y1": 1445
+      },
+      "text": "} CHARACTER\n\n",
+      "confidence": 19,
+      "blocktype": 7,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 1220,
+            "y0": 1415,
+            "x1": 1370,
+            "y1": 1445
+          },
+          "text": "} CHARACTER\n\n",
+          "confidence": 19,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 1220,
+                "y0": 1415,
+                "x1": 1370,
+                "y1": 1445
+              },
+              "text": "} CHARACTER\n\n",
+              "confidence": 19,
+              "rowAttributes": {
+                "rowHeight": 33.333332,
+                "descenders": 8.333333,
+                "ascenders": 8.333333
+              },
+              "baseline": {
+                "x0": 1220,
+                "y0": 1441,
+                "x1": 1370,
+                "y1": 1444
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1220,
+                    "y0": 1418,
+                    "x1": 1230,
+                    "y1": 1445
+                  },
+                  "text": "}",
+                  "confidence": 13,
+                  "choices": [
+                    {
+                      "text": "}",
+                      "confidence": 13
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 1220,
+                        "y0": 1418,
+                        "x1": 1230,
+                        "y1": 1445
+                      },
+                      "text": "}",
+                      "confidence": 87,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 1237,
+                    "y0": 1415,
+                    "x1": 1370,
+                    "y1": 1445
+                  },
+                  "text": "CHARACTER",
+                  "confidence": 25,
+                  "choices": [
+                    {
+                      "text": "CHARACTER",
+                      "confidence": 25
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 1245,
+                        "y0": 1415,
+                        "x1": 1257,
+                        "y1": 1445
+                      },
+                      "text": "C",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1237,
+                        "y0": 1415,
+                        "x1": 1296,
+                        "y1": 1442
+                      },
+                      "text": "H",
+                      "confidence": 89,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1267,
+                        "y0": 1415,
+                        "x1": 1286,
+                        "y1": 1445
+                      },
+                      "text": "A",
+                      "confidence": 91,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1285,
+                        "y0": 1415,
+                        "x1": 1297,
+                        "y1": 1445
+                      },
+                      "text": "R",
+                      "confidence": 96,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1296,
+                        "y0": 1415,
+                        "x1": 1315,
+                        "y1": 1445
+                      },
+                      "text": "A",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1295,
+                        "y0": 1417,
+                        "x1": 1338,
+                        "y1": 1443
+                      },
+                      "text": "C",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1326,
+                        "y0": 1415,
+                        "x1": 1337,
+                        "y1": 1445
+                      },
+                      "text": "T",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1341,
+                        "y0": 1419,
+                        "x1": 1351,
+                        "y1": 1443
+                      },
+                      "text": "E",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1354,
+                        "y0": 1420,
+                        "x1": 1370,
+                        "y1": 1444
+                      },
+                      "text": "R",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "x0": 903,
+        "y0": 612,
+        "x1": 1408,
+        "y1": 643
+      },
+      "text": ";\ng\n2\n§\ng\n ]\n;\ni\n\n",
+      "confidence": 40,
+      "blocktype": 8,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 903,
+            "y0": 612,
+            "x1": 1408,
+            "y1": 643
+          },
+          "text": ";\ng\n2\n§\ng\n ]\n;\ni\n\n",
+          "confidence": 40,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 1342,
+                "y0": 620,
+                "x1": 1408,
+                "y1": 642
+              },
+              "text": ";\n",
+              "confidence": 0,
+              "rowAttributes": {
+                "rowHeight": 80.444443,
+                "descenders": 20.111111,
+                "ascenders": 20.111111
+              },
+              "baseline": {
+                "x0": 1342,
+                "y0": 620,
+                "x1": 1342,
+                "y1": 642
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1342,
+                    "y0": 620,
+                    "x1": 1408,
+                    "y1": 642
+                  },
+                  "text": ";",
+                  "confidence": 0,
+                  "choices": [
+                    {
+                      "text": ";",
+                      "confidence": 0
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 659,
+                        "x1": 0,
+                        "y1": 725
+                      },
+                      "text": ";",
+                      "confidence": 75,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 1280,
+                "y0": 620,
+                "x1": 1340,
+                "y1": 643
+              },
+              "text": "g\n",
+              "confidence": 27,
+              "rowAttributes": {
+                "rowHeight": 80.444443,
+                "descenders": 20.111111,
+                "ascenders": 20.111111
+              },
+              "baseline": {
+                "x0": 1280,
+                "y0": 620,
+                "x1": 1280,
+                "y1": 643
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1280,
+                    "y0": 620,
+                    "x1": 1340,
+                    "y1": 643
+                  },
+                  "text": "g",
+                  "confidence": 27,
+                  "choices": [
+                    {
+                      "text": "g",
+                      "confidence": 27
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 727,
+                        "x1": 0,
+                        "y1": 787
+                      },
+                      "text": "g",
+                      "confidence": 89,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 1245,
+                "y0": 618,
+                "x1": 1277,
+                "y1": 640
+              },
+              "text": "2\n",
+              "confidence": 76,
+              "rowAttributes": {
+                "rowHeight": 42.666664,
+                "descenders": 10.666666,
+                "ascenders": 10.666667
+              },
+              "baseline": {
+                "x0": 1245,
+                "y0": 618,
+                "x1": 1245,
+                "y1": 640
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1245,
+                    "y0": 618,
+                    "x1": 1277,
+                    "y1": 640
+                  },
+                  "text": "2",
+                  "confidence": 76,
+                  "choices": [
+                    {
+                      "text": "2",
+                      "confidence": 76
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 790,
+                        "x1": 0,
+                        "y1": 822
+                      },
+                      "text": "2",
+                      "confidence": 96,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 1181,
+                "y0": 618,
+                "x1": 1240,
+                "y1": 639
+              },
+              "text": "§\n",
+              "confidence": 79,
+              "rowAttributes": {
+                "rowHeight": 80.444443,
+                "descenders": 20.111111,
+                "ascenders": 20.111111
+              },
+              "baseline": {
+                "x0": 1181,
+                "y0": 618,
+                "x1": 1181,
+                "y1": 639
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1181,
+                    "y0": 618,
+                    "x1": 1240,
+                    "y1": 639
+                  },
+                  "text": "§",
+                  "confidence": 79,
+                  "choices": [
+                    {
+                      "text": "§",
+                      "confidence": 79
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 827,
+                        "x1": 0,
+                        "y1": 886
+                      },
+                      "text": "§",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 1117,
+                "y0": 615,
+                "x1": 1177,
+                "y1": 641
+              },
+              "text": "g\n",
+              "confidence": 80,
+              "rowAttributes": {
+                "rowHeight": 80.444443,
+                "descenders": 20.111111,
+                "ascenders": 20.111111
+              },
+              "baseline": {
+                "x0": 1117,
+                "y0": 615,
+                "x1": 1117,
+                "y1": 641
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1117,
+                    "y0": 615,
+                    "x1": 1177,
+                    "y1": 641
+                  },
+                  "text": "g",
+                  "confidence": 80,
+                  "choices": [
+                    {
+                      "text": "g",
+                      "confidence": 80
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 890,
+                        "x1": 0,
+                        "y1": 950
+                      },
+                      "text": "g",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 1091,
+                "y0": 622,
+                "x1": 1110,
+                "y1": 635
+              },
+              "text": " ]\n",
+              "confidence": 16,
+              "rowAttributes": {
+                "rowHeight": 25.333332,
+                "descenders": 6.333333,
+                "ascenders": 6.3333335
+              },
+              "baseline": {
+                "x0": 1091,
+                "y0": 622,
+                "x1": 1091,
+                "y1": 635
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 1091,
+                    "y0": 622,
+                    "x1": 1110,
+                    "y1": 635
+                  },
+                  "text": " ]",
+                  "confidence": 16,
+                  "choices": [
+                    {
+                      "text": " ]",
+                      "confidence": 16
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 957,
+                        "x1": 0,
+                        "y1": 976
+                      },
+                      "text": " ",
+                      "confidence": 90,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 957,
+                        "x1": 0,
+                        "y1": 976
+                      },
+                      "text": "]",
+                      "confidence": 88,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 970,
+                "y0": 613,
+                "x1": 1088,
+                "y1": 640
+              },
+              "text": ";\n",
+              "confidence": 48,
+              "rowAttributes": {
+                "rowHeight": 157.33333,
+                "descenders": 39.333332,
+                "ascenders": 39.333336
+              },
+              "baseline": {
+                "x0": 970,
+                "y0": 613,
+                "x1": 970,
+                "y1": 640
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 970,
+                    "y0": 613,
+                    "x1": 1088,
+                    "y1": 640
+                  },
+                  "text": ";",
+                  "confidence": 48,
+                  "choices": [
+                    {
+                      "text": ";",
+                      "confidence": 48
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 979,
+                        "x1": 0,
+                        "y1": 1097
+                      },
+                      "text": ";",
+                      "confidence": 92,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": {
+                "x0": 903,
+                "y0": 612,
+                "x1": 963,
+                "y1": 632
+              },
+              "text": "i\n\n",
+              "confidence": 63,
+              "rowAttributes": {
+                "rowHeight": 80.444443,
+                "descenders": 20.111111,
+                "ascenders": 20.111111
+              },
+              "baseline": {
+                "x0": 903,
+                "y0": 612,
+                "x1": 903,
+                "y1": 632
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 903,
+                    "y0": 612,
+                    "x1": 963,
+                    "y1": 632
+                  },
+                  "text": "i",
+                  "confidence": 63,
+                  "choices": [
+                    {
+                      "text": "i",
+                      "confidence": 63
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 1104,
+                        "x1": 0,
+                        "y1": 1164
+                      },
+                      "text": "i",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "x0": 773,
+        "y0": 1397,
+        "x1": 1218,
+        "y1": 1439
+      },
+      "text": "REY NGR0S INFANTRY) BEAST SKASEA\n\n",
+      "confidence": 17,
+      "blocktype": 7,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 773,
+            "y0": 1397,
+            "x1": 1218,
+            "y1": 1439
+          },
+          "text": "REY NGR0S INFANTRY) BEAST SKASEA\n\n",
+          "confidence": 17,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 773,
+                "y0": 1397,
+                "x1": 1218,
+                "y1": 1439
+              },
+              "text": "REY NGR0S INFANTRY) BEAST SKASEA\n\n",
+              "confidence": 17,
+              "rowAttributes": {
+                "rowHeight": 36.387756,
+                "descenders": 5.3877549,
+                "ascenders": 7
+              },
+              "baseline": {
+                "x0": 773,
+                "y0": 1426,
+                "x1": 1218,
+                "y1": 1439
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 773,
+                    "y0": 1401,
+                    "x1": 836,
+                    "y1": 1426
+                  },
+                  "text": "REY",
+                  "confidence": 0,
+                  "choices": [
+                    {
+                      "text": "REY",
+                      "confidence": 0
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 773,
+                        "y0": 1401,
+                        "x1": 779,
+                        "y1": 1426
+                      },
+                      "text": "R",
+                      "confidence": 88,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 796,
+                        "y0": 1401,
+                        "x1": 819,
+                        "y1": 1426
+                      },
+                      "text": "E",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 825,
+                        "y0": 1407,
+                        "x1": 836,
+                        "y1": 1426
+                      },
+                      "text": "Y",
+                      "confidence": 95,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 844,
+                    "y0": 1405,
+                    "x1": 909,
+                    "y1": 1430
+                  },
+                  "text": "NGR0S",
+                  "confidence": 0,
+                  "choices": [
+                    {
+                      "text": "NGR0S",
+                      "confidence": 0
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 844,
+                        "y0": 1409,
+                        "x1": 851,
+                        "y1": 1428
+                      },
+                      "text": "N",
+                      "confidence": 78,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 854,
+                        "y0": 1407,
+                        "x1": 868,
+                        "y1": 1430
+                      },
+                      "text": "G",
+                      "confidence": 84,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 870,
+                        "y0": 1405,
+                        "x1": 879,
+                        "y1": 1429
+                      },
+                      "text": "R",
+                      "confidence": 87,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 883,
+                        "y0": 1406,
+                        "x1": 898,
+                        "y1": 1429
+                      },
+                      "text": "0",
+                      "confidence": 85,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 901,
+                        "y0": 1408,
+                        "x1": 909,
+                        "y1": 1430
+                      },
+                      "text": "S",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 922,
+                    "y0": 1406,
+                    "x1": 1218,
+                    "y1": 1439
+                  },
+                  "text": "INFANTRY)",
+                  "confidence": 66,
+                  "choices": [
+                    {
+                      "text": "INFANTRY)",
+                      "confidence": 66
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 922,
+                        "y0": 1406,
+                        "x1": 948,
+                        "y1": 1431
+                      },
+                      "text": "I",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 939,
+                        "y0": 1406,
+                        "x1": 953,
+                        "y1": 1439
+                      },
+                      "text": "N",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 949,
+                        "y0": 1406,
+                        "x1": 963,
+                        "y1": 1431
+                      },
+                      "text": "F",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 963,
+                        "y0": 1408,
+                        "x1": 994,
+                        "y1": 1432
+                      },
+                      "text": "A",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 981,
+                        "y0": 1406,
+                        "x1": 994,
+                        "y1": 1439
+                      },
+                      "text": "N",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 998,
+                        "y0": 1408,
+                        "x1": 1006,
+                        "y1": 1433
+                      },
+                      "text": "T",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1009,
+                        "y0": 1409,
+                        "x1": 1023,
+                        "y1": 1432
+                      },
+                      "text": "R",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1024,
+                        "y0": 1409,
+                        "x1": 1037,
+                        "y1": 1433
+                      },
+                      "text": "Y",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1037,
+                        "y0": 1409,
+                        "x1": 1218,
+                        "y1": 1439
+                      },
+                      "text": ")",
+                      "confidence": 95,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 1060,
+                    "y0": 1393,
+                    "x1": 1124,
+                    "y1": 1443
+                  },
+                  "text": "BEAST",
+                  "confidence": 92,
+                  "choices": [
+                    {
+                      "text": "BEAST",
+                      "confidence": 92
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 1060,
+                        "y0": 1393,
+                        "x1": 1074,
+                        "y1": 1443
+                      },
+                      "text": "B",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1073,
+                        "y0": 1393,
+                        "x1": 1086,
+                        "y1": 1443
+                      },
+                      "text": "E",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1085,
+                        "y0": 1393,
+                        "x1": 1099,
+                        "y1": 1443
+                      },
+                      "text": "A",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1098,
+                        "y0": 1393,
+                        "x1": 1111,
+                        "y1": 1443
+                      },
+                      "text": "S",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1110,
+                        "y0": 1393,
+                        "x1": 1124,
+                        "y1": 1443
+                      },
+                      "text": "T",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 1135,
+                    "y0": 1406,
+                    "x1": 1218,
+                    "y1": 1439
+                  },
+                  "text": "SKASEA",
+                  "confidence": 0,
+                  "choices": [
+                    {
+                      "text": "SKASEA",
+                      "confidence": 0
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 1135,
+                        "y0": 1406,
+                        "x1": 1149,
+                        "y1": 1439
+                      },
+                      "text": "S",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1148,
+                        "y0": 1406,
+                        "x1": 1161,
+                        "y1": 1439
+                      },
+                      "text": "K",
+                      "confidence": 85,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1160,
+                        "y0": 1406,
+                        "x1": 1178,
+                        "y1": 1439
+                      },
+                      "text": "A",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1177,
+                        "y0": 1406,
+                        "x1": 1190,
+                        "y1": 1439
+                      },
+                      "text": "S",
+                      "confidence": 95,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1189,
+                        "y0": 1406,
+                        "x1": 1203,
+                        "y1": 1439
+                      },
+                      "text": "E",
+                      "confidence": 92,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 1202,
+                        "y0": 1406,
+                        "x1": 1218,
+                        "y1": 1439
+                      },
+                      "text": "A",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "x0": 770,
+        "y0": 1451,
+        "x1": 794,
+        "y1": 1477
+      },
+      "text": "be\n\n",
+      "confidence": 64,
+      "blocktype": 7,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 770,
+            "y0": 1451,
+            "x1": 794,
+            "y1": 1477
+          },
+          "text": "be\n\n",
+          "confidence": 64,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 770,
+                "y0": 1451,
+                "x1": 794,
+                "y1": 1477
+              },
+              "text": "be\n\n",
+              "confidence": 64,
+              "rowAttributes": {
+                "rowHeight": 40,
+                "descenders": 7,
+                "ascenders": 11
+              },
+              "baseline": {
+                "x0": 770,
+                "y0": 1472,
+                "x1": 794,
+                "y1": 1473
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 770,
+                    "y0": 1451,
+                    "x1": 794,
+                    "y1": 1477
+                  },
+                  "text": "be",
+                  "confidence": 64,
+                  "choices": [
+                    {
+                      "text": "be",
+                      "confidence": 64
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 770,
+                        "y0": 1451,
+                        "x1": 775,
+                        "y1": 1477
+                      },
+                      "text": "b",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 790,
+                        "y0": 1465,
+                        "x1": 794,
+                        "y1": 1473
+                      },
+                      "text": "e",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

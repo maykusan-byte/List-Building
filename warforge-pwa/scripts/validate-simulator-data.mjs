@@ -17,6 +17,21 @@ const APPROVED_PROFILE_ID = 'training-infantry-32mm-v1';
 const APPROVED_CONVENTION_ID = 'closed-core-infantry-geometry-v1';
 const APPROVED_WEAPON_ID = 'closed-core-training-rifle-v1';
 const APPROVED_FIXTURE_IDS = ['closed-core-red-unit-v1', 'closed-core-blue-unit-v1'];
+const M4_DRAFT_FILENAME = 'm4-real-roster-facts.json';
+const M4_DRAFT_SCHEMA = 'warforge-simulator-m4-real-roster-facts/v2';
+const M4_SCENARIO_ID = 'real-roster-shooting-duel-v1';
+const M4_PROPOSAL_PATH = resolve(appDirectory, 'docs/simulator/roster-pilots/real-roster-shooting-duel-v1.proposal.json');
+const M4_CATALOG_DIRECTORY = resolve(appDirectory, 'data/units');
+const PISTOL_REFERENCE = '24.27';
+const PISTOL_PRINTED_PAGE = 84;
+const PISTOL_FORMALIZED_CONSTRAINT = "[PISTOLET] est fonctionnellement identique à [COMBAT RAPPROCHÉ] pour l'éligibilité et le choix des armes en tir engagé.";
+const PISTOL_M4_DISPOSITION = "Le scénario empêche toute fin de mouvement en Engagement Range ; le garde [PISTOLET] est exécuté avant toute résolution de tir M4.";
+const M4_PHYSICAL_CONVENTION_STATEMENT = 'Convention locale limitée au pilote M4 : diamètre du socle repris du catalogue actif et hauteur conventionnelle approuvée par le propriétaire le 2026-08-21. Ces valeurs ne constituent pas des dimensions officielles et ne couvrent aucune session M4 avant T07 et T04.';
+const M4_HUMAN_REVIEW = {
+  scope: M4_SCENARIO_ID,
+  reviewedBy: 'project-owner',
+  reviewedAt: '2026-08-21'
+};
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const CATALOG_IDENTITY_KEYS = new Set([
   'unitid',
@@ -112,6 +127,415 @@ function uniqueStrings(values, label) {
   assert(new Set(values).size === values.length, `${label}: doublon détecté`);
 }
 
+function assertSameJson(actual, expected, label) {
+  assert(JSON.stringify(actual) === JSON.stringify(expected), `${label}: valeur incohérente avec la source`);
+}
+
+function assertNoLegacyPointFields(value, label) {
+  const forbiddenKeys = new Set([
+    'sampling',
+    'samplingstrategy',
+    'visibilitypoints',
+    'normalizedpoints',
+    'samplepoints',
+    'endpointsamples',
+    'pointselectionstrategy'
+  ]);
+  if (!value || typeof value !== 'object') return;
+  for (const [key, nested] of Object.entries(value)) {
+    const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+    assert(!forbiddenKeys.has(normalizedKey), `${label}: champ de points legacy interdit (${key})`);
+    assertNoLegacyPointFields(nested, `${label}.${key}`);
+  }
+}
+
+function integerCharacteristic(value, suffix, label) {
+  const normalized = String(value ?? '').trim();
+  const expression = suffix ? new RegExp(`^(\\d+)${suffix}$`) : /^(\d+)$/;
+  const match = normalized.match(expression);
+  assert(match, `${label}: caractéristique entière attendue`);
+  return Number(match[1]);
+}
+
+function rangedWeapon(unit, name, label) {
+  const profiles = (unit.Weapons ?? [])
+    .filter((group) => group.IsMelee !== true)
+    .flatMap((group) => group.Weapons ?? []);
+  const matches = profiles.filter((weapon) => weapon.Name === name);
+  assert(matches.length === 1, `${label}: profil d'arme ${name} unique requis`);
+  return matches[0];
+}
+
+function normalizedWeaponKeywords(value) {
+  if (typeof value !== 'string' || value.trim().length === 0) return [];
+  return value.split(',').map((keyword) => keyword.trim()).filter(Boolean);
+}
+
+async function assertCatalogSnapshot(snapshot) {
+  assertExactKeys(snapshot, ['id', 'path', 'sha256'], `snapshot catalogue ${snapshot?.id ?? 'inconnu'}`);
+  assert(typeof snapshot.id === 'string' && snapshot.id.length > 0, 'snapshot catalogue: id requis');
+  assert(typeof snapshot.path === 'string' && snapshot.path.startsWith('data/units/') && !snapshot.path.includes('..'), `snapshot ${snapshot.id}: chemin catalogue invalide`);
+  assert(/^[a-f0-9]{64}$/.test(snapshot.sha256 ?? ''), `snapshot ${snapshot.id}: sha256 requis`);
+  const declaredPath = resolve(appDirectory, snapshot.path);
+  const [catalogDirectory, sourcePath] = await Promise.all([realpath(M4_CATALOG_DIRECTORY), realpath(declaredPath)]);
+  assert(sourcePath.toLowerCase().startsWith(`${catalogDirectory.toLowerCase()}${sep}`), `snapshot ${snapshot.id}: source hors data/units`);
+  const sourceRaw = await readFile(sourcePath);
+  const actualHash = createHash('sha256').update(sourceRaw).digest('hex');
+  assert(actualHash === snapshot.sha256, `snapshot ${snapshot.id}: sha256 ne correspond pas au catalogue local`);
+  return JSON.parse(sourceRaw.toString('utf8'));
+}
+
+async function assertOfficialPistolSource(rule) {
+  assert(rule.source?.sourceId === COVER_SOURCE_ID, 'weapon.pistol: source officielle incorrecte');
+  assert(rule.source?.version === 'archive-2026-07-28', 'weapon.pistol: version de source incorrecte');
+  assert(rule.source?.effectiveDate === null && rule.source?.retrievedAt === '2026-07-28', 'weapon.pistol: date de source incorrecte');
+  assert(rule.source?.reference === PISTOL_REFERENCE && rule.source?.printedPage === PISTOL_PRINTED_PAGE, `weapon.pistol: référence ${PISTOL_REFERENCE} page ${PISTOL_PRINTED_PAGE} requise`);
+  assertSameJson(rule.source?.relatedReferences, [
+    { reference: '24.07', printedPage: 81 },
+    { reference: '10.06', printedPage: 35 }
+  ], 'weapon.pistol.relatedReferences');
+  const coreRules = JSON.parse(await readFile(coreRulesPath, 'utf8'));
+  const pages = coreRules.chapters
+    .flatMap((chapter) => chapter.sections ?? [])
+    .flatMap((section) => section.pages ?? []);
+  const page = pages.find((candidate) => candidate.printedPage === PISTOL_PRINTED_PAGE);
+  const sourceText = page?.blocks?.map((block) => block.text ?? '').join('\n') ?? '';
+  assert(sourceText.includes(`[PISTOLET] ${PISTOL_REFERENCE}`), `source officielle: référence ${PISTOL_REFERENCE} absente de la page ${PISTOL_PRINTED_PAGE}`);
+  assert(sourceText.includes('[PISTOLET]  et [COMBAT RAPPROCHÉ]') && sourceText.includes('fonctionnellement les mêmes'), 'source officielle: équivalence PISTOLET/COMBAT RAPPROCHÉ absente');
+}
+
+async function validateM4DraftFacts(dataDirectory, manifest) {
+  const facts = await readJson(dataDirectory, M4_DRAFT_FILENAME);
+  const proposal = JSON.parse(await readFile(M4_PROPOSAL_PATH, 'utf8'));
+  assertExactKeys(facts, [
+    'schemaVersion',
+    'version',
+    'status',
+    'effectiveDate',
+    'scope',
+    'proposalReference',
+    'baseManifestVersion',
+    'coverageClaim',
+    'catalog',
+    'catalogSnapshots',
+    'physicalConventions',
+    'physicalProfiles',
+    'lineOfSightConvention',
+    'terrainLayout',
+    'unitFacts',
+    'mandatoryRules',
+    'legalityAndPhaseDispositions',
+    'humanReview',
+    'sampledLineOfSightReview'
+  ], M4_DRAFT_FILENAME);
+  assert(facts.schemaVersion === M4_DRAFT_SCHEMA, `${M4_DRAFT_FILENAME}: schemaVersion incompatible`);
+  assert(facts.version === '2.2.0' && facts.effectiveDate === '2026-08-21', `${M4_DRAFT_FILENAME}: version et date requises`);
+  assert(facts.status === 'draft' && facts.coverageClaim === 'none', `${M4_DRAFT_FILENAME}: doit rester draft sans revendication de couverture`);
+  assert(facts.scope === M4_SCENARIO_ID && facts.baseManifestVersion === manifest.version, `${M4_DRAFT_FILENAME}: portée ou manifest de base incorrect`);
+  assert(facts.proposalReference === 'docs/simulator/roster-pilots/real-roster-shooting-duel-v1.proposal.json', `${M4_DRAFT_FILENAME}: proposition approuvée requise`);
+  assert(proposal.id === facts.scope && proposal.status === 'human-approved' && proposal.approval?.status === 'human-approved', `${M4_DRAFT_FILENAME}: proposition M4 non approuvée`);
+  assertSameJson(facts.catalog, {
+    sourceId: 'warforge-catalog-1.2.13.0',
+    version: proposal.catalog.version,
+    publishDate: proposal.catalog.publishDate,
+    fingerprint: proposal.catalog.fingerprint
+  }, `${M4_DRAFT_FILENAME}.catalog`);
+  assertNoLegacyPointFields(facts, M4_DRAFT_FILENAME);
+
+  uniqueStrings(facts.catalogSnapshots?.map((snapshot) => snapshot.id), `${M4_DRAFT_FILENAME}.catalogSnapshots`);
+  assert(facts.catalogSnapshots.length === 3, `${M4_DRAFT_FILENAME}: trois snapshots catalogue requis`);
+  assertSameJson(facts.catalogSnapshots.map((snapshot) => snapshot.path), [
+    'data/units/Space Marines.json',
+    'data/units/Blood Angels.json',
+    'data/units/Salamanders.json'
+  ], `${M4_DRAFT_FILENAME}.catalogSnapshots.paths`);
+  const catalogsBySourceId = new Map();
+  for (const snapshot of facts.catalogSnapshots) catalogsBySourceId.set(snapshot.id, await assertCatalogSnapshot(snapshot));
+
+  assert(Array.isArray(facts.physicalConventions) && facts.physicalConventions.length === 1, `${M4_DRAFT_FILENAME}: une convention physique locale requise`);
+  const convention = facts.physicalConventions[0];
+  assertExactKeys(convention, ['id', 'kind', 'version', 'effectiveDate', 'scope', 'reviewStatus', 'reviewedBy', 'reviewedAt', 'statement'], `${M4_DRAFT_FILENAME}.physicalConventions[0]`);
+  assert(convention.id === 'm4-real-infantry-geometry-draft-v1' && convention.kind === 'local-draft-convention', `${M4_DRAFT_FILENAME}: convention locale M4 requise`);
+  assert(convention.scope === facts.scope && convention.version === '1.0.0' && convention.effectiveDate === facts.effectiveDate, `${M4_DRAFT_FILENAME}: provenance de convention incohérente`);
+  assert(convention.reviewStatus === 'human-reviewed', `${M4_DRAFT_FILENAME}: convention physique revue humainement requise`);
+  assertSameJson({
+    scope: convention.scope,
+    reviewedBy: convention.reviewedBy,
+    reviewedAt: convention.reviewedAt
+  }, M4_HUMAN_REVIEW, `${M4_DRAFT_FILENAME}.physicalConventions[0]: approbation humaine requise`);
+  assert(convention.statement === M4_PHYSICAL_CONVENTION_STATEMENT, `${M4_DRAFT_FILENAME}: statement de convention physique exact requis`);
+
+  uniqueStrings(facts.physicalProfiles?.map((profile) => profile.id), `${M4_DRAFT_FILENAME}.physicalProfiles`);
+  assert(facts.physicalProfiles.length === 2, `${M4_DRAFT_FILENAME}: deux profils physiques candidats requis`);
+  const expectedProfiles = [
+    {
+      id: 'm4-real-infantry-32mm-draft-v1',
+      displayName: 'Infanterie réelle M4 — 32 mm',
+      radius: 160,
+      height: 400
+    },
+    {
+      id: 'm4-real-infantry-40mm-draft-v1',
+      displayName: 'Infanterie réelle M4 — 40 mm',
+      radius: 200,
+      height: 450
+    }
+  ];
+  for (const expected of expectedProfiles) {
+    const profile = facts.physicalProfiles.find((candidate) => candidate.id === expected.id);
+    assertExactKeys(profile, ['id', 'displayName', 'shape', 'height', 'provenance', 'reviewStatus', 'approval'], `profil ${expected.id}`);
+    assertExactKeys(profile.shape, ['kind', 'radius'], `profil ${expected.id}.shape`);
+    assertExactKeys(profile.provenance, ['kind', 'sourceId', 'version', 'effectiveDate'], `profil ${expected.id}.provenance`);
+    assert(profile.displayName === expected.displayName, `profil ${expected.id}: displayName exact requis`);
+    assert(profile?.shape?.kind === 'circle' && profile.shape.radius === expected.radius, `profil ${expected.id}: rayon candidat incorrect`);
+    assert(profile.height === expected.height && profile.height % 2 === 0, `profil ${expected.id}: hauteur paire candidate incorrecte`);
+    assert(profile.provenance?.kind === 'warforge-draft-convention' && profile.provenance.sourceId === convention.id, `profil ${expected.id}: convention draft requise`);
+    assert(profile.provenance.version === convention.version && profile.provenance.effectiveDate === convention.effectiveDate, `profil ${expected.id}: provenance incohérente`);
+    assert(profile.reviewStatus === 'human-reviewed', `profil ${expected.id}: revue humaine requise`);
+    assertExactKeys(profile.approval, ['scope', 'reviewedBy', 'reviewedAt'], `profil ${expected.id}.approval`);
+    assertSameJson(profile.approval, M4_HUMAN_REVIEW, `profil ${expected.id}: approbation humaine requise`);
+  }
+
+  assertExactKeys(facts.lineOfSightConvention, ['id', 'version', 'decisionReference', 'endpointDomain', 'hitboxKind', 'pointLayout', 'endpointContact', 'terrainBoundaryContact', 'rayWidthWorldUnits', 'blockerDomain', 'modelOcclusion', 'approximation', 'implementationStatus', 'requiredByTask', 'statement'], `${M4_DRAFT_FILENAME}.lineOfSightConvention`);
+  assertExactKeys(facts.lineOfSightConvention.pointLayout, ['verticalLevels', 'horizontalPositions', 'pointsPerHitbox', 'candidatePairCount'], `${M4_DRAFT_FILENAME}.lineOfSightConvention.pointLayout`);
+  assertSameJson(facts.lineOfSightConvention, {
+    id: 'm4-sampled-cylinder-los-v1',
+    version: '1.0.0',
+    decisionReference: 'ADR-008-sampled-cylinder-line-of-sight',
+    endpointDomain: 'finite-representative-points',
+    hitboxKind: 'closed-vertical-cylinder',
+    pointLayout: {
+      verticalLevels: ['bottom', 'middle', 'top'],
+      horizontalPositions: ['center', 'east', 'north', 'west', 'south'],
+      pointsPerHitbox: 15,
+      candidatePairCount: 225
+    },
+    endpointContact: 'blocks',
+    terrainBoundaryContact: 'blocks',
+    rayWidthWorldUnits: 0,
+    blockerDomain: 'static-terrain-only',
+    modelOcclusion: 'excluded',
+    approximation: 'finite-representative-points',
+    implementationStatus: 'implemented-closed-m4',
+    requiredByTask: 'SIM-M4-T08',
+    statement: 'La visibilité M4 est décidée par le premier rayon dégagé du produit cartésien ordonné de 15 points représentatifs par hitbox cylindrique. Ce verdict est une approximation locale, versionnée et non officielle ; il ne décide ni le couvert ni la visibilité continue de la figurine.'
+  }, `${M4_DRAFT_FILENAME}.lineOfSightConvention`);
+
+  assertExactKeys(facts.terrainLayout, ['id', 'version', 'scope', 'reviewStatus', 'approval', 'board', 'zones'], `${M4_DRAFT_FILENAME}.terrainLayout`);
+  assertExactKeys(facts.terrainLayout.board, ['width', 'height'], `${M4_DRAFT_FILENAME}.terrainLayout.board`);
+  assert(facts.terrainLayout.id === 'm4-central-light-cover-layout-v1'
+    && facts.terrainLayout.version === '1.1.0'
+    && facts.terrainLayout.scope === facts.scope
+    && facts.terrainLayout.reviewStatus === 'human-reviewed', `${M4_DRAFT_FILENAME}: convention de terrain M4 approuvée requise`);
+  assertExactKeys(facts.terrainLayout.approval, ['scope', 'reviewedBy', 'reviewedAt', 'decision'], `${M4_DRAFT_FILENAME}.terrainLayout.approval`);
+  assertSameJson(facts.terrainLayout.approval, {
+    ...M4_HUMAN_REVIEW,
+    decision: 'Le propriétaire approuve le terrain M4 : plateau de 44 × 30 pouces et zone centrale de couvert léger non occlusive.'
+  }, `${M4_DRAFT_FILENAME}.terrainLayout.approval`);
+  assertSameJson(facts.terrainLayout.board, { width: 11176, height: 7620 }, `${M4_DRAFT_FILENAME}.terrainLayout.board`);
+  assert(Array.isArray(facts.terrainLayout.zones) && facts.terrainLayout.zones.length === 1, `${M4_DRAFT_FILENAME}: une zone de terrain locale requise`);
+  const terrainZone = facts.terrainLayout.zones[0];
+  assertExactKeys(terrainZone, ['id', 'label', 'occlusion', 'ruleIds', 'footprint'], `${M4_DRAFT_FILENAME}.terrainLayout.zones[0]`);
+  assertExactKeys(terrainZone.footprint, ['outer'], `${M4_DRAFT_FILENAME}.terrainLayout.zones[0].footprint`);
+  assertSameJson(terrainZone, {
+    id: 'm4-central-light-cover-zone-v1',
+    label: 'Zone centrale — couvert léger local',
+    occlusion: 'none',
+    ruleIds: ['core.benefit-of-cover'],
+    footprint: { outer: [{ x: 4838, y: 2700 }, { x: 6338, y: 2700 }, { x: 6338, y: 4920 }, { x: 4838, y: 4920 }] }
+  }, `${M4_DRAFT_FILENAME}.terrainLayout.zones[0]`);
+
+  const approvedUnits = proposal.rosters.flatMap((roster) => roster.resolved.units.map((resolvedUnit) => ({
+    side: roster.side,
+    resolvedUnit,
+    draftItem: roster.draft.items.find((item) => item.unitId === resolvedUnit.id)
+  })));
+  uniqueStrings(facts.unitFacts?.map((unit) => unit.catalogLink?.unitId), `${M4_DRAFT_FILENAME}.unitFacts`);
+  assert(facts.unitFacts.length === approvedUnits.length && approvedUnits.length === 4, `${M4_DRAFT_FILENAME}: exactement quatre unités pilotes requises`);
+  for (const approved of approvedUnits) {
+    const label = `unité M4 ${approved.resolvedUnit.id}`;
+    const unitFact = facts.unitFacts.find((candidate) => candidate.catalogLink?.unitId === approved.resolvedUnit.id);
+    assert(unitFact, `${label}: faits absents`);
+    assertExactKeys(unitFact, [
+      'id',
+      'catalogLink',
+      'rosterSides',
+      'modelCount',
+      'physicalProfileId',
+      'catalogBaseDiameterMm',
+      'factionRuleTitle',
+      'keywords',
+      'factionKeywords',
+      'characteristics',
+      'selectedRangedWeapon',
+      'unitAbilityDispositions',
+      'coreAbilityDispositions',
+      'excludedCharacteristics'
+    ], label);
+    assertExactKeys(unitFact.catalogLink, ['unitId', 'sourceId', 'sourcePath', 'sourceIndex', 'name'], `${label}.catalogLink`);
+    assertExactKeys(unitFact.characteristics, ['movement', 'toughness', 'save', 'wounds', 'invulnerableSave'], `${label}.characteristics`);
+    assertExactKeys(unitFact.selectedRangedWeapon, ['id', 'catalogName', 'equippedCount', 'range', 'attacks', 'ballisticSkill', 'strength', 'armourPenetration', 'damage', 'keywords'], `${label}.selectedRangedWeapon`);
+    for (const ability of unitFact.unitAbilityDispositions) assertExactKeys(ability, ['title', 'status', 'reason'], `${label}.unitAbilityDispositions`);
+    for (const ability of unitFact.coreAbilityDispositions) assertExactKeys(ability, ['title', 'status', 'reason'], `${label}.coreAbilityDispositions`);
+    for (const characteristic of unitFact.excludedCharacteristics) assertExactKeys(characteristic, ['name', 'sourceValue', 'reason'], `${label}.excludedCharacteristics`);
+    assert(unitFact.catalogLink.sourcePath === approved.resolvedUnit.source && unitFact.catalogLink.sourceIndex === approved.resolvedUnit.sourceIndex, `${label}: lien source/index incorrect`);
+    const snapshot = facts.catalogSnapshots.find((candidate) => candidate.path === unitFact.catalogLink.sourcePath);
+    assert(snapshot && unitFact.catalogLink.sourceId === snapshot.id, `${label}: snapshot catalogue incorrect`);
+    const catalog = catalogsBySourceId.get(snapshot.id);
+    const sourceUnit = catalog?.Units?.[unitFact.catalogLink.sourceIndex];
+    assert(sourceUnit?.Name === approved.resolvedUnit.name && unitFact.catalogLink.name === sourceUnit.Name, `${label}: nom ou index ne correspond pas au catalogue`);
+    assertSameJson(unitFact.rosterSides, [approved.side], `${label}.rosterSides`);
+    assert(unitFact.modelCount === approved.resolvedUnit.modelCount, `${label}: effectif approuvé incorrect`);
+    assert(unitFact.factionRuleTitle === sourceUnit.Faction && unitFact.factionRuleTitle === 'Oath of Moment', `${label}: règle de faction Oath requise`);
+    assertSameJson(unitFact.keywords, sourceUnit.Keywords, `${label}.keywords`);
+    assertSameJson(unitFact.factionKeywords, sourceUnit.FactionKeywords, `${label}.factionKeywords`);
+    const statline = sourceUnit.StatLines?.[0];
+    assert(statline && sourceUnit.StatLines.length === 1, `${label}: une ligne de caractéristiques requise`);
+    const baseDiameter = integerCharacteristic(statline.BaseInfo?.Size, '', `${label}.BaseInfo.Size`);
+    assert(unitFact.catalogBaseDiameterMm === baseDiameter, `${label}: diamètre de socle catalogue incorrect`);
+    const expectedProfileId = baseDiameter === 32 ? 'm4-real-infantry-32mm-draft-v1' : baseDiameter === 40 ? 'm4-real-infantry-40mm-draft-v1' : null;
+    assert(expectedProfileId && unitFact.physicalProfileId === expectedProfileId, `${label}: profil physique candidat incorrect`);
+    const expectedCharacteristics = {
+      movement: integerCharacteristic(statline.Movement, '\\"', `${label}.Movement`) * 254,
+      toughness: integerCharacteristic(statline.Toughness, '', `${label}.Toughness`),
+      save: integerCharacteristic(statline.Save, '\\+', `${label}.Save`),
+      wounds: integerCharacteristic(statline.Wounds, '', `${label}.Wounds`),
+      invulnerableSave: statline.InvulSave ? integerCharacteristic(statline.InvulSave.Save, '\\+', `${label}.InvulSave`) : null
+    };
+    assertSameJson(unitFact.characteristics, expectedCharacteristics, `${label}.characteristics`);
+    const selectedName = approved.resolvedUnit.selectedRangedWeapon;
+    const weapon = rangedWeapon(sourceUnit, selectedName, label);
+    const expectedWeapon = {
+      id: integerCharacteristic(weapon.ToHit, '\\+', `${label}.HeavyBoltPistol.ToHit`) === 2 ? 'm4-heavy-bolt-pistol-ct2-v1' : 'm4-heavy-bolt-pistol-ct3-v1',
+      catalogName: weapon.Name,
+      equippedCount: approved.resolvedUnit.frozenDefaultLoadout.byComposition
+        .flatMap((composition) => composition.weaponProfiles)
+        .filter((profile) => profile.name === selectedName && profile.melee === false)
+        .reduce((total, profile) => total + profile.count, 0),
+      range: integerCharacteristic(weapon.Range, '\\"', `${label}.HeavyBoltPistol.Range`) * 254,
+      attacks: integerCharacteristic(weapon.Attacks, '', `${label}.HeavyBoltPistol.Attacks`),
+      ballisticSkill: integerCharacteristic(weapon.ToHit, '\\+', `${label}.HeavyBoltPistol.ToHit`),
+      strength: integerCharacteristic(weapon.Strength, '', `${label}.HeavyBoltPistol.Strength`),
+      armourPenetration: Number(weapon.AP),
+      damage: integerCharacteristic(weapon.Damage, '', `${label}.HeavyBoltPistol.Damage`),
+      keywords: normalizedWeaponKeywords(weapon.Keywords)
+    };
+    assertSameJson(unitFact.selectedRangedWeapon, expectedWeapon, `${label}.selectedRangedWeapon`);
+    assert(expectedWeapon.equippedCount === unitFact.modelCount && expectedWeapon.keywords.includes('PISTOL'), `${label}: chaque figurine doit conserver son Heavy bolt pistol [PISTOL]`);
+    assertSameJson(unitFact.unitAbilityDispositions.map((entry) => entry.title), (sourceUnit.UnitAbilities ?? []).map((ability) => ability.Title), `${label}.unitAbilityDispositions`);
+    assert(unitFact.unitAbilityDispositions.every((entry) => entry.status === 'excluded-by-scenario-phase' && typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: disposition d'aptitude d'unité requise`);
+    assertSameJson(unitFact.coreAbilityDispositions.map((entry) => entry.title), sourceUnit.CoreAbilities ?? [], `${label}.coreAbilityDispositions`);
+    assert(unitFact.coreAbilityDispositions.every((entry) => entry.status === 'not-selected-in-approved-roster' && typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: disposition d'aptitude de base requise`);
+    assertSameJson(unitFact.excludedCharacteristics?.map(({ name, sourceValue }) => ({ name, sourceValue })), [
+      { name: 'Leadership', sourceValue: statline.Leadership },
+      { name: 'OC', sourceValue: statline.OC }
+    ], `${label}.excludedCharacteristics`);
+    assert(unitFact.excludedCharacteristics.every((entry) => typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: raison d'exclusion de caractéristique requise`);
+  }
+
+  uniqueStrings(facts.mandatoryRules?.map((rule) => rule.id), `${M4_DRAFT_FILENAME}.mandatoryRules`);
+  assertSameJson(facts.mandatoryRules.map((rule) => rule.id), ['adeptus-astartes.oath-of-moment', 'weapon.pistol'], `${M4_DRAFT_FILENAME}.mandatoryRules.ids`);
+  const oath = facts.mandatoryRules[0];
+  assertExactKeys(oath, ['id', 'category', 'implementationStatus', 'requiredByTask', 'sourceReferences', 'timing', 'duration', 'variants'], 'adeptus-astartes.oath-of-moment');
+  assert(oath.implementationStatus === 'implemented-closed-m4' && oath.requiredByTask === 'SIM-M4-T08', 'Oath of Moment: implémentation fermée T08 requise');
+  assert(oath.timing === 'start-of-command-phase' && oath.duration === 'until-start-of-next-command-phase', 'Oath of Moment: fenêtre temporelle incorrecte');
+  assertSameJson(oath.sourceReferences.map(({ sourceId, sourcePath, collection, title }) => ({ sourceId, sourcePath, collection, title })), [
+    { sourceId: 'warforge-catalog-salamanders-1.2.13.0', sourcePath: 'data/units/Salamanders.json', collection: 'ArmyRules', title: 'OATH OF MOMENT' },
+    { sourceId: 'warforge-catalog-blood-angels-1.2.13.0', sourcePath: 'data/units/Blood Angels.json', collection: 'ArmyRules', title: 'OATH OF MOMENT' }
+  ], 'Oath of Moment.sourceReferences');
+  for (const source of oath.sourceReferences) {
+    assertExactKeys(source, ['sourceId', 'sourcePath', 'collection', 'title'], 'Oath of Moment.sourceReferences');
+    const armyRule = catalogsBySourceId.get(source.sourceId)?.ArmyRules?.find((rule) => rule.Title === source.title);
+    assert(armyRule?.Text.includes('re-roll the Hit roll') && armyRule.Text.includes('add 1 to the Wound roll'), `Oath of Moment: texte source absent de ${source.sourcePath}`);
+  }
+  assertSameJson(oath.variants.map(({ side, rerollHit, woundRollModifier }) => ({ side, rerollHit, woundRollModifier })), [
+    { side: 'salamanders', rerollHit: true, woundRollModifier: 1 },
+    { side: 'blood-angels', rerollHit: true, woundRollModifier: 0 }
+  ], 'Oath of Moment.variants');
+  for (const variant of oath.variants) assertExactKeys(variant, ['side', 'rerollHit', 'woundRollModifier', 'condition'], 'Oath of Moment.variants');
+  assert(oath.variants.every((variant) => typeof variant.condition === 'string' && variant.condition.length > 0), 'Oath of Moment: conditions de variante requises');
+
+  const pistol = facts.mandatoryRules[1];
+  assertExactKeys(pistol, ['id', 'category', 'implementationStatus', 'requiredByTask', 'catalogKeyword', 'normalizedCoreKeyword', 'source', 'formalizedConstraint', 'm4Disposition'], 'weapon.pistol');
+  assertExactKeys(pistol.source, ['sourceId', 'version', 'effectiveDate', 'retrievedAt', 'reference', 'printedPage', 'relatedReferences'], 'weapon.pistol.source');
+  for (const relatedReference of pistol.source.relatedReferences ?? []) assertExactKeys(relatedReference, ['reference', 'printedPage'], 'weapon.pistol.source.relatedReferences');
+  assert(pistol.implementationStatus === 'implemented-closed-m4' && pistol.requiredByTask === 'SIM-M4-T08', 'weapon.pistol: garde T08 requise');
+  assert(pistol.catalogKeyword === 'PISTOL' && pistol.normalizedCoreKeyword === 'PISTOLET', 'weapon.pistol: normalisation catalogue/règle incorrecte');
+  assert(pistol.formalizedConstraint === PISTOL_FORMALIZED_CONSTRAINT, 'weapon.pistol: contrainte formalisée exacte requise');
+  assert(pistol.m4Disposition === PISTOL_M4_DISPOSITION, 'weapon.pistol: disposition M4 exacte requise');
+  await assertOfficialPistolSource(pistol);
+
+  uniqueStrings(facts.legalityAndPhaseDispositions?.map((entry) => entry.id), `${M4_DRAFT_FILENAME}.legalityAndPhaseDispositions`);
+  const expectedDispositions = [
+    {
+      id: 'army-rule.space-marine-chapters.salamanders',
+      sourceId: 'warforge-catalog-salamanders-1.2.13.0',
+      sourcePath: 'data/units/Salamanders.json',
+      collection: 'ArmyRules',
+      title: 'SPACE MARINE CHAPTERS',
+      status: 'validated-legality-only'
+    },
+    {
+      id: 'army-rule.the-sons-of-sanguinius.blood-angels',
+      sourceId: 'warforge-catalog-blood-angels-1.2.13.0',
+      sourcePath: 'data/units/Blood Angels.json',
+      collection: 'ArmyRules',
+      title: 'The Sons of Sanguinius',
+      status: 'validated-legality-only'
+    },
+    {
+      id: 'stormlance.lightning-assault.salamanders',
+      sourceId: 'warforge-catalog-space-marines-1.2.13.0',
+      sourcePath: 'data/units/Space Marines.json',
+      collection: 'Dettachments',
+      sourceIndex: 5,
+      title: 'STORMLANCE TASK FORCE',
+      ruleTitle: 'LIGHTNING ASSAULT',
+      status: 'excluded-by-scenario-phase'
+    },
+    {
+      id: 'stormlance.lightning-assault.blood-angels',
+      sourceId: 'warforge-catalog-blood-angels-1.2.13.0',
+      sourcePath: 'data/units/Blood Angels.json',
+      collection: 'Dettachments',
+      sourceIndex: 13,
+      title: 'STORMLANCE TASK FORCE',
+      ruleTitle: 'LIGHTNING ASSAULT',
+      status: 'excluded-by-scenario-phase'
+    }
+  ];
+  assertSameJson(facts.legalityAndPhaseDispositions.map((entry) => entry.id), expectedDispositions.map((entry) => entry.id), `${M4_DRAFT_FILENAME}.legalityAndPhaseDispositions.ids`);
+  for (const expected of expectedDispositions) {
+    const entry = facts.legalityAndPhaseDispositions.find((candidate) => candidate.id === expected.id);
+    assert(entry, `${expected.id}: disposition absente`);
+    assertExactKeys(entry, [...Object.keys(expected), 'reason'], `${expected.id}`);
+    const actualTuple = Object.fromEntries(Object.keys(expected).map((key) => [key, entry[key]]));
+    assertSameJson(actualTuple, expected, `${expected.id}.provenance`);
+    const snapshot = facts.catalogSnapshots.find((candidate) => candidate.id === entry.sourceId);
+    assert(snapshot?.path === entry.sourcePath, `${entry.id}: sourceId et sourcePath doivent désigner le même snapshot`);
+    const source = catalogsBySourceId.get(entry.sourceId);
+    if (entry.collection === 'ArmyRules') {
+      assert(source?.ArmyRules?.some((rule) => rule.Title === entry.title), `${entry.id}: règle d'armée source absente`);
+    } else {
+      const detachment = source?.Dettachments?.[entry.sourceIndex];
+      assert(detachment?.Name === entry.title && detachment.Rule?.Title === entry.ruleTitle, `${entry.id}: détachement source incorrect`);
+    }
+    assert(typeof entry.reason === 'string' && entry.reason.length > 0, `${entry.id}: justification requise`);
+  }
+
+  assertSameJson(facts.humanReview, {
+    status: 'human-approved',
+    ...M4_HUMAN_REVIEW,
+    decision: 'Les profils 32 mm × 40 mm et 40 mm × 45 mm sont approuvés comme conventions locales physiques du pilote M4.'
+  }, `${M4_DRAFT_FILENAME}.humanReview`);
+  assertSameJson(facts.sampledLineOfSightReview, {
+    status: 'human-approved',
+    ...M4_HUMAN_REVIEW,
+    decision: 'Le propriétaire approuve une convention M4 de ligne de vue par un nombre fini de points représentatifs, versionnée et explicitement approximative.'
+  }, `${M4_DRAFT_FILENAME}.sampledLineOfSightReview`);
+  assertExactKeysAbsent(facts, /^supported(?:Unit|Scenario|Weapon|PhysicalProfile|Rule)/i, M4_DRAFT_FILENAME);
+}
+
 export async function validateSimulatorData(options = {}) {
   const dataDirectory = options.dataDirectory ?? defaultDataDirectory;
   const publicDirectory = options.publicDirectory ?? defaultPublicDirectory;
@@ -144,6 +568,7 @@ export async function validateSimulatorData(options = {}) {
     assert(document.manifestVersion === manifest.version, `${filename}: manifestVersion incompatible`);
     loaded.set(filename, document);
   }
+  await validateM4DraftFacts(dataDirectory, manifest);
 
   const coverage = loaded.get(manifest.artifacts.coverage);
   assert(coverage.schemaVersion === 'warforge-simulator-coverage/v1', 'coverage.json: schemaVersion incompatible');

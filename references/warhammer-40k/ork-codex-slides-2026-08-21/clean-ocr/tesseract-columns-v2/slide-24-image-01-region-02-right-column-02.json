@@ -1,0 +1,446 @@
+{
+  "slideNumber": 24,
+  "imageNumber": 1,
+  "regionNumber": 2,
+  "regionName": "right",
+  "sourceFile": "source-images/slide-24-image-01.jpg",
+  "inputFile": "clean-ocr/input/slide-24-image-01-region-02-right.png",
+  "rotationCounterClockwise": 0,
+  "width": 316,
+  "height": 1414,
+  "columnNumber": 2,
+  "columnName": "right-column",
+  "columnFile": "clean-ocr/columns-v2/slide-24-image-01-region-02-right-column-02.png",
+  "confidence": 66,
+  "text": "1 Klaws; 3 Skeecha\n\nau.\n",
+  "tsv": "1\t1\t0\t0\t0\t0\t0\t0\t316\t1414\t-1\t\n2\t1\t1\t0\t0\t0\t0\t0\t316\t1414\t-1\t\n3\t1\t1\t1\t0\t0\t0\t0\t316\t1414\t-1\t\n4\t1\t1\t1\t1\t0\t0\t0\t316\t791\t-1\t\n5\t1\t1\t1\t1\t1\t0\t0\t316\t791\t95.000000\t  \n4\t1\t1\t1\t2\t0\t254\t791\t62\t623\t-1\t\n5\t1\t1\t1\t2\t1\t254\t791\t62\t623\t95.000000\t \n2\t1\t2\t0\t0\t0\t0\t769\t144\t15\t-1\t\n3\t1\t2\t1\t0\t0\t0\t769\t144\t15\t-1\t\n4\t1\t2\t1\t1\t0\t0\t769\t144\t15\t-1\t\n5\t1\t2\t1\t1\t1\t0\t769\t6\t14\t34.536507\t1\n5\t1\t2\t1\t1\t2\t13\t769\t131\t15\t79.810547\tKlaws;\n5\t1\t2\t1\t1\t3\t70\t764\t5\t28\t43.952148\t3\n5\t1\t2\t1\t1\t4\t81\t769\t63\t15\t49.163609\tSkeecha\n2\t1\t3\t0\t0\t0\t45\t1357\t16\t11\t-1\t\n3\t1\t3\t1\t0\t0\t45\t1357\t16\t11\t-1\t\n4\t1\t3\t1\t1\t0\t45\t1357\t16\t11\t-1\t\n5\t1\t3\t1\t1\t1\t45\t1357\t16\t11\t69.604813\tau.\n",
+  "blocks": [
+    {
+      "bbox": {
+        "x0": 0,
+        "y0": 769,
+        "x1": 144,
+        "y1": 784
+      },
+      "text": "1 Klaws; 3 Skeecha\n\n",
+      "confidence": 51,
+      "blocktype": 1,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 0,
+            "y0": 769,
+            "x1": 144,
+            "y1": 784
+          },
+          "text": "1 Klaws; 3 Skeecha\n\n",
+          "confidence": 51,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 0,
+                "y0": 769,
+                "x1": 144,
+                "y1": 784
+              },
+              "text": "1 Klaws; 3 Skeecha\n\n",
+              "confidence": 51,
+              "rowAttributes": {
+                "rowHeight": 20,
+                "descenders": 5,
+                "ascenders": 5
+              },
+              "baseline": {
+                "x0": 0,
+                "y0": 782,
+                "x1": 144,
+                "y1": 784
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 0,
+                    "y0": 769,
+                    "x1": 6,
+                    "y1": 783
+                  },
+                  "text": "1",
+                  "confidence": 34,
+                  "choices": [
+                    {
+                      "text": "1",
+                      "confidence": 34
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 0,
+                        "y0": 769,
+                        "x1": 6,
+                        "y1": 783
+                      },
+                      "text": "1",
+                      "confidence": 90,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 13,
+                    "y0": 769,
+                    "x1": 144,
+                    "y1": 784
+                  },
+                  "text": "Klaws;",
+                  "confidence": 79,
+                  "choices": [
+                    {
+                      "text": "Klaws;",
+                      "confidence": 79
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 13,
+                        "y0": 769,
+                        "x1": 21,
+                        "y1": 782
+                      },
+                      "text": "K",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 24,
+                        "y0": 769,
+                        "x1": 26,
+                        "y1": 782
+                      },
+                      "text": "l",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 29,
+                        "y0": 772,
+                        "x1": 36,
+                        "y1": 783
+                      },
+                      "text": "a",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 38,
+                        "y0": 773,
+                        "x1": 50,
+                        "y1": 783
+                      },
+                      "text": "w",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 52,
+                        "y0": 773,
+                        "x1": 56,
+                        "y1": 777
+                      },
+                      "text": "s",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 56,
+                        "y0": 769,
+                        "x1": 144,
+                        "y1": 784
+                      },
+                      "text": ";",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 70,
+                    "y0": 764,
+                    "x1": 75,
+                    "y1": 792
+                  },
+                  "text": "3",
+                  "confidence": 43,
+                  "choices": [
+                    {
+                      "text": "3",
+                      "confidence": 43
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 70,
+                        "y0": 764,
+                        "x1": 75,
+                        "y1": 792
+                      },
+                      "text": "3",
+                      "confidence": 91,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                },
+                {
+                  "bbox": {
+                    "x0": 81,
+                    "y0": 769,
+                    "x1": 144,
+                    "y1": 784
+                  },
+                  "text": "Skeecha",
+                  "confidence": 49,
+                  "choices": [
+                    {
+                      "text": "Skeecha",
+                      "confidence": 49
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 81,
+                        "y0": 769,
+                        "x1": 89,
+                        "y1": 784
+                      },
+                      "text": "S",
+                      "confidence": 99,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 88,
+                        "y0": 769,
+                        "x1": 98,
+                        "y1": 784
+                      },
+                      "text": "k",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 98,
+                        "y0": 769,
+                        "x1": 105,
+                        "y1": 784
+                      },
+                      "text": "e",
+                      "confidence": 92,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 105,
+                        "y0": 769,
+                        "x1": 115,
+                        "y1": 784
+                      },
+                      "text": "e",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 114,
+                        "y0": 769,
+                        "x1": 124,
+                        "y1": 784
+                      },
+                      "text": "c",
+                      "confidence": 93,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 123,
+                        "y0": 769,
+                        "x1": 133,
+                        "y1": 784
+                      },
+                      "text": "h",
+                      "confidence": 98,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 133,
+                        "y0": 769,
+                        "x1": 144,
+                        "y1": 784
+                      },
+                      "text": "a",
+                      "confidence": 94,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "x0": 45,
+        "y0": 1357,
+        "x1": 61,
+        "y1": 1368
+      },
+      "text": "au.\n",
+      "confidence": 69,
+      "blocktype": 1,
+      "paragraphs": [
+        {
+          "bbox": {
+            "x0": 45,
+            "y0": 1357,
+            "x1": 61,
+            "y1": 1368
+          },
+          "text": "au.\n",
+          "confidence": 69,
+          "is_ltr": 1,
+          "lines": [
+            {
+              "bbox": {
+                "x0": 45,
+                "y0": 1357,
+                "x1": 61,
+                "y1": 1368
+              },
+              "text": "au.\n",
+              "confidence": 69,
+              "rowAttributes": {
+                "rowHeight": 20,
+                "descenders": 5,
+                "ascenders": 5
+              },
+              "baseline": {
+                "x0": 45,
+                "y0": 1368,
+                "x1": 61,
+                "y1": 1368
+              },
+              "words": [
+                {
+                  "bbox": {
+                    "x0": 45,
+                    "y0": 1357,
+                    "x1": 61,
+                    "y1": 1368
+                  },
+                  "text": "au.",
+                  "confidence": 69,
+                  "choices": [
+                    {
+                      "text": "au.",
+                      "confidence": 69
+                    }
+                  ],
+                  "font_name": "",
+                  "symbols": [
+                    {
+                      "bbox": {
+                        "x0": 45,
+                        "y0": 1357,
+                        "x1": 52,
+                        "y1": 1368
+                      },
+                      "text": "a",
+                      "confidence": 96,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 50,
+                        "y0": 1357,
+                        "x1": 58,
+                        "y1": 1368
+                      },
+                      "text": "u",
+                      "confidence": 97,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    },
+                    {
+                      "bbox": {
+                        "x0": 55,
+                        "y0": 1357,
+                        "x1": 61,
+                        "y1": 1368
+                      },
+                      "text": ".",
+                      "confidence": 95,
+                      "is_superscript": 0,
+                      "is_subscript": 0,
+                      "is_dropcap": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

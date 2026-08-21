@@ -1,0 +1,382 @@
+{
+  "schemaVersion": "warforge-simulator-roster-pilot-proposal/v1",
+  "id": "real-roster-shooting-duel-v1",
+  "status": "human-approved",
+  "createdAt": "2026-08-21",
+  "catalog": {
+    "source": "data/units/DataInfo.json",
+    "version": "1.2.13.0",
+    "publishDate": "2026-07-24T20:15:05.0043058Z",
+    "fingerprint": "fnv1a-32fc3f46-5031198"
+  },
+  "approval": {
+    "status": "human-approved",
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-21",
+    "decision": "approved",
+    "approvalRecord": "Approbation explicite du propriétaire du projet dans cette conversation : les deux RosterDraft, leurs équipements de départ, leurs détachements et leur périmètre fermé sont acceptés."
+  },
+  "scenario": {
+    "id": "real-roster-shooting-duel-v1",
+    "status": "not-created",
+    "purpose": "Duel M4 fermé de placement prédéfini, mouvement normal et tir à distance.",
+    "listBuilderScenario": "DISRUPTION",
+    "includedActions": [
+      "placement prédéfini",
+      "mouvement normal",
+      "portée, ligne de vue et couvert autoritaires",
+      "tir à distance de profil explicitement sélectionné",
+      "allocation, pertes, sauvegarde, reprise et replay"
+    ],
+    "excludedActions": [
+      "Advance",
+      "Fall Back",
+      "Charge",
+      "Combat",
+      "stratagèmes",
+      "améliorations",
+      "réserves, transports et redéploiements",
+      "objectifs, score et missions",
+      "tests et effets de Commandement hors exigences explicitement listées"
+    ],
+    "nonNegotiableGates": [
+      "Le moteur M4 doit refuser une fin de mouvement dans l'Engagement Range : le mot-clé [PISTOL] n'est pas une approximation autorisée.",
+      "Le moteur M4 doit exécuter Oath of Moment, ou le scénario doit être redéfini par ADR avec une règle officielle qui préserve la légalité de la séquence ; l'aptitude ne peut pas être ignorée.",
+      "Seuls les profils d'arme, options, aptitudes et profils physiques explicitement couverts pourront démarrer une session."
+    ]
+  },
+  "rosters": [
+    {
+      "side": "salamanders",
+      "identity": {
+        "primaryFaction": "Salamanders",
+        "chapterRestriction": "Aucune unité d'un autre Chapitre ne peut être ajoutée.",
+        "sourceKeys": ["Salamanders", "Space Marines"]
+      },
+      "draft": {
+        "id": "real-roster-salamanders-pilot-v1",
+        "name": "Pilote M4 — Salamanders",
+        "primaryFaction": "Salamanders",
+        "battleSizePoints": 2000,
+        "scenario": "DISRUPTION",
+        "detachmentIds": ["book-space-marines:detachment:5"],
+        "items": [
+          {
+            "id": "m4-salamanders-assault-intercessors-v1",
+            "unitId": "book-space-marines:unit:18",
+            "pointIndex": 0,
+            "wargearSelections": {},
+            "wargearSelectionCounts": {},
+            "modelCounts": { "c0": 1, "c1": 4 }
+          },
+          {
+            "id": "m4-salamanders-bladeguard-veterans-v1",
+            "unitId": "book-space-marines:unit:28",
+            "pointIndex": 0,
+            "wargearSelections": {},
+            "wargearSelectionCounts": {},
+            "modelCounts": { "c0": 1, "c1": 2 }
+          }
+        ]
+      },
+      "resolved": {
+        "points": 155,
+        "detachment": {
+          "id": "book-space-marines:detachment:5",
+          "source": "data/units/Space Marines.json",
+          "sourceIndex": 5,
+          "name": "STORMLANCE TASK FORCE",
+          "rule": "LIGHTNING ASSAULT",
+          "disposition": "Le détachement ne modifie que la déclaration de charge après Advance ou Fall Back ; ces actions sont exclues de M4."
+        },
+        "units": [
+          {
+            "id": "book-space-marines:unit:18",
+            "source": "data/units/Space Marines.json",
+            "sourceIndex": 18,
+            "name": "ASSAULT INTERCESSOR SQUAD",
+            "modelCount": 5,
+            "points": 75,
+            "selectedRangedWeapon": "Heavy bolt pistol",
+            "selectedWeaponProfile": {
+              "range": "18\"",
+              "attacks": "1",
+              "ballisticSkill": "3+",
+              "strength": "4",
+              "armourPenetration": "-1",
+              "damage": "1",
+              "keywords": ["PISTOL"]
+            },
+            "frozenDefaultLoadout": {
+              "byComposition": [
+                {
+                  "id": "c0",
+                  "modelName": "Assault Intercessor Sergeant",
+                  "modelCount": 1,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 1 },
+                    { "name": "Astartes chainsword", "count": 1 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 1, "melee": false },
+                    { "name": "Astartes chainsword", "count": 1, "melee": true }
+                  ]
+                },
+                {
+                  "id": "c1",
+                  "modelName": "Assault Intercessors",
+                  "modelCount": 4,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 4 },
+                    { "name": "Astartes chainsword", "count": 4 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 4, "melee": false },
+                    { "name": "Astartes chainsword", "count": 4, "melee": true }
+                  ]
+                }
+              ]
+            },
+            "disposition": "Shock Assault et les armes de mêlée appartiennent au Combat exclu. Les options du sergent restent interdites dans ce pilote."
+          },
+          {
+            "id": "book-space-marines:unit:28",
+            "source": "data/units/Space Marines.json",
+            "sourceIndex": 28,
+            "name": "BLADEGUARD VETERAN SQUAD",
+            "modelCount": 3,
+            "points": 80,
+            "selectedRangedWeapon": "Heavy bolt pistol",
+            "selectedWeaponProfile": {
+              "range": "18\"",
+              "attacks": "1",
+              "ballisticSkill": "3+",
+              "strength": "4",
+              "armourPenetration": "-1",
+              "damage": "1",
+              "keywords": ["PISTOL"]
+            },
+            "frozenDefaultLoadout": {
+              "byComposition": [
+                {
+                  "id": "c0",
+                  "modelName": "Bladeguard Veteran Sergeant",
+                  "modelCount": 1,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 1 },
+                    { "name": "master-crafted power weapon", "count": 1 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 1, "melee": false },
+                    { "name": "Master-crafted power weapon", "count": 1, "melee": true }
+                  ]
+                },
+                {
+                  "id": "c1",
+                  "modelName": "Bladeguard Veterans",
+                  "modelCount": 2,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 2 },
+                    { "name": "master-crafted power weapon", "count": 2 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 2, "melee": false },
+                    { "name": "Master-crafted power weapon", "count": 2, "melee": true }
+                  ]
+                }
+              ]
+            },
+            "disposition": "Bladeguard et les armes de mêlée appartiennent au Combat exclu. Les options neo-volkite et plasma du sergent restent interdites dans ce pilote."
+          }
+        ]
+      }
+    },
+    {
+      "side": "blood-angels",
+      "identity": {
+        "primaryFaction": "Blood Angels",
+        "chapterRestriction": "Aucune unité Adeptus Astartes d'un autre Chapitre ne peut être ajoutée.",
+        "sourceKeys": ["Blood Angels", "Space Marines"]
+      },
+      "draft": {
+        "id": "real-roster-blood-angels-pilot-v1",
+        "name": "Pilote M4 — Blood Angels",
+        "primaryFaction": "Blood Angels",
+        "battleSizePoints": 2000,
+        "scenario": "DISRUPTION",
+        "detachmentIds": ["book-blood-angels:detachment:13"],
+        "items": [
+          {
+            "id": "m4-blood-angels-captain-v1",
+            "unitId": "book-blood-angels:unit:12",
+            "pointIndex": 0,
+            "wargearSelections": {},
+            "wargearSelectionCounts": {},
+            "modelCounts": { "c0": 1 }
+          },
+          {
+            "id": "m4-blood-angels-assault-intercessors-v1",
+            "unitId": "book-blood-angels:unit:33",
+            "pointIndex": 0,
+            "wargearSelections": {},
+            "wargearSelectionCounts": {},
+            "modelCounts": { "c0": 1, "c1": 4 }
+          }
+        ]
+      },
+      "resolved": {
+        "points": 160,
+        "detachment": {
+          "id": "book-blood-angels:detachment:13",
+          "source": "data/units/Blood Angels.json",
+          "sourceIndex": 13,
+          "name": "STORMLANCE TASK FORCE",
+          "rule": "LIGHTNING ASSAULT",
+          "disposition": "Le détachement ne modifie que la déclaration de charge après Advance ou Fall Back ; ces actions sont exclues de M4."
+        },
+        "units": [
+          {
+            "id": "book-blood-angels:unit:12",
+            "source": "data/units/Blood Angels.json",
+            "sourceIndex": 12,
+            "name": "BLOOD ANGELS CAPTAIN",
+            "modelCount": 1,
+            "points": 80,
+            "selectedRangedWeapon": "Heavy bolt pistol",
+            "selectedWeaponProfile": {
+              "range": "18\"",
+              "attacks": "1",
+              "ballisticSkill": "2+",
+              "strength": "4",
+              "armourPenetration": "-1",
+              "damage": "1",
+              "keywords": ["PISTOL"]
+            },
+            "frozenDefaultLoadout": {
+              "byComposition": [
+                {
+                  "id": "c0",
+                  "modelName": "Blood Angels Captain",
+                  "modelCount": 1,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 1 },
+                    { "name": "master-crafted chainsword", "count": 1 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 1, "melee": false },
+                    { "name": "Master-crafted chainsword", "count": 1, "melee": true }
+                  ]
+                }
+              ]
+            },
+            "disposition": "Le Captain reste non attaché. Rites of Battle dépend des Stratagèmes et Finest Hour du Combat ; ces capacités sont exclues. L'option inferno pistol et les armes de mêlée restent interdites dans ce pilote."
+          },
+          {
+            "id": "book-blood-angels:unit:33",
+            "source": "data/units/Blood Angels.json",
+            "sourceIndex": 33,
+            "name": "ASSAULT INTERCESSOR SQUAD",
+            "modelCount": 5,
+            "points": 80,
+            "selectedRangedWeapon": "Heavy bolt pistol",
+            "selectedWeaponProfile": {
+              "range": "18\"",
+              "attacks": "1",
+              "ballisticSkill": "3+",
+              "strength": "4",
+              "armourPenetration": "-1",
+              "damage": "1",
+              "keywords": ["PISTOL"]
+            },
+            "frozenDefaultLoadout": {
+              "byComposition": [
+                {
+                  "id": "c0",
+                  "modelName": "Assault Intercessor Sergeant",
+                  "modelCount": 1,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 1 },
+                    { "name": "Astartes chainsword", "count": 1 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 1, "melee": false },
+                    { "name": "Astartes chainsword", "count": 1, "melee": true }
+                  ]
+                },
+                {
+                  "id": "c1",
+                  "modelName": "Assault Intercessors",
+                  "modelCount": 4,
+                  "equipment": [
+                    { "name": "heavy bolt pistol", "count": 4 },
+                    { "name": "Astartes chainsword", "count": 4 }
+                  ],
+                  "weaponProfiles": [
+                    { "name": "Heavy bolt pistol", "count": 4, "melee": false },
+                    { "name": "Astartes chainsword", "count": 4, "melee": true }
+                  ]
+                }
+              ]
+            },
+            "disposition": "Shock Assault et les armes de mêlée appartiennent au Combat exclu. Les options du sergent restent interdites dans ce pilote."
+          }
+        ]
+      }
+    }
+  ],
+  "mandatoryRuleDisposition": [
+    {
+      "id": "adeptus-astartes.oath-of-moment",
+      "source": "ArmyRules de data/units/Salamanders.json et data/units/Blood Angels.json",
+      "status": "uncovered-blocker",
+      "byRoster": [
+        {
+          "side": "salamanders",
+          "effects": ["relance des jets de touche contre la cible Oath", "+1 au jet de blessure contre la cible Oath"],
+          "reason": "Le détachement Codex: Space Marines est utilisé et le roster ne contient aucune unité Blood Angels, Dark Angels, Deathwatch ou Space Wolves."
+        },
+        {
+          "side": "blood-angels",
+          "effects": ["relance des jets de touche contre la cible Oath"],
+          "reason": "Le Blood Angels Captain porte le mot-clé Blood Angels : la condition du +1 au jet de blessure n'est pas satisfaite."
+        }
+      ],
+      "reason": "La sélection se fait en phase de Commandement et les effets modifient directement les jets de tir. M4 ne peut pas déclarer cette règle hors phase."
+    },
+    {
+      "id": "weapon.pistol",
+      "source": "Mot-clé [PISTOL] des quatre profils de Heavy bolt pistol sélectionnés (14 armes équipées)",
+      "status": "guarded-requirement",
+      "reason": "Son exception ne s'applique qu'en Engagement Range. M4 doit empêcher toute situation d'Engagement Range et vérifier ce garde-fou ; il ne peut pas omettre silencieusement le mot-clé."
+    },
+    {
+      "id": "army-rule.space-marine-chapters.salamanders",
+      "source": "SPACE MARINE CHAPTERS dans data/units/Salamanders.json",
+      "status": "validated-legality",
+      "reason": "La sélection reste dans un seul Chapitre ; validateDraft vérifie la cohérence des mots-clés de Chapitre du roster figé."
+    },
+    {
+      "id": "army-rule.the-sons-of-sanguinius.blood-angels",
+      "source": "The Sons of Sanguinius dans data/units/Blood Angels.json",
+      "status": "validated-legality",
+      "reason": "Le Blood Angels Captain établit l'identité Blood Angels et aucune unité d'un autre Chapitre n'est sélectionnée ; validateDraft vérifie la cohérence des mots-clés de Chapitre."
+    },
+    {
+      "id": "stormlance.lightning-assault",
+      "source": "Règle de détachement LIGHTNING ASSAULT des deux rosters",
+      "status": "excluded-by-scenario-phase",
+      "reason": "Elle ne s'applique qu'à la déclaration de charge après Advance ou Fall Back, trois actions hors M4."
+    },
+    {
+      "id": "unit.ability.melee-or-stratagem",
+      "source": "Shock Assault, Bladeguard, Rites of Battle et Finest Hour",
+      "status": "excluded-by-scenario-phase",
+      "reason": "Leurs déclencheurs appartiennent exclusivement au Combat ou aux Stratagèmes, tous deux exclus du scénario."
+    }
+  ],
+  "nextImplementationRequirements": [
+    "SIM-M4-T02 : compiler exactement ces identifiants, tailles et équipements par défaut ; refuser toute autre option ou arme.",
+    "SIM-M4-T03 : sourcer et faire revoir les profils physiques 32 mm et 40 mm, les caractéristiques et les profils d'arme figés.",
+    "SIM-M4-T04 : implémenter Oath of Moment, le garde Engagement Range pour [PISTOL] et le rapport de compatibilité avant toute session jouable."
+  ]
+}

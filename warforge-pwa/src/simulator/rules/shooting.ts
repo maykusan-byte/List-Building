@@ -74,6 +74,12 @@ export interface BasicShootingRequest {
   readonly distance: number;
   /** Authoritative geometric visibility.  It is not supplied by the UI path. */
   readonly visible: boolean;
+  /** Covered attack modifiers derived by orchestration from persistent state. */
+  readonly attackModifiers?: {
+    readonly rerollFailedHits: boolean;
+    readonly woundRollModifier: 0 | 1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  };
 }
 
 export type ShootingRejectionCode = 'not-visible' | 'out-of-range' | 'invalid-profile';
@@ -143,6 +149,10 @@ function validRequest(request: BasicShootingRequest): boolean {
     && (target.coverBallisticSkillPenalty === undefined
       || target.coverBallisticSkillPenalty === 0
       || target.coverBallisticSkillPenalty === 1)
+    && (request.attackModifiers === undefined
+      || (typeof request.attackModifiers.rerollFailedHits === 'boolean'
+        && (request.attackModifiers.woundRollModifier === 0 || request.attackModifiers.woundRollModifier === 1)
+        && Array.isArray(request.attackModifiers.sourceRefs)))
     && targetModelsValid;
 }
 
@@ -165,12 +175,13 @@ function selectAllocatedModel(models: readonly BasicTargetModel[], woundsPerMode
  * range and visibility from a trusted spatial resolver before invoking it.
  */
 export function resolveBasicShooting(request: BasicShootingRequest, prng: PrngStateV1): ShootingResult {
-  const sourceRefs = [CORE_BASIC_RANGED_ATTACK_SOURCE, ...CORE_ATTACK_SEQUENCE_STEP_SOURCES, ...(request.target.coverBallisticSkillPenalty ? [CORE_BENEFIT_OF_COVER_SOURCE] : [])];
+  const modifiers = request.attackModifiers ?? { rerollFailedHits: false, woundRollModifier: 0 as const, sourceRefs: [] };
+  const sourceRefs = [CORE_BASIC_RANGED_ATTACK_SOURCE, ...CORE_ATTACK_SEQUENCE_STEP_SOURCES, ...(request.target.coverBallisticSkillPenalty ? [CORE_BENEFIT_OF_COVER_SOURCE] : []), ...modifiers.sourceRefs];
   if (!validRequest(request)) return { accepted: false, code: 'invalid-profile', message: 'Le profil de tir fermé est invalide.', source: CORE_ATTACK_SEQUENCE_SOURCE, sourceRefs, prngAfter: prng };
   if (!request.visible) return { accepted: false, code: 'not-visible', message: 'La cible doit être visible pour ce profil de tir direct.', source: CORE_ATTACK_SEQUENCE_SOURCE, sourceRefs, prngAfter: prng };
   if (request.distance > request.weapon.range) return { accepted: false, code: 'out-of-range', message: 'La cible est au-delà de la portée de l’arme.', source: CORE_ATTACK_SEQUENCE_SOURCE, sourceRefs, prngAfter: prng };
 
-  const woundRequired = requiredWoundRoll(request.weapon.strength, request.target.toughness);
+  const woundRequired = Math.max(2, requiredWoundRoll(request.weapon.strength, request.target.toughness) - modifiers.woundRollModifier);
   const hitRequired = Math.min(6, request.weapon.ballisticSkill + (request.target.coverBallisticSkillPenalty ?? 0));
   const saveRequired = Math.max(2, request.target.save - request.weapon.armourPenetration);
   let currentPrng = prng;
@@ -179,7 +190,19 @@ export function resolveBasicShooting(request: BasicShootingRequest, prng: PrngSt
   const destroyedModelIds: string[] = [];
   const hitOutcome = rollDice(currentPrng, 6, request.weapon.attacks);
   currentPrng = hitOutcome.state;
-  const hitRolls: BasicShootingHitRoll[] = hitOutcome.results.map((roll, attackIndex) => ({ attackIndex, roll, hit: roll >= hitRequired, critical: roll === 6 }));
+  let hitRolls: BasicShootingHitRoll[] = hitOutcome.results.map((roll, attackIndex) => ({ attackIndex, roll, hit: roll >= hitRequired, critical: roll === 6 }));
+  if (modifiers.rerollFailedHits) {
+    const failedHits = hitRolls.filter((entry) => !entry.hit);
+    const rerollOutcome = failedHits.length === 0
+      ? { results: [] as number[], state: currentPrng }
+      : rollDice(currentPrng, 6, failedHits.length);
+    currentPrng = rerollOutcome.state;
+    const rerollsByAttack = new Map(failedHits.map((entry, index) => [entry.attackIndex, rerollOutcome.results[index]]));
+    hitRolls = hitRolls.map((entry) => {
+      const reroll = rerollsByAttack.get(entry.attackIndex);
+      return reroll === undefined ? entry : { ...entry, rerollRoll: reroll, hit: reroll >= hitRequired, critical: reroll === 6 };
+    });
+  }
 
   const successfulHits = hitRolls.filter((entry) => entry.hit);
   const woundOutcome = successfulHits.length === 0
@@ -235,15 +258,18 @@ export function resolveBasicShooting(request: BasicShootingRequest, prng: PrngSt
   const saveByAttack = new Map(saveRolls.map((entry) => [entry.attackIndex, entry]));
   const allocationByAttack = new Map(allocations.map((entry) => [entry.attackIndex, entry]));
   const steps: ShootingDieStep[] = hitRolls.map((hit): ShootingDieStep => {
-    if (!hit.hit) return { attackIndex: hit.attackIndex, outcome: 'missed', hitRoll: hit.roll, hit: false, criticalHit: hit.critical };
+    const finalHitRoll = hit.rerollRoll ?? hit.roll;
+    const rerollFields = hit.rerollRoll === undefined ? {} : { initialHitRoll: hit.roll };
+    if (!hit.hit) return { attackIndex: hit.attackIndex, outcome: 'missed', hitRoll: finalHitRoll, hit: false, criticalHit: hit.critical, ...rerollFields };
     const wound = woundByAttack.get(hit.attackIndex)!;
-    if (!wound.wound) return { attackIndex: hit.attackIndex, outcome: 'failed-to-wound', hitRoll: hit.roll, hit: true, criticalHit: hit.critical, woundRoll: wound.roll, wound: false, criticalWound: wound.critical };
+    if (!wound.wound) return { attackIndex: hit.attackIndex, outcome: 'failed-to-wound', hitRoll: finalHitRoll, hit: true, criticalHit: hit.critical, woundRoll: wound.roll, wound: false, criticalWound: wound.critical, ...rerollFields };
     const save = saveByAttack.get(hit.attackIndex)!;
     const allocation = allocationByAttack.get(hit.attackIndex)!;
     return {
       attackIndex: hit.attackIndex,
       outcome: allocation.outcome,
-      hitRoll: hit.roll,
+      hitRoll: finalHitRoll,
+      ...rerollFields,
       hit: true,
       criticalHit: hit.critical,
       woundRoll: wound.roll,

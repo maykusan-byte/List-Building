@@ -1,0 +1,18 @@
+{
+  "slideNumber": 10,
+  "imageNumber": 1,
+  "regionNumber": 2,
+  "regionName": "right",
+  "sourceFile": "source-images/slide-10-image-01.jpg",
+  "inputFile": "clean-ocr/input-v2/slide-10-image-01-region-02-right.png",
+  "rotationCounterClockwise": 0,
+  "width": 812,
+  "height": 2009,
+  "columnNumber": 2,
+  "columnName": "right-column",
+  "columnFile": "clean-ocr/columns-v3/slide-10-image-01-region-02-right-column-02.png",
+  "confidence": 95,
+  "text": "",
+  "tsv": "1\t1\t0\t0\t0\t0\t0\t0\t812\t2009\t-1\t\n2\t1\t1\t0\t0\t0\t810\t0\t2\t888\t-1\t\n3\t1\t1\t1\t0\t0\t810\t0\t2\t888\t-1\t\n4\t1\t1\t1\t1\t0\t810\t0\t2\t888\t-1\t\n5\t1\t1\t1\t1\t1\t810\t0\t2\t888\t95.000000\t \n2\t1\t2\t0\t0\t0\t810\t0\t2\t1334\t-1\t\n3\t1\t2\t1\t0\t0\t810\t0\t2\t1334\t-1\t\n4\t1\t2\t1\t1\t0\t810\t0\t2\t1334\t-1\t\n5\t1\t2\t1\t1\t1\t810\t0\t2\t1334\t95.000000\t \n2\t1\t3\t0\t0\t0\t0\t322\t812\t1687\t-1\t\n3\t1\t3\t1\t0\t0\t0\t322\t812\t1687\t-1\t\n4\t1\t3\t1\t1\t0\t0\t322\t812\t1687\t-1\t\n5\t1\t3\t1\t1\t1\t0\t322\t812\t1687\t95.000000\t \n",
+  "blocks": []
+}

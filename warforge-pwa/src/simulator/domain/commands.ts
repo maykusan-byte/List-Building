@@ -39,6 +39,16 @@ function isValidWeaponProfile(weapon: WeaponProfileV1): boolean {
     && hasValidSourceReferences(weapon.sourceRefs);
 }
 
+function hasValidCoverageSubject(value: UnitSetup['coverageSubject']): boolean {
+  return value === undefined || (
+    typeof value === 'object'
+    && value !== null
+    && (value.subjectType === 'fixture-unit' || value.subjectType === 'unit')
+    && typeof value.subjectId === 'string'
+    && value.subjectId.trim().length > 0
+  );
+}
+
 function validateUnits(session: SessionSetup, playerIds: ReadonlySet<string>, command: GameCommand): RuleRejection | null {
   const units = session.units ?? [];
   const knownModels = new Map(session.models.map((model) => [model.id, model]));
@@ -49,6 +59,9 @@ function validateUnits(session: SessionSetup, playerIds: ReadonlySet<string>, co
       return reject(command, 'invalid-unit', 'Les unités doivent avoir un identifiant unique et un propriétaire de session.', [SETUP_RULE_ID], { unitId: unit.id });
     }
     unitIds.add(unit.id);
+    if (!hasValidCoverageSubject(unit.coverageSubject)) {
+      return reject(command, 'invalid-unit-coverage-subject', 'Une unité doit déclarer un sujet de couverture fixture-unit ou unit non vide.', [SETUP_RULE_ID], { unitId: unit.id });
+    }
     if (!Number.isInteger(unit.toughness) || unit.toughness <= 0 || !Number.isInteger(unit.save) || unit.save < 2 || unit.save > 7 || !Number.isInteger(unit.woundsPerModel) || unit.woundsPerModel <= 0 || unit.modelIds.length === 0 || new Set(unit.modelIds).size !== unit.modelIds.length || unit.modelIds.some((modelId) => !modelId.trim())) {
       return reject(command, 'invalid-unit-profile', 'Une unité doit avoir des caractéristiques fermées et des figurines réelles uniques.', [SETUP_RULE_ID], { unitId: unit.id });
     }
@@ -144,6 +157,15 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
       if (!target.models.some((model) => model.active)) return reject(command, 'no-active-target-models', 'La cible ne possède plus de figurine active.', [SHOOTING_RULE_ID]);
       return null;
     }
+    case 'select-oath-of-moment-target': {
+      if (state.manifest === null) return reject(command, 'session-not-setup', 'La session doit être initialisée avant de sélectionner Oath of Moment.', [SETUP_RULE_ID]);
+      if (state.phase !== 'command') return reject(command, 'wrong-phase', 'Oath of Moment doit être sélectionné pendant la phase de Commandement.', ['adeptus-astartes.oath-of-moment']);
+      const target = state.units[command.targetUnitId];
+      if (!target || !target.models.some((model) => model.active)) return reject(command, 'unknown-unit', 'La cible Oath doit être une unité ennemie active.', ['adeptus-astartes.oath-of-moment']);
+      if (target.playerId === command.actorId) return reject(command, 'invalid-target-unit', 'Oath of Moment doit cibler une unité ennemie.', ['adeptus-astartes.oath-of-moment']);
+      if (state.oathOfMomentSelections[command.actorId]) return reject(command, 'oath-already-selected', 'Une cible Oath of Moment est déjà sélectionnée pour ce joueur.', ['adeptus-astartes.oath-of-moment']);
+      return null;
+    }
     case 'request-decision': {
       const { decision } = command;
       if (state.manifest === null) return reject(command, 'session-not-setup', 'La session doit être initialisée avant d’ouvrir une décision.', [SETUP_RULE_ID]);
@@ -168,11 +190,11 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
 export function executeGameCommand(state: GameState, command: GameCommand): CommandExecution {
   const rejection = validateGameCommand(state, command);
   if (rejection) return { accepted: false, state, rejection };
-  if (command.type === 'resolve-basic-shooting') {
+  if (command.type === 'resolve-basic-shooting' || command.type === 'select-oath-of-moment-target') {
     return {
       accepted: false,
       state,
-      rejection: reject(command, 'trusted-shooting-environment-required', 'Le tir doit être résolu par un environnement spatial autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
+      rejection: reject(command, 'trusted-shooting-environment-required', 'Cette règle doit être résolue par un environnement de simulation autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
     };
   }
   const events = createEventsForCommand(state, command);
@@ -197,6 +219,8 @@ function createEventsForCommand(state: GameState, command: GameCommand): readonl
     }
     case 'resolve-basic-shooting':
       throw new Error('Basic shooting requires a trusted shooting environment.');
+    case 'select-oath-of-moment-target':
+      throw new Error('Oath of Moment requires a trusted shooting environment.');
     case 'request-decision':
       return [{ id, commandId: command.id, type: 'decision-requested', decision: command.decision }];
     case 'resolve-decision': {

@@ -97,6 +97,22 @@ describe('simulator orchestration statechart', () => {
     expect(actor.getSnapshot().context.lastRejection).toMatchObject({ code: 'incomplete-coverage' });
   });
 
+  it('derives incompatibility from report failures instead of trusting the display boolean', () => {
+    const incompleteCoverage: CoverageReportV1 = {
+      ...coverage(),
+      entries: coverage().entries.map((entry) => entry.subjectId === 'profile-b' ? { ...entry, status: 'partial' as const } : entry)
+    };
+    const incompleteReport = createSessionCompatibilityReport(session(), incompleteCoverage);
+    const inconsistentReport = { ...incompleteReport, isCompatible: true };
+    const actor = createSimulatorActor({ initialState: createInitialGameState('machine-inconsistent-report', 4), compatibility: inconsistentReport });
+    actor.start();
+
+    dispatchGameCommand(actor, { id: 'setup', actorId: 'p1', type: 'setup-session', session: session() });
+
+    expect(actor.getSnapshot().context.lastRejection).toMatchObject({ code: 'incomplete-coverage' });
+    expect(getSimulatorGameState(actor).manifest).toBeNull();
+  });
+
   it('binds a compatibility report to the concrete session profiles', () => {
     const coveredReport = report();
     const changedSession = {

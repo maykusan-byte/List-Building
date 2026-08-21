@@ -14,6 +14,7 @@ export function createInitialGameState(gameId: string, seed: number): GameState 
     players: {},
     models: {},
     units: {},
+    oathOfMomentSelections: {},
     pendingDecisions: [],
     diceResults: {},
     prng: createPrngState(seed),

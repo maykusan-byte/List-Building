@@ -44,7 +44,7 @@ describe('simulator project tracker', () => {
     expect(committedStatus).toBe(renderStatus(project.state));
     expect(projectProgress(project.state)).toMatchObject({
       milestones: { total: 12 },
-      tasks: { total: 50 }
+      tasks: { total: 52 }
     });
   });
 

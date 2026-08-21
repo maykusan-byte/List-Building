@@ -14,6 +14,7 @@ import {
 import type { LaboratoryAnalysis, LaboratoryModel, LaboratoryMove } from './laboratory';
 import './simulator.css';
 import ClosedDuelPage from './ClosedDuelPage';
+import M4RealRosterDuelPage from './M4RealRosterDuelPage';
 
 export interface SimulatorPageProps {
   readonly locale: 'fr' | 'en';
@@ -490,14 +491,15 @@ function LaboratoryPage({ locale }: SimulatorPageProps): React.JSX.Element {
   );
 }
 
-/** M2 stays available as a laboratory; M3 is an explicitly separate playable fixture. */
+/** M2 stays a laboratory and M3 an isolated fixture beside the real-roster pilot. */
 export default function SimulatorPage({ locale }: SimulatorPageProps): React.JSX.Element {
-  const [mode, setMode] = useState<'duel' | 'laboratory'>('duel');
+  const [mode, setMode] = useState<'m4' | 'duel' | 'laboratory'>('m4');
   return <>
     <nav className="simulator-mode-tabs" aria-label="Modes du simulateur">
+      <button type="button" className={mode === 'm4' ? 'active' : ''} aria-pressed={mode === 'm4'} onClick={() => setMode('m4')}>Duel réel M4</button>
       <button type="button" className={mode === 'duel' ? 'active' : ''} aria-pressed={mode === 'duel'} onClick={() => setMode('duel')}>Duel fermé M3</button>
       <button type="button" className={mode === 'laboratory' ? 'active' : ''} aria-pressed={mode === 'laboratory'} onClick={() => setMode('laboratory')}>Laboratoire M2</button>
     </nav>
-    {mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
+    {mode === 'm4' ? <M4RealRosterDuelPage /> : mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
   </>;
 }

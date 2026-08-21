@@ -7,6 +7,7 @@ import {
   type GameEvent,
   type GameState,
   type ModelState,
+  type OathOfMomentSelectionV1,
   type PhysicalModelProfileV1,
   type RuleRejection,
   type SourceReferenceV1,
@@ -17,8 +18,10 @@ import { unsafeReduceGameEvent } from '../domain/reducer';
 import type { UnsafeSimulationReplayVerifier } from '../domain/serialization';
 import {
   evaluateLineOfSight,
+  evaluateSampledCylinderLineOfSight,
   footprintDistance,
   pointInMultiPolygonArea,
+  SAMPLED_CYLINDER_LINE_OF_SIGHT_POLICY,
   type Footprint,
   type LineOfSightResult,
   type MultiPolygonArea,
@@ -43,6 +46,23 @@ export interface ShootingCoverRuleFact {
   ];
 }
 
+/** The two source-backed Oath variants needed by the closed M4 pilot only. */
+export interface OathOfMomentRuleFact {
+  readonly id: 'adeptus-astartes.oath-of-moment';
+  readonly variants: readonly {
+    readonly playerId: string;
+    readonly rerollFailedHits: true;
+    readonly woundRollModifier: 0 | 1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  }[];
+}
+
+/** The finite, local visibility convention accepted only for the closed M4 pilot. */
+export interface SampledCylinderLineOfSightRuleFact {
+  readonly id: 'm4-sampled-cylinder-los-v1';
+  readonly version: '1.0.0';
+}
+
 /** Trusted immutable facts compiled from one versioned scenario/rulepack. */
 const SHOOTING_ENVIRONMENT_BRAND: unique symbol = Symbol('warforge.shooting-environment');
 
@@ -53,6 +73,8 @@ export interface ShootingEnvironment {
   readonly weaponProfiles: Readonly<Record<string, WeaponProfileV1>>;
   readonly terrainZones: readonly ShootingTerrainZone[];
   readonly coverRules: readonly ShootingCoverRuleFact[];
+  readonly oathOfMoment?: OathOfMomentRuleFact;
+  readonly lineOfSightPolicy?: SampledCylinderLineOfSightRuleFact;
 }
 
 export interface ShootingEnvironmentInput {
@@ -60,6 +82,8 @@ export interface ShootingEnvironmentInput {
   readonly weaponProfiles: Readonly<Record<string, WeaponProfileV1>>;
   readonly terrainZones: readonly ShootingTerrainZone[];
   readonly coverRules: readonly ShootingCoverRuleFact[];
+  readonly oathOfMoment?: OathOfMomentRuleFact;
+  readonly lineOfSightPolicy?: SampledCylinderLineOfSightRuleFact;
 }
 
 export interface ShootingCommandResolver {
@@ -76,6 +100,22 @@ function reject(command: GameCommand, code: string, message: string, sourceRuleI
 
 function sameJson(left: unknown, right: unknown): boolean {
   return JSON.stringify(left) === JSON.stringify(right);
+}
+
+/**
+ * A shared printed weapon can originate from several approved unit sheets.
+ * Its execution-relevant profile is canonical here; the per-unit source list
+ * is retained separately in the session and event provenance.
+ */
+function sameExecutableWeaponProfile(left: WeaponProfileV1, right: WeaponProfileV1): boolean {
+  return left.id === right.id
+    && left.displayName === right.displayName
+    && left.range === right.range
+    && left.attacks === right.attacks
+    && left.ballisticSkill === right.ballisticSkill
+    && left.strength === right.strength
+    && left.armourPenetration === right.armourPenetration
+    && left.damage === right.damage;
 }
 
 function stableCanonicalize(value: unknown): unknown {
@@ -113,7 +153,14 @@ function uniqueSources(references: readonly SourceReferenceV1[]): readonly Sourc
 
 function validateEnvironment(environment: ShootingEnvironment, command: GameCommand): RuleRejection | null {
   if (environment[SHOOTING_ENVIRONMENT_BRAND] !== true) return reject(command, 'invalid-shooting-environment', 'L’environnement de tir doit provenir de la fabrique canonique.', [TRUST_RULE_ID]);
-  const expectedFingerprint = createShootingEnvironment({ physicalProfiles: environment.physicalProfiles, weaponProfiles: environment.weaponProfiles, terrainZones: environment.terrainZones, coverRules: environment.coverRules }).fingerprint;
+  const expectedFingerprint = createShootingEnvironment({
+    physicalProfiles: environment.physicalProfiles,
+    weaponProfiles: environment.weaponProfiles,
+    terrainZones: environment.terrainZones,
+    coverRules: environment.coverRules,
+    oathOfMoment: environment.oathOfMoment,
+    lineOfSightPolicy: environment.lineOfSightPolicy
+  }).fingerprint;
   if (environment.fingerprint !== expectedFingerprint) return reject(command, 'invalid-shooting-environment', 'L’empreinte de l’environnement ne correspond pas à son contenu canonique.', [TRUST_RULE_ID]);
   const rule = environment.coverRules[0];
   if (environment.coverRules.length !== 1
@@ -129,7 +176,65 @@ function validateEnvironment(environment: ShootingEnvironment, command: GameComm
   if (environment.terrainZones.some((zone) => !zone.id.trim() || new Set(zone.ruleIds).size !== zone.ruleIds.length || (zone.blocker && zone.blocker.id !== zone.id))) {
     return reject(command, 'invalid-shooting-terrain', 'Les zones de terrain de tir doivent être canoniques et leurs bloqueurs liés au même identifiant.', [TRUST_RULE_ID]);
   }
+  if (environment.oathOfMoment !== undefined) {
+    const oath = environment.oathOfMoment;
+    if (oath.id !== 'adeptus-astartes.oath-of-moment'
+      || oath.variants.length !== 2
+      || new Set(oath.variants.map((variant) => variant.playerId)).size !== oath.variants.length
+      || oath.variants.some((variant) => !variant.playerId.trim() || variant.rerollFailedHits !== true || ![0, 1].includes(variant.woundRollModifier) || variant.sourceRefs.length === 0)) {
+      return reject(command, 'invalid-oath-of-moment-fact', 'Le fait Oath of Moment doit déclarer exactement deux variantes sourcées du pilote.', ['adeptus-astartes.oath-of-moment']);
+    }
+  }
+  if (environment.lineOfSightPolicy !== undefined
+    && (environment.lineOfSightPolicy.id !== SAMPLED_CYLINDER_LINE_OF_SIGHT_POLICY.id
+      || environment.lineOfSightPolicy.version !== SAMPLED_CYLINDER_LINE_OF_SIGHT_POLICY.version)) {
+    return reject(command, 'invalid-line-of-sight-policy', 'La convention de ligne de vue M4 doit être la politique échantillonnée versionnée.', [GEOMETRY_RULE_ID]);
+  }
   return null;
+}
+
+function attackModifiersFor(
+  state: GameState,
+  attacker: UnitState,
+  target: UnitState,
+  environment: ShootingEnvironment,
+  command: GameCommand
+): BasicShootingEvidence['attackModifiers'] | RuleRejection {
+  if (!environment.oathOfMoment) {
+    return { rerollFailedHits: false, woundRollModifier: 0, sourceRuleIds: [], sourceRefs: [] };
+  }
+  const selection = state.oathOfMomentSelections[attacker.playerId];
+  if (!selection || selection.round !== state.round) {
+    return reject(command, 'oath-selection-required', 'Le joueur doit sélectionner sa cible Oath of Moment avant de tirer.', ['adeptus-astartes.oath-of-moment']);
+  }
+  if (selection.targetUnitId !== target.id) {
+    return { rerollFailedHits: false, woundRollModifier: 0, sourceRuleIds: [], sourceRefs: [] };
+  }
+  return {
+    rerollFailedHits: selection.rerollFailedHits,
+    woundRollModifier: selection.woundRollModifier,
+    sourceRuleIds: [selection.ruleId],
+    sourceRefs: selection.sourceRefs
+  };
+}
+
+function selectionFor(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'select-oath-of-moment-target' }>,
+  environment: ShootingEnvironment
+): OathOfMomentSelectionV1 | RuleRejection {
+  const oath = environment.oathOfMoment;
+  const variant = oath?.variants.find((candidate) => candidate.playerId === command.actorId);
+  if (!oath || !variant) return reject(command, 'unsupported-oath-of-moment-player', 'Aucune variante Oath of Moment couverte ne correspond à ce joueur.', ['adeptus-astartes.oath-of-moment']);
+  return {
+    ruleId: oath.id,
+    playerId: command.actorId,
+    targetUnitId: command.targetUnitId,
+    round: state.round,
+    rerollFailedHits: variant.rerollFailedHits,
+    woundRollModifier: variant.woundRollModifier,
+    sourceRefs: variant.sourceRefs
+  };
 }
 
 function activeModels(state: GameState, unit: UnitState): readonly ModelState[] {
@@ -177,6 +282,35 @@ interface ModelPairEvidence {
   readonly clearRay?: LineOfSightResult;
 }
 
+function sampledCylinderRays(
+  attacker: ModelState,
+  attackerProfile: PhysicalModelProfileV1,
+  target: ModelState,
+  targetProfile: PhysicalModelProfileV1,
+  blockers: readonly TerrainBlocker[]
+): readonly LineOfSightResult[] {
+  if (attackerProfile.baseShape.kind !== 'circle' || targetProfile.baseShape.kind !== 'circle') {
+    throw new Error('La convention LoS M4 échantillonnée exige deux hitboxes cylindriques circulaires.');
+  }
+  const result = evaluateSampledCylinderLineOfSight(
+    { center: { ...attacker.position, z: 0 }, radius: attackerProfile.baseShape.radius, height: attackerProfile.height },
+    { center: { ...target.position, z: 0 }, radius: targetProfile.baseShape.radius, height: targetProfile.height },
+    blockers
+  );
+  if (result.visible) {
+    const witness = result.firstClearWitness;
+    return [{ visible: true, reason: 'clear', ray: witness.ray, blockerHits: witness.blockerHits }];
+  }
+  const evidence = result.firstBlockedEvidence;
+  return [{
+    visible: false,
+    reason: 'blocked',
+    ray: evidence.ray,
+    blockerHits: evidence.blockerHits,
+    firstBlocker: evidence.firstBlocker
+  }];
+}
+
 function modelPairs(
   command: GameCommand,
   attackers: readonly ModelState[],
@@ -192,17 +326,18 @@ function modelPairs(
       for (const targetModel of targets) {
         const targetProfile = profileFor(environment, targetModel, command);
         if ('code' in targetProfile) return targetProfile;
-        const rays: LineOfSightResult[] = [];
-        for (const attackerPoint of attackerProfile.visibilityPoints) {
-          const attackerOffset = rotateOffset(attackerPoint.x, attackerPoint.y, attackerModel.orientationDegrees);
-          for (const targetPoint of targetProfile.visibilityPoints) {
-            const targetOffset = rotateOffset(targetPoint.x, targetPoint.y, targetModel.orientationDegrees);
-            rays.push(evaluateLineOfSight({
-              from: { x: attackerModel.position.x + attackerOffset.x, y: attackerModel.position.y + attackerOffset.y, z: attackerPoint.z },
-              to: { x: targetModel.position.x + targetOffset.x, y: targetModel.position.y + targetOffset.y, z: targetPoint.z }
-            }, blockers));
-          }
-        }
+        const rays: readonly LineOfSightResult[] = environment.lineOfSightPolicy
+          ? sampledCylinderRays(attackerModel, attackerProfile, targetModel, targetProfile, blockers)
+          : attackerProfile.visibilityPoints.flatMap((attackerPoint) => {
+            const attackerOffset = rotateOffset(attackerPoint.x, attackerPoint.y, attackerModel.orientationDegrees);
+            return targetProfile.visibilityPoints.map((targetPoint) => {
+              const targetOffset = rotateOffset(targetPoint.x, targetPoint.y, targetModel.orientationDegrees);
+              return evaluateLineOfSight({
+                from: { x: attackerModel.position.x + attackerOffset.x, y: attackerModel.position.y + attackerOffset.y, z: attackerPoint.z },
+                to: { x: targetModel.position.x + targetOffset.x, y: targetModel.position.y + targetOffset.y, z: targetPoint.z }
+              }, blockers);
+            });
+          });
         pairs.push({
           attackerModel,
           targetModel,
@@ -222,7 +357,11 @@ function modelPairs(
 
 function coverEvidence(target: UnitState, targets: readonly ModelState[], pairs: readonly ModelPairEvidence[], environment: ShootingEnvironment): BasicShootingEvidence['cover'] {
   const rule = environment.coverRules[0];
-  const qualifyingKeyword = rule.branches[0].qualifyingKeywords.some((keyword) => target.keywords.includes(keyword));
+  // Catalog keywords retain their display casing (e.g. "Infantry"), while
+  // rule facts use their canonical uppercase token.  Comparison is semantic;
+  // neither the source data nor the event provenance is rewritten.
+  const targetKeywordTokens = new Set(target.keywords.map((keyword) => keyword.trim().toUpperCase()));
+  const qualifyingKeyword = rule.branches[0].qualifyingKeywords.some((keyword) => targetKeywordTokens.has(keyword));
   const terrainIds = new Set<string>();
   const everyTargetQualifies = targets.every((targetModel) => {
     const insideZones = qualifyingKeyword ? environment.terrainZones.filter((zone) => zone.ruleIds.includes(rule.id) && pointInMultiPolygonArea(targetModel.position, zone.footprint)) : [];
@@ -262,6 +401,8 @@ function computeEvidence(state: GameState, command: Extract<GameCommand, { reado
   const target = state.units[command.targetUnitId];
   const weapon = attacker?.weaponProfiles.find((profile) => profile.id === command.weaponProfileId);
   if (!attacker || !target || !weapon) return reject(command, 'unknown-shooting-subject', 'Les sujets de tir validés sont introuvables.', [SHOOTING_RULE_ID]);
+  const attackModifiers = attackModifiersFor(state, attacker, target, environment, command);
+  if ('code' in attackModifiers) return attackModifiers;
   const carriers = firingModels(state, attacker, weapon.id);
   const targetModels = activeModels(state, target);
   if (carriers.models.length === 0 || carriers.weaponCount === 0 || targetModels.length === 0) return reject(command, 'no-active-models', 'Le tir exige un porteur actif et une cible active.', [SHOOTING_RULE_ID]);
@@ -297,6 +438,7 @@ function computeEvidence(state: GameState, command: Extract<GameCommand, { reado
       blockerIds
     },
     cover: first.cover,
+    attackModifiers,
     weapon: {
       firingModelIds: groups.map((group) => group.firingModel.id),
       weaponCount: groups.reduce((total, group) => total + group.weaponCount, 0),
@@ -322,6 +464,25 @@ function shootingResult(resolution: Extract<ReturnType<typeof resolveBasicShooti
   };
 }
 
+/** Selects the source-backed Oath target; only the target ID comes from the command. */
+export function executeOathOfMomentSelectionCommand(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'select-oath-of-moment-target' }>,
+  environment: ShootingEnvironment
+): CommandExecution {
+  const validation = validateGameCommand(state, command);
+  if (validation) return { accepted: false, state, rejection: validation };
+  const environmentRejection = validateEnvironment(environment, command);
+  if (environmentRejection) return { accepted: false, state, rejection: environmentRejection };
+  if (state.shootingEnvironmentFingerprint !== environment.fingerprint) {
+    return { accepted: false, state, rejection: reject(command, 'shooting-environment-mismatch', 'L’environnement M4 ne correspond pas à la session.', [TRUST_RULE_ID]) };
+  }
+  const selection = selectionFor(state, command, environment);
+  if ('code' in selection) return { accepted: false, state, rejection: selection };
+  const event: GameEvent = { id: `${command.id}:0`, commandId: command.id, type: 'oath-of-moment-selected', selection };
+  return { accepted: true, state: unsafeReduceGameEvent(state, event), events: [event] };
+}
+
 export function executeBasicShootingCommand(
   state: GameState,
   command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>,
@@ -341,7 +502,7 @@ export function executeBasicShootingCommand(
   const target = state.units[command.targetUnitId];
   const weapon = attacker.weaponProfiles.find((profile) => profile.id === command.weaponProfileId);
   if (!weapon || !target) throw new Error('Validated shooting subjects are missing.');
-  if (!sameJson(environment.weaponProfiles[weapon.id], weapon)) {
+  if (!environment.weaponProfiles[weapon.id] || !sameExecutableWeaponProfile(environment.weaponProfiles[weapon.id], weapon)) {
     return { accepted: false, state, rejection: reject(command, 'shooting-weapon-profile-mismatch', 'Le profil d’arme ne correspond pas à l’environnement canonique.', [TRUST_RULE_ID]) };
   }
   let groupPrng = state.prng;
@@ -355,7 +516,12 @@ export function executeBasicShootingCommand(
       weapon: { ...weapon, attacks: weapon.attacks * group.weaponCount },
       target: { toughness: target.toughness, save: target.save, woundsPerModel: target.woundsPerModel, models: targetModels, coverBallisticSkillPenalty: group.cover.ballisticSkillPenalty },
       distance: group.pair.distance,
-      visible: true
+      visible: true,
+      attackModifiers: {
+        rerollFailedHits: evidence.attackModifiers.rerollFailedHits,
+        woundRollModifier: evidence.attackModifiers.woundRollModifier,
+        sourceRefs: evidence.attackModifiers.sourceRefs
+      }
     }, groupPrng);
     if (!resolution.accepted) return { accepted: false, state, rejection: reject(command, resolution.code, resolution.message, [SHOOTING_RULE_ID]) };
     const blockerIds = [...new Set(group.pair.rays.flatMap((ray) => ray.blockerHits.map((hit) => hit.blockerId)))].sort();
@@ -409,7 +575,7 @@ export function executeBasicShootingCommand(
     shootingEnvironmentFingerprint: environment.fingerprint,
     prngBefore: state.prng,
     prngAfter: groupPrng,
-    sourceRefs: uniqueSources([CORE_BASIC_RANGED_ATTACK_SOURCE, ...CORE_ATTACK_SEQUENCE_STEP_SOURCES, ...weapon.sourceRefs, ...attackGroups.flatMap((group) => group.cover.sourceRefs)])
+    sourceRefs: uniqueSources([CORE_BASIC_RANGED_ATTACK_SOURCE, ...CORE_ATTACK_SEQUENCE_STEP_SOURCES, ...weapon.sourceRefs, ...attackGroups.flatMap((group) => group.cover.sourceRefs), ...evidence.attackModifiers.sourceRefs])
   };
   return { accepted: true, state: unsafeReduceGameEvent(state, event), events: [event] };
 }
@@ -421,6 +587,18 @@ export function replayGameEventsWithShootingEnvironment(initialState: GameState,
   for (const event of events) {
     if (event.type === 'session-setup' && event.session.shootingEnvironmentFingerprint !== environment.fingerprint) {
       throw new Error('Session setup does not match the trusted shooting environment fingerprint.');
+    }
+    if (event.type === 'oath-of-moment-selected') {
+      const command: Extract<GameCommand, { readonly type: 'select-oath-of-moment-target' }> = {
+        id: event.commandId,
+        actorId: event.selection.playerId,
+        type: 'select-oath-of-moment-target',
+        targetUnitId: event.selection.targetUnitId
+      };
+      const verified = executeOathOfMomentSelectionCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Oath of Moment event ${event.id} failed trusted verification.`);
+      state = verified.state;
+      continue;
     }
     if (event.type !== 'basic-shooting-resolved') {
       state = unsafeReduceGameEvent(state, event);

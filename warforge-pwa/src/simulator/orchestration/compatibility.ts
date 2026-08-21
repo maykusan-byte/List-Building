@@ -34,7 +34,15 @@ function requirementKey(requirement: SimulationCoverageRequirement): string {
 }
 
 function isRequirement(value: SimulationCoverageRequirement): boolean {
-  return value.subjectId.trim().length > 0;
+  return typeof value.subjectId === 'string' && value.subjectId.trim().length > 0;
+}
+
+function includesRequirements(
+  declared: readonly SimulationCoverageRequirement[],
+  required: readonly SimulationCoverageRequirement[]
+): boolean {
+  const declaredKeys = new Set(declared.map(requirementKey));
+  return required.every((requirement) => declaredKeys.has(requirementKey(requirement)));
 }
 
 /**
@@ -113,7 +121,12 @@ export function createSessionCompatibilityReport(
  * silently authorizing a newer session.
  */
 export function isSessionCompatible(session: SessionSetup, report: SimulationCompatibilityReport): boolean {
+  const requirements = sessionCoverageRequirements(session);
   return session.manifest.coverageVersion === report.coverageVersion
     && report.manifestFingerprint === sessionCompatibilityFingerprint(session, report.requirements)
+    && includesRequirements(report.requirements, requirements)
+    // `isCompatible` is present for display, but cannot alone authorize a
+    // normal application flow. The exhaustive report remains authoritative.
+    && report.failures.length === 0
     && report.isCompatible;
 }
