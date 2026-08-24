@@ -7,11 +7,23 @@ const referencesDirectory = resolve(appDirectory, '../references');
 const defaultDataDirectory = resolve(import.meta.dirname, '../data/simulator');
 const defaultPublicDirectory = resolve(import.meta.dirname, '../public/data/simulator');
 const coreRulesPath = resolve(import.meta.dirname, '../data/rules/core-rules-fr.json');
+const officialAppFaqPath = resolve(import.meta.dirname, '../data/rules/official-app-faq-fr-2026-07.json');
+const officialAppReferencesPath = resolve(import.meta.dirname, '../data/rules/official-app-references-fr-2026-07.json');
+const officialAppErrataPath = resolve(import.meta.dirname, '../data/rules/official-app-errata-fr-2026-07.json');
 
 const COVER_RULE_ID = 'core.benefit-of-cover';
 const COVER_SOURCE_ID = 'warforge-core-rules-fr-2026-07';
 const COVER_REFERENCE = '13.08';
 const COVER_PRINTED_PAGE = 50;
+const OFFICIAL_APP_FAQ_SOURCE_ID = 'warforge-official-app-faq-fr-2026-07';
+const OFFICIAL_APP_FAQ_ARCHIVE_SCHEMA = 'warforge-official-app-faq-screenshot-archive/v1';
+const OFFICIAL_APP_FAQ_RESOURCE_SCHEMA = 'warforge-official-app-faq-fr/v1';
+const OFFICIAL_APP_REFERENCES_SOURCE_ID = 'warforge-official-app-references-fr-2026-07';
+const OFFICIAL_APP_REFERENCES_ARCHIVE_SCHEMA = 'warforge-official-app-reference-screenshot-archive/v1';
+const OFFICIAL_APP_REFERENCES_RESOURCE_SCHEMA = 'warforge-official-app-references-fr/v1';
+const OFFICIAL_APP_ERRATA_SOURCE_ID = 'warforge-official-app-errata-fr-2026-07';
+const OFFICIAL_APP_ERRATA_ARCHIVE_SCHEMA = 'warforge-official-app-errata-screenshot-archive/v1';
+const OFFICIAL_APP_ERRATA_RESOURCE_SCHEMA = 'warforge-official-app-errata-fr/v1';
 const APPROVED_SCENARIO_ID = 'closed-core-shooting-duel-v1';
 const APPROVED_PROFILE_ID = 'training-infantry-32mm-v1';
 const APPROVED_CONVENTION_ID = 'closed-core-infantry-geometry-v1';
@@ -121,6 +133,64 @@ async function assertOfficialPdfSource(source) {
   assert(actualHash === source.sha256, `source ${source.id}: sha256 ne correspond pas au PDF local`);
 }
 
+async function assertOfficialAppScreenshotArchiveSource(source, { archiveSchema, expectedScreenshotCount }) {
+  assert(!isAbsolute(source.path ?? ''), `source ${source.id}: chemin d'archive relatif requis`);
+  const declaredPath = resolve(appDirectory, source.path ?? '');
+  let canonicalReferencesDirectory;
+  let canonicalArchivePath;
+  try {
+    [canonicalReferencesDirectory, canonicalArchivePath] = await Promise.all([
+      realpath(referencesDirectory),
+      realpath(declaredPath)
+    ]);
+  } catch {
+    throw new Error(`source ${source.id}: archive locale introuvable`);
+  }
+  const referencesPrefix = `${canonicalReferencesDirectory.toLowerCase()}${sep}`;
+  assert(canonicalArchivePath.toLowerCase().startsWith(referencesPrefix), `source ${source.id}: archive hors du répertoire references`);
+  const archiveRaw = await readFile(canonicalArchivePath);
+  const archiveHash = createHash('sha256').update(archiveRaw).digest('hex');
+  assert(archiveHash === source.sha256, `source ${source.id}: sha256 ne correspond pas à l'archive locale`);
+  const archive = JSON.parse(archiveRaw.toString('utf8'));
+  assert(archive.schemaVersion === archiveSchema, `source ${source.id}: schéma d'archive incompatible`);
+  assert(archive.id === source.id && archive.authority === 'official-app' && archive.locale === 'fr-FR', `source ${source.id}: provenance de l'application officielle invalide`);
+  assert(archive.visibleLastUpdated === '2026-07-22' && archive.capturedAt === source.retrievedAt, `source ${source.id}: dates d'archive incohérentes`);
+  assert(Array.isArray(archive.screenshots) && archive.screenshots.length === expectedScreenshotCount, `source ${source.id}: ${expectedScreenshotCount} captures horodatées requises`);
+  const screenshotIds = archive.screenshots.map((screenshot) => screenshot.id);
+  uniqueStrings(screenshotIds, `source ${source.id}.screenshots`);
+  const archiveDirectory = resolve(canonicalArchivePath, '..');
+  for (const screenshot of archive.screenshots) {
+    assert(typeof screenshot.file === 'string' && !screenshot.file.includes('/') && !screenshot.file.includes('\\'), `source ${source.id}: nom de capture invalide`);
+    assert(typeof screenshot.driveFileId === 'string' && screenshot.driveFileId.length > 0, `source ${source.id}: identifiant Drive requis`);
+    assert(Number.isInteger(screenshot.bytes) && screenshot.bytes > 0 && /^[a-f0-9]{64}$/.test(screenshot.sha256 ?? ''), `source ${source.id}: métadonnées de capture invalides`);
+    const screenshotPath = resolve(archiveDirectory, screenshot.file);
+    const canonicalScreenshotPath = await realpath(screenshotPath).catch(() => null);
+    assert(canonicalScreenshotPath && canonicalScreenshotPath.toLowerCase().startsWith(`${archiveDirectory.toLowerCase()}${sep}`), `source ${source.id}: capture locale introuvable ou hors archive`);
+    const screenshotRaw = await readFile(canonicalScreenshotPath);
+    assert(screenshotRaw.length === screenshot.bytes, `source ${source.id}: taille incohérente pour ${screenshot.id}`);
+    assert(createHash('sha256').update(screenshotRaw).digest('hex') === screenshot.sha256, `source ${source.id}: sha256 incohérent pour ${screenshot.id}`);
+  }
+  return { archive, screenshotIds: new Set(screenshotIds) };
+}
+
+async function assertOfficialAppFaqResource(source, archiveScreenshotIds) {
+  const resource = JSON.parse(await readFile(officialAppFaqPath, 'utf8'));
+  assert(resource.schemaVersion === OFFICIAL_APP_FAQ_RESOURCE_SCHEMA, 'FAQ application officielle: schéma incompatible');
+  assert(resource.id === source.id && resource.status === 'reference-only' && resource.authority === 'official-app', 'FAQ application officielle: provenance invalide');
+  assert(resource.version === source.version && resource.visibleLastUpdated === '2026-07-22' && resource.capturedAt === source.retrievedAt, 'FAQ application officielle: version ou dates incohérentes');
+  assert(resource.sourceArchive?.id === source.id && resource.sourceArchive?.path === '../../../references/warhammer-40k/rules/commentary/official-app-2026-08-24/archive.json', 'FAQ application officielle: archive de provenance incorrecte');
+  assert(Array.isArray(resource.entries) && resource.entries.length === 47, 'FAQ application officielle: 47 entrées transcrites requises');
+  uniqueStrings(resource.entries.map((entry) => entry.id), 'FAQ application officielle.entries');
+  for (const entry of resource.entries) {
+    assert(typeof entry.question === 'string' && entry.question.length > 0 && typeof entry.answer === 'string' && entry.answer.length > 0, `FAQ application officielle: texte incomplet pour ${entry.id}`);
+    assert(Array.isArray(entry.captureIds) && entry.captureIds.length > 0 && entry.captureIds.every((id) => archiveScreenshotIds.has(id)), `FAQ application officielle: capture inconnue pour ${entry.id}`);
+    uniqueStrings(entry.references, `FAQ application officielle.references.${entry.id}`);
+    uniqueStrings(entry.topics, `FAQ application officielle.topics.${entry.id}`);
+  }
+  assert(Array.isArray(resource.simulatorReadiness?.executableNow) && resource.simulatorReadiness.executableNow.length === 0, 'FAQ application officielle: aucune règle ne doit être activée implicitement');
+  assert(resource.simulatorReadiness?.knownGapsForM5T02?.length === 3, 'FAQ application officielle: lacunes M5-T02 explicites requises');
+}
+
 function uniqueStrings(values, label) {
   assert(Array.isArray(values), `${label}: tableau requis`);
   assert(values.every((value) => typeof value === 'string' && value.length > 0), `${label}: identifiants non vides requis`);
@@ -146,6 +216,36 @@ function assertNoLegacyPointFields(value, label) {
     const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
     assert(!forbiddenKeys.has(normalizedKey), `${label}: champ de points legacy interdit (${key})`);
     assertNoLegacyPointFields(nested, `${label}.${key}`);
+  }
+}
+
+async function assertOfficialAppReferencesResource(source, archiveScreenshotIds) {
+  const resource = JSON.parse(await readFile(officialAppReferencesPath, 'utf8'));
+  assert(resource.schemaVersion === OFFICIAL_APP_REFERENCES_RESOURCE_SCHEMA, 'Références application officielle: schéma incompatible');
+  assert(resource.id === source.id && resource.status === 'reference-only' && resource.authority === 'official-app', 'Références application officielle: provenance invalide');
+  assert(resource.version === source.version && resource.visibleLastUpdated === '2026-07-22' && resource.capturedAt === source.retrievedAt, 'Références application officielle: version ou dates incohérentes');
+  assert(resource.sourceArchive?.id === source.id && resource.sourceArchive?.path === '../../../references/warhammer-40k/rules/app-references/official-app-2026-08-24/archive.json', 'Références application officielle: archive de provenance incorrecte');
+  assert(Array.isArray(resource.sections) && resource.sections.length === 6, 'Références application officielle: six sections transcrites requises');
+  uniqueStrings(resource.sections.map((section) => section.id), 'Références application officielle.sections');
+  for (const section of resource.sections) {
+    assert(typeof section.title === 'string' && section.title.length > 0, `Références application officielle: titre absent pour ${section.id}`);
+    assert(Array.isArray(section.captureIds) && section.captureIds.length > 0 && section.captureIds.every((id) => archiveScreenshotIds.has(id)), `Références application officielle: capture inconnue pour ${section.id}`);
+    assert(Array.isArray(section.statements) && section.statements.length > 0 && section.statements.every((statement) => typeof statement === 'string' && statement.length > 0), `Références application officielle: transcription incomplète pour ${section.id}`);
+  }
+}
+
+async function assertOfficialAppErrataResource(source, archiveScreenshotIds) {
+  const resource = JSON.parse(await readFile(officialAppErrataPath, 'utf8'));
+  assert(resource.schemaVersion === OFFICIAL_APP_ERRATA_RESOURCE_SCHEMA, 'Errata application officielle: schéma incompatible');
+  assert(resource.id === source.id && resource.status === 'reference-only' && resource.authority === 'official-app', 'Errata application officielle: provenance invalide');
+  assert(resource.version === source.version && resource.visibleLastUpdated === '2026-07-22' && resource.capturedAt === source.retrievedAt, 'Errata application officielle: version ou dates incohérentes');
+  assert(resource.sourceArchive?.id === source.id && resource.sourceArchive?.path === '../../../references/warhammer-40k/rules/errata/official-app-2026-08-24/archive.json', 'Errata application officielle: archive de provenance incorrecte');
+  assert(Array.isArray(resource.entries) && resource.entries.length === 5, 'Errata application officielle: cinq entrées transcrites requises');
+  uniqueStrings(resource.entries.map((entry) => entry.id), 'Errata application officielle.entries');
+  for (const entry of resource.entries) {
+    assert(typeof entry.kind === 'string' && entry.kind.length > 0 && typeof entry.text === 'string' && entry.text.length > 0 && typeof entry.scope === 'string' && entry.scope.length > 0, `Errata application officielle: texte incomplet pour ${entry.id}`);
+    assert(Array.isArray(entry.captureIds) && entry.captureIds.length > 0 && entry.captureIds.every((id) => archiveScreenshotIds.has(id)), `Errata application officielle: capture inconnue pour ${entry.id}`);
+    assert(entry.reference === null || typeof entry.reference === 'string', `Errata application officielle: référence invalide pour ${entry.id}`);
   }
 }
 
@@ -558,6 +658,32 @@ export async function validateSimulatorData(options = {}) {
       await assertOfficialPdfSource(source);
     }
   }
+  const officialAppFaqSource = manifest.sources.find((source) => source.id === OFFICIAL_APP_FAQ_SOURCE_ID);
+  assert(officialAppFaqSource?.kind === 'official-app-screenshot-archive', 'manifest.json: source FAQ application officielle requise');
+  assert(officialAppFaqSource.effectiveDate === null && ISO_DATE.test(officialAppFaqSource.retrievedAt ?? '') && /^[a-f0-9]{64}$/.test(officialAppFaqSource.sha256 ?? ''), 'source FAQ application officielle: snapshot et empreinte requis');
+  const { screenshotIds: officialAppFaqScreenshotIds } = await assertOfficialAppScreenshotArchiveSource(officialAppFaqSource, {
+    archiveSchema: OFFICIAL_APP_FAQ_ARCHIVE_SCHEMA,
+    expectedScreenshotCount: 17
+  });
+  await assertOfficialAppFaqResource(officialAppFaqSource, officialAppFaqScreenshotIds);
+
+  const officialAppReferencesSource = manifest.sources.find((source) => source.id === OFFICIAL_APP_REFERENCES_SOURCE_ID);
+  assert(officialAppReferencesSource?.kind === 'official-app-screenshot-archive', 'manifest.json: source de références application officielle requise');
+  assert(officialAppReferencesSource.effectiveDate === null && ISO_DATE.test(officialAppReferencesSource.retrievedAt ?? '') && /^[a-f0-9]{64}$/.test(officialAppReferencesSource.sha256 ?? ''), 'source de références application officielle: snapshot et empreinte requis');
+  const { screenshotIds: officialAppReferencesScreenshotIds } = await assertOfficialAppScreenshotArchiveSource(officialAppReferencesSource, {
+    archiveSchema: OFFICIAL_APP_REFERENCES_ARCHIVE_SCHEMA,
+    expectedScreenshotCount: 24
+  });
+  await assertOfficialAppReferencesResource(officialAppReferencesSource, officialAppReferencesScreenshotIds);
+
+  const officialAppErrataSource = manifest.sources.find((source) => source.id === OFFICIAL_APP_ERRATA_SOURCE_ID);
+  assert(officialAppErrataSource?.kind === 'official-app-screenshot-archive', 'manifest.json: source d’errata application officielle requise');
+  assert(officialAppErrataSource.effectiveDate === null && ISO_DATE.test(officialAppErrataSource.retrievedAt ?? '') && /^[a-f0-9]{64}$/.test(officialAppErrataSource.sha256 ?? ''), 'source d’errata application officielle: snapshot et empreinte requis');
+  const { screenshotIds: officialAppErrataScreenshotIds } = await assertOfficialAppScreenshotArchiveSource(officialAppErrataSource, {
+    archiveSchema: OFFICIAL_APP_ERRATA_ARCHIVE_SCHEMA,
+    expectedScreenshotCount: 2
+  });
+  await assertOfficialAppErrataResource(officialAppErrataSource, officialAppErrataScreenshotIds);
 
   const artifactEntries = Object.entries(manifest.artifacts ?? {});
   assert(artifactEntries.length === 4, 'manifest.json: quatre artefacts contractuels requis');

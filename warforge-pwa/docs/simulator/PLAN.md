@@ -1,6 +1,6 @@
 # Simulateur tactique Warforge
 
-`planVersion: 2.3.0`
+`planVersion: 2.3.3`
 
 ## Objectif et périmètre
 
@@ -84,8 +84,8 @@ Ordre d'exécution :
 
 1. `SIM-M5-T01` construit la matrice de capacités et le corpus sourcé à partir des écarts observés sur les deux rosters pilotes.
 2. `SIM-M5-T02` couvre volumes et modificateurs d'attaques, CT, portée et ordre d'application.
-3. `SIM-M5-T03` couvre relances, touches/blessures critiques et mots-clés déclenchés.
-4. `SIM-M5-T04` couvre sauvegardes alternatives, réduction/prévention et dégâts variables ou spéciaux.
+3. `SIM-M5-T03` couvre relances, touches/blessures critiques et mots-clés déclenchés, y compris les fenêtres de décision qui interrompent légalement une résolution de tir ; les journaux interrompus V3 suivent ADR-010 et ADR-011.
+4. `SIM-M5-T04` couvre sauvegardes alternatives, prévention et dégâts variables ou spéciaux. Les choix d'allocation et l'état durable des armes `[TIR UNIQUE]` sont journalisés par `SimulationSaveV4` conformément à ADR-012 ; les réductions génériques de dégâts restent explicitement refusées jusqu'à leur contrat sourcé.
 5. `SIM-M5-T05` couvre ciblage avancé, armes mixtes, split fire et décisions de résolution.
 6. `SIM-M5-T06` intègre ces capacités aux rosters pilotes, durcit l'UI/replay et fait auditer M5.
 

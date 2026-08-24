@@ -1,5 +1,9 @@
 import { rollDice } from './prng';
 import { canTransitionPhase, reduceGameEvent } from './reducer';
+import { hasSupportedAttackVolumeAbilities } from '../rules/attack-volume';
+import { hasSupportedWeaponKeywords } from '../rules/weapon-keywords';
+import { parseRandomCharacteristicExpression } from '../rules/random-characteristics';
+import { resolveCharacteristicModifierPlan, resolveDieRollModifierPlan } from '../rules/modifiers';
 import type { CommandExecution, GameCommand, GameEvent, GameState, RuleRejection, SessionSetup, UnitSetup, WeaponProfileV1, WorldPoint } from './types';
 
 const PHASE_RULE_ID = 'simulator.core.phase-sequence';
@@ -8,10 +12,23 @@ const MOVEMENT_RULE_ID = 'simulator.core.movement';
 const DICE_RULE_ID = 'simulator.core.dice';
 const DECISION_RULE_ID = 'simulator.core.decision-window';
 const SHOOTING_RULE_ID = 'core.basic-ranged-attack';
+const UNIT_SELECTED_TO_SHOOT_RULE_ID = 'core.unit-selected-to-shoot';
 const TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID = 'simulator.core.trusted-shooting-environment';
 
 function reject(command: GameCommand, code: string, message: string, sourceRuleIds: readonly string[], details?: Readonly<Record<string, string | number | boolean>>): RuleRejection {
   return { commandId: command.id, code, message, sourceRuleIds, ...(details ? { details } : {}) };
+}
+
+/** Compatibility bridge for the M3/M4 single-profile command shape. */
+export function declaredShootingWeaponProfileIds(command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>): readonly string[] {
+  return Array.isArray(command.weaponProfileIds)
+    ? command.weaponProfileIds
+    : typeof command.weaponProfileId === 'string' ? [command.weaponProfileId] : [];
+}
+
+function hasOnlyShootingCommandFields(command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>): boolean {
+  const allowed = new Set(['id', 'actorId', 'type', 'attackerUnitId', 'targetUnitId', 'weaponProfileId', 'weaponProfileIds']);
+  return Object.keys(command).every((key) => allowed.has(key));
 }
 
 function isIntegerPoint(point: WorldPoint): boolean {
@@ -27,6 +44,15 @@ function hasValidSourceReferences(references: readonly { readonly sourceId: stri
 }
 
 function isValidWeaponProfile(weapon: WeaponProfileV1): boolean {
+  const randomCharacteristicsValid = (weapon.randomAttacks === undefined || parseRandomCharacteristicExpression(weapon.randomAttacks).accepted)
+    && (weapon.randomDamage === undefined || parseRandomCharacteristicExpression(weapon.randomDamage).accepted);
+  const modifierPlan = weapon.modifierPlan;
+  const modifiersValid = modifierPlan === undefined || (
+    (modifierPlan.range === undefined || resolveCharacteristicModifierPlan({ characteristic: 'range', baseValue: weapon.range, ...modifierPlan.range }).accepted)
+    && (modifierPlan.attacks === undefined || resolveCharacteristicModifierPlan({ characteristic: 'attacks', baseValue: weapon.attacks, ...modifierPlan.attacks }).accepted)
+    && (modifierPlan.ballisticSkill === undefined || resolveCharacteristicModifierPlan({ characteristic: 'ballistic-skill', baseValue: weapon.ballisticSkill, ...modifierPlan.ballisticSkill }).accepted)
+    && (modifierPlan.hitRoll === undefined || resolveDieRollModifierPlan({ rollKind: 'hit', unmodifiedRoll: 1, sides: 6, ...modifierPlan.hitRoll }).accepted)
+  );
   return weapon.id.trim().length > 0
     && weapon.displayName.trim().length > 0
     && [weapon.range, weapon.attacks, weapon.ballisticSkill, weapon.strength, weapon.damage]
@@ -36,6 +62,10 @@ function isValidWeaponProfile(weapon: WeaponProfileV1): boolean {
     && weapon.ballisticSkill >= 2 && weapon.ballisticSkill <= 6
     && weapon.strength > 0 && weapon.damage > 0
     && Number.isInteger(weapon.armourPenetration) && weapon.armourPenetration <= 0
+    && hasSupportedAttackVolumeAbilities(weapon)
+    && hasSupportedWeaponKeywords(weapon.weaponKeywords)
+    && randomCharacteristicsValid
+    && modifiersValid
     && hasValidSourceReferences(weapon.sourceRefs);
 }
 
@@ -91,6 +121,17 @@ function validateUnits(session: SessionSetup, playerIds: ReadonlySet<string>, co
       assignmentKeys.add(key);
       return invalid;
     })) return reject(command, 'invalid-weapon-assignment', 'Chaque arme doit être assignée en quantité positive à une figurine réelle unique.', [SETUP_RULE_ID], { unitId: unit.id });
+    if (unit.extendedDefence !== undefined && (unit.coverageSubject?.subjectType === 'unit'
+      || Object.keys(unit.extendedDefence).some((modelId) => !unit.modelIds.includes(modelId)
+        || ![undefined, 2, 3, 4, 5, 6].includes(unit.extendedDefence![modelId]?.invulnerableSave)
+        || ![undefined, 2, 3, 4, 5, 6].includes(unit.extendedDefence![modelId]?.feelNoPain)
+        || (unit.extendedDefence![modelId]?.isCharacter !== undefined && typeof unit.extendedDefence![modelId]?.isCharacter !== 'boolean')
+        || !unit.extendedDefence![modelId]?.source?.sourceId?.trim()
+        || !unit.extendedDefence![modelId]?.source?.version?.trim()
+        || Number.isNaN(Date.parse(unit.extendedDefence![modelId]?.source?.effectiveFrom ?? ''))
+        || (unit.extendedDefence![modelId]?.allocationGroupId !== undefined && !unit.extendedDefence![modelId]!.allocationGroupId!.trim())))) {
+      return reject(command, 'invalid-extended-fixture-defence', 'Les défenses étendues ne sont autorisées que pour des fixtures avec des valeurs sourcées fermées.', [SETUP_RULE_ID], { unitId: unit.id });
+    }
   }
   return null;
 }
@@ -130,6 +171,7 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
       const model = state.models[command.modelId];
       if (!model || !model.active) return reject(command, 'unknown-model', 'La figurine à déplacer est introuvable ou inactive.', [MOVEMENT_RULE_ID]);
       if (model.playerId !== command.actorId) return reject(command, 'not-model-owner', 'Seul le propriétaire peut déplacer cette figurine.', [MOVEMENT_RULE_ID]);
+      if (state.movedModelIds.includes(model.id)) return reject(command, 'movement-already-used', 'Cette figurine a déjà effectué son mouvement normal pendant cette phase.', [MOVEMENT_RULE_ID]);
       if (!isIntegerPoint(command.to)) return reject(command, 'non-integer-position', 'Les coordonnées de déplacement doivent être des unités mondiales entières.', [MOVEMENT_RULE_ID]);
       if (command.orientationDegrees !== undefined && !isFiniteAngle(command.orientationDegrees)) return reject(command, 'invalid-orientation', 'L’orientation doit être dans l’intervalle [0, 360[.', [MOVEMENT_RULE_ID]);
       return null;
@@ -142,6 +184,17 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
       if (!command.reason.trim()) return reject(command, 'missing-roll-reason', 'Chaque jet doit indiquer sa raison.', [DICE_RULE_ID]);
       return null;
     case 'resolve-basic-shooting': {
+      if (!hasOnlyShootingCommandFields(command)) {
+        return reject(command, 'non-authoritative-shooting-input', 'La commande de tir ne peut fournir ni mesures, ni visibilité, ni nombre de figurines : le moteur les dérive de l’état.', [SHOOTING_RULE_ID]);
+      }
+      if ((command.weaponProfileId !== undefined && command.weaponProfileIds !== undefined)
+        || (command.weaponProfileIds !== undefined && !Array.isArray(command.weaponProfileIds))) {
+        return reject(command, 'invalid-weapon-declaration', 'Déclarez soit un profil historique, soit une liste non ambiguë de profils.', [SHOOTING_RULE_ID]);
+      }
+      const weaponProfileIds = declaredShootingWeaponProfileIds(command);
+      if (weaponProfileIds.length === 0 || new Set(weaponProfileIds).size !== weaponProfileIds.length || weaponProfileIds.some((id) => typeof id !== 'string' || !id.trim())) {
+        return reject(command, 'invalid-weapon-declaration', 'La déclaration de tir doit contenir des profils d’arme uniques et non vides.', [SHOOTING_RULE_ID]);
+      }
       if (state.manifest === null) return reject(command, 'session-not-setup', 'La session doit être initialisée avant de tirer.', [SETUP_RULE_ID]);
       if (state.phase !== 'shooting') return reject(command, 'wrong-phase', 'Les tirs ne sont autorisés que pendant la phase de tir.', [SHOOTING_RULE_ID]);
       const attacker = state.units[command.attackerUnitId];
@@ -149,9 +202,10 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
       if (!attacker || !target) return reject(command, 'unknown-unit', 'L’unité attaquante ou ciblée est introuvable.', [SHOOTING_RULE_ID]);
       if (attacker.playerId !== command.actorId) return reject(command, 'not-unit-owner', 'Seul le propriétaire de l’unité peut déclarer son tir.', [SHOOTING_RULE_ID]);
       if (attacker.id === target.id || attacker.playerId === target.playerId) return reject(command, 'invalid-target-unit', 'Une unité doit cibler une unité ennemie distincte.', [SHOOTING_RULE_ID]);
-      if (!attacker.weaponProfiles.some((weapon) => weapon.id === command.weaponProfileId)) return reject(command, 'unknown-weapon-profile', 'Le profil d’arme n’appartient pas à l’unité attaquante.', [SHOOTING_RULE_ID]);
-      if (!attacker.weaponAssignments.some((assignment) => assignment.weaponProfileId === command.weaponProfileId
-        && attacker.models.some((model) => model.id === assignment.modelId && model.active))) {
+      if (state.shootingSelectedUnitIds.includes(attacker.id)) return reject(command, 'unit-already-selected-to-shoot', 'Cette unité a déjà été choisie pour tirer pendant cette phase de tir.', [UNIT_SELECTED_TO_SHOOT_RULE_ID]);
+      if (weaponProfileIds.some((weaponProfileId) => !attacker.weaponProfiles.some((weapon) => weapon.id === weaponProfileId))) return reject(command, 'unknown-weapon-profile', 'Un profil d’arme déclaré n’appartient pas à l’unité attaquante.', [SHOOTING_RULE_ID]);
+      if (weaponProfileIds.some((weaponProfileId) => !attacker.weaponAssignments.some((assignment) => assignment.weaponProfileId === weaponProfileId
+        && attacker.models.some((model) => model.id === assignment.modelId && model.active)))) {
         return reject(command, 'no-active-weapon-carriers', 'Aucune figurine active ne porte ce profil d’arme.', [SHOOTING_RULE_ID]);
       }
       if (!target.models.some((model) => model.active)) return reject(command, 'no-active-target-models', 'La cible ne possède plus de figurine active.', [SHOOTING_RULE_ID]);
@@ -195,6 +249,28 @@ export function executeGameCommand(state: GameState, command: GameCommand): Comm
       accepted: false,
       state,
       rejection: reject(command, 'trusted-shooting-environment-required', 'Cette règle doit être résolue par un environnement de simulation autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
+    };
+  }
+  if (command.type === 'resolve-decision' && state.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'lethal-hits-choice')) {
+    return {
+      accepted: false,
+      state,
+      rejection: reject(command, 'trusted-shooting-environment-required', '[TOUCHES FATALES] doit être résolu par l’orchestration de tir autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
+    };
+  }
+  if (command.type === 'resolve-decision' && state.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'generic-reroll-choice')) {
+    return {
+      accepted: false,
+      state,
+      rejection: reject(command, 'trusted-shooting-environment-required', 'Les relances génériques doivent être résolues par l’orchestration de tir autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
+    };
+  }
+  if (command.type === 'resolve-decision' && state.pendingDecisions.some((decision) => decision.id === command.decisionId
+    && (decision.kind === 'extended-allocation-group' || decision.kind === 'extended-allocation-model' || decision.kind === 'extended-hazardous-allocation'))) {
+    return {
+      accepted: false,
+      state,
+      rejection: reject(command, 'trusted-shooting-environment-required', 'Les allocations T04 doivent être résolues par l’orchestration de tir autoritaire.', [TRUSTED_SHOOTING_ENVIRONMENT_RULE_ID])
     };
   }
   const events = createEventsForCommand(state, command);

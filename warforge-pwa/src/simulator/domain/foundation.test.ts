@@ -80,6 +80,40 @@ describe('simulator domain foundations', () => {
     expect(stolenMove.state).toBe(state);
   });
 
+  it('allows each model one normal move per movement phase and replays the usage exactly', () => {
+    const initial = createInitialGameState('game-movement-usage', 18);
+    let state = accept(initial, { id: 'setup', actorId: 'p1', type: 'setup-session', session: setupSession() });
+    state = accept(state, { id: 'command', actorId: 'p1', type: 'transition-phase', nextPhase: 'command' });
+    state = accept(state, { id: 'movement', actorId: 'p1', type: 'transition-phase', nextPhase: 'movement' });
+    state = accept(state, { id: 'move-once', actorId: 'p1', type: 'move-model', modelId: 'model-a', to: { x: 10, y: 0 } });
+    expect(state.movedModelIds).toEqual(['model-a']);
+    const repeated = executeGameCommand(state, { id: 'move-twice', actorId: 'p1', type: 'move-model', modelId: 'model-a', to: { x: 20, y: 0 } });
+    expect(repeated).toMatchObject({ accepted: false, rejection: { code: 'movement-already-used' }, state });
+    expect(replayGameEvents(initial, state.eventLog)).toEqual(state);
+
+    for (const [id, nextPhase] of [['shooting', 'shooting'], ['charge', 'charge'], ['fight', 'fight'], ['next-command', 'command'], ['next-movement', 'movement']] as const) {
+      state = accept(state, { id, actorId: 'p1', type: 'transition-phase', nextPhase });
+    }
+    expect(state.movedModelIds).toEqual([]);
+    state = accept(state, { id: 'move-next-round', actorId: 'p1', type: 'move-model', modelId: 'model-a', to: { x: 20, y: 0 } });
+    expect(state.movedModelIds).toEqual(['model-a']);
+  });
+
+  it('resets authoritative weapon usage for each shooting phase', () => {
+    const initial = createInitialGameState('game-weapon-usage', 19);
+    let state = accept(initial, { id: 'setup', actorId: 'p1', type: 'setup-session', session: setupSession() });
+    state = accept(state, { id: 'command', actorId: 'p1', type: 'transition-phase', nextPhase: 'command' });
+    state = accept(state, { id: 'movement', actorId: 'p1', type: 'transition-phase', nextPhase: 'movement' });
+    state = accept(state, { id: 'shooting', actorId: 'p1', type: 'transition-phase', nextPhase: 'shooting' });
+    expect(state.firedWeaponKeys).toEqual([]);
+    state = accept(state, { id: 'charge', actorId: 'p1', type: 'transition-phase', nextPhase: 'charge' });
+    state = accept(state, { id: 'fight', actorId: 'p1', type: 'transition-phase', nextPhase: 'fight' });
+    state = accept(state, { id: 'next-command', actorId: 'p1', type: 'transition-phase', nextPhase: 'command' });
+    state = accept(state, { id: 'next-movement', actorId: 'p1', type: 'transition-phase', nextPhase: 'movement' });
+    state = accept(state, { id: 'next-shooting', actorId: 'p1', type: 'transition-phase', nextPhase: 'shooting' });
+    expect(state.firedWeaponKeys).toEqual([]);
+  });
+
   it('guards saved games by schema, major simulator version and replay validity', () => {
     const initial = createInitialGameState('game-3', 9);
     const setup = executeGameCommand(initial, { id: 'setup', actorId: 'p1', type: 'setup-session', session: setupSession() });

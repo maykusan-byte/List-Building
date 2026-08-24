@@ -1,4 +1,4 @@
-import { createSimulationSaveV2, replayGameEvents, type GameState, type SimulationSave } from '../domain';
+import { createSimulationSaveV2, createSimulationSaveV3, createSimulationSaveV4, replayGameEvents, type GameState, type SimulationSave } from '../domain';
 import {
   unsafeCreateSimulationSaveWithVerifier,
   unsafeDeserializeSimulationSaveWithVerifier,
@@ -34,11 +34,47 @@ function replay(initialState: GameState, events: SimulationSave['events'], envir
   return environment ? replayGameEventsWithShootingEnvironment(initialState, events, environment) : replayGameEvents(initialState, events);
 }
 
+function usesInterruptedShootingJournal(state: GameState): boolean {
+  return state.pendingLethalShooting !== null || state.pendingRerollShooting !== null
+    || state.eventLog.some((event) => event.type === 'basic-shooting-hit-stage-resolved'
+      || event.type === 'basic-shooting-lethal-choice-resolved'
+      || event.type === 'basic-shooting-completed'
+      || event.type === 'basic-shooting-reroll-stage-resolved'
+      || event.type === 'basic-shooting-reroll-choice-resolved'
+      || event.type === 'basic-shooting-reroll-completed');
+}
+
+/** V4 is required as soon as the closed fixture session materializes T04 facts. */
+function usesT04FixtureState(state: GameState): boolean {
+  return state.pendingExtendedShooting !== null || state.spentOneShotWeaponInstanceKeys.length > 0
+    || Object.values(state.units).some((unit) => unit.extendedDefence !== undefined)
+    || state.eventLog.some((event) => event.type === 'extended-shooting-one-shot-selected'
+      || event.type === 'extended-shooting-stage-resolved'
+      || event.type === 'extended-shooting-save-stage-resolved'
+      || event.type === 'extended-shooting-save-resolved'
+      || event.type === 'extended-shooting-allocation-choice-resolved'
+      || event.type === 'extended-shooting-packet-resolved'
+      || event.type === 'extended-shooting-packet-lost'
+      || event.type === 'extended-shooting-hazardous-resolved'
+      || event.type === 'extended-shooting-hazardous-packet-resolved'
+      || event.type === 'extended-shooting-hazardous-wounds-lost'
+      || event.type === 'extended-shooting-completed');
+}
+
+function createEnvironmentSave(initialState: GameState, state: GameState, savedAt: string, environment: ShootingEnvironment) {
+  const verifier = verifierFor(environment);
+  return usesT04FixtureState(state)
+    ? createSimulationSaveV4(initialState, state.eventLog, savedAt, verifier)
+    : usesInterruptedShootingJournal(state)
+    ? createSimulationSaveV3(initialState, state.eventLog, savedAt, verifier)
+    : createSimulationSaveV2(initialState, state.eventLog, savedAt, verifier);
+}
+
 /** Exports exactly the data that can be replayed by the deterministic domain. */
 export function exportSimulation(initialState: GameState, state: GameState, createdAt: string, environment?: ShootingEnvironment): string {
   const verifier = verifierFor(environment);
   const save = environment && state.manifest && state.shootingEnvironmentFingerprint === environment.fingerprint
-    ? createSimulationSaveV2(initialState, state.eventLog, createdAt, verifier)
+    ? createEnvironmentSave(initialState, state, createdAt, environment)
     : unsafeCreateSimulationSaveWithVerifier(initialState, state.eventLog, createdAt, verifier);
   return unsafeSerializeSimulationSaveWithVerifier(save, verifier);
 }
@@ -50,7 +86,7 @@ export function importSimulation(serialized: string, environment?: ShootingEnvir
   if (environment && parsed.save.schemaVersion === 'warforge-simulation-save/v1') {
     return { ok: false, errors: ['Une sauvegarde V1 n’est pas automatiquement compatible avec une session de tir fermée.'] };
   }
-  if (environment && parsed.save.schemaVersion === 'warforge-simulation-save/v2') {
+  if (environment && (parsed.save.schemaVersion === 'warforge-simulation-save/v2' || parsed.save.schemaVersion === 'warforge-simulation-save/v3' || parsed.save.schemaVersion === 'warforge-simulation-save/v4')) {
     if (!expectedManifestFingerprint) return { ok: false, errors: ['Le manifeste de session fermée attendu est obligatoire pour importer une sauvegarde de tir.'] };
     if (parsed.save.environment.manifestFingerprint !== expectedManifestFingerprint) return { ok: false, errors: ['La sauvegarde ne correspond pas au manifeste de session fermée attendu.'] };
   }
@@ -68,7 +104,7 @@ export function importSimulation(serialized: string, environment?: ShootingEnvir
 export function createSimulationAutosave(initialState: GameState, state: GameState, savedAt: string, environment?: ShootingEnvironment): SimulationAutosaveV1 {
   const verifier = verifierFor(environment);
   const save = environment && state.manifest && state.shootingEnvironmentFingerprint === environment.fingerprint
-    ? createSimulationSaveV2(initialState, state.eventLog, savedAt, verifier)
+    ? createEnvironmentSave(initialState, state, savedAt, environment)
     : unsafeCreateSimulationSaveWithVerifier(initialState, state.eventLog, savedAt, verifier);
   const replayed = replay(save.initialState, save.events, environment);
   if (!stateEquals(replayed, state)) throw new RangeError('Le snapshot ne correspond pas au journal déterministe.');
@@ -93,7 +129,7 @@ export function validateSimulationAutosave(value: unknown, environment?: Shootin
   if (environment && validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v1') {
     errors.push('Sauvegarde : une V1 ne peut pas restaurer automatiquement une session de tir fermée.');
   }
-  if (environment && validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v2') {
+  if (environment && validatedSave.ok && (validatedSave.save.schemaVersion === 'warforge-simulation-save/v2' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v3' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v4')) {
     if (!expectedManifestFingerprint) errors.push('Sauvegarde : le manifeste de session fermée attendu est obligatoire.');
     else if (validatedSave.save.environment.manifestFingerprint !== expectedManifestFingerprint) errors.push('Sauvegarde : le manifeste ne correspond pas à la session fermée attendue.');
   }
@@ -154,7 +190,7 @@ export function createAutosaveFromImport(serialized: string, savedAt: string, en
 /** Exported for consumers that want the concrete validated save without JSON. */
 export function createReplaySave(initialState: GameState, state: GameState, createdAt: string, environment?: ShootingEnvironment): SimulationSave {
   if (environment && state.manifest && state.shootingEnvironmentFingerprint === environment.fingerprint) {
-    return createSimulationSaveV2(initialState, state.eventLog, createdAt, verifierFor(environment));
+    return createEnvironmentSave(initialState, state, createdAt, environment);
   }
   return unsafeCreateSimulationSaveWithVerifier(initialState, state.eventLog, createdAt, verifierFor(environment));
 }

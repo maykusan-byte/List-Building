@@ -3,7 +3,7 @@ import { executeGameCommand, type CommandExecution, type GameCommand, type GameS
 import type { SimulationAutosaveController } from '../persistence';
 import type { SimulationCompatibilityReport } from './compatibility';
 import { isSessionCompatible } from './compatibility';
-import { executeBasicShootingCommand, executeOathOfMomentSelectionCommand, type ShootingEnvironment } from './shooting';
+import { executeBasicShootingCommand, executeExtendedAllocationDecisionCommand, executeGenericRerollDecisionCommand, executeLethalHitsDecisionCommand, executeOathOfMomentSelectionCommand, type ShootingEnvironment } from './shooting';
 
 const COVERAGE_RULE_ID = 'simulator.core.coverage-compatibility';
 
@@ -100,6 +100,40 @@ function executeOrchestratedCommand(
       };
     }
     return executeOathOfMomentSelectionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'lethal-hits-choice')) {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-shooting-environment-required',
+          message: '[TOUCHES FATALES] exige un environnement autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-shooting-environment']
+        }
+      };
+    }
+    return executeLethalHitsDecisionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'generic-reroll-choice')) {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: { commandId: command.id, code: 'trusted-shooting-environment-required', message: 'Les relances génériques exigent un environnement de tir autoritaire.', sourceRuleIds: [COVERAGE_RULE_ID] }
+      };
+    }
+    return executeGenericRerollDecisionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId
+    && (decision.kind === 'extended-allocation-group' || decision.kind === 'extended-allocation-model' || decision.kind === 'extended-hazardous-allocation'))) {
+    if (!shootingEnvironment) return {
+      accepted: false,
+      state: context.gameState,
+      rejection: { commandId: command.id, code: 'shooting-environment-required', message: 'Une décision de tir étendue exige un environnement de tir autoritaire.', sourceRuleIds: ['simulator.core.trusted-shooting-environment'] }
+    };
+    return executeExtendedAllocationDecisionCommand(context.gameState, command, shootingEnvironment);
   }
   if (command.type === 'move-model' && movementCommandResolver) {
     return movementCommandResolver.execute(context.gameState, command);

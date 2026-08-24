@@ -13,9 +13,14 @@ test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and re
   await expect(page.getByRole('heading', { name: /Duel réel Salamanders/ })).toBeVisible();
   await expect(page.getByTestId('m4-compatibility')).toContainText('Session compatible');
   await expect(page.getByTestId('m4-phase')).toHaveText('command');
+  const targets = page.locator('.m4-targets');
+  await expect(targets.getByRole('button', { name: /Blood Angels · Assault Intercessors · Heavy bolt pistol/ })).toBeVisible();
+  await expect(targets.getByRole('button', { name: /Blood Angels · Captain · Heavy bolt pistol/ })).toBeVisible();
+  await expect(page.getByTestId('m4-enter-movement')).toBeDisabled();
 
   await page.getByTestId('m4-set-oath').click();
   await expect(page.getByTestId('m4-notice')).toContainText('Oath of Moment');
+  await expect(page.getByTestId('m4-enter-movement')).toBeEnabled();
   await page.getByTestId('m4-enter-movement').click();
   await expect(page.getByTestId('m4-phase')).toHaveText('movement');
   const beforeIllegal = await page.getByTestId('m4-event-count').innerText();
@@ -24,6 +29,8 @@ test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and re
   await expect(page.getByTestId('m4-event-count')).toHaveText(beforeIllegal);
   await page.getByTestId('m4-advance').click();
   await expect(page.getByTestId('m4-notice')).toContainText('Mouvement normal M4 accepté');
+  await expect(page.locator('.m4-model.active')).toContainText('mouvement effectué');
+  await expect(page.getByTestId('m4-advance')).toBeDisabled();
   await page.getByTestId('m4-enter-shooting').click();
   await page.getByTestId('m4-next-round').click();
   await expect(page.getByTestId('m4-phase')).toHaveText('command');
@@ -34,6 +41,7 @@ test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and re
   await page.getByTestId('m4-resolve-shooting').click();
   await expect(page.getByTestId('m4-notice')).toContainText('Tir M4 résolu');
   await expect(page.getByTestId('m4-resolution')).toContainText(/Portée et LoS/);
+  await expect(page.getByTestId('m4-resolve-shooting')).toBeDisabled();
 
   const expectedEvents = await page.getByTestId('m4-event-count').innerText();
   const expectedPrng = await page.getByTestId('m4-prng').innerText();

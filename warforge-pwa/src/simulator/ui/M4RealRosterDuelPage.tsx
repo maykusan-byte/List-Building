@@ -20,10 +20,19 @@ function command(id: string, actorId: string, type: GameCommand['type'], extra: 
   return { id, actorId, type, ...extra } as GameCommand;
 }
 
+function fixtureLabel(fixtureId: string): string {
+  const parts = fixtureId
+    .replace(/^m4-(?:space-marines|blood-angels)-/, '')
+    .replace(/-facts-v\d+$/, '')
+    .split('-')
+    .filter(Boolean);
+  return parts.map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`).join(' ');
+}
+
 function displayUnit(unit: UnitState): string {
   const side = unit.playerId === 'salamanders' ? 'Salamanders' : 'Blood Angels';
   const weapon = unit.weaponProfiles[0]?.displayName ?? 'arme non couverte';
-  return `${side} · ${weapon}`;
+  return `${side} · ${fixtureLabel(unit.fixtureId)} · ${weapon}`;
 }
 
 function currentShooting(state: GameState | null): Extract<GameEvent, { readonly type: 'basic-shooting-resolved' }> | null {
@@ -33,6 +42,11 @@ function currentShooting(state: GameState | null): Extract<GameEvent, { readonly
 
 function unitForModel(state: GameState, modelId: string): UnitState | undefined {
   return Object.values(state.units).find((unit) => unit.models.some((model) => model.id === modelId));
+}
+
+/** View-only mirror of the authoritative reducer state. */
+function movedModelIdsInCurrentMovementPhase(state: GameState | null): ReadonlySet<string> {
+  return new Set(state?.movedModelIds ?? []);
 }
 
 function frontModel(state: GameState, unit: UnitState): string | null {
@@ -145,6 +159,11 @@ export default function M4RealRosterDuelPage(): React.JSX.Element {
 
   const currentAttacker = state && attackerUnitId ? state.units[attackerUnitId] : undefined;
   const selectedModel = state && selectedModelId ? state.models[selectedModelId] : undefined;
+  const movedModelIds = movedModelIdsInCurrentMovementPhase(state);
+  const selectedModelAlreadyMoved = selectedModel ? movedModelIds.has(selectedModel.id) : false;
+  const currentWeapon = currentAttacker?.weaponProfiles[0];
+  const hasSelectedOath = currentAttacker ? Boolean(state?.oathOfMomentSelections[currentAttacker.playerId]) : false;
+  const currentWeaponAlreadyFired = currentAttacker && currentWeapon ? state?.firedWeaponKeys.includes(`${currentAttacker.id}:${currentWeapon.id}`) : false;
   const shooting = currentShooting(state);
 
   const setOath = (): void => {
@@ -170,7 +189,7 @@ export default function M4RealRosterDuelPage(): React.JSX.Element {
   };
   const resolve = (): void => {
     if (!state || !currentAttacker || !targetUnitId) return;
-    const weapon = currentAttacker.weaponProfiles[0];
+    const weapon = currentWeapon;
     if (!weapon) { setNotice('Refus explicite : cette unité ne possède pas de profil d’arme couvert.'); return; }
     apply(command(`m4-shoot-${state.eventLog.length}`, currentAttacker.playerId, 'resolve-basic-shooting', {
       attackerUnitId: currentAttacker.id, targetUnitId, weaponProfileId: weapon.id
@@ -213,10 +232,10 @@ export default function M4RealRosterDuelPage(): React.JSX.Element {
   const models = Object.values(state.models).sort((left, right) => left.id.localeCompare(right.id));
   return <main className="simulator-duel-page m4-real-duel-page" data-testid="m4-real-duel">
     <header className="simulator-lab-hero"><div><span className="simulator-kicker">WARFORGE · M4 REAL-ROSTER PILOT</span><h1>Duel réel Salamanders – Blood Angels</h1><p>Deux RosterDraft figés, limités au mouvement normal et au tir couvert. Charge, Combat, objectifs et missions restent explicitement hors périmètre.</p></div><div className="simulator-foundation-notice"><strong data-testid="m4-compatibility">Session compatible · 14 figurines</strong><span>La LoS échantillonnée, le couvert et les limites de mouvement sont calculés par le runtime M4, jamais par cette interface.</span></div></header>
-    <section className="duel-toolbar" aria-label="Contrôles du duel réel"><button data-testid="m4-set-oath" onClick={setOath} disabled={state.phase !== 'command' || !currentAttacker || !targetUnitId}>Désigner Oath of Moment</button><button data-testid="m4-enter-movement" onClick={enterMovement} disabled={state.phase !== 'command' || !currentAttacker}>Passer au mouvement</button><button data-testid="m4-advance" onClick={() => move(movementStep)} disabled={state.phase !== 'movement' || !selectedModel}>Avancer de 6″ vers l’adversaire</button><button data-testid="m4-illegal-move" onClick={() => move(movementStep + 1)} disabled={state.phase !== 'movement' || !selectedModel}>Tester mouvement illégal (&gt;6″)</button><button data-testid="m4-enter-shooting" onClick={enterShooting} disabled={state.phase !== 'movement' || !currentAttacker}>Passer au tir</button><button data-testid="m4-resolve-shooting" onClick={resolve} disabled={state.phase !== 'shooting' || !currentAttacker || !targetUnitId}>Résoudre le tir</button><button data-testid="m4-next-round" onClick={nextRound} disabled={state.phase !== 'shooting' || !currentAttacker}>Passer les phases hors périmètre</button><button onClick={save}>Sauvegarder / exporter V2</button><button onClick={importExport}>Importer l’export V2</button><button onClick={() => void resume()}>Reprendre IndexedDB</button><button onClick={replay}>Rejouer le journal</button><button onClick={() => start(runtime)}>Réinitialiser</button></section>
+    <section className="duel-toolbar" aria-label="Contrôles du duel réel"><button data-testid="m4-set-oath" onClick={setOath} disabled={state.phase !== 'command' || !currentAttacker || !targetUnitId || hasSelectedOath}>Désigner Oath of Moment</button><button data-testid="m4-enter-movement" onClick={enterMovement} disabled={state.phase !== 'command' || !currentAttacker || !hasSelectedOath}>Passer au mouvement</button><button data-testid="m4-advance" onClick={() => move(movementStep)} disabled={state.phase !== 'movement' || !selectedModel || selectedModelAlreadyMoved}>Avancer de 6″ vers l’adversaire</button><button data-testid="m4-illegal-move" onClick={() => move(movementStep + 1)} disabled={state.phase !== 'movement' || !selectedModel || selectedModelAlreadyMoved}>Tester mouvement illégal (&gt;6″)</button><button data-testid="m4-enter-shooting" onClick={enterShooting} disabled={state.phase !== 'movement' || !currentAttacker}>Passer au tir</button><button data-testid="m4-resolve-shooting" onClick={resolve} disabled={state.phase !== 'shooting' || !currentAttacker || !targetUnitId || !currentWeapon || currentWeaponAlreadyFired}>Résoudre le tir</button><button data-testid="m4-next-round" onClick={nextRound} disabled={state.phase !== 'shooting' || !currentAttacker}>Passer les phases hors périmètre</button><button onClick={save}>Sauvegarder / exporter V2</button><button onClick={importExport}>Importer l’export V2</button><button onClick={() => void resume()}>Reprendre IndexedDB</button><button onClick={replay}>Rejouer le journal</button><button onClick={() => start(runtime)}>Réinitialiser</button></section>
     <p className="duel-notice" role="status" data-testid="m4-notice">{notice}</p>
     <section className="m4-status-grid" aria-label="État de la partie réelle"><div><span>Phase</span><strong data-testid="m4-phase">{state.phase}</strong></div><div><span>Round</span><strong>{state.round}</strong></div><div><span>PRNG</span><strong data-testid="m4-prng">{state.prng.seed}/{state.prng.draws}</strong></div><div><span>Journal</span><strong data-testid="m4-event-count">{state.eventLog.length}</strong></div></section>
-    <section className="duel-board m4-board" aria-label="Rosters et plateau réels" data-testid="m4-placement">{['salamanders', 'blood-angels'].map((playerId) => <div key={playerId} className={`duel-unit ${playerId === 'salamanders' ? 'red' : 'blue'}`}><h2>{playerId === 'salamanders' ? 'Salamanders' : 'Blood Angels'}</h2>{units.filter((unit) => unit.playerId === playerId).map((unit) => <button key={unit.id} type="button" className={unit.id === attackerUnitId ? 'm4-unit-selector active' : 'm4-unit-selector'} onClick={() => selectAttacker(state, unit.id)} data-testid={`m4-attacker-${unit.id}`}><strong>{displayUnit(unit)}</strong><span>{unit.models.filter((model) => model.active).length}/{unit.models.length} figurines · sélectionner comme attaquant</span></button>)}{models.filter((model) => model.playerId === playerId).map((model) => <button key={model.id} type="button" onClick={() => { const unit = unitForModel(state, model.id); if (unit) { setAttackerUnitId(unit.id); setSelectedModelId(model.id); const target = units.find((candidate) => candidate.playerId !== unit.playerId); if (target) setTargetUnitId(target.id); } }} className={`m4-model ${model.id === selectedModelId ? 'active' : ''} ${!model.active ? 'lost' : ''}`} data-testid={`m4-model-${model.id}`}>{model.id.split(':').at(-1)} · ({model.position.x}, {model.position.y}){!model.active ? ' — perte' : ''}</button>)}</div>)}<div className="duel-terrain"><strong>Terrain approuvé M4</strong><span>Plateau 44″ × 30″ · zone centrale de couvert léger : elle peut dégrader la CT de 1, mais ne bloque jamais la LoS.</span></div></section>
+    <section className="duel-board m4-board" aria-label="Rosters et plateau réels" data-testid="m4-placement">{['salamanders', 'blood-angels'].map((playerId) => <div key={playerId} className={`duel-unit ${playerId === 'salamanders' ? 'red' : 'blue'}`}><h2>{playerId === 'salamanders' ? 'Salamanders' : 'Blood Angels'}</h2>{units.filter((unit) => unit.playerId === playerId).map((unit) => <button key={unit.id} type="button" className={unit.id === attackerUnitId ? 'm4-unit-selector active' : 'm4-unit-selector'} onClick={() => selectAttacker(state, unit.id)} data-testid={`m4-attacker-${unit.id}`}><strong>{displayUnit(unit)}</strong><span>{unit.models.filter((model) => model.active).length}/{unit.models.length} figurines · sélectionner comme attaquant</span></button>)}{models.filter((model) => model.playerId === playerId).map((model) => <button key={model.id} type="button" onClick={() => { const unit = unitForModel(state, model.id); if (unit) { setAttackerUnitId(unit.id); setSelectedModelId(model.id); const target = units.find((candidate) => candidate.playerId !== unit.playerId); if (target) setTargetUnitId(target.id); } }} className={`m4-model ${model.id === selectedModelId ? 'active' : ''} ${movedModelIds.has(model.id) ? 'moved' : ''} ${!model.active ? 'lost' : ''}`} data-testid={`m4-model-${model.id}`}>{model.id.split(':').at(-1)} · ({model.position.x}, {model.position.y}){movedModelIds.has(model.id) ? ' — mouvement effectué' : ''}{!model.active ? ' — perte' : ''}</button>)}</div>)}<div className="duel-terrain"><strong>Terrain approuvé M4</strong><span>Plateau 44″ × 30″ · zone centrale de couvert léger : elle peut dégrader la CT de 1, mais ne bloque jamais la LoS.</span></div></section>
     <section className="m4-targets" aria-label="Sélection de la cible"><h2>Cible de tir</h2>{units.filter((unit) => !currentAttacker || unit.playerId !== currentAttacker.playerId).map((unit) => <button key={unit.id} type="button" className={unit.id === targetUnitId ? 'active' : ''} onClick={() => setTargetUnitId(unit.id)} data-testid={`m4-target-${unit.id}`}>{displayUnit(unit)}</button>)}</section>
     <section className="duel-resolution" data-testid="m4-resolution"><h2>Résolution autoritaire</h2>{shooting ? <><p>Portée et LoS : <strong>{shooting.evidence.lineOfSight.visible ? 'valides' : 'refusées'}</strong> · couvert : <strong data-testid="m4-cover">{shooting.evidence.cover.applies ? `CT +${shooting.evidence.cover.ballisticSkillPenalty}` : 'aucun'}</strong> · touches {shooting.result.hits} · blessures {shooting.result.wounds} · sauvegardes ratées {shooting.result.failedSaves}.</p><p>Pertes : <strong data-testid="m4-losses">{shooting.casualtyModelIds.join(', ') || 'aucune'}</strong></p><ol>{shooting.rolls.map((roll) => <li key={roll.attackIndex}>#{roll.attackIndex + 1} : touche {roll.hitRoll ?? '—'} → blessure {roll.woundRoll ?? '—'} → sauvegarde {roll.saveRoll ?? '—'} → {roll.outcome}{roll.destroyedModelId ? ` (${roll.destroyedModelId})` : ''}</li>)}</ol></> : <p>Aucun tir encore résolu. Tout rejet de portée, de LoS ou de phase est expliqué ci-dessus et ne consomme pas le PRNG.</p>}</section>
     <details open><summary>Export / import JSON V2</summary><textarea data-testid="m4-export-json" value={exportBuffer} onChange={(event) => setExportBuffer(event.target.value)} aria-label="Export JSON V2 M4" /></details>

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "warforge-official-app-errata-fr/v1",
+  "id": "warforge-official-app-errata-fr-2026-07",
+  "title": "Mises à jour & errata — application officielle Warhammer 40,000 (français)",
+  "status": "reference-only",
+  "version": "app-snapshot-2026-08-24",
+  "authority": "official-app",
+  "locale": "fr-FR",
+  "visibleLastUpdated": "2026-07-22",
+  "capturedAt": "2026-08-24",
+  "sourceArchive": {
+    "path": "../../../references/warhammer-40k/rules/errata/official-app-2026-08-24/archive.json",
+    "id": "warforge-official-app-errata-fr-2026-07"
+  },
+  "transcriptionPolicy": "Chaque entrée décrit le remplacement ou l'alias visible dans les captures. Une correction n'est activée dans le moteur qu'après intégration explicite par son jalon propriétaire.",
+  "entries": [
+    {
+      "id": "errata.13.09.hidden-terrain-zone",
+      "captureIds": ["errata-capture-001"],
+      "reference": "13.09",
+      "kind": "replace-first-bullet",
+      "text": "Cette figurine a le mot-clé INFANTERIE/BÊTES/NUÉE et est dans une zone de terrain qui contient un ou plusieurs éléments de terrain léger/dense.",
+      "scope": "Caché"
+    },
+    {
+      "id": "errata.17.03.engaged-monster-vehicle-blast",
+      "captureIds": ["errata-capture-001", "errata-capture-002"],
+      "reference": "17.03",
+      "kind": "append-first-sentence",
+      "text": "(hormis les attaques effectuées avec des armes à [DÉFLAGRATION]).",
+      "scope": "Tirer sur des Monstres et des Véhicules Engagés"
+    },
+    {
+      "id": "errata.18.05.emergency-disembark",
+      "captureIds": ["errata-capture-001", "errata-capture-002"],
+      "reference": "18.05",
+      "kind": "replace-movement-instruction",
+      "text": "Placez chaque figurine entièrement dans la distance de placement du TRANSPORT, et aussi proche que possible de lui. Si cela n'est pas possible en restant non engagée, placez la figurine entièrement dans la distance de placement du TRANSPORT, aussi proche que possible de lui, et engagée. Chaque figurine qui ne peut pas être placée malgré tout est détruite.",
+      "scope": "Mouvement de Débarquement d’Urgence"
+    },
+    {
+      "id": "errata.alias.tank-shock",
+      "captureIds": ["errata-capture-002"],
+      "reference": null,
+      "kind": "stratagem-alias",
+      "text": "Le Stratagème Attaque de Char est le même que le Stratagème Impact Écrasant.",
+      "scope": "Stratagème Impact Écrasant"
+    },
+    {
+      "id": "errata.alias.grenade",
+      "captureIds": ["errata-capture-002"],
+      "reference": null,
+      "kind": "stratagem-alias",
+      "text": "Le Stratagème Grenade est le même que le Stratagème Explosifs.",
+      "scope": "Stratagème Explosifs"
+    }
+  ],
+  "simulatorReadiness": {
+    "affectedMilestones": ["M5", "M8", "M10"],
+    "currentEffect": "Aucun contrat M4 couvert n'est modifié : Caché, véhicules engagés, transports et stratagèmes restent hors de son périmètre fermé."
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "warforge-official-app-references-fr/v1",
+  "id": "warforge-official-app-references-fr-2026-07",
+  "title": "Références de règles — application officielle Warhammer 40,000 (français)",
+  "status": "reference-only",
+  "version": "app-snapshot-2026-08-24",
+  "authority": "official-app",
+  "locale": "fr-FR",
+  "visibleLastUpdated": "2026-07-22",
+  "capturedAt": "2026-08-24",
+  "sourceArchive": {
+    "path": "../../../references/warhammer-40k/rules/app-references/official-app-2026-08-24/archive.json",
+    "id": "warforge-official-app-references-fr-2026-07"
+  },
+  "transcriptionPolicy": "Les énoncés ci-dessous sont des transcriptions des règles entièrement visibles dans les captures. Ils préservent les distinctions entre caractéristique, jet et valeur ; ils ne constituent pas à eux seuls une règle exécutable.",
+  "sections": [
+    {
+      "id": "02.02.01",
+      "title": "Modificateurs",
+      "captureIds": [
+        "reference-capture-003",
+        "reference-capture-004",
+        "reference-capture-005",
+        "reference-capture-006",
+        "reference-capture-007",
+        "reference-capture-008",
+        "reference-capture-009"
+      ],
+      "statements": [
+        "Les modificateurs se présentent généralement sous la forme +1 ou -1 à une caractéristique, un jet ou une valeur ; tous les modificateurs se cumulent.",
+        "Pour modifier une valeur : remplacer une valeur en premier ; puis appliquer multiplication, addition, division, soustraction ; enfin arrondir à l'entier supérieur.",
+        "Une valeur remplacée par 0, -, ou * à la première étape ne peut pas être modifiée davantage.",
+        "Une caractéristique de -, * ou N/A ne peut jamais être modifiée. Un modificateur de CC ou CT d'une figurine modifie la CC ou CT de toutes ses armes.",
+        "Les caractéristiques modifiées respectent les minimums et maximums officiels : M, E, Portée, A, F et D ont un minimum de 1 ; PA ne peut pas être pire que 0 ; CC et CT restent entre 1+ et 7+ ; Sv et SvIn ne peuvent pas être meilleures que 1+ ; Cd reste entre 4+ et 9+ ; CO ne peut pas être inférieur à 0 ou -.",
+        "Améliorer CC, CT, Sv ou Cd soustrait la valeur au nombre avant + ; les dégrader y ajoutent la valeur. Améliorer la PA soustrait la valeur, et la réduire ou dégrader l'ajoute jusqu'à un maximum de 0. Les autres caractéristiques sans symbole + ou - sont améliorées par addition et dégradées par soustraction.",
+        "Les modificateurs de jet s'appliquent après les relances. Un jet non modifié est son résultat après les relances, mais avant les modificateurs. Un dé ne peut pas être modifié au-delà de son maximum ni sous 1.",
+        "Les modificateurs cumulatifs de jets de touche et de blessure sont plafonnés à -1 et +1. Les jets de charge sont plafonnés à 12 après modificateurs.",
+        "Sauf mention contraire, ignorer les modificateurs permet de choisir d'ignorer tous les modificateurs concernés ou seulement certains d'entre eux."
+      ]
+    },
+    {
+      "id": "02.02.03",
+      "title": "Caractéristiques Aléatoires",
+      "captureIds": [
+        "reference-capture-010",
+        "reference-capture-011",
+        "reference-capture-012"
+      ],
+      "statements": [
+        "Une caractéristique de M aléatoire est déterminée une fois pour l'unité lorsque celle-ci est choisie pour se déplacer.",
+        "Une caractéristique d'A aléatoire est déterminée lorsque les attaques de l'arme sont générées à l'étape Résoudre les Attaques (04.03). Des armes à A aléatoire qui effectuent des attaques identiques génèrent leurs attaques individuellement avant d'être groupées.",
+        "Une caractéristique de D aléatoire est déterminée chaque fois que l'attaque inflige des dégâts, lorsque le joueur adverse a choisi la figurine de l'unité cible à laquelle allouer l'attaque. Ce jet est un jet de dégâts.",
+        "Dans une caractéristique de D telle que D6+1, la valeur après + fait partie de la caractéristique et n'est pas un modificateur.",
+        "Toute autre caractéristique aléatoire est déterminée individuellement, par figurine ou par arme, chaque fois qu'elle est requise."
+      ]
+    },
+    {
+      "id": "04.03.01",
+      "title": "Attaques Identiques",
+      "captureIds": ["reference-capture-013", "reference-capture-014"],
+      "statements": [
+        "Des attaques identiques ont les mêmes caractéristiques de CT/CC, F, PA et D, et sont affectées par les mêmes règles et aptitudes applicables."
+      ]
+    },
+    {
+      "id": "04.03.03",
+      "title": "Cible n’Étant plus Éligible ni Viable",
+      "captureIds": ["reference-capture-015", "reference-capture-016"],
+      "statements": [
+        "Si une unité qui était une cible éligible lorsqu'elle a été choisie ne l'est plus, le joueur en contrôle peut choisir de nouvelles cibles."
+      ]
+    },
+    {
+      "id": "05.03.02",
+      "title": "Attaques Modifiées lors des jets de Touche et de Blessure",
+      "captureIds": ["reference-capture-021", "reference-capture-022"],
+      "statements": [
+        "Une attaque modifiée par les valeurs de ses jets de touche ou de blessure est répartie dans une réserve d'attaques correspondant à son nouveau profil d'attaque identique.",
+        "Le joueur actif choisit la réserve d'attaques à résoudre en premier aux étapes 05.03 et 05.04, puis répète ce choix jusqu'à résolution de toutes les réserves."
+      ]
+    },
+    {
+      "id": "01.05.02",
+      "title": "Relances",
+      "captureIds": ["reference-capture-023", "reference-capture-024"],
+      "statements": [
+        "Certaines règles permettent de relancer un jet de dé : le joueur peut jeter à nouveau certains ou tous les dés concernés.",
+        "Quand une règle permet de relancer un jet de dé fait en ajoutant plusieurs dés ensemble, par exemple 2D6 ou 3D6, tous ces dés doivent être jetés à nouveau.",
+        "Un dé ne peut jamais être relancé plus d'une fois, et les relances ont lieu avant l'application des modificateurs éventuels.",
+        "Un dé relancé est toujours considéré comme un jet de dé : les règles déclenchées par un jet de dé peuvent donc être déclenchées par des dés relancés."
+      ]
+    }
+  ],
+  "simulatorReadiness": {
+    "liftsDocumentaryBlockers": ["SIM-M5-T02.1", "SIM-M5-T02.2", "SIM-M5-T03.1"],
+    "supportsLaterCapabilities": ["SIM-M5-T04.2", "SIM-M5-T04.4", "SIM-M5-T05.2"],
+    "remainingGaps": [
+      "La définition Profils d'Arme Multiples n'est pas présente dans ce lot.",
+      "Aucun nouveau profil ou loadout M5 n'est approuvé par cette ressource."
+    ]
+  }
+}

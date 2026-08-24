@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { createPrngState, rollDice } from '../domain';
-import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, requiredWoundRoll, resolveBasicShooting } from './shooting';
+import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, requiredWoundRoll, resolveBasicShooting, resolveRerollableHitStage, resolveRerollableShootingContinuation, resolveRerollableWoundStage } from './shooting';
+import { OFFICIAL_APP_MODIFIERS_SOURCE, OFFICIAL_APP_REROLLS_SOURCE } from './m5-source-references';
+import { CORE_ANTI_SOURCE, CORE_LETHAL_HITS_SOURCE, CORE_SUSTAINED_HITS_SOURCE } from './m5-source-references';
 
 const request = {
   attackerId: 'red-unit',
@@ -12,6 +14,14 @@ const request = {
 } as const;
 
 describe('closed core shooting sequence', () => {
+  const firstSeedForFaces = (faces: readonly number[]): ReturnType<typeof createPrngState> => {
+    for (let seed = 0; seed < 100_000; seed += 1) {
+      const outcome = rollDice(createPrngState(seed), 6, faces.length);
+      if (outcome.results.every((face, index) => face === faces[index])) return createPrngState(seed);
+    }
+    throw new Error(`Missing deterministic seed for D6=${faces.join(',')}.`);
+  };
+
   it('uses the official strength versus toughness table', () => {
     expect([requiredWoundRoll(8, 4), requiredWoundRoll(5, 4), requiredWoundRoll(4, 4), requiredWoundRoll(3, 4), requiredWoundRoll(2, 4)]).toEqual([2, 3, 4, 5, 6]);
   });
@@ -124,5 +134,226 @@ describe('closed core shooting sequence', () => {
     const distant = resolveBasicShooting({ ...request, distance: 25 * 254 }, seed);
     expect(hidden).toMatchObject({ accepted: false, code: 'not-visible', prngAfter: seed });
     expect(distant).toMatchObject({ accepted: false, code: 'out-of-range', prngAfter: seed });
+  });
+
+  it('preserves natural 1 failures and natural 6 critical hits after hit modifiers', () => {
+    const firstSeedFor = (face: number) => {
+      for (let seed = 0; seed < 10_000; seed += 1) {
+        if (rollDice(createPrngState(seed), 6, 1).results[0] === face) return createPrngState(seed);
+      }
+      throw new Error(`Missing deterministic seed for D6=${face}.`);
+    };
+    const naturalOne = resolveBasicShooting({
+      ...request,
+      weapon: { ...request.weapon, attacks: 1, ballisticSkill: 2 },
+      attackModifiers: { rerollFailedHits: false, woundRollModifier: 0, sourceRefs: [OFFICIAL_APP_MODIFIERS_SOURCE], hitRollModifiers: { modifiers: [{ id: 'plus-one', value: 1, source: OFFICIAL_APP_MODIFIERS_SOURCE }] } }
+    }, firstSeedFor(1));
+    const naturalSix = resolveBasicShooting({
+      ...request,
+      weapon: { ...request.weapon, attacks: 1, ballisticSkill: 7 },
+      attackModifiers: { rerollFailedHits: false, woundRollModifier: 0, sourceRefs: [OFFICIAL_APP_MODIFIERS_SOURCE], hitRollModifiers: { modifiers: [{ id: 'minus-one', value: -1, source: OFFICIAL_APP_MODIFIERS_SOURCE }] } }
+    }, firstSeedFor(6));
+    expect(naturalOne).toMatchObject({ accepted: true, hitRequired: 2, hitRolls: [{ roll: 1, modifiedRoll: 2, hit: false, critical: false }] });
+    expect(naturalSix).toMatchObject({ accepted: true, hitRequired: 7, hitRolls: [{ roll: 6, modifiedRoll: 5, hit: true, critical: true }] });
+  });
+
+  it('treats a matching [ANTI-X Y+] threshold as a critical wound while a natural 1 still fails', () => {
+    const antiWeapon = {
+      ...request.weapon,
+      attacks: 1,
+      ballisticSkill: 2,
+      strength: 1,
+      armourPenetration: -6,
+      weaponKeywords: [{ kind: 'anti' as const, targetKeyword: 'INFANTRY', criticalWound: 4 as const, source: CORE_ANTI_SOURCE }]
+    };
+    const matching = resolveBasicShooting({
+      ...request,
+      weapon: antiWeapon,
+      target: { ...request.target, keywords: ['Infantry'] }
+    }, firstSeedForFaces([2, 4, 1]));
+    const nonMatching = resolveBasicShooting({
+      ...request,
+      weapon: antiWeapon,
+      target: { ...request.target, keywords: ['VEHICLE'] }
+    }, firstSeedForFaces([2, 4]));
+    const naturalOne = resolveBasicShooting({
+      ...request,
+      weapon: antiWeapon,
+      target: { ...request.target, keywords: ['INFANTRY'] }
+    }, firstSeedForFaces([2, 1]));
+    expect(matching).toMatchObject({ accepted: true, woundRolls: [{ roll: 4, wound: true, critical: true }] });
+    expect(nonMatching).toMatchObject({ accepted: true, woundRolls: [{ roll: 4, wound: false, critical: false }] });
+    expect(naturalOne).toMatchObject({ accepted: true, woundRolls: [{ roll: 1, wound: false, critical: false }] });
+  });
+
+  it('adds [SUSTAINED HITS X] as distinct non-critical hits in deterministic draw order', () => {
+    const sustained = resolveBasicShooting({
+      ...request,
+      weapon: {
+        ...request.weapon,
+        attacks: 1,
+        ballisticSkill: 2,
+        weaponKeywords: [{ kind: 'sustained-hits', value: 2, source: CORE_SUSTAINED_HITS_SOURCE }]
+      }
+    }, firstSeedForFaces([6, 1, 1, 1]));
+    expect(sustained.accepted).toBe(true);
+    if (!sustained.accepted) return;
+    expect(sustained.hitRolls).toEqual([expect.objectContaining({ attackIndex: 0, roll: 6, critical: true, sustainedHitsGenerated: 2 })]);
+    expect(sustained.hits).toBe(3);
+    expect(sustained.woundRolls).toEqual([
+      expect.objectContaining({ attackIndex: 0, roll: 1, wound: false }),
+      expect.objectContaining({ attackIndex: 1, roll: 1, wound: false, generatedByCriticalHitOfAttackIndex: 0 }),
+      expect.objectContaining({ attackIndex: 2, roll: 1, wound: false, generatedByCriticalHitOfAttackIndex: 0 })
+    ]);
+    expect(sustained.steps.map((step) => step.attackIndex)).toEqual([0, 1, 2]);
+    expect(sustained.sourceRefs).toContainEqual(CORE_SUSTAINED_HITS_SOURCE);
+  });
+
+  it('rejects [LETHAL HITS] before entropy until each critical-hit decision can be journaled', () => {
+    const seed = createPrngState(91);
+    const lethal = resolveBasicShooting({
+      ...request,
+      weapon: {
+        ...request.weapon,
+        attacks: 1,
+        ballisticSkill: 2,
+        strength: 1,
+        armourPenetration: -6,
+        weaponKeywords: [{ kind: 'lethal-hits', source: CORE_LETHAL_HITS_SOURCE }]
+      }
+    }, seed);
+    expect(lethal).toMatchObject({
+      accepted: false,
+      code: 'lethal-hits-decision-required',
+      prngAfter: seed
+    });
+    expect(lethal.accepted ? [] : lethal.sourceRefs).toContainEqual(CORE_LETHAL_HITS_SOURCE);
+  });
+
+  it('rejects an unproved or duplicated critical-trigger fact before consuming entropy', () => {
+    const seed = createPrngState(9);
+    const duplicate = resolveBasicShooting({
+      ...request,
+      weapon: {
+        ...request.weapon,
+        weaponKeywords: [
+          { kind: 'lethal-hits', source: CORE_LETHAL_HITS_SOURCE },
+          { kind: 'lethal-hits', source: CORE_LETHAL_HITS_SOURCE }
+        ]
+      }
+    }, seed);
+    const forged = resolveBasicShooting({
+      ...request,
+      weapon: {
+        ...request.weapon,
+        weaponKeywords: [{ kind: 'anti', targetKeyword: 'INFANTRY', criticalWound: 4, source: { ...CORE_ANTI_SOURCE, page: 80 } }]
+      },
+      target: { ...request.target, keywords: ['INFANTRY'] }
+    }, seed);
+    expect(duplicate).toMatchObject({ accepted: false, code: 'invalid-profile', prngAfter: seed });
+    expect(forged).toMatchObject({ accepted: false, code: 'invalid-profile', prngAfter: seed });
+  });
+
+  it('rolls a covered random D only after an unsaved allocation and records every result for replay', () => {
+    const seed = createPrngState(0x57465247);
+    const variableDamage = resolveBasicShooting({
+      ...request,
+      weapon: {
+        ...request.weapon,
+        attacks: 12,
+        ballisticSkill: 2,
+        strength: 8,
+        armourPenetration: -6,
+        damage: 1,
+        randomDamage: 'D3'
+      }
+    }, seed);
+    const fixedDamage = resolveBasicShooting({
+      ...request,
+      weapon: { ...request.weapon, attacks: 12, ballisticSkill: 2, strength: 8, armourPenetration: -6, damage: 1 }
+    }, seed);
+    expect(variableDamage.accepted).toBe(true);
+    expect(fixedDamage.accepted).toBe(true);
+    if (!variableDamage.accepted || !fixedDamage.accepted) return;
+    const damaged = variableDamage.allocations.filter((allocation) => allocation.damage !== undefined);
+    expect(damaged.length).toBeGreaterThan(0);
+    expect(damaged.every((allocation) => allocation.randomDamage?.expression === 'D3'
+      && allocation.randomDamage.dice.length === 1
+      && allocation.randomDamage.value >= 1
+      && allocation.randomDamage.value <= 3)).toBe(true);
+    expect(variableDamage.prngAfter.draws).toBeGreaterThan(fixedDamage.prngAfter.draws);
+    expect(variableDamage.steps.filter((step) => step.damage !== undefined).every((step) => step.randomDamage?.expression === 'D3')).toBe(true);
+  });
+
+  it('rejects malformed random D before consuming entropy', () => {
+    const seed = createPrngState(9);
+    expect(resolveBasicShooting({
+      ...request,
+      weapon: { ...request.weapon, randomDamage: 'D8' }
+    }, seed)).toMatchObject({ accepted: false, code: 'invalid-profile', prngAfter: seed });
+  });
+});
+
+describe('generic individual D6 rerolls', () => {
+  const firstSeedForFaces = (faces: readonly number[]): ReturnType<typeof createPrngState> => {
+    for (let seed = 0; seed < 100_000; seed += 1) {
+      const outcome = rollDice(createPrngState(seed), 6, faces.length);
+      if (outcome.results.every((face, index) => face === faces[index])) return createPrngState(seed);
+    }
+    throw new Error(`Missing deterministic seed for D6=${faces.join(',')}.`);
+  };
+
+  const rerollRequest = (attacks = 1) => ({
+    ...request,
+    weapon: { ...request.weapon, attacks, ballisticSkill: 3 },
+    attackModifiers: { rerollFailedHits: false, woundRollModifier: 0 as const, sourceRefs: [OFFICIAL_APP_REROLLS_SOURCE] }
+  });
+
+  it('lets the player keep or reroll each individual hit die, leaving untouched dice unchanged', () => {
+    const seed = firstSeedForFaces([1, 4, 6]);
+    const hitStage = resolveRerollableHitStage(rerollRequest(2), seed);
+    expect(hitStage).toMatchObject({ accepted: true, hitRolls: [{ attackIndex: 0, roll: 1 }, { attackIndex: 1, roll: 4 }] });
+    if (!hitStage.accepted) return;
+    const woundStage = resolveRerollableWoundStage(rerollRequest(2), hitStage, [
+      { groupIndex: 0, attackIndex: 0, rollKind: 'hit', optionId: 'keep' },
+      { groupIndex: 0, attackIndex: 1, rollKind: 'hit', optionId: 'reroll' }
+    ], hitStage.prngAfter);
+    expect(woundStage.accepted).toBe(true);
+    if (!woundStage.accepted) return;
+    expect(woundStage.hitRolls[0]).toMatchObject({ roll: 1, hit: false });
+    expect(woundStage.hitRolls[1]).toMatchObject({ roll: 4, rerollRoll: 6, hit: true, critical: true });
+  });
+
+  it('applies the chosen reroll before hit modifiers and treats its natural six as critical', () => {
+    const seed = firstSeedForFaces([1, 6]);
+    const stagedRequest = {
+      ...rerollRequest(),
+      weapon: { ...rerollRequest().weapon, ballisticSkill: 7 },
+      attackModifiers: {
+        rerollFailedHits: false,
+        woundRollModifier: 0 as const,
+        sourceRefs: [OFFICIAL_APP_REROLLS_SOURCE, OFFICIAL_APP_MODIFIERS_SOURCE],
+        hitRollModifiers: { modifiers: [{ id: 'minus-one', value: -1, source: OFFICIAL_APP_MODIFIERS_SOURCE }] }
+      }
+    };
+    const hitStage = resolveRerollableHitStage(stagedRequest, seed);
+    if (!hitStage.accepted) throw new Error(hitStage.message);
+    const woundStage = resolveRerollableWoundStage(stagedRequest, hitStage, [{ groupIndex: 0, attackIndex: 0, rollKind: 'hit', optionId: 'reroll' }], hitStage.prngAfter);
+    expect(woundStage).toMatchObject({ accepted: true, hitRolls: [{ roll: 1, rerollRoll: 6, modifiedRoll: 5, hit: true, critical: true }] });
+  });
+
+  it('journals one optional wound reroll and rejects an attempted second reroll without consuming entropy', () => {
+    const seed = firstSeedForFaces([6, 1, 6]);
+    const hitStage = resolveRerollableHitStage(rerollRequest(), seed);
+    if (!hitStage.accepted) throw new Error(hitStage.message);
+    const woundStage = resolveRerollableWoundStage(rerollRequest(), hitStage, [{ groupIndex: 0, attackIndex: 0, rollKind: 'hit', optionId: 'keep' }], hitStage.prngAfter);
+    if (!woundStage.accepted) throw new Error(woundStage.message);
+    const completed = resolveRerollableShootingContinuation(rerollRequest(), woundStage, [{ groupIndex: 0, attackIndex: 0, rollKind: 'wound', optionId: 'reroll' }], woundStage.prngAfter);
+    expect(completed).toMatchObject({ accepted: true, woundRolls: [{ roll: 1, rerollRoll: 6, wound: true, critical: true }] });
+    const tampered = resolveRerollableShootingContinuation(rerollRequest(), woundStage, [
+      { groupIndex: 0, attackIndex: 0, rollKind: 'wound', optionId: 'reroll' },
+      { groupIndex: 0, attackIndex: 0, rollKind: 'wound', optionId: 'reroll' }
+    ], woundStage.prngAfter);
+    expect(tampered).toMatchObject({ accepted: false, code: 'invalid-profile', prngAfter: woundStage.prngAfter });
   });
 });

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "warforge-official-app-errata-screenshot-archive/v1",
+  "id": "warforge-official-app-errata-fr-2026-07",
+  "title": "Mises à jour & errata — application officielle Warhammer 40,000 (français)",
+  "publisher": "Games Workshop",
+  "product": "Warhammer 40,000 App",
+  "locale": "fr-FR",
+  "authority": "official-app",
+  "visibleLastUpdated": "2026-07-22",
+  "capturedAt": "2026-08-24",
+  "suppliedBy": "project-owner",
+  "sourceFolderUrl": "https://drive.google.com/drive/folders/1IHt3fZYQRTParpxlsQyIB7idkMrUdbG2",
+  "limitations": [
+    "Archive limitée aux captures fournies ; elle ne prouve pas que la liste complète des errata ne contient pas d'autres entrées.",
+    "Les corrections sont transcrites dans warforge-pwa/data/rules/official-app-errata-fr-2026-07.json.",
+    "Une correction ne devient jamais exécutable sans rulepack, tests déterministes et activation explicite de son jalon propriétaire."
+  ],
+  "screenshots": [
+    {
+      "id": "errata-capture-001",
+      "file": "001_Screenshot_20260824_092011_WH_40K.jpg",
+      "driveFileId": "1_9SaSzqeV-BnVShqRSyWhcO-4Ok1I3g9",
+      "bytes": 639993,
+      "sha256": "5f64f4d7bb290d145558e601e47e96fe21c5582de29381657ef8f577f7eca2e7"
+    },
+    {
+      "id": "errata-capture-002",
+      "file": "002_Screenshot_20260824_092015_WH_40K.jpg",
+      "driveFileId": "19rozLSe8l2b0Ujoy98hVVIKUG6dYrEBJ",
+      "bytes": 585105,
+      "sha256": "1375038cade0832c8b36512573e0711ace4d2b90edd46379695a557a469798ca"
+    }
+  ]
+}

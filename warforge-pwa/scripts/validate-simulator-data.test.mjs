@@ -24,7 +24,7 @@ describe('simulator data contract', () => {
   it('validates ready synthetic fixtures without claiming scenario or rule coverage', async () => {
     const { manifest } = await validateSimulatorData();
     expect(manifest.schemaVersion).toBe('warforge-simulator-manifest/v1');
-    expect(manifest.version).toBe('0.1.0');
+    expect(manifest.version).toBe('0.3.0');
   });
 
   it.each([
@@ -130,6 +130,13 @@ describe('simulator data contract', () => {
     ['missing snapshot date', (source) => { delete source.retrievedAt; }, /retrievedAt requis/]
   ])('rejects an official source with %s', async (_label, mutate, message) => {
     await expectInvalidMutation('manifest.json', (document) => mutate(document.sources[0]), message);
+  });
+
+  it.each([
+    ['forged archive hash', (source) => { source.sha256 = '0'.repeat(64); }, /sha256 ne correspond pas à l'archive locale/],
+    ['missing app archive', (source) => { source.path = '../references/warhammer-40k/rules/commentary/missing/archive.json'; }, /archive locale introuvable/]
+  ])('rejects the official app FAQ source with %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'warforge-official-app-faq-fr-2026-07')), message);
   });
 
   it.each([

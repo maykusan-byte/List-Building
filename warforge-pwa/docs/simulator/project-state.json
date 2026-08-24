@@ -1,13 +1,13 @@
 {
   "schemaVersion": "warforge-simulator-project/v1",
-  "planVersion": "2.3.0",
+  "planVersion": "2.3.3",
   "planChange": {
-    "version": "2.3.0",
-    "adrId": "ADR-009"
+    "version": "2.3.3",
+    "adrId": "ADR-012"
   },
-  "updatedAt": "2026-08-21T12:39:34.997Z",
-  "currentMilestoneId": "M4",
-  "currentTaskId": "SIM-M4-T05",
+  "updatedAt": "2026-08-24T12:34:33.210Z",
+  "currentMilestoneId": "M5",
+  "currentTaskId": "SIM-M5-T04",
   "milestones": [
     {
       "id": "M0",
@@ -105,7 +105,7 @@
     {
       "id": "M4",
       "title": "Duel réel pilote Salamanders–Blood Angels",
-      "status": "in_progress",
+      "status": "accepted",
       "taskIds": [
         "SIM-M4-T01",
         "SIM-M4-T02",
@@ -118,12 +118,22 @@
       ],
       "acceptanceCriteria": [
         "Deux petits RosterDraft réels, Salamanders et Blood Angels, terminent le duel de mouvement et de tir sans règle obligatoire ignorée."
-      ]
+      ],
+      "acceptedAt": "2026-08-24T05:00:39.215Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "Acceptation M4 après audit indépendant Sol high, validations complètes et preuves de toutes les tâches",
+        "result": "passed",
+        "scope": "M4 : real-roster-shooting-duel-v1, rosters Salamanders/Blood Angels approuvés, runtime, données, UI, persistance et tests",
+        "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high",
+        "recordedAt": "2026-08-24T05:00:39.215Z",
+        "notes": "Accepté comme duel réel pilote fermé : 4 unités, 14 figurines, placement prédéfini et terrain local approuvé. Ne couvre pas Charge, Combat, objectifs, missions, réserves, transports, ni les factions ou catalogues au-delà des identifiants figés."
+      }
     },
     {
       "id": "M5",
       "title": "Tir étendu fiable",
-      "status": "planned",
+      "status": "in_progress",
       "taskIds": [
         "SIM-M5-T01",
         "SIM-M5-T02",
@@ -1188,7 +1198,7 @@
       "id": "SIM-M4-T05",
       "milestoneId": "M4",
       "title": "Livrer le parcours de duel réel",
-      "status": "in_progress",
+      "status": "done",
       "dependencies": [
         "SIM-M4-T08"
       ],
@@ -1200,7 +1210,9 @@
           "description": "L'UI charge les deux rosters, permet mouvement et tir couverts, explique les refus, sauvegarde et reprend la session.",
           "evidenceIds": [
             "EVD-M4-T05-001",
-            "EVD-M4-T05-002"
+            "EVD-M4-T05-002",
+            "EVD-M4-T05-003",
+            "EVD-M4-T05-004"
           ]
         }
       ],
@@ -1222,6 +1234,25 @@
           "scope": "SIM-M4-T05 : parcours UI du duel réel, deux rosters, sélection modèle/cible, Oath, mouvement M4, tir autoritaire, pertes, export V2, reprise IndexedDB, replay, comportement mobile et non-régressions M3/M2.",
           "recordedAt": "2026-08-21T12:39:34.997Z",
           "notes": "Preuve fraîche après finalisation UI : Playwright exécute Oath, refus >6 pouces sans événement, deux mouvements légaux, tir M4, export V2, reprise IndexedDB exacte et replay ; M3 et M2 restent accessibles. Revue indépendante critique encore requise avant clôture."
+        },
+        {
+          "id": "EVD-M4-T05-003",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "Domaine GameState (mouvement/tir), runtime M4, UI du duel réel et régression navigateur M2/M3/M4",
+          "recordedAt": "2026-08-24T04:55:58.279Z",
+          "notes": "2026-08-24 : données valides, tracker valide, tsc vert, 305 tests unitaires, Playwright 3/3, build PWA et contrôle de diff réussis. Les usages de mouvement et d’arme sont autoritaires, déterministes et rejouables."
+        },
+        {
+          "id": "EVD-M4-T05-004",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high : flux utilisateur normal M4, autorité runtime, persistance V2 et régressions",
+          "result": "passed",
+          "scope": "SIM-M4-T05 : domaine, runtime, UI, persistance et parcours navigateur",
+          "recordedAt": "2026-08-24T04:56:04.094Z",
+          "notes": "Verdict PASS safe-to-mark-done : aucun finding P1/P2. Vérifications ciblées 43/43, Playwright 3/3, lint, tracker et git diff --check verts; import V2, reprise IndexedDB et replay cohérents.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
         }
       ],
       "actualExecution": {
@@ -1230,14 +1261,14 @@
         "context": "Implémentation UI bornée du pilote M4, conforme au profil implementation-routine : le constructeur M4 autoritaire reste l’unique frontière de commandes.",
         "recordedAt": "2026-08-21T12:38:09.986Z"
       },
-      "updatedAt": "2026-08-21T12:39:03.717Z",
-      "scopeUpdatedAt": "2026-08-21T12:39:03.717Z"
+      "updatedAt": "2026-08-24T04:56:07.887Z",
+      "scopeUpdatedAt": "2026-08-24T04:55:51.177Z"
     },
     {
       "id": "SIM-M4-T06",
       "milestoneId": "M4",
       "title": "Auditer le duel réel de bout en bout",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M4-T05"
       ],
@@ -1247,18 +1278,36 @@
         {
           "id": "AC-01",
           "description": "Le duel exact Salamanders–Blood Angels passe tests, probes adversariaux, Playwright, export, reprise et replay sans divergence.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M4-T06-001"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M4-T06-001",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high : tests, probes de refus, Playwright, export/import V2, reprise IndexedDB, replay et périmètre M4",
+          "result": "passed",
+          "scope": "Duel réel fermé real-roster-shooting-duel-v1 : deux rosters approuvés, runtime, persistance, UI et données M4",
+          "recordedAt": "2026-08-24T05:00:29.488Z",
+          "notes": "PASS : 2 rosters, 4 unités, 14 figurines. Gates : données simulateur, 305 tests, lint, Playwright 3/3, tracker et diff. Refus testés sans mutation d’événement ni de PRNG; V2/import/reprise/replay liés aux empreintes M4. Limites : pas de Charge, Combat, objectifs, missions, réserves, transports ni support global de faction.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Audit indépendant à contexte frais des artefacts, preuves et parcours M4; aucune modification autorisée.",
+        "recordedAt": "2026-08-24T04:56:27.853Z"
+      },
+      "updatedAt": "2026-08-24T05:00:33.438Z"
     },
     {
       "id": "SIM-M5-T01",
       "milestoneId": "M5",
       "title": "Formaliser la matrice du tir étendu",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M4-T06"
       ],
@@ -1268,18 +1317,47 @@
         {
           "id": "AC-01",
           "description": "Les écarts révélés par les rosters pilotes sont ordonnés en capacités atomiques avec sources, décisions et golden cases.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M5-T01-001",
+            "EVD-M5-T01-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M5-T01-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm exec vitest run --config vite.config.ts src/simulator/rules/shooting.test.ts src/simulator/orchestration/shooting.test.ts src/simulator/runtime/m4-real-roster-session.test.ts; git diff --check",
+          "result": "passed",
+          "scope": "Matrice M5, preuves de source M4 et tests de régression du pipeline de tir",
+          "recordedAt": "2026-08-24T05:15:17.040Z",
+          "notes": "Matrice draft créée : 14 capacités atomiques, sources locales, ordre T02→T06, golden cases et refus pré-PRNG. 38 tests ciblés, validation des données et tracker verts. Les sources/approbations manquantes restent explicitement candidate/blocked ou deferred."
+        },
+        {
+          "id": "EVD-M5-T01-002",
+          "kind": "independent-review",
+          "command": "Revue indépendante Sol high de la matrice M5 et de son corpus/provenance",
+          "result": "passed",
+          "scope": "docs/simulator/m5-shooting-capability-matrix.md, manifest/règles/facts M4 cités",
+          "recordedAt": "2026-08-24T05:15:25.554Z",
+          "notes": "PASS : corrections Sv/SvIn, aptitudes dupliquées et statut candidate vérifiées. La matrice conserve effectiveDate:null, n'étend pas M4, et n'annonce aucune capacité M5 covered.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Formalisation critique : matrice atomique des écarts de tir M4, sources locales vérifiées, décisions et golden cases; aucune couverture implicite.",
+        "recordedAt": "2026-08-24T05:01:36.948Z"
+      },
+      "updatedAt": "2026-08-24T05:15:33.020Z",
+      "scopeUpdatedAt": "2026-08-24T05:15:10.066Z"
     },
     {
       "id": "SIM-M5-T02",
       "milestoneId": "M5",
       "title": "Couvrir volumes et modificateurs de tir",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T01",
         "SIM-M3-T02"
@@ -1290,18 +1368,101 @@
         {
           "id": "AC-01",
           "description": "Attaques variables, modificateurs de CT, portée et ordre d'application sont déterministes, sourcés et rejouables.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M5-T02-007",
+            "EVD-M5-T02-008"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M5-T02-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm faction-packs:validate; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 partiel : sources canonisées, volumes d’attaque et sélection unique; M3/M4 préservés",
+          "recordedAt": "2026-08-24T06:37:26.809Z",
+          "notes": "Validation après revue coordinateur : 307 tests unitaires, Playwright 3/3, TypeScript et build PWA. Implémentation limitée aux références 10.02, 24.05 et 24.30; aucune capacité M5 n’est promue covered avant clôture critique."
+        },
+        {
+          "id": "EVD-M5-T02-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm faction-packs:validate; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 partiel : normalisation stricte, volumes d’attaque, sélection unique et provenance des sources; M3/M4 préservés",
+          "recordedAt": "2026-08-24T06:43:38.114Z",
+          "notes": "Validation finale de cet incrément : données simulateur et 28 packs valides, 322 tests unitaires, Playwright 3/3, TypeScript et build PWA. T02.0/T02.3/T02.4 restent implemented-pending-task dans la matrice, sans claim covered."
+        },
+        {
+          "id": "EVD-M5-T02-003",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm build; pnpm simulator:project:check; git diff --check",
+          "result": "passed",
+          "scope": "Import canonique de la FAQ française de l'application officielle : archive de 17 captures, transcription de 47 entrées, manifeste 0.3.0 et contrôles d'intégrité",
+          "recordedAt": "2026-08-24T07:12:12.991Z",
+          "notes": "Les clarifications +1 en A et couvert par figurine attaquante sont désormais sourcées comme reference-only. Aucun rulepack ou statut covered n'est modifié : les définitions générales de caractéristiques aléatoires, ordre des modificateurs et modification des jets restent absentes, donc BLK-004 demeure."
+        },
+        {
+          "id": "EVD-M5-T02-004",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 intermédiaire : corpus officiel application (22 références, 2 errata), contrats purs de caractéristiques aléatoires et modificateurs sourcés",
+          "recordedAt": "2026-08-24T08:12:22.674Z",
+          "notes": "Les sections 02.02.01 et 02.02.03 sont archivées, transcrites et validées. Les nouvelles primitives refusent syntaxe, provenance ou fenêtre inconnues sans tirer de dé. Les profils d’équipement M4 restent inchangés, et M5-T02 n’est pas clôturée : l’intégration aux événements/replays de tir reste à réaliser puis à auditer."
+        },
+        {
+          "id": "EVD-M5-T02-005",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : intégration fixture des A/D aléatoires et des plans de portée, A, CT et jet de touche dans événements et replay",
+          "recordedAt": "2026-08-24T09:07:32.795Z",
+          "notes": "345 tests unitaires, Playwright 3/3 et build PWA réussis. Les événements conservent les dés A/D, les valeurs appliquées, les preuves de source et la chaîne PRNG; un plan source inconnu est refusé à la mise en place sans entropie. Les profils et options M4 réels restent strictement inchangés. La clôture demeure soumise à la revue indépendante critique requise par le routage."
+        },
+        {
+          "id": "EVD-M5-T02-006",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : séquençage 02.02.03 de tous les A aléatoires avant touches, D après allocation, et modificateurs fixture sourcés avec replay",
+          "recordedAt": "2026-08-24T09:12:15.446Z",
+          "notes": "345 tests unitaires, Playwright 3/3 et build PWA réussis. La génération de toutes les caractéristiques A aléatoires précède désormais les jets de touche, preuve de chaîne PRNG incluse. Les capacités restent implemented-pending-task, sans activation de loadout réel M4; une revue Sol high indépendante est requise avant AC-01/done."
+        },
+        {
+          "id": "EVD-M5-T02-007",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : D3 sur D6, A aléatoire par arme physique, modificateurs/CT/1-6 naturels, replay strict et non-régression M2/M3/M4",
+          "recordedAt": "2026-08-24T09:38:20.263Z",
+          "notes": "351 tests unitaires, Playwright 3/3 et build PWA réussis. Les contrôles tracker, données simulateur, corpus de règles et diff sont également passés; seul l’avertissement usuel de taille de chunk Vite subsiste."
+        },
+        {
+          "id": "EVD-M5-T02-008",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high : revue corrective des contrats, événements, replay et refus stricts M5-T02",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : D3 sur D6, A aléatoire par arme physique, modificateurs/CT/1-6 naturels, replay strict et non-régression M2/M3/M4",
+          "recordedAt": "2026-08-24T09:38:26.177Z",
+          "notes": "PASS sans constat P1/P2. La revue a notamment vérifié le D3 par D6, les volumes aléatoires par arme physique, les naturels 1/6, les bornes CT, les modificateurs inconnus et la validation du replay.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Implémentation complexe bornée : volumes d’attaque, garde de sélection de tir et rejouabilité ; formalisation T01 et sources core 10.02, 24.05, 24.30 imposées.",
+        "recordedAt": "2026-08-24T06:23:27.865Z"
+      },
+      "updatedAt": "2026-08-24T09:38:30.175Z",
+      "scopeUpdatedAt": "2026-08-24T06:43:38.031Z"
     },
     {
       "id": "SIM-M5-T03",
       "milestoneId": "M5",
       "title": "Couvrir relances et déclencheurs critiques",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T02"
       ],
@@ -1311,18 +1472,103 @@
         {
           "id": "AC-01",
           "description": "Relances, touches et blessures critiques ainsi que leurs mots-clés déclenchés suivent une séquence explicable.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M5-T03-006",
+            "EVD-M5-T03-007"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M5-T03-001",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 intermédiaire : critiques, ANTI et Touches soutenues sourcés/rejouables ; refus pré-PRNG de Touches fatales tant que le choix par critique n'est pas journalisé",
+          "recordedAt": "2026-08-24T09:59:16.819Z",
+          "notes": "364 tests unitaires et Playwright 3/3 réussis, ainsi que données, tracker, corpus, lint, build et diff. Preuve intermédiaire seulement : AC-01 n'est volontairement pas renseigné, car les relances et la fenêtre DecisionRequest de Touches fatales restent à couvrir."
+        },
+        {
+          "id": "EVD-M5-T03-002",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 : critiques, ANTI et Touches soutenues sourcés/rejouables, identifiants globaux uniques entre groupes, validation fermée au setup et refus pré-PRNG de Touches fatales",
+          "recordedAt": "2026-08-24T10:08:31.901Z",
+          "notes": "366 tests unitaires, Playwright 3/3, données simulateur, tracker, corpus, lint, build PWA et diff réussis. Preuve intermédiaire : AC-01 reste non satisfaite, car DecisionRequest par touche critique et la définition canonique de Relances/JUMELÉ restent à couvrir."
+        },
+        {
+          "id": "EVD-M5-T03-003",
+          "kind": "independent-review",
+          "command": "Revue indépendante Sol high : correction des identifiants de Touches soutenues et validation fermée des mots-clés au setup",
+          "result": "passed",
+          "scope": "SIM-M5-T03 : critiques, ANTI et Touches soutenues sourcés/rejouables, identifiants globaux uniques entre groupes, validation fermée au setup et refus pré-PRNG de Touches fatales",
+          "recordedAt": "2026-08-24T10:08:31.994Z",
+          "notes": "PASS sans constat P1/P2 après correction : index continus et uniques, origine critique rebased, replay exact; keywords forgés/inconnus/dupliqués/null refusés invalid-weapon-profile avant événement et PRNG. La revue confirme que T03 reste in_progress.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        },
+        {
+          "id": "EVD-M5-T03-004",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 V3 : Touches fatales fixture-only, choix humain par critique, journal interrompu, autosave/import/replay autoritaires, V1/V2 préservées et rejets de falsification",
+          "recordedAt": "2026-08-24T10:41:02.505Z",
+          "notes": "370 tests unitaires, Playwright 3/3, données simulateur, tracker, corpus, lint, build PWA et diff réussis. Preuve intermédiaire : AC-01 reste non satisfaite car les relances génériques/JUMELÉ exigent toujours la définition canonique locale de Relances."
+        },
+        {
+          "id": "EVD-M5-T03-005",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high : ADR-010, flux létal interrompu, V3 et corrections de replay/versionnement",
+          "result": "passed",
+          "scope": "SIM-M5-T03 V3 : Touches fatales fixture-only, choix humain par critique, journal interrompu, autosave/import/replay autoritaires, V1/V2 préservées et rejets de falsification",
+          "recordedAt": "2026-08-24T10:41:02.604Z",
+          "notes": "PASS sans P1/P2 après correction : V1/V2 refusent les trois événements interrompus et V3 est exigée; aucune décision générique ne peut contourner une continuation létale; les décisions génériques hors létal sont préservées. T03 reste non clôturable pour le seul déficit de source Relances/JUMELÉ.",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        },
+        {
+          "id": "EVD-M5-T03-006",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test (377); pnpm test:browser (3); pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 complet : corpus 01.05.02 et 24.38, choix keep/reroll D6 source-aware, critiques/ANTI/Touches soutenues/Touches fatales, V3 persisté et replays vérifiés, sans couverture de profil M4",
+          "recordedAt": "2026-08-24T12:04:04.295Z",
+          "notes": "Tests positifs, négatifs, de provenance, d'entropie, de persistance et de falsification. Build PWA réussi avec l'avertissement usuel de chunk supérieur à 500 kB."
+        },
+        {
+          "id": "EVD-M5-T03-007",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high : relances/[JUMELÉ], provenance 01.05.02 + 24.38, V3 persistence/import/replay, rejets V1/V2 et non-régression M4",
+          "result": "passed",
+          "scope": "SIM-M5-T03 complet : audit final des relances et déclencheurs critiques fixture-only",
+          "recordedAt": "2026-08-24T12:04:05.042Z",
+          "notes": "PASS sans P1/P2 après correction du routage autosave V3 et de la provenance [JUMELÉ].",
+          "reviewer": "/root/audit_m4_t05 gpt-5.6-sol high"
+        },
+        {
+          "id": "EVD-M5-T03-008",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Gate intégrée finale après clôture M5-T03 : tracker, données, factions, synchronisation, missions, images, règles, 377 tests, Playwright 3/3 et build PWA",
+          "recordedAt": "2026-08-24T12:06:00.581Z",
+          "notes": "Réussi le 2026-08-24; seul avertissement normal sur le chunk principal supérieur à 500 kB."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Implémentation complexe des relances génériques et de [JUMELÉ] après levée documentaire de BLK-005 ; source officielle 01.05.02 et revue indépendante Sol high requises.",
+        "recordedAt": "2026-08-24T11:35:02.825Z"
+      },
+      "updatedAt": "2026-08-24T12:04:05.641Z",
+      "scopeUpdatedAt": "2026-08-24T12:04:03.632Z"
     },
     {
       "id": "SIM-M5-T04",
       "milestoneId": "M5",
       "title": "Couvrir sauvegardes et dégâts étendus",
-      "status": "planned",
+      "status": "in_progress",
       "dependencies": [
         "SIM-M5-T03"
       ],
@@ -1336,8 +1582,14 @@
         }
       ],
       "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Revue corpus local, implémentation déterministe, puis audit indépendant Sol high.",
+        "recordedAt": "2026-08-24T12:27:05.159Z"
+      },
+      "updatedAt": "2026-08-24T12:34:33.210Z",
+      "scopeUpdatedAt": "2026-08-24T12:34:33.210Z"
     },
     {
       "id": "SIM-M5-T05",
@@ -1940,19 +2192,39 @@
       "recordedAt": "2026-08-21T12:06:22.349Z",
       "resolvedAt": "2026-08-21T12:09:01.604Z",
       "resolution": "Approbation humaine explicite reçue le 2026-08-21 pour le terrain local de couvert léger non occlusif M4."
+    },
+    {
+      "id": "BLK-004",
+      "taskId": "SIM-M5-T02",
+      "reason": "T02.1/T02.2 exigent des sources officielles locales absentes pour Caractéristiques aléatoires, Modificateurs de caractéristique et Modifier les jets de dés, ainsi qu’une approbation humaine d’un loadout M5 exact avant activation. La mise à jour universelle 22-07-2026 porte sur les stratagèmes et ne lève pas ce blocage.",
+      "recordedAt": "2026-08-24T06:43:38.187Z",
+      "resolvedAt": "2026-08-24T08:03:21.897Z",
+      "resolution": "BLK-004 levé pour les sources : les sections officielles 02.02.01 et 02.02.03 sont archivées, transcrites et validées. L'approbation d'un loadout réel demeure requise avant son activation, mais ne bloque pas l'implémentation générique testée sur fixtures."
+    },
+    {
+      "id": "BLK-005",
+      "taskId": "SIM-M5-T03",
+      "reason": "La définition canonique générale « Relances » n'est pas archivée localement : 01.05 ne contient qu'un renvoi, 02.02.01 ne définit que l'ordre après relance et 24.38 [JUMELÉ] dépend de cette sémantique. Sans capture officielle de cette section ou arbitrage humain versionné, le moteur ne doit pas inventer les limites, le remplacement du dé ni les relances en chaîne.",
+      "recordedAt": "2026-08-24T10:41:02.702Z",
+      "resolvedAt": "2026-08-24T11:35:00.881Z",
+      "resolution": "BLK-005 levé : les captures officielles 01.05.02 Relances, transmises par le propriétaire le 2026-08-24, définissent le choix de relancer certains/tous les dés, la relance intégrale des jets additifs, la limite d’une fois, l’ordre avant modificateurs et les déclencheurs sur dés relancés."
     }
   ],
   "openQuestions": [],
   "resumeContext": {
-    "taskId": "SIM-M4-T05",
-    "lastCompleted": "Parcours M4 finalisé : factory autoritaire, sélection des rosters/modèles/cibles, phases, mouvement, tir, explications, export/import, autosauvegarde et reprise. Prochaine action : revue indépendante de SIM-M4-T05, puis clôture et préparation de T06.",
-    "nextAction": "Revalider SIM-M4-T05 avant toute clôture.",
+    "taskId": "SIM-M5-T04",
+    "lastCompleted": "ADR-012 ouvre SimulationSaveV4 ; la revue indépendante de formalisation confirme les sources de T04, l’implémentation fixture-only est en cours.",
+    "nextAction": "Revalider SIM-M5-T04 avant toute clôture.",
     "files": [
-      "src/simulator/ui/M4RealRosterDuelPage.tsx",
-      "src/simulator/ui/SimulatorPage.tsx",
-      "src/simulator/ui/simulator.css",
-      "tests/browser/simulator.spec.ts"
+      "docs/simulator/decisions/ADR-012-extended-damage-and-save-v4.md",
+      "docs/simulator/m5-shooting-capability-matrix.md",
+      "src/simulator/domain/types.ts",
+      "src/simulator/domain/reducer.ts",
+      "src/simulator/domain/serialization.ts",
+      "src/simulator/rules/shooting.ts",
+      "src/simulator/orchestration/shooting.ts",
+      "src/simulator/persistence/autosave.ts"
     ],
-    "updatedAt": "2026-08-21T12:39:03.717Z"
+    "updatedAt": "2026-08-24T12:34:33.210Z"
   }
 }

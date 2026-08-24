@@ -149,6 +149,11 @@ describe('M4 real-roster session plan', () => {
     expect(result.events[0].prngAfter).toEqual({ algorithm: 'mulberry32', version: 1, seed: 0x57465247, value: 1_968_179_651, draws: 12 });
     expect(result.events[0].rolls.filter((roll) => roll.initialHitRoll !== undefined)).toHaveLength(2);
     expect(replayGameEventsWithShootingEnvironment(initial, result.state.eventLog, compiled.environment)).toEqual(result.state);
+    const repeated = executeBasicShootingCommand(result.state, {
+      id: 'shoot-twice', actorId: 'salamanders', type: 'resolve-basic-shooting', attackerUnitId: salamanders.id,
+      targetUnitId: bloodAngels.id, weaponProfileId: salamanders.weaponProfiles[0].id
+    }, compiled.environment);
+    expect(repeated).toMatchObject({ accepted: false, rejection: { code: 'unit-already-selected-to-shoot' }, state: result.state });
     const exported = exportSimulation(initial, result.state, '2026-08-21T14:00:00.000Z', compiled.environment);
     expect(JSON.parse(exported)).toMatchObject({ schemaVersion: 'warforge-simulation-save/v2', environment: { scenarioId: 'real-roster-shooting-duel-v1' } });
     expect(importSimulation(exported, compiled.environment, sessionCompatibilityFingerprint(session))).toMatchObject({ ok: true, state: result.state });

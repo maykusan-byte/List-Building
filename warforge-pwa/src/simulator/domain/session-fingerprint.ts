@@ -47,7 +47,7 @@ export function sessionCompatibilityFingerprint(
       id: unit.id, fixtureId: unit.fixtureId, coverageSubject: unit.coverageSubject ?? null, playerId: unit.playerId,
       modelIds: [...unit.modelIds], keywords: [...unit.keywords], toughness: unit.toughness,
       save: unit.save, woundsPerModel: unit.woundsPerModel, weaponProfiles: unit.weaponProfiles,
-      weaponAssignments: unit.weaponAssignments ?? [], sourceRefs: unit.sourceRefs
+      weaponAssignments: unit.weaponAssignments ?? [], extendedDefence: unit.extendedDefence ?? null, sourceRefs: unit.sourceRefs
     })).sort((left, right) => left.id.localeCompare(right.id)),
     requirements: [...requirements].map(requirementKey).sort()
   });

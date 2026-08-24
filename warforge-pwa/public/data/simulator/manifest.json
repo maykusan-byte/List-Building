@@ -1,6 +1,6 @@
 {
   "schemaVersion": "warforge-simulator-manifest/v1",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "engineVersion": "0.1.0",
   "catalog": {
     "dataVersion": "1.2.13.0",
@@ -17,6 +17,72 @@
       "status": "reference-only",
       "path": "../references/warhammer-40k/rules/core/fre_01-06_warhammer40k_new40k_core_rules-ooyuallyp9-s4aczdfbm2_copie.pdf",
       "sha256": "36c934dd62ea00800b38924424ed58f442ade9c4079451fa61c731be9e10bee6"
+    },
+    {
+      "id": "warforge-universal-rules-updates-en-2026-07",
+      "kind": "official-pdf",
+      "title": "Universal Rules Updates",
+      "version": "1.0",
+      "effectiveDate": "2026-07-22",
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/rules/updates/eng_22-07_warhammer_40,000_universal_rules_updates-coltxp7ngi-3kvdfxwyon_copie.pdf",
+      "sha256": "d9dea5fc751d3e3561dbaef1055c2d67ccc8bc21db2887f374b4346f3f4e8ced"
+    },
+    {
+      "id": "warforge-faction-pack-space-marines-fr-2026-07",
+      "kind": "official-pdf",
+      "title": "Pack de faction Warhammer 40,000 — Space Marines",
+      "version": "1.1",
+      "effectiveDate": "2026-07-22",
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_space_marines-6wse5zhfer-mz7j3abkil_copie.pdf",
+      "sha256": "247ccf96c5d2b6e16f28c34ad670b14c47fed2e1f405d77fbed0c5fae8f73993"
+    },
+    {
+      "id": "warforge-faction-pack-blood-angels-fr-2026-07",
+      "kind": "official-pdf",
+      "title": "Pack de faction Warhammer 40,000 — Blood Angels",
+      "version": "1.1",
+      "effectiveDate": "2026-07-22",
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/faction-packs/fre_22-07_warhammer_40,000_faction_pack_blood_angels-5itzplkrbv-wnamrfvfs4_copie.pdf",
+      "sha256": "32a81025ff962e21b3dd67695472ebea79b6c5a09871f752fbc2c364d17b398b"
+    },
+    {
+      "id": "warforge-official-app-faq-fr-2026-07",
+      "kind": "official-app-screenshot-archive",
+      "title": "FAQ — application officielle Warhammer 40,000 (français)",
+      "version": "app-snapshot-2026-08-24",
+      "effectiveDate": null,
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/rules/commentary/official-app-2026-08-24/archive.json",
+      "sha256": "1b0063aaaf8a4fa81322fcd4cd1434c9076750fe39a2023a6ceeb90bd65b0fae"
+    },
+    {
+      "id": "warforge-official-app-references-fr-2026-07",
+      "kind": "official-app-screenshot-archive",
+      "title": "Références de règles — application officielle Warhammer 40,000 (français)",
+      "version": "app-snapshot-2026-08-24",
+      "effectiveDate": null,
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/rules/app-references/official-app-2026-08-24/archive.json",
+      "sha256": "9a65e6e55396bc119a814d135775d3e278c2fa4ceafa3f25ce8c0d34cc9285e3"
+    },
+    {
+      "id": "warforge-official-app-errata-fr-2026-07",
+      "kind": "official-app-screenshot-archive",
+      "title": "Mises à jour & errata — application officielle Warhammer 40,000 (français)",
+      "version": "app-snapshot-2026-08-24",
+      "effectiveDate": null,
+      "retrievedAt": "2026-08-24",
+      "status": "reference-only",
+      "path": "../references/warhammer-40k/rules/errata/official-app-2026-08-24/archive.json",
+      "sha256": "e9e1d1f655918583e2cb01493e6a26ad1725fa6e8c593a8837a146129c2f4b2d"
     },
     {
       "id": "warforge-catalog-1.2.13.0",
