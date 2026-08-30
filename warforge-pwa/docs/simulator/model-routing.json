@@ -1,66 +1,92 @@
 {
-  "schemaVersion": "warforge-simulator-model-routing/v1",
-  "policyVersion": "1.0.0",
-  "updatedAt": "2026-08-13T00:00:00.000Z",
+  "schemaVersion": "warforge-simulator-model-routing/v2",
+  "policyVersion": "2.0.0",
+  "updatedAt": "2026-08-27T09:50:00.000Z",
   "availability": {
-    "knownAvailable": ["gpt-5.6-sol", "gpt-5.6-terra"],
-    "notAvailable": ["gpt-5.6-luna"],
-    "policy": "Le routage est une préférence avec fallback. Il ne doit jamais bloquer une tâche mécanique."
+    "knownAvailable": ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"],
+    "notAvailable": [],
+    "policy": "Le routage est une préférence mesurée avec fallback ; l'indisponibilité d'un modèle ne bloque pas une tâche mécanique."
   },
   "defaults": {
-    "maxConcurrentDelegations": 3,
-    "defaultConcurrentDelegations": 2,
-    "requiresIndependentScopes": true
+    "maxConcurrentDelegations": 1,
+    "defaultConcurrentDelegations": 0,
+    "requiresIndependentScopes": true,
+    "coordinatorOwnsTracker": true
+  },
+  "costPolicy": {
+    "warnBefore": ["L", "XL"],
+    "requireOwnerApprovalBefore": ["XL"],
+    "classes": [
+      { "id": "S", "meaning": "Modification mécanique ou vérification ciblée courte." },
+      { "id": "M", "meaning": "Implémentation bornée dans une couche, avec tests ciblés." },
+      { "id": "L", "meaning": "Travail multi-couches ou audit de jalon ; prévenir et proposer toute alternative manuelle rentable." },
+      { "id": "XL", "meaning": "Corpus massif, refonte large ou intégration multi-jalons ; approbation humaine explicite obligatoire avant exécution." }
+    ],
+    "manualContributions": [
+      "Fournir des captures structurées des règles officielles demandées.",
+      "Vérifier les passages OCR incertains signalés.",
+      "Approuver les profils physiques, loadouts et arbitrages de règles.",
+      "Exécuter les playtests guidés de partie complète et transmettre les écarts observés."
+    ]
   },
   "profiles": {
     "architecture-critical": {
       "purpose": "Architecture, invariants, règles ambiguës et ADR majeurs.",
       "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
-      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
       "validation": "Seconde lecture en contexte frais.",
       "requiresIndependentReview": true
     },
     "rules-formalization": {
-      "purpose": "Transformation d'une règle sourcée en comportement exécutable.",
+      "purpose": "Transformation d'une règle sourcée en comportement exécutable ou arbitrage explicite.",
       "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
-      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
-      "validation": "Golden tests et revue humaine si ambiguïté.",
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
+      "validation": "Golden tests et revue humaine pour toute ambiguïté.",
       "requiresIndependentReview": true
     },
     "implementation-complex": {
-      "purpose": "Moteur, statechart, géométrie et persistance.",
-      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
-      "fallback": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
-      "validation": "Tests puis revue Sol high pour les composants critiques.",
+      "purpose": "Moteur, statechart, géométrie et persistance nécessitant plusieurs invariants.",
+      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
+      "fallback": { "model": "gpt-5.6-sol", "reasoningEffort": "medium" },
+      "validation": "Tests ciblés, gates de tâche et revue Sol high uniquement pour les composants critiques.",
       "requiresIndependentReview": true
     },
     "implementation-routine": {
-      "purpose": "UI bornée, adaptateurs et tests standards.",
-      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
-      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
+      "purpose": "UI bornée, adaptateurs, schémas simples et tests standards.",
+      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "medium" },
+      "fallback": { "model": "gpt-5.6-luna", "reasoningEffort": "medium" },
       "validation": "Tests et revue du coordinateur.",
       "requiresIndependentReview": false
     },
+    "source-transcription": {
+      "purpose": "Inventaire de captures, OCR déjà lisible, index et métadonnées sans interprétation de règle.",
+      "preferred": { "model": "gpt-5.6-luna", "reasoningEffort": "low" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "low" },
+      "validation": "Contrôle de hash, schéma et échantillon humain des passages incertains.",
+      "requiresIndependentReview": false
+    },
     "mechanical": {
-      "purpose": "Renommages, index, documentation générée et fixtures simples.",
-      "preferred": { "model": "gpt-5.6-terra", "reasoningEffort": "low" },
-      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "medium" },
+      "purpose": "Renommages, statut généré, fixtures simples et opérations répétitives déterministes.",
+      "preferred": { "model": "gpt-5.6-luna", "reasoningEffort": "low" },
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "low" },
       "validation": "Contrôle automatique et lecture rapide.",
       "requiresIndependentReview": false
     },
     "milestone-audit": {
-      "purpose": "Acceptation de jalon, risques et couverture.",
+      "purpose": "Acceptation de jalon, risques et couverture annoncée.",
       "preferred": { "model": "gpt-5.6-sol", "reasoningEffort": "high" },
-      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "xhigh" },
-      "validation": "Contexte limité aux artefacts et preuves.",
+      "fallback": { "model": "gpt-5.6-terra", "reasoningEffort": "high" },
+      "validation": "Contexte limité aux artefacts, sources, diff et preuves.",
       "requiresIndependentReview": true
     }
   },
   "guardrails": [
-    "Ne pas déléguer à un petit modèle une interprétation de règle, une migration sensible ou une acceptation de jalon.",
-    "Une sortie d'un modèle moins puissant exige les validations prévues ; une compilation réussie ne suffit pas.",
-    "Utiliser max uniquement après preuve de gain sur une tâche critique.",
-    "Enregistrer le modèle, l'effort et le contexte réellement utilisés à la clôture de chaque tâche."
+    "Aucune délégation par défaut ; déléguer uniquement un périmètre indépendant dont le gain dépasse le coût de supervision.",
+    "Ne pas déléguer à Luna une interprétation de règle, une migration sensible, une décision d'architecture ou une acceptation de jalon.",
+    "Une sortie Luna ou Terra n'est validée que par les gates prévues ; compiler ne suffit pas.",
+    "Ne pas utiliser xhigh ou max par défaut ; les activer seulement après un gain mesuré sur le corpus de calibration.",
+    "Enregistrer le modèle, l'effort, le contexte et les gates réellement utilisés.",
+    "Ne pas développer de garde anti-contournement hostile : valider seulement les entrées, versions et invariants nécessaires au fonctionnement normal."
   ],
   "calibration": {
     "recalibrateAfterRepresentativeTasks": 5,

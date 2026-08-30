@@ -1,4 +1,5 @@
 import { SIMULATOR_SCHEMA_VERSION, SIMULATOR_VERSION, type GameState } from './types';
+import { createResolutionQueueV1 } from './battle-state';
 import { createPrngState } from './prng';
 
 export function createInitialGameState(gameId: string, seed: number): GameState {
@@ -9,11 +10,17 @@ export function createInitialGameState(gameId: string, seed: number): GameState 
     gameId,
     phase: 'setup',
     round: 0,
+    battle: null,
+    commandPhase: null,
+    battleResources: null,
+    mission: null,
+    resolutionQueue: createResolutionQueueV1(),
     manifest: null,
     shootingEnvironmentFingerprint: null,
     players: {},
     models: {},
     units: {},
+    unitTurnStatuses: {},
     movedModelIds: [],
     firedWeaponKeys: [],
     shootingSelectedUnitIds: [],
@@ -23,6 +30,11 @@ export function createInitialGameState(gameId: string, seed: number): GameState 
     pendingLethalShooting: null,
     pendingRerollShooting: null,
     pendingExtendedShooting: null,
+    pendingBasicMelee: null,
+    pendingSplitFireShooting: null,
+    pendingDuplicateWeaponAbilitySelection: null,
+    pendingCharge: null,
+    fightPhase: null,
     diceResults: {},
     prng: createPrngState(seed),
     eventLog: []

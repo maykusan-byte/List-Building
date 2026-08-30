@@ -5,7 +5,7 @@
   "effectiveDate": "2026-08-21",
   "scope": "real-roster-shooting-duel-v1",
   "proposalReference": "docs/simulator/roster-pilots/real-roster-shooting-duel-v1.proposal.json",
-  "baseManifestVersion": "0.3.0",
+  "baseManifestVersion": "0.7.0",
   "coverageClaim": "none",
   "catalog": {
     "sourceId": "warforge-catalog-1.2.13.0",
@@ -154,6 +154,8 @@
         "toughness": 4,
         "save": 3,
         "wounds": 2,
+        "leadership": 6,
+        "objectiveControl": 2,
         "invulnerableSave": null
       },
       "selectedRangedWeapon": {
@@ -176,10 +178,7 @@
         }
       ],
       "coreAbilityDispositions": [],
-      "excludedCharacteristics": [
-        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
-        { "name": "OC", "sourceValue": "2", "reason": "Les objectifs et le score sont exclus du pilote M4." }
-      ]
+      "excludedCharacteristics": []
     },
     {
       "id": "m4-space-marines-bladeguard-veterans-facts-v1",
@@ -202,6 +201,8 @@
         "toughness": 4,
         "save": 3,
         "wounds": 3,
+        "leadership": 6,
+        "objectiveControl": 1,
         "invulnerableSave": 4
       },
       "selectedRangedWeapon": {
@@ -224,10 +225,7 @@
         }
       ],
       "coreAbilityDispositions": [],
-      "excludedCharacteristics": [
-        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
-        { "name": "OC", "sourceValue": "1", "reason": "Les objectifs et le score sont exclus du pilote M4." }
-      ]
+      "excludedCharacteristics": []
     },
     {
       "id": "m4-blood-angels-captain-facts-v1",
@@ -250,6 +248,8 @@
         "toughness": 4,
         "save": 3,
         "wounds": 5,
+        "leadership": 6,
+        "objectiveControl": 1,
         "invulnerableSave": 4
       },
       "selectedRangedWeapon": {
@@ -283,10 +283,7 @@
           "reason": "Le Captain est figé comme unité indépendante dans le roster approuvé ; aucune unité attachée n'est construite pour M4."
         }
       ],
-      "excludedCharacteristics": [
-        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
-        { "name": "OC", "sourceValue": "1", "reason": "Les objectifs et le score sont exclus du pilote M4." }
-      ]
+      "excludedCharacteristics": []
     },
     {
       "id": "m4-blood-angels-assault-intercessors-facts-v1",
@@ -309,6 +306,8 @@
         "toughness": 4,
         "save": 3,
         "wounds": 2,
+        "leadership": 6,
+        "objectiveControl": 2,
         "invulnerableSave": null
       },
       "selectedRangedWeapon": {
@@ -331,10 +330,7 @@
         }
       ],
       "coreAbilityDispositions": [],
-      "excludedCharacteristics": [
-        { "name": "Leadership", "sourceValue": "6+", "reason": "Les tests de Commandement sont exclus du pilote M4." },
-        { "name": "OC", "sourceValue": "2", "reason": "Les objectifs et le score sont exclus du pilote M4." }
-      ]
+      "excludedCharacteristics": []
     }
   ],
   "mandatoryRules": [

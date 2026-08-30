@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "warforge-simulator-closed-mission/v1",
+  "version": "1.0.0",
+  "manifestVersion": "0.7.0",
+  "id": "closed-complete-game-disruption-v1",
+  "status": "source-covered",
+  "approval": {
+    "authority": "project-owner-approved-trusted-web",
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-30",
+    "decisionReference": "ADR-019",
+    "officialGwPublication": false,
+    "note": "L'archive GDM 2026 est approuvée comme source fiable du projet. Elle ne doit pas être présentée comme une publication officielle Games Workshop."
+  },
+  "sourceRefs": [
+    {
+      "sourceId": "approved-gdm-2026-11th-archive",
+      "role": "mission-cards-and-layout",
+      "references": [
+        "/11th/force-disposition/disruption",
+        "/11th/layouts/disruption/disruption#layout-1",
+        "/11th/primary-missions/disruption/outmanoeuvre",
+        "/11th/secondary-missions/assassination-defender#fixed",
+        "/11th/secondary-missions/engage-on-all-fronts-defender#fixed"
+      ]
+    },
+    {
+      "sourceId": "warforge-event-companion-fr-2026-07",
+      "role": "general-mission-sequence-and-scoring-limits",
+      "references": [
+        "event-mission-sequence.2",
+        "event-mission-sequence.3",
+        "event-mission-sequence.4",
+        "event-mission-sequence.5",
+        "event-mission-sequence.6",
+        "event-mission-sequence.7",
+        "event-mission-sequence.9",
+        "event-mission-sequence.16",
+        "event-mission-sequence.17",
+        "card-terminology.cumulative-or"
+      ],
+      "printedPages": [2, 3]
+    }
+  ],
+  "forceDisposition": {
+    "id": "disruption",
+    "name": "Disruption",
+    "sourcePath": "/11th/force-disposition/disruption",
+    "asset": {
+      "relativePath": "assets/force-disposition/disruption.png",
+      "sha256": "8ed056f6cae96f72ba7bef7f1b9c056863c3d51ed56efbcd60f6024c00597738"
+    },
+    "mirrorPrimaryMissionId": "outmanoeuvre"
+  },
+  "layout": {
+    "id": "mirror-layout-1",
+    "name": "Disruption Mirror · 1",
+    "sourcePath": "/11th/layouts/disruption/disruption",
+    "layoutNumber": 1,
+    "board": {
+      "width": 11176,
+      "height": 15240,
+      "worldUnit": "0.1mm"
+    },
+    "attackerEdge": "top",
+    "defenderEdge": "bottom",
+    "objectiveRoles": [
+      "attacker-home",
+      "defender-home",
+      "no-mans-land-1",
+      "no-mans-land-2",
+      "centre-1",
+      "centre-2"
+    ],
+    "measuredAsset": {
+      "relativePath": "assets/layouts/with-measurements/disruption-mirror-1.png",
+      "sha256": "bae1b718156e48ec4ac3a44f4718111a0a4325911a41161bd50cff9e47786486"
+    },
+    "deterministicGeometry": {
+      "status": "pending-transcription",
+      "requiredFor": "SIM-M9-T03",
+      "note": "Le diagramme mesuré est archivé et lisible ; les coordonnées d'objectifs, zones de déploiement et polygones de terrain doivent encore être transcrits puis testés avant la partie UI."
+    }
+  },
+  "primaryMission": {
+    "id": "outmanoeuvre",
+    "name": "Outmanoeuvre",
+    "sourcePath": "/11th/primary-missions/disruption/outmanoeuvre",
+    "asset": {
+      "relativePath": "assets/primary-missions/disruption/outmanoeuvre.png",
+      "sha256": "5e6d5e136c70fc8ac60891ad15a91ac4f40954147144f98bea0e97c31b16abae"
+    },
+    "scoringWindows": [
+      {
+        "id": "control-opponent-home",
+        "battleRounds": [1, 2, 3, 4, 5],
+        "checkpoint": "end-of-own-turn",
+        "condition": {
+          "kind": "control-objective",
+          "objectiveRole": "opponent-home"
+        },
+        "award": {
+          "kind": "flat",
+          "vp": 10
+        }
+      },
+      {
+        "id": "round-1-non-home-objectives",
+        "battleRounds": [1],
+        "checkpoint": "end-of-own-turn",
+        "condition": {
+          "kind": "control-each-objective-excluding-own-home"
+        },
+        "award": {
+          "kind": "per-objective",
+          "vp": 4
+        }
+      },
+      {
+        "id": "rounds-2-3-non-home-objectives",
+        "battleRounds": [2, 3],
+        "checkpoint": "end-of-own-command-phase",
+        "condition": {
+          "kind": "control-each-objective-excluding-own-home"
+        },
+        "award": {
+          "kind": "per-objective",
+          "vp": 5
+        }
+      },
+      {
+        "id": "rounds-4-5-non-home-objectives",
+        "battleRounds": [4, 5],
+        "checkpoint": "end-of-own-turn",
+        "condition": {
+          "kind": "control-each-objective-excluding-own-home"
+        },
+        "award": {
+          "kind": "per-objective",
+          "vp": 6
+        }
+      }
+    ]
+  },
+  "fixedSecondaryMissions": [
+    {
+      "id": "assassination",
+      "name": "Assassination",
+      "sourcePath": "/11th/secondary-missions/assassination-defender",
+      "asset": {
+        "relativePath": "assets/secondary-missions/defender/assassination.png",
+        "sha256": "5d6353da3329a5f295a7600a47c9b4704a09dff67bffcc1de4dec8be2e5d593f"
+      },
+      "checkpoint": "end-of-each-player-turn",
+      "conditions": [
+        {
+          "id": "destroyed-enemy-character",
+          "kind": "per-enemy-character-model-destroyed-this-turn",
+          "vp": 3
+        },
+        {
+          "id": "destroyed-enemy-character-wounds-4-plus",
+          "kind": "cumulative-per-matching-model",
+          "woundsCharacteristicAtLeast": 4,
+          "vp": 1
+        }
+      ]
+    },
+    {
+      "id": "engage-on-all-fronts",
+      "name": "Engage on All Fronts",
+      "sourcePath": "/11th/secondary-missions/engage-on-all-fronts-defender",
+      "asset": {
+        "relativePath": "assets/secondary-missions/defender/engage-on-all-fronts.png",
+        "sha256": "b3ddb6ee99c1681b3b389e1d9d0f4f2616100d69dd225fe7cb7c8d133faa8f9b"
+      },
+      "presence": {
+        "kind": "unit-wholly-within-table-quarter",
+        "excludedKeywords": ["AIRCRAFT"],
+        "excludeBattleShockedUnits": true,
+        "minimumDistanceFromBattlefieldCentre": 1524,
+        "boundary": "not-within"
+      },
+      "checkpoint": "end-of-own-turn",
+      "conditions": [
+        {
+          "id": "presence-three-quarters",
+          "kind": "or-tier",
+          "tableQuarterCount": 3,
+          "vp": 2
+        },
+        {
+          "id": "presence-four-quarters",
+          "kind": "or-tier",
+          "tableQuarterCount": 4,
+          "vp": 4
+        }
+      ]
+    }
+  ],
+  "globalScoringLimits": {
+    "primaryMissionMaximumVp": 45,
+    "primaryMissionMaximumVpPerBattleRound": 15,
+    "secondaryMissionsMaximumVp": 45,
+    "secondaryMissionsMaximumVpPerBattleRound": 15,
+    "maximumVpPerFixedSecondaryMission": 20,
+    "battleReadyArmyVp": 10,
+    "battleEndsAfterRound": 5
+  },
+  "executionReadiness": {
+    "sourceDataCovered": true,
+    "scoringEngine": "pending-SIM-M9-T02",
+    "deterministicSpatialLayout": "pending-SIM-M9-T03",
+    "playable": false
+  }
+}

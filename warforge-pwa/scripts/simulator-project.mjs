@@ -1,11 +1,18 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
 import { relative, resolve } from 'node:path';
+import { promisify } from 'node:util';
 
-export const PROJECT_SCHEMA = 'warforge-simulator-project/v1';
-export const ROUTING_SCHEMA = 'warforge-simulator-model-routing/v1';
+export const PROJECT_SCHEMA = 'warforge-simulator-project/v2';
+export const ROUTING_SCHEMA = 'warforge-simulator-model-routing/v2';
 export const TASK_STATUSES = new Set(['planned', 'ready', 'in_progress', 'blocked', 'done', 'deferred']);
 export const MILESTONE_STATUSES = new Set(['planned', 'in_progress', 'accepted']);
 export const REASONING_EFFORTS = new Set(['low', 'medium', 'high', 'xhigh', 'max', 'ultra']);
+export const COST_CLASSES = new Set(['S', 'M', 'L', 'XL']);
+export const CAPABILITY_STATUSES = new Set(['available', 'partial', 'planned', 'blocked']);
+export const WORKSPACE_HEALTH_STATUSES = new Set(['unknown', 'healthy', 'attention']);
+
+const execFileAsync = promisify(execFile);
 
 const taskTransitions = {
   planned: new Set(['ready', 'deferred']),
@@ -132,6 +139,7 @@ export function renderStatus(state) {
     `- Tâches terminées : ${progress.tasks.done}/${progress.tasks.total}`,
     `- Critères satisfaits : ${progress.criteria.satisfied}/${progress.criteria.total}`,
     `- Validations : ${progress.validations.passed} réussie(s), ${progress.validations.failed} échouée(s), ${progress.validations.stale} périmée(s)`,
+    `- Santé du workspace : ${state.workspaceHealth.status}${state.workspaceHealth.checkedAt ? ` (${state.workspaceHealth.checkedAt})` : ''}`,
     '',
     '## Jalons',
     '',
@@ -141,14 +149,19 @@ export function renderStatus(state) {
       const tasks = state.tasks.filter((task) => task.milestoneId === milestone.id);
       return `| ${milestone.id} | ${milestone.title} | ${milestone.status} | ${tasks.filter((task) => task.status === 'done').length}/${tasks.length} |`;
     }),
-    '',
-    '## Reprise',
     ''
   ];
 
+  lines.push('## Capacités produit', '', '| Capacité | État | Portée prouvée |', '| --- | --- | --- |');
+  for (const capability of state.productCapabilities) {
+    lines.push(`| ${capability.title} | ${capability.status} | ${capability.description} |`);
+  }
+  lines.push('', '## Reprise', '');
   if (activeTask) {
     lines.push(`- Tâche courante : ${activeTask.id} — ${activeTask.title} (${activeTask.status})`);
     lines.push(`- Profil d'exécution : ${activeTask.executionProfile}`);
+    lines.push(`- Coût estimé : ${activeTask.costClass}`);
+    lines.push(`- Tranche atomique : ${activeTask.workSlices.find((slice) => slice.status === 'in_progress')?.id ?? 'aucune'}`);
   } else {
     lines.push('- Tâche courante : aucune');
   }
@@ -170,6 +183,13 @@ export function validateRouting(routing) {
   if (!isRecord(routing)) return ['Le routage IA doit être un objet JSON.'];
   if (routing.schemaVersion !== ROUTING_SCHEMA) errors.push(`schemaVersion doit être ${ROUTING_SCHEMA}.`);
   if (!isNonEmptyString(routing.policyVersion)) errors.push('policyVersion est requis.');
+  if (!Number.isInteger(routing.defaults?.defaultConcurrentDelegations) || !Number.isInteger(routing.defaults?.maxConcurrentDelegations)
+    || routing.defaults.defaultConcurrentDelegations < 0 || routing.defaults.maxConcurrentDelegations < routing.defaults.defaultConcurrentDelegations) {
+    errors.push('Les limites de délégation sont invalides.');
+  }
+  if (!isRecord(routing.costPolicy) || !Array.isArray(routing.costPolicy.classes) || !routing.costPolicy.classes.every((entry) => COST_CLASSES.has(entry.id))) {
+    errors.push('La politique de coût S/M/L/XL est requise.');
+  }
   if (!isRecord(routing.profiles) || Object.keys(routing.profiles).length === 0) return [...errors, 'Au moins un profil IA est requis.'];
   for (const [id, profile] of Object.entries(routing.profiles)) {
     if (!isRecord(profile) || !isRecord(profile.preferred) || !isRecord(profile.fallback)) {
@@ -195,6 +215,17 @@ export function validateProjectState(state, routing, plan, decisions) {
   if (!asIsoDate(state.updatedAt)) errors.push('updatedAt doit être une date ISO.');
   if (!Array.isArray(state.milestones) || state.milestones.length === 0) return [...errors, 'Au moins un jalon est requis.'];
   if (!Array.isArray(state.tasks) || state.tasks.length === 0) return [...errors, 'Au moins une tâche est requise.'];
+  if (!Array.isArray(state.productCapabilities) || state.productCapabilities.length === 0) errors.push('productCapabilities est requis.');
+  for (const capability of state.productCapabilities ?? []) {
+    if (!isRecord(capability) || !isNonEmptyString(capability.id) || !isNonEmptyString(capability.title) || !isNonEmptyString(capability.description) || !CAPABILITY_STATUSES.has(capability.status)) {
+      errors.push('Une capacité produit est invalide.');
+    }
+  }
+  if (!isRecord(state.workspaceHealth) || !WORKSPACE_HEALTH_STATUSES.has(state.workspaceHealth.status)
+    || !Array.isArray(state.workspaceHealth.changedPaths) || !Array.isArray(state.workspaceHealth.unexpectedPaths)
+    || !Array.isArray(state.workspaceHealth.baselinePaths)) {
+    errors.push('workspaceHealth est invalide.');
+  }
 
   const milestoneIds = new Set();
   const milestoneById = new Map();
@@ -226,6 +257,31 @@ export function validateProjectState(state, routing, plan, decisions) {
     if (!TASK_STATUSES.has(task.status)) errors.push(`${taskPrefix(task)} a un état invalide.`);
     if (!Array.isArray(task.dependencies) || !Array.isArray(task.acceptanceCriteria) || !Array.isArray(task.evidence)) errors.push(`${taskPrefix(task)} doit déclarer dépendances, critères et preuves.`);
     if (!profileIds.has(task.executionProfile)) errors.push(`${taskPrefix(task)} utilise le profil IA inconnu ${task.executionProfile}.`);
+    if (!COST_CLASSES.has(task.costClass)) errors.push(`${taskPrefix(task)} a une classe de coût invalide.`);
+    if (!isRecord(task.manualAlternative) || typeof task.manualAlternative.available !== 'boolean' || typeof task.manualAlternative.worthIt !== 'boolean'
+      || !isNonEmptyString(task.manualAlternative.description)) errors.push(`${taskPrefix(task)} doit décrire son alternative manuelle.`);
+    for (const field of ['sourceIds', 'adrIds', 'allowedPaths', 'expectedGates', 'actualRuns', 'workSlices']) {
+      if (!Array.isArray(task[field])) errors.push(`${taskPrefix(task)} doit déclarer ${field}.`);
+    }
+    if (Array.isArray(task.workSlices) && task.workSlices.length === 0) errors.push(`${taskPrefix(task)} doit contenir au moins une tranche atomique.`);
+    const sliceIds = new Set();
+    for (const slice of task.workSlices ?? []) {
+      if (!isRecord(slice) || !isNonEmptyString(slice.id) || !isNonEmptyString(slice.title) || !TASK_STATUSES.has(slice.status)) {
+        errors.push(`${taskPrefix(task)} a une tranche atomique invalide.`);
+        continue;
+      }
+      if (sliceIds.has(slice.id)) errors.push(`${taskPrefix(task)} a la tranche dupliquée ${slice.id}.`);
+      sliceIds.add(slice.id);
+      if (!Array.isArray(slice.allowedPaths) || !Array.isArray(slice.expectedGates)) errors.push(`${taskPrefix(task)} tranche ${slice.id} doit déclarer chemins et gates.`);
+    }
+    if (task.status === 'done' && (task.workSlices ?? []).some((slice) => !['done', 'deferred'].includes(slice.status))) errors.push(`${taskPrefix(task)} terminée a une tranche non terminée.`);
+    if (task.status === 'in_progress' && (task.workSlices ?? []).filter((slice) => slice.status === 'in_progress').length !== 1) errors.push(`${taskPrefix(task)} en cours doit avoir exactement une tranche en cours.`);
+    if (task.status !== 'in_progress' && (task.workSlices ?? []).some((slice) => slice.status === 'in_progress')) errors.push(`${taskPrefix(task)} hors cours ne peut pas avoir de tranche en cours.`);
+    for (const run of task.actualRuns ?? []) {
+      if (!isRecord(run) || !isNonEmptyString(run.id) || !isNonEmptyString(run.command) || !['passed', 'failed'].includes(run.result) || !asIsoDate(run.recordedAt)) {
+        errors.push(`${taskPrefix(task)} a une exécution de gate invalide.`);
+      }
+    }
     if (!asIsoDate(task.updatedAt)) errors.push(`${taskPrefix(task)} doit avoir updatedAt.`);
     if (task.actualExecution !== null) {
       if (!isRecord(task.actualExecution) || !isNonEmptyString(task.actualExecution.model) || !isNonEmptyString(task.actualExecution.reasoningEffort) || !isNonEmptyString(task.actualExecution.context)) errors.push(`${taskPrefix(task)} a une exécution réelle invalide.`);
@@ -386,6 +442,23 @@ export function transitionTask(state, taskId, targetStatus, { now = new Date(), 
   }
   if (task.status === 'done' && targetStatus === 'ready') reopenAcceptedMilestone(state, task.milestoneId, note ?? `Réouverture de ${task.id}.`, now);
   task.status = targetStatus;
+  if (targetStatus === 'planned') {
+    const nextSlice = task.workSlices.find((slice) => slice.status === 'deferred');
+    if (nextSlice) nextSlice.status = 'planned';
+  } else if (targetStatus === 'ready') {
+    const nextSlice = task.workSlices.find((slice) => slice.status === 'in_progress')
+      ?? task.workSlices.find((slice) => slice.status === 'planned')
+      ?? [...task.workSlices].reverse().find((slice) => slice.status === 'done');
+    if (nextSlice) nextSlice.status = 'ready';
+  } else if (targetStatus === 'in_progress') {
+    const nextSlice = task.workSlices.find((slice) => slice.status === 'ready') ?? task.workSlices.find((slice) => slice.status === 'planned');
+    if (!nextSlice) throw new Error(`${task.id} n’a aucune tranche disponible.`);
+    nextSlice.status = 'in_progress';
+  } else if (targetStatus === 'done') {
+    for (const slice of task.workSlices) if (slice.status !== 'deferred') slice.status = 'done';
+  } else if (targetStatus === 'deferred') {
+    for (const slice of task.workSlices) slice.status = 'deferred';
+  }
   task.updatedAt = nowIso(now);
   state.updatedAt = nowIso(now);
   if (targetStatus === 'in_progress') {
@@ -421,6 +494,7 @@ export function addEvidence(state, taskId, { command, result, scope, criteria = 
     evidence.reviewer = reviewer;
   }
   task.evidence.push(evidence);
+  task.actualRuns.push({ id: `RUN-${task.id.replace('SIM-', '')}-${String(task.actualRuns.length + 1).padStart(3, '0')}`, command, result, scope, recordedAt: nowIso(now) });
   for (const criterion of task.acceptanceCriteria) if (criteria.includes(criterion.id)) criterion.evidenceIds.push(evidence.id);
   state.updatedAt = nowIso(now);
   return evidence;
@@ -436,11 +510,23 @@ export function recordExecution(state, taskId, { model, reasoningEffort, context
   return task.actualExecution;
 }
 
-export function markTaskScopeUpdated(state, taskId, { files = [], note, now = new Date() } = {}) {
+export function markTaskScopeUpdated(state, taskId, { files = [], sources = [], note, now = new Date() } = {}) {
   const task = getTask(state, taskId);
   if (!Array.isArray(files) || files.some((file) => !isNonEmptyString(file))) throw new Error('Les fichiers du périmètre doivent être une liste de chemins non vides.');
+  if (!Array.isArray(sources) || sources.some((sourceId) => !isNonEmptyString(sourceId))) throw new Error('Les sources du périmètre doivent être une liste d’identifiants non vides.');
+  if (files.length > 0) {
+    task.allowedPaths = [...new Set(files)];
+    const activeSlice = task.workSlices.find((slice) => slice.status === 'in_progress')
+      ?? task.workSlices.find((slice) => slice.status === 'ready');
+    if (activeSlice) activeSlice.allowedPaths = task.allowedPaths;
+  }
+  if (sources.length > 0) task.sourceIds = [...new Set(sources)];
   reopenAcceptedMilestone(state, task.milestoneId, note ?? `Périmètre de ${task.id} modifié.`, now);
   if (task.status === 'done') task.status = 'ready';
+  if (task.status === 'ready' && !task.workSlices.some((slice) => ['planned', 'ready', 'in_progress'].includes(slice.status))) {
+    const reopenedSlice = [...task.workSlices].reverse().find((slice) => slice.status === 'done');
+    if (reopenedSlice) reopenedSlice.status = 'ready';
+  }
   for (const dependantId of transitiveDependants(state, task.id)) {
     const dependant = getTask(state, dependantId);
     if (dependant.status === 'done' || dependant.status === 'ready') {
@@ -457,7 +543,7 @@ export function markTaskScopeUpdated(state, taskId, { files = [], note, now = ne
     taskId: task.status === 'in_progress' || task.status === 'blocked' ? task.id : state.resumeContext?.taskId ?? null,
     lastCompleted: note ?? `Périmètre de ${task.id} modifié ; ses preuves antérieures sont périmées.`,
     nextAction: `Revalider ${task.id} avant toute clôture.`,
-    files,
+    files: task.allowedPaths,
     updatedAt: nowIso(now)
   };
   return task;
@@ -536,6 +622,88 @@ export async function checkProject(root = defaultRoot) {
   return project;
 }
 
+function pathMatchesPattern(path, pattern) {
+  const normalizedPath = path.replaceAll('\\', '/');
+  const normalizedPattern = pattern.replaceAll('\\', '/');
+  const expression = normalizedPattern
+    .split('**').map((part) => part.split('*').map(escapeRegExp).join('[^/]*')).join('.*');
+  return new RegExp(`^${expression}$`).test(normalizedPath);
+}
+
+export function createTaskBrief(state, taskId = state.currentTaskId) {
+  const task = taskId ? getTask(state, taskId) : null;
+  if (!task) throw new Error('Aucune tâche courante ; fournissez un taskId explicite.');
+  const activeSlice = task.workSlices.find((slice) => slice.status === 'in_progress')
+    ?? task.workSlices.find((slice) => slice.status === 'ready')
+    ?? task.workSlices.find((slice) => slice.status === 'planned');
+  return {
+    taskId: task.id,
+    title: task.title,
+    status: task.status,
+    costClass: task.costClass,
+    executionProfile: task.executionProfile,
+    resultExpected: task.acceptanceCriteria.map((criterion) => criterion.description),
+    activeSlice: activeSlice ?? null,
+    allowedPaths: [...new Set([...task.allowedPaths, ...(activeSlice?.allowedPaths ?? [])])],
+    sourceIds: task.sourceIds,
+    adrIds: task.adrIds,
+    expectedGates: [...new Set([...task.expectedGates, ...(activeSlice?.expectedGates ?? [])])],
+    manualAlternative: task.manualAlternative,
+    forbiddenActions: [
+      'Modifier le plan, accepter un jalon ou étendre la couverture sans décision du coordinateur.',
+      'Déclarer une règle correcte sans source versionnée.',
+      'Modifier project-state.json directement pendant un travail délégué.'
+    ]
+  };
+}
+
+export async function inspectWorkspaceHealth(root, state, taskId = state.currentTaskId, { acknowledge = false } = {}) {
+  const task = taskId ? getTask(state, taskId) : null;
+  const [{ stdout }, { stdout: prefixOutput }] = await Promise.all([
+    execFileAsync('git', ['status', '--porcelain=v1', '--untracked-files=all'], { cwd: root, encoding: 'utf8' }),
+    execFileAsync('git', ['rev-parse', '--show-prefix'], { cwd: root, encoding: 'utf8' })
+  ]);
+  const gitPrefix = prefixOutput.trim().replaceAll('\\', '/');
+  const parentPrefix = '../'.repeat(gitPrefix.split('/').filter(Boolean).length);
+  const changedPaths = stdout.split(/\r?\n/).filter(Boolean).map((line) => {
+    const repositoryPath = line.slice(3).replace(/^"|"$/g, '').split(' -> ').at(-1).replaceAll('\\', '/');
+    return gitPrefix && repositoryPath.startsWith(gitPrefix) ? repositoryPath.slice(gitPrefix.length) : `${parentPrefix}${repositoryPath}`;
+  });
+  const allowedPaths = task ? [...task.allowedPaths, ...task.workSlices.flatMap((slice) => slice.allowedPaths)] : [];
+  const baselinePaths = acknowledge ? changedPaths : state.workspaceHealth.baselinePaths;
+  const unexpectedPaths = changedPaths.filter((path) => !baselinePaths.includes(path) && !allowedPaths.some((pattern) => pathMatchesPattern(path, pattern)));
+  return {
+    status: unexpectedPaths.length === 0 ? 'healthy' : 'attention',
+    checkedAt: new Date().toISOString(),
+    taskId: task?.id ?? null,
+    baselinePaths,
+    changedPaths,
+    unexpectedPaths,
+    note: task ? `Périmètre comparé à ${task.id}.` : 'Aucune tâche fournie : tout changement est inattendu.'
+  };
+}
+
+export function transitionWorkSlice(state, taskId, sliceId, targetStatus, { now = new Date(), note } = {}) {
+  const task = getTask(state, taskId);
+  const slice = task.workSlices.find((entry) => entry.id === sliceId);
+  if (!slice) throw new Error(`Tranche inconnue : ${sliceId}`);
+  if (!TASK_STATUSES.has(targetStatus) || targetStatus === 'blocked') throw new Error(`État de tranche invalide : ${targetStatus}`);
+  if (task.status !== 'in_progress') throw new Error(`${task.id} doit être in_progress pour modifier ses tranches.`);
+  if (targetStatus === 'in_progress' && state.tasks.flatMap((entry) => entry.workSlices).some((entry) => entry.status === 'in_progress' && entry.id !== sliceId)) {
+    throw new Error('Une autre tranche est déjà in_progress.');
+  }
+  slice.status = targetStatus;
+  if (targetStatus === 'done') {
+    const nextSlice = task.workSlices.find((entry) => entry.status === 'planned');
+    if (nextSlice) nextSlice.status = 'ready';
+  }
+  slice.updatedAt = nowIso(now);
+  if (note) slice.note = note;
+  task.updatedAt = nowIso(now);
+  state.updatedAt = nowIso(now);
+  return slice;
+}
+
 function readOption(args, name, { required = false, fallback } = {}) {
   const index = args.indexOf(`--${name}`);
   const value = index >= 0 ? args[index + 1] : fallback;
@@ -552,7 +720,7 @@ function cliRoot(args) {
 }
 
 function usage() {
-  return `Usage:\n  node scripts/simulator-project.mjs check [--root <path>]\n  node scripts/simulator-project.mjs render [--root <path>]\n  node scripts/simulator-project.mjs transition <taskId> <ready|in_progress|done|deferred> [--note <text>]\n  node scripts/simulator-project.mjs evidence <taskId> --command <cmd> --result <passed|failed> --scope <scope> [--criteria <id>]... [--commit <sha>] [--notes <text>] [--independent-review --reviewer <identity>]\n  node scripts/simulator-project.mjs execution <taskId> --model <id> --effort <level> --context <text>\n  node scripts/simulator-project.mjs scope <taskId> [--file <path>]... [--note <text>]\n  node scripts/simulator-project.mjs milestone <milestoneId> accept --command <audit> --scope <scope> --reviewer <identity> [--notes <text>]\n  node scripts/simulator-project.mjs block <taskId> --reason <text>\n  node scripts/simulator-project.mjs unblock <taskId> [--note <text>]`;
+  return `Usage:\n  node scripts/simulator-project.mjs check [--root <path>]\n  node scripts/simulator-project.mjs render [--root <path>]\n  node scripts/simulator-project.mjs brief [taskId]\n  node scripts/simulator-project.mjs health [taskId] [--record] [--acknowledge]\n  node scripts/simulator-project.mjs transition <taskId> <ready|in_progress|done|deferred> [--note <text>]\n  node scripts/simulator-project.mjs slice <taskId> <sliceId> <planned|ready|in_progress|done|deferred> [--note <text>]\n  node scripts/simulator-project.mjs evidence <taskId> --command <cmd> --result <passed|failed> --scope <scope> [--criteria <id>]... [--commit <sha>] [--notes <text>] [--independent-review --reviewer <identity>]\n  node scripts/simulator-project.mjs execution <taskId> --model <id> --effort <level> --context <text>\n  node scripts/simulator-project.mjs scope <taskId> [--file <path>]... [--source <sourceId>]... [--note <text>]\n  node scripts/simulator-project.mjs milestone <milestoneId> accept --command <audit> --scope <scope> --reviewer <identity> [--notes <text>]\n  node scripts/simulator-project.mjs block <taskId> --reason <text>\n  node scripts/simulator-project.mjs unblock <taskId> [--note <text>]`;
 }
 
 async function runCli() {
@@ -572,6 +740,27 @@ async function runCli() {
     assertProjectIsValid(project);
     if (command === 'render') await writeFile(project.paths.status, renderStatus(project.state), 'utf8');
     console.log(renderStatus(project.state));
+    return;
+  }
+  if (command === 'brief') {
+    const project = await loadProject(root);
+    assertProjectIsValid(project);
+    const taskId = args.find((entry) => !entry.startsWith('--'));
+    console.log(JSON.stringify(createTaskBrief(project.state, taskId), null, 2));
+    return;
+  }
+  if (command === 'health') {
+    const project = await loadProject(root);
+    assertProjectIsValid(project);
+    const taskId = args.find((entry) => !entry.startsWith('--'));
+    const health = await inspectWorkspaceHealth(root, project.state, taskId, { acknowledge: args.includes('--acknowledge') });
+    if (args.includes('--record')) {
+      project.state.workspaceHealth = health;
+      project.state.updatedAt = health.checkedAt;
+      await writeProject(root, project.state);
+    }
+    console.log(JSON.stringify(health, null, 2));
+    if (health.status === 'attention') process.exitCode = 2;
     return;
   }
   if (command === 'milestone') {
@@ -603,6 +792,9 @@ async function runCli() {
       note: readOption(args, 'note'),
       requiresIndependentReview: task.critical || project.routing.profiles[task.executionProfile]?.requiresIndependentReview === true
     });
+  } else if (command === 'slice') {
+    const taskIndex = args.indexOf(taskId);
+    transitionWorkSlice(project.state, taskId, args[taskIndex + 1], args[taskIndex + 2], { note: readOption(args, 'note') });
   } else if (command === 'evidence') {
     addEvidence(project.state, taskId, {
       command: readOption(args, 'command', { required: true }),
@@ -623,6 +815,7 @@ async function runCli() {
   } else if (command === 'scope') {
     markTaskScopeUpdated(project.state, taskId, {
       files: readRepeatOption(args, 'file'),
+      sources: readRepeatOption(args, 'source'),
       note: readOption(args, 'note')
     });
   } else if (command === 'block') {

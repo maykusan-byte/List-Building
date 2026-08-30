@@ -13,6 +13,8 @@
     "simulator:project:check": "node scripts/simulator-project.mjs check",
     "simulator:project:render": "node scripts/simulator-project.mjs render",
     "simulator:project:status": "node scripts/simulator-project.mjs status",
+    "simulator:project:brief": "node scripts/simulator-project.mjs brief",
+    "simulator:project:health": "node scripts/simulator-project.mjs health",
     "simulator:status": "node scripts/simulator-project.mjs render",
     "simulator:validate": "node scripts/validate-simulator-data.mjs",
     "simulator:data:sync": "node scripts/sync-simulator-data.mjs",

@@ -3,7 +3,12 @@ import { executeGameCommand, type CommandExecution, type GameCommand, type GameS
 import type { SimulationAutosaveController } from '../persistence';
 import type { SimulationCompatibilityReport } from './compatibility';
 import { isSessionCompatible } from './compatibility';
-import { executeBasicShootingCommand, executeExtendedAllocationDecisionCommand, executeGenericRerollDecisionCommand, executeLethalHitsDecisionCommand, executeOathOfMomentSelectionCommand, type ShootingEnvironment } from './shooting';
+import { executeDeploymentCommand } from './deployment';
+import { executeCompleteGameMovementCommand } from './battle-movement';
+import { executeDeclareChargeCommand, executeResolveChargeCommand } from './battle-charge';
+import { executeBasicMeleeAllocationDecisionCommand, executeBasicMeleeCommand, executeEmptyFightCommand, executeFightMovementCommand, executePassFightWindowCommand } from './battle-fight';
+import { executeObjectiveAwareAdvanceBattlePhaseCommand } from './objective-control';
+import { executeBasicShootingCommand, executeDuplicateWeaponAbilityDecisionCommand, executeExtendedAllocationDecisionCommand, executeGenericRerollDecisionCommand, executeLethalHitsDecisionCommand, executeOathOfMomentSelectionCommand, executeSplitFireCommand, executeSplitFireRetargetDecisionCommand, type ShootingEnvironment } from './shooting';
 
 const COVERAGE_RULE_ID = 'simulator.core.coverage-compatibility';
 
@@ -71,6 +76,77 @@ function executeOrchestratedCommand(
       }
     };
   }
+  if (command.type === 'advance-battle-phase' && (context.gameState.mission?.objectiveMarkers.length ?? 0) > 0) {
+    if (!shootingEnvironment) return {
+      accepted: false,
+      state: context.gameState,
+      rejection: {
+        commandId: command.id,
+        code: 'trusted-objective-environment-required',
+        message: 'Le contrôle des objectifs doit être résolu par l’environnement physique autoritaire.',
+        sourceRuleIds: ['14.01', '14.02', '14.01.01']
+      }
+    };
+    return executeObjectiveAwareAdvanceBattlePhaseCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'deploy-unit') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-deployment-environment-required',
+          message: 'Le déploiement doit être vérifié par l’environnement physique autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-deployment-environment']
+        }
+      };
+    }
+    return executeDeploymentCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'move-unit') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-movement-environment-required',
+          message: 'Le mouvement doit être vérifié par l’environnement physique autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-deployment-environment']
+        }
+      };
+    }
+    return executeCompleteGameMovementCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'declare-charge' || command.type === 'resolve-charge') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-charge-environment-required',
+          message: 'La charge doit être résolue par l’environnement physique autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-charge-environment']
+        }
+      };
+    }
+    return command.type === 'declare-charge'
+      ? executeDeclareChargeCommand(context.gameState, command, shootingEnvironment)
+      : executeResolveChargeCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'pass-fight-window' || command.type === 'resolve-fight-movement' || command.type === 'resolve-basic-melee' || command.type === 'resolve-empty-fight') {
+    if (!shootingEnvironment) {
+      return { accepted: false, state: context.gameState, rejection: {
+        commandId: command.id, code: 'trusted-fight-environment-required', message: 'Le combat doit être résolu par l’environnement physique autoritaire.', sourceRuleIds: ['simulator.core.trusted-fight-environment']
+      } };
+    }
+    if (command.type === 'pass-fight-window') return executePassFightWindowCommand(context.gameState, command, shootingEnvironment);
+    if (command.type === 'resolve-fight-movement') return executeFightMovementCommand(context.gameState, command, shootingEnvironment);
+    if (command.type === 'resolve-empty-fight') return executeEmptyFightCommand(context.gameState, command, shootingEnvironment);
+    return executeBasicMeleeCommand(context.gameState, command, shootingEnvironment);
+  }
   if (command.type === 'resolve-basic-shooting') {
     if (!shootingEnvironment) {
       return {
@@ -85,6 +161,21 @@ function executeOrchestratedCommand(
       };
     }
     return executeBasicShootingCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-split-fire') {
+    if (!shootingEnvironment) {
+      return {
+        accepted: false,
+        state: context.gameState,
+        rejection: {
+          commandId: command.id,
+          code: 'trusted-shooting-environment-required',
+          message: 'Le tir partagé doit être résolu par un environnement spatial autoritaire.',
+          sourceRuleIds: ['simulator.core.trusted-shooting-environment']
+        }
+      };
+    }
+    return executeSplitFireCommand(context.gameState, command, shootingEnvironment);
   }
   if (command.type === 'select-oath-of-moment-target') {
     if (!shootingEnvironment) {
@@ -126,6 +217,22 @@ function executeOrchestratedCommand(
     }
     return executeGenericRerollDecisionCommand(context.gameState, command, shootingEnvironment);
   }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'duplicate-weapon-ability')) {
+    if (!shootingEnvironment) return {
+      accepted: false,
+      state: context.gameState,
+      rejection: { commandId: command.id, code: 'shooting-environment-required', message: 'Le choix d’aptitude dupliquée exige un environnement de tir autoritaire.', sourceRuleIds: ['simulator.core.trusted-shooting-environment'] }
+    };
+    return executeDuplicateWeaponAbilityDecisionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'split-fire-retarget')) {
+    if (!shootingEnvironment) return {
+      accepted: false,
+      state: context.gameState,
+      rejection: { commandId: command.id, code: 'trusted-shooting-environment-required', message: 'Le reciblage d’un tir partagé exige un environnement de tir autoritaire.', sourceRuleIds: ['simulator.core.trusted-shooting-environment'] }
+    };
+    return executeSplitFireRetargetDecisionCommand(context.gameState, command, shootingEnvironment);
+  }
   if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId
     && (decision.kind === 'extended-allocation-group' || decision.kind === 'extended-allocation-model' || decision.kind === 'extended-hazardous-allocation'))) {
     if (!shootingEnvironment) return {
@@ -134,6 +241,14 @@ function executeOrchestratedCommand(
       rejection: { commandId: command.id, code: 'shooting-environment-required', message: 'Une décision de tir étendue exige un environnement de tir autoritaire.', sourceRuleIds: ['simulator.core.trusted-shooting-environment'] }
     };
     return executeExtendedAllocationDecisionCommand(context.gameState, command, shootingEnvironment);
+  }
+  if (command.type === 'resolve-decision' && context.gameState.pendingDecisions.some((decision) => decision.id === command.decisionId && decision.kind === 'basic-melee-allocation')) {
+    if (!shootingEnvironment) return {
+      accepted: false,
+      state: context.gameState,
+      rejection: { commandId: command.id, code: 'trusted-fight-environment-required', message: 'L’allocation de mêlée exige un environnement de Combat autoritaire.', sourceRuleIds: ['05.04'] }
+    };
+    return executeBasicMeleeAllocationDecisionCommand(context.gameState, command, shootingEnvironment);
   }
   if (command.type === 'move-model' && movementCommandResolver) {
     return movementCommandResolver.execute(context.gameState, command);
@@ -150,13 +265,15 @@ function commandReachesPhase(context: SimulatorMachineContext, event: SimulatorM
 function commandOpensDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): boolean {
   if (event.type !== 'COMMAND') return false;
   const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
-  return execution.accepted && context.gameState.pendingDecisions.length === 0 && execution.state.pendingDecisions.length > 0;
+  return execution.accepted && context.gameState.pendingDecisions.length === 0 && context.gameState.pendingCharge === null
+    && (execution.state.pendingDecisions.length > 0 || execution.state.pendingCharge !== null);
 }
 
 function commandClosesDecision(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): boolean {
   if (event.type !== 'COMMAND') return false;
   const execution = executeOrchestratedCommand(context, event.command, shootingEnvironment, movementCommandResolver);
-  return execution.accepted && context.gameState.pendingDecisions.length > 0 && execution.state.pendingDecisions.length === 0;
+  return execution.accepted && (context.gameState.pendingDecisions.length > 0 || context.gameState.pendingCharge !== null)
+    && execution.state.pendingDecisions.length === 0 && execution.state.pendingCharge === null;
 }
 
 function phaseIs(context: SimulatorMachineContext, expected: PhaseMachineState): boolean {
@@ -164,7 +281,7 @@ function phaseIs(context: SimulatorMachineContext, expected: PhaseMachineState):
 }
 
 function hasPendingDecision(context: SimulatorMachineContext): boolean {
-  return context.gameState.pendingDecisions.length > 0;
+  return context.gameState.pendingDecisions.length > 0 || context.gameState.pendingCharge !== null;
 }
 
 function applyCommand(context: SimulatorMachineContext, event: SimulatorMachineEvent, shootingEnvironment?: ShootingEnvironment, movementCommandResolver?: MovementCommandResolver): SimulatorMachineContext {

@@ -10,6 +10,7 @@ const coreRulesPath = resolve(import.meta.dirname, '../data/rules/core-rules-fr.
 const officialAppFaqPath = resolve(import.meta.dirname, '../data/rules/official-app-faq-fr-2026-07.json');
 const officialAppReferencesPath = resolve(import.meta.dirname, '../data/rules/official-app-references-fr-2026-07.json');
 const officialAppErrataPath = resolve(import.meta.dirname, '../data/rules/official-app-errata-fr-2026-07.json');
+const officialAppSupplementalRulesPath = resolve(import.meta.dirname, '../data/rules/official-app-supplemental-rules-fr-2026-08.json');
 
 const COVER_RULE_ID = 'core.benefit-of-cover';
 const COVER_SOURCE_ID = 'warforge-core-rules-fr-2026-07';
@@ -24,6 +25,8 @@ const OFFICIAL_APP_REFERENCES_RESOURCE_SCHEMA = 'warforge-official-app-reference
 const OFFICIAL_APP_ERRATA_SOURCE_ID = 'warforge-official-app-errata-fr-2026-07';
 const OFFICIAL_APP_ERRATA_ARCHIVE_SCHEMA = 'warforge-official-app-errata-screenshot-archive/v1';
 const OFFICIAL_APP_ERRATA_RESOURCE_SCHEMA = 'warforge-official-app-errata-fr/v1';
+const OFFICIAL_APP_SUPPLEMENTAL_RULES_SOURCE_ID = 'warforge-official-app-supplemental-rules-fr-2026-08';
+const OFFICIAL_APP_SUPPLEMENTAL_RULES_RESOURCE_SCHEMA = 'warforge-official-app-supplemental-rules-fr/v1';
 const APPROVED_SCENARIO_ID = 'closed-core-shooting-duel-v1';
 const APPROVED_PROFILE_ID = 'training-infantry-32mm-v1';
 const APPROVED_CONVENTION_ID = 'closed-core-infantry-geometry-v1';
@@ -32,6 +35,72 @@ const APPROVED_FIXTURE_IDS = ['closed-core-red-unit-v1', 'closed-core-blue-unit-
 const M4_DRAFT_FILENAME = 'm4-real-roster-facts.json';
 const M4_DRAFT_SCHEMA = 'warforge-simulator-m4-real-roster-facts/v2';
 const M4_SCENARIO_ID = 'real-roster-shooting-duel-v1';
+const FULL_GAME_COVERAGE_SCHEMA = 'warforge-simulator-full-game-coverage/v1';
+const FULL_GAME_SCOPE = 'closed-complete-game-pilot-v1';
+const CLOSED_MISSION_FILENAME = 'closed-complete-game-mission.json';
+const CLOSED_MISSION_SCHEMA = 'warforge-simulator-closed-mission/v1';
+const CLOSED_MISSION_ID = 'closed-complete-game-disruption-v1';
+const APPROVED_GDM_SOURCE_ID = 'approved-gdm-2026-11th-archive';
+const APPROVED_GDM_ARCHIVE_SCHEMA = 'warforge-gdmissions-11th/v1';
+const APPROVED_GDM_ARCHIVE_SHA256 = 'a8320287a3fbdde6fb126dee241374110a086383fd2b1cd5012e5a09bb3ccc71';
+const COMMAND_PHASE_COVERAGE_SOURCE_REFS = [
+  {
+    sourceId: 'warforge-core-rules-fr-2026-07',
+    references: ['01.06', '01.07', '08.01', '08.02', '08.03', '08.04', '08.05', '09.07'],
+    printedPages: [9, 30, 31, 33]
+  },
+  {
+    sourceId: 'warforge-official-app-supplemental-rules-fr-2026-08',
+    references: ['01.02.01', '01.02.02', '08.03', '08.03.01']
+  }
+];
+const OBJECTIVE_COVERAGE_SOURCE_REFS = [
+  {
+    sourceId: 'warforge-core-rules-fr-2026-07',
+    references: ['13', '14', '14.01', '14.02'],
+    printedPages: [44, 52, 53]
+  },
+  {
+    sourceId: 'warforge-official-app-supplemental-rules-fr-2026-08',
+    references: ['14.01', '14.01.01']
+  },
+  {
+    sourceId: APPROVED_GDM_SOURCE_ID,
+    references: ['/11th/layouts/disruption/disruption#layout-1']
+  }
+];
+const MISSION_COVERAGE_SOURCE_REFS = [
+  {
+    sourceId: APPROVED_GDM_SOURCE_ID,
+    references: [
+      '/11th/force-disposition/disruption',
+      '/11th/layouts/disruption/disruption#layout-1',
+      '/11th/primary-missions/disruption/outmanoeuvre',
+      '/11th/secondary-missions/assassination-defender#fixed',
+      '/11th/secondary-missions/engage-on-all-fronts-defender#fixed'
+    ]
+  },
+  {
+    sourceId: 'warforge-event-companion-fr-2026-07',
+    references: ['event-mission-sequence.2', 'event-mission-sequence.3', 'event-mission-sequence.4', 'event-mission-sequence.5', 'event-mission-sequence.6', 'event-mission-sequence.7', 'event-mission-sequence.9', 'event-mission-sequence.16', 'event-mission-sequence.17', 'card-terminology.cumulative-or'],
+    printedPages: [2, 3]
+  }
+];
+const STRATAGEM_COVERAGE_SOURCE_REFS = [
+  {
+    sourceId: 'warforge-core-rules-fr-2026-07',
+    references: ['15.01', '15.04', '15.12'],
+    printedPages: [54, 56, 57]
+  },
+  {
+    sourceId: 'warforge-universal-rules-updates-en-2026-07',
+    references: ['stratagem-updates']
+  },
+  {
+    sourceId: 'warforge-official-app-supplemental-rules-fr-2026-08',
+    references: ['15.01', '15.01.01']
+  }
+];
 const M4_PROPOSAL_PATH = resolve(appDirectory, 'docs/simulator/roster-pilots/real-roster-shooting-duel-v1.proposal.json');
 const M4_CATALOG_DIRECTORY = resolve(appDirectory, 'data/units');
 const PISTOL_REFERENCE = '24.27';
@@ -173,6 +242,207 @@ async function assertOfficialAppScreenshotArchiveSource(source, { archiveSchema,
   return { archive, screenshotIds: new Set(screenshotIds) };
 }
 
+function parseOfficialAppSupplementalSections(rawText) {
+  const lines = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  const headingPattern = /^(\d{2}\.\d{2}(?:\.\d{2})?)(?:\s+-\s+(.+))?\s*$/;
+  const headings = lines.flatMap((line, index) => {
+    const match = line.trim().match(headingPattern);
+    return match ? [{ index, id: match[1], inlineTitle: match[2] ?? null }] : [];
+  });
+  return headings.map((heading, index) => {
+    const nextIndex = headings[index + 1]?.index ?? lines.length;
+    const bodyLines = lines.slice(heading.index + 1, nextIndex);
+    while (bodyLines.length > 0 && bodyLines[0].trim() === '') bodyLines.shift();
+    while (bodyLines.length > 0 && bodyLines.at(-1).trim() === '') bodyLines.pop();
+    let title = heading.inlineTitle;
+    if (title === null) {
+      const titleIndex = bodyLines.findIndex((line) => line.trim() !== '');
+      if (titleIndex >= 0) {
+        title = bodyLines[titleIndex].trim();
+        bodyLines.splice(titleIndex, 1);
+        while (bodyLines.length > 0 && bodyLines[0].trim() === '') bodyLines.shift();
+      }
+    }
+    return {
+      id: heading.id,
+      title: title ?? heading.id,
+      sourceLineStart: heading.index + 1,
+      sourceLineEnd: nextIndex,
+      text: bodyLines.join('\n').trim()
+    };
+  });
+}
+
+async function assertOfficialAppOwnerTranscriptionSource(source) {
+  assert(!isAbsolute(source.path ?? ''), `source ${source.id}: chemin de transcription relatif requis`);
+  const declaredPath = resolve(appDirectory, source.path ?? '');
+  let canonicalReferencesDirectory;
+  let canonicalSourcePath;
+  try {
+    [canonicalReferencesDirectory, canonicalSourcePath] = await Promise.all([
+      realpath(referencesDirectory),
+      realpath(declaredPath)
+    ]);
+  } catch {
+    throw new Error(`source ${source.id}: transcription locale introuvable`);
+  }
+  assert(canonicalSourcePath.toLowerCase().startsWith(`${canonicalReferencesDirectory.toLowerCase()}${sep}`), `source ${source.id}: transcription hors du répertoire references`);
+  const raw = await readFile(canonicalSourcePath);
+  const hash = createHash('sha256').update(raw).digest('hex');
+  assert(hash === source.sha256, `source ${source.id}: sha256 ne correspond pas à la transcription locale`);
+  const resource = JSON.parse(await readFile(officialAppSupplementalRulesPath, 'utf8'));
+  assert(resource.schemaVersion === OFFICIAL_APP_SUPPLEMENTAL_RULES_RESOURCE_SCHEMA, 'Règles supplémentaires application officielle: schéma incompatible');
+  assert(resource.id === source.id && resource.status === 'reference-only' && resource.authority === 'official-app-owner-transcription', 'Règles supplémentaires application officielle: provenance invalide');
+  assert(resource.version === source.version && resource.transcribedAt === source.retrievedAt && resource.reviewedBy === source.reviewedBy, 'Règles supplémentaires application officielle: version ou revue incohérente');
+  assert(resource.sourceFile?.path === '../../../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt'
+    && resource.sourceFile?.driveFileId === source.driveFileId
+    && resource.sourceFile?.sha256 === source.sha256
+    && resource.sourceFile?.normalizedLocalBytes === raw.length, 'Règles supplémentaires application officielle: fichier source incohérent');
+  const parsedSections = parseOfficialAppSupplementalSections(raw.toString('utf8'));
+  assert(parsedSections.length === 40, 'Règles supplémentaires application officielle: 40 sections numérotées requises');
+  uniqueStrings(parsedSections.map((section) => section.id), 'Règles supplémentaires application officielle.sections');
+  assertSameJson(resource.sections, parsedSections, 'Règles supplémentaires application officielle.sections');
+  assertSameJson(resource.simulatorReadiness, {
+    executableNow: [],
+    indexedSectionIds: parsedSections.map((section) => section.id),
+    activationPolicy: 'reference-only-until-formalized-and-tested'
+  }, 'Règles supplémentaires application officielle.simulatorReadiness');
+}
+
+async function assertApprovedGdmMissionArchiveSource(source) {
+  assert(source.id === APPROVED_GDM_SOURCE_ID && source.kind === 'trusted-mission-archive', 'manifest.json: archive GDM approuvée requise');
+  assert(source.authority === 'project-owner-approved' && source.status === 'project-approved', `source ${source.id}: autorité propriétaire requise`);
+  assert(source.version === 'archive-2026-08-08' && source.effectiveDate === null && source.retrievedAt === '2026-08-08', `source ${source.id}: version ou date d'archive incohérente`);
+  assert(source.reviewedBy === 'project-owner' && source.reviewedAt === '2026-08-30' && source.decisionReference === 'ADR-019', `source ${source.id}: approbation propriétaire incomplète`);
+  assert(source.officialGwPublication === false, `source ${source.id}: l'archive GDM ne doit pas être présentée comme officielle GW`);
+  assert(source.url === 'https://gdmissions.app/11th' && source.sha256 === APPROVED_GDM_ARCHIVE_SHA256, `source ${source.id}: URL ou empreinte déclarée incohérente`);
+  assert(!isAbsolute(source.path ?? ''), `source ${source.id}: chemin d'archive relatif requis`);
+  const declaredPath = resolve(appDirectory, source.path ?? '');
+  const missionsDirectory = await realpath(resolve(appDirectory, 'data/missions'));
+  const archivePath = await realpath(declaredPath).catch(() => null);
+  assert(archivePath && archivePath.toLowerCase().startsWith(`${missionsDirectory.toLowerCase()}${sep}`), `source ${source.id}: archive locale introuvable ou hors data/missions`);
+  const raw = await readFile(archivePath);
+  assert(createHash('sha256').update(raw).digest('hex') === source.sha256, `source ${source.id}: sha256 ne correspond pas à l'archive locale`);
+  const archive = JSON.parse(raw.toString('utf8'));
+  assert(archive.schemaVersion === APPROVED_GDM_ARCHIVE_SCHEMA, `source ${source.id}: schéma d'archive incompatible`);
+  assert(archive.source?.baseUrl === source.url && archive.source?.retrievedAt?.startsWith(`${source.retrievedAt}T`), `source ${source.id}: provenance d'archive incohérente`);
+  assert(Array.isArray(archive.pages) && archive.pages.length === 93 && Array.isArray(archive.assets) && archive.assets.length === 149, `source ${source.id}: archive GDM incomplète`);
+  return { archive, archiveDirectory: resolve(archivePath, '..') };
+}
+
+async function assertApprovedGdmAsset(context, assetRef, sourcePath, label) {
+  assertExactKeys(assetRef, ['relativePath', 'sha256'], label);
+  const archivedAsset = context.archive.assets.find((asset) => asset.sourcePath === sourcePath);
+  assert(archivedAsset?.relativePath === assetRef.relativePath && archivedAsset.sha256 === assetRef.sha256, `${label}: ressource ou hash incohérent avec l'archive`);
+  const assetPath = await realpath(resolve(context.archiveDirectory, assetRef.relativePath)).catch(() => null);
+  assert(assetPath && assetPath.toLowerCase().startsWith(`${context.archiveDirectory.toLowerCase()}${sep}`), `${label}: ressource locale introuvable`);
+  const raw = await readFile(assetPath);
+  assert(createHash('sha256').update(raw).digest('hex') === assetRef.sha256, `${label}: sha256 ne correspond pas à la ressource locale`);
+}
+
+async function validateClosedCompleteGameMission(dataDirectory, manifest, gdmContext) {
+  const mission = await readJson(dataDirectory, CLOSED_MISSION_FILENAME);
+  assertExactKeys(mission, [
+    'schemaVersion', 'version', 'manifestVersion', 'id', 'status', 'approval', 'sourceRefs',
+    'forceDisposition', 'layout', 'primaryMission', 'fixedSecondaryMissions',
+    'globalScoringLimits', 'executionReadiness'
+  ], CLOSED_MISSION_FILENAME);
+  assert(mission.schemaVersion === CLOSED_MISSION_SCHEMA && mission.version === '1.0.0', `${CLOSED_MISSION_FILENAME}: schéma ou version incompatible`);
+  assert(mission.manifestVersion === manifest.version && mission.id === CLOSED_MISSION_ID && mission.status === 'source-covered', `${CLOSED_MISSION_FILENAME}: identité ou statut incompatible`);
+  assertSameJson(mission.approval, {
+    authority: 'project-owner-approved-trusted-web',
+    reviewedBy: 'project-owner',
+    reviewedAt: '2026-08-30',
+    decisionReference: 'ADR-019',
+    officialGwPublication: false,
+    note: "L'archive GDM 2026 est approuvée comme source fiable du projet. Elle ne doit pas être présentée comme une publication officielle Games Workshop."
+  }, `${CLOSED_MISSION_FILENAME}.approval`);
+  assertSameJson(mission.sourceRefs, [
+    { sourceId: APPROVED_GDM_SOURCE_ID, role: 'mission-cards-and-layout', references: MISSION_COVERAGE_SOURCE_REFS[0].references },
+    { sourceId: 'warforge-event-companion-fr-2026-07', role: 'general-mission-sequence-and-scoring-limits', references: MISSION_COVERAGE_SOURCE_REFS[1].references, printedPages: [2, 3] }
+  ], `${CLOSED_MISSION_FILENAME}.sourceRefs`);
+
+  const disposition = gdmContext.archive.cards?.forceDispositions?.find((entry) => entry.sourcePath === '/11th/force-disposition/disruption');
+  assert(disposition?.title === 'Disruption - Force Disposition | GDM 2026' && disposition.asset === '/assets/11th/force-disposition/disruption.png', `${CLOSED_MISSION_FILENAME}: carte de disposition Disruption absente`);
+  assert(mission.forceDisposition?.id === 'disruption' && mission.forceDisposition.name === 'Disruption'
+    && mission.forceDisposition.sourcePath === disposition.sourcePath && mission.forceDisposition.mirrorPrimaryMissionId === 'outmanoeuvre', `${CLOSED_MISSION_FILENAME}: disposition incorrecte`);
+  await assertApprovedGdmAsset(gdmContext, mission.forceDisposition.asset, disposition.asset, `${CLOSED_MISSION_FILENAME}.forceDisposition.asset`);
+
+  const layoutGroup = gdmContext.archive.cards?.layouts?.find((entry) => entry.sourcePath === '/11th/layouts/disruption/disruption');
+  const layout = layoutGroup?.layouts?.find((entry) => entry.number === 1);
+  assert(layout?.measurementsImage === '/assets/11th/layouts/with-measurements/disruption-mirror-1.png', `${CLOSED_MISSION_FILENAME}: layout Disruption Mirror 1 absent`);
+  assert(mission.layout?.id === 'mirror-layout-1' && mission.layout.name === 'Disruption Mirror · 1'
+    && mission.layout.sourcePath === layoutGroup.sourcePath && mission.layout.layoutNumber === 1
+    && mission.layout.board?.width === 11_176 && mission.layout.board?.height === 15_240 && mission.layout.board?.worldUnit === '0.1mm'
+    && mission.layout.attackerEdge === 'top' && mission.layout.defenderEdge === 'bottom', `${CLOSED_MISSION_FILENAME}: contrat du layout incorrect`);
+  assertSameJson(mission.layout.objectiveRoles, ['attacker-home', 'defender-home', 'no-mans-land-1', 'no-mans-land-2', 'centre-1', 'centre-2'], `${CLOSED_MISSION_FILENAME}.layout.objectiveRoles`);
+  assertSameJson(mission.layout.deterministicGeometry, {
+    status: 'pending-transcription',
+    requiredFor: 'SIM-M9-T03',
+    note: "Le diagramme mesuré est archivé et lisible ; les coordonnées d'objectifs, zones de déploiement et polygones de terrain doivent encore être transcrits puis testés avant la partie UI."
+  }, `${CLOSED_MISSION_FILENAME}.layout.deterministicGeometry`);
+  await assertApprovedGdmAsset(gdmContext, mission.layout.measuredAsset, layout.measurementsImage, `${CLOSED_MISSION_FILENAME}.layout.measuredAsset`);
+
+  const outmanoeuvre = gdmContext.archive.cards?.primary?.find((entry) => entry.sourcePath === '/11th/primary-missions/disruption/outmanoeuvre');
+  assert(outmanoeuvre?.name === 'Outmanoeuvre' && outmanoeuvre.deck === 'disruption' && outmanoeuvre.vs === 'disruption', `${CLOSED_MISSION_FILENAME}: carte Outmanoeuvre absente`);
+  assertSameJson(outmanoeuvre.sections.map((section) => ({ when: section.when, trigger: section.trigger, vp: section.tiers?.[0]?.vp, perUnit: section.tiers?.[0]?.perUnit ?? false })), [
+    { when: 'ANY BATTLE ROUND', trigger: 'End of your turn', vp: 10, perUnit: false },
+    { when: 'FIRST BATTLE ROUND', trigger: 'End of your turn', vp: 4, perUnit: true },
+    { when: 'SECOND & THIRD BATTLE ROUND', trigger: 'End of your Command phase', vp: 5, perUnit: true },
+    { when: 'FOURTH BATTLE ROUND ONWARDS', trigger: 'End of your turn', vp: 6, perUnit: true }
+  ], `${CLOSED_MISSION_FILENAME}: barème source Outmanoeuvre`);
+  assert(mission.primaryMission?.id === 'outmanoeuvre' && mission.primaryMission.name === outmanoeuvre.name && mission.primaryMission.sourcePath === outmanoeuvre.sourcePath, `${CLOSED_MISSION_FILENAME}: mission principale incorrecte`);
+  assertSameJson(mission.primaryMission.scoringWindows, [
+    { id: 'control-opponent-home', battleRounds: [1, 2, 3, 4, 5], checkpoint: 'end-of-own-turn', condition: { kind: 'control-objective', objectiveRole: 'opponent-home' }, award: { kind: 'flat', vp: 10 } },
+    { id: 'round-1-non-home-objectives', battleRounds: [1], checkpoint: 'end-of-own-turn', condition: { kind: 'control-each-objective-excluding-own-home' }, award: { kind: 'per-objective', vp: 4 } },
+    { id: 'rounds-2-3-non-home-objectives', battleRounds: [2, 3], checkpoint: 'end-of-own-command-phase', condition: { kind: 'control-each-objective-excluding-own-home' }, award: { kind: 'per-objective', vp: 5 } },
+    { id: 'rounds-4-5-non-home-objectives', battleRounds: [4, 5], checkpoint: 'end-of-own-turn', condition: { kind: 'control-each-objective-excluding-own-home' }, award: { kind: 'per-objective', vp: 6 } }
+  ], `${CLOSED_MISSION_FILENAME}.primaryMission.scoringWindows`);
+  await assertApprovedGdmAsset(gdmContext, mission.primaryMission.asset, outmanoeuvre.asset, `${CLOSED_MISSION_FILENAME}.primaryMission.asset`);
+
+  const assassinationSource = gdmContext.archive.cards?.secondary?.find((entry) => entry.sourcePath === '/11th/secondary-missions/assassination-defender');
+  const engageSource = gdmContext.archive.cards?.secondary?.find((entry) => entry.sourcePath === '/11th/secondary-missions/engage-on-all-fronts-defender');
+  assert(assassinationSource?.sections?.[0]?.chip === 'FIXED'
+    && assassinationSource.sections[0].rows?.[0]?.vp === '3' && assassinationSource.sections[0].rows?.[1]?.vp === '+1'
+    && assassinationSource.sections[0].rows?.[1]?.cumulative === true, `${CLOSED_MISSION_FILENAME}: branche Fixed d'Assassination incorrecte`);
+  assert(engageSource?.sections?.[0]?.chip === 'FIXED'
+    && engageSource.sections[0].rows?.[0]?.vp === '2' && engageSource.sections[0].rows?.[1]?.vp === '4'
+    && engageSource.whenDrawn?.includes('not within 6" of the centre'), `${CLOSED_MISSION_FILENAME}: branche Fixed d'Engage on All Fronts incorrecte`);
+  assert(Array.isArray(mission.fixedSecondaryMissions) && mission.fixedSecondaryMissions.length === 2, `${CLOSED_MISSION_FILENAME}: deux secondaires fixes requis`);
+  const assassination = mission.fixedSecondaryMissions[0];
+  const engage = mission.fixedSecondaryMissions[1];
+  assert(assassination?.id === 'assassination' && assassination.name === assassinationSource.name && assassination.sourcePath === assassinationSource.sourcePath && assassination.checkpoint === 'end-of-each-player-turn', `${CLOSED_MISSION_FILENAME}: Assassination incorrecte`);
+  assertSameJson(assassination.conditions, [
+    { id: 'destroyed-enemy-character', kind: 'per-enemy-character-model-destroyed-this-turn', vp: 3 },
+    { id: 'destroyed-enemy-character-wounds-4-plus', kind: 'cumulative-per-matching-model', woundsCharacteristicAtLeast: 4, vp: 1 }
+  ], `${CLOSED_MISSION_FILENAME}.assassination.conditions`);
+  await assertApprovedGdmAsset(gdmContext, assassination.asset, assassinationSource.asset, `${CLOSED_MISSION_FILENAME}.assassination.asset`);
+  assert(engage?.id === 'engage-on-all-fronts' && engage.name === engageSource.name && engage.sourcePath === engageSource.sourcePath && engage.checkpoint === 'end-of-own-turn', `${CLOSED_MISSION_FILENAME}: Engage on All Fronts incorrecte`);
+  assertSameJson(engage.presence, { kind: 'unit-wholly-within-table-quarter', excludedKeywords: ['AIRCRAFT'], excludeBattleShockedUnits: true, minimumDistanceFromBattlefieldCentre: 1_524, boundary: 'not-within' }, `${CLOSED_MISSION_FILENAME}.engage.presence`);
+  assertSameJson(engage.conditions, [
+    { id: 'presence-three-quarters', kind: 'or-tier', tableQuarterCount: 3, vp: 2 },
+    { id: 'presence-four-quarters', kind: 'or-tier', tableQuarterCount: 4, vp: 4 }
+  ], `${CLOSED_MISSION_FILENAME}.engage.conditions`);
+  await assertApprovedGdmAsset(gdmContext, engage.asset, engageSource.asset, `${CLOSED_MISSION_FILENAME}.engage.asset`);
+
+  assertSameJson(mission.globalScoringLimits, {
+    primaryMissionMaximumVp: 45,
+    primaryMissionMaximumVpPerBattleRound: 15,
+    secondaryMissionsMaximumVp: 45,
+    secondaryMissionsMaximumVpPerBattleRound: 15,
+    maximumVpPerFixedSecondaryMission: 20,
+    battleReadyArmyVp: 10,
+    battleEndsAfterRound: 5
+  }, `${CLOSED_MISSION_FILENAME}.globalScoringLimits`);
+  assertSameJson(mission.executionReadiness, {
+    sourceDataCovered: true,
+    scoringEngine: 'pending-SIM-M9-T02',
+    deterministicSpatialLayout: 'pending-SIM-M9-T03',
+    playable: false
+  }, `${CLOSED_MISSION_FILENAME}.executionReadiness`);
+  return mission;
+}
+
 async function assertOfficialAppFaqResource(source, archiveScreenshotIds) {
   const resource = JSON.parse(await readFile(officialAppFaqPath, 'utf8'));
   assert(resource.schemaVersion === OFFICIAL_APP_FAQ_RESOURCE_SCHEMA, 'FAQ application officielle: schéma incompatible');
@@ -199,6 +469,207 @@ function uniqueStrings(values, label) {
 
 function assertSameJson(actual, expected, label) {
   assert(JSON.stringify(actual) === JSON.stringify(expected), `${label}: valeur incohérente avec la source`);
+}
+
+function validateFullGameCoverage(fullGameCoverage, manifest, knownSourceReferencesById = new Map()) {
+  assertExactKeys(fullGameCoverage, [
+    'schemaVersion',
+    'version',
+    'manifestVersion',
+    'scope',
+    'status',
+    'activationPolicy',
+    'canonicalSourceIds',
+    'rosterCandidates',
+    'missionCandidate',
+    'nodes',
+    'gaps',
+    'arbitrationIds',
+    'readiness'
+  ], 'full-game-coverage.json');
+  assert(fullGameCoverage.schemaVersion === FULL_GAME_COVERAGE_SCHEMA, 'full-game-coverage.json: schemaVersion incompatible');
+  assert(fullGameCoverage.version === '0.8.0' && fullGameCoverage.manifestVersion === manifest.version, 'full-game-coverage.json: version incompatible');
+  assert(fullGameCoverage.scope === FULL_GAME_SCOPE && fullGameCoverage.status === 'draft-blocked', 'full-game-coverage.json: le pilote doit rester draft-blocked');
+  assert(typeof fullGameCoverage.activationPolicy === 'string' && fullGameCoverage.activationPolicy.length > 0, 'full-game-coverage.json: politique d’activation requise');
+
+  const manifestSourceIds = manifest.sources.map((source) => source.id);
+  uniqueStrings(fullGameCoverage.canonicalSourceIds, 'full-game-coverage.canonicalSourceIds');
+  for (const sourceId of fullGameCoverage.canonicalSourceIds) {
+    assert(manifestSourceIds.includes(sourceId), `full-game-coverage: source canonique orpheline ${sourceId}`);
+  }
+
+  assert(Array.isArray(fullGameCoverage.rosterCandidates) && fullGameCoverage.rosterCandidates.length === 2, 'full-game-coverage: deux rosters candidats requis');
+  uniqueStrings(fullGameCoverage.rosterCandidates.map((roster) => roster.id), 'full-game-coverage.rosterCandidates');
+  const rosterInstanceIds = [];
+  for (const roster of fullGameCoverage.rosterCandidates) {
+    assert(roster.status === 'human-review-required', `roster ${roster.id}: revue humaine requise`);
+    assert(Array.isArray(roster.units) && roster.units.length === 3, `roster ${roster.id}: trois unités candidates requises`);
+    uniqueStrings(roster.units.map((unit) => unit.instanceId), `roster ${roster.id}.units`);
+    assert(roster.units.every((unit) => typeof unit.unitId === 'string' && unit.unitId.length > 0
+      && Number.isInteger(unit.modelCount) && unit.modelCount > 0
+      && Number.isInteger(unit.points) && unit.points > 0), `roster ${roster.id}: unités candidates invalides`);
+    assert(roster.units.reduce((total, unit) => total + unit.points, 0) === roster.expectedPoints, `roster ${roster.id}: total de points incohérent`);
+    assert(roster.attachmentPolicy === 'all-characters-unattached', `roster ${roster.id}: personnages non attachés requis`);
+    uniqueStrings(roster.blockingGapIds, `roster ${roster.id}.blockingGapIds`);
+    rosterInstanceIds.push(...roster.units.map((unit) => unit.instanceId));
+  }
+  uniqueStrings(rosterInstanceIds, 'full-game-coverage.rosterInstanceIds');
+  assertSameJson(
+    fullGameCoverage.rosterCandidates.map(({ id, side, expectedPoints }) => ({ id, side, expectedPoints })),
+    [
+      { id: 'closed-complete-game-salamanders-v1', side: 'salamanders', expectedPoints: 235 },
+      { id: 'closed-complete-game-blood-angels-v1', side: 'blood-angels', expectedPoints: 240 }
+    ],
+    'full-game-coverage.rosterCandidates'
+  );
+
+  const mission = fullGameCoverage.missionCandidate;
+  assert(mission?.id === CLOSED_MISSION_ID && mission.status === 'covered', 'full-game-coverage: mission candidate source-covered requise');
+  assert(mission.primaryMission === 'Disruption' && mission.deploymentLayout === 'mirror-layout-1', 'full-game-coverage: identifiants de mission candidats incohérents');
+  assertSameJson(mission.missionRuleBySide, { salamanders: 'Outmanoeuvre', 'blood-angels': 'Outmanoeuvre' }, 'full-game-coverage.missionCandidate.missionRuleBySide');
+  assertSameJson(mission.fixedSecondaryIds, ['Assassination', 'Engage on All Fronts'], 'full-game-coverage.missionCandidate.fixedSecondaryIds');
+  uniqueStrings(mission.blockingGapIds, 'full-game-coverage.missionCandidate.blockingGapIds');
+  assert(typeof mission.authorityNote === 'string' && mission.authorityNote.length > 0, 'full-game-coverage: note d’autorité de mission requise');
+
+  assert(Array.isArray(fullGameCoverage.nodes) && fullGameCoverage.nodes.length > 0, 'full-game-coverage: nœuds requis');
+  assert(Array.isArray(fullGameCoverage.gaps) && fullGameCoverage.gaps.length > 0, 'full-game-coverage: gaps requis');
+  const nodeIds = fullGameCoverage.nodes.map((node) => node.id);
+  const gapIds = fullGameCoverage.gaps.map((gap) => gap.id);
+  uniqueStrings(nodeIds, 'full-game-coverage.nodes');
+  uniqueStrings(gapIds, 'full-game-coverage.gaps');
+  const requiredNodeIds = [
+    'coverage.core-foundations',
+    'coverage.battle-round',
+    'coverage.command-phase',
+    'coverage.movement-phase',
+    'coverage.shooting-phase',
+    'coverage.charge-phase',
+    'coverage.fight-phase',
+    'coverage.terrain-objectives',
+    'coverage.stratagems',
+    'coverage.rosters',
+    'coverage.mission',
+    'coverage.persistence-v6',
+    'coverage.complete-game',
+    'coverage.out-of-scope-zones'
+  ];
+  const requiredGapIds = [
+    'GAP-M6-ROSTER-001',
+    'GAP-M6-ROSTER-002',
+    'GAP-M6-PHYSICAL-001',
+    'GAP-M6-DETACHMENT-001',
+    'GAP-M6-NONCORE-001',
+    'GAP-M6-MISSION-001',
+    'GAP-M6-MISSION-002',
+    'GAP-M6-MISSION-003',
+    'GAP-M6-MISSION-004',
+    'GAP-M6-MISSION-005'
+  ];
+  for (const nodeId of requiredNodeIds) assert(nodeIds.includes(nodeId), `full-game-coverage: nœud obligatoire absent ${nodeId}`);
+  for (const gapId of requiredGapIds) assert(gapIds.includes(gapId), `full-game-coverage: gap obligatoire absent ${gapId}`);
+  const nodesById = new Map(fullGameCoverage.nodes.map((node) => [node.id, node]));
+  const gapsById = new Map(fullGameCoverage.gaps.map((gap) => [gap.id, gap]));
+  const allowedNodeStatuses = new Set(['covered', 'partial', 'source-available', 'missing-source', 'human-review-required', 'planned', 'deferred']);
+  const allowedGapStatuses = new Set(['open-human-review', 'open-source-request', 'resolved']);
+
+  for (const node of fullGameCoverage.nodes) {
+    assert(typeof node.kind === 'string' && node.kind.length > 0 && typeof node.title === 'string' && node.title.length > 0, `nœud ${node.id}: kind et title requis`);
+    assert(allowedNodeStatuses.has(node.status), `nœud ${node.id}: statut invalide`);
+    uniqueStrings(node.ownerMilestones, `nœud ${node.id}.ownerMilestones`);
+    uniqueStrings(node.dependsOn, `nœud ${node.id}.dependsOn`);
+    uniqueStrings(node.blockingGapIds, `nœud ${node.id}.blockingGapIds`);
+    assert(Array.isArray(node.sourceRefs), `nœud ${node.id}.sourceRefs: tableau requis`);
+    for (const dependencyId of node.dependsOn) assert(nodesById.has(dependencyId), `nœud ${node.id}: dépendance orpheline ${dependencyId}`);
+    for (const gapId of node.blockingGapIds) assert(gapsById.has(gapId), `nœud ${node.id}: gap orphelin ${gapId}`);
+    if (node.status === 'covered') assert(node.blockingGapIds.length === 0, `nœud ${node.id}: un nœud covered ne peut conserver de gap bloquant`);
+    for (const sourceRef of node.sourceRefs) {
+      assert(fullGameCoverage.canonicalSourceIds.includes(sourceRef.sourceId), `nœud ${node.id}: source non canonique ${sourceRef.sourceId}`);
+      uniqueStrings(sourceRef.references, `nœud ${node.id}.sourceRefs.${sourceRef.sourceId}.references`);
+      const knownReferences = knownSourceReferencesById.get(sourceRef.sourceId);
+      if (knownReferences !== undefined) {
+        for (const reference of sourceRef.references) assert(knownReferences.has(reference), `nœud ${node.id}: référence orpheline ${sourceRef.sourceId}#${reference}`);
+      }
+      if (sourceRef.printedPages !== undefined) {
+        assert(Array.isArray(sourceRef.printedPages) && sourceRef.printedPages.length > 0
+          && sourceRef.printedPages.every((page) => Number.isInteger(page) && page > 0), `nœud ${node.id}: pages imprimées invalides`);
+      }
+    }
+    assert(typeof node.note === 'string' && node.note.length > 0, `nœud ${node.id}: note requise`);
+  }
+
+  const commandPhaseNode = nodesById.get('coverage.command-phase');
+  assert(commandPhaseNode.status === 'covered', 'full-game-coverage: coverage.command-phase doit être covered après M8-T01');
+  assertSameJson(
+    commandPhaseNode.sourceRefs,
+    COMMAND_PHASE_COVERAGE_SOURCE_REFS,
+    'full-game-coverage: provenance exacte de coverage.command-phase'
+  );
+  const objectiveNode = nodesById.get('coverage.terrain-objectives');
+  assert(objectiveNode.status === 'partial', 'full-game-coverage: coverage.terrain-objectives doit rester partial avant M9');
+  assertSameJson(
+    objectiveNode.sourceRefs,
+    OBJECTIVE_COVERAGE_SOURCE_REFS,
+    'full-game-coverage: provenance exacte de coverage.terrain-objectives'
+  );
+  const missionNode = nodesById.get('coverage.mission');
+  assert(missionNode.status === 'partial' && missionNode.blockingGapIds.length === 0, 'full-game-coverage: coverage.mission doit rester partial sans gap de source avant M9-T02');
+  assertSameJson(missionNode.sourceRefs, MISSION_COVERAGE_SOURCE_REFS, 'full-game-coverage: provenance exacte de coverage.mission');
+  const stratagemNode = nodesById.get('coverage.stratagems');
+  assert(stratagemNode.status === 'partial', 'full-game-coverage: coverage.stratagems doit rester partial après les deux verticales M8-T03');
+  assertSameJson(
+    stratagemNode.dependsOn,
+    ['coverage.command-phase', 'coverage.fight-phase'],
+    'full-game-coverage: dépendances exactes de coverage.stratagems'
+  );
+  assertSameJson(
+    stratagemNode.sourceRefs,
+    STRATAGEM_COVERAGE_SOURCE_REFS,
+    'full-game-coverage: provenance exacte de coverage.stratagems'
+  );
+
+  for (const gap of fullGameCoverage.gaps) {
+    assert(typeof gap.category === 'string' && gap.category.length > 0 && typeof gap.title === 'string' && gap.title.length > 0, `gap ${gap.id}: catégorie et titre requis`);
+    assert(allowedGapStatuses.has(gap.status), `gap ${gap.id}: statut invalide`);
+    uniqueStrings(gap.blocksNodeIds, `gap ${gap.id}.blocksNodeIds`);
+    assert(typeof gap.requiredAction === 'string' && gap.requiredAction.length > 0, `gap ${gap.id}: action requise absente`);
+    assert(typeof gap.manualOwnerAction === 'string' && gap.manualOwnerAction.length > 0, `gap ${gap.id}: alternative manuelle absente`);
+    for (const nodeId of gap.blocksNodeIds) {
+      const node = nodesById.get(nodeId);
+      assert(node, `gap ${gap.id}: nœud orphelin ${nodeId}`);
+      assert(node.blockingGapIds.includes(gap.id), `gap ${gap.id}: relation inverse absente sur ${nodeId}`);
+    }
+  }
+  const missionGapIds = ['GAP-M6-MISSION-001', 'GAP-M6-MISSION-002', 'GAP-M6-MISSION-003', 'GAP-M6-MISSION-004', 'GAP-M6-MISSION-005'];
+  for (const gapId of missionGapIds) {
+    const gap = gapsById.get(gapId);
+    assert(gap.status === 'resolved' && gap.blocksNodeIds.length === 0, `full-game-coverage: ${gapId} doit être résolu par ADR-019`);
+  }
+  for (const node of fullGameCoverage.nodes) {
+    for (const gapId of node.blockingGapIds) {
+      assert(gapsById.get(gapId).blocksNodeIds.includes(node.id), `nœud ${node.id}: relation inverse absente sur ${gapId}`);
+    }
+  }
+  for (const roster of fullGameCoverage.rosterCandidates) {
+    for (const gapId of roster.blockingGapIds) assert(gapsById.has(gapId), `roster ${roster.id}: gap orphelin ${gapId}`);
+  }
+  for (const gapId of mission.blockingGapIds) assert(gapsById.has(gapId), `mission candidate: gap orphelin ${gapId}`);
+
+  uniqueStrings(fullGameCoverage.arbitrationIds, 'full-game-coverage.arbitrationIds');
+  assert(fullGameCoverage.arbitrationIds.length === 0, 'full-game-coverage: aucun arbitrage actif ne doit être inventé');
+  const readiness = fullGameCoverage.readiness;
+  assert(readiness?.compatible === false, 'full-game-coverage: le pilote incomplet ne doit pas être compatible');
+  uniqueStrings(readiness.blockingNodeIds, 'full-game-coverage.readiness.blockingNodeIds');
+  for (const nodeId of readiness.blockingNodeIds) assert(nodesById.has(nodeId), `full-game-coverage.readiness: nœud orphelin ${nodeId}`);
+  const expectedBlockingNodeIds = fullGameCoverage.nodes
+    .filter((node) => node.status !== 'covered' && node.status !== 'deferred')
+    .map((node) => node.id);
+  assertSameJson(readiness.blockingNodeIds, expectedBlockingNodeIds, 'full-game-coverage.readiness: tous les nœuds reachable non couverts doivent être bloquants');
+  assert(Array.isArray(readiness.nextOwnerActions) && readiness.nextOwnerActions.length > 0
+    && readiness.nextOwnerActions.every((action) => typeof action === 'string' && action.length > 0), 'full-game-coverage: prochaines actions propriétaire requises');
+  const completeGameNode = nodesById.get('coverage.complete-game');
+  assert(completeGameNode && completeGameNode.status !== 'covered', 'full-game-coverage: la partie complète ne doit pas être annoncée couverte');
+  const openGapIds = gapIds.filter((gapId) => gapsById.get(gapId).status !== 'resolved');
+  assertSameJson([...completeGameNode.blockingGapIds].sort(), [...openGapIds].sort(), 'full-game-coverage: tous les gaps ouverts doivent bloquer la partie complète');
 }
 
 function assertNoLegacyPointFields(value, label) {
@@ -473,7 +944,7 @@ async function validateM4DraftFacts(dataDirectory, manifest) {
       'excludedCharacteristics'
     ], label);
     assertExactKeys(unitFact.catalogLink, ['unitId', 'sourceId', 'sourcePath', 'sourceIndex', 'name'], `${label}.catalogLink`);
-    assertExactKeys(unitFact.characteristics, ['movement', 'toughness', 'save', 'wounds', 'invulnerableSave'], `${label}.characteristics`);
+    assertExactKeys(unitFact.characteristics, ['movement', 'toughness', 'save', 'wounds', 'leadership', 'objectiveControl', 'invulnerableSave'], `${label}.characteristics`);
     assertExactKeys(unitFact.selectedRangedWeapon, ['id', 'catalogName', 'equippedCount', 'range', 'attacks', 'ballisticSkill', 'strength', 'armourPenetration', 'damage', 'keywords'], `${label}.selectedRangedWeapon`);
     for (const ability of unitFact.unitAbilityDispositions) assertExactKeys(ability, ['title', 'status', 'reason'], `${label}.unitAbilityDispositions`);
     for (const ability of unitFact.coreAbilityDispositions) assertExactKeys(ability, ['title', 'status', 'reason'], `${label}.coreAbilityDispositions`);
@@ -500,6 +971,8 @@ async function validateM4DraftFacts(dataDirectory, manifest) {
       toughness: integerCharacteristic(statline.Toughness, '', `${label}.Toughness`),
       save: integerCharacteristic(statline.Save, '\\+', `${label}.Save`),
       wounds: integerCharacteristic(statline.Wounds, '', `${label}.Wounds`),
+      leadership: integerCharacteristic(statline.Leadership, '\\+', `${label}.Leadership`),
+      objectiveControl: integerCharacteristic(statline.OC, '', `${label}.OC`),
       invulnerableSave: statline.InvulSave ? integerCharacteristic(statline.InvulSave.Save, '\\+', `${label}.InvulSave`) : null
     };
     assertSameJson(unitFact.characteristics, expectedCharacteristics, `${label}.characteristics`);
@@ -526,11 +999,7 @@ async function validateM4DraftFacts(dataDirectory, manifest) {
     assert(unitFact.unitAbilityDispositions.every((entry) => entry.status === 'excluded-by-scenario-phase' && typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: disposition d'aptitude d'unité requise`);
     assertSameJson(unitFact.coreAbilityDispositions.map((entry) => entry.title), sourceUnit.CoreAbilities ?? [], `${label}.coreAbilityDispositions`);
     assert(unitFact.coreAbilityDispositions.every((entry) => entry.status === 'not-selected-in-approved-roster' && typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: disposition d'aptitude de base requise`);
-    assertSameJson(unitFact.excludedCharacteristics?.map(({ name, sourceValue }) => ({ name, sourceValue })), [
-      { name: 'Leadership', sourceValue: statline.Leadership },
-      { name: 'OC', sourceValue: statline.OC }
-    ], `${label}.excludedCharacteristics`);
-    assert(unitFact.excludedCharacteristics.every((entry) => typeof entry.reason === 'string' && entry.reason.length > 0), `${label}: raison d'exclusion de caractéristique requise`);
+    assertSameJson(unitFact.excludedCharacteristics, [], `${label}.excludedCharacteristics`);
   }
 
   uniqueStrings(facts.mandatoryRules?.map((rule) => rule.id), `${M4_DRAFT_FILENAME}.mandatoryRules`);
@@ -649,7 +1118,7 @@ export async function validateSimulatorData(options = {}) {
   for (const source of manifest.sources) {
     assert(typeof source.kind === 'string' && typeof source.title === 'string', `source ${source.id}: kind et title requis`);
     assert(typeof source.version === 'string' && source.version.length > 0, `source ${source.id}: version requise`);
-    assert(source.status === 'active' || source.status === 'reference-only', `source ${source.id}: status invalide`);
+    assert(source.status === 'active' || source.status === 'reference-only' || source.status === 'project-approved', `source ${source.id}: status invalide`);
     if (source.status === 'active') assert(typeof source.effectiveDate === 'string' && source.effectiveDate.length > 0, `source ${source.id}: effectiveDate requise`);
     if (source.kind === 'official-pdf') {
       assert(/^[a-f0-9]{64}$/.test(source.sha256 ?? ''), `source ${source.id}: sha256 requis`);
@@ -657,7 +1126,14 @@ export async function validateSimulatorData(options = {}) {
       if (source.effectiveDate === null) assert(ISO_DATE.test(source.retrievedAt ?? ''), `source ${source.id}: retrievedAt requis quand effectiveDate est inconnue`);
       await assertOfficialPdfSource(source);
     }
+    if (source.kind === 'official-app-owner-transcription') {
+      assert(source.id === OFFICIAL_APP_SUPPLEMENTAL_RULES_SOURCE_ID, `source ${source.id}: identifiant de transcription non pris en charge`);
+      assert(source.effectiveDate === null && ISO_DATE.test(source.retrievedAt ?? '') && /^[a-f0-9]{64}$/.test(source.sha256 ?? ''), `source ${source.id}: date et empreinte de transcription requises`);
+      assert(source.reviewedBy === 'project-owner' && typeof source.driveFileId === 'string' && source.driveFileId.length > 0, `source ${source.id}: approbation propriétaire et identifiant Drive requis`);
+      await assertOfficialAppOwnerTranscriptionSource(source);
+    }
   }
+  assert(manifest.sources.some((source) => source.id === OFFICIAL_APP_SUPPLEMENTAL_RULES_SOURCE_ID), 'manifest.json: transcription propriétaire des règles supplémentaires requise');
   const officialAppFaqSource = manifest.sources.find((source) => source.id === OFFICIAL_APP_FAQ_SOURCE_ID);
   assert(officialAppFaqSource?.kind === 'official-app-screenshot-archive', 'manifest.json: source FAQ application officielle requise');
   assert(officialAppFaqSource.effectiveDate === null && ISO_DATE.test(officialAppFaqSource.retrievedAt ?? '') && /^[a-f0-9]{64}$/.test(officialAppFaqSource.sha256 ?? ''), 'source FAQ application officielle: snapshot et empreinte requis');
@@ -685,8 +1161,12 @@ export async function validateSimulatorData(options = {}) {
   });
   await assertOfficialAppErrataResource(officialAppErrataSource, officialAppErrataScreenshotIds);
 
+  const approvedGdmSource = manifest.sources.find((source) => source.id === APPROVED_GDM_SOURCE_ID);
+  const approvedGdmContext = await assertApprovedGdmMissionArchiveSource(approvedGdmSource ?? {});
+
   const artifactEntries = Object.entries(manifest.artifacts ?? {});
-  assert(artifactEntries.length === 4, 'manifest.json: quatre artefacts contractuels requis');
+  assertExactKeys(manifest.artifacts, ['coverage', 'physicalProfiles', 'scenarios', 'rulepacks', 'fullGameCoverage', 'closedCompleteGameMission'], 'manifest.json.artifacts');
+  assert(artifactEntries.length === 6, 'manifest.json: six artefacts contractuels requis');
   const loaded = new Map();
   for (const [, filename] of artifactEntries) {
     assert(typeof filename === 'string' && !filename.includes('..'), 'manifest.json: chemin d’artefact invalide');
@@ -695,6 +1175,7 @@ export async function validateSimulatorData(options = {}) {
     loaded.set(filename, document);
   }
   await validateM4DraftFacts(dataDirectory, manifest);
+  await validateClosedCompleteGameMission(dataDirectory, manifest, approvedGdmContext);
 
   const coverage = loaded.get(manifest.artifacts.coverage);
   assert(coverage.schemaVersion === 'warforge-simulator-coverage/v1', 'coverage.json: schemaVersion incompatible');
@@ -710,9 +1191,23 @@ export async function validateSimulatorData(options = {}) {
   const physicalProfiles = loaded.get(manifest.artifacts.physicalProfiles);
   const scenarios = loaded.get(manifest.artifacts.scenarios);
   const rulepacks = loaded.get(manifest.artifacts.rulepacks);
+  const fullGameCoverage = loaded.get(manifest.artifacts.fullGameCoverage);
   assert(physicalProfiles.schemaVersion === 'warforge-simulator-physical-profiles/v1' && Array.isArray(physicalProfiles.profiles), 'physical-profiles.json: contrat invalide');
   assert(scenarios.schemaVersion === 'warforge-simulator-scenarios/v1' && Array.isArray(scenarios.scenarios), 'scenarios.json: contrat invalide');
   assert(rulepacks.schemaVersion === 'warforge-simulator-rulepacks/v1' && Array.isArray(rulepacks.rulepacks), 'rulepacks.json: contrat invalide');
+  const [officialAppFaq, officialAppReferences, officialAppErrata, officialAppSupplementalRules] = await Promise.all([
+    readFile(officialAppFaqPath, 'utf8').then(JSON.parse),
+    readFile(officialAppReferencesPath, 'utf8').then(JSON.parse),
+    readFile(officialAppErrataPath, 'utf8').then(JSON.parse),
+    readFile(officialAppSupplementalRulesPath, 'utf8').then(JSON.parse)
+  ]);
+  const knownSourceReferencesById = new Map([
+    [OFFICIAL_APP_FAQ_SOURCE_ID, new Set(officialAppFaq.entries.map((entry) => entry.id))],
+    [OFFICIAL_APP_REFERENCES_SOURCE_ID, new Set(officialAppReferences.sections.map((section) => section.id))],
+    [OFFICIAL_APP_ERRATA_SOURCE_ID, new Set(officialAppErrata.entries.map((entry) => entry.id))],
+    [OFFICIAL_APP_SUPPLEMENTAL_RULES_SOURCE_ID, new Set(officialAppSupplementalRules.sections.map((section) => section.id))]
+  ]);
+  validateFullGameCoverage(fullGameCoverage, manifest, knownSourceReferencesById);
   assertNoCatalogIdentity(manifest, 'manifest.json');
   assertNoCatalogIdentity(coverage, 'coverage.json', '', new Set(['supportedUnitIds']));
   assertNoCatalogIdentity(physicalProfiles, 'physical-profiles.json');

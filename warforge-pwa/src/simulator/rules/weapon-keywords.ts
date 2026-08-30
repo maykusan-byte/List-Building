@@ -1,4 +1,4 @@
-import type { SourceReferenceV1, WeaponKeywordV1 } from '../domain/types';
+import type { SourceReferenceV1, WeaponKeywordV1, WeaponProfileV1 } from '../domain/types';
 import { CORE_ANTI_SOURCE, CORE_DEVASTATING_WOUNDS_SOURCE, CORE_HAZARDOUS_SOURCE, CORE_LETHAL_HITS_SOURCE, CORE_MELTA_SOURCE, CORE_ONE_SHOT_SOURCE, CORE_SUSTAINED_HITS_SOURCE, CORE_TWIN_LINKED_SOURCE, isExactSourceReference } from './m5-source-references';
 
 const CORE_RULES_SOURCE_ID = 'warforge-core-rules-fr-2026-07';
@@ -43,6 +43,13 @@ export type WeaponKeywordNormalizationRejectionCode =
   | 'invalid-sustained-hits-value'
   | 'unsupported-weapon-keyword'
   | 'duplicate-weapon-keyword';
+
+export interface DuplicateWeaponAbilitySelectionV1 {
+  readonly weaponProfileId: string;
+  /** T05.4 starts with the existing executable [TOUCHES SOUTENUES] primitive only. */
+  readonly kind: 'sustained-hits';
+  readonly selectedOccurrenceIndex: number;
+}
 
 export type WeaponKeywordNormalizationResult =
   | {
@@ -141,24 +148,56 @@ function isSourceReference(value: unknown): value is SourceReferenceV1 {
 
 /**
  * Validates already-compiled fixture facts at the state/environment boundary.
- * A repeated kind is refused rather than choosing a rule occurrence from UI
- * input: the M5 fixture contract admits exactly one occurrence per ability.
+ * M5-T05.4 allows repeated Sustained Hits facts because their applicable
+ * occurrence is selected through a trusted decision window. Other repeated
+ * kinds remain invalid until their own source-backed execution contract exists.
  */
 export function hasSupportedWeaponKeywords(keywords: unknown): keywords is readonly WeaponKeywordV1[] | undefined {
   if (keywords === undefined) return true;
   if (!Array.isArray(keywords)) return false;
-  const kinds = new Set<WeaponKeywordV1['kind']>();
-  return keywords.every((entry) => {
+  const kinds = new Map<WeaponKeywordV1['kind'], number>();
+  const supported = keywords.every((entry) => {
     if (typeof entry !== 'object' || entry === null || typeof (entry as { readonly kind?: unknown }).kind !== 'string') return false;
     const keyword = entry as WeaponKeywordV1;
-    if (kinds.has(keyword.kind)) return false;
-    kinds.add(keyword.kind);
     if (!exactKeywordSource(keyword)) return false;
+    kinds.set(keyword.kind, (kinds.get(keyword.kind) ?? 0) + 1);
     if (keyword.kind === 'melta' || keyword.kind === 'sustained-hits') return Number.isSafeInteger(keyword.value) && keyword.value > 0;
     if (keyword.kind === 'anti') return normalizedTargetKeyword(keyword.targetKeyword) !== null && Number.isInteger(keyword.criticalWound) && keyword.criticalWound >= 2 && keyword.criticalWound <= 6;
     return true;
   });
+  return supported && [...kinds.entries()].every(([kind, count]) => count === 1 || kind === 'sustained-hits');
 }
+
+/** Lists duplicate kinds while retaining the original stable occurrence index. */
+export function duplicateWeaponAbilityOccurrences(weapon: WeaponProfileV1): readonly { readonly kind: WeaponKeywordV1['kind']; readonly occurrenceIndexes: readonly number[] }[] {
+  const byKind = new Map<WeaponKeywordV1['kind'], number[]>();
+  for (const [index, keyword] of (weapon.weaponKeywords ?? []).entries()) {
+    const indexes = byKind.get(keyword.kind) ?? [];
+    indexes.push(index);
+    byKind.set(keyword.kind, indexes);
+  }
+  return [...byKind.entries()]
+    .filter(([, indexes]) => indexes.length > 1)
+    .map(([kind, occurrenceIndexes]) => ({ kind, occurrenceIndexes }));
+}
+
+/** Applies one source-backed T05.4 choice without changing any other ability. */
+export function weaponWithSelectedDuplicateAbility(
+  weapon: WeaponProfileV1,
+  selection: DuplicateWeaponAbilitySelectionV1
+): WeaponProfileV1 | null {
+  if (selection.weaponProfileId !== weapon.id || selection.kind !== 'sustained-hits') return null;
+  const duplicates = duplicateWeaponAbilityOccurrences(weapon);
+  if (duplicates.length !== 1 || duplicates[0].kind !== selection.kind || !duplicates[0].occurrenceIndexes.includes(selection.selectedOccurrenceIndex)) return null;
+  const selected = weapon.weaponKeywords?.[selection.selectedOccurrenceIndex];
+  if (!selected || selected.kind !== selection.kind) return null;
+  return {
+    ...weapon,
+    weaponKeywords: (weapon.weaponKeywords ?? []).filter((keyword, index) => keyword.kind !== selection.kind || index === selection.selectedOccurrenceIndex)
+  };
+}
+
+export { CORE_DUPLICATE_ABILITY_SOURCE } from './m5-source-references';
 
 /**
  * Parses the closed English catalogue vocabulary approved for M5-T02.0.

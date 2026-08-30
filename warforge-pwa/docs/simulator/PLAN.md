@@ -1,108 +1,200 @@
 # Simulateur tactique Warforge
 
-`planVersion: 2.3.3`
+`planVersion: 3.1.0`
 
-## Objectif et périmètre
+## Résultat visé
 
-Construire progressivement un simulateur tactique local, hors ligne et prioritairement desktop. Deux personnes jouent sur le même appareil : elles prennent les décisions tactiques, tandis que le moteur applique automatiquement les règles couvertes et refuse toute action ou partie qui référence une donnée, géométrie ou règle non prise en charge. Aucun backend, réseau ni adversaire IA n'est prévu.
+Construire une PWA locale permettant à deux personnes de jouer une partie
+complète de Warhammer 40,000 V11 sur le même appareil. Les joueurs prennent
+les décisions ; le moteur vérifie la légalité, résout les règles couvertes,
+journalise chaque effet et rejoue exactement la partie. Aucun backend,
+adversaire IA ou mécanisme anti-triche hostile n'est prévu.
 
-M0 à M3 ont livré la gouvernance, le moteur déterministe, le laboratoire spatial et un duel de tir synthétique sauvegardable et rejouable. La prochaine promesse produit est un duel réel à périmètre fermé entre une petite force Space Marines Salamanders et une petite force Blood Angels. Cette promesse ne signifie pas encore « partie complète de Warhammer 40,000 » : M4 couvre le placement prédéfini, le mouvement, le ciblage et le tir des unités sélectionnées. Charge, Combat, objectifs, missions, réserves et transports restent des jalons ultérieurs.
+La première promesse « partie complète » est un pilote fermé de cinq rounds.
+Elle précède l'élargissement du catalogue : un petit scénario entièrement
+couvert vaut mieux qu'une grande liste dont des règles seraient ignorées.
+« Toute liste » reste interdit avant couverture exhaustive du catalogue actif.
 
-La promesse « toute liste » ne pourra être faite qu'après couverture complète du catalogue actif et de ses sources.
+## État produit au début du plan 3
 
-## Pilotage
+- M0 à M4 sont acceptés : gouvernance, moteur déterministe, laboratoire
+  spatial, duel synthétique puis duel réel Salamanders–Blood Angels limité au
+  mouvement et au tir.
+- M5 livre des primitives de tir avancées sourcées sur fixtures : volumes,
+  modificateurs, relances, critiques, sauvegardes et dégâts étendus, split
+  fire, reciblage et choix d'occurrence de `[TOUCHES SOUTENUES]`.
+- Les profils alternatifs réels, Charge, Combat, commandement, objectifs,
+  stratagèmes, mission et score ne sont pas encore une capacité produit.
 
-`project-state.json` est l'unique source machine-lisible d'avancement ; `STATUS.md` est son rendu déterministe et ne se modifie jamais à la main. Toute modification substantielle de ce plan incrémente `planVersion` et crée un ADR. Chaque tâche a un identifiant `SIM-M<n>-T<nn>`, des dépendances, critères, preuves et un contexte de reprise. Une session doit lire les ADR applicables, vérifier le tracker, reprendre une unique tâche en cours, exécuter les validations, enregistrer leurs preuves puis documenter la prochaine action.
+## Sources de vérité et reprise
 
-Les états autorisés sont `planned`, `ready`, `in_progress`, `blocked`, `done` et `deferred`. Le tracker refuse les dépendances incomplètes, plusieurs tâches en cours, des preuves absentes ou périmées à la clôture, un jalon accepté prématurément, un profil IA inconnu et un travail critique sans revue indépendante.
+- `project-state.json` est la source machine-lisible. Son schéma V2 contient
+  jalons, tâches, tranches atomiques, coût, sources, ADR, chemins autorisés,
+  gates attendues et exécutions réelles.
+- `STATUS.md` est généré par `scripts/simulator-project.mjs` et n'est jamais
+  édité manuellement.
+- `model-routing.json` versionne le choix des modèles, les fallbacks et la
+  politique de coût.
+- `decisions/ADR-NNN-*.md` conserve les changements structurants.
+- `docs/simulator/rule-arbitrations.md` consignera uniquement les arbitrages
+  humains qui complètent une règle officielle réellement incomplète.
 
-## Routage IA
+Une session commence par `pnpm simulator:project:check`, puis
+`pnpm simulator:project:brief -- <taskId>` et
+`pnpm simulator:project:health -- <taskId>`. Une seule tâche et une seule
+tranche peuvent être `in_progress`. La reprise indique une prochaine action
+exécutable sans dépendre de l'historique conversationnel.
 
-La politique versionnée est dans `model-routing.json`. Sol `high` est privilégié pour l'architecture, la formalisation des règles, les audits adversariaux et l'acceptation des jalons ; Terra `xhigh` pour le moteur, les adaptateurs complexes et la persistance ; Terra `high` pour l'UI et l'implémentation bornée ; Terra `low`/`medium` pour les opérations mécaniques. Les préférences ont un fallback et ne bloquent jamais le travail.
+Les seuls arrêts normaux sont : tranche terminée, source ou décision humaine
+réellement manquante, gate en échec nécessitant un changement de périmètre,
+action externe/destructive non autorisée, ou tâche XL non approuvée. Une
+simple difficulté ou une longue exécution ne justifie pas une interruption.
 
-Avant une délégation, le coordinateur produit un TaskBrief avec résultat, fichiers autorisés, invariants, sources, critères, validations, interdictions et format de retour. Les sous-travailleurs ne changent ni plan, ni jalon, ni tracker ; le coordinateur réexécute les validations et enregistre seul l'état. Deux délégations sont la norme, trois le maximum, et seulement pour des périmètres sans conflit.
+## Coût et contribution humaine
 
-## Architecture et invariants
+Les tâches sont classées `S`, `M`, `L` ou `XL`. Le coordinateur prévient avant
+`L` et `XL`, indique l'alternative manuelle utile, et demande une approbation
+explicite avant `XL`. Les contributions humaines à forte valeur sont :
 
-- `src/simulator/` sépare géométrie, règles, moteur événementiel, orchestration, persistance et UI.
-- La vue `#simulator` est chargée à la demande ; PixiJS 8/WebGL assure le rendu et XState 5 gère phases, fenêtres de décision et interruptions.
-- Toute action suit `GameCommand → GameEvent → GameState`. Le domaine pur ne dépend ni de React ni de PixiJS, n'a ni mutation hors événements ni RNG implicite.
-- Le PRNG est déterministe et versionné. Snapshots et journal vivent dans IndexedDB ; export, import et replay JSON sont pris en charge.
-- Les calculs de portée, LoS, couvert et légalité sont autoritaires côté orchestration ; l'UI ne fournit jamais une mesure ou un booléen de règle faisant autorité.
-- Une session ne démarre que si son rapport de compatibilité couvre exhaustivement roster, profils physiques, armes, règles obligatoires et scénario.
-- Les sauvegardes lient la session à des empreintes canoniques de roster, catalogue, règles et environnement. Une donnée modifiée invalide la reprise plutôt que de produire silencieusement un résultat différent.
+- captures structurées des sections officielles demandées ;
+- vérification des passages OCR signalés comme incertains ;
+- approbation des profils physiques, loadouts et arbitrages ;
+- playtests guidés de la partie complète avec rapport des divergences.
 
-## Géométrie et données
+Le corpus massif de règles et le playtest complet ne sont pas remplacés par
+une consommation IA coûteuse lorsqu'une collecte ou une observation humaine
+est plus fiable.
 
-L'unité interne est 0,1 mm (un pouce = 254 unités). Les figurines sont des cercles, capsules ou polygones convexes orientés avec hauteur continue ; les terrains sont des multipolygones, trous, élévations et bandes d'occlusion. Une grille spatiale accélère la broad phase, puis les tests exacts contrôlent collisions, volume balayé, distance, engagement et cohérence. M3 conserve ses rayons normalisés historiques. Pour le pilote M4, la LoS est décidée par la convention locale finie et versionnée de quinze points représentatifs par hitbox cylindrique, conformément à ADR-008 : ce verdict est une approximation assumée, non une visibilité continue ni une règle officielle. Le témoin, le bloqueur et la mesure restent expliqués à l'interface.
+## Routage IA économique
 
-Les profils physiques, rulepacks et scénarios sont versionnés sous `data/simulator/`, avec source, version, date d'effet et empreinte. Le texte naturel n'est jamais interprété à l'exécution. Toute convention non officielle est explicitement versionnée et soumise à revue humaine. Les données réelles du catalogue restent sous le protocole `warforge-data-operations` : source officielle, version, date d'effet, validation et synchronisation publique.
+La politique exacte est dans `model-routing.json` :
 
-## Feuille de route officielle
+- Sol `high` : architecture, règles ambiguës et audits de jalon ;
+- Terra `high` : moteur et implémentation complexe aux invariants multiples ;
+- Terra `medium` : implémentation bornée, UI et tests standards ;
+- Luna `low` : transcription lisible, index, fixtures et opérations mécaniques.
+
+`xhigh` et `max` ne sont pas des valeurs par défaut. Aucun sous-travailleur
+n'est lancé par défaut ; un seul peut être actif lorsque son périmètre est
+indépendant et que le gain dépasse la supervision. Le coordinateur fournit un
+TaskBrief, relance les gates et reste seul propriétaire du tracker et des
+acceptations.
+
+## Architecture du moteur de partie complète
+
+- Toute mutation suit `GameCommand → GameEvent → GameState`.
+- Domaine, règles et géométrie restent en TypeScript pur, sans React, PixiJS,
+  DOM ni stockage navigateur.
+- L'orchestration calcule portée, LoS, couvert, engagement, contrôle et score ;
+  l'UI ne fournit aucun verdict faisant autorité.
+- Le PRNG est injecté, déterministe et versionné. Un rejet ou un choix sans jet
+  ne consomme aucune entropie.
+- `SimulationSaveV6` devient l'enveloppe stable d'une partie complète. Chaque
+  événement déclare sa version et ses capacités ; V1 à V5 restent importables
+  et rejouables dans leur périmètre historique.
+- Les primitives communes sont typées : `BattleStateV1`, `MissionStateV1`,
+  `ResolutionQueue`, `ResolutionStep`, `RuleEffect`, `DecisionWindow`,
+  `ScoreEvent`, `CompleteGameScenarioV1`, `CompatibilityReportV2` et
+  `RuleArbitrationV1`.
+- Le texte naturel n'est jamais un DSL d'exécution. Les règles sont compilées
+  en contrats typés et reliées à des sources versionnées.
+- Les snapshots et journaux vivent dans IndexedDB ; export, import, reprise et
+  replay JSON doivent produire le même état final.
+
+La géométrie conserve l'unité entière de 0,1 mm et la LoS M4 échantillonnée
+sur quinze points de hitbox cylindrique conformément à ADR-008. Les limites de
+cette convention restent visibles. Aucun durcissement contre la modification
+volontaire de mémoire ou de sauvegarde n'est planifié ; seules la correction
+normale, les schémas, versions, empreintes et invariants sont vérifiés.
+
+## Pilote fermé de partie complète
+
+Le pilote cible trois unités par camp, sans prétendre couvrir une faction :
+
+- Salamanders : les unités M4 plus `book-space-marines:unit:3` Captain, pour
+  un total prévu de 235 points ; Captain non attaché ; équipement candidat
+  *heavy bolt pistol* et *master-crafted power weapon*.
+- Blood Angels : les unités M4 plus une seconde
+  `book-blood-angels:unit:33` Assault Intercessor Squad, pour un total prévu
+  de 240 points.
+
+La mission candidate utilise Disruption, disposition miroir 1, Outmanoeuvre
+pour les deux joueurs, puis Assassination et Engage on All Fronts comme
+secondaires fixes. Le propriétaire du projet a approuvé le 2026-08-30
+l'archive locale GDM 2026 comme source fiable pour ces cartes et ce layout.
+Cette source `trusted-web` peut donc fonder leur couverture exécutable dans
+Warforge, avec hashes et contrôle contre les images archivées, sans être
+présentée comme une publication officielle Games Workshop. Les règles
+générales et plafonds restent reliés au Compagnon de Rencontre officiel.
+
+## Feuille de route exécutable
 
 | Jalon | Résultat de sortie |
 | --- | --- |
-| M0 — Gouvernance et politique IA | Une nouvelle session retrouve l'état, la prochaine action et le profil IA sans historique conversationnel. |
-| M1 — Fondations techniques | Le moteur est rejouable, sérialisable et testé sans UI. |
-| M2 — Laboratoire spatial | Les cas géométriques de référence ont des verdicts stables et explicables. |
-| M3 — Vertical slice de tir | Deux unités synthétiques réalisent une séquence complète, sauvegardable et rejouable. |
-| M4 — Duel réel pilote Salamanders–Blood Angels | Deux petits `RosterDraft` réels et figés jouent un duel de mouvement et de tir, sans règle obligatoire silencieusement ignorée. |
-| M5 — Tir étendu fiable | Le pipeline de tir couvre les modificateurs, mots-clés et décisions nécessaires à des rosters réels plus variés. |
-| M6 — Extension des forces pilotes | Les deux forces pilotes gagnent progressivement unités, options et règles de détachement sans réduire la couverture. |
-| M7 — Charge et Combat | Charge, engagement, mouvements de combat, attaques de mêlée et consolidations sont déterministes et expliqués. |
-| M8 — Commandement, statuts et objectifs | Les états persistants, ressources, objectifs et contrôle sont gérés par la machine à états. |
-| M9 — Missions et score | Une mission fermée complète se joue et calcule son score depuis des sources versionnées. |
-| M10 — Réserves, transports et déploiements spéciaux | Les changements de zone et d'embarquement sont couverts avec leurs contraintes spatiales. |
-| M11 — Déploiement progressif du catalogue | Les factions sont ajoutées par lots audités ; « toute liste » reste interdit avant couverture totale. |
+| M0–M4 | Fondations et duel réel mouvement/tir acceptés. |
+| M5 — Tir avancé sur fixtures | Primitives sourcées, rejouables et régressions M4 vertes ; profils alternatifs réels différés. |
+| M6 — Fondations de partie complète | Corpus/gaps, arbitrages, enveloppe V6, état de bataille/mission et rosters fermés sont prêts sans règle manquante cachée. |
+| M7 — Boucle de bataille | Déploiement, premier joueur, cinq rounds, tours, mouvements, Charge et Combat sont jouables et rejouables. |
+| M8 — Ressources et objectifs | CP, Battle-shock, statuts, contrôle d'objectifs et stratagèmes obligatoires du pilote sont exécutables. |
+| M9 — Mission complète et UI | Mission fermée, score, interface, sauvegarde/reprise et playtest humain de bout en bout sont acceptés. |
+| M10 — Zones spéciales | Réserves, transports et déploiements spéciaux sont ajoutés sans état spatial impossible. |
+| M11 — Catalogue | Factions et listes sont ajoutées par lots sourcés et audités. |
 
-## M4 — Duel réel pilote Salamanders–Blood Angels
+### M5 — clôture
 
-M4 commence par figer deux petits rosters réels. La cible par défaut est de deux à quatre fiches d'unité par camp, orientées infanterie, avec au plus un personnage par camp. Véhicules, transports, aéronefs, rotations continues et capacités dépendant d'une phase non implémentée sont exclus du premier lot, sauf décision ADR explicite. Les unités exactes, options d'équipement, détachements et coûts sont approuvés humainement dans `SIM-M4-T01` ; ils ne sont pas inventés par le moteur.
+`SIM-M5-T06` audite les primitives et fixtures M5, les refus hors périmètre,
+les sauvegardes V1–V5 et les régressions du duel M4. Il n'exige pas que le
+split fire de fixture soit exposé dans l'UI M4. Les profils alternatifs réels
+restent différés jusqu'à une source et un loadout approuvé.
 
-Le roster Salamanders reste un roster Space Marines dont l'identité, le détachement et les restrictions sont explicites. Le roster Blood Angels suit la même règle. Une unité n'entre dans le pilote que si toutes ses règles obligatoires pertinentes au scénario M4 sont soit exécutables et sourcées, soit explicitement hors phase ; une règle de tir obligatoire non couverte bloque le roster.
+### M6 — fondations de partie complète
 
-Ordre d'exécution :
+1. Construire le graphe de couverture et la file exacte des sources/arbitrages.
+2. Définir `BattleStateV1`, `MissionStateV1`, les files de résolution et
+   `SimulationSaveV6` avec lecteurs V1–V5.
+3. Compiler les deux rosters fermés, profils physiques et scénario draft ;
+   toute lacune bloque la compatibilité, pas le chantier architectural.
+4. Auditer l'architecture, les migrations et les refus de session incomplète.
 
-1. `SIM-M4-T01` sélectionne et fige les deux compositions pilotes depuis le catalogue actif.
-2. `SIM-M4-T02` compile les `RosterDraft` vers des identifiants de session stables et produit des refus exhaustifs.
-3. `SIM-M4-T03` source les profils physiques, armes, aptitudes et conventions nécessaires aux seules unités choisies.
-4. `SIM-M4-T07` implémente la LoS échantillonnée versionnée entre hitboxes, avec son témoin rejouable, ses limites explicites et ses cas limites.
-5. `SIM-M4-T04` assemble une session autoritaire et son rapport de compatibilité complet.
-6. `SIM-M4-T08` intègre les seules règles et preuves de tir nécessaires au pilote réel, puis transforme la matrice en couverture exécutable.
-7. `SIM-M4-T05` livre le parcours UI import/sélection, mouvement, ciblage, tir, pertes, sauvegarde et reprise.
-8. `SIM-M4-T06` rejoue le duel de bout en bout, exécute les probes adversariaux et audite le jalon.
+### M7 — boucle de bataille
 
-Critère de sortie : les deux versions exactes des rosters pilotes peuvent terminer le scénario `real-roster-shooting-duel-v1`; une option, arme, aptitude ou donnée physique étrangère au périmètre est refusée avant la partie. M4 n'autorise aucune annonce de support global des Salamanders, des Blood Angels ou des Space Marines.
+1. Placement, zones de déploiement et détermination du premier joueur.
+2. Rounds, tours et phases ; Normal Move, Remain Stationary, Advance et Fall
+   Back avec conséquences persistantes.
+3. Déclaration, jet et mouvement de Charge avec réactions couvertes.
+4. Sélection de combat, pile-in, mêlée, pertes et consolidation.
+5. Vertical slice sauvegardable de plusieurs tours, sans phase sautée.
 
-`SIM-M4-T08` corrige l'ordre initial : la compatibilité exhaustive de T04 a mis en évidence qu'une UI ne peut pas rendre une session jouable tant que le moteur n'exécute pas Oath of Moment, la convention LoS M4, le garde [PISTOL], le couvert et les conditions de mouvement correspondantes. T08 livre uniquement ces contrats bornés, leurs sources, leurs golden tests et leur replay ; M5 reste l'extension générique des capacités de tir.
+### M8 — commandement et objectifs
 
-## M5 — Tir étendu fiable
+1. Ressources, CP, Battle-shock, durées et expirations.
+2. Objectifs, présence, contrôle et contestation depuis la géométrie.
+3. Stratagèmes et aptitudes obligatoires du seul pilote fermé.
+4. Audit des fenêtres, effets et reprises.
 
-M5 précède Charge/Combat parce que les rosters réels exposent immédiatement les limites du moteur de tir. L'extension se fait par capacités atomiques, chacune reliée à une source officielle, des golden tests, des cas de rejet sans consommation du PRNG et un replay exact.
+### M9 — mission et interface complète
 
-Ordre d'exécution :
+1. Activer les données de mission après validation de l'archive GDM 2026
+   approuvée et conserver sa provenance non officielle explicite.
+2. Produire chaque point via un `ScoreEvent` explicable sur cinq rounds.
+3. Livrer l'interface complète : phase, round, score, décisions, journal,
+   sauvegarde, reprise et replay.
+4. Exécuter Playwright puis un playtest humain guidé hors ligne ; aucun bouton
+   « ignorer la phase » ne peut masquer une règle obligatoire.
 
-1. `SIM-M5-T01` construit la matrice de capacités et le corpus sourcé à partir des écarts observés sur les deux rosters pilotes.
-2. `SIM-M5-T02` couvre volumes et modificateurs d'attaques, CT, portée et ordre d'application.
-3. `SIM-M5-T03` couvre relances, touches/blessures critiques et mots-clés déclenchés, y compris les fenêtres de décision qui interrompent légalement une résolution de tir ; les journaux interrompus V3 suivent ADR-010 et ADR-011.
-4. `SIM-M5-T04` couvre sauvegardes alternatives, prévention et dégâts variables ou spéciaux. Les choix d'allocation et l'état durable des armes `[TIR UNIQUE]` sont journalisés par `SimulationSaveV4` conformément à ADR-012 ; les réductions génériques de dégâts restent explicitement refusées jusqu'à leur contrat sourcé.
-5. `SIM-M5-T05` couvre ciblage avancé, armes mixtes, split fire et décisions de résolution.
-6. `SIM-M5-T06` intègre ces capacités aux rosters pilotes, durcit l'UI/replay et fait auditer M5.
+## Gates
 
-Une capacité n'est annoncée `covered` qu'après tests positifs, négatifs et de provenance. Les aptitudes de faction ou de détachement qui ne sont pas génériques restent dans M6, même si leur moteur d'effet repose sur une primitive livrée en M5.
+Chaque tranche exécute ses `expectedGates`. Les gates de jalon comprennent :
 
-## M6 à M11 — Extension contrôlée
+- `pnpm simulator:project:check` et `pnpm simulator:project:health` ;
+- `pnpm simulator:validate`, validation des sources et couverture ;
+- tests unitaires, propriétés, golden tests à graine fixe et replay ;
+- Playwright pour les parcours réellement exposés ;
+- `pnpm build` puis `pnpm verify` à l'acceptation ;
+- revue Sol `high` indépendante avant tout jalon critique.
 
-M6 élargit d'abord Salamanders et Blood Angels : davantage d'unités, options et règles de détachement, par petits lots régressifs. M7 livre ensuite Charge et Combat. M8 introduit les ressources de commandement, statuts durables et contrôle d'objectifs. M9 ajoute une mission fermée et son score. M10 couvre réserves, transports et déploiements spéciaux. M11 industrialise l'ajout de factions par matrice de couverture, sans jamais assimiler une faction partiellement couverte à une faction entièrement supportée.
-
-Chaque jalon conserve un vertical slice jouable et régressif. L'ordre peut être révisé par ADR, mais M5 reste le successeur immédiat de M4 tant que le tir étendu n'est pas fiable.
-
-## Validation
-
-Les gates incluent le contrôle du tracker, la validation et la synchronisation des données du simulateur, les tests unitaires et de propriétés, les golden tests sourcés, les probes de compatibilité, Playwright et le build. Les preuves enregistrent commande, résultat, périmètre, date et commit lorsqu'il est connu. Une preuve devient périmée lorsqu'une modification plus récente affecte son périmètre.
-
-Pour M4, Playwright couvre au minimum : chargement des deux rosters figés, refus d'une option étrangère, mouvement légal et illégal, sélection de cible, tir, pertes, export V2, reprise IndexedDB et replay identique. Pour M5, chaque nouvelle capacité possède une graine fixe et un test vérifiant qu'un rejet ne consomme aucune entropie.
-
-Toute clôture critique et toute acceptation de jalon reçoivent une revue indépendante Sol `high`, ou le fallback versionné si Sol est indisponible. Seul le coordinateur enregistre les preuves et accepte le jalon.
-
-Le corpus de calibration IA est complété à partir des résultats réels de M3 à M5. Toute modification de routage crée un ADR et incrémente `policyVersion`.
+Une session jouable exige une compatibilité exhaustive de ses rosters,
+profils physiques, armes, règles obligatoires et scénario. Une source absente
+produit un gap explicite. Une règle officielle incomplète produit un
+`RuleArbitrationV1` approuvé humainement ; elle n'est jamais complétée en
+silence par le moteur.

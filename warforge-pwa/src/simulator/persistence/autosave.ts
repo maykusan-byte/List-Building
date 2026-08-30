@@ -1,4 +1,4 @@
-import { createSimulationSaveV2, createSimulationSaveV3, createSimulationSaveV4, replayGameEvents, type GameState, type SimulationSave } from '../domain';
+import { createSimulationSaveV2, createSimulationSaveV3, createSimulationSaveV4, createSimulationSaveV5, createSimulationSaveV6, replayGameEvents, type GameState, type SimulationSave } from '../domain';
 import {
   unsafeCreateSimulationSaveWithVerifier,
   unsafeDeserializeSimulationSaveWithVerifier,
@@ -61,9 +61,22 @@ function usesT04FixtureState(state: GameState): boolean {
       || event.type === 'extended-shooting-completed');
 }
 
+function usesSplitFireJournal(state: GameState): boolean {
+  return state.pendingSplitFireShooting !== null || state.pendingDuplicateWeaponAbilitySelection !== null || state.eventLog.some((event) => event.type === 'split-fire-resolved'
+    || event.type === 'split-fire-stage-resolved'
+    || event.type === 'split-fire-retarget-choice-resolved'
+    || event.type === 'split-fire-completed'
+    || event.type === 'duplicate-weapon-ability-selection-requested'
+    || event.type === 'duplicate-weapon-ability-choice-resolved');
+}
+
 function createEnvironmentSave(initialState: GameState, state: GameState, savedAt: string, environment: ShootingEnvironment) {
   const verifier = verifierFor(environment);
-  return usesT04FixtureState(state)
+  return state.battle !== null
+    ? createSimulationSaveV6(initialState, state.eventLog, savedAt, verifier)
+    : usesSplitFireJournal(state)
+    ? createSimulationSaveV5(initialState, state.eventLog, savedAt, verifier)
+    : usesT04FixtureState(state)
     ? createSimulationSaveV4(initialState, state.eventLog, savedAt, verifier)
     : usesInterruptedShootingJournal(state)
     ? createSimulationSaveV3(initialState, state.eventLog, savedAt, verifier)
@@ -81,12 +94,25 @@ export function exportSimulation(initialState: GameState, state: GameState, crea
 
 /** Parses, validates and replays untrusted JSON before exposing a restored game. */
 export function importSimulation(serialized: string, environment?: ShootingEnvironment, expectedManifestFingerprint?: string): ImportSimulationResult {
+  if (!environment) {
+    try {
+      const envelope = JSON.parse(serialized) as { readonly schemaVersion?: unknown };
+      if (envelope?.schemaVersion === 'warforge-simulation-save/v6') {
+        return { ok: false, errors: ['Une sauvegarde V6 exige son environnement de partie complète pour être importée.'] };
+      }
+    } catch {
+      // The canonical deserializer below owns malformed-JSON reporting.
+    }
+  }
   const parsed = unsafeDeserializeSimulationSaveWithVerifier(serialized, verifierFor(environment));
   if (!parsed.ok) return parsed;
+  if (parsed.save.schemaVersion === 'warforge-simulation-save/v6' && !environment) {
+    return { ok: false, errors: ['Une sauvegarde V6 exige son environnement de partie complète pour être importée.'] };
+  }
   if (environment && parsed.save.schemaVersion === 'warforge-simulation-save/v1') {
     return { ok: false, errors: ['Une sauvegarde V1 n’est pas automatiquement compatible avec une session de tir fermée.'] };
   }
-  if (environment && (parsed.save.schemaVersion === 'warforge-simulation-save/v2' || parsed.save.schemaVersion === 'warforge-simulation-save/v3' || parsed.save.schemaVersion === 'warforge-simulation-save/v4')) {
+  if (environment && (parsed.save.schemaVersion === 'warforge-simulation-save/v2' || parsed.save.schemaVersion === 'warforge-simulation-save/v3' || parsed.save.schemaVersion === 'warforge-simulation-save/v4' || parsed.save.schemaVersion === 'warforge-simulation-save/v5' || parsed.save.schemaVersion === 'warforge-simulation-save/v6')) {
     if (!expectedManifestFingerprint) return { ok: false, errors: ['Le manifeste de session fermée attendu est obligatoire pour importer une sauvegarde de tir.'] };
     if (parsed.save.environment.manifestFingerprint !== expectedManifestFingerprint) return { ok: false, errors: ['La sauvegarde ne correspond pas au manifeste de session fermée attendu.'] };
   }
@@ -124,12 +150,18 @@ export function validateSimulationAutosave(value: unknown, environment?: Shootin
   if (value.schemaVersion !== SIMULATION_AUTOSAVE_SCHEMA_VERSION) errors.push(`Schéma d’autosauvegarde non pris en charge : ${String(value.schemaVersion)}.`);
   if (typeof value.gameId !== 'string' || !value.gameId.trim()) errors.push('gameId est obligatoire.');
   if (!isIsoDate(value.savedAt)) errors.push('savedAt doit être une date valide.');
+  if (!environment && isRecord(value.save) && value.save.schemaVersion === 'warforge-simulation-save/v6') {
+    return { ok: false, errors: ['Sauvegarde : une V6 exige son environnement de partie complète.'] };
+  }
   const validatedSave = unsafeValidateSimulationSaveWithVerifier(value.save, verifierFor(environment));
   if (!validatedSave.ok) errors.push(...validatedSave.errors.map((error) => `Sauvegarde : ${error}`));
+  if (validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v6' && !environment) {
+    errors.push('Sauvegarde : une V6 exige son environnement de partie complète.');
+  }
   if (environment && validatedSave.ok && validatedSave.save.schemaVersion === 'warforge-simulation-save/v1') {
     errors.push('Sauvegarde : une V1 ne peut pas restaurer automatiquement une session de tir fermée.');
   }
-  if (environment && validatedSave.ok && (validatedSave.save.schemaVersion === 'warforge-simulation-save/v2' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v3' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v4')) {
+  if (environment && validatedSave.ok && (validatedSave.save.schemaVersion === 'warforge-simulation-save/v2' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v3' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v4' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v5' || validatedSave.save.schemaVersion === 'warforge-simulation-save/v6')) {
     if (!expectedManifestFingerprint) errors.push('Sauvegarde : le manifeste de session fermée attendu est obligatoire.');
     else if (validatedSave.save.environment.manifestFingerprint !== expectedManifestFingerprint) errors.push('Sauvegarde : le manifeste ne correspond pas à la session fermée attendue.');
   }

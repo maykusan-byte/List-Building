@@ -6,12 +6,14 @@ import {
   addEvidence,
   blockTask,
   checkProject,
+  createTaskBrief,
   loadProject,
   markTaskScopeUpdated,
   projectProgress,
   recordExecution,
   renderStatus,
   transitionTask,
+  transitionWorkSlice,
   unblockTask,
   validateProjectState,
   validateRouting
@@ -46,6 +48,9 @@ describe('simulator project tracker', () => {
       milestones: { total: 12 },
       tasks: { total: 52 }
     });
+    expect(project.state.schemaVersion).toBe('warforge-simulator-project/v2');
+    expect(project.routing.schemaVersion).toBe('warforge-simulator-model-routing/v2');
+    expect(project.state.productCapabilities.some((entry) => entry.id === 'complete-five-round-game' && entry.status === 'planned')).toBe(true);
   });
 
   it('refuses to ready a task before its dependencies are complete', async () => {
@@ -83,8 +88,14 @@ describe('simulator project tracker', () => {
       command: 'pnpm simulator:project:check', result: 'passed', scope: 'docs/simulator', criteria: ['AC-01', 'AC-02'], independentReview: true, reviewer: 'tracker-test-reviewer', now: fixedNow
     });
     recordExecution(state, 'SIM-M0-T01', { model: 'gpt-5.6-sol', reasoningEffort: 'high', context: 'Governance review.', now: fixedNow });
-    markTaskScopeUpdated(state, 'SIM-M0-T01', { files: ['docs/simulator/PLAN.md'], now: new Date('2026-08-13T12:01:00.000Z') });
+    markTaskScopeUpdated(state, 'SIM-M0-T01', {
+      files: ['docs/simulator/PLAN.md'],
+      sources: ['warforge-core-rules-fr-2026-07', 'warforge-event-companion-fr-2026-07', 'warforge-core-rules-fr-2026-07'],
+      now: new Date('2026-08-13T12:01:00.000Z')
+    });
 
+    expect(state.tasks.find((task) => task.id === 'SIM-M0-T01').sourceIds).toEqual(['warforge-core-rules-fr-2026-07', 'warforge-event-companion-fr-2026-07']);
+    expect(state.resumeContext.files).toEqual(['docs/simulator/PLAN.md']);
     expect(() => transitionTask(state, 'SIM-M0-T01', 'done', { now: fixedNow })).toThrow('preuve');
   });
 
@@ -124,6 +135,22 @@ describe('simulator project tracker', () => {
     recordExecution(state, task.id, { model: 'gpt-5.6-terra', reasoningEffort: 'xhigh', context: 'UI implementation.', now: fixedNow });
 
     expect(() => transitionTask(state, task.id, 'done', { now: fixedNow, requiresIndependentReview: true })).toThrow('revue indépendante');
+  });
+
+  it('builds a bounded task brief and keeps one atomic slice active', async () => {
+    const { state } = await loadProject(root);
+    const task = resetTask(state, 'SIM-M5-T06', 'ready');
+    task.dependencies = [];
+    task.workSlices = [
+      { id: 'SIM-M5-T06-S01', title: 'Audit', status: 'ready', allowedPaths: ['src/simulator/**'], expectedGates: ['pnpm test'] },
+      { id: 'SIM-M5-T06-S02', title: 'Preuves', status: 'planned', allowedPaths: ['docs/simulator/**'], expectedGates: ['pnpm simulator:project:check'] }
+    ];
+    transitionTask(state, task.id, 'in_progress', { now: fixedNow });
+    const brief = createTaskBrief(state, task.id);
+    expect(brief).toMatchObject({ taskId: task.id, costClass: 'L', activeSlice: { id: 'SIM-M5-T06-S01', status: 'in_progress' } });
+    expect(brief.allowedPaths).toContain('src/simulator/**');
+    transitionWorkSlice(state, task.id, 'SIM-M5-T06-S01', 'done', { now: fixedNow });
+    expect(task.workSlices).toMatchObject([{ status: 'done' }, { status: 'ready' }]);
   });
 
   it('lets a successful rerun supersede a failed criterion proof', async () => {
@@ -168,7 +195,10 @@ describe('simulator project tracker', () => {
     const activeTask = state.tasks.find((entry) => entry.status === 'in_progress');
     // Treat unrelated live work as completed in this synthetic graph so the
     // transitive invalidation exercised below can reopen it deterministically.
-    if (activeTask) activeTask.status = 'done';
+    if (activeTask) {
+      activeTask.status = 'done';
+      activeTask.workSlices.forEach((slice) => { if (slice.status !== 'deferred') slice.status = 'done'; });
+    }
     for (const task of state.tasks.filter((entry) => entry.milestoneId === 'M0')) task.status = 'done';
     state.currentTaskId = null;
     const milestone = state.milestones.find((entry) => entry.id === 'M0');
@@ -178,6 +208,7 @@ describe('simulator project tracker', () => {
     markTaskScopeUpdated(state, 'SIM-M0-T01', { files: ['docs/simulator/PLAN.md'], now: new Date('2026-08-13T12:01:00.000Z') });
     expect(milestone.status).toBe('in_progress');
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T01').status).toBe('ready');
+    expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T01').workSlices.some((slice) => slice.status === 'ready')).toBe(true);
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T02').status).toBe('planned');
     expect(state.tasks.find((entry) => entry.id === 'SIM-M0-T03').status).toBe('planned');
     expect(state.tasks.find((entry) => entry.id === 'SIM-M4-T01').status).toBe('planned');
@@ -195,5 +226,7 @@ describe('simulator project tracker', () => {
     project.state.blockers = [{ id: 'BLK-001', taskId: task.id, reason: 'Review.', recordedAt: fixedNow.toISOString() }];
     project.state.resumeContext = { taskId: 'SIM-M0-T02', lastCompleted: 'Blocked.', nextAction: 'Resolve.', files: [], updatedAt: fixedNow.toISOString() };
     expect(validateProjectState(project.state, project.routing, project.plan, project.decisions)).toContain('resumeContext.taskId doit correspondre à la tâche bloquée.');
+    project.state.tasks[0].costClass = 'XXL';
+    expect(validateProjectState(project.state, project.routing, project.plan, project.decisions).some((error) => error.includes('classe de coût invalide'))).toBe(true);
   });
 });

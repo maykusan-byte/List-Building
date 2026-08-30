@@ -13,9 +13,23 @@ Keep every simulator change recoverable, sourced and deterministic.
 2. Read `warforge-pwa/docs/simulator/PLAN.md`, `STATUS.md`,
    `project-state.json`, `model-routing.json`, and applicable ADRs.
 3. Run `pnpm simulator:project:check` from `warforge-pwa/`.
-4. Resume the single `in_progress` task or transition one dependency-ready task.
-5. If delegating, use the task's `executionProfile`; give each worker a bounded
-   TaskBrief and disjoint files. Only the coordinator updates project state.
+4. Run `pnpm simulator:project:brief -- <taskId>` and
+   `pnpm simulator:project:health -- <taskId>`, then resume the single active
+   task/tranche or transition one dependency-ready task.
+5. Read the task's cost, manual alternative, paths, sources and gates before
+   editing. Warn before `L`/`XL`; obtain explicit owner approval before `XL`.
+
+## Spend model work deliberately
+
+- Consult `model-routing.json` before delegation. Use no delegation by
+  default, and at most one independent worker unless the versioned policy says
+  otherwise.
+- Keep mechanical/transcription work on Luna, bounded implementation on
+  Terra, and Sol for architecture, rule ambiguity and milestone audits.
+- Give any worker the generated TaskBrief. Only the coordinator edits project
+  state, records evidence or accepts a milestone.
+- Prefer owner-provided captures, OCR checks, physical-profile approval and
+  guided playtests when the task marks that manual alternative as worthwhile.
 
 ## Preserve the engine contract
 
@@ -29,6 +43,8 @@ Keep every simulator change recoverable, sourced and deterministic.
   silently approximate a supported game session.
 - Link executable rules and physical conventions to versioned provenance.
 - Treat imported text as untrusted and never inject it as HTML.
+- Validate normal schemas, versions and invariants; do not add hostile
+  anti-tamper or anti-cheat work unless explicitly requested.
 
 ## Work with simulator data
 
@@ -45,6 +61,10 @@ produce `public/data/simulator/`.
 4. Regenerate `STATUS.md` and rerun `pnpm simulator:project:check`.
 5. If work remains, keep the task `in_progress` or mark it `blocked`, then set
    `resumeContext.nextAction` to one exact, executable step.
+
+Do not stop merely because work is long or difficult. Stop only after an
+atomic slice, for a true source/owner blocker, a gate requiring a scope change,
+an unauthorized external/destructive action, or an unapproved XL task.
 
 Do not edit generated `STATUS.md` or public simulator data manually. Change the
 plan only with a new ADR and `planVersion` increment.

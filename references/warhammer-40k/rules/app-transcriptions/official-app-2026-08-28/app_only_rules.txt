@@ -1,0 +1,379 @@
+01.02
+Unités et Figurines
+
+01.02.01 - Effectif Initial et Demi-effectif
+
+Le nombre de figurines qu'une unité contient au début du premier round de bataille est son effectif initial. L'effectif initial d'une unité attachée est le nombre de figurines qu'elle contient au début du premier round de bataille.
+
+Certaines règles se réfèrent à des unités en dessous de leur - demi-effectif. Le sens de ces termes varie selon l'effectif initial d'une unité, comme ci-dessous.
+
+- Effectif initial de 1 : En dessous de l'effectif initial si les points de vie restants de la figurine sont inférieurs à sa caractéristique de PV. A demi-effectif si les points de vie restants de la figurine sont la moitié de sa caractéristique de PV. En dessous du demi-effectif si les points de vie restants de la figurine sont inférieurs à la moitié de sa caractéristique de PV.
+- Effectif initial de 2 ou plus : En dessous de l'effectif initial si le nombre de figurines restant dans l'unité est inférieur à son effectif initial. A demi-effectif si le nombre de figurines restant dans l'unité est la moitié de son effectif initial. En dessous du demi-effectif si le nombre de figurines restant dans l'unité est inférieur à la moitié de son effectif initial.
+
+Exemple: Un Capitaine (1 figurine) est attaché à une unité d'Intercessors (5 figurines). Cette unité attachée a un effectif initial de 6. Si trois Intercessors sont détruits, l'unité sera à demi-effectif. Si quatre Intercessors sont détruits, l'unité sera en dessous de son demi-effectif. Si tous les Intercessors sont détruits, le Capitaine sera en dessous de son demi-effectif, malgré le fait qu'il a tous ses points de vie.
+
+01.02.02 - Effets de Règles Persistants
+
+Certaines règles appliquent un effet qui dure jusqu'à écoulement d'une certaine durée (ex. jusqu'au début de votre prochain tour). Ces effets s'appellent des effets persistants.
+
+Si un effet persistant s'applique à une unité quand vous la placez en réserves stratégiques ou quand elle embarque dans un TRANSPORT, prenez note de cet effet et de sa durée; si cette unité est à nouveau placée sur le champ de bataille, tout effet persistant continue de s'y appliquer pour sa durée complète.
+
+Si vous avez une règle qui spécifie quand elle est déclenchée (ex. "à la phase de Tir") et qu'elle ne spécifie pas pendant combien de temps elle est active, elle n'est active que pour la durée de cette période spécifiée (ex. jusqu'à la fin de cette phase de Tir). Après cette période, cet effet ne s'applique plus/n'est plus actif.
+
+Si une règle ou un effet donnée à une unité ne spécifie pas sa durée, cette règle ou effet est actif seulement pour la phase lors de laquelle il a été donné.
+
+01.02.03 - Ressusciter et Ajouter des Figurines à une Unité
+
+Quand une règle ressuscite, ramène, restitue ou ajoute des figurines à une unité, on ajoute à l'unité le nombre de figurines spécifié.
+- Si une règle ressuscite, restitue ou ramène des figurines à une unité, cela se produit par les biais des figurines détruites dans cette unité.
+- Ceci ne peut pas amener une unité au-delà de son effectif initial.
+- Sauf mention contraire, de telles figurines sont ajoutées atout tout l'équipement et les optimisations avec lesquelles elles ont commencé la bataille, avec tous leurs PV restants.
+
+Les figurines restituées à une unité sur le champ de bataille doivent être placées comme suit:
+- Elles doivent être placées en cohésion avec les figurines de l'unité qui ont commencé cette phase sur le champ de bataille.
+- Elles peuvent être placées engagées avec une ou plusieurs unités ennemies, mais seulement si ces unités ennemies étaient déjà engagées avec l'unité dont les figurines ont été restituées.
+
+Si une figurine de meneur ou d'appui dans une unité attachée est détruite puis ressuscitée, elle fait toujours partie de cette unité attachée et elle doit y être restituée si possible.
+
+Quand une figurine ressuscite, elle est ranimée ou est restituée à une unité embarquée, si ce TRANSPORT a assez de capacité de transport restante pour ladite figurine, elle est restituée à l'unité et est embarquée. Sinon, ladite figurine est détruite, mais cela ne déclenche aucune règle qui s'applique quand une figurine est détruite.
+
+01.02.04 - Pas sur le Champ de Bataille
+
+Une unité qui est embarquée dans un TRANSPORT ou qui est en réserves stratégiques n'est pas sur le champ de bataille. Ce qui suit s'applique à de telles unités:
+- Cette unité n'est pas visible des autres unités (les unités sont visibles d'elles-mêmes).
+- Tout autre unité n'est pas visible de cette unité.
+- Les joueurs ne peuvent pas mesurer les distances jusqu'à et depuis cette unité (les unités sont à porté de leurs propres aptitudes).
+
+Ceci signifie que les unités qui ne sont pas sur le champ de bataille ne peuvent pas être choisies ou ciblées par des attaques ou des règles qui requièrent qu'une unité doit être visible ou à une certaine distance ou moins (autres que leurs propres aptitudes).
+
+De telles unités peuvent toujours utiliser leurs autres règles, et sont quand même des unités de l'armée du joueur en contrôle, et donc peuvent être affectées par des règles qui demandent à un joueur de choisir une unité d'une armée, de même que des règles qui affectent toutes les unités d'une armée.
+
+Le joueur e contrôle doit faire des tests d'ébranlement pour les unités qui ne sont pas sur le champ de bataille à sa phase de Commandement si ce sont des unités ébranlées, ou si elles sont à demi-effectif ou en dessous.
+
+
+01.03
+Joueur Actif et Joueur Adverse
+
+01.03.01 - Règles de Joueur
+
+Lors d'une partie, les joueurs auront parfois besoin de savoir quelles règles sont les leurs, par opposition à celles de leur adversaire. Les règles qu'on considère comme celles d'un joueur sont les suivantes:
+- Toutes les règles d'armée dont il dispose.
+- Tous les détachements de son armée.
+- Tous les stratagèmes qu'il utilise.
+- Toutes les optimisations qu'ont les unités ou les figurines de son armée.
+- Toutes les aptitudes ou règles qu'on trouve sur les fiches techniques de ses unités.
+- Les règles qui ont des restrictions (ex. "Une fois par bataille/tour/phase") s'appliquent seulement au joueur dont c'est la règle.
+
+Certaines missions introduisent parfois des règles supplémentaires qui prennent effet pendant la bataille. Dans ce cas:
+- Si la règles est utilisée par un joueur, elles est considérée comme une règle de ce joueur.
+- Si elle n'est pas utilisée par un joueur, et prends toujours effet, on résout alors une telle règle avant toute autre règle du joueur actif, dans l'ordre du choix de ce dernier.
+
+01.03.02 - Séquençage de Règles
+
+Durant la partie, les joueurs auront des règles qu'ils peuvent ou qu'ils doivent utiliser, et qui surviendront au même moment où l'autre joueur pourra ou devra utiliser une règle. Sauf mention contraire, elles sont activées dans l'ordre suivant:
+1. Toutes les règles du joueur actif qu'il doit utiliser, dans l'ordre de son choix.
+2. Toutes les règles du joueur actif qu'il peut utiliser éventuellement, et souhaite utiliser, dans l'ordre de son choix.
+3. Toutes les règles du joueur adverse qu'il doit utiliser, dans l'ordre de son choix.
+4. Toutes les règles du joueur adverse qu'il peut utiliser éventuellement, et souhaite utiliser, dans l'ordre de son choix.
+
+Si une autre règle peut être utilisée après qu'une règle a été résolue pendant cette séquence mais avant que d'autres règles s'appliquant selon le même timing aient été résolues, ces nouvelles règles ne se déclenchent pas avant que toutes les règles restant à résoudre selon ce même timing aient été résolues.
+
+Exemple: L'unité du joueur actif a une aptitude qui lui permet de faire un mouvement normal après avoir tiré. Une unité ennemie ciblée par cette unité a une aptitude qui lui permet de tirer sur une unité qui lui tire dessus. La règle du joueur actif est résolue en premier, suivie par la règle du joueur adverse.
+
+01.04
+Mesurer les distances
+
+A Warhammer 40,000, on mesure les distances en pouces ("). Vous pouvez mesurer les distances chaque fois que vous le souhaitez.
+
+Quand une règle se réfère à la position d'une figurine par rapport à autre chose sur le champ de bataille, sauf mention contraire, mesurez depuis ou jusqu'à la partie la plus proche du socle de cette figurine.
+
+01.04.01 - Dans/à x" ou Moins et Entièrement Dans/à x" ou Moins
+
+Les règles de Warhammer 40,000 s'appliqueront souvent à des figurines ou des unités qui seront à, ou entièrement à, une certaine distance. Les définitions suivantes expliquent ce que ceci signifie:
+- à ... ou moins/Dans: Si une règle dit qu'elle s'applique "à" une certaine distance "ou moins", elle s'applique à toute distance qui n'est pas supérieure à cette distance. Par exemple, "à 1" ou moins" signifie n'importe quelle distance qui n'est pas à plus de 1".
+- Figurine/Unité à ... ou moins/Dans: Une figurine est à une certaine distance si n'importe quelle partie de son socle est à cette distance ou moins. Une unité est entièrement à cette distance ou moins si toutes les figurines de cette unité sont entièrement à cette distance ou moins. Une figurine avec le mot-clé CHÂSSIS est entièrement à une certaine distance ou moins si toutes les parties de cette figurine sont à cette distance ou moins.
+
+Exemple: Une unité est entièrement à une distance spécifié ou moins si toutes les figurines de l'unité sont entièrement à cette distance ou moins. Une figurine est entièrement dans une zone de terrain si aucune partie de son socle ne sort du périmètre de cette zone de terrain.
+
+01.04.02 - Figurine/Unité la plus proche
+
+Lorsqu'une règle se réfère à la figurine ou l'unité la plus près ou la plus proche, il s'agit de la figurine ou l'unité la plus proche de la figurine ou de l'unité qui utilise cette règle.
+
+Si plusieurs figurines/unités sont équidistantes, le joueur en contrôle de la figurine ou unité qui utilise cette règle choisit quelle est la plus proche pour les besoins de cette règle.
+
+01.04.05 - Quarts de Table
+
+Lorsqu'une règle se réfère à une quart de table, ou à des quarts de table, divisez le champ de bataille dans le sens de la longueur et de la largueur par deux lignes imaginaires d'un mm d'épaisseur qui se coupent perpendiculairement au centre du champ de bataille, en formant quatre rectangles égaux. Ces rectangles sont les quarts de table.
+
+01.05
+Dés
+
+01.05.01 - Réussit/Touche/Blesse Automatiquement
+
+Quand un jet de dé ou un test est automatiquement réussi ou touche/blesse automatiquement, ne jetez pas le dé et passez directement à l'étape suivante de la séquence pour ce jet, comme si le résultat requis avait été obtenu. Les règles qui prennent effet sur un résultat ou un jet de dé particulier ne prennent pas effet.
+
+Exemple: Si un jet de touche est réussi automatiquement, passez directement à l'étape Jets de Blessure pour l'attaque. Une tel jet de touche n'est pas une touche critique.
+
+Exemple: Si un jet de blessure est réussi automatiquement, passez directement à l'étape Jets de Sauvegarde pour l'attaque. Un tel jet de blessure n'est pas une blessure critique.
+
+01.05.02 - Relances
+
+Certaines règles vous permettent de relancer un jet de dé, ce qui signifie que vous pouvez jeter à nouveau certains ou tous les dés concernés. Quand une règle vous permet de relancer un ou plusieurs dés, les autres points suivants s'appliquent :
+- Si une règle vous permet de relancer un jet de dé qui a été fait en ajoutant plusieurs dés ensemble (ex. 2D6, 3D6, etc.) alors vous devez jeter tous ces dés à nouveau.
+Vous ne pouvez jamais relancer un dé plus d'une fois, et les relances ont lieu avant l'application des modificateurs (le cas échant).
+- Un dé relancé est toujours considéré comme un jet de dé, et ainsi, toutes les règles qui peuvent être déclenchées par une jet de dés peuvent l'être pas des dés relancés.
+
+01.05.03 - Modifier les Jets de Dés
+
+Voir Modificateurs (02.02.01)
+
+01.05.05 - Tir au Dé
+
+Certaines règles demandent aux joueurs de tirer au dé.
+- Pour ce faire, chaque joueur jette un D6, et celui qui obtient le résultat le plus élevé gagne le tir au dé.
+- En cas d'égalité de la valeur la plus élevée, tirez au dé à nouveau.
+
+02.02
+Profils
+
+02.02.01 - Modificateurs
+
+QUE SONT LES MODIFICATEURS?
+
+Nombre de règles du jeu modifient une valeur, une caractéristique ou un jet. Une valeur qui a été modifiée est une règle modifiée (ex. une caractéristique modifiée, un jet modifié, une valeur modifiée, etc.).
+
+Les modificateurs sont en général présentés sous la forme +1 ou -1 à une caractéristique, un jet ou une valeur.
+
+Si la règle applique +1 à une caractéristique, elle l'améliore de la valeur indiquée après le symbole "+".
+
+Exemple: "Cette arme a +1 en PA" améliorera une caractéristique de PA de -2 à -3.
+
+Si la règle applique -1 a une caractéristique, elle la dégrade de la valeur indiquée après le symbole "-".
+
+Exemple: "Cette unité a -1 en Sv" dégradera une caractéristique de Sv de 3+ à 4+.
+
+APPLIQUER DES MODIFICATEURS
+
+Cette section présente les diverses façons dont les règles peuvent être modifiées. Tous les modificateurs se cumulent.
+
+Quand une valeur est modifiée (ex. caractéristique, jet de dé, distance), procédez dans l'ordre suivant.
+
+1. Si une règle vous demande de modifier ou de remplacer une valeur par une valeur spécifiée, vous devez d'abord remplacer la valeur correspondante par la nouvelle valeur.
+
+Notez que des règles qui modifient à cette étape une caractéristique par "0", "-", "*" ne peuvent pas être modifiées par d'autres règles (dans ce cas, passez les étapes 2 à 5).
+
+2. Appliquez les modificateurs de multiplication
+
+3. Appliquez les modificateurs d'addition
+
+4. Appliquez les modificateurs de division
+
+5. Appliquez les modificateurs de soustraction
+
+6. Arrondissez à l'entier supérieur après avoir appliqué tous les modificateurs.
+
+QUAND ON MODIFIE DES CARACTÉRISTIQUES
+
+Quand on modifie des caractéristiques, sauf mention contraire, les points suivants s'appliquent également:
+- On ne peut jamais modifier les caractéristiques de "-", "*" et "N/A".
+- Les règles qui modifient la caractéristique de CC et/ou de CT d'une figurine modifient la caractéristiques de CC et/ou de CT de toutes les armes dont cette figurine est équipée.
+
+Après que tous les modificateurs ont été appliqués:
+- Le M ne peut pas être inférieur à 1".
+- L'E ne peut pas être inférieure à 1.
+- La Sv ne peut pas être de 1+ ni meilleure.
+- La SvIn ne peut pas être de 1+ ni meilleure.
+- Le Cd ne peut pas être de 4+ (ni meilleur) ni de 9+ (ni pire).
+- Le CO ne peut pas être inférieur à 0 ou "-".
+- Les caractéristiques de Portée ne peuvent pas être inférieures à 1.
+- Les A ne peuvent pas être inférieures à 1.
+- La CC ne peut pas être de 1+ (ni meilleure) ni de 7+ (ni pire).
+- La CT ne peut pas être de 1+ (ni meilleure) ni de 7+ (ni pire).
+- La F ne peut pas être inférieure à 1.
+- La PA ne peut pas être pire que 0.
+- Les D ne peuvent pas être inférieures à 1.
+
+Quand ces termes sont utilisés dans les règles, les caractéristiques affectées sont dites modifiées, et les points suivants s'appliquent:
+
+- Améliorer la CC, la CT, la Sv et le Cd: Quand on améliore une caractéristique de CC, CT, Sv ou Cd, on soustrait le montant approprié du nombre avant le signe plus, ex. améliorer de 1 une CC de 3+ résulte en une CC de 2+.
+
+- Dégrader la CC, la CT, la Sv et le Cd: Quand on dégrade une caractéristique de CC, CT, Sv ou Cd, on ajoute le montant approprié du nombre avant le signe plus, ex. dégrader de 1 une CC de 3+ résulte en une CC de 4+.
+
+- Améliorer la PA: Quand on améliore la caractéristique de Pénétration d'Armure, on soustrait le montant approprié de la caractéristique, ex. améliorer de 1 une PA de -1 résulte en une PA de -2; améliorer de 1 une PA de 0 résulte en une PA de -1.
+
+- Réduire ou Dégrader la PA: Quand on réduit ou dégrade une caractéristique de Pénétration d'Armure, on ajoute le montant approprié de la caractéristique, jusqu'à un maximum de 0, ex. réduire/dégrader de 1 une PA de -1 résulte en une PA de 0; améliorer de 1 une PA de 0 résulte en une PA de 0.
+
+- Améliorer ou Dégrader les Autres Caractéristiques: Quand on vous demande d'améliorer/dégrader une caractéristique qui n'inclue pas de symbole "+" ou "-", ajoutez/soustrayez le montant approprié à/de cette caractéristique (ex. pour améliorer de 1 une F, ajoutez-y 1).
+
+QUAND ON MODIFIE DES JETS DE DÉ
+
+Quand on modifie des jets de dé, les points suivants s'appliquent également:
+- On applique les modificateurs après les relances éventuelles à ce jet de dé.
+- Les règles qui se réfèrent à la valeur d'un jet de dé "non modifié" se réfèrent au résultat du dé après les relances éventuelles, mais avant les modificateurs.
+- Le résultat d'un dé ne peut pas être modifié au-delà de sa valeur maximum possible (par exemple, un jet d'un D6 ne peut pas être modifié au-delà de 6).
+- Un résultat censé être inférieur à 1 est ramené à un résultat de 1.
+- On ne peut pas modifier les jets de touche et les jets de blessure de davantage que -1 ou +1. Après que tous les modificateurs cumulatifs à ces jets aient été calculés, si le modificateur total est censé être: -2 ou pire, il est ramené à -1; +2 ou meilleur, il est ramené à +1.
+- Les jets de charge ne peuvent pas être supérieurs à 12. Après que tous les modificateurs cumulatifs à un jet de charge ont été calculés, si le résultat est censé être de 13 ou plus, il est ramené à 12.
+
+02.02.03 - Caractéristiques Aléatoires
+
+Mouvement Aléatoire: Quand une unité avec une caractéristique de M aléatoire est choisie pour se déplacer, déterminez la distance de mouvement de l'unité entière en jetant le nombre de dés indiqué.
+
+Attaques Aléatoires: Si une arme a une caractéristique d'A aléatoire, cette caractéristique est déterminée quand on génère les attaques pour l'arme à l'étape Résoudre les Attaques (04.03). Si plusieurs armes avec une caractéristique d'A font des attaques identiques, générez des attaques pour chacune de ces armes individuellement, et groupez les.
+
+Dégâts Aléatoires: Si une arme a une caractéristique de D aléatoire, alors chaque fois qu'une attaque faite avec elle inflige des dégâts, le joueur en contrôle détermine la caractéristique de cette arme quand le joueur adverse a choisi une figurine de l'unité cible à laquelle allouer cette attaque.
+
+Quand on détermine une caractéristique de D aléatoire, le jet de dé effectué est appelé une jets de dégâts.
+
+Quand une caractéristique de D inclut une signe (ex. un "+", comme dans D6+1), la valeur après le signe fait partie de cette caractéristique de D - ce n'est pas un modificateur.
+
+Autres Caractéristiques Aléatoires: Pour toutes les autres caractéristiques, faites un jet pour déterminer la valeur sur une base individuelle, par figurine ou par arme, chaque fois que cette caractéristique est requise.
+
+02.02.04 - Soigner ou Récupérer des Points de Vie Perdus
+
+Quand une unité se soigne ou récupère des points de vie, elle récupère jusqu'au nombre de points de vie perdus. Pour chaque point de vie soigné ou récupéré, consultez ce qui suit:
+- Si cette unité a une ou plusieurs figurines qui n'ont pas tous leurs points de vie restants, choisissez une de ces figurines; la figurine choisie récupère un point de vie perdu.
+- Si toutes les figurines de l'unité ont tous leurs points de vie initiaux, mais qu'une ou plusieurs figurines de l'unité ont été détruites, ressuscitez une de ces figurines détruites (figurines de PERSONNAGE exclues), avec une point de vie restant.
+
+Ceci ne peut pas avoir pour conséquence qu'une figurine a plus de points de vie que ce avec quoi elle a commencé la bataille.
+
+Si une règle stipule qu'une figurine se soigne ou récupère des points de vie, seule cette figurine peut récupérer des points de vie, avec au maximum son nombre de points de vie de départ. Tout point de vie récupéré en excès est perdu, et ne peut pas permettre de ressusciter une figurine détruite dans cette unité.
+
+02.02.06 - Modificateurs de Caractéristique & Caractéristiques Modifiées
+
+Voir Modificateurs (02.02.03).
+
+02.05
+Mots-clés
+
+02.05.01 - Utiliser des Mots-clés & Unités à Mots-clés Disparates
+
+Quand on utilise des mots-clés, les points suivants s'appliquent:
+- Une unité a tous les mots-clés de toutes les figurines de cette unité. Une figurine a seulement ses propres mots-clés.
+- Si une règle stipule qu'elle s'applique à une unité avec un mot-clé, elle s'applique à une unité qui inclut une ou plusieurs figurines avec ce mot-clé.
+- Si une règle stipule qu'elle s'applique à des unités "autres que MOT-CLÉ" ou " ≠ MOT-CLÉ", elle s'applique seulement aux figurines/unités qui n'ont pas ce mot-clé. Par exemple, si une règle s'applique aux unités ≠ VÉHICULE, elle s'applique seulement aux unités qui n'ont pas le mot-clé VÉHICULE.
+- Certaines unités peuvent contenir des figurines qui ont des mots-clés différents. Dans ce cas, une telle unité est considérée comme ayant tous les mots-clés de toutes ses figurines, et est donc affectée par toute règle qui s'applique aux unités ayant un ou plusieurs de ces mots-clés. Rappelez-vous que les attaques sont faites contre des unités, pas contre des figurines.
+- Si une règle s'applique seulement à des figurines ayant un mot-clé spécifique, alors elle s'applique à la place seulement aux figurines dans une telle unité qui auront le mot-clé correct.
+- Une règle avec une liste de mots-clés séparés par une virgule, ou une série de mots clés séparés par des barres obliques ("/"), ou deux mots-clés séparés  par le mot "ou" (ex. "une unité d'IMMORTELS, de TRAQUEURS ou de FACTIONNAIRES") se réfère à une figurine/unité qui a un ou plusieurs de ces mots-clés.
+- Une règle avec plusieurs mots-clés adjacents (ex "une unité de GARDIENS AELDARI") se réfère seulement à une figurine/unité qui a tous ces mots-clés.
+- Certaines règles plus anciennes utilisent des mots-clés sans spécifier des figurines ou des unités: par exemple, MONSTRE/VÉHICULE ou TRANSPORT. Ces règles se réfèrent à des unités ayant ces mots-clés.
+- Un mot-clé fonctionne de la même façon, qu'il soit accordé au singulier ou au pluriel, au masculin ou au féminin.
+
+FAQ
+
+Q: Est-ce que les règles qui affectent un mot-clé incluent les mots-clés multiples qui contiennent ce mot-clé? Par exemple, les règles qui affectent les unités de COMISSAIRE affectent-elles une unité qui a le mot-clé COMMISSAIRE GRAVES?
+
+R: Non.
+
+
+03.01
+Déplacer des Unités
+
+03.01.01 - Caractéristiques de Mouvement Différentes
+
+Quand une figurine fait un type de mouvement dont la distance maximale utilise la caractéristique de M de l'unité, si des figurines différentes de l'unité qui se déplacent ont des caractéristiques de M différentes, la distance maximale pour ce mouvement sera différente pour ces figurines.
+
+Exemple: Si une unité fait un mouvement normal et si toutes les figurines de l'unité ont une caractéristique de M de 6" à l'exception d'une figurine qui a une caractéristique de M de 9", la distance maximale de cette dernière pour ce mouvement est de 9", la distance maximale des autres figurines est de 6". Tant que cette unité effectue ce mouvement, elle doit se conformer à toutes les autres restrictions.
+
+03.01.03 - Mouvement Aléatoire
+
+Voir Caractéristiques Aléatoires
+
+Les deux figurines montrées ici peuvent se déplacer d'une distance maximale de 6". Elles se déplacent toutes les deux de 3" en ligne droite,
+puis de 3" selon une autre ligne droite, pour un mouvement total de 6".
+
+03.02.02 - Placer de Grandes Figurines
+
+Si une figurine ne peut pas remplir toutes les conditions de son placement car elle est trop grande, consultez la section concernée ci-dessous.
+
+Pendant le Déploiement: Si une figurine est si grande que son socle ne peut pas être placé entièrement dans votre zone de déploiement, elle doit être placée de sorte à ce que son socle touche votre bord du champ de bataille. Pendant un tour où une tele grande figurine a été placée sur le champ de bataille, l'unité de cette figurine ne peut pas faire les choses suivants :
+- Faire un mouvement normal/d'avance/de retraite/de charge.
+- Faire la moindre attaque avec ses armes de tir.
+
+Certaines grandes figurines, en particulier les AÉRODYNES, ont des ailes et aitres extrémités qui s'étendent bien au-delà de leur socle. Ces figurines peuvent déborder d'une zone de déploiement s'il n'est pas possible de les placer autrement, mais quand vous les placez, leur socle doit quand même être entièrement dans cette zone de déploiement.
+
+Depuis les Réserves Stratégiques: Si une figurine est si grande que son socle ne peut pas être placé physiquement entièrement à une distance maximale requise du bord du champ de bataille, elle doit être placée de sorte à toucher le bord du champ de bataille. Lors d'un tour où une tele grande figurine est placée sur le champ de bataille (figurines AÉRODYNES exclues), l'unité de cette figurine ne peut faire:
+- Aucun mouvement normal/d'avance/de retraite/de charge.
+- Aucune attaque avec des armes de tir.
+
+Certaines grandes figurines, en particulier les AÉRODYNES, ont des ailes et aitres extrémités qui s'étendent bien au-delà de leur socle. Ces figurines peuvent dépasser du bord du champ de bataille s'il n'est pas possible de les placer autrement, mais lorsqu'on les place, elles doivent quand même être à plus de 8" des unités ennemies.
+
+Débarquer d'un Transport: Quand une unité débarque d'un TRANSPORT, elle doit être placée entièrement à 3" ou moins de cette figurine. Si une figurine qui débarque est si grande qu'il n'est pas possible de la placer entièrement à 3" ou moins (en général parce que ses dimensions sont toutes supérieurs à 3"), placez vette figurine avec son socle à 1" ou moins du socle (ou de la coque) de ce TRANSPORT, et non engagée avec des unités ennemies.
+
+
+
+04.01
+Choisir les Armes
+
+04.01.03 - Profils d'Arme Multiples
+
+A l'étape choisir des armes (4.01), si une arme choisie a plus d'un profil, alors le joueur en contrôle doit aussi choisir un de ces profils. Le profil choisi est ensuite utilisé à l'étape Résoudre les Attaques (04.03).
+
+Certains de ces profils sont appelés profils Chasseur. Les profils Chasseur peuvent seulement cibler des unités avec les mots-clés spécifiés.
+
+Notez que si une unité est équipée de plus d'une telle arme, un profil différent peut être utilisé pour chaque figurine de cette unité.
+
+04.03.03 - Cible n'Étant plus Éligible ni Viable
+
+Si une unité qui était une cible éligible pour une règle ou une attaque lorsqu'elle avait été choisie n'est plus une cible éligible (par exemple, car une règle lui a permis de faire un mouvement hors phase qui l'a mis hors de portée), le joueur en contrôle peut choisir de nouvelles cibles.
+
+
+05.04
+Infliger des Dégâts
+
+05.04.02 - Modifier les Dégâts
+
+Voir Modificateurs (02.02.01).
+
+05.04.04 - Détruit
+
+Au cours d'une bataille, les figurines subissent des dégâts, perdent des points de vie et peuvent être détruites. Quand toutes les figurines d'une unité ont été détruites, l'unité est détruite.
+
+Quand une figurine est détruite, résolvez d'abord les règles éventuelles qui se déclenchent quand elle est détruite, puis elle est retirée du champ de bataille. Si de telles règles s'appliquent, et si la figurine a été détruite suite à une attaque, sauf mention contraire, ces règles sont seulement résolues et la figurine est seulement retirée après que les attaques de l'unité attaquante ont été résolues. Sauf mention contraire, les figurines et unités détruites ne peuvent pas utiliser d'aptitudes, ni être choisies ou ciblées par des règles.
+
+Certaines règles se déclenchent seulement si une figurine ou unité ennemie a été détruite par vous, ou par une figurine ou unité de votre armée. Cela signifie que la figurine ou unité ennemie a été détruite par une attaque effectuée par une figurine de votre armée, ou par une règle de joueur dont vous disposez. Les figurines ou unités ennemies détruites par tout autre moyen ne sont pas détruites par vous, ni par une figurine ou unité de votre armée.
+
+
+08.03
+Etape d'ébranlement
+
+Le joueur actif doit maintenant effectuer 1 jet d'ébranlement (01.07) pour chaque unité de son armée qui remplit l'une ou les deux conditions suivantes:
+- L'unité est actuellement ébranlée.
+- L'unité est à demi-effectif, ou en dessous.
+
+Si une unité était ébranlée au début de cette étape et si sont jet d'ébranlement pendant cette étape réussit, elle n'est plus ébranlée.
+
+08.03.01 - Jets d'Ébranlement Multiples
+
+A l'étape d'ébranlement (08.03), sauf mention contraire, on ne peut pas faire plus d'un jet d'ébranlement pour chaque unité. Si, pour une raison ou pour une autre, une unité doit faire un jet d'ébranlement à cette étape avant qu'un autre soit nécessaire parce qu'elle serait ébranlée ou à demi-effectif ou en dessous, cette unité n'a pas à faire aussi un jet d'ébranlement parce qu'elle est ébranlée ou à son demi-effectif ou en dessous.
+
+14.01
+Objectifs de Terrain
+
+Si une mission utilise des objectifs, elle stipulera où ils se trouvent sur le champ de bataille. Typiquement, votre mission aura une carte de déploiement montrant plusieurs points où placer des objectifs. L'emplacement de chaque point doit coïncider avec une zone de terrain (13.01) ; cette zone de terrain est l'objectif, et elle est appelée un objectif de terrain.
+
+Quand vous mesurez les distances jusqu'à et depuis un objectif, mesurez jusqu'à et depuis la partie la plus proche de celui-ci.
+
+14.01.01 - Objectifs n'Étant pas dans une Zone de Terrain
+
+Si la position d'un objectif ne coincide pas avec une zone de terrain, vous devez indiquer la position de cet objectif avec un marqueur plat et circulaire de 40mm de diamètre, centré sur ce point : ceci s'appelle un pion d'objectif. Les figurines peuvent se déplacer à travers les pions d'objectif et peuvent terminer un mouvement sur les pions d'objectif.
+
+Une figurine est à portée d'un pion d'objectif tant qu'elle est à 3" ou moins à l'horizontale et à 5" ou moins à la verticale de ce pion d'objectif. Quand on mesure les distances jusqu'à et depuis un pion d'objectif, on mesure depuis et jusqu'à sa partie la plus proche.
+
+FAQ
+
+Q: Est-ce que les figurines qui sont dans le périmètre d'une zone de terrain, mais pas au niveau du sol d'un élément de terrain (ex. les parties de VÉHICULE à CHÂSSIS qui débordent dessus ou les figurines sur des éléments de terrain qui sont dans cette zone de terrain) sont dans cette zone de terrain ?
+
+R: Oui.
+
+
+15.01
+Utiliser des Stratagèmes
+
+15.01.01 - Modifier le Coût en PC
+
+Certaines règles modifient le coût d'utilisation de certains stratagèmes. En pareils cas, les points suivants s'appliquent:
+- Le coût en PC d'une utilisation d'un stratagème ne peut jamais être modifié en dessous de 0 PC.
+- Si une règle modifie le coût en PC d'un stratagème quand vous l'utilisez, mais ne spécifie pas de durée pour ce modificateur, ce modificateur s'applique seulement pour cet usage de ce stratagème.
+ 
+

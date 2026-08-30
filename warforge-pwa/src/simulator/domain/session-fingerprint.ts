@@ -1,4 +1,5 @@
 import type { CoverageEntryV1, SessionSetup } from './types';
+import { completeGameSessionFingerprint } from './battle-state';
 
 export interface SessionCoverageRequirement {
   readonly subjectType: CoverageEntryV1['subjectType'];
@@ -38,6 +39,7 @@ export function sessionCompatibilityFingerprint(
     scenarioFingerprint: manifest.scenarioFingerprint,
     coverageVersion: manifest.coverageVersion,
     shootingEnvironmentFingerprint: session.shootingEnvironmentFingerprint ?? null,
+    ...(session.completeGame === undefined ? {} : { completeGameFingerprint: completeGameSessionFingerprint(session.completeGame) }),
     players: [...session.players].map((player) => ({ id: player.id, rosterId: player.rosterId })).sort((left, right) => left.id.localeCompare(right.id)),
     models: [...session.models].map((model) => ({
       id: model.id, playerId: model.playerId, profileId: model.profileId,
@@ -45,8 +47,10 @@ export function sessionCompatibilityFingerprint(
     })).sort((left, right) => left.id.localeCompare(right.id)),
     units: [...(session.units ?? [])].map((unit) => ({
       id: unit.id, fixtureId: unit.fixtureId, coverageSubject: unit.coverageSubject ?? null, playerId: unit.playerId,
-      modelIds: [...unit.modelIds], keywords: [...unit.keywords], toughness: unit.toughness,
-      save: unit.save, woundsPerModel: unit.woundsPerModel, weaponProfiles: unit.weaponProfiles,
+      modelIds: [...unit.modelIds], keywords: [...unit.keywords], movement: unit.movement ?? null, toughness: unit.toughness,
+      save: unit.save, woundsPerModel: unit.woundsPerModel,
+      leadership: unit.leadership ?? null, objectiveControl: unit.objectiveControl ?? null,
+      weaponProfiles: unit.weaponProfiles,
       weaponAssignments: unit.weaponAssignments ?? [], extendedDefence: unit.extendedDefence ?? null, sourceRefs: unit.sourceRefs
     })).sort((left, right) => left.id.localeCompare(right.id)),
     requirements: [...requirements].map(requirementKey).sort()

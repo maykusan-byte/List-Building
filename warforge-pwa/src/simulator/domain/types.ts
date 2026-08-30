@@ -6,11 +6,26 @@
  * contracts makes the geometry layer deterministic across browsers.
  */
 
+import type { CompatibilityReportV2 } from './full-game-compiler';
+
 export const SIMULATOR_SCHEMA_VERSION = 'warforge-simulator/v1' as const;
 export const SIMULATION_SAVE_SCHEMA_VERSION = 'warforge-simulation-save/v1' as const;
 export const SIMULATION_SAVE_V2_SCHEMA_VERSION = 'warforge-simulation-save/v2' as const;
 export const SIMULATION_SAVE_V3_SCHEMA_VERSION = 'warforge-simulation-save/v3' as const;
 export const SIMULATION_SAVE_V4_SCHEMA_VERSION = 'warforge-simulation-save/v4' as const;
+export const SIMULATION_SAVE_V5_SCHEMA_VERSION = 'warforge-simulation-save/v5' as const;
+export const SIMULATION_SAVE_V6_SCHEMA_VERSION = 'warforge-simulation-save/v6' as const;
+export const BATTLE_STATE_V1_SCHEMA_VERSION = 'warforge-battle-state/v1' as const;
+export const MISSION_STATE_V1_SCHEMA_VERSION = 'warforge-mission-state/v1' as const;
+export const RESOLUTION_QUEUE_V1_SCHEMA_VERSION = 'warforge-resolution-queue/v1' as const;
+export const PENDING_CHARGE_V1_SCHEMA_VERSION = 'warforge-pending-charge/v1' as const;
+export const FIGHT_PHASE_V1_SCHEMA_VERSION = 'warforge-fight-phase/v1' as const;
+export const COMMAND_PHASE_V1_SCHEMA_VERSION = 'warforge-command-phase/v1' as const;
+export const BATTLE_RESOURCES_V1_SCHEMA_VERSION = 'warforge-battle-resources/v1' as const;
+export const TIMED_EFFECT_V1_SCHEMA_VERSION = 'warforge-timed-effect/v1' as const;
+export const OBJECTIVE_MARKER_V1_SCHEMA_VERSION = 'warforge-objective-marker/v1' as const;
+export const COMPLETE_GAME_SESSION_V1_SCHEMA_VERSION = 'warforge-complete-game-session/v1' as const;
+export const GAME_EVENT_STREAM_V1_SCHEMA_VERSION = 'warforge-game-event-stream/v1' as const;
 export const SIMULATOR_VERSION = '0.1.0' as const;
 export const WORLD_UNITS_PER_INCH = 254 as const;
 
@@ -24,7 +39,11 @@ export interface WorldPoint {
 export interface SourceReferenceV1 {
   readonly sourceId: string;
   readonly version: string;
+  /** Legacy transport field retained for save compatibility. See dateBasis. */
   readonly effectiveFrom: string;
+  /** Distinguishes a true effective date from a dated local retrieval/archive. */
+  readonly dateBasis?: 'effective' | 'retrieved';
+  readonly retrievedAt?: string;
   readonly page?: number;
   /** Stable section reference when the source uses numbered rules. */
   readonly reference?: string;
@@ -211,6 +230,251 @@ export interface RosterSimulationAdaptation {
 
 export type SimulatorPhase = 'setup' | 'deployment' | 'command' | 'movement' | 'shooting' | 'charge' | 'fight' | 'completed';
 
+export interface WorldBoundsV1 {
+  readonly minX: WorldUnit;
+  readonly minY: WorldUnit;
+  readonly maxX: WorldUnit;
+  readonly maxY: WorldUnit;
+}
+
+export interface DeploymentZoneV1 {
+  readonly id: string;
+  readonly playerId: string;
+  /** M7 pilot zones are axis-aligned; exact mission polygons remain a mission compiler concern. */
+  readonly bounds: WorldBoundsV1;
+}
+
+export interface DeploymentModelPoseV1 {
+  readonly modelId: string;
+  readonly position: WorldPoint;
+  readonly orientationDegrees: number;
+}
+
+export interface DeploymentContainmentEvidenceV1 {
+  readonly modelId: string;
+  readonly board: 'inside' | 'touching-boundary';
+  readonly zone: 'inside' | 'touching-boundary';
+}
+
+export interface DeploymentContactEvidenceV1 {
+  readonly leftModelId: string;
+  readonly rightModelId: string;
+  readonly classification: 'separated' | 'touching';
+  readonly distance: WorldUnit;
+}
+
+export interface DeploymentGeometryEvidenceV1 {
+  readonly zoneId: string;
+  readonly containment: readonly DeploymentContainmentEvidenceV1[];
+  readonly contacts: readonly DeploymentContactEvidenceV1[];
+  readonly coherency: {
+    readonly maximumLinkDistance: WorldUnit;
+    readonly requiredNeighbours: number;
+    readonly maximumPairDistance: WorldUnit;
+    readonly incoherentModelIds: readonly string[];
+    readonly distantPairs: readonly { readonly leftModelId: string; readonly rightModelId: string; readonly distance: WorldUnit }[];
+  };
+}
+
+export type BattleLifecycleV1 = 'deployment' | 'awaiting-first-player' | 'ready-to-start' | 'in-progress' | 'completed';
+
+/** Durable battle-loop state. M7 will advance it exclusively through events. */
+export interface BattleStateV1 {
+  readonly schemaVersion: typeof BATTLE_STATE_V1_SCHEMA_VERSION;
+  readonly lifecycle: BattleLifecycleV1;
+  readonly maxBattleRounds: number;
+  readonly battleRound: number;
+  readonly turnNumber: number;
+  readonly playerIds: readonly string[];
+  readonly boardBounds: WorldBoundsV1;
+  readonly attackerPlayerId: string;
+  readonly defenderPlayerId: string;
+  readonly deploymentZones: readonly DeploymentZoneV1[];
+  readonly nextDeploymentPlayerId: string | null;
+  readonly deployedUnitIds: readonly string[];
+  readonly deploymentOrder: readonly string[];
+  readonly firstPlayerId: string | null;
+  readonly activePlayerId: string | null;
+  readonly phase: SimulatorPhase;
+}
+
+export type CommandPhaseStageV1 = 'start' | 'gain-base-cp' | 'battle-shock' | 'abilities' | 'end' | 'complete';
+
+/** Serializable 08.01–08.05 progression; the queue preserves the 15.04 window. */
+export interface CommandPhaseStateV1 {
+  readonly schemaVersion: typeof COMMAND_PHASE_V1_SCHEMA_VERSION;
+  readonly activePlayerId: string;
+  readonly stage: CommandPhaseStageV1;
+  readonly pendingBattleShockUnitIds: readonly string[];
+  readonly testedBattleShockUnitIds: readonly string[];
+}
+
+export interface BattleMomentV1 {
+  readonly battleRound: number;
+  readonly turnNumber: number;
+  readonly phase: SimulatorPhase;
+  readonly boundary: 'start' | 'end';
+}
+
+export interface TimedEffectExpirationV1 {
+  readonly moment: BattleMomentV1;
+  readonly effectIds: readonly string[];
+}
+
+/** Source-backed modifier kept in state until its exact boundary is reached. */
+export interface TimedEffectV1 {
+  readonly schemaVersion: typeof TIMED_EFFECT_V1_SCHEMA_VERSION;
+  readonly id: string;
+  readonly targetUnitId: string;
+  readonly modifier: Omit<CharacteristicModifierV1, 'source'> & {
+    readonly characteristic: ModifiedCharacteristicV1;
+    readonly source: SourceReferenceV1;
+  };
+  readonly appliedAt: BattleMomentV1;
+  readonly expiresAt: BattleMomentV1 | null;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+export type CoveredCoreStratagemIdV1 = 'insane-bravery' | 'counter-offensive';
+
+/** Immutable proof of one accepted stratagem use and its paid CP cost. */
+export interface StratagemUseV1 {
+  readonly eventId: string;
+  readonly stratagemId: CoveredCoreStratagemIdV1;
+  readonly playerId: string;
+  readonly targetUnitId: string;
+  readonly cost: number;
+  readonly battleRound: number;
+  readonly turnNumber: number;
+  readonly phase: SimulatorPhase;
+}
+
+/** Durable resources and statuses shared by every phase of a V6 battle. */
+export interface BattleResourcesV1 {
+  readonly schemaVersion: typeof BATTLE_RESOURCES_V1_SCHEMA_VERSION;
+  readonly commandPointsByPlayerId: Readonly<Record<string, number>>;
+  readonly battleShockedUnitIds: readonly string[];
+  readonly timedEffects: readonly TimedEffectV1[];
+  readonly stratagemUses: readonly StratagemUseV1[];
+}
+
+export interface BattleShockTestResultV1 {
+  readonly unitId: string;
+  readonly reason: 'command-phase' | 'desperate-escape';
+  readonly roll: readonly [number, number];
+  readonly total: number;
+  readonly leadership: number;
+  readonly passed: boolean;
+  readonly wasBattleShocked: boolean;
+  readonly atOrBelowHalfStrength: boolean;
+}
+
+/** Flat 40 mm marker used only when an objective is not a terrain zone. */
+export interface ObjectiveMarkerV1 {
+  readonly schemaVersion: typeof OBJECTIVE_MARKER_V1_SCHEMA_VERSION;
+  readonly id: string;
+  readonly kind: 'objective-marker';
+  readonly center: WorldPoint;
+  readonly elevation: WorldUnit;
+  readonly diameter: 400;
+  readonly horizontalRange: 762;
+  readonly verticalRange: 1_270;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+export interface ObjectiveModelControlEvidenceV1 {
+  readonly modelId: string;
+  readonly unitId: string;
+  readonly playerId: string;
+  readonly horizontalDistance: WorldUnit;
+  readonly verticalDistance: WorldUnit;
+  readonly withinRange: boolean;
+  readonly baseObjectiveControl: number;
+  readonly effectiveObjectiveControl: number;
+  readonly battleShocked: boolean;
+}
+
+export interface ObjectiveControlResolutionV1 {
+  readonly objectiveId: string;
+  readonly checkpoint: {
+    readonly battleRound: number;
+    readonly turnNumber: number;
+    readonly phase: SimulatorPhase;
+    readonly boundary: 'phase-end' | 'turn-end';
+  };
+  readonly controlLevelByPlayerId: Readonly<Record<string, number>>;
+  readonly controllerPlayerId: string | null;
+  readonly tied: boolean;
+  readonly controllingUnitIdsByPlayerId: Readonly<Record<string, readonly string[]>>;
+  readonly modelEvidence: readonly ObjectiveModelControlEvidenceV1[];
+}
+
+export interface MissionStateV1 {
+  readonly schemaVersion: typeof MISSION_STATE_V1_SCHEMA_VERSION;
+  readonly missionId: string;
+  readonly missionDefinitionFingerprint: string;
+  readonly lifecycle: 'ready' | 'in-progress' | 'completed';
+  readonly objectiveMarkerIds: readonly string[];
+  /** Empty only when replaying a pre-M8 V6 journal. */
+  readonly objectiveMarkers: readonly ObjectiveMarkerV1[];
+  readonly objectiveControllers: Readonly<Record<string, string | null>>;
+  readonly latestObjectiveControlById: Readonly<Record<string, ObjectiveControlResolutionV1 | null>>;
+  readonly objectiveControlEventIds: readonly string[];
+  readonly scoresByPlayerId: Readonly<Record<string, number>>;
+  readonly scoreEventIds: readonly string[];
+}
+
+export type ResolutionWindowKindV1 = 'phase-start' | 'phase-end' | 'reaction' | 'decision' | 'attack' | 'damage' | 'score';
+
+/** A queue entry is identity and timing only; executable effects remain typed events. */
+export interface ResolutionQueueEntryV1 {
+  readonly id: string;
+  readonly kind: ResolutionWindowKindV1;
+  readonly ownerPlayerId: string | null;
+  readonly sourceRuleIds: readonly string[];
+  readonly openedByEventId: string;
+}
+
+export interface ResolutionQueueV1 {
+  readonly schemaVersion: typeof RESOLUTION_QUEUE_V1_SCHEMA_VERSION;
+  readonly activeEntryId: string | null;
+  readonly entries: readonly ResolutionQueueEntryV1[];
+  readonly resolvedEntryIds: readonly string[];
+}
+
+/**
+ * Trusted, compiled input for a complete-game session. A draft or incomplete
+ * compatibility report cannot be represented as an executable setup.
+ */
+export interface CompleteGameSessionSetupV1 {
+  readonly schemaVersion: typeof COMPLETE_GAME_SESSION_V1_SCHEMA_VERSION;
+  readonly eventStreamSchemaVersion: typeof GAME_EVENT_STREAM_V1_SCHEMA_VERSION;
+  readonly compatibility: {
+    readonly status: 'compatible';
+    readonly reportVersion: string;
+    readonly reportFingerprint: string;
+    readonly coverageScope: string;
+    readonly coverageVersion: string;
+    /** Complete canonical proof; metadata above are indexed copies, not authority. */
+    readonly report: CompatibilityReportV2;
+  };
+  readonly battle: {
+    readonly maxBattleRounds: number;
+    readonly playerIds: readonly string[];
+    readonly boardBounds: WorldBoundsV1;
+    readonly attackerPlayerId: string;
+    readonly defenderPlayerId: string;
+    readonly deploymentZones: readonly DeploymentZoneV1[];
+  };
+  readonly mission: {
+    readonly id: string;
+    readonly definitionFingerprint: string;
+    readonly objectiveMarkerIds: readonly string[];
+    /** Additive M8 geometry; old V6 sessions may omit it. */
+    readonly objectiveMarkers?: readonly ObjectiveMarkerV1[];
+  };
+}
+
 export interface PlayerSetup {
   readonly id: string;
   readonly displayName: string;
@@ -265,6 +529,8 @@ export type RandomCharacteristicNotationV1 = string;
 export interface WeaponProfileV1 {
   readonly id: string;
   readonly displayName: string;
+  /** Legacy profiles are ranged; T04 marks melee profiles explicitly. */
+  readonly weaponType?: 'ranged' | 'melee';
   readonly range: WorldUnit;
   readonly attacks: number;
   readonly ballisticSkill: number;
@@ -289,6 +555,20 @@ export interface ModelWeaponAssignmentV1 {
   readonly quantity: number;
 }
 
+/**
+ * One physical ranged weapon selected during the closed T05.2 split-fire
+ * declaration.  The index is local to the model/profile assignment and makes
+ * two identical printed weapons separately addressable without interpreting
+ * alternative weapon profiles.
+ */
+export interface SplitFireWeaponDeclarationV1 {
+  readonly id: string;
+  readonly firingModelId: string;
+  readonly weaponProfileId: string;
+  readonly weaponInstanceIndex: number;
+  readonly targetUnitId: string;
+}
+
 /** Immutable unit composition used only by the session-setup event. */
 export interface UnitSetup {
   readonly id: string;
@@ -297,12 +577,18 @@ export interface UnitSetup {
   /** Defaults to the legacy fixture-unit subject when omitted. */
   readonly coverageSubject?: UnitCoverageSubjectV1;
   readonly playerId: string;
+  /** Maximum normal movement in world units; mandatory for complete-game sessions. */
+  readonly movement?: WorldUnit;
   /** Actual model IDs, not a count or a profile-derived approximation. */
   readonly modelIds: readonly string[];
   readonly keywords: readonly string[];
   readonly toughness: number;
   readonly save: number;
   readonly woundsPerModel: number;
+  /** Optional only for pre-M8 sessions; mandatory for a complete-game session. */
+  readonly leadership?: number;
+  /** Optional only for pre-M8 sessions; M8-T02 consumes it for objective control. */
+  readonly objectiveControl?: number;
   readonly weaponProfiles: readonly WeaponProfileV1[];
   /** Optional for setup compatibility; omission means no model is authorized to fire it. */
   readonly weaponAssignments?: readonly ModelWeaponAssignmentV1[];
@@ -319,6 +605,8 @@ export interface SessionSetup {
   readonly units?: readonly UnitSetup[];
   /** Binds shooting journals to the trusted compiled environment used at setup. */
   readonly shootingEnvironmentFingerprint?: string;
+  /** Present only after CompatibilityReportV2 has accepted the full closed pilot. */
+  readonly completeGame?: CompleteGameSessionSetupV1;
 }
 
 export interface ModelState {
@@ -357,10 +645,14 @@ export interface UnitState {
   /** Retained from setup so fixture-only rules cannot silently reach M4 units. */
   readonly coverageSubject?: UnitCoverageSubjectV1;
   readonly playerId: string;
+  readonly movement?: WorldUnit;
   readonly keywords: readonly string[];
   readonly toughness: number;
   readonly save: number;
   readonly woundsPerModel: number;
+  readonly initialStrength: number;
+  readonly leadership?: number;
+  readonly objectiveControl?: number;
   readonly weaponProfiles: readonly WeaponProfileV1[];
   readonly weaponAssignments: readonly ModelWeaponAssignmentV1[];
   readonly sourceRefs: readonly SourceReferenceV1[];
@@ -376,6 +668,71 @@ export interface PrngStateV1 {
   readonly value: number;
   readonly draws: number;
 }
+
+export type UnitMovementTypeV1 = 'remain-stationary' | 'normal' | 'advance' | 'fall-back';
+export type FallBackModeV1 = 'good-order' | 'desperate-escape';
+
+export interface UnitMovementPathV1 {
+  readonly modelId: string;
+  /** Polyline points after the model's current position; an empty path leaves it in place. */
+  readonly waypoints: readonly WorldPoint[];
+  readonly finalOrientationDegrees?: number;
+}
+
+export interface UnitTurnStatusV1 {
+  readonly selectedForMovement: boolean;
+  readonly movementType: UnitMovementTypeV1 | null;
+  readonly advanced: boolean;
+  readonly fellBack: boolean;
+  readonly fallBackMode?: FallBackModeV1;
+  /** M8 consumes this immediate rule consequence once Battle-shock is executable. */
+  readonly battleShockTestRequired?: boolean;
+  readonly chargeDeclared?: true;
+  readonly chargeResolved?: true;
+  readonly charged?: boolean;
+  readonly chargeTargetUnitIds?: readonly string[];
+  readonly fightsFirstFromCharge?: true;
+}
+
+export interface ChargeCandidateV1 {
+  readonly unitId: string;
+  readonly edgeToEdgeDistance: WorldUnit;
+  readonly withinChargeRoll: boolean;
+}
+
+/** Serializable continuation opened after the authoritative 2D6 charge roll. */
+export interface PendingChargeV1 {
+  readonly schemaVersion: typeof PENDING_CHARGE_V1_SCHEMA_VERSION;
+  readonly playerId: string;
+  readonly unitId: string;
+  readonly roll: readonly [number, number];
+  readonly maximumDistance: WorldUnit;
+  readonly candidates: readonly ChargeCandidateV1[];
+  readonly environmentFingerprint: string;
+  readonly prngBefore: PrngStateV1;
+  readonly prngAfter: PrngStateV1;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+export type FightStageV1 = 'pile-in' | 'fight' | 'consolidation' | 'complete';
+export type FightSelectionBandV1 = 'fights-first' | 'remaining';
+
+export interface FightPhaseStateV1 {
+  readonly schemaVersion: typeof FIGHT_PHASE_V1_SCHEMA_VERSION;
+  readonly stage: FightStageV1;
+  readonly activePlayerId: string;
+  readonly currentPlayerId: string | null;
+  readonly passedPlayerIds: readonly string[];
+  readonly piledInUnitIds: readonly string[];
+  readonly eligibleAtFightStartUnitIds: readonly string[];
+  readonly selectionBand: FightSelectionBandV1 | null;
+  readonly foughtUnitIds: readonly string[];
+  readonly consolidatedUnitIds: readonly string[];
+  /** Present only after 15.12; the selected unit must fight next. */
+  readonly forcedNextFightUnitId?: string;
+}
+
+export type FightMovementKindV1 = 'pile-in' | 'consolidation';
 
 export interface DecisionRequest {
   readonly id: string;
@@ -401,6 +758,51 @@ interface CommandBase {
 
 export type GameCommand =
   | (CommandBase & { readonly type: 'setup-session'; readonly session: SessionSetup })
+  | (CommandBase & { readonly type: 'deploy-unit'; readonly unitId: string; readonly modelPoses: readonly DeploymentModelPoseV1[] })
+  | (CommandBase & { readonly type: 'determine-first-player' })
+  | (CommandBase & { readonly type: 'start-battle' })
+  | (CommandBase & { readonly type: 'advance-battle-phase' })
+  | (CommandBase & { readonly type: 'resolve-command-stage' })
+  | (CommandBase & { readonly type: 'resolve-battle-shock-test'; readonly unitId: string })
+  | (CommandBase & { readonly type: 'use-insane-bravery'; readonly unitId: string })
+  | (CommandBase & { readonly type: 'use-counter-offensive'; readonly unitId: string })
+  | (CommandBase & {
+    readonly type: 'move-unit';
+    readonly unitId: string;
+    readonly movementType: UnitMovementTypeV1;
+    readonly fallBackMode?: FallBackModeV1;
+    /** Player-declared priority for otherwise discretionary mortal-wound allocations. */
+    readonly desperateEscapeAllocationOrder?: readonly string[];
+    readonly paths: readonly UnitMovementPathV1[];
+  })
+  | (CommandBase & { readonly type: 'pass-fight-window' })
+  | (CommandBase & {
+    readonly type: 'resolve-fight-movement';
+    readonly movementKind: FightMovementKindV1;
+    readonly unitId: string;
+    readonly targetUnitIds: readonly string[];
+    readonly paths: readonly UnitMovementPathV1[];
+  })
+  | (CommandBase & {
+    readonly type: 'resolve-basic-melee';
+    readonly attackerUnitId: string;
+    readonly targetUnitId: string;
+    readonly weaponProfileId: string;
+  })
+  | (CommandBase & { readonly type: 'resolve-empty-fight'; readonly unitId: string })
+  | (CommandBase & { readonly type: 'declare-charge'; readonly unitId: string })
+  | (CommandBase & {
+    readonly type: 'resolve-charge';
+    readonly unitId: string;
+    readonly proceed: false;
+  })
+  | (CommandBase & {
+    readonly type: 'resolve-charge';
+    readonly unitId: string;
+    readonly proceed: true;
+    readonly targetUnitIds: readonly string[];
+    readonly paths: readonly UnitMovementPathV1[];
+  })
   | (CommandBase & { readonly type: 'transition-phase'; readonly nextPhase: SimulatorPhase })
   | (CommandBase & { readonly type: 'move-model'; readonly modelId: string; readonly to: WorldPoint; readonly orientationDegrees?: number })
   | (CommandBase & { readonly type: 'roll-dice'; readonly rollId: string; readonly sides: number; readonly count: number; readonly reason: string })
@@ -415,6 +817,18 @@ export type GameCommand =
     readonly targetUnitId: string;
     readonly weaponProfileId?: string;
     readonly weaponProfileIds?: readonly string[];
+  })
+  /**
+   * Fixture-only T05.2 declaration.  The UI selects physical instances and
+   * targets, but range, visibility, cover and every dice result remain
+   * authoritative orchestration facts.
+   */
+  | (CommandBase & {
+    readonly type: 'resolve-split-fire';
+    readonly attackerUnitId: string;
+    readonly assignments: readonly SplitFireWeaponDeclarationV1[];
+    /** Ordered assignment IDs; all declared instances must occur exactly once. */
+    readonly resolutionOrder: readonly string[];
   })
   /** Target only: the trusted M4 environment derives the selected Oath variant. */
   | (CommandBase & { readonly type: 'select-oath-of-moment-target'; readonly targetUnitId: string })
@@ -562,6 +976,33 @@ export interface BasicShootingResult {
   readonly remainingWoundsOnDamagedModel: number | null;
 }
 
+/** Serializable continuation after the 05.03 saves and during 05.04 allocation. */
+export interface PendingBasicMeleeResolutionV1 {
+  readonly originCommandId: string;
+  readonly attackerUnitId: string;
+  readonly targetUnitId: string;
+  readonly weaponProfileId: string;
+  readonly attackingModelIds: readonly string[];
+  readonly defenderPlayerId: string;
+  readonly hitRequired: number;
+  readonly woundRequired: number;
+  readonly saveRequired: number;
+  readonly damage: number;
+  readonly hitRolls: readonly BasicShootingHitRoll[];
+  readonly woundRolls: readonly BasicShootingWoundRoll[];
+  readonly successfulWoundAttackIndexes: readonly number[];
+  /** 05.03 results ordered from lowest to highest, then by attack index. */
+  readonly saveRolls: readonly BasicShootingSaveRoll[];
+  /** Index of the next ordered 05.03 result to allocate under 05.04. */
+  readonly nextWoundIndex: number;
+  readonly allocations: readonly BasicShootingAllocationRecord[];
+  readonly fightPhaseAfter: FightPhaseStateV1;
+  readonly environmentFingerprint: string;
+  readonly prngBefore: PrngStateV1;
+  readonly prngAfter: PrngStateV1;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
 /** Current M4 Oath of Moment selection for one player and command round. */
 export interface OathOfMomentSelectionV1 {
   readonly ruleId: 'adeptus-astartes.oath-of-moment';
@@ -580,6 +1021,12 @@ export interface BasicShootingAttackGroup {
   /** Zero-based physical weapon instance for independently generated random A. */
   readonly weaponInstanceIndex?: number;
   readonly weaponCount: number;
+  /** T05.4 occurrence chosen before this weapon was resolved. */
+  readonly duplicateAbilitySelection?: {
+    readonly weaponProfileId: string;
+    readonly kind: 'sustained-hits';
+    readonly selectedOccurrenceIndex: number;
+  };
   /** Present only when this group generated a variable A characteristic. */
   readonly randomAttacks?: BasicShootingRandomCharacteristicEvidence;
   /** Present only when a source-backed M5 modifier fact affected this group. */
@@ -779,8 +1226,275 @@ interface BasicShootingCompletionPayload {
   readonly sourceRefs: readonly SourceReferenceV1[];
 }
 
+/** One target-wise result of a fully validated, atomic T05.2 declaration. */
+export interface SplitFireResolutionV1 {
+  readonly declaration: SplitFireWeaponDeclarationV1;
+  /** A later weapon can have no remaining model after an earlier legal target-wise resolution. */
+  readonly outcome: 'resolved' | 'target-no-longer-active';
+  readonly attackGroup?: BasicShootingAttackGroup;
+  readonly casualtyModelIds: readonly string[];
+  readonly targetModelsAfter: readonly UnitModelState[];
+}
+
+export interface SplitFireRetargetChoiceV1 {
+  readonly assignmentId: string;
+  /** `abandon` records an explicit choice to leave this selected instance unused. */
+  readonly targetUnitId: string;
+}
+
+/** Serializable V5 continuation, opened only when a previously selected target has no model left. */
+export interface PendingSplitFireShootingResolutionV1 {
+  readonly originCommandId: string;
+  readonly attackerUnitId: string;
+  /** Effective legal schedule. Its unresolved suffix can be rebuilt only by a journalled retarget decision. */
+  readonly declarations: readonly SplitFireWeaponDeclarationV1[];
+  /** First declaration that has not yet received a target-wise result. */
+  readonly nextResolutionIndex: number;
+  readonly resolutions: readonly SplitFireResolutionV1[];
+  /** Recorded player choices, one for each unresolved instance whose target disappeared. */
+  readonly choices: readonly SplitFireRetargetChoiceV1[];
+  /** The authoritative, currently legal options for the pending declaration. */
+  readonly retargetOptionTargetUnitIds: readonly string[];
+  readonly shootingEnvironmentFingerprint: string;
+  readonly prngBefore: PrngStateV1;
+  readonly prngAfter: PrngStateV1;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+/** A V5 choice opened before any attack roll for one repeated weapon ability. */
+export interface PendingDuplicateWeaponAbilitySelectionV1 {
+  readonly originCommand: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>;
+  readonly attackerUnitId: string;
+  readonly weaponProfileId: string;
+  readonly kind: 'sustained-hits';
+  readonly occurrenceIndexes: readonly number[];
+  readonly shootingEnvironmentFingerprint: string;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+  readonly selection?: {
+    readonly weaponProfileId: string;
+    readonly kind: 'sustained-hits';
+    readonly selectedOccurrenceIndex: number;
+  };
+}
+
 export type GameEvent =
   | (EventBase & { readonly type: 'session-setup'; readonly session: SessionSetup })
+  | (EventBase & {
+    readonly type: 'unit-deployed';
+    readonly playerId: string;
+    readonly unitId: string;
+    readonly modelPoses: readonly DeploymentModelPoseV1[];
+    readonly evidence: DeploymentGeometryEvidenceV1;
+    readonly environmentFingerprint: string;
+    readonly nextPlayerId: string | null;
+    readonly deploymentComplete: boolean;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'fight-window-passed';
+    readonly playerId: string;
+    readonly fightPhaseAfter: FightPhaseStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'fight-movement-resolved';
+    readonly playerId: string;
+    readonly movementKind: FightMovementKindV1;
+    readonly unitId: string;
+    readonly targetUnitIds: readonly string[];
+    readonly paths: readonly UnitMovementPathV1[];
+    readonly finalPoses: readonly DeploymentModelPoseV1[];
+    readonly evidence: {
+      readonly paths: readonly { readonly modelId: string; readonly pathLength: number; readonly initialTargetDistance: number; readonly finalTargetDistance: number }[];
+      readonly coherency: DeploymentGeometryEvidenceV1['coherency'];
+    };
+    readonly fightPhaseAfter: FightPhaseStateV1;
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'basic-melee-stage-resolved';
+    readonly playerId: string;
+    readonly resolution: PendingBasicMeleeResolutionV1;
+  })
+  | (EventBase & {
+    readonly type: 'basic-melee-allocation-resolved';
+    readonly decisionId: string | null;
+    readonly playerId: string;
+    readonly packetIndex: number;
+    readonly attackIndex: number;
+    readonly modelId: string;
+    readonly saveRoll: number;
+    readonly saved: boolean;
+    readonly damage: number;
+    readonly modelAfter: UnitModelState;
+    /** No entropy is drawn here: the save was already rolled in 05.03. */
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'basic-melee-resolved';
+    readonly playerId: string;
+    readonly attackerUnitId: string;
+    readonly targetUnitId: string;
+    readonly weaponProfileId: string;
+    readonly attackingModelIds: readonly string[];
+    readonly rolls: readonly BasicShootingDieStep[];
+    readonly result: BasicShootingResult;
+    readonly targetModelsAfter: readonly UnitModelState[];
+    readonly fightPhaseAfter: FightPhaseStateV1;
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'empty-fight-resolved';
+    readonly playerId: string;
+    readonly unitId: string;
+    readonly fightPhaseAfter: FightPhaseStateV1;
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'charge-declared';
+    readonly pending: PendingChargeV1;
+  })
+  | (EventBase & {
+    readonly type: 'charge-resolved';
+    readonly playerId: string;
+    readonly unitId: string;
+    readonly outcome: 'declined' | 'moved';
+    readonly targetUnitIds: readonly string[];
+    readonly paths: readonly UnitMovementPathV1[];
+    readonly finalPoses: readonly DeploymentModelPoseV1[];
+    readonly evidence: {
+      readonly paths: readonly { readonly modelId: string; readonly pathLength: number; readonly initialTargetDistance: WorldUnit; readonly finalTargetDistance: WorldUnit }[];
+      readonly engagedTargetUnitIds: readonly string[];
+      readonly engagedNonTargetUnitIds: readonly string[];
+      readonly coherency: DeploymentGeometryEvidenceV1['coherency'];
+    };
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'battle-started';
+    readonly battleRound: 1;
+    readonly turnNumber: 1;
+    readonly activePlayerId: string;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'objective-control-resolved';
+    readonly checkpoint: ObjectiveControlResolutionV1['checkpoint'];
+    readonly resolutions: readonly ObjectiveControlResolutionV1[];
+    readonly environmentFingerprint: string;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'battle-phase-advanced';
+    readonly from: SimulatorPhase;
+    readonly to: SimulatorPhase;
+    readonly battleRound: number;
+    readonly turnNumber: number;
+    readonly activePlayerId: string | null;
+    readonly battleCompleted: boolean;
+    /** Additive M8 evidence; old V6 journals may omit it when no effect was due. */
+    readonly timedEffectExpirations?: readonly TimedEffectExpirationV1[];
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'command-stage-resolved';
+    readonly playerId: string;
+    readonly from: CommandPhaseStageV1;
+    readonly to: CommandPhaseStageV1;
+    readonly commandPointsGainedByPlayerId: Readonly<Record<string, number>>;
+    readonly commandPhaseAfter: CommandPhaseStateV1;
+    readonly expiredEffectIds: readonly string[];
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'battle-shock-test-resolved';
+    readonly playerId: string;
+    readonly result: BattleShockTestResultV1;
+    readonly commandPhaseAfter: CommandPhaseStateV1 | null;
+    readonly battleShockedUnitIdsAfter: readonly string[];
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'insane-bravery-used';
+    readonly playerId: string;
+    readonly targetUnitId: string;
+    readonly cost: 1;
+    readonly commandPhaseAfter: CommandPhaseStateV1;
+    readonly use: StratagemUseV1;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'counter-offensive-used';
+    readonly playerId: string;
+    readonly targetUnitId: string;
+    readonly cost: 2;
+    readonly fightPhaseAfter: FightPhaseStateV1;
+    readonly use: StratagemUseV1;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'unit-movement-resolved';
+    readonly playerId: string;
+    readonly unitId: string;
+    readonly movementType: UnitMovementTypeV1;
+    readonly fallBackMode?: FallBackModeV1;
+    readonly paths: readonly UnitMovementPathV1[];
+    readonly finalPoses: readonly DeploymentModelPoseV1[];
+    readonly maximumDistance: WorldUnit;
+    readonly advanceRoll?: number;
+    readonly desperateEscape?: {
+      readonly riskRolls: readonly { readonly modelId: string; readonly result: number }[];
+      readonly mortalWounds: number;
+      readonly unitModelsAfter: readonly UnitModelState[];
+      readonly playerAllocationOrder: readonly string[];
+      readonly mortalWoundAllocations: readonly string[];
+      readonly allocationPolicy: 'mandatory-wounded-then-player-order';
+      /** Present only when at least one model survived and an immediate test is due. */
+      readonly battleShockTestRequired?: true;
+    };
+    readonly evidence: {
+      readonly startedEngaged: boolean;
+      readonly endedEngaged: boolean;
+      readonly paths: readonly { readonly modelId: string; readonly pathLength: number }[];
+      readonly coherency: DeploymentGeometryEvidenceV1['coherency'];
+    };
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'first-player-determined';
+    readonly winnerPlayerId: string;
+    readonly rollOffs: readonly {
+      readonly rolls: readonly { readonly playerId: string; readonly result: number }[];
+    }[];
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
   | (EventBase & { readonly type: 'phase-transitioned'; readonly from: SimulatorPhase; readonly to: SimulatorPhase })
   | (EventBase & { readonly type: 'model-moved'; readonly modelId: string; readonly from: WorldPoint; readonly to: WorldPoint; readonly orientationDegrees: number })
   | (EventBase & { readonly type: 'dice-rolled'; readonly rollId: string; readonly sides: number; readonly results: readonly number[]; readonly reason: string; readonly prngBefore: PrngStateV1; readonly prngAfter: PrngStateV1 })
@@ -813,6 +1527,21 @@ export type GameEvent =
   /** Trusted continuation after every critical-hit choice has been journaled. */
   | (EventBase & BasicShootingCompletionPayload & { readonly type: 'basic-shooting-completed' })
   | (EventBase & BasicShootingCompletionPayload & { readonly type: 'basic-shooting-reroll-completed' })
+  | (EventBase & {
+    readonly type: 'split-fire-resolved';
+    readonly attackerUnitId: string;
+    /** Kept in the player-selected resolution order for trusted replay. */
+    readonly resolutions: readonly SplitFireResolutionV1[];
+    readonly shootingEnvironmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & { readonly type: 'split-fire-stage-resolved'; readonly resolution: PendingSplitFireShootingResolutionV1 })
+  | (EventBase & { readonly type: 'split-fire-retarget-choice-resolved'; readonly decisionId: string; readonly playerId: string; readonly choice: SplitFireRetargetChoiceV1 })
+  | (EventBase & { readonly type: 'split-fire-completed'; readonly resolution: PendingSplitFireShootingResolutionV1 })
+  | (EventBase & { readonly type: 'duplicate-weapon-ability-selection-requested'; readonly selection: PendingDuplicateWeaponAbilitySelectionV1 })
+  | (EventBase & { readonly type: 'duplicate-weapon-ability-choice-resolved'; readonly decisionId: string; readonly playerId: string; readonly selection: NonNullable<PendingDuplicateWeaponAbilitySelectionV1['selection']> })
   | (EventBase & { readonly type: 'extended-shooting-one-shot-selected'; readonly instanceKey: string; readonly attackerUnitId: string; readonly weaponProfileId: string; readonly firingModelId: string; readonly weaponInstanceIndex: number; readonly sourceRefs: readonly SourceReferenceV1[] })
   | (EventBase & { readonly type: 'extended-shooting-stage-resolved'; readonly resolution: PendingExtendedShootingResolutionV1 })
   | (EventBase & { readonly type: 'extended-shooting-save-stage-resolved'; readonly packetIndexOrder: readonly number[]; readonly saveRolls: NonNullable<PendingExtendedShootingResolutionV1['saveRolls']>; readonly prngBefore: PrngStateV1; readonly prngAfter: PrngStateV1 })
@@ -837,11 +1566,19 @@ export interface GameState {
   readonly gameId: string;
   readonly phase: SimulatorPhase;
   readonly round: number;
+  /** Additive V6 state; legacy V1–V5 sessions keep these neutral. */
+  readonly battle: BattleStateV1 | null;
+  readonly commandPhase: CommandPhaseStateV1 | null;
+  readonly battleResources: BattleResourcesV1 | null;
+  readonly mission: MissionStateV1 | null;
+  readonly resolutionQueue: ResolutionQueueV1;
   readonly manifest: SimulatorManifestV1 | null;
   readonly shootingEnvironmentFingerprint: string | null;
   readonly players: Readonly<Record<string, PlayerSetup>>;
   readonly models: Readonly<Record<string, ModelState>>;
   readonly units: Readonly<Record<string, UnitState>>;
+  /** Per-active-turn consequences; reset whenever a new player turn begins. */
+  readonly unitTurnStatuses: Readonly<Record<string, UnitTurnStatusV1>>;
   /** Actual model IDs that have already completed their normal move this movement phase. */
   readonly movedModelIds: readonly string[];
   /** Canonical `unitId:weaponProfileId` keys already fired during this shooting phase. */
@@ -855,6 +1592,11 @@ export interface GameState {
   readonly pendingLethalShooting: PendingLethalShootingResolutionV1 | null;
   readonly pendingRerollShooting: PendingRerollShootingResolutionV1 | null;
   readonly pendingExtendedShooting: PendingExtendedShootingResolutionV1 | null;
+  readonly pendingBasicMelee: PendingBasicMeleeResolutionV1 | null;
+  readonly pendingSplitFireShooting: PendingSplitFireShootingResolutionV1 | null;
+  readonly pendingDuplicateWeaponAbilitySelection: PendingDuplicateWeaponAbilitySelectionV1 | null;
+  readonly pendingCharge: PendingChargeV1 | null;
+  readonly fightPhase: FightPhaseStateV1 | null;
   readonly diceResults: Readonly<Record<string, readonly number[]>>;
   readonly prng: PrngStateV1;
   readonly eventLog: readonly GameEvent[];
@@ -898,7 +1640,29 @@ export interface SimulationSaveV4 extends Omit<SimulationSaveV2, 'schemaVersion'
   readonly schemaVersion: typeof SIMULATION_SAVE_V4_SCHEMA_VERSION;
 }
 
-export type SimulationSave = SimulationSaveV1 | SimulationSaveV2 | SimulationSaveV3 | SimulationSaveV4;
+/** V5 records the atomic, target-wise T05.2 split-fire declaration. */
+export interface SimulationSaveV5 extends Omit<SimulationSaveV2, 'schemaVersion'> {
+  readonly schemaVersion: typeof SIMULATION_SAVE_V5_SCHEMA_VERSION;
+}
+
+/** V6 is the sole complete-game envelope; older saves remain in their original scope. */
+export interface SimulationSaveV6 extends Omit<SimulationSaveV2, 'schemaVersion' | 'environment'> {
+  readonly schemaVersion: typeof SIMULATION_SAVE_V6_SCHEMA_VERSION;
+  readonly environment: SimulationSaveV2['environment'] & {
+    readonly eventStreamSchemaVersion: typeof GAME_EVENT_STREAM_V1_SCHEMA_VERSION;
+    readonly battleStateSchemaVersion: typeof BATTLE_STATE_V1_SCHEMA_VERSION;
+    /** Required as soon as the journal contains an M8 command/resource event. */
+    readonly commandPhaseSchemaVersion?: typeof COMMAND_PHASE_V1_SCHEMA_VERSION;
+    readonly battleResourcesSchemaVersion?: typeof BATTLE_RESOURCES_V1_SCHEMA_VERSION;
+    readonly timedEffectSchemaVersion?: typeof TIMED_EFFECT_V1_SCHEMA_VERSION;
+    readonly missionStateSchemaVersion: typeof MISSION_STATE_V1_SCHEMA_VERSION;
+    readonly resolutionQueueSchemaVersion: typeof RESOLUTION_QUEUE_V1_SCHEMA_VERSION;
+    readonly completeGameSessionFingerprint: string;
+    readonly compatibilityReportFingerprint: string;
+  };
+}
+
+export type SimulationSave = SimulationSaveV1 | SimulationSaveV2 | SimulationSaveV3 | SimulationSaveV4 | SimulationSaveV5 | SimulationSaveV6;
 
 export type CommandExecution =
   | { readonly accepted: true; readonly state: GameState; readonly events: readonly GameEvent[] }

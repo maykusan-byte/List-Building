@@ -29,6 +29,14 @@ and effective date whenever game content changes.
 - Do not infer points from rules prose, and do not add mission-card detail
   without a versioned official source.
 
+For official-app screenshots, inventory files and hashes before transcription.
+Transcribe only fully visible text, keep capture-to-section links, and put
+cropped, unreadable or contradictory passages in an explicit human-review
+queue. A low-cost model may perform OCR/indexing, but rule interpretation and
+promotion to executable coverage require the simulator rule workflow and its
+review. Ask the owner to verify uncertain OCR when that is cheaper and more
+reliable than repeated model passes.
+
 ### Inventory
 
 - Treat `data/inventory/datasheet_x_figs.csv` as the active inventory source.

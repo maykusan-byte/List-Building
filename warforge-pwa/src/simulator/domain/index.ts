@@ -1,7 +1,13 @@
 export * from './commands';
+export * from './battle-state';
+export * from './battle-resources';
+export * from './battle-sequence';
+export * from './desperate-escape';
+export * from './full-game-compiler';
 export * from './prng';
 export * from './session-fingerprint';
+export * from './split-fire';
 export { canTransitionPhase, reduceGameEvent, replayGameEvents } from './reducer';
-export { createSimulationSave, createSimulationSaveV2, createSimulationSaveV3, createSimulationSaveV4, deserializeSimulationSave, serializeSimulationSave, validateSimulationSave } from './serialization';
+export { createSimulationSave, createSimulationSaveV2, createSimulationSaveV3, createSimulationSaveV4, createSimulationSaveV5, createSimulationSaveV6, deserializeSimulationSave, serializeSimulationSave, validateSimulationSave } from './serialization';
 export * from './state';
 export * from './types';

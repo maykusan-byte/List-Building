@@ -78,9 +78,15 @@ d’images qu’avec une source et un objectif explicites.
   `model-routing.json` et les ADR applicables avant de commencer.
 - Exécuter `pnpm simulator:project:check`, reprendre l'unique tâche en cours et
   livrer code, tests, preuves et statut synchronisés dans le même changement.
+- Exécuter aussi `pnpm simulator:project:brief -- <taskId>` et
+  `pnpm simulator:project:health -- <taskId>` avant une nouvelle tranche.
+  Prévenir pour `L`/`XL` et obtenir l'approbation humaine avant `XL`.
 - Utiliser en plus `warforge-data-operations` pour toute donnée de simulateur.
 - Ne déclarer une règle ou une liste supportée que si la matrice de couverture
   et les tests de conformité le prouvent.
+- Ne pas construire de protection contre un utilisateur qui modifierait
+  volontairement mémoire ou sauvegardes ; conserver uniquement les contrôles
+  de schéma, version, provenance et invariants nécessaires au fonctionnement.
 
 ## Publication GitHub Pages
 

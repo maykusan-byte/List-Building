@@ -12,6 +12,8 @@ import {
   type ExtendedAllocationChoiceV1,
   type ExtendedDamageEvidenceV1,
   type PendingExtendedShootingResolutionV1,
+  type PendingDuplicateWeaponAbilitySelectionV1,
+  type PendingSplitFireShootingResolutionV1,
   type GameCommand,
   type GameEvent,
   type GameState,
@@ -24,12 +26,20 @@ import {
   type RuleRejection,
   type RerollChoiceV1,
   type RerollDieKeyV1,
+  type SplitFireResolutionV1,
+  type SplitFireRetargetChoiceV1,
+  type SplitFireWeaponDeclarationV1,
+  scheduleSplitFireRetarget,
   type SourceReferenceV1,
   type UnitState,
   type WeaponProfileV1
 } from '../domain';
 import { unsafeReduceGameEvent } from '../domain/reducer';
 import type { UnsafeSimulationReplayVerifier } from '../domain/serialization';
+import { executeDeploymentCommand } from './deployment';
+import { executeCompleteGameMovementCommand } from './battle-movement';
+import { executeDeclareChargeCommand, executeResolveChargeCommand } from './battle-charge';
+import { executeBasicMeleeAllocationDecisionCommand, executeBasicMeleeCommand, executeEmptyFightCommand, executeFightMovementCommand, executePassFightWindowCommand } from './battle-fight';
 import {
   evaluateLineOfSight,
   evaluateSampledCylinderLineOfSight,
@@ -41,9 +51,10 @@ import {
   type MultiPolygonArea,
   type TerrainBlocker
 } from '../geometry';
-import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, CORE_CHARACTERISTIC_TESTS_SOURCE, CORE_HAZARDOUS_SOURCE, CORE_MORTAL_WOUNDS_SOURCE, CORE_ONE_SHOT_SOURCE, CORE_TWIN_LINKED_SOURCE, CORE_UNIT_SELECTED_TO_SHOOT_SOURCE, OFFICIAL_APP_REROLLS_SOURCE, evaluateExtendedSave, requiredWoundRoll, resolveAttackVolume, resolveBasicShooting, resolveExtendedDamage, resolveLethalHitsContinuation, resolveLethalHitsHitStage, resolveRerollableHitStage, resolveRerollableShootingContinuation, resolveRerollableWoundStage } from '../rules';
+import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, CORE_CHARACTERISTIC_TESTS_SOURCE, CORE_DUPLICATE_ABILITY_SOURCE, CORE_ENGAGEMENT_RANGE_SOURCE, CORE_HAZARDOUS_SOURCE, CORE_MORTAL_WOUNDS_SOURCE, CORE_NORMAL_SHOOTING_SOURCE, CORE_ONE_SHOT_SOURCE, CORE_TWIN_LINKED_SOURCE, CORE_UNIT_SELECTED_TO_SHOOT_SOURCE, OFFICIAL_APP_REROLLS_SOURCE, OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE, duplicateWeaponAbilityOccurrences, evaluateExtendedSave, requiredWoundRoll, resolveAttackVolume, resolveBasicShooting, resolveExtendedDamage, resolveLethalHitsContinuation, resolveLethalHitsHitStage, resolveRerollableHitStage, resolveRerollableShootingContinuation, resolveRerollableWoundStage, weaponWithSelectedDuplicateAbility } from '../rules';
 import { resolveCharacteristicModifierPlan, resolveDieRollModifierPlan } from '../rules/modifiers';
 import { resolveRandomCharacteristic } from '../rules/random-characteristics';
+import { executeObjectiveAwareAdvanceBattlePhaseCommand } from './objective-control';
 
 export interface ShootingTerrainZone {
   readonly id: string;
@@ -122,6 +133,7 @@ export interface ShootingCommandResolver {
 const SHOOTING_RULE_ID = 'core.basic-ranged-attack';
 const GEOMETRY_RULE_ID = 'simulator.geometry.line-of-sight';
 const TRUST_RULE_ID = 'simulator.core.trusted-shooting-environment';
+const FIXTURE_ENGAGEMENT_RANGE = 508;
 
 function reject(command: GameCommand, code: string, message: string, sourceRuleIds: readonly string[], details?: Readonly<Record<string, string | number | boolean>>): RuleRejection {
   return { commandId: command.id, code, message, sourceRuleIds, ...(details ? { details } : {}) };
@@ -139,6 +151,7 @@ function sameJson(left: unknown, right: unknown): boolean {
 function sameExecutableWeaponProfile(left: WeaponProfileV1, right: WeaponProfileV1): boolean {
   return left.id === right.id
     && left.displayName === right.displayName
+    && (left.weaponType ?? 'ranged') === (right.weaponType ?? 'ranged')
     && left.range === right.range
     && left.attacks === right.attacks
     && left.ballisticSkill === right.ballisticSkill
@@ -177,6 +190,19 @@ export function createShootingEnvironment(input: ShootingEnvironmentInput): Shoo
   return Object.freeze({ ...content, fingerprint, [SHOOTING_ENVIRONMENT_BRAND]: true as const });
 }
 
+export function isTrustedShootingEnvironment(environment: ShootingEnvironment): boolean {
+  if (environment[SHOOTING_ENVIRONMENT_BRAND] !== true) return false;
+  return environment.fingerprint === createShootingEnvironment({
+    physicalProfiles: environment.physicalProfiles,
+    weaponProfiles: environment.weaponProfiles,
+    terrainZones: environment.terrainZones,
+    coverRules: environment.coverRules,
+    oathOfMoment: environment.oathOfMoment,
+    lineOfSightPolicy: environment.lineOfSightPolicy,
+    genericRerolls: environment.genericRerolls
+  }).fingerprint;
+}
+
 function sourceReferenceKey(reference: SourceReferenceV1): string {
   return JSON.stringify({ sourceId: reference.sourceId, version: reference.version, effectiveFrom: reference.effectiveFrom, page: reference.page, reference: reference.reference });
 }
@@ -186,17 +212,7 @@ function uniqueSources(references: readonly SourceReferenceV1[]): readonly Sourc
 }
 
 function validateEnvironment(environment: ShootingEnvironment, command: GameCommand): RuleRejection | null {
-  if (environment[SHOOTING_ENVIRONMENT_BRAND] !== true) return reject(command, 'invalid-shooting-environment', 'L’environnement de tir doit provenir de la fabrique canonique.', [TRUST_RULE_ID]);
-  const expectedFingerprint = createShootingEnvironment({
-    physicalProfiles: environment.physicalProfiles,
-    weaponProfiles: environment.weaponProfiles,
-    terrainZones: environment.terrainZones,
-    coverRules: environment.coverRules,
-    oathOfMoment: environment.oathOfMoment,
-    lineOfSightPolicy: environment.lineOfSightPolicy,
-    genericRerolls: environment.genericRerolls
-  }).fingerprint;
-  if (environment.fingerprint !== expectedFingerprint) return reject(command, 'invalid-shooting-environment', 'L’empreinte de l’environnement ne correspond pas à son contenu canonique.', [TRUST_RULE_ID]);
+  if (!isTrustedShootingEnvironment(environment)) return reject(command, 'invalid-shooting-environment', 'L’environnement de tir doit provenir de la fabrique canonique et correspondre à son empreinte.', [TRUST_RULE_ID]);
   const rule = environment.coverRules[0];
   if (environment.coverRules.length !== 1
     || rule.id !== 'core.benefit-of-cover'
@@ -312,6 +328,36 @@ function footprintForModel(model: ModelState, profile: PhysicalModelProfileV1): 
 function profileFor(environment: ShootingEnvironment, model: ModelState, command: GameCommand): PhysicalModelProfileV1 | RuleRejection {
   const profile = environment.physicalProfiles[model.profileId];
   return profile ?? reject(command, 'unsupported-physical-profile', 'Le profil physique de tir n’est pas couvert par l’environnement autoritaire.', [GEOMETRY_RULE_ID], { profileId: model.profileId });
+}
+
+/**
+ * Fixtures all stand on the same ground plane, so their vertical separation is
+ * zero.  The full 03.04 vertical model is deferred with elevated placement;
+ * this guard nevertheless uses exact footprints and the canonical 2" horizontal
+ * range instead of trusting a UI flag.
+ */
+function fixtureUnitIsEngaged(
+  state: GameState,
+  unit: UnitState,
+  environment: ShootingEnvironment,
+  command: GameCommand
+): boolean | RuleRejection {
+  const ownModels = activeModels(state, unit);
+  for (const opposingUnit of Object.values(state.units)) {
+    if (opposingUnit.playerId === unit.playerId) continue;
+    for (const ownModel of ownModels) {
+      const ownProfile = profileFor(environment, ownModel, command);
+      if ('code' in ownProfile) return ownProfile;
+      for (const opposingModel of activeModels(state, opposingUnit)) {
+        const opposingProfile = profileFor(environment, opposingModel, command);
+        if ('code' in opposingProfile) return opposingProfile;
+        if (footprintDistance(footprintForModel(ownModel, ownProfile), footprintForModel(opposingModel, opposingProfile)) <= FIXTURE_ENGAGEMENT_RANGE) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 function rotateOffset(x: number, y: number, orientationDegrees: number): { readonly x: number; readonly y: number } {
@@ -539,6 +585,218 @@ function computeEvidence(state: GameState, command: Extract<GameCommand, { reado
     groups.push(...validGroups);
   }
   return { attackModifiers, weaponProfileIds, groups };
+}
+
+/**
+ * T05.2 deliberately models declarations at the physical-weapon level.  It
+ * does not reuse the legacy profile aggregate, because an identical printed
+ * profile can be sent to a different target by each individual carrier.
+ */
+interface PlannedSplitFireAssignment {
+  readonly declaration: SplitFireWeaponDeclarationV1;
+  readonly weapon: WeaponProfileV1;
+  readonly target: UnitState;
+  readonly pair: ModelPairEvidence;
+  readonly cover: BasicShootingEvidence['cover'];
+}
+
+function splitFireAssignmentPlan(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }>,
+  environment: ShootingEnvironment,
+  declaration: SplitFireWeaponDeclarationV1
+): PlannedSplitFireAssignment | RuleRejection {
+  const attacker = state.units[command.attackerUnitId];
+  if (!attacker) return reject(command, 'unknown-unit', 'L’unité attaquante du tir partagé est introuvable.', [SHOOTING_RULE_ID]);
+  const target = state.units[declaration.targetUnitId];
+  const weapon = attacker.weaponProfiles.find((profile) => profile.id === declaration.weaponProfileId);
+  const firingModel = state.models[declaration.firingModelId];
+  const assignment = attacker.weaponAssignments.find((entry) => entry.modelId === declaration.firingModelId && entry.weaponProfileId === declaration.weaponProfileId);
+  if (!target || !weapon || !firingModel || !firingModel.active || !assignment || declaration.weaponInstanceIndex < 0 || declaration.weaponInstanceIndex >= assignment.quantity) {
+    return reject(command, 'unknown-shooting-subject', 'Une instance ou cible déclarée n’existe plus dans l’état autoritaire.', [SHOOTING_RULE_ID]);
+  }
+  if (weapon.weaponType === 'melee') return reject(command, 'melee-weapon-cannot-shoot', 'Une arme de mêlée ne peut pas être déclarée dans un tir partagé.', [SHOOTING_RULE_ID]);
+  if (attacker.coverageSubject?.subjectType === 'unit' || target.coverageSubject?.subjectType === 'unit' || attacker.extendedDefence !== undefined || target.extendedDefence !== undefined) {
+    return reject(command, 'unsupported-split-fire-fixture-scope', 'Le tir partagé est limité aux unités de fixture simples et n’active aucun roster M4.', [SHOOTING_RULE_ID]);
+  }
+  if (target.playerId === attacker.playerId || !target.models.some((model) => model.active)) {
+    return reject(command, 'invalid-target-unit', 'Chaque instance doit cibler une unité ennemie active.', [SHOOTING_RULE_ID], { targetUnitId: target.id });
+  }
+  if (weapon.randomAttacks !== undefined || weapon.randomDamage !== undefined || weapon.modifierPlan !== undefined
+    || (weapon.attackVolumeAbilities?.length ?? 0) !== 0 || (weapon.weaponKeywords?.length ?? 0) !== 0) {
+    return reject(command, 'unsupported-split-fire-weapon', 'Le tir partagé T05.2 ne couvre pour l’instant que des armes de fixture à caractéristiques fixes, sans mot-clé ni profil alternatif.', [SHOOTING_RULE_ID], { weaponProfileId: weapon.id });
+  }
+  const canonicalWeapon = environment.weaponProfiles[weapon.id];
+  if (!canonicalWeapon || !sameExecutableWeaponProfile(canonicalWeapon, weapon)) {
+    return reject(command, 'shooting-weapon-profile-mismatch', 'Le profil d’arme ne correspond pas à l’environnement canonique.', [TRUST_RULE_ID]);
+  }
+  const attackerEngaged = fixtureUnitIsEngaged(state, attacker, environment, command);
+  if (typeof attackerEngaged === 'object') return attackerEngaged;
+  if (attackerEngaged) return reject(command, 'attacker-engaged', 'Le tir normal partagé exige une unité attaquante non engagée.', [SHOOTING_RULE_ID], { unitId: attacker.id });
+  const targetEngaged = fixtureUnitIsEngaged(state, target, environment, command);
+  if (typeof targetEngaged === 'object') return targetEngaged;
+  if (targetEngaged) return reject(command, 'target-engaged', 'Une cible de tir partagé doit être non engagée.', [SHOOTING_RULE_ID], { targetUnitId: target.id });
+  const targets = activeModels(state, target);
+  const pairs = modelPairs(command, [firingModel], targets, environment);
+  if ('code' in pairs) return pairs;
+  const pair = pairs.find((candidate) => candidate.distance <= weapon.range && candidate.clearRay !== undefined);
+  if (!pair) {
+    return pairs.some((candidate) => candidate.clearRay !== undefined)
+      ? reject(command, 'out-of-range', 'Une instance du tir partagé ne possède aucune cible visible à portée.', [SHOOTING_RULE_ID], { assignmentId: declaration.id })
+      : reject(command, 'not-visible', 'Une instance du tir partagé ne possède aucune ligne de vue claire vers sa cible.', [GEOMETRY_RULE_ID], { assignmentId: declaration.id });
+  }
+  return { declaration, weapon, target, pair, cover: coverEvidence(target, targets, pairs, environment) };
+}
+
+function splitFirePlan(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }>,
+  environment: ShootingEnvironment
+): readonly PlannedSplitFireAssignment[] | RuleRejection {
+  const byId = new Map(command.assignments.map((assignment) => [assignment.id, assignment]));
+  const plans: PlannedSplitFireAssignment[] = [];
+  for (const assignmentId of command.resolutionOrder) {
+    const declaration = byId.get(assignmentId);
+    if (!declaration) return reject(command, 'invalid-split-fire-order', 'L’ordre de tir partagé référence une arme non déclarée.', [SHOOTING_RULE_ID]);
+    const plan = splitFireAssignmentPlan(state, command, environment, declaration);
+    if ('code' in plan) return plan;
+    plans.push(plan);
+  }
+  return plans;
+}
+
+function splitFireAttackGroup(
+  plan: PlannedSplitFireAssignment,
+  attackVolume: BasicShootingAttackGroup['attackVolume'],
+  resolution: Extract<ReturnType<typeof resolveBasicShooting>, { readonly accepted: true }>,
+  prngBefore: GameState['prng']
+): BasicShootingAttackGroup {
+  const blockerIds = [...new Set(plan.pair.rays.flatMap((ray) => ray.blockerHits.map((hit) => hit.blockerId)))].sort();
+  return {
+    firingModelId: plan.declaration.firingModelId,
+    weaponProfileId: plan.declaration.weaponProfileId,
+    weaponInstanceIndex: plan.declaration.weaponInstanceIndex,
+    weaponCount: 1,
+    attackVolume,
+    range: {
+      edgeToEdgeDistance: plan.pair.distance,
+      weaponRange: plan.weapon.range,
+      attackerModelId: plan.declaration.firingModelId,
+      targetModelId: plan.pair.targetModel.id
+    },
+    lineOfSight: {
+      visible: true,
+      reason: 'clear',
+      attackerModelId: plan.declaration.firingModelId,
+      targetModelId: plan.pair.targetModel.id,
+      ray: plan.pair.clearRay?.ray,
+      blockerIds
+    },
+    cover: plan.cover,
+    hitRolls: resolution.hitRolls,
+    woundRolls: resolution.woundRolls,
+    saveRolls: resolution.saveRolls,
+    allocations: resolution.allocations,
+    rolls: resolution.steps,
+    result: shootingResult(resolution),
+    prngBefore,
+    prngAfter: resolution.prngAfter
+  };
+}
+
+function derivedStateAfterSplitResults(state: GameState, resolutions: readonly SplitFireResolutionV1[]): GameState {
+  const units: Record<string, UnitState> = { ...state.units };
+  const models: Record<string, ModelState> = { ...state.models };
+  for (const resolution of resolutions) {
+    const target = units[resolution.declaration.targetUnitId];
+    if (!target) continue;
+    units[target.id] = { ...target, models: resolution.targetModelsAfter };
+    for (const casualtyModelId of resolution.casualtyModelIds) {
+      const model = models[casualtyModelId];
+      if (model) models[casualtyModelId] = { ...model, active: false };
+    }
+  }
+  return { ...state, units, models };
+}
+
+function resolveSplitFirePlan(
+  attacker: UnitState,
+  plan: PlannedSplitFireAssignment,
+  currentTargetModels: readonly UnitState['models'][number][],
+  prng: GameState['prng'],
+  command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }>
+): SplitFireResolutionV1 | RuleRejection {
+  const attackVolume = resolveAttackVolume(plan.weapon, plan.pair.distance, currentTargetModels.filter((model) => model.active).length);
+  if (!attackVolume.accepted) return reject(command, attackVolume.code, attackVolume.message, [SHOOTING_RULE_ID]);
+  const resolution = resolveBasicShooting({
+    attackerId: attacker.id,
+    targetId: plan.target.id,
+    weapon: { ...plan.weapon, attacks: attackVolume.breakdown.attacksPerWeapon },
+    target: {
+      toughness: plan.target.toughness,
+      save: plan.target.save,
+      woundsPerModel: plan.target.woundsPerModel,
+      models: currentTargetModels,
+      keywords: plan.target.keywords,
+      coverBallisticSkillPenalty: plan.cover.ballisticSkillPenalty
+    },
+    distance: plan.pair.distance,
+    visible: true,
+    attackModifiers: { rerollFailedHits: false, woundRollModifier: 0, sourceRefs: [] }
+  }, prng);
+  if (!resolution.accepted) return reject(command, resolution.code, resolution.message, [SHOOTING_RULE_ID]);
+  return {
+    declaration: plan.declaration,
+    outcome: 'resolved',
+    attackGroup: splitFireAttackGroup(plan, attackVolume.breakdown, resolution, prng),
+    casualtyModelIds: resolution.destroyedModelIds,
+    targetModelsAfter: resolution.targetModelsAfter
+  };
+}
+
+function splitFireSourceRefs(plans: readonly PlannedSplitFireAssignment[], resolutions: readonly SplitFireResolutionV1[]): readonly SourceReferenceV1[] {
+  return uniqueSources([
+    CORE_BASIC_RANGED_ATTACK_SOURCE,
+    ...CORE_ATTACK_SEQUENCE_STEP_SOURCES,
+    CORE_UNIT_SELECTED_TO_SHOOT_SOURCE,
+    CORE_NORMAL_SHOOTING_SOURCE,
+    CORE_ENGAGEMENT_RANGE_SOURCE,
+    ...plans.flatMap((plan) => plan.weapon.sourceRefs),
+    ...resolutions.flatMap((resolution) => resolution.attackGroup?.attackVolume.sourceRefs ?? []),
+    ...resolutions.flatMap((resolution) => resolution.attackGroup?.cover.sourceRefs ?? [])
+  ]);
+}
+
+function retargetOptionTargetIds(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }>,
+  environment: ShootingEnvironment,
+  declaration: SplitFireWeaponDeclarationV1
+): readonly string[] {
+  const attacker = state.units[command.attackerUnitId];
+  if (!attacker) return [];
+  return Object.values(state.units)
+    .filter((target) => target.playerId !== attacker.playerId && target.models.some((model) => model.active))
+    .map((target) => target.id)
+    .sort()
+    .filter((targetUnitId) => {
+      const plan = splitFireAssignmentPlan(state, command, environment, { ...declaration, targetUnitId });
+      return !('code' in plan);
+    });
+}
+
+function splitFireRetargetRequest(resolution: PendingSplitFireShootingResolutionV1, playerId: string): DecisionRequest {
+  return {
+    id: `${resolution.originCommandId}:split-fire:retarget:${resolution.nextResolutionIndex}`,
+    kind: 'split-fire-retarget',
+    playerId,
+    prompt: 'La cible choisie n’a plus de figurine active : choisissez une nouvelle cible légale ou abandonnez cette instance.',
+    options: [
+      { id: 'abandon', label: 'Abandonner cette instance' },
+      ...resolution.retargetOptionTargetUnitIds.map((targetUnitId) => ({ id: targetUnitId, label: targetUnitId }))
+    ],
+    sourceRuleIds: ['core.attack-target-no-longer-eligible']
+  };
 }
 
 /** Builds the legacy aggregate evidence only after each carrier's A value is known. */
@@ -1767,25 +2025,109 @@ export function executeExtendedAllocationDecisionCommand(state: GameState, comma
   return { accepted: true, state: continued.state, events: [choiceEvent, packetEvent, ...continued.events] };
 }
 
+type DuplicateAbilitySelection = NonNullable<PendingDuplicateWeaponAbilitySelectionV1['selection']>;
+
+function duplicateAbilityPending(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>
+): PendingDuplicateWeaponAbilitySelectionV1 | RuleRejection | null {
+  const attacker = state.units[command.attackerUnitId];
+  const target = state.units[command.targetUnitId];
+  const weaponIds = declaredShootingWeaponProfileIds(command);
+  const weapons = weaponIds.map((weaponId) => attacker?.weaponProfiles.find((weapon) => weapon.id === weaponId));
+  const duplicateFacts = weapons.flatMap((weapon) => weapon === undefined
+    ? []
+    : duplicateWeaponAbilityOccurrences(weapon).map((duplicate) => ({ weapon, ...duplicate })));
+  if (duplicateFacts.length === 0) return null;
+  if (!attacker || !target || attacker.coverageSubject?.subjectType === 'unit' || target.coverageSubject?.subjectType === 'unit'
+    || attacker.extendedDefence !== undefined || target.extendedDefence !== undefined || weaponIds.length !== 1
+    || duplicateFacts.length !== 1 || duplicateFacts[0]?.kind !== 'sustained-hits') {
+    return reject(command, 'unsupported-duplicate-weapon-ability-scope', 'Les aptitudes dupliquées T05.4 sont limitées à une arme de fixture [TOUCHES SOUTENUES], sans autre interaction.', [SHOOTING_RULE_ID]);
+  }
+  const duplicate = duplicateFacts[0];
+  return {
+    originCommand: command,
+    attackerUnitId: attacker.id,
+    weaponProfileId: duplicate.weapon.id,
+    kind: 'sustained-hits',
+    occurrenceIndexes: duplicate.occurrenceIndexes,
+    shootingEnvironmentFingerprint: state.shootingEnvironmentFingerprint ?? '',
+    sourceRefs: [CORE_DUPLICATE_ABILITY_SOURCE]
+  };
+}
+
+function duplicateAbilityRequest(selection: PendingDuplicateWeaponAbilitySelectionV1, playerId: string): DecisionRequest {
+  return {
+    id: `${selection.originCommand.id}:duplicate-ability:${selection.weaponProfileId}:${selection.kind}`,
+    kind: 'duplicate-weapon-ability',
+    playerId,
+    prompt: '[TOUCHES SOUTENUES] est présente plusieurs fois : choisissez une seule occurrence applicable.',
+    options: selection.occurrenceIndexes.map((index) => ({ id: String(index), label: `Occurrence ${index + 1}` })),
+    sourceRuleIds: ['core.duplicate-abilities']
+  };
+}
+
+function stateWithDuplicateAbilitySelection(state: GameState, attackerUnitId: string, selection: DuplicateAbilitySelection): GameState | null {
+  const unit = state.units[attackerUnitId];
+  const weapon = unit?.weaponProfiles.find((candidate) => candidate.id === selection.weaponProfileId);
+  const selectedWeapon = weapon === undefined ? null : weaponWithSelectedDuplicateAbility(weapon, selection);
+  if (!unit || !weapon || !selectedWeapon) return null;
+  return {
+    ...state,
+    units: {
+      ...state.units,
+      [unit.id]: { ...unit, weaponProfiles: unit.weaponProfiles.map((candidate) => candidate.id === weapon.id ? selectedWeapon : candidate) }
+    }
+  };
+}
+
 export function executeBasicShootingCommand(
   state: GameState,
   command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>,
   environment: ShootingEnvironment
 ): CommandExecution {
-  const validation = validateGameCommand(state, command);
+  return executeBasicShootingCommandInternal(state, command, environment);
+}
+
+function executeBasicShootingCommandInternal(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-basic-shooting' }>,
+  environment: ShootingEnvironment,
+  selectedDuplicateAbility?: DuplicateAbilitySelection,
+  resumeDuplicateAbility = false
+): CommandExecution {
+  const validation = resumeDuplicateAbility ? null : validateGameCommand(state, command);
   if (validation) return { accepted: false, state, rejection: validation };
   const environmentRejection = validateEnvironment(environment, command);
   if (environmentRejection) return { accepted: false, state, rejection: environmentRejection };
   if (state.shootingEnvironmentFingerprint !== environment.fingerprint) {
     return { accepted: false, state, rejection: reject(command, 'shooting-environment-mismatch', 'L’environnement de tir ne correspond pas à la session.', [TRUST_RULE_ID]) };
   }
-  const plan = computeEvidence(state, command, environment);
+  let stateForResolution = state;
+  if (selectedDuplicateAbility === undefined) {
+    const pending = duplicateAbilityPending(state, command);
+    if (pending !== null && 'code' in pending) return { accepted: false, state, rejection: pending };
+    if (pending !== null) {
+      const attacker = state.units[pending.attackerUnitId];
+      if (!attacker) throw new Error('Validated duplicate ability attacker is missing.');
+      const stageEvent: GameEvent = { id: `${command.id}:0`, commandId: command.id, type: 'duplicate-weapon-ability-selection-requested', selection: pending };
+      const staged = unsafeReduceGameEvent(state, stageEvent);
+      const requestEvent: GameEvent = { id: `${command.id}:1`, commandId: command.id, type: 'decision-requested', decision: duplicateAbilityRequest(pending, attacker.playerId) };
+      return { accepted: true, state: unsafeReduceGameEvent(staged, requestEvent), events: [stageEvent, requestEvent] };
+    }
+  } else {
+    const effective = stateWithDuplicateAbilitySelection(state, command.attackerUnitId, selectedDuplicateAbility);
+    if (!effective) return { accepted: false, state, rejection: reject(command, 'invalid-duplicate-weapon-ability-choice', 'L’occurrence d’aptitude choisie ne correspond plus au profil autoritaire.', [SHOOTING_RULE_ID]) };
+    stateForResolution = effective;
+  }
+  const plan = computeEvidence(stateForResolution, command, environment);
   if ('code' in plan) return { accepted: false, state, rejection: plan };
-  const attacker = state.units[command.attackerUnitId];
-  const target = state.units[command.targetUnitId];
+  const attacker = stateForResolution.units[command.attackerUnitId];
+  const target = stateForResolution.units[command.targetUnitId];
   const weapons = plan.weaponProfileIds.map((weaponProfileId) => attacker?.weaponProfiles.find((profile) => profile.id === weaponProfileId));
+  const canonicalWeapons = plan.weaponProfileIds.map((weaponProfileId) => state.units[command.attackerUnitId]?.weaponProfiles.find((profile) => profile.id === weaponProfileId));
   if (!attacker || !target || weapons.some((weapon) => !weapon)) throw new Error('Validated shooting subjects are missing.');
-  if (weapons.some((weapon) => !weapon || !environment.weaponProfiles[weapon.id] || !sameExecutableWeaponProfile(environment.weaponProfiles[weapon.id], weapon))) {
+  if (canonicalWeapons.some((weapon) => !weapon || !environment.weaponProfiles[weapon.id] || !sameExecutableWeaponProfile(environment.weaponProfiles[weapon.id], weapon))) {
     return { accepted: false, state, rejection: reject(command, 'shooting-weapon-profile-mismatch', 'Le profil d’arme ne correspond pas à l’environnement canonique.', [TRUST_RULE_ID]) };
   }
   if (target.extendedDefence !== undefined) {
@@ -1873,6 +2215,9 @@ export function executeBasicShootingCommand(
       weaponProfileId: group.weapon.id,
       ...(group.weaponInstanceIndex === undefined ? {} : { weaponInstanceIndex: group.weaponInstanceIndex }),
       weaponCount: group.weaponCount,
+      ...(selectedDuplicateAbility !== undefined && group.weapon.id === selectedDuplicateAbility.weaponProfileId
+        ? { duplicateAbilitySelection: selectedDuplicateAbility }
+        : {}),
       ...(prepared.randomAttacks === undefined ? {} : { randomAttacks: prepared.randomAttacks }),
       ...(prepared.modifierSourceRefs.length === 0 ? {} : { modifierSourceRefs: prepared.modifierSourceRefs }),
       attackVolume: prepared.attackVolume,
@@ -1915,7 +2260,7 @@ export function executeBasicShootingCommand(
     modelsDestroyed: casualtyModelIds.length
   };
   const event: GameEvent = {
-    id: `${command.id}:0`,
+    id: resumeDuplicateAbility ? `${command.id}:duplicate:resolved` : `${command.id}:0`,
     commandId: command.id,
     type: 'basic-shooting-resolved',
     attackerUnitId: attacker.id,
@@ -1936,7 +2281,8 @@ export function executeBasicShootingCommand(
       ...CORE_ATTACK_SEQUENCE_STEP_SOURCES,
       CORE_UNIT_SELECTED_TO_SHOOT_SOURCE,
       ...weapons.flatMap((weapon) => weapon?.sourceRefs ?? []),
-      ...weapons.flatMap((weapon) => weapon?.weaponKeywords?.map((keyword) => keyword.source) ?? []),
+      ...canonicalWeapons.flatMap((weapon) => weapon?.weaponKeywords?.map((keyword) => keyword.source) ?? []),
+      ...(selectedDuplicateAbility === undefined ? [] : [CORE_DUPLICATE_ABILITY_SOURCE]),
       ...attackGroups.flatMap((group) => group.attackVolume.sourceRefs),
       ...attackGroups.flatMap((group) => group.cover.sourceRefs),
       ...attackGroups.flatMap((group) => group.randomAttacks?.sourceRefs ?? []),
@@ -1948,6 +2294,189 @@ export function executeBasicShootingCommand(
   return { accepted: true, state: unsafeReduceGameEvent(state, event), events: [event] };
 }
 
+/** Resolves the V5 choice required when a weapon repeats [TOUCHES SOUTENUES]. */
+export function executeDuplicateWeaponAbilityDecisionCommand(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-decision' }>,
+  environment: ShootingEnvironment
+): CommandExecution {
+  const validation = validateGameCommand(state, command);
+  if (validation) return { accepted: false, state, rejection: validation };
+  const environmentRejection = validateEnvironment(environment, command);
+  if (environmentRejection) return { accepted: false, state, rejection: environmentRejection };
+  if (state.shootingEnvironmentFingerprint !== environment.fingerprint) return { accepted: false, state, rejection: reject(command, 'shooting-environment-mismatch', 'L’environnement de tir ne correspond pas à la session.', [TRUST_RULE_ID]) };
+  const pending = state.pendingDuplicateWeaponAbilitySelection;
+  const attacker = pending ? state.units[pending.attackerUnitId] : undefined;
+  const decision = state.pendingDecisions.find((entry) => entry.id === command.decisionId);
+  const selectedOccurrenceIndex = Number(command.optionId);
+  if (!pending || !attacker || !decision || pending.selection !== undefined || decision.kind !== 'duplicate-weapon-ability'
+    || decision.id !== `${pending.originCommand.id}:duplicate-ability:${pending.weaponProfileId}:${pending.kind}`
+    || decision.playerId !== command.actorId || !Number.isInteger(selectedOccurrenceIndex)
+    || String(selectedOccurrenceIndex) !== command.optionId || !pending.occurrenceIndexes.includes(selectedOccurrenceIndex)) {
+    return { accepted: false, state, rejection: reject(command, 'invalid-duplicate-weapon-ability-choice', 'La décision d’aptitude dupliquée ne correspond pas à la fenêtre de tir en attente.', [SHOOTING_RULE_ID]) };
+  }
+  const selection: DuplicateAbilitySelection = { weaponProfileId: pending.weaponProfileId, kind: pending.kind, selectedOccurrenceIndex };
+  const choiceEvent: GameEvent = { id: `${command.id}:0`, commandId: command.id, type: 'duplicate-weapon-ability-choice-resolved', decisionId: decision.id, playerId: command.actorId, selection };
+  const afterChoice = unsafeReduceGameEvent(state, choiceEvent);
+  const continued = executeBasicShootingCommandInternal(afterChoice, pending.originCommand, environment, selection, true);
+  if (!continued.accepted) return { accepted: false, state, rejection: continued.rejection };
+  return { accepted: true, state: continued.state, events: [choiceEvent, ...continued.events] };
+}
+
+/**
+ * Resolves a complete T05.2 weapon-instance declaration atomically.  All
+ * target eligibility, range and LoS evidence is obtained before the first D6
+ * is rolled.  This intentionally excludes every feature that would open a
+ * decision window; those interactions need their own durable contract.
+ */
+export function executeSplitFireCommand(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }>,
+  environment: ShootingEnvironment
+): CommandExecution {
+  const validation = validateGameCommand(state, command);
+  if (validation) return { accepted: false, state, rejection: validation };
+  const environmentRejection = validateEnvironment(environment, command);
+  if (environmentRejection) return { accepted: false, state, rejection: environmentRejection };
+  if (state.shootingEnvironmentFingerprint !== environment.fingerprint) {
+    return { accepted: false, state, rejection: reject(command, 'shooting-environment-mismatch', 'L’environnement de tir ne correspond pas à la session.', [TRUST_RULE_ID]) };
+  }
+  if (environment.oathOfMoment !== undefined || environment.genericRerolls !== undefined) {
+    return { accepted: false, state, rejection: reject(command, 'unsupported-split-fire-fixture-interaction', 'Le tir partagé T05.2 ne cumule pas encore Oath of Moment ni une fenêtre de relance.', [SHOOTING_RULE_ID]) };
+  }
+  const plans = splitFirePlan(state, command, environment);
+  if ('code' in plans) return { accepted: false, state, rejection: plans };
+  const attacker = state.units[command.attackerUnitId];
+  if (!attacker) throw new Error('Validated split-fire attacker is missing.');
+  const targetModels = new Map(Object.values(state.units).map((unit) => [unit.id, unit.models] as const));
+  let prng = state.prng;
+  const resolutions: SplitFireResolutionV1[] = [];
+  let nextResolutionIndex = 0;
+  for (const plan of plans) {
+    const currentTargetModels = targetModels.get(plan.target.id);
+    if (!currentTargetModels) throw new Error('Validated split-fire target is missing.');
+    if (!currentTargetModels.some((model) => model.active)) {
+      break;
+    }
+    const resolution = resolveSplitFirePlan(attacker, plan, currentTargetModels, prng, command);
+    if ('code' in resolution) return { accepted: false, state, rejection: resolution };
+    resolutions.push(resolution);
+    targetModels.set(plan.target.id, resolution.targetModelsAfter);
+    prng = resolution.attackGroup!.prngAfter;
+    nextResolutionIndex += 1;
+  }
+  if (nextResolutionIndex < plans.length) {
+    const postResultsState = derivedStateAfterSplitResults(state, resolutions);
+    const pending: PendingSplitFireShootingResolutionV1 = {
+      originCommandId: command.id,
+      attackerUnitId: attacker.id,
+      declarations: plans.map((plan) => plan.declaration),
+      nextResolutionIndex,
+      resolutions,
+      choices: [],
+      retargetOptionTargetUnitIds: retargetOptionTargetIds(postResultsState, command, environment, plans[nextResolutionIndex].declaration),
+      shootingEnvironmentFingerprint: environment.fingerprint,
+      prngBefore: state.prng,
+      prngAfter: prng,
+      sourceRefs: uniqueSources([...splitFireSourceRefs(plans, resolutions), OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE])
+    };
+    const stageEvent: GameEvent = { id: `${command.id}:0`, commandId: command.id, type: 'split-fire-stage-resolved', resolution: pending };
+    const decisionEvent: GameEvent = { id: `${command.id}:1`, commandId: command.id, type: 'decision-requested', decision: splitFireRetargetRequest(pending, attacker.playerId) };
+    const events = [stageEvent, decisionEvent] as const;
+    return { accepted: true, state: events.reduce(unsafeReduceGameEvent, state), events };
+  }
+  const event: Extract<GameEvent, { readonly type: 'split-fire-resolved' }> = {
+    id: `${command.id}:0`,
+    commandId: command.id,
+    type: 'split-fire-resolved',
+    attackerUnitId: attacker.id,
+    resolutions,
+    shootingEnvironmentFingerprint: environment.fingerprint,
+    prngBefore: state.prng,
+    prngAfter: prng,
+    sourceRefs: splitFireSourceRefs(plans, resolutions)
+  };
+  return { accepted: true, state: unsafeReduceGameEvent(state, event), events: [event] };
+}
+
+/** Resolves the V5 reciblage window without allowing the UI to supply measurements. */
+export function executeSplitFireRetargetDecisionCommand(
+  state: GameState,
+  command: Extract<GameCommand, { readonly type: 'resolve-decision' }>,
+  environment: ShootingEnvironment
+): CommandExecution {
+  const validation = validateGameCommand(state, command);
+  if (validation) return { accepted: false, state, rejection: validation };
+  const environmentRejection = validateEnvironment(environment, command);
+  if (environmentRejection) return { accepted: false, state, rejection: environmentRejection };
+  if (state.shootingEnvironmentFingerprint !== environment.fingerprint) return { accepted: false, state, rejection: reject(command, 'shooting-environment-mismatch', 'L’environnement de tir ne correspond pas à la session.', [TRUST_RULE_ID]) };
+  const pending = state.pendingSplitFireShooting;
+  const attacker = pending ? state.units[pending.attackerUnitId] : undefined;
+  const decision = state.pendingDecisions.find((entry) => entry.id === command.decisionId);
+  const declaration = pending?.declarations[pending.nextResolutionIndex];
+  if (!pending || !attacker || !decision || !declaration || decision.kind !== 'split-fire-retarget'
+    || decision.id !== `${pending.originCommandId}:split-fire:retarget:${pending.nextResolutionIndex}`
+    || decision.playerId !== command.actorId || !decision.options.some((option) => option.id === command.optionId)) {
+    return { accepted: false, state, rejection: reject(command, 'invalid-split-fire-retarget-decision', 'La décision de reciblage ne correspond pas au tir partagé en attente.', [SHOOTING_RULE_ID]) };
+  }
+  const scheduledDeclarations = scheduleSplitFireRetarget(pending.declarations, pending.nextResolutionIndex, command.optionId);
+  const splitCommand: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+    id: pending.originCommandId,
+    actorId: attacker.playerId,
+    type: 'resolve-split-fire',
+    attackerUnitId: attacker.id,
+    assignments: scheduledDeclarations,
+    resolutionOrder: scheduledDeclarations.map((entry) => entry.id)
+  };
+  const choice: SplitFireRetargetChoiceV1 = { assignmentId: declaration.id, targetUnitId: command.optionId };
+  const planned: PlannedSplitFireAssignment[] = [];
+  let cursor = pending.nextResolutionIndex;
+  const newResolutions: SplitFireResolutionV1[] = [];
+  let workingState = state;
+  let prng = state.prng;
+  if (choice.targetUnitId === 'abandon') {
+    const originalTarget = workingState.units[declaration.targetUnitId];
+    if (!originalTarget || originalTarget.models.some((model) => model.active)) return { accepted: false, state, rejection: reject(command, 'invalid-split-fire-retarget-decision', 'L’abandon n’est disponible que lorsque la cible initiale n’est plus active.', [SHOOTING_RULE_ID]) };
+    newResolutions.push({ declaration, outcome: 'target-no-longer-active', casualtyModelIds: [], targetModelsAfter: originalTarget.models });
+    cursor += 1;
+  }
+  for (; cursor < scheduledDeclarations.length; cursor += 1) {
+    const nextDeclaration = scheduledDeclarations[cursor];
+    const target = workingState.units[nextDeclaration.targetUnitId];
+    if (!target || !target.models.some((model) => model.active)) break;
+    const plan = splitFireAssignmentPlan(workingState, splitCommand, environment, nextDeclaration);
+    if ('code' in plan) return { accepted: false, state, rejection: plan };
+    planned.push(plan);
+    const result = resolveSplitFirePlan(attacker, plan, target.models, prng, splitCommand);
+    if ('code' in result) return { accepted: false, state, rejection: result };
+    newResolutions.push(result);
+    workingState = derivedStateAfterSplitResults(workingState, [result]);
+    prng = result.attackGroup!.prngAfter;
+  }
+  const allResolutions = [...pending.resolutions, ...newResolutions];
+  const choices = [...pending.choices, choice];
+  const complete = cursor === pending.declarations.length;
+  const nextDeclaration = complete ? undefined : pending.declarations[cursor];
+  const continuation: PendingSplitFireShootingResolutionV1 = {
+    ...pending,
+    declarations: scheduledDeclarations,
+    nextResolutionIndex: cursor,
+    resolutions: allResolutions,
+    choices,
+    retargetOptionTargetUnitIds: nextDeclaration === undefined ? [] : retargetOptionTargetIds(workingState, splitCommand, environment, nextDeclaration),
+    prngAfter: prng,
+    sourceRefs: uniqueSources([...pending.sourceRefs, OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE, ...splitFireSourceRefs(planned, newResolutions)])
+  };
+  const choiceEvent: GameEvent = { id: `${command.id}:0`, commandId: command.id, type: 'split-fire-retarget-choice-resolved', decisionId: decision.id, playerId: command.actorId, choice };
+  const progressEvent: GameEvent = complete
+    ? { id: `${command.id}:1`, commandId: command.id, type: 'split-fire-completed', resolution: continuation }
+    : { id: `${command.id}:1`, commandId: command.id, type: 'split-fire-stage-resolved', resolution: continuation };
+  const events: readonly GameEvent[] = complete
+    ? [choiceEvent, progressEvent]
+    : [choiceEvent, progressEvent, { id: `${command.id}:2`, commandId: command.id, type: 'decision-requested', decision: splitFireRetargetRequest(continuation, attacker.playerId) }];
+  return { accepted: true, state: events.reduce(unsafeReduceGameEvent, state), events };
+}
+
 /** Replays a journal while recomputing every spatial shooting proof from trusted facts. */
 export function replayGameEventsWithShootingEnvironment(initialState: GameState, events: readonly GameEvent[], environment: ShootingEnvironment): GameState {
   if (initialState.eventLog.length > 0) throw new Error('A verified replay must start from an event-free initial state.');
@@ -1956,6 +2485,217 @@ export function replayGameEventsWithShootingEnvironment(initialState: GameState,
     const event = events[index];
     if (event.type === 'session-setup' && event.session.shootingEnvironmentFingerprint !== environment.fingerprint) {
       throw new Error('Session setup does not match the trusted shooting environment fingerprint.');
+    }
+    if (event.type === 'objective-control-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'advance-battle-phase' }> = {
+        id: event.commandId,
+        actorId: state.battle?.activePlayerId ?? '',
+        type: 'advance-battle-phase'
+      };
+      const verified = executeObjectiveAwareAdvanceBattlePhaseCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) {
+        throw new Error(`Objective-control event ${event.id} failed trusted geometry verification.`);
+      }
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'unit-deployed') {
+      const command: Extract<GameCommand, { readonly type: 'deploy-unit' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'deploy-unit',
+        unitId: event.unitId,
+        modelPoses: event.modelPoses
+      };
+      const verified = executeDeploymentCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) {
+        throw new Error(`Deployment event ${event.id} failed trusted geometry verification.`);
+      }
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'unit-movement-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'move-unit' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'move-unit',
+        unitId: event.unitId,
+        movementType: event.movementType,
+        ...(event.fallBackMode === undefined ? {} : { fallBackMode: event.fallBackMode }),
+        ...(event.desperateEscape === undefined ? {} : { desperateEscapeAllocationOrder: event.desperateEscape.playerAllocationOrder }),
+        paths: event.paths
+      };
+      const verified = executeCompleteGameMovementCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) {
+        throw new Error(`Movement event ${event.id} failed trusted geometry verification.`);
+      }
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'charge-declared') {
+      const command: Extract<GameCommand, { readonly type: 'declare-charge' }> = {
+        id: event.commandId,
+        actorId: event.pending.playerId,
+        type: 'declare-charge',
+        unitId: event.pending.unitId
+      };
+      const verified = executeDeclareChargeCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Charge declaration ${event.id} failed trusted geometry verification.`);
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'charge-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-charge' }> = event.outcome === 'declined'
+        ? { id: event.commandId, actorId: event.playerId, type: 'resolve-charge', unitId: event.unitId, proceed: false }
+        : { id: event.commandId, actorId: event.playerId, type: 'resolve-charge', unitId: event.unitId, proceed: true, targetUnitIds: event.targetUnitIds, paths: event.paths };
+      const verified = executeResolveChargeCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Charge resolution ${event.id} failed trusted geometry verification.`);
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'fight-window-passed') {
+      const command: Extract<GameCommand, { readonly type: 'pass-fight-window' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'pass-fight-window'
+      };
+      const verified = executePassFightWindowCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Fight pass ${event.id} failed trusted geometry verification.`);
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'fight-movement-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-fight-movement' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-fight-movement',
+        movementKind: event.movementKind,
+        unitId: event.unitId,
+        targetUnitIds: event.targetUnitIds,
+        paths: event.paths
+      };
+      const verified = executeFightMovementCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Fight movement ${event.id} failed trusted geometry verification.`);
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'basic-melee-stage-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-basic-melee' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-basic-melee',
+        attackerUnitId: event.resolution.attackerUnitId,
+        targetUnitId: event.resolution.targetUnitId,
+        weaponProfileId: event.resolution.weaponProfileId
+      };
+      const verified = executeBasicMeleeCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) throw new Error(`Basic melee ${event.id} failed trusted verification.`);
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'basic-melee-allocation-resolved' && event.decisionId !== null) {
+      const command: Extract<GameCommand, { readonly type: 'resolve-decision' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-decision',
+        decisionId: event.decisionId,
+        optionId: event.modelId
+      };
+      const verified = executeBasicMeleeAllocationDecisionCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) throw new Error(`Basic melee allocation ${event.id} failed trusted verification.`);
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'basic-melee-allocation-resolved' || event.type === 'basic-melee-resolved'
+      || (event.type === 'decision-requested' && event.decision.kind === 'basic-melee-allocation')) {
+      throw new Error(`Basic melee continuation ${event.id} is not preceded by its trusted command.`);
+    }
+    if (event.type === 'empty-fight-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-empty-fight' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-empty-fight',
+        unitId: event.unitId
+      };
+      const verified = executeEmptyFightCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Empty fight ${event.id} failed trusted verification.`);
+      state = verified.state;
+      continue;
+    }
+    if (event.type === 'duplicate-weapon-ability-selection-requested') {
+      const verified = executeBasicShootingCommand(state, event.selection.originCommand, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) {
+        throw new Error(`Duplicate weapon ability stage ${event.id} failed trusted verification.`);
+      }
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'duplicate-weapon-ability-choice-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-decision' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-decision',
+        decisionId: event.decisionId,
+        optionId: String(event.selection.selectedOccurrenceIndex)
+      };
+      const verified = executeDuplicateWeaponAbilityDecisionCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) {
+        throw new Error(`Duplicate weapon ability choice ${event.id} failed trusted verification.`);
+      }
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'split-fire-stage-resolved') {
+      const attacker = state.units[event.resolution.attackerUnitId];
+      if (!attacker) throw new Error(`Split fire stage ${event.id} cannot find its attacker.`);
+      const command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+        id: event.resolution.originCommandId,
+        actorId: attacker.playerId,
+        type: 'resolve-split-fire',
+        attackerUnitId: event.resolution.attackerUnitId,
+        assignments: event.resolution.declarations,
+        resolutionOrder: event.resolution.declarations.map((declaration) => declaration.id)
+      };
+      const verified = executeSplitFireCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) throw new Error(`Split fire stage ${event.id} failed trusted spatial verification.`);
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'split-fire-retarget-choice-resolved') {
+      const command: Extract<GameCommand, { readonly type: 'resolve-decision' }> = {
+        id: event.commandId,
+        actorId: event.playerId,
+        type: 'resolve-decision',
+        decisionId: event.decisionId,
+        optionId: event.choice.targetUnitId
+      };
+      const verified = executeSplitFireRetargetDecisionCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) throw new Error(`Split fire retarget ${event.id} failed trusted spatial verification.`);
+      state = verified.state;
+      index += verified.events.length - 1;
+      continue;
+    }
+    if (event.type === 'split-fire-resolved') {
+      const attacker = state.units[event.attackerUnitId];
+      if (!attacker) throw new Error(`Split fire event ${event.id} cannot find its attacker.`);
+      const command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+        id: event.commandId,
+        actorId: attacker.playerId,
+        type: 'resolve-split-fire',
+        attackerUnitId: event.attackerUnitId,
+        assignments: event.resolutions.map((resolution) => resolution.declaration),
+        resolutionOrder: event.resolutions.map((resolution) => resolution.declaration.id)
+      };
+      const verified = executeSplitFireCommand(state, command, environment);
+      if (!verified.accepted || !sameJson(verified.events[0], event)) throw new Error(`Split fire event ${event.id} failed trusted spatial verification.`);
+      state = verified.state;
+      continue;
     }
     if (event.type === 'extended-shooting-one-shot-selected' || event.type === 'extended-shooting-stage-resolved') {
       const attackerUnitId = event.type === 'extended-shooting-one-shot-selected' ? event.attackerUnitId : event.resolution.attackerUnitId;
@@ -2061,12 +2801,12 @@ export function replayGameEventsWithShootingEnvironment(initialState: GameState,
       index += verified.events.length - 1;
       continue;
     }
-    if (event.type === 'basic-shooting-completed' || event.type === 'basic-shooting-reroll-completed'
+    if (event.type === 'split-fire-completed' || event.type === 'basic-shooting-completed' || event.type === 'basic-shooting-reroll-completed'
       || event.type === 'extended-shooting-save-stage-resolved' || event.type === 'extended-shooting-save-resolved' || event.type === 'extended-shooting-packet-resolved' || event.type === 'extended-shooting-packet-lost' || event.type === 'extended-shooting-hazardous-resolved' || event.type === 'extended-shooting-hazardous-packet-resolved' || event.type === 'extended-shooting-hazardous-wounds-lost' || event.type === 'extended-shooting-completed'
-      || (event.type === 'decision-requested' && (event.decision.kind === 'lethal-hits-choice' || event.decision.kind === 'generic-reroll-choice' || event.decision.kind === 'extended-allocation-group' || event.decision.kind === 'extended-allocation-model' || event.decision.kind === 'extended-hazardous-allocation'))) {
+      || (event.type === 'decision-requested' && (event.decision.kind === 'lethal-hits-choice' || event.decision.kind === 'generic-reroll-choice' || event.decision.kind === 'extended-allocation-group' || event.decision.kind === 'extended-allocation-model' || event.decision.kind === 'extended-hazardous-allocation' || event.decision.kind === 'split-fire-retarget' || event.decision.kind === 'duplicate-weapon-ability'))) {
       throw new Error(`Lethal shooting event ${event.id} is not preceded by its trusted continuation.`);
     }
-    if (event.type === 'decision-resolved' && (state.pendingLethalShooting !== null || state.pendingRerollShooting !== null || state.pendingExtendedShooting !== null)) {
+    if (event.type === 'decision-resolved' && (state.pendingLethalShooting !== null || state.pendingRerollShooting !== null || state.pendingExtendedShooting !== null || state.pendingBasicMelee !== null || state.pendingSplitFireShooting !== null)) {
       throw new Error(`Lethal decision event ${event.id} bypasses the trusted shooting continuation.`);
     }
     if (event.type === 'oath-of-moment-selected') {

@@ -43,3 +43,8 @@ présente dans cette archive doit être préservée.
   architecture, implémentation, revue, donnée ou reprise du simulateur.
 - Reprendre exclusivement l'état versionné dans
   `warforge-pwa/docs/simulator/` et conserver une seule tâche `in_progress`.
+- Générer le TaskBrief et contrôler la santé du workspace avant une tranche.
+  Prévenir avant une tâche `L`/`XL`, proposer l'alternative manuelle utile et
+  obtenir l'accord explicite avant `XL`.
+- Ne déléguer aucun travail par défaut ; suivre `model-routing.json` lorsque
+  la délégation d'un périmètre indépendant est réellement rentable.

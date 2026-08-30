@@ -25,6 +25,16 @@ officielles visibles à cette même date. Les remplacements documentaires ne
 réécrivent pas rétroactivement `core-rules-fr.json` : un jalon doit les
 formaliser et les activer explicitement dans son rulepack.
 
+`official-app-supplemental-rules-fr-2026-08.json` indexe les 40 sections
+numérotées recopiées manuellement par le propriétaire depuis l’application
+officielle le 28 août 2026. Le texte brut normalisé, son empreinte et
+l’identifiant du fichier Drive sont conservés dans
+`../../../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/`.
+Cette ressource complète le corpus documentaire lorsque le PDF de base omet
+une référence affichée dans l’application. Elle reste `reference-only` : une
+section doit encore être formalisée, testée et auditée avant de devenir une
+règle exécutable.
+
 Lorsqu’une nouvelle version du PDF est retenue :
 
 1. Vérifier manuellement le document, sa date et ses changements de règles.

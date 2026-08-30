@@ -5,3 +5,5 @@ export * from './m5-source-references';
 export * from './random-characteristics';
 export * from './modifiers';
 export * from './extended-defence';
+export * from './coherency';
+export * from './m8-source-references';

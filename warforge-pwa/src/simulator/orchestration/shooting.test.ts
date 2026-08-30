@@ -4,10 +4,13 @@ import {
   createSimulationSave,
   createSimulationSaveV2,
   createSimulationSaveV3,
+  createSimulationSaveV4,
+  createSimulationSaveV5,
   executeGameCommand,
   reduceGameEvent,
   replayGameEvents,
   rollDice,
+  sessionCompatibilityFingerprint,
   type CoverageReportV1,
   type GameCommand,
   type GameState,
@@ -16,10 +19,11 @@ import {
   type SourceReferenceV1,
   type WeaponProfileV1
 } from '../domain';
-import { CORE_ANTI_SOURCE, CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, CORE_BLAST_SOURCE, CORE_DICE_SOURCE, CORE_LETHAL_HITS_SOURCE, CORE_RAPID_FIRE_SOURCE, CORE_SUSTAINED_HITS_SOURCE, CORE_TWIN_LINKED_SOURCE, CORE_UNIT_SELECTED_TO_SHOOT_SOURCE, OFFICIAL_APP_MODIFIERS_SOURCE, OFFICIAL_APP_RANDOM_CHARACTERISTICS_SOURCE, OFFICIAL_APP_REROLLS_SOURCE } from '../rules';
+import { createSimulationAutosave, exportSimulation, importSimulation, validateSimulationAutosave } from '../persistence';
+import { CORE_ANTI_SOURCE, CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, CORE_BENEFIT_OF_COVER_SOURCE, CORE_BLAST_SOURCE, CORE_DICE_SOURCE, CORE_DUPLICATE_ABILITY_SOURCE, CORE_LETHAL_HITS_SOURCE, CORE_RAPID_FIRE_SOURCE, CORE_SUSTAINED_HITS_SOURCE, CORE_TWIN_LINKED_SOURCE, CORE_UNIT_SELECTED_TO_SHOOT_SOURCE, OFFICIAL_APP_MODIFIERS_SOURCE, OFFICIAL_APP_RANDOM_CHARACTERISTICS_SOURCE, OFFICIAL_APP_REROLLS_SOURCE, OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE } from '../rules';
 import { createSessionCompatibilityReport } from './compatibility';
 import { createSimulatorActor, dispatchGameCommand, getSimulatorGameState } from './machine';
-import { createShootingEnvironment, createShootingReplayVerifier, executeBasicShootingCommand, executeGenericRerollDecisionCommand, executeLethalHitsDecisionCommand, executeOathOfMomentSelectionCommand, replayGameEventsWithShootingEnvironment, type ShootingEnvironment } from './shooting';
+import { createShootingEnvironment, createShootingReplayVerifier, executeBasicShootingCommand, executeDuplicateWeaponAbilityDecisionCommand, executeGenericRerollDecisionCommand, executeLethalHitsDecisionCommand, executeOathOfMomentSelectionCommand, executeSplitFireCommand, executeSplitFireRetargetDecisionCommand, replayGameEventsWithShootingEnvironment, type ShootingEnvironment } from './shooting';
 
 const GOLDEN_SEED = 0x57465247;
 const physicalSource: SourceReferenceV1 = {
@@ -113,6 +117,37 @@ function session(options: { readonly targetX?: number; readonly weapon?: WeaponP
         weaponProfiles: [rifle],
         weaponAssignments: blueModels.map((model) => ({ modelId: model.id, weaponProfileId: rifle.id, quantity: 1 })),
         sourceRefs: [CORE_BASIC_RANGED_ATTACK_SOURCE]
+      }
+    ]
+  };
+}
+
+function splitFireSession(splitWeapon: WeaponProfileV1, secondTargetX = 4_000): SessionSetup {
+  const redModels = [
+    { id: 'red-split-1', playerId: 'red', profileId: profile.id, position: { x: 0, y: 0 }, orientationDegrees: 0 },
+    { id: 'red-split-2', playerId: 'red', profileId: profile.id, position: { x: 0, y: 900 }, orientationDegrees: 0 }
+  ] as const;
+  const blueModels = [
+    { id: 'blue-split-a', playerId: 'blue', profileId: profile.id, position: { x: 4_000, y: 0 }, orientationDegrees: 180 },
+    { id: 'blue-split-b', playerId: 'blue', profileId: profile.id, position: { x: secondTargetX, y: 900 }, orientationDegrees: 180 }
+  ] as const;
+  return {
+    ...session({ weapon: splitWeapon }),
+    models: [...redModels, ...blueModels],
+    units: [
+      {
+        id: 'red-unit', fixtureId: 'split-fire-red-fixture', playerId: 'red', modelIds: redModels.map((model) => model.id), keywords: ['INFANTRY'], toughness: 4, save: 3, woundsPerModel: 2,
+        weaponProfiles: [splitWeapon],
+        weaponAssignments: redModels.map((model) => ({ modelId: model.id, weaponProfileId: splitWeapon.id, quantity: 1 })),
+        sourceRefs: [CORE_BASIC_RANGED_ATTACK_SOURCE]
+      },
+      {
+        id: 'blue-unit-a', fixtureId: 'split-fire-blue-a-fixture', playerId: 'blue', modelIds: [blueModels[0].id], keywords: ['INFANTRY'], toughness: 4, save: 3, woundsPerModel: 2,
+        weaponProfiles: [splitWeapon], weaponAssignments: [{ modelId: blueModels[0].id, weaponProfileId: splitWeapon.id, quantity: 1 }], sourceRefs: [CORE_BASIC_RANGED_ATTACK_SOURCE]
+      },
+      {
+        id: 'blue-unit-b', fixtureId: 'split-fire-blue-b-fixture', playerId: 'blue', modelIds: [blueModels[1].id], keywords: ['INFANTRY'], toughness: 4, save: 3, woundsPerModel: 2,
+        weaponProfiles: [splitWeapon], weaponAssignments: [{ modelId: blueModels[1].id, weaponProfileId: splitWeapon.id, quantity: 1 }], sourceRefs: [CORE_BASIC_RANGED_ATTACK_SOURCE]
       }
     ]
   };
@@ -820,7 +855,7 @@ describe('M3 trusted basic shooting path', () => {
     expect(setup.state.prng).toEqual(initial.prng);
   });
 
-  it('rejects forged, unsupported and duplicate weapon keywords at session setup before they reach shooting', () => {
+  it('rejects forged and unsupported weapon keywords at session setup before they reach shooting', () => {
     const forgedLethal = weapon({
       id: 'forged-lethal-keyword',
       weaponKeywords: [{ kind: 'lethal-hits', source: { ...CORE_LETHAL_HITS_SOURCE, page: 84 } }]
@@ -829,18 +864,11 @@ describe('M3 trusted basic shooting path', () => {
       id: 'unsupported-keyword',
       weaponKeywords: [{ kind: 'unsupported-critical-trigger', source: CORE_LETHAL_HITS_SOURCE }] as unknown as WeaponProfileV1['weaponKeywords']
     });
-    const duplicateKeyword = weapon({
-      id: 'duplicate-keyword',
-      weaponKeywords: [
-        { kind: 'sustained-hits', value: 1, source: CORE_SUSTAINED_HITS_SOURCE },
-        { kind: 'sustained-hits', value: 2, source: CORE_SUSTAINED_HITS_SOURCE }
-      ]
-    });
     const malformedKeyword = weapon({
       id: 'malformed-keyword',
       weaponKeywords: [null] as unknown as WeaponProfileV1['weaponKeywords']
     });
-    for (const invalidWeapon of [forgedLethal, unsupportedKeyword, duplicateKeyword, malformedKeyword]) {
+    for (const invalidWeapon of [forgedLethal, unsupportedKeyword, malformedKeyword]) {
       const initial = createInitialGameState(`invalid-keyword-${invalidWeapon.id}`, GOLDEN_SEED);
       const setup = executeGameCommand(initial, {
         id: `setup-${invalidWeapon.id}`,
@@ -852,6 +880,61 @@ describe('M3 trusted basic shooting path', () => {
       expect(setup).not.toMatchObject({ rejection: { code: 'lethal-hits-decision-required' } });
       expect(setup.state.prng).toEqual(initial.prng);
     }
+  });
+
+  it('selects exactly one duplicate [TOUCHES SOUTENUES] occurrence before rolling, then persists and replays it in V5', () => {
+    const duplicateWeapon = weapon({
+      id: 'duplicate-sustained-rifle',
+      attacks: 1,
+      ballisticSkill: 2,
+      strength: 4,
+      armourPenetration: -4,
+      weaponKeywords: [
+        { kind: 'sustained-hits', value: 1, source: CORE_SUSTAINED_HITS_SOURCE },
+        { kind: 'sustained-hits', value: 2, source: CORE_SUSTAINED_HITS_SOURCE }
+      ]
+    });
+    const duplicateEnvironment = environment(false, false, duplicateWeapon);
+    const duplicateSession = { ...session({ weapon: duplicateWeapon }), shootingEnvironmentFingerprint: duplicateEnvironment.fingerprint };
+    const seed = (() => {
+      for (let candidate = 0; candidate < 100_000; candidate += 1) {
+        if (rollDice(createInitialGameState('duplicate-ability-seed', candidate).prng, 6, 1).results[0] === 6) return candidate;
+      }
+      throw new Error('Missing deterministic duplicate ability seed.');
+    })();
+    const ready = shootingState(seed, duplicateSession);
+    const command = { ...shootingCommand('duplicate-ability'), weaponProfileId: duplicateWeapon.id };
+    const staged = executeBasicShootingCommand(ready.state, command, duplicateEnvironment);
+    if (!staged.accepted) throw new Error(staged.rejection.message);
+    expect(staged.events.map((event) => event.type)).toEqual(['duplicate-weapon-ability-selection-requested', 'decision-requested']);
+    expect(staged.state.prng).toEqual(ready.state.prng);
+    expect(staged.state.pendingDecisions[0]).toMatchObject({ kind: 'duplicate-weapon-ability', options: [{ id: '0' }, { id: '1' }] });
+    expect(staged.state.pendingDuplicateWeaponAbilitySelection?.sourceRefs).toEqual([CORE_DUPLICATE_ABILITY_SOURCE]);
+    expect(createSimulationSaveV5(ready.initial, staged.state.eventLog, '2026-08-27T06:00:00.000Z', createShootingReplayVerifier(duplicateEnvironment)).schemaVersion).toBe('warforge-simulation-save/v5');
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, staged.state.eventLog, duplicateEnvironment)).toEqual(staged.state);
+    const expectedManifestFingerprint = sessionCompatibilityFingerprint(duplicateSession);
+    const exportedPending = exportSimulation(ready.initial, staged.state, '2026-08-27T06:00:00.000Z', duplicateEnvironment);
+    expect(importSimulation(exportedPending, duplicateEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: staged.state });
+    const decision = staged.state.pendingDecisions[0]!;
+    const invalid = executeDuplicateWeaponAbilityDecisionCommand(staged.state, {
+      id: 'duplicate-ability-invalid', actorId: 'red', type: 'resolve-decision', decisionId: decision.id, optionId: '99'
+    }, duplicateEnvironment);
+    expect(invalid).toMatchObject({ accepted: false, state: staged.state });
+    expect(invalid.state).toBe(staged.state);
+    expect(invalid.state.prng).toEqual(staged.state.prng);
+    const completed = executeDuplicateWeaponAbilityDecisionCommand(staged.state, {
+      id: 'duplicate-ability-choice', actorId: 'red', type: 'resolve-decision', decisionId: decision.id, optionId: '1'
+    }, duplicateEnvironment);
+    if (!completed.accepted) throw new Error(completed.rejection.message);
+    expect(completed.events.map((event) => event.type)).toEqual(['duplicate-weapon-ability-choice-resolved', 'basic-shooting-resolved']);
+    const shot = completed.events[1];
+    if (shot.type !== 'basic-shooting-resolved') throw new Error('Expected duplicate ability shooting event.');
+    expect(shot.attackGroups.every((group) => group.duplicateAbilitySelection?.selectedOccurrenceIndex === 1)).toBe(true);
+    expect(shot.attackGroups.some((group) => group.hitRolls.some((hit) => hit.sustainedHitsGenerated === 2))).toBe(true);
+    expect(completed.state.pendingDuplicateWeaponAbilitySelection).toBeNull();
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, completed.state.eventLog, duplicateEnvironment)).toEqual(completed.state);
+    const exportedCompleted = exportSimulation(ready.initial, completed.state, '2026-08-27T06:01:00.000Z', duplicateEnvironment);
+    expect(importSimulation(exportedCompleted, duplicateEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: completed.state });
   });
 
   it('records actual casualty allocation order, wounded model before smallest fresh ID', () => {
@@ -1210,5 +1293,295 @@ describe('M3 trusted basic shooting path', () => {
     const rejected = executeBasicShootingCommand(unsupportedReady.state, shootingCommand('generic-unsupported'), rerollEnvironment);
     expect(rejected).toMatchObject({ accepted: false, state: unsupportedReady.state, rejection: { code: 'unsupported-generic-reroll-fixture-scope' } });
     expect(rejected.state.prng).toEqual(unsupportedReady.state.prng);
+  });
+
+  it('resolves an atomic fixture-only split-fire declaration in player order, replays it exactly, and persists it in V5', () => {
+    const splitWeapon = weapon({ id: 'split-rifle', displayName: 'Split Rifle', attacks: 1, ballisticSkill: 2, strength: 4, armourPenetration: -4, damage: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const splitSession = { ...splitFireSession(splitWeapon), shootingEnvironmentFingerprint: splitEnvironment.fingerprint };
+    const ready = shootingState(0x57465247, splitSession);
+    const command: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+      id: 'split-fire', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'toward-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' },
+        { id: 'toward-b', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-b' }
+      ],
+      resolutionOrder: ['toward-b', 'toward-a']
+    };
+    const resolved = executeSplitFireCommand(ready.state, command, splitEnvironment);
+    if (!resolved.accepted) throw new Error(resolved.rejection.message);
+    const event = resolved.events[0];
+    expect(event).toMatchObject({ type: 'split-fire-resolved', resolutions: [
+      { declaration: { id: 'toward-b', targetUnitId: 'blue-unit-b' }, outcome: 'resolved' },
+      { declaration: { id: 'toward-a', targetUnitId: 'blue-unit-a' }, outcome: 'resolved' }
+    ] });
+    expect(resolved.state.shootingSelectedUnitIds).toEqual(['red-unit']);
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, resolved.state.eventLog, splitEnvironment)).toEqual(resolved.state);
+    expect(createSimulationSaveV5(ready.initial, resolved.state.eventLog, '2026-08-26T20:00:00.000Z', createShootingReplayVerifier(splitEnvironment)).schemaVersion).toBe('warforge-simulation-save/v5');
+    expect(() => createSimulationSaveV4(ready.initial, resolved.state.eventLog, '2026-08-26T20:00:00.000Z', createShootingReplayVerifier(splitEnvironment))).toThrow('utilisez V5');
+    const expectedManifestFingerprint = sessionCompatibilityFingerprint(splitSession);
+    const exported = exportSimulation(ready.initial, resolved.state, '2026-08-26T20:00:00.000Z', splitEnvironment);
+    expect(JSON.parse(exported).schemaVersion).toBe('warforge-simulation-save/v5');
+    expect(importSimulation(exported, splitEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: resolved.state });
+    const autosave = createSimulationAutosave(ready.initial, resolved.state, '2026-08-26T20:00:00.000Z', splitEnvironment);
+    expect(autosave.save.schemaVersion).toBe('warforge-simulation-save/v5');
+    expect(validateSimulationAutosave(autosave, splitEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: resolved.state });
+
+    const forged = structuredClone(resolved.state.eventLog) as any[];
+    forged.find((entry) => entry.type === 'split-fire-resolved').resolutions[0].attackGroup.range.edgeToEdgeDistance = 1;
+    expect(() => replayGameEventsWithShootingEnvironment(ready.initial, forged, splitEnvironment)).toThrow('trusted spatial verification');
+  });
+
+  it('rejects every invalid split-fire declaration atomically before PRNG', () => {
+    const splitWeapon = weapon({ id: 'split-reject-rifle', displayName: 'Split Reject Rifle', attacks: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const ready = shootingState(0x57465247, { ...splitFireSession(splitWeapon), shootingEnvironmentFingerprint: splitEnvironment.fingerprint });
+    const legal: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+      id: 'split-reject', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'one', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' },
+        { id: 'two', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-b' }
+      ],
+      resolutionOrder: ['one', 'two']
+    };
+    const cases: readonly [string, GameCommand, ShootingEnvironment][] = [
+      ['duplicate', { ...legal, id: 'duplicate', assignments: [legal.assignments[0], { ...legal.assignments[0], id: 'two' }] }, splitEnvironment],
+      ['illegal-target', { ...legal, id: 'illegal-target', assignments: [{ ...legal.assignments[0], targetUnitId: 'red-unit' }, legal.assignments[1]] }, splitEnvironment],
+      ['forged', { ...legal, id: 'forged', visible: true } as GameCommand, splitEnvironment]
+    ];
+    const farEnvironment = environment(false, false, splitWeapon);
+    const farReady = shootingState(0x57465247, { ...splitFireSession(splitWeapon, 20_000), shootingEnvironmentFingerprint: farEnvironment.fingerprint });
+    const far = executeSplitFireCommand(farReady.state, { ...legal, id: 'out-of-range', assignments: [{ ...legal.assignments[0], targetUnitId: 'blue-unit-b' }, legal.assignments[1]], resolutionOrder: ['one', 'two'] }, farEnvironment);
+    expect(far).toMatchObject({ accepted: false, rejection: { code: 'out-of-range' }, state: farReady.state });
+    expect(far.state.prng).toEqual(farReady.state.prng);
+    const blockedEnvironment = environment(false, true, splitWeapon);
+    const blockedReady = shootingState(0x57465247, { ...splitFireSession(splitWeapon), shootingEnvironmentFingerprint: blockedEnvironment.fingerprint });
+    const blocked = executeSplitFireCommand(blockedReady.state, { ...legal, id: 'not-visible', assignments: [{ ...legal.assignments[0], targetUnitId: 'blue-unit-a' }], resolutionOrder: ['one'] }, blockedEnvironment);
+    expect(blocked).toMatchObject({ accepted: false, rejection: { code: 'not-visible' }, state: blockedReady.state });
+    expect(blocked.state.prng).toEqual(blockedReady.state.prng);
+    for (const [_label, invalid, currentEnvironment] of cases) {
+      const rejected = executeSplitFireCommand(ready.state, invalid as Extract<GameCommand, { readonly type: 'resolve-split-fire' }>, currentEnvironment);
+      expect(rejected.accepted).toBe(false);
+      expect(rejected.state).toBe(ready.state);
+      expect(rejected.state.prng).toEqual(ready.state.prng);
+    }
+  });
+
+  it('opens a V5 reciblage decision when a declared target is destroyed, then saves, replays, retargets or abandons without decision entropy', () => {
+    const splitWeapon = weapon({ id: 'retarget-rifle', displayName: 'Retarget Rifle', attacks: 1, ballisticSkill: 2, strength: 4, armourPenetration: -4, damage: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const baseSession = splitFireSession(splitWeapon);
+    const retargetSession: SessionSetup = {
+      ...baseSession,
+      shootingEnvironmentFingerprint: splitEnvironment.fingerprint,
+      units: baseSession.units!.map((unit) => unit.id === 'blue-unit-a' ? { ...unit, woundsPerModel: 1 } : unit)
+    };
+    const seed = (() => {
+      for (let candidate = 0; candidate < 100_000; candidate += 1) {
+        const rolls = rollDice(createInitialGameState('split-retarget-seed', candidate).prng, 6, 2).results;
+        if (rolls[0] >= 2 && rolls[1] >= 4) return candidate;
+      }
+      throw new Error('Missing deterministic split-fire retarget seed.');
+    })();
+    const ready = shootingState(seed, retargetSession);
+    const declaration: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+      id: 'split-retarget', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'destroy-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' },
+        { id: 'after-destruction', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' }
+      ],
+      resolutionOrder: ['destroy-a', 'after-destruction']
+    };
+    const staged = executeSplitFireCommand(ready.state, declaration, splitEnvironment);
+    if (!staged.accepted) throw new Error(staged.rejection.message);
+    expect(staged.events.map((event) => event.type)).toEqual(['split-fire-stage-resolved', 'decision-requested']);
+    expect(staged.state.pendingSplitFireShooting).toMatchObject({ nextResolutionIndex: 1, resolutions: [expect.objectContaining({ declaration: expect.objectContaining({ id: 'destroy-a' }) })] });
+    const decision = staged.state.pendingDecisions[0];
+    expect(decision).toMatchObject({ kind: 'split-fire-retarget', playerId: 'red' });
+    expect(decision.options.map((option) => option.id)).toEqual(['abandon', 'blue-unit-b']);
+    const prngAtDecision = staged.state.prng;
+    const expectedManifestFingerprint = sessionCompatibilityFingerprint(retargetSession);
+    const exportedPending = exportSimulation(ready.initial, staged.state, '2026-08-26T21:00:00.000Z', splitEnvironment);
+    expect(JSON.parse(exportedPending).schemaVersion).toBe('warforge-simulation-save/v5');
+    expect(importSimulation(exportedPending, splitEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: staged.state });
+    const autosave = createSimulationAutosave(ready.initial, staged.state, '2026-08-26T21:00:00.000Z', splitEnvironment);
+    expect(validateSimulationAutosave(autosave, splitEnvironment, expectedManifestFingerprint)).toMatchObject({ ok: true, state: staged.state });
+
+    const invalid = executeSplitFireRetargetDecisionCommand(staged.state, { id: 'retarget-invalid', actorId: 'red', type: 'resolve-decision', decisionId: decision.id, optionId: 'blue-unit-a' }, splitEnvironment);
+    expect(invalid).toMatchObject({ accepted: false, state: staged.state });
+    expect(invalid.state.prng).toEqual(prngAtDecision);
+    const retargeted = executeSplitFireRetargetDecisionCommand(staged.state, { id: 'retarget-legal', actorId: 'red', type: 'resolve-decision', decisionId: decision.id, optionId: 'blue-unit-b' }, splitEnvironment);
+    if (!retargeted.accepted) throw new Error(retargeted.rejection.message);
+    expect(retargeted.events.map((event) => event.type)).toEqual(['split-fire-retarget-choice-resolved', 'split-fire-completed']);
+    expect(retargeted.events[0]).toMatchObject({ choice: { assignmentId: 'after-destruction', targetUnitId: 'blue-unit-b' } });
+    expect(retargeted.events[0]).not.toHaveProperty('prngBefore');
+    expect(retargeted.events[0]).not.toHaveProperty('prngAfter');
+    expect(retargeted.state.pendingSplitFireShooting).toBeNull();
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, retargeted.state.eventLog, splitEnvironment)).toEqual(retargeted.state);
+    const forged = structuredClone(retargeted.state.eventLog) as any[];
+    forged.find((event) => event.type === 'split-fire-retarget-choice-resolved').choice.targetUnitId = 'blue-unit-a';
+    expect(() => replayGameEventsWithShootingEnvironment(ready.initial, forged, splitEnvironment)).toThrow('trusted spatial verification');
+
+    const abandonReady = shootingState(seed, retargetSession);
+    const abandonStaged = executeSplitFireCommand(abandonReady.state, declaration, splitEnvironment);
+    if (!abandonStaged.accepted) throw new Error(abandonStaged.rejection.message);
+    const abandonDecision = abandonStaged.state.pendingDecisions[0];
+    const abandoned = executeSplitFireRetargetDecisionCommand(abandonStaged.state, { id: 'retarget-abandon', actorId: 'red', type: 'resolve-decision', decisionId: abandonDecision.id, optionId: 'abandon' }, splitEnvironment);
+    if (!abandoned.accepted) throw new Error(abandoned.rejection.message);
+    expect(abandoned.events.at(-1)).toMatchObject({ type: 'split-fire-completed', resolution: { resolutions: [expect.anything(), expect.objectContaining({ outcome: 'target-no-longer-active' })] } });
+    expect(abandoned.events[0]).toMatchObject({ choice: { targetUnitId: 'abandon' } });
+    expect(abandoned.state.prng).toEqual(prngAtDecision);
+  });
+
+  it('routes split fire and its retarget decision through the public XState command boundary', () => {
+    const splitWeapon = weapon({ id: 'machine-retarget-rifle', displayName: 'Machine Retarget Rifle', attacks: 1, ballisticSkill: 2, strength: 4, armourPenetration: -4, damage: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const baseSession = splitFireSession(splitWeapon);
+    const retargetSession: SessionSetup = {
+      ...baseSession,
+      shootingEnvironmentFingerprint: splitEnvironment.fingerprint,
+      units: baseSession.units!.map((unit) => unit.id === 'blue-unit-a' ? { ...unit, woundsPerModel: 1 } : unit)
+    };
+    const seed = (() => {
+      for (let candidate = 0; candidate < 100_000; candidate += 1) {
+        const rolls = rollDice(createInitialGameState('machine-split-retarget-seed', candidate).prng, 6, 2).results;
+        if (rolls[0] >= 2 && rolls[1] >= 4) return candidate;
+      }
+      throw new Error('Missing deterministic machine split-fire retarget seed.');
+    })();
+    const ready = shootingState(seed, retargetSession);
+    const actor = createSimulatorActor({ initialState: ready.initial, gameState: ready.state, shootingEnvironment: splitEnvironment });
+    actor.start();
+    dispatchGameCommand(actor, {
+      id: 'machine-split-retarget', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'destroy-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' },
+        { id: 'after-destruction', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' }
+      ],
+      resolutionOrder: ['destroy-a', 'after-destruction']
+    });
+    expect(actor.getSnapshot().value).toEqual({ active: 'decision' });
+    const staged = getSimulatorGameState(actor);
+    expect(staged.pendingDecisions[0]).toMatchObject({ kind: 'split-fire-retarget' });
+    const prngAtDecision = staged.prng;
+
+    dispatchGameCommand(actor, { id: 'machine-retarget-invalid', actorId: 'red', type: 'resolve-decision', decisionId: staged.pendingDecisions[0]!.id, optionId: 'blue-unit-a' });
+    expect(actor.getSnapshot().value).toEqual({ active: 'decision' });
+    expect(actor.getSnapshot().context.lastRejection).toMatchObject({ code: 'invalid-decision-option' });
+    expect(getSimulatorGameState(actor).prng).toEqual(prngAtDecision);
+
+    dispatchGameCommand(actor, { id: 'machine-retarget-valid', actorId: 'red', type: 'resolve-decision', decisionId: staged.pendingDecisions[0]!.id, optionId: 'blue-unit-b' });
+    expect(actor.getSnapshot().value).toEqual({ active: 'shooting' });
+    expect(getSimulatorGameState(actor).pendingDecisions).toEqual([]);
+    expect(getSimulatorGameState(actor).eventLog.at(-1)).toMatchObject({ type: 'split-fire-completed' });
+    actor.stop();
+  });
+
+  it('keeps target groups contiguous when several remaining weapons are retargeted into future groups', () => {
+    const splitWeapon = weapon({ id: 'scheduled-retarget-rifle', displayName: 'Scheduled Retarget Rifle', attacks: 1, ballisticSkill: 2, strength: 4, armourPenetration: -4, damage: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const base = splitFireSession(splitWeapon);
+    const blueC = { id: 'blue-split-c', playerId: 'blue', profileId: profile.id, position: { x: 4_000, y: 1_800 }, orientationDegrees: 180 } as const;
+    const scheduledSession: SessionSetup = {
+      ...base,
+      shootingEnvironmentFingerprint: splitEnvironment.fingerprint,
+      models: [...base.models, blueC],
+      units: [
+        ...base.units!.map((unit) => unit.id === 'red-unit'
+          ? { ...unit, weaponAssignments: [
+            { modelId: 'red-split-1', weaponProfileId: splitWeapon.id, quantity: 2 },
+            { modelId: 'red-split-2', weaponProfileId: splitWeapon.id, quantity: 2 }
+          ] }
+          : unit.id === 'blue-unit-a' ? { ...unit, woundsPerModel: 1 } : unit),
+        {
+          id: 'blue-unit-c', fixtureId: 'split-fire-blue-c-fixture', playerId: 'blue', modelIds: [blueC.id], keywords: ['INFANTRY'], toughness: 4, save: 3, woundsPerModel: 2,
+          weaponProfiles: [splitWeapon], weaponAssignments: [{ modelId: blueC.id, weaponProfileId: splitWeapon.id, quantity: 1 }], sourceRefs: [CORE_BASIC_RANGED_ATTACK_SOURCE]
+        }
+      ]
+    };
+    const seed = (() => {
+      for (let candidate = 0; candidate < 100_000; candidate += 1) {
+        const rolls = rollDice(createInitialGameState('scheduled-retarget-seed', candidate).prng, 6, 8).results;
+        if (rolls.every((roll, index) => index % 2 === 0 ? roll >= 2 : roll >= 4)) return candidate;
+      }
+      throw new Error('Missing deterministic scheduled-retarget seed.');
+    })();
+    const ready = shootingState(seed, scheduledSession);
+    const declaration: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+      id: 'scheduled-retarget', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'destroy-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' },
+        { id: 'after-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 1, targetUnitId: 'blue-unit-a' },
+        { id: 'toward-b', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-b' },
+        { id: 'toward-c', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 1, targetUnitId: 'blue-unit-c' }
+      ],
+      resolutionOrder: ['destroy-a', 'after-a', 'toward-b', 'toward-c']
+    };
+    const staged = executeSplitFireCommand(ready.state, declaration, splitEnvironment);
+    if (!staged.accepted) throw new Error(staged.rejection.message);
+    expect(staged.state.pendingDecisions[0]?.options.map((option) => option.id)).toEqual(['abandon', 'blue-unit-b', 'blue-unit-c']);
+    const completed = executeSplitFireRetargetDecisionCommand(staged.state, {
+      id: 'scheduled-retarget-choice', actorId: 'red', type: 'resolve-decision', decisionId: staged.state.pendingDecisions[0]!.id, optionId: 'blue-unit-c'
+    }, splitEnvironment);
+    if (!completed.accepted) throw new Error(completed.rejection.message);
+    expect(completed.events.map((event) => event.type)).toEqual(['split-fire-retarget-choice-resolved', 'split-fire-completed']);
+    const terminal = completed.events.at(-1);
+    if (terminal?.type !== 'split-fire-completed') throw new Error('Expected split-fire completion.');
+    expect(terminal.resolution.resolutions.map((resolution) => `${resolution.declaration.id}:${resolution.declaration.targetUnitId}`)).toEqual([
+      'destroy-a:blue-unit-a',
+      'toward-b:blue-unit-b',
+      'after-a:blue-unit-c',
+      'toward-c:blue-unit-c'
+    ]);
+    expect(terminal.resolution.sourceRefs).toEqual(expect.arrayContaining([OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE]));
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, completed.state.eventLog, splitEnvironment)).toEqual(completed.state);
+  });
+
+  it('allows reciblage onto an eligible unit whose earlier attack group was already resolved', () => {
+    const splitWeapon = weapon({ id: 'reopen-target-rifle', displayName: 'Reopen Target Rifle', attacks: 1, ballisticSkill: 2, strength: 4, armourPenetration: -4, damage: 1 });
+    const splitEnvironment = environment(false, false, splitWeapon);
+    const base = splitFireSession(splitWeapon);
+    const reopenSession: SessionSetup = {
+      ...base,
+      shootingEnvironmentFingerprint: splitEnvironment.fingerprint,
+      units: base.units!.map((unit) => unit.id === 'red-unit'
+        ? { ...unit, weaponAssignments: [
+          { modelId: 'red-split-1', weaponProfileId: splitWeapon.id, quantity: 2 },
+          { modelId: 'red-split-2', weaponProfileId: splitWeapon.id, quantity: 1 }
+        ] }
+        : unit.id === 'blue-unit-a' ? { ...unit, woundsPerModel: 1 } : unit)
+    };
+    const seed = (() => {
+      for (let candidate = 0; candidate < 100_000; candidate += 1) {
+        const rolls = rollDice(createInitialGameState('reopen-target-seed', candidate).prng, 6, 6).results;
+        if (rolls.every((roll, index) => index % 2 === 0 ? roll >= 2 : roll >= 4)) return candidate;
+      }
+      throw new Error('Missing deterministic reopened-target seed.');
+    })();
+    const ready = shootingState(seed, reopenSession);
+    const declaration: Extract<GameCommand, { readonly type: 'resolve-split-fire' }> = {
+      id: 'reopen-target', actorId: 'red', type: 'resolve-split-fire', attackerUnitId: 'red-unit',
+      assignments: [
+        { id: 'wound-b', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-b' },
+        { id: 'destroy-a', firingModelId: 'red-split-1', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 1, targetUnitId: 'blue-unit-a' },
+        { id: 'after-a', firingModelId: 'red-split-2', weaponProfileId: splitWeapon.id, weaponInstanceIndex: 0, targetUnitId: 'blue-unit-a' }
+      ],
+      resolutionOrder: ['wound-b', 'destroy-a', 'after-a']
+    };
+    const staged = executeSplitFireCommand(ready.state, declaration, splitEnvironment);
+    if (!staged.accepted) throw new Error(staged.rejection.message);
+    expect(staged.state.pendingDecisions[0]?.options.map((option) => option.id)).toEqual(['abandon', 'blue-unit-b']);
+    const completed = executeSplitFireRetargetDecisionCommand(staged.state, {
+      id: 'reopen-target-choice', actorId: 'red', type: 'resolve-decision', decisionId: staged.state.pendingDecisions[0]!.id, optionId: 'blue-unit-b'
+    }, splitEnvironment);
+    if (!completed.accepted) throw new Error(completed.rejection.message);
+    const terminal = completed.events.at(-1);
+    if (terminal?.type !== 'split-fire-completed') throw new Error('Expected reopened-target split-fire completion.');
+    expect(terminal.resolution.resolutions.map((resolution) => `${resolution.declaration.id}:${resolution.declaration.targetUnitId}`)).toEqual([
+      'wound-b:blue-unit-b',
+      'destroy-a:blue-unit-a',
+      'after-a:blue-unit-b'
+    ]);
+    expect(replayGameEventsWithShootingEnvironment(ready.initial, completed.state.eventLog, splitEnvironment)).toEqual(completed.state);
   });
 });

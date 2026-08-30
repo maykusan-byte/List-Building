@@ -1,13 +1,14 @@
 {
-  "schemaVersion": "warforge-simulator-project/v1",
-  "planVersion": "2.3.3",
+  "schemaVersion": "warforge-simulator-project/v2",
+  "planVersion": "3.1.0",
   "planChange": {
-    "version": "2.3.3",
-    "adrId": "ADR-012"
+    "version": "3.1.0",
+    "adrId": "ADR-019",
+    "recordedAt": "2026-08-30T06:41:53.869Z"
   },
-  "updatedAt": "2026-08-24T12:34:33.210Z",
-  "currentMilestoneId": "M5",
-  "currentTaskId": "SIM-M5-T04",
+  "updatedAt": "2026-08-30T06:52:41.258Z",
+  "currentMilestoneId": "M9",
+  "currentTaskId": "SIM-M9-T01",
   "milestones": [
     {
       "id": "M0",
@@ -132,8 +133,8 @@
     },
     {
       "id": "M5",
-      "title": "Tir étendu fiable",
-      "status": "in_progress",
+      "title": "Tir avancé sur fixtures",
+      "status": "accepted",
       "taskIds": [
         "SIM-M5-T01",
         "SIM-M5-T02",
@@ -143,13 +144,23 @@
         "SIM-M5-T06"
       ],
       "acceptanceCriteria": [
-        "Les capacités de tir annoncées sont sourcées, déterministes, rejouables et intégrées aux deux rosters pilotes."
-      ]
+        "Les primitives de tir M5 sont sourcées, déterministes, rejouables et les régressions du duel M4 restent vertes."
+      ],
+      "acceptedAt": "2026-08-27T09:56:00.040Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit indépendant Sol high et pnpm verify final",
+        "result": "passed",
+        "scope": "M5 T01-T06, matrice sourcée, fixtures avancées, refus, Save V1-V5 et régression M4",
+        "reviewer": "/root/m5_milestone_audit gpt-5.6-sol high",
+        "recordedAt": "2026-08-27T09:56:00.040Z",
+        "notes": "Accepté sous ADR-014 : M5 ne promet pas l'exposition des profils alternatifs aux rosters réels."
+      }
     },
     {
       "id": "M6",
-      "title": "Extension des forces pilotes",
-      "status": "planned",
+      "title": "Fondations de partie complète",
+      "status": "accepted",
       "taskIds": [
         "SIM-M6-T01",
         "SIM-M6-T02",
@@ -157,13 +168,23 @@
         "SIM-M6-T04"
       ],
       "acceptanceCriteria": [
-        "Salamanders et Blood Angels gagnent des unités, options et règles de détachement par lots entièrement couverts."
-      ]
+        "Le corpus, les arbitrages, Save V6, l’état de bataille/mission et les rosters fermés rendent toute lacune explicite."
+      ],
+      "acceptedAt": "2026-08-27T23:56:00.235Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit indépendant Sol high final et pnpm verify",
+        "result": "passed",
+        "scope": "Fondations de partie complète M6 : graphe fail-closed, contrats V6, persistance/replay, compilateur CompatibilityReportV2 et preuve exécutable exhaustive",
+        "reviewer": "gpt-5.6-sol/high",
+        "recordedAt": "2026-08-27T23:56:00.235Z",
+        "notes": "PASS sans finding P1/P2/P3; le pilote courant reste volontairement incompatible tant que les gaps M7-M9 ne sont pas résolus."
+      }
     },
     {
       "id": "M7",
-      "title": "Charge et Combat",
-      "status": "planned",
+      "title": "Boucle de bataille",
+      "status": "accepted",
       "taskIds": [
         "SIM-M7-T01",
         "SIM-M7-T02",
@@ -172,13 +193,23 @@
         "SIM-M7-T05"
       ],
       "acceptanceCriteria": [
-        "Une séquence complète de charge et combat est légale, déterministe, explicable et rejouable."
-      ]
+        "Déploiement, cinq rounds, tours, mouvements, Charge et Combat sont légaux, déterministes et rejouables."
+      ],
+      "acceptedAt": "2026-08-29T04:38:51.653Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "audit indépendant Sol high final et pnpm verify",
+        "result": "passed",
+        "scope": "Déploiement, cinq rounds et dix tours, toutes phases, sauvegarde/reprise/replay V6, géométrie et combat fermé",
+        "reviewer": "gpt-5.6-sol/high",
+        "recordedAt": "2026-08-29T04:38:51.653Z",
+        "notes": "Toutes les tâches M7 sont done; 51 fichiers/463 tests Vitest, 3 Playwright et build réussis"
+      }
     },
     {
       "id": "M8",
-      "title": "Commandement, statuts et objectifs",
-      "status": "planned",
+      "title": "Ressources et objectifs",
+      "status": "accepted",
       "taskIds": [
         "SIM-M8-T01",
         "SIM-M8-T02",
@@ -186,13 +217,23 @@
         "SIM-M8-T04"
       ],
       "acceptanceCriteria": [
-        "Les ressources, statuts durables et contrôles d'objectifs sont portés par l'état et le journal."
-      ]
+        "CP, Battle-shock, statuts, contrôle d’objectifs et stratagèmes obligatoires du pilote sont exécutables."
+      ],
+      "acceptedAt": "2026-08-30T05:16:45.588Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "Audit indépendant Sol high SIM-M8-T04, contre-revue post-corrections et pnpm verify",
+        "result": "passed",
+        "scope": "M8 complet : PC, Commandement, Ébranlement, effets temporisés fail-closed, contrôle d'objectifs, Courage insensé, Contre-offensive, persistance et replay V6.",
+        "reviewer": "/root/m8_milestone_audit gpt-5.6-sol high",
+        "recordedAt": "2026-08-30T05:16:45.588Z",
+        "notes": "PASS final sans finding P0-P3; 53 fichiers/487 tests Vitest, Playwright 3/3 et build PWA. Les missions, le score et les autres stratagèmes restent explicitement M9 ou ultérieurs."
+      }
     },
     {
       "id": "M9",
-      "title": "Missions et score",
-      "status": "planned",
+      "title": "Mission complète et interface",
+      "status": "in_progress",
       "taskIds": [
         "SIM-M9-T01",
         "SIM-M9-T02",
@@ -200,7 +241,7 @@
         "SIM-M9-T04"
       ],
       "acceptanceCriteria": [
-        "Une mission fermée complète calcule et explique son score depuis des données versionnées."
+        "La mission fermée calcule son score et se joue hors ligne de bout en bout avec sauvegarde, reprise et replay."
       ]
     },
     {
@@ -283,7 +324,65 @@
         "context": "Architecture et gouvernance du programme simulateur.",
         "recordedAt": "2026-08-13T08:01:20.543Z"
       },
-      "updatedAt": "2026-08-13T08:01:20.872Z"
+      "updatedAt": "2026-08-13T08:01:20.872Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M0-T01-001",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "docs/simulator/PLAN.md, project-state.json, model-routing.json, STATUS.md",
+          "recordedAt": "2026-08-13T08:01:20.649Z"
+        },
+        {
+          "id": "RUN-M0-T01-002",
+          "command": "audit engine_m1 gouvernance",
+          "result": "passed",
+          "scope": "sources de verite M0",
+          "recordedAt": "2026-08-13T08:01:20.765Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M0-T01-S01",
+          "title": "Créer les sources de vérité du programme",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:20.872Z"
+        }
+      ]
     },
     {
       "id": "SIM-M0-T02",
@@ -329,7 +428,65 @@
         "context": "Durcissement du tracker apres audits independants iteratifs.",
         "recordedAt": "2026-08-13T08:01:21.165Z"
       },
-      "updatedAt": "2026-08-13T08:01:21.480Z"
+      "updatedAt": "2026-08-13T08:01:21.480Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M0-T02-001",
+          "command": "pnpm vitest run scripts/simulator-project.test.mjs --config vite.config.ts",
+          "result": "passed",
+          "scope": "tracker, transitions, preuves, routage, bloqueurs, jalons",
+          "recordedAt": "2026-08-13T08:01:21.263Z"
+        },
+        {
+          "id": "RUN-M0-T02-002",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M0-T02 et 12 tests",
+          "recordedAt": "2026-08-13T08:01:21.364Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M0-T02-S01",
+          "title": "Implémenter le tracker et son contrôle",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:21.480Z"
+        }
+      ]
     },
     {
       "id": "SIM-M0-T03",
@@ -376,7 +533,65 @@
         "context": "Creation du skill simulateur et integration des consignes AGENTS.",
         "recordedAt": "2026-08-13T08:01:21.826Z"
       },
-      "updatedAt": "2026-08-13T08:01:22.179Z"
+      "updatedAt": "2026-08-13T08:01:22.179Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M0-T03-001",
+          "command": "quick_validate.py warforge-simulator-development",
+          "result": "passed",
+          "scope": ".agents/skills/warforge-simulator-development et AGENTS.md",
+          "recordedAt": "2026-08-13T08:01:21.946Z"
+        },
+        {
+          "id": "RUN-M0-T03-002",
+          "command": "audit engine_m1 ressources IA",
+          "result": "passed",
+          "scope": "skill, AGENTS et politique de reprise",
+          "recordedAt": "2026-08-13T08:01:22.066Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M0-T03-S01",
+          "title": "Créer les consignes IA spécialisées",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:22.179Z"
+        }
+      ]
     },
     {
       "id": "SIM-M0-T04",
@@ -414,7 +629,58 @@
         "context": "Corpus de calibration et mesures de routage versionnes.",
         "recordedAt": "2026-08-13T08:01:22.504Z"
       },
-      "updatedAt": "2026-08-13T08:01:22.732Z"
+      "updatedAt": "2026-08-13T08:01:22.732Z",
+      "costClass": "S",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M0-T04-001",
+          "command": "audit corpus calibration",
+          "result": "passed",
+          "scope": "docs/simulator/calibration/corpus.json et results.json",
+          "recordedAt": "2026-08-13T08:01:22.619Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M0-T04-S01",
+          "title": "Initialiser le corpus de calibration IA",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:22.732Z"
+        }
+      ]
     },
     {
       "id": "SIM-M1-T01",
@@ -462,7 +728,65 @@
         "context": "Contrats, reducer, PRNG, replay et gardes de serialisation durcis.",
         "recordedAt": "2026-08-13T08:01:51.626Z"
       },
-      "updatedAt": "2026-08-13T08:01:51.946Z"
+      "updatedAt": "2026-08-13T08:01:51.946Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M1-T01-001",
+          "command": "pnpm vitest run src/simulator/domain/foundation.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "domaine pur, PRNG, commandes, evenements, replay, sauvegardes",
+          "recordedAt": "2026-08-13T08:01:51.739Z"
+        },
+        {
+          "id": "RUN-M1-T01-002",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M1-T01, etat initial et PRNG event-free",
+          "recordedAt": "2026-08-13T08:01:51.848Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M1-T01-S01",
+          "title": "Établir les contrats et le journal déterministe",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:51.946Z"
+        }
+      ]
     },
     {
       "id": "SIM-M1-T02",
@@ -508,7 +832,65 @@
         "context": "Statechart XState, decisions exclusives, compatibilite session et persistance.",
         "recordedAt": "2026-08-13T08:01:52.236Z"
       },
-      "updatedAt": "2026-08-13T08:01:52.533Z"
+      "updatedAt": "2026-08-13T08:01:52.533Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M1-T02-001",
+          "command": "pnpm vitest run src/simulator/orchestration/machine.test.ts src/simulator/persistence/persistence.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "phases, decisions, terminaison, compatibilite, autosave et persistence",
+          "recordedAt": "2026-08-13T08:01:52.327Z"
+        },
+        {
+          "id": "RUN-M1-T02-002",
+          "command": "audit final m1_independent_audit",
+          "result": "passed",
+          "scope": "SIM-M1-T02, fingerprint, decisions, completed et replay impossible",
+          "recordedAt": "2026-08-13T08:01:52.429Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M1-T02-S01",
+          "title": "Construire le statechart racine",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:52.533Z"
+        }
+      ]
     },
     {
       "id": "SIM-M1-T03",
@@ -546,7 +928,58 @@
         "context": "Schemas, matrice de couverture et synchronisation des donnees simulateur.",
         "recordedAt": "2026-08-13T08:01:52.884Z"
       },
-      "updatedAt": "2026-08-13T08:01:53.087Z"
+      "updatedAt": "2026-08-13T08:01:53.087Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M1-T03-001",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "data/simulator et public/data/simulator",
+          "recordedAt": "2026-08-13T08:01:52.985Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M1-T03-S01",
+          "title": "Créer les schémas et la matrice de couverture",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:01:53.087Z"
+        }
+      ]
     },
     {
       "id": "SIM-M2-T01",
@@ -592,7 +1025,65 @@
         "context": "Laboratoire PixiJS, interactions et test navigateur Playwright.",
         "recordedAt": "2026-08-13T08:01:53.609Z"
       },
-      "updatedAt": "2026-08-13T08:04:00.968Z"
+      "updatedAt": "2026-08-13T08:04:00.968Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M2-T01-001",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "route lazy #simulator, canvas Pixi, drag, zoom et reglette",
+          "recordedAt": "2026-08-13T08:01:53.763Z"
+        },
+        {
+          "id": "RUN-M2-T01-002",
+          "command": "audit m1_independent_audit et pnpm test:browser",
+          "result": "passed",
+          "scope": "scene Pixi, camera, selection, drag, zoom, reset et reglette",
+          "recordedAt": "2026-08-13T08:04:00.883Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M2-T01-S01",
+          "title": "Construire la scène et les interactions de plateau",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:04:00.968Z"
+        }
+      ]
     },
     {
       "id": "SIM-M2-T02",
@@ -642,7 +1133,65 @@
         "context": "Géométrie M2 complète : empreintes, terrains, mouvement balayé, limites, LoS et propriétés.",
         "recordedAt": "2026-08-13T08:20:59.525Z"
       },
-      "updatedAt": "2026-08-13T08:51:59.197Z"
+      "updatedAt": "2026-08-13T08:51:59.197Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M2-T02-001",
+          "command": "audit engine_m1 geometrie",
+          "result": "failed",
+          "scope": "empreintes, mouvement balaye, multipolygones, trous, frontieres et property tests",
+          "recordedAt": "2026-08-13T08:01:54.326Z"
+        },
+        {
+          "id": "RUN-M2-T02-002",
+          "command": "pnpm vitest run src/simulator/geometry/geometry.test.ts --config vite.config.ts && pnpm lint && independent exhaustive rectangle harness",
+          "result": "passed",
+          "scope": "src/simulator/geometry: footprints, sweep CCD, board bounds, coherency, multipolygons, LoS, spatial hash",
+          "recordedAt": "2026-08-13T08:51:59.112Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M2-T02-S01",
+          "title": "Implémenter la géométrie déterministe",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T08:51:59.197Z"
+        }
+      ]
     },
     {
       "id": "SIM-M2-T03",
@@ -682,7 +1231,58 @@
         "context": "Verdicts visuels M2, tests Playwright et capture de référence.",
         "recordedAt": "2026-08-13T08:51:59.504Z"
       },
-      "updatedAt": "2026-08-13T09:10:35.327Z"
+      "updatedAt": "2026-08-13T09:10:35.327Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M2-T03-001",
+          "command": "pnpm vitest run src/simulator/ui/laboratory.test.ts src/simulator/geometry/geometry.test.ts --config vite.config.ts && pnpm test:browser",
+          "result": "passed",
+          "scope": "M2 visual verdicts, numeric geometry evidence, camera interactions and reference snapshot",
+          "recordedAt": "2026-08-13T09:10:35.220Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M2-T03-S01",
+          "title": "Afficher les verdicts géométriques",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T09:10:35.327Z"
+        }
+      ]
     },
     {
       "id": "SIM-M3-T01",
@@ -722,7 +1322,58 @@
         "context": "Formalisation sourcée des fixtures M3 et de la règle de couvert V11.",
         "recordedAt": "2026-08-13T09:10:35.717Z"
       },
-      "updatedAt": "2026-08-13T09:33:19.191Z"
+      "updatedAt": "2026-08-13T09:33:19.191Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M3-T01-001",
+          "command": "pnpm simulator:validate && pnpm vitest run scripts/validate-simulator-data.test.mjs --config vite.config.ts",
+          "result": "passed",
+          "scope": "synthetic fixture units, physical convention approval, official source provenance, cover 13.08 and catalog-identity exclusions",
+          "recordedAt": "2026-08-13T09:33:19.089Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M3-T01-S01",
+          "title": "Fournir le scénario de duel fermé",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T09:33:19.191Z"
+        }
+      ]
     },
     {
       "id": "SIM-M3-T02",
@@ -763,7 +1414,58 @@
         "context": "Moteur de tir déterministe intégré Command→Event→State, géométrie autoritaire et tests golden.",
         "recordedAt": "2026-08-13T09:33:19.497Z"
       },
-      "updatedAt": "2026-08-13T10:45:58.946Z"
+      "updatedAt": "2026-08-13T10:45:58.946Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M3-T02-001",
+          "command": "pnpm vitest run src/simulator/domain src/simulator/rules src/simulator/orchestration src/simulator/persistence --config vite.config.ts && pnpm test && pnpm lint",
+          "result": "passed",
+          "scope": "authoritative M3 shooting command-event-state, staged rolls 05.01-05.04, cover 13.08, geometry-bound replay and compatibility",
+          "recordedAt": "2026-08-13T10:45:58.856Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M3-T02-S01",
+          "title": "Résoudre la séquence de tir",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T10:45:58.946Z"
+        }
+      ]
     },
     {
       "id": "SIM-M3-T03",
@@ -802,7 +1504,58 @@
         "context": "Interface de duel, Save V2 coexistante, assemblage des données, autosave/reprise/replay et Playwright.",
         "recordedAt": "2026-08-13T10:45:59.281Z"
       },
-      "updatedAt": "2026-08-13T11:37:35.583Z"
+      "updatedAt": "2026-08-13T11:37:35.583Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M3-T03-001",
+          "command": "pnpm simulator:validate && pnpm vitest run src/simulator --config vite.config.ts && pnpm test:browser && pnpm build",
+          "result": "passed",
+          "scope": "Save V2/V1 coexistence, closed duel runtime, authoritative UI, import/replay/IndexedDB resume and coverage promotion",
+          "recordedAt": "2026-08-13T11:37:35.473Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M3-T03-S01",
+          "title": "Ajouter sauvegarde et replay du duel",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T11:37:35.583Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T01",
@@ -897,7 +1650,93 @@
         "recordedAt": "2026-08-21T08:20:41.467Z"
       },
       "updatedAt": "2026-08-21T08:20:41.901Z",
-      "scopeUpdatedAt": "2026-08-21T08:08:36.694Z"
+      "scopeUpdatedAt": "2026-08-21T08:08:36.694Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T01-001",
+          "command": "pnpm test && pnpm lint && pnpm simulator:validate && pnpm build",
+          "result": "passed",
+          "scope": "Non-régression PWA, TypeScript, données du simulateur et build de la proposition M4.",
+          "recordedAt": "2026-08-21T08:08:36.706Z"
+        },
+        {
+          "id": "RUN-M4-T01-002",
+          "command": "pnpm vitest run src/simulator/integration/roster-pilot-proposal.test.ts src/simulator/integration/roster-adapter.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "Proposition de deux RosterDraft réels : légalité catalogue, coûts, équipement de départ et exigences Oath/PISTOL.",
+          "recordedAt": "2026-08-21T08:08:52.189Z"
+        },
+        {
+          "id": "RUN-M4-T01-003",
+          "command": "Approbation explicite du project-owner dans le fil Codex (2026-08-21)",
+          "result": "passed",
+          "scope": "Deux RosterDraft, équipements de départ, détachements et périmètre fermé real-roster-shooting-duel-v1.",
+          "recordedAt": "2026-08-21T08:20:39.513Z"
+        },
+        {
+          "id": "RUN-M4-T01-004",
+          "command": "pnpm vitest run src/simulator/integration/roster-pilot-proposal.test.ts src/simulator/integration/roster-adapter.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "Légalité exacte des deux drafts, coûts, profils par défaut résolus, règles Oath/PISTOL et dispositions de Chapitre.",
+          "recordedAt": "2026-08-21T08:20:39.976Z"
+        },
+        {
+          "id": "RUN-M4-T01-005",
+          "command": "audit indépendant Sol high audit_m4_t01",
+          "result": "passed",
+          "scope": "Approbation, sources catalogue, légalité, équipement par composition, Oath différencié, règles de Chapitre et garde PISTOL.",
+          "recordedAt": "2026-08-21T08:20:40.465Z"
+        },
+        {
+          "id": "RUN-M4-T01-006",
+          "command": "pnpm test && pnpm lint && pnpm simulator:validate && pnpm build",
+          "result": "passed",
+          "scope": "Régression PWA complète, TypeScript, données simulateur et production build après approbation finale.",
+          "recordedAt": "2026-08-21T08:20:40.965Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T01-S01",
+          "title": "Sélectionner et figer les deux rosters pilotes",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T08:20:41.901Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T02",
@@ -957,7 +1796,72 @@
         "recordedAt": "2026-08-21T09:04:29.342Z"
       },
       "updatedAt": "2026-08-21T09:04:29.419Z",
-      "scopeUpdatedAt": "2026-08-21T09:04:29.046Z"
+      "scopeUpdatedAt": "2026-08-21T09:04:29.046Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T02-001",
+          "command": "pnpm vitest run src/simulator/integration/roster-adapter.test.ts src/simulator/integration/roster-pilot-proposal.test.ts --config vite.config.ts",
+          "result": "passed",
+          "scope": "Adaptation exacte des deux rosters pilotes, IDs de modèles stables et refus exhaustifs des écarts de roster, unités, effectifs, équipement et structures importées.",
+          "recordedAt": "2026-08-21T09:04:29.127Z"
+        },
+        {
+          "id": "RUN-M4-T02-002",
+          "command": "pnpm test && pnpm lint && pnpm simulator:validate && pnpm build",
+          "result": "passed",
+          "scope": "Régression complète PWA, TypeScript, validateur simulateur et construction de production après l'adaptateur M4.",
+          "recordedAt": "2026-08-21T09:04:29.196Z"
+        },
+        {
+          "id": "RUN-M4-T02-003",
+          "command": "audit indépendant Sol high m4_t02_final_review",
+          "result": "passed",
+          "scope": "Revue indépendante de la fermeture du compilateur : identité stricte, refus sans IDs, proposition immuable, IDs golden uniques et compatibilité de l'adaptateur historique.",
+          "recordedAt": "2026-08-21T09:04:29.270Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T02-S01",
+          "title": "Compiler les RosterDraft vers la session",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T09:04:29.419Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T03",
@@ -1017,7 +1921,72 @@
         "recordedAt": "2026-08-21T10:11:52.691Z"
       },
       "updatedAt": "2026-08-21T10:13:07.161Z",
-      "scopeUpdatedAt": "2026-08-21T10:11:47.142Z"
+      "scopeUpdatedAt": "2026-08-21T10:11:47.142Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T03-001",
+          "command": "Approbation explicite du propriétaire de projet dans la conversation Codex",
+          "result": "passed",
+          "scope": "Profils physiques M4 32 mm × 40 mm et 40 mm × 45 mm, pilote real-roster-shooting-duel-v1",
+          "recordedAt": "2026-08-21T10:11:59.203Z"
+        },
+        {
+          "id": "RUN-M4-T03-002",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "SIM-M4-T03 sources, validateur, synchronisation des données, suite unitaire, navigateur et build",
+          "recordedAt": "2026-08-21T10:12:51.679Z"
+        },
+        {
+          "id": "RUN-M4-T03-003",
+          "command": "audit indépendant Sol high continuous_los_change_audit ; pnpm simulator:validate ; pnpm vitest run scripts/validate-simulator-data.test.mjs --config vite.config.ts ; pnpm lint ; pnpm simulator:project:check ; tests M3 ciblés",
+          "result": "passed",
+          "scope": "SIM-M4-T03 : profils physiques 32 mm × 40 mm et 40 mm × 45 mm, convention locale et approbation project-owner 2026-08-21, faits/règles sourcés, maintien draft sans couverture, LoS réservée à T07, non-régression M3/public",
+          "recordedAt": "2026-08-21T10:13:01.993Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T03-S01",
+          "title": "Couvrir les profils et règles des unités choisies",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T10:13:07.161Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T07",
@@ -1077,7 +2046,72 @@
         "recordedAt": "2026-08-21T11:03:15.746Z"
       },
       "updatedAt": "2026-08-21T11:04:38.131Z",
-      "scopeUpdatedAt": "2026-08-21T11:03:15.684Z"
+      "scopeUpdatedAt": "2026-08-21T11:03:15.684Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T07-001",
+          "command": "pnpm exec vitest run src/simulator/geometry/exact-rational.test.ts --config vite.config.ts ; pnpm lint ; git diff --check",
+          "result": "passed",
+          "scope": "Fondation pure BigInt rationnelle de T07, sans intégration dans M3 ni verdict de visibilité",
+          "recordedAt": "2026-08-21T10:24:17.434Z"
+        },
+        {
+          "id": "RUN-M4-T07-002",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm vitest run src/simulator/geometry/sampled-cylinder-line-of-sight.test.ts src/simulator/geometry/exact-rational.test.ts scripts/validate-simulator-data.test.mjs --config vite.config.ts; pnpm test; pnpm test:browser; pnpm lint; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M4-T07 : convention m4-sampled-cylinder-los-v1, géométrie pure, données source-only M4, ADR-008, validateur et non-régression M3.",
+          "recordedAt": "2026-08-21T11:04:37.999Z"
+        },
+        {
+          "id": "RUN-M4-T07-003",
+          "command": "audit indépendant Sol high audit_t07_sampled_los",
+          "result": "passed",
+          "scope": "SIM-M4-T07 : ordre canonique 15×15, témoins, preuves des rayons dégénérés, garde terrain statique, cohérence ADR/données et non-régression M3.",
+          "recordedAt": "2026-08-21T11:04:38.064Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T07-S01",
+          "title": "Implémenter la LoS échantillonnée versionnée",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T11:04:38.131Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T04",
@@ -1130,7 +2164,65 @@
         "recordedAt": "2026-08-21T11:06:21.662Z"
       },
       "updatedAt": "2026-08-21T11:28:02.599Z",
-      "scopeUpdatedAt": "2026-08-21T11:28:02.408Z"
+      "scopeUpdatedAt": "2026-08-21T11:28:02.408Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T04-001",
+          "command": "pnpm test && pnpm build && pnpm lint && pnpm simulator:validate && pnpm simulator:project:check && git diff --check",
+          "result": "passed",
+          "scope": "SIM-M4-T04 : session déterministe des deux rosters pilotes, 14 modèles, exigences unités/armes/profils/règles/scénario et blocage explicite des 13 dépendances non couvertes.",
+          "recordedAt": "2026-08-21T11:28:02.468Z"
+        },
+        {
+          "id": "RUN-M4-T04-002",
+          "command": "audit indépendant Sol high audit_t07_sampled_los ; pnpm simulator:project:check ; pnpm simulator:validate ; tests ciblés M4/machine/M3/persistence ; pnpm lint",
+          "result": "passed",
+          "scope": "SIM-M4-T04 : flux normal de session M4, rapport de compatibilité exhaustif, blocage pré-démarrage et non-régression M3.",
+          "recordedAt": "2026-08-21T11:28:02.533Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T04-S01",
+          "title": "Assembler la session réelle et sa compatibilité",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T11:28:02.599Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T08",
@@ -1192,7 +2284,72 @@
         "recordedAt": "2026-08-21T11:29:23.239Z"
       },
       "updatedAt": "2026-08-21T12:24:56.031Z",
-      "scopeUpdatedAt": "2026-08-21T12:22:45.641Z"
+      "scopeUpdatedAt": "2026-08-21T12:22:45.641Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T08-001",
+          "command": "pnpm test; pnpm lint; pnpm simulator:validate; pnpm simulator:project:check; pnpm build",
+          "result": "passed",
+          "scope": "SIM-M4-T08 : runtime M4 réel fermé, Oath of Moment, LoS échantillonnée, garde [PISTOL], couvert local approuvé, mouvement autoritaire, compatibilité exhaustive, sauvegarde et replay.",
+          "recordedAt": "2026-08-21T12:15:13.673Z"
+        },
+        {
+          "id": "RUN-M4-T08-002",
+          "command": "pnpm test; pnpm lint; pnpm simulator:validate; pnpm simulator:project:check; pnpm build",
+          "result": "passed",
+          "scope": "SIM-M4-T08 : duel réel Salamanders–Blood Angels fermé ; terrain local human-reviewed, Oath des deux variantes, LoS échantillonnée, couvert non occlusif, garde [PISTOL], mouvement M4 lié à l’acteur, compatibilité exhaustive, export/import et replay.",
+          "recordedAt": "2026-08-21T12:24:51.608Z"
+        },
+        {
+          "id": "RUN-M4-T08-003",
+          "command": "audit indépendant audit_t07_sampled_los ; tests ciblés 6 fichiers / 109 tests",
+          "result": "passed",
+          "scope": "Revue indépendante post-correctif de SIM-M4-T08 : constructeur applicatif M4, couverture de la règle de mouvement, Oath Blood Angels, persistance du mouvement, non-régression M3.",
+          "recordedAt": "2026-08-21T12:24:51.969Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T08-S01",
+          "title": "Intégrer les règles minimales du duel réel",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-21T12:24:56.031Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T05",
@@ -1262,7 +2419,79 @@
         "recordedAt": "2026-08-21T12:38:09.986Z"
       },
       "updatedAt": "2026-08-24T04:56:07.887Z",
-      "scopeUpdatedAt": "2026-08-24T04:55:51.177Z"
+      "scopeUpdatedAt": "2026-08-24T04:55:51.177Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T05-001",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm test (40 fichiers / 303 tests); pnpm lint; pnpm test:browser -- tests/browser/simulator.spec.ts (3/3); pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M4-T05 : parcours UI du duel réel, deux rosters, sélection modèle/cible, Oath, mouvement M4, tir autoritaire, pertes, export V2, reprise IndexedDB, replay et non-régressions M3/M2.",
+          "recordedAt": "2026-08-21T12:38:10.059Z"
+        },
+        {
+          "id": "RUN-M4-T05-002",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm test (40 fichiers / 303 tests); pnpm lint; pnpm test:browser -- tests/browser/simulator.spec.ts (3/3); pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M4-T05 : parcours UI du duel réel, deux rosters, sélection modèle/cible, Oath, mouvement M4, tir autoritaire, pertes, export V2, reprise IndexedDB, replay, comportement mobile et non-régressions M3/M2.",
+          "recordedAt": "2026-08-21T12:39:34.997Z"
+        },
+        {
+          "id": "RUN-M4-T05-003",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "Domaine GameState (mouvement/tir), runtime M4, UI du duel réel et régression navigateur M2/M3/M4",
+          "recordedAt": "2026-08-24T04:55:58.279Z"
+        },
+        {
+          "id": "RUN-M4-T05-004",
+          "command": "Audit indépendant Sol high : flux utilisateur normal M4, autorité runtime, persistance V2 et régressions",
+          "result": "passed",
+          "scope": "SIM-M4-T05 : domaine, runtime, UI, persistance et parcours navigateur",
+          "recordedAt": "2026-08-24T04:56:04.094Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T05-S01",
+          "title": "Livrer le parcours de duel réel",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-24T04:56:07.887Z"
+        }
+      ]
     },
     {
       "id": "SIM-M4-T06",
@@ -1301,7 +2530,64 @@
         "context": "Audit indépendant à contexte frais des artefacts, preuves et parcours M4; aucune modification autorisée.",
         "recordedAt": "2026-08-24T04:56:27.853Z"
       },
-      "updatedAt": "2026-08-24T05:00:33.438Z"
+      "updatedAt": "2026-08-24T05:00:33.438Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M4-T06-001",
+          "command": "Audit indépendant Sol high : tests, probes de refus, Playwright, export/import V2, reprise IndexedDB, replay et périmètre M4",
+          "result": "passed",
+          "scope": "Duel réel fermé real-roster-shooting-duel-v1 : deux rosters approuvés, runtime, persistance, UI et données M4",
+          "recordedAt": "2026-08-24T05:00:29.488Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M4-T06-S01",
+          "title": "Auditer le duel réel de bout en bout",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-24T05:00:33.438Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T01",
@@ -1351,7 +2637,69 @@
         "recordedAt": "2026-08-24T05:01:36.948Z"
       },
       "updatedAt": "2026-08-24T05:15:33.020Z",
-      "scopeUpdatedAt": "2026-08-24T05:15:10.066Z"
+      "scopeUpdatedAt": "2026-08-24T05:15:10.066Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T01-001",
+          "command": "pnpm simulator:validate; pnpm simulator:project:check; pnpm exec vitest run --config vite.config.ts src/simulator/rules/shooting.test.ts src/simulator/orchestration/shooting.test.ts src/simulator/runtime/m4-real-roster-session.test.ts; git diff --check",
+          "result": "passed",
+          "scope": "Matrice M5, preuves de source M4 et tests de régression du pipeline de tir",
+          "recordedAt": "2026-08-24T05:15:17.040Z"
+        },
+        {
+          "id": "RUN-M5-T01-002",
+          "command": "Revue indépendante Sol high de la matrice M5 et de son corpus/provenance",
+          "result": "passed",
+          "scope": "docs/simulator/m5-shooting-capability-matrix.md, manifest/règles/facts M4 cités",
+          "recordedAt": "2026-08-24T05:15:25.554Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T01-S01",
+          "title": "Formaliser la matrice du tir étendu",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-24T05:15:33.020Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T02",
@@ -1456,7 +2804,111 @@
         "recordedAt": "2026-08-24T06:23:27.865Z"
       },
       "updatedAt": "2026-08-24T09:38:30.175Z",
-      "scopeUpdatedAt": "2026-08-24T06:43:38.031Z"
+      "scopeUpdatedAt": "2026-08-24T06:43:38.031Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T02-001",
+          "command": "pnpm simulator:validate; pnpm faction-packs:validate; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 partiel : sources canonisées, volumes d’attaque et sélection unique; M3/M4 préservés",
+          "recordedAt": "2026-08-24T06:37:26.809Z"
+        },
+        {
+          "id": "RUN-M5-T02-002",
+          "command": "pnpm simulator:validate; pnpm faction-packs:validate; pnpm lint; pnpm test; pnpm test:browser -- tests/browser/simulator.spec.ts; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 partiel : normalisation stricte, volumes d’attaque, sélection unique et provenance des sources; M3/M4 préservés",
+          "recordedAt": "2026-08-24T06:43:38.114Z"
+        },
+        {
+          "id": "RUN-M5-T02-003",
+          "command": "pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm build; pnpm simulator:project:check; git diff --check",
+          "result": "passed",
+          "scope": "Import canonique de la FAQ française de l'application officielle : archive de 17 captures, transcription de 47 entrées, manifeste 0.3.0 et contrôles d'intégrité",
+          "recordedAt": "2026-08-24T07:12:12.991Z"
+        },
+        {
+          "id": "RUN-M5-T02-004",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 intermédiaire : corpus officiel application (22 références, 2 errata), contrats purs de caractéristiques aléatoires et modificateurs sourcés",
+          "recordedAt": "2026-08-24T08:12:22.674Z"
+        },
+        {
+          "id": "RUN-M5-T02-005",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : intégration fixture des A/D aléatoires et des plans de portée, A, CT et jet de touche dans événements et replay",
+          "recordedAt": "2026-08-24T09:07:32.795Z"
+        },
+        {
+          "id": "RUN-M5-T02-006",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : séquençage 02.02.03 de tous les A aléatoires avant touches, D après allocation, et modificateurs fixture sourcés avec replay",
+          "recordedAt": "2026-08-24T09:12:15.446Z"
+        },
+        {
+          "id": "RUN-M5-T02-007",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : D3 sur D6, A aléatoire par arme physique, modificateurs/CT/1-6 naturels, replay strict et non-régression M2/M3/M4",
+          "recordedAt": "2026-08-24T09:38:20.263Z"
+        },
+        {
+          "id": "RUN-M5-T02-008",
+          "command": "Audit indépendant Sol high : revue corrective des contrats, événements, replay et refus stricts M5-T02",
+          "result": "passed",
+          "scope": "SIM-M5-T02 : D3 sur D6, A aléatoire par arme physique, modificateurs/CT/1-6 naturels, replay strict et non-régression M2/M3/M4",
+          "recordedAt": "2026-08-24T09:38:26.177Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T02-S01",
+          "title": "Couvrir volumes et modificateurs de tir",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-24T09:38:30.175Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T03",
@@ -1562,13 +3014,117 @@
         "recordedAt": "2026-08-24T11:35:02.825Z"
       },
       "updatedAt": "2026-08-24T12:04:05.641Z",
-      "scopeUpdatedAt": "2026-08-24T12:04:03.632Z"
+      "scopeUpdatedAt": "2026-08-24T12:04:03.632Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T03-001",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 intermédiaire : critiques, ANTI et Touches soutenues sourcés/rejouables ; refus pré-PRNG de Touches fatales tant que le choix par critique n'est pas journalisé",
+          "recordedAt": "2026-08-24T09:59:16.819Z"
+        },
+        {
+          "id": "RUN-M5-T03-002",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 : critiques, ANTI et Touches soutenues sourcés/rejouables, identifiants globaux uniques entre groupes, validation fermée au setup et refus pré-PRNG de Touches fatales",
+          "recordedAt": "2026-08-24T10:08:31.901Z"
+        },
+        {
+          "id": "RUN-M5-T03-003",
+          "command": "Revue indépendante Sol high : correction des identifiants de Touches soutenues et validation fermée des mots-clés au setup",
+          "result": "passed",
+          "scope": "SIM-M5-T03 : critiques, ANTI et Touches soutenues sourcés/rejouables, identifiants globaux uniques entre groupes, validation fermée au setup et refus pré-PRNG de Touches fatales",
+          "recordedAt": "2026-08-24T10:08:31.994Z"
+        },
+        {
+          "id": "RUN-M5-T03-004",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test; pnpm test:browser; pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 V3 : Touches fatales fixture-only, choix humain par critique, journal interrompu, autosave/import/replay autoritaires, V1/V2 préservées et rejets de falsification",
+          "recordedAt": "2026-08-24T10:41:02.505Z"
+        },
+        {
+          "id": "RUN-M5-T03-005",
+          "command": "Audit indépendant Sol high : ADR-010, flux létal interrompu, V3 et corrections de replay/versionnement",
+          "result": "passed",
+          "scope": "SIM-M5-T03 V3 : Touches fatales fixture-only, choix humain par critique, journal interrompu, autosave/import/replay autoritaires, V1/V2 préservées et rejets de falsification",
+          "recordedAt": "2026-08-24T10:41:02.604Z"
+        },
+        {
+          "id": "RUN-M5-T03-006",
+          "command": "pnpm simulator:project:check; pnpm simulator:validate; pnpm rules:validate; pnpm lint; pnpm test (377); pnpm test:browser (3); pnpm build; git diff --check",
+          "result": "passed",
+          "scope": "SIM-M5-T03 complet : corpus 01.05.02 et 24.38, choix keep/reroll D6 source-aware, critiques/ANTI/Touches soutenues/Touches fatales, V3 persisté et replays vérifiés, sans couverture de profil M4",
+          "recordedAt": "2026-08-24T12:04:04.295Z"
+        },
+        {
+          "id": "RUN-M5-T03-007",
+          "command": "Audit indépendant Sol high : relances/[JUMELÉ], provenance 01.05.02 + 24.38, V3 persistence/import/replay, rejets V1/V2 et non-régression M4",
+          "result": "passed",
+          "scope": "SIM-M5-T03 complet : audit final des relances et déclencheurs critiques fixture-only",
+          "recordedAt": "2026-08-24T12:04:05.042Z"
+        },
+        {
+          "id": "RUN-M5-T03-008",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Gate intégrée finale après clôture M5-T03 : tracker, données, factions, synchronisation, missions, images, règles, 377 tests, Playwright 3/3 et build PWA",
+          "recordedAt": "2026-08-24T12:06:00.581Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T03-S01",
+          "title": "Couvrir relances et déclencheurs critiques",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-24T12:04:05.641Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T04",
       "milestoneId": "M5",
       "title": "Couvrir sauvegardes et dégâts étendus",
-      "status": "in_progress",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T03"
       ],
@@ -1577,25 +3133,110 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Sauvegardes alternatives, prévention, réduction et dégâts variables ou spéciaux sont ordonnés, testés et rejouables.",
-          "evidenceIds": []
+          "description": "Sauvegardes alternatives, prévention et dégâts variables ou spéciaux sont ordonnés, testés et rejouables ; la réduction générique reste explicitement refusée jusqu’à son contrat sourcé.",
+          "evidenceIds": [
+            "EVD-M5-T04-001",
+            "EVD-M5-T04-002"
+          ]
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "id": "EVD-M5-T04-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5-T04 : V4, sauvegardes/allocation, dégâts, FNP, À risque, Tir unique, replay, PWA",
+          "recordedAt": "2026-08-26T19:55:04.807Z",
+          "notes": "44 fichiers / 391 tests, 3 Playwright et build PWA réussis ; avertissement usuel de bundle >500 kB sans échec."
+        },
+        {
+          "id": "EVD-M5-T04-002",
+          "kind": "independent-review",
+          "command": "Audit Sol high indépendant SIM-M5-T04",
+          "result": "passed",
+          "scope": "Contrat V4, séquence 05.03-05.04, 06.02-06.03, provenance, replay, régression M4",
+          "recordedAt": "2026-08-26T19:55:05.324Z",
+          "notes": "Verdict PASS final : aucun P1/P2 après vérification des attaques excédentaires, allocation, À risque, V1-V4 et M4.",
+          "reviewer": "gpt-5.6-sol-high/audit_m4_t05"
+        }
+      ],
       "actualExecution": {
         "model": "gpt-5.6-terra",
         "reasoningEffort": "xhigh",
         "context": "Revue corpus local, implémentation déterministe, puis audit indépendant Sol high.",
         "recordedAt": "2026-08-24T12:27:05.159Z"
       },
-      "updatedAt": "2026-08-24T12:34:33.210Z",
-      "scopeUpdatedAt": "2026-08-24T12:34:33.210Z"
+      "updatedAt": "2026-08-26T19:55:05.958Z",
+      "scopeUpdatedAt": "2026-08-24T12:34:33.210Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T04-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5-T04 : V4, sauvegardes/allocation, dégâts, FNP, À risque, Tir unique, replay, PWA",
+          "recordedAt": "2026-08-26T19:55:04.807Z"
+        },
+        {
+          "id": "RUN-M5-T04-002",
+          "command": "Audit Sol high indépendant SIM-M5-T04",
+          "result": "passed",
+          "scope": "Contrat V4, séquence 05.03-05.04, 06.02-06.03, provenance, replay, régression M4",
+          "recordedAt": "2026-08-26T19:55:05.324Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T04-S01",
+          "title": "Couvrir sauvegardes et dégâts étendus",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-26T19:55:05.958Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T05",
       "milestoneId": "M5",
       "title": "Couvrir ciblage avancé et armes mixtes",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T04",
         "SIM-M2-T02"
@@ -1606,18 +3247,109 @@
         {
           "id": "AC-01",
           "description": "Ciblage avancé, split fire, profils mixtes et décisions de résolution passent par des commandes et événements autoritaires.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M5-T05-001",
+            "EVD-M5-T05-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M5-T05-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5-T05: domaine, orchestration, statechart public, persistence V5, tests unitaires, Playwright et build",
+          "recordedAt": "2026-08-27T09:36:19.367Z",
+          "notes": "44 fichiers et 398 tests Vitest, 3 tests Playwright, validation des données et build réussis."
+        },
+        {
+          "id": "EVD-M5-T05-002",
+          "kind": "independent-review",
+          "command": "audit indépendant Sol high du diff M5-T05 corrigé",
+          "result": "passed",
+          "scope": "Split fire, reciblage, choix d'aptitude dupliquée, PRNG, provenance, Save V5 et matrice",
+          "recordedAt": "2026-08-27T09:36:19.440Z",
+          "notes": "PASS après correction du routage statechart, du reciblage vers cible active déjà résolue et des preuves V5 T05.4.",
+          "reviewer": "/root/m5_t05_final_audit gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Reprise critique, corrections issues de la revue indépendante, validation finale et clôture coordonnée ; implémentation bornée aux fixtures T05.",
+        "recordedAt": "2026-08-27T09:36:19.517Z"
+      },
+      "updatedAt": "2026-08-27T09:36:19.581Z",
+      "scopeUpdatedAt": "2026-08-26T20:08:30.993Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T05-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5-T05: domaine, orchestration, statechart public, persistence V5, tests unitaires, Playwright et build",
+          "recordedAt": "2026-08-27T09:36:19.367Z"
+        },
+        {
+          "id": "RUN-M5-T05-002",
+          "command": "audit indépendant Sol high du diff M5-T05 corrigé",
+          "result": "passed",
+          "scope": "Split fire, reciblage, choix d'aptitude dupliquée, PRNG, provenance, Save V5 et matrice",
+          "recordedAt": "2026-08-27T09:36:19.440Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T05-S01",
+          "title": "Couvrir ciblage avancé et armes mixtes",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:36:19.581Z"
+        }
+      ]
     },
     {
       "id": "SIM-M5-T06",
       "milestoneId": "M5",
-      "title": "Intégrer et auditer le tir étendu",
-      "status": "planned",
+      "title": "Auditer et clôturer le tir M5 sur fixtures",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T05",
         "SIM-M4-T06"
@@ -1627,19 +3359,130 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Les deux rosters pilotes utilisent le pipeline étendu avec UI, golden tests, rejets sans entropie, sauvegarde et replay exact.",
-          "evidenceIds": []
+          "description": "Les primitives et fixtures M5, leurs refus hors périmètre, les sauvegardes V1–V5 et les régressions UI M4 sont audités ; les profils alternatifs réels restent différés.",
+          "evidenceIds": [
+            "EVD-M5-T06-002",
+            "EVD-M5-T06-003"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M5-T06-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "failed",
+          "scope": "Tracker V2 et suite complète",
+          "recordedAt": "2026-08-27T09:55:59.657Z",
+          "notes": "Le test synthétique de réouverture ne synchronisait pas la tranche atomique ; test corrigé, aucun défaut produit."
+        },
+        {
+          "id": "EVD-M5-T06-002",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5 fixtures, refus hors périmètre, V1-V5, régression UI M4, tracker V2, données, 399 Vitest, 3 Playwright et build",
+          "recordedAt": "2026-08-27T09:55:59.725Z",
+          "notes": "Suite finale entièrement verte après correction du test de tracker V2."
+        },
+        {
+          "id": "EVD-M5-T06-003",
+          "kind": "independent-review",
+          "command": "audit indépendant M5 Sol high sous le critère du plan 3.0.0",
+          "result": "passed",
+          "scope": "Volumes/modificateurs, relances/critiques, saves/dégâts/allocation, split fire/reciblage/doublons, V1-V5, PRNG, provenance et régression M4",
+          "recordedAt": "2026-08-27T09:55:59.801Z",
+          "notes": "PASS sur le périmètre fixture réellement annoncé ; le seul finding était le critère contradictoire du plan 2.3.4, corrigé par ADR-014.",
+          "reviewer": "/root/m5_milestone_audit gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Audit indépendant M5, résolution du conflit de périmètre via plan 3.0.0, tracker V2 et validation complète.",
+        "recordedAt": "2026-08-27T09:55:59.882Z"
+      },
+      "updatedAt": "2026-08-27T09:55:59.963Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-013",
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M5-T06-001",
+          "command": "pnpm verify",
+          "result": "failed",
+          "scope": "Tracker V2 et suite complète",
+          "recordedAt": "2026-08-27T09:55:59.657Z"
+        },
+        {
+          "id": "RUN-M5-T06-002",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M5 fixtures, refus hors périmètre, V1-V5, régression UI M4, tracker V2, données, 399 Vitest, 3 Playwright et build",
+          "recordedAt": "2026-08-27T09:55:59.725Z"
+        },
+        {
+          "id": "RUN-M5-T06-003",
+          "command": "audit indépendant M5 Sol high sous le critère du plan 3.0.0",
+          "result": "passed",
+          "scope": "Volumes/modificateurs, relances/critiques, saves/dégâts/allocation, split fire/reciblage/doublons, V1-V5, PRNG, provenance et régression M4",
+          "recordedAt": "2026-08-27T09:55:59.801Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M5-T06-S01",
+          "title": "Auditer et clôturer le tir M5 sur fixtures",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M6-T01",
       "milestoneId": "M6",
-      "title": "Étendre le pack Salamanders pilote",
-      "status": "planned",
+      "title": "Construire le graphe de couverture et le registre d’arbitrages",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T06"
       ],
@@ -1648,62 +3491,401 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Un premier lot supplémentaire Salamanders est sourcé et entièrement couvert, règles de détachement incluses.",
-          "evidenceIds": []
+          "description": "Chaque règle obligatoire du pilote fermé pointe vers une source, un arbitrage approuvé ou un gap bloquant explicite.",
+          "evidenceIds": [
+            "EVD-M6-T01-001",
+            "EVD-M6-T01-002",
+            "EVD-M6-T01-003"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M6-T01-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.4.0, graphe full-game, provenance et miroir public",
+          "recordedAt": "2026-08-27T10:12:52.406Z",
+          "notes": "Validation contractuelle des 14 nœuds obligatoires, 10 gaps, relations inverses et readiness exhaustive."
+        },
+        {
+          "id": "EVD-M6-T01-002",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "44 fichiers, 408 tests",
+          "recordedAt": "2026-08-27T10:12:52.484Z"
+        },
+        {
+          "id": "EVD-M6-T01-003",
+          "kind": "independent-review",
+          "command": "audit Sol high m6_t01_coverage_audit",
+          "result": "passed",
+          "scope": "Sources, graphe de couverture, arbitrages et refus de compatibilité",
+          "recordedAt": "2026-08-27T10:12:52.559Z",
+          "notes": "PASS sans P1/P2/P3 après correction de l’exhaustivité readiness.",
+          "reviewer": "gpt-5.6-sol/high"
+        },
+        {
+          "id": "EVD-M6-T01-004",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Graphe de couverture M6 après validation structurée",
+          "recordedAt": "2026-08-27T23:42:32.007Z",
+          "notes": "Gate attendu reconfirmé pendant l'audit SIM-M6-T04."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Formalisation du graphe de couverture coordonnée puis audit indépendant Sol high.",
+        "recordedAt": "2026-08-27T10:12:52.339Z"
+      },
+      "updatedAt": "2026-08-27T10:12:52.718Z",
+      "scopeUpdatedAt": "2026-08-27T10:05:02.603Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Fournir les captures officielles demandées et vérifier les passages OCR incertains."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-universal-rules-updates-en-2026-07",
+        "warforge-faction-pack-space-marines-fr-2026-07",
+        "warforge-faction-pack-blood-angels-fr-2026-07",
+        "warforge-official-app-faq-fr-2026-07",
+        "warforge-official-app-references-fr-2026-07",
+        "warforge-official-app-errata-fr-2026-07",
+        "warforge-catalog-1.2.13.0"
+      ],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "data/rules/**",
+        "data/simulator/**",
+        "public/data/simulator/**",
+        "docs/simulator/**",
+        "../references/warhammer-40k/**",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs",
+        "scripts/simulator-project.mjs",
+        "scripts/simulator-project.test.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M6-T01-001",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.4.0, graphe full-game, provenance et miroir public",
+          "recordedAt": "2026-08-27T10:12:52.406Z"
+        },
+        {
+          "id": "RUN-M6-T01-002",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "44 fichiers, 408 tests",
+          "recordedAt": "2026-08-27T10:12:52.484Z"
+        },
+        {
+          "id": "RUN-M6-T01-003",
+          "command": "audit Sol high m6_t01_coverage_audit",
+          "result": "passed",
+          "scope": "Sources, graphe de couverture, arbitrages et refus de compatibilité",
+          "recordedAt": "2026-08-27T10:12:52.559Z"
+        },
+        {
+          "id": "RUN-M6-T01-004",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Graphe de couverture M6 après validation structurée",
+          "recordedAt": "2026-08-27T23:42:32.007Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M6-T01-S01",
+          "title": "Construire le graphe de couverture et le registre d’arbitrages",
+          "status": "done",
+          "allowedPaths": [
+            "data/rules/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "docs/simulator/**",
+            "../references/warhammer-40k/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "scripts/simulator-project.mjs",
+            "scripts/simulator-project.test.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M6-T02",
       "milestoneId": "M6",
-      "title": "Étendre le pack Blood Angels pilote",
-      "status": "planned",
+      "title": "Définir BattleState, MissionState et SimulationSaveV6",
+      "status": "done",
       "dependencies": [
         "SIM-M5-T06"
       ],
-      "executionProfile": "rules-formalization",
+      "executionProfile": "architecture-critical",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Un premier lot supplémentaire Blood Angels est sourcé et entièrement couvert, règles de détachement incluses.",
-          "evidenceIds": []
+          "description": "Les contrats de partie complète, files de résolution, versions d’événements et lecteurs V1–V5 sont purs, sérialisables et rejouables.",
+          "evidenceIds": [
+            "EVD-M6-T02-001",
+            "EVD-M6-T02-002",
+            "EVD-M6-T02-003"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M6-T02-001",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "46 fichiers, 416 tests dont 8 tests V6 ciblés",
+          "recordedAt": "2026-08-27T18:03:44.163Z",
+          "notes": "Contrats, FIFO, V1-V5 pré-V6, replay, export/import/autosave V6 et refus adversariaux."
+        },
+        {
+          "id": "EVD-M6-T02-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate && pnpm lint && pnpm build",
+          "result": "passed",
+          "scope": "Données 0.4.0, TypeScript et build PWA",
+          "recordedAt": "2026-08-27T18:03:44.240Z"
+        },
+        {
+          "id": "EVD-M6-T02-003",
+          "kind": "independent-review",
+          "command": "audit Sol high m6_t01_coverage_audit follow-up",
+          "result": "passed",
+          "scope": "BattleStateV1, MissionStateV1, ResolutionQueueV1, SaveV6, compatibilité V1-V5 et frontières de persistance",
+          "recordedAt": "2026-08-27T18:03:44.319Z",
+          "notes": "PASS sans P1/P2/P3 après correction liaison manifest et forme exacte de la queue.",
+          "reviewer": "gpt-5.6-sol/high"
+        },
+        {
+          "id": "EVD-M6-T02-004",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Contrats V6 et persistance après validation structurée",
+          "recordedAt": "2026-08-27T23:42:32.080Z",
+          "notes": "Gate attendu reconfirmé pendant l'audit SIM-M6-T04."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Architecture V6 implémentée par le coordinateur après échec de délégation, puis audit indépendant Sol high en contexte frais.",
+        "recordedAt": "2026-08-27T18:03:44.096Z"
+      },
+      "updatedAt": "2026-08-27T18:03:44.399Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-015"
+      ],
+      "allowedPaths": [
+        "src/simulator/domain/**",
+        "src/simulator/orchestration/**",
+        "src/simulator/persistence/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M6-T02-001",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "46 fichiers, 416 tests dont 8 tests V6 ciblés",
+          "recordedAt": "2026-08-27T18:03:44.163Z"
+        },
+        {
+          "id": "RUN-M6-T02-002",
+          "command": "pnpm simulator:validate && pnpm lint && pnpm build",
+          "result": "passed",
+          "scope": "Données 0.4.0, TypeScript et build PWA",
+          "recordedAt": "2026-08-27T18:03:44.240Z"
+        },
+        {
+          "id": "RUN-M6-T02-003",
+          "command": "audit Sol high m6_t01_coverage_audit follow-up",
+          "result": "passed",
+          "scope": "BattleStateV1, MissionStateV1, ResolutionQueueV1, SaveV6, compatibilité V1-V5 et frontières de persistance",
+          "recordedAt": "2026-08-27T18:03:44.319Z"
+        },
+        {
+          "id": "RUN-M6-T02-004",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Contrats V6 et persistance après validation structurée",
+          "recordedAt": "2026-08-27T23:42:32.080Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M6-T02-S01",
+          "title": "Définir BattleState, MissionState et SimulationSaveV6",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/domain/**",
+            "src/simulator/orchestration/**",
+            "src/simulator/persistence/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M6-T03",
       "milestoneId": "M6",
-      "title": "Construire les rosters pilotes élargis",
-      "status": "planned",
+      "title": "Compiler les rosters et le scénario fermés",
+      "status": "done",
       "dependencies": [
         "SIM-M6-T01",
         "SIM-M6-T02"
       ],
-      "executionProfile": "implementation-routine",
-      "critical": false,
+      "executionProfile": "implementation-complex",
+      "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Les nouveaux lots sont sélectionnables sans affaiblir les refus exhaustifs de compatibilité.",
-          "evidenceIds": []
+          "description": "Les deux forces de trois unités et le scénario draft produisent un CompatibilityReportV2 exhaustif sans activer de mission non sourcée.",
+          "evidenceIds": [
+            "EVD-M6-T03-001",
+            "EVD-M6-T03-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M6-T03-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; pnpm test; pnpm lint; pnpm simulator:project:check; git diff --check",
+          "result": "passed",
+          "scope": "CompatibilityReportV2 fermé, graphe v0.1.0, deux rosters 3 unités, scénario draft, empreinte et refus V6; 47 fichiers et 424 tests",
+          "recordedAt": "2026-08-27T23:25:05.672Z",
+          "notes": "Cas nominal bloqué: 13 exigences, 10 gaps, 6 décisions humaines, 7 sources manquantes; mission non exécutable."
+        },
+        {
+          "id": "EVD-M6-T03-002",
+          "kind": "independent-review",
+          "command": "audit indépendant Sol high m6_t01_coverage_audit follow-up final",
+          "result": "passed",
+          "scope": "Exhaustivité fail-closed, provenance, identités, graphe amputé/étendu, statuts, kinds, M10 non atteignable, secondaires et gaps candidats",
+          "recordedAt": "2026-08-27T23:25:05.746Z",
+          "notes": "PASS sans finding P1/P2/P3 après fermeture de toutes les reproductions.",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Implémentation initiale du compilateur fermé, puis corrections coordonnées des invariants relevés par audit Sol high.",
+        "recordedAt": "2026-08-27T23:25:05.594Z"
+      },
+      "updatedAt": "2026-08-27T23:25:05.823Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Approuver les loadouts, profils physiques et conventions signalés."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M6-T03-001",
+          "command": "pnpm simulator:validate; pnpm test; pnpm lint; pnpm simulator:project:check; git diff --check",
+          "result": "passed",
+          "scope": "CompatibilityReportV2 fermé, graphe v0.1.0, deux rosters 3 unités, scénario draft, empreinte et refus V6; 47 fichiers et 424 tests",
+          "recordedAt": "2026-08-27T23:25:05.672Z"
+        },
+        {
+          "id": "RUN-M6-T03-002",
+          "command": "audit indépendant Sol high m6_t01_coverage_audit follow-up final",
+          "result": "passed",
+          "scope": "Exhaustivité fail-closed, provenance, identités, graphe amputé/étendu, statuts, kinds, M10 non atteignable, secondaires et gaps candidats",
+          "recordedAt": "2026-08-27T23:25:05.746Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M6-T03-S01",
+          "title": "Compiler les rosters et le scénario fermés",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M6-T04",
       "milestoneId": "M6",
-      "title": "Auditer les forces pilotes élargies",
-      "status": "planned",
+      "title": "Auditer les fondations de partie complète",
+      "status": "done",
       "dependencies": [
         "SIM-M6-T03"
       ],
@@ -1712,41 +3894,387 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Chaque variante annoncée possède fixtures, non-régressions et preuve de couverture exhaustive.",
-          "evidenceIds": []
+          "description": "Architecture V6, migrations, sources et refus de session incomplète passent les gates et une revue indépendante.",
+          "evidenceIds": [
+            "EVD-M6-T04-004"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M6-T04-001",
+          "kind": "independent-review",
+          "command": "audit indépendant Sol high m6_milestone_final_audit initial",
+          "result": "failed",
+          "scope": "Fondations M6 avant corrections d'audit",
+          "recordedAt": "2026-08-27T23:42:32.154Z",
+          "notes": "P1: setup V6 fondé sur métadonnées déclaratives; P2: coverage.persistence-v6 encore planned; P3: project check absent des actualRuns T01/T02.",
+          "reviewer": "gpt-5.6-sol/high"
+        },
+        {
+          "id": "EVD-M6-T04-002",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M6 complet après corrections P1-P3 : données, 47 fichiers Vitest/425 tests, 3 Playwright et build PWA",
+          "recordedAt": "2026-08-27T23:45:52.244Z",
+          "notes": "La gate intégrale et ses composants ont été exécutés; lint et git diff --check sont également verts. La persistance V6 retire un bloqueur interne, le rapport nominal courant conserve 12 exigences non couvertes et 10 gaps externes."
+        },
+        {
+          "id": "EVD-M6-T04-003",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M6 final après liaison exhaustive des faits exécutables : 47 fichiers, 426 tests, 3 Playwright et build PWA",
+          "recordedAt": "2026-08-27T23:56:00.009Z",
+          "notes": "Rapport V6 lié au manifeste, environnement, profils, unités, armes, sources, rounds, ordre des joueurs, mission et objectifs."
+        },
+        {
+          "id": "EVD-M6-T04-004",
+          "kind": "independent-review",
+          "command": "audit indépendant Sol high m6_milestone_final_audit final",
+          "result": "passed",
+          "scope": "Architecture V6, migrations, couverture persistence, rapport compatible et dix probes de dérive exécutable",
+          "recordedAt": "2026-08-27T23:56:00.080Z",
+          "notes": "PASS sans finding P1/P2/P3; M6 peut être accepté.",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Audit indépendant en contexte frais, corrections coordonnées puis nouvelle lecture complète.",
+        "recordedAt": "2026-08-27T23:42:32.234Z"
+      },
+      "updatedAt": "2026-08-27T23:56:00.159Z",
+      "scopeUpdatedAt": "2026-08-27T23:40:46.632Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "public/data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M6-T04-001",
+          "command": "audit indépendant Sol high m6_milestone_final_audit initial",
+          "result": "failed",
+          "scope": "Fondations M6 avant corrections d'audit",
+          "recordedAt": "2026-08-27T23:42:32.154Z"
+        },
+        {
+          "id": "RUN-M6-T04-002",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M6 complet après corrections P1-P3 : données, 47 fichiers Vitest/425 tests, 3 Playwright et build PWA",
+          "recordedAt": "2026-08-27T23:45:52.244Z"
+        },
+        {
+          "id": "RUN-M6-T04-003",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "M6 final après liaison exhaustive des faits exécutables : 47 fichiers, 426 tests, 3 Playwright et build PWA",
+          "recordedAt": "2026-08-27T23:56:00.009Z"
+        },
+        {
+          "id": "RUN-M6-T04-004",
+          "command": "audit indépendant Sol high m6_milestone_final_audit final",
+          "result": "passed",
+          "scope": "Architecture V6, migrations, couverture persistence, rapport compatible et dix probes de dérive exécutable",
+          "recordedAt": "2026-08-27T23:56:00.080Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M6-T04-S01",
+          "title": "Auditer les fondations de partie complète",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M7-T01",
       "milestoneId": "M7",
-      "title": "Formaliser Charge et Combat",
-      "status": "planned",
+      "title": "Implémenter déploiement et premier joueur",
+      "status": "done",
       "dependencies": [
-        "SIM-M5-T06",
+        "SIM-M6-T04",
         "SIM-M2-T02"
       ],
-      "executionProfile": "rules-formalization",
+      "executionProfile": "implementation-complex",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Séquences, fenêtres, mouvements et contraintes de Charge/Combat sont reliés aux sources et golden cases.",
-          "evidenceIds": []
+          "description": "Zones, placement, alternance et premier joueur passent par commandes, événements, géométrie et replay.",
+          "evidenceIds": [
+            "EVD-M7-T01-003",
+            "EVD-M7-T01-005",
+            "EVD-M7-T01-008",
+            "EVD-M7-T01-010"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M7-T01-001",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker M7-T01, sources du TaskBrief et dépendances",
+          "recordedAt": "2026-08-28T05:27:32.409Z"
+        },
+        {
+          "id": "EVD-M7-T01-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.5.0, hash du Compagnon V1.1 et miroirs publics",
+          "recordedAt": "2026-08-28T05:27:32.775Z"
+        },
+        {
+          "id": "EVD-M7-T01-003",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "48 fichiers, 432 tests : déploiement, alternance, géométrie, TITANIC, cohérence 7+, roll-off, replay et persistance",
+          "recordedAt": "2026-08-28T05:27:33.159Z"
+        },
+        {
+          "id": "EVD-M7-T01-004",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, build Vite et PWA après intégration M7-T01",
+          "recordedAt": "2026-08-28T05:27:33.544Z"
+        },
+        {
+          "id": "EVD-M7-T01-005",
+          "kind": "independent-review",
+          "command": "audit indépendant m7_t01_audit",
+          "result": "passed",
+          "scope": "Contrats, géométrie autoritaire, replay V6, déterminisme, fingerprint et provenance officielle",
+          "recordedAt": "2026-08-28T05:27:33.939Z",
+          "notes": "PASS sans P1/P2. Les deux P3 (sourceIds du TaskBrief, tests 7+ et TITANIC) ont été résolus avant clôture.",
+          "reviewer": "gpt-5.6-sol/high"
+        },
+        {
+          "id": "EVD-M7-T01-006",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker rouvert, sources Core/Compagnon et dépendances",
+          "recordedAt": "2026-08-28T05:33:21.232Z"
+        },
+        {
+          "id": "EVD-M7-T01-007",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.5.0 et corpus simulateur",
+          "recordedAt": "2026-08-28T05:33:21.593Z"
+        },
+        {
+          "id": "EVD-M7-T01-008",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "48 fichiers, 432 tests après correction V11 03.03",
+          "recordedAt": "2026-08-28T05:33:21.959Z"
+        },
+        {
+          "id": "EVD-M7-T01-009",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et PWA avec cohérence 2 pouces/9 pouces",
+          "recordedAt": "2026-08-28T05:33:22.353Z"
+        },
+        {
+          "id": "EVD-M7-T01-010",
+          "kind": "independent-review",
+          "command": "follow-up audit canonique m7_t01_audit",
+          "result": "passed",
+          "scope": "03.03, déploiement, événement, reducer, replay, tests et TaskBrief",
+          "recordedAt": "2026-08-28T05:33:22.749Z",
+          "notes": "PASS sans P1/P2/P3; 1 voisin à 2 pouces, toutes les paires à 9 pouces, sans seuil 7+.",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Implémentation puis correction canonique de 03.03; audit indépendant Sol high en contexte frais.",
+        "recordedAt": "2026-08-28T05:33:20.870Z"
+      },
+      "updatedAt": "2026-08-28T05:33:30.532Z",
+      "scopeUpdatedAt": "2026-08-28T05:29:57.903Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-event-companion-fr-2026-07"
+      ],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "public/data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**",
+        "scripts/simulator-project.mjs",
+        "scripts/simulator-project.test.mjs",
+        "scripts/validate-simulator-data.test.mjs",
+        "../references/warhammer-40k/rules/missions/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M7-T01-001",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker M7-T01, sources du TaskBrief et dépendances",
+          "recordedAt": "2026-08-28T05:27:32.409Z"
+        },
+        {
+          "id": "RUN-M7-T01-002",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.5.0, hash du Compagnon V1.1 et miroirs publics",
+          "recordedAt": "2026-08-28T05:27:32.775Z"
+        },
+        {
+          "id": "RUN-M7-T01-003",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "48 fichiers, 432 tests : déploiement, alternance, géométrie, TITANIC, cohérence 7+, roll-off, replay et persistance",
+          "recordedAt": "2026-08-28T05:27:33.159Z"
+        },
+        {
+          "id": "RUN-M7-T01-004",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, build Vite et PWA après intégration M7-T01",
+          "recordedAt": "2026-08-28T05:27:33.544Z"
+        },
+        {
+          "id": "RUN-M7-T01-005",
+          "command": "audit indépendant m7_t01_audit",
+          "result": "passed",
+          "scope": "Contrats, géométrie autoritaire, replay V6, déterminisme, fingerprint et provenance officielle",
+          "recordedAt": "2026-08-28T05:27:33.939Z"
+        },
+        {
+          "id": "RUN-M7-T01-006",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker rouvert, sources Core/Compagnon et dépendances",
+          "recordedAt": "2026-08-28T05:33:21.232Z"
+        },
+        {
+          "id": "RUN-M7-T01-007",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.5.0 et corpus simulateur",
+          "recordedAt": "2026-08-28T05:33:21.593Z"
+        },
+        {
+          "id": "RUN-M7-T01-008",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "48 fichiers, 432 tests après correction V11 03.03",
+          "recordedAt": "2026-08-28T05:33:21.959Z"
+        },
+        {
+          "id": "RUN-M7-T01-009",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et PWA avec cohérence 2 pouces/9 pouces",
+          "recordedAt": "2026-08-28T05:33:22.353Z"
+        },
+        {
+          "id": "RUN-M7-T01-010",
+          "command": "follow-up audit canonique m7_t01_audit",
+          "result": "passed",
+          "scope": "03.03, déploiement, événement, reducer, replay, tests et TaskBrief",
+          "recordedAt": "2026-08-28T05:33:22.749Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M7-T01-S01",
+          "title": "Implémenter déploiement et premier joueur",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**",
+            "scripts/simulator-project.mjs",
+            "scripts/simulator-project.test.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "../references/warhammer-40k/rules/missions/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M7-T02",
       "milestoneId": "M7",
-      "title": "Implémenter les charges et réactions",
-      "status": "planned",
+      "title": "Implémenter rounds, tours et mouvements complets",
+      "status": "done",
       "dependencies": [
         "SIM-M7-T01"
       ],
@@ -1755,40 +4283,395 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Déclaration, cible, jet, mouvement balayé et refus de charge sont déterministes et expliqués.",
-          "evidenceIds": []
+          "description": "Cinq rounds, tours, phases, Remain Stationary, Normal Move, Advance et Fall Back ont des conséquences persistantes et rejouables.",
+          "evidenceIds": [
+            "EVD-M7-T02-002",
+            "EVD-M7-T02-003",
+            "EVD-M7-T02-004",
+            "EVD-M7-T02-005",
+            "EVD-M7-T02-006",
+            "EVD-M7-T02-007"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M7-T02-001",
+          "kind": "independent-review",
+          "command": "audit Sol high initial M7-T02",
+          "result": "failed",
+          "scope": "Rounds, mouvements et Fuite Désespérée",
+          "recordedAt": "2026-08-28T16:27:21.643Z",
+          "notes": "P1 allocation automatique non conforme et P3 replay/refus insuffisamment testés ; constats corrigés avant ré-audit.",
+          "reviewer": "gpt-5.6-sol/high:m7_t02_audit"
+        },
+        {
+          "id": "EVD-M7-T02-002",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "49 fichiers, 444 tests unitaires, propriétés, moteur, replay et données",
+          "recordedAt": "2026-08-28T16:27:22.443Z",
+          "notes": "Inclut cinq rounds, quatre choix de mouvement, ordre joueur Fuite Désespérée, replay de branche et refus MONSTER/VEHICLE."
+        },
+        {
+          "id": "EVD-M7-T02-003",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.6.0, couverture 0.2.0 et transcription officielle indexée",
+          "recordedAt": "2026-08-28T16:27:23.307Z",
+          "notes": "40 sections, hash et miroir public validés."
+        },
+        {
+          "id": "EVD-M7-T02-004",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et build PWA de production",
+          "recordedAt": "2026-08-28T16:27:24.333Z",
+          "notes": "Build Vite/PWA réussi."
+        },
+        {
+          "id": "EVD-M7-T02-005",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker, dépendances, profils et statut généré",
+          "recordedAt": "2026-08-28T16:27:25.222Z",
+          "notes": "Tracker cohérent avant clôture."
+        },
+        {
+          "id": "EVD-M7-T02-006",
+          "kind": "validation",
+          "command": "SHA256 + index source Drive 1A_1ZqTzi6WF9FJnGuvVaHH1Ud2pBDFQH",
+          "result": "passed",
+          "scope": "Archive brute et index officiel-app-supplemental-rules-fr-2026-08",
+          "recordedAt": "2026-08-28T16:27:26.107Z",
+          "notes": "SHA256 7e446091d5b6d8e4d1584307c3002f628a786d9e9445cdd4ab120e0dbe8b7bdc, 40 sections, reference-only, aucune promotion exécutable."
+        },
+        {
+          "id": "EVD-M7-T02-007",
+          "kind": "independent-review",
+          "command": "audit Sol high final M7-T02",
+          "result": "passed",
+          "scope": "Cinq rounds, mouvements, allocations §06.02, PRNG, replay, limites M8 et source officielle",
+          "recordedAt": "2026-08-28T16:27:26.923Z",
+          "notes": "Aucun constat P0-P3 ; limite import V6 Fuite Désespérée acceptée jusqu'à M7-T03 Charge.",
+          "reviewer": "gpt-5.6-sol/high:m7_t02_audit"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Implémentation complexe coordonnée, corrections issues de deux audits Sol high et intégration mécanique de la transcription officielle propriétaire.",
+        "recordedAt": "2026-08-28T16:27:27.745Z"
+      },
+      "updatedAt": "2026-08-28T16:27:28.563Z",
+      "scopeUpdatedAt": "2026-08-28T11:45:46.910Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-official-app-supplemental-rules-fr-2026-08"
+      ],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
+        "data/rules/official-app-supplemental-rules-fr-2026-08.json",
+        "data/rules/README.md",
+        "data/simulator/*.json",
+        "public/data/simulator/*.json",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs",
+        "src/simulator/domain/battle-sequence.ts",
+        "src/simulator/domain/battle-state.ts",
+        "src/simulator/domain/commands.ts",
+        "src/simulator/domain/desperate-escape.ts",
+        "src/simulator/domain/full-game-compiler.ts",
+        "src/simulator/domain/full-game-compiler.test.ts",
+        "src/simulator/domain/full-game-contracts.test.ts",
+        "src/simulator/domain/index.ts",
+        "src/simulator/domain/reducer.ts",
+        "src/simulator/domain/state.ts",
+        "src/simulator/domain/types.ts",
+        "src/simulator/orchestration/battle-loop.test.ts",
+        "src/simulator/orchestration/battle-movement.ts",
+        "src/simulator/orchestration/machine.ts",
+        "src/simulator/orchestration/shooting.ts",
+        "src/simulator/persistence/full-game-persistence.test.ts",
+        "src/simulator/rules/coherency.ts",
+        "src/simulator/rules/index.ts",
+        "src/simulator/rules/m7-source-references.ts",
+        "src/simulator/runtime/m4-real-roster-session.ts"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M7-T02-001",
+          "command": "audit Sol high initial M7-T02",
+          "result": "failed",
+          "scope": "Rounds, mouvements et Fuite Désespérée",
+          "recordedAt": "2026-08-28T16:27:21.643Z"
+        },
+        {
+          "id": "RUN-M7-T02-002",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "49 fichiers, 444 tests unitaires, propriétés, moteur, replay et données",
+          "recordedAt": "2026-08-28T16:27:22.443Z"
+        },
+        {
+          "id": "RUN-M7-T02-003",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifeste 0.6.0, couverture 0.2.0 et transcription officielle indexée",
+          "recordedAt": "2026-08-28T16:27:23.307Z"
+        },
+        {
+          "id": "RUN-M7-T02-004",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et build PWA de production",
+          "recordedAt": "2026-08-28T16:27:24.333Z"
+        },
+        {
+          "id": "RUN-M7-T02-005",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Tracker, dépendances, profils et statut généré",
+          "recordedAt": "2026-08-28T16:27:25.222Z"
+        },
+        {
+          "id": "RUN-M7-T02-006",
+          "command": "SHA256 + index source Drive 1A_1ZqTzi6WF9FJnGuvVaHH1Ud2pBDFQH",
+          "result": "passed",
+          "scope": "Archive brute et index officiel-app-supplemental-rules-fr-2026-08",
+          "recordedAt": "2026-08-28T16:27:26.107Z"
+        },
+        {
+          "id": "RUN-M7-T02-007",
+          "command": "audit Sol high final M7-T02",
+          "result": "passed",
+          "scope": "Cinq rounds, mouvements, allocations §06.02, PRNG, replay, limites M8 et source officielle",
+          "recordedAt": "2026-08-28T16:27:26.923Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M7-T02-S01",
+          "title": "Implémenter rounds, tours et mouvements complets",
+          "status": "done",
+          "allowedPaths": [
+            "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
+            "data/rules/official-app-supplemental-rules-fr-2026-08.json",
+            "data/rules/README.md",
+            "data/simulator/*.json",
+            "public/data/simulator/*.json",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "src/simulator/domain/battle-sequence.ts",
+            "src/simulator/domain/battle-state.ts",
+            "src/simulator/domain/commands.ts",
+            "src/simulator/domain/desperate-escape.ts",
+            "src/simulator/domain/full-game-compiler.ts",
+            "src/simulator/domain/full-game-compiler.test.ts",
+            "src/simulator/domain/full-game-contracts.test.ts",
+            "src/simulator/domain/index.ts",
+            "src/simulator/domain/reducer.ts",
+            "src/simulator/domain/state.ts",
+            "src/simulator/domain/types.ts",
+            "src/simulator/orchestration/battle-loop.test.ts",
+            "src/simulator/orchestration/battle-movement.ts",
+            "src/simulator/orchestration/machine.ts",
+            "src/simulator/orchestration/shooting.ts",
+            "src/simulator/persistence/full-game-persistence.test.ts",
+            "src/simulator/rules/coherency.ts",
+            "src/simulator/rules/index.ts",
+            "src/simulator/rules/m7-source-references.ts",
+            "src/simulator/runtime/m4-real-roster-session.ts"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M7-T03",
       "milestoneId": "M7",
-      "title": "Implémenter les attaques de mêlée",
-      "status": "planned",
+      "title": "Implémenter charges et réactions",
+      "status": "done",
       "dependencies": [
-        "SIM-M7-T02"
+        "SIM-M7-T02",
+        "SIM-M2-T02"
       ],
       "executionProfile": "implementation-complex",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Éligibilité, choix d'armes, attaques, allocations et pertes de mêlée suivent le journal événementiel.",
-          "evidenceIds": []
+          "description": "Déclaration, cible, jet, réaction, mouvement balayé et refus de charge sont déterministes et expliqués.",
+          "evidenceIds": [
+            "EVD-M7-T03-001",
+            "EVD-M7-T03-002",
+            "EVD-M7-T03-003",
+            "EVD-M7-T03-004",
+            "EVD-M7-T03-005"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M7-T03-001",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "50 fichiers, 454 tests Vitest; charges, replay V6 et regressions",
+          "recordedAt": "2026-08-28T17:03:00.025Z"
+        },
+        {
+          "id": "EVD-M7-T03-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Donnees simulateur 0.6.0 et couverture complete-game 0.3.0 valides",
+          "recordedAt": "2026-08-28T17:03:00.386Z"
+        },
+        {
+          "id": "EVD-M7-T03-003",
+          "kind": "validation",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "3 parcours Playwright Chromium",
+          "recordedAt": "2026-08-28T17:03:00.749Z"
+        },
+        {
+          "id": "EVD-M7-T03-004",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et build PWA Vite/PWA",
+          "recordedAt": "2026-08-28T17:03:01.102Z"
+        },
+        {
+          "id": "EVD-M7-T03-005",
+          "kind": "independent-review",
+          "command": "Audit independant Sol high SIM-M7-T03",
+          "result": "passed",
+          "scope": "Aucun finding P0-P3; AC-01 accepte apres trois lectures et corrections",
+          "recordedAt": "2026-08-28T17:03:01.504Z",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Implementation sequentielle coordonnee; audit independant gpt-5.6-sol/high",
+        "recordedAt": "2026-08-28T17:03:01.918Z"
+      },
+      "updatedAt": "2026-08-28T17:03:19.714Z",
+      "scopeUpdatedAt": "2026-08-28T16:29:51.729Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-official-app-faq-fr-2026-07",
+        "warforge-official-app-references-fr-2026-07",
+        "warforge-official-app-supplemental-rules-fr-2026-08"
+      ],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M7-T03-001",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "50 fichiers, 454 tests Vitest; charges, replay V6 et regressions",
+          "recordedAt": "2026-08-28T17:03:00.025Z"
+        },
+        {
+          "id": "RUN-M7-T03-002",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Donnees simulateur 0.6.0 et couverture complete-game 0.3.0 valides",
+          "recordedAt": "2026-08-28T17:03:00.386Z"
+        },
+        {
+          "id": "RUN-M7-T03-003",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "3 parcours Playwright Chromium",
+          "recordedAt": "2026-08-28T17:03:00.749Z"
+        },
+        {
+          "id": "RUN-M7-T03-004",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript et build PWA Vite/PWA",
+          "recordedAt": "2026-08-28T17:03:01.102Z"
+        },
+        {
+          "id": "RUN-M7-T03-005",
+          "command": "Audit independant Sol high SIM-M7-T03",
+          "result": "passed",
+          "scope": "Aucun finding P0-P3; AC-01 accepte apres trois lectures et corrections",
+          "recordedAt": "2026-08-28T17:03:01.504Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M7-T03-S01",
+          "title": "Implémenter charges et réactions",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M7-T04",
       "milestoneId": "M7",
-      "title": "Implémenter les mouvements de combat",
-      "status": "planned",
+      "title": "Implémenter combats et mouvements de mêlée",
+      "status": "done",
       "dependencies": [
         "SIM-M7-T03"
       ],
@@ -1797,19 +4680,108 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Pile-in, consolidation, engagement et cohérence utilisent la géométrie autoritaire et des preuves visuelles.",
-          "evidenceIds": []
+          "description": "Sélection, pile-in, armes de mêlée, allocations, pertes et consolidation suivent le journal autoritaire.",
+          "evidenceIds": [
+            "EVD-M7-T04-001",
+            "EVD-M7-T04-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M7-T04-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "51 fichiers et 462 tests Vitest; 3 parcours Playwright; validations des données; TypeScript; build Vite/PWA",
+          "recordedAt": "2026-08-29T03:57:02.892Z",
+          "notes": "Le premier build a rencontré un verrou Windows transitoire sur le CSV d'inventaire; le build isolé puis le gate complet ont réussi sans modification."
+        },
+        {
+          "id": "EVD-M7-T04-002",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high SIM-M7-T04",
+          "result": "passed",
+          "scope": "Combats, pile-in, consolidation, unités sans arme, replay de confiance et couverture fail-closed; aucun finding P0-P3",
+          "recordedAt": "2026-08-29T03:57:03.239Z",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "xhigh",
+        "context": "Implémentation séquentielle complexe; corrections guidées par audit indépendant gpt-5.6-sol/high en contexte frais.",
+        "recordedAt": "2026-08-29T03:57:02.533Z"
+      },
+      "updatedAt": "2026-08-29T03:57:24.726Z",
+      "scopeUpdatedAt": "2026-08-28T17:04:15.471Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-official-app-faq-fr-2026-07",
+        "warforge-official-app-references-fr-2026-07",
+        "warforge-official-app-supplemental-rules-fr-2026-08"
+      ],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M7-T04-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "51 fichiers et 462 tests Vitest; 3 parcours Playwright; validations des données; TypeScript; build Vite/PWA",
+          "recordedAt": "2026-08-29T03:57:02.892Z"
+        },
+        {
+          "id": "RUN-M7-T04-002",
+          "command": "Audit indépendant Sol high SIM-M7-T04",
+          "result": "passed",
+          "scope": "Combats, pile-in, consolidation, unités sans arme, replay de confiance et couverture fail-closed; aucun finding P0-P3",
+          "recordedAt": "2026-08-29T03:57:03.239Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M7-T04-S01",
+          "title": "Implémenter combats et mouvements de mêlée",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M7-T05",
       "milestoneId": "M7",
-      "title": "Livrer et auditer le vertical slice de combat",
-      "status": "planned",
+      "title": "Auditer la boucle de bataille",
+      "status": "done",
       "dependencies": [
         "SIM-M7-T04"
       ],
@@ -1818,19 +4790,110 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Une séquence charge-combat complète passe UI, tests, sauvegarde, reprise, replay et audit indépendant.",
-          "evidenceIds": []
+          "description": "Un vertical slice multi-tours traverse toutes les phases sans raccourci, puis sauvegarde, reprend et rejoue exactement.",
+          "evidenceIds": [
+            "EVD-M7-T05-001",
+            "EVD-M7-T05-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M7-T05-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données valides; 51 fichiers et 463 tests Vitest; 3 parcours Playwright; build PWA réussi",
+          "recordedAt": "2026-08-29T04:38:51.421Z",
+          "notes": "Gate intégral exécuté le 2026-08-29 après correction de la continuation d'allocation de mêlée"
+        },
+        {
+          "id": "EVD-M7-T05-002",
+          "kind": "independent-review",
+          "command": "audit indépendant read-only SIM-M7-T05",
+          "result": "passed",
+          "scope": "Boucle multi-tours, ordre 05.03/05.04, ownership défenseur, sauvegarde V6 interrompue, replay autoritaire et routage XState",
+          "recordedAt": "2026-08-29T04:38:51.496Z",
+          "notes": "PASS sans finding P0-P3",
+          "reviewer": "gpt-5.6-sol/high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Audit indépendant en contexte frais de la boucle M7, contre-revue de la séquence V11 05.03/05.04 et acceptation sur preuves",
+        "recordedAt": "2026-08-29T04:38:51.357Z"
+      },
+      "updatedAt": "2026-08-29T04:38:51.577Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M7-T05-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données valides; 51 fichiers et 463 tests Vitest; 3 parcours Playwright; build PWA réussi",
+          "recordedAt": "2026-08-29T04:38:51.421Z"
+        },
+        {
+          "id": "RUN-M7-T05-002",
+          "command": "audit indépendant read-only SIM-M7-T05",
+          "result": "passed",
+          "scope": "Boucle multi-tours, ordre 05.03/05.04, ownership défenseur, sauvegarde V6 interrompue, replay autoritaire et routage XState",
+          "recordedAt": "2026-08-29T04:38:51.496Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M7-T05-S01",
+          "title": "Auditer la boucle de bataille",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M8-T01",
       "milestoneId": "M8",
-      "title": "Étendre l'état aux ressources et statuts",
-      "status": "planned",
+      "title": "Implémenter ressources, Battle-shock et statuts",
+      "status": "done",
       "dependencies": [
         "SIM-M7-T05"
       ],
@@ -1839,40 +4902,109 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Ressources, durées, marqueurs et expirations ont des contrats versionnés et rejouables.",
-          "evidenceIds": []
+          "description": "CP, tests, modificateurs durables, durées et expirations ont des contrats versionnés et rejouables.",
+          "evidenceIds": [
+            "EVD-M8-T01-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M8-T01-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données valides; 52 fichiers, 473 tests Vitest; 3 tests Playwright; build PWA",
+          "recordedAt": "2026-08-29T10:17:59.443Z",
+          "notes": "Gate complet exécuté après les corrections de contre-revue."
+        },
+        {
+          "id": "EVD-M8-T01-002",
+          "kind": "independent-review",
+          "command": "audit Sol high M8-T01",
+          "result": "passed",
+          "scope": "Architecture, règles, replay V6, Fuite Désespérée, effets persistants, provenance et dates",
+          "recordedAt": "2026-08-29T10:17:59.802Z",
+          "notes": "PASS sans P0/P1/P2; audit strictement en lecture seule.",
+          "reviewer": "/root/m8_t01_audit (gpt-5.6-sol high)"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordination architecture-critical et contre-revue indépendante Sol high; implémentation et validations déterministes.",
+        "recordedAt": "2026-08-29T10:18:00.159Z"
+      },
+      "updatedAt": "2026-08-29T10:18:17.880Z",
+      "scopeUpdatedAt": "2026-08-29T09:49:24.755Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-official-app-supplemental-rules-fr-2026-08"
+      ],
+      "adrIds": [
+        "ADR-014",
+        "ADR-016"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**",
+        "scripts/validate-simulator-data.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M8-T01-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données valides; 52 fichiers, 473 tests Vitest; 3 tests Playwright; build PWA",
+          "recordedAt": "2026-08-29T10:17:59.443Z"
+        },
+        {
+          "id": "RUN-M8-T01-002",
+          "command": "audit Sol high M8-T01",
+          "result": "passed",
+          "scope": "Architecture, règles, replay V6, Fuite Désespérée, effets persistants, provenance et dates",
+          "recordedAt": "2026-08-29T10:17:59.802Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M8-T01-S01",
+          "title": "Implémenter ressources, Battle-shock et statuts",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**",
+            "scripts/validate-simulator-data.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M8-T02",
       "milestoneId": "M8",
-      "title": "Implémenter la phase de Commandement",
-      "status": "planned",
-      "dependencies": [
-        "SIM-M8-T01"
-      ],
-      "executionProfile": "implementation-complex",
-      "critical": true,
-      "acceptanceCriteria": [
-        {
-          "id": "AC-01",
-          "description": "La phase, ses décisions et ses ressources sont verrouillées par XState et journalisées.",
-          "evidenceIds": []
-        }
-      ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
-    },
-    {
-      "id": "SIM-M8-T03",
-      "milestoneId": "M8",
       "title": "Implémenter objectifs et contrôle",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M8-T01",
         "SIM-M2-T02"
@@ -1882,19 +5014,244 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Zones d'objectif, présence, contrôle et contestation sont calculés depuis les positions autoritaires.",
-          "evidenceIds": []
+          "description": "Présence, OC, contrôle et contestation sont calculés depuis l’état et la géométrie autoritaires.",
+          "evidenceIds": [
+            "EVD-M8-T02-001",
+            "EVD-M8-T02-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M8-T02-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données; 53 fichiers et 480 tests Vitest; 3 tests Playwright; build PWA",
+          "recordedAt": "2026-08-29T17:25:08.126Z",
+          "notes": "Contrôle d'objectifs déterministe, provenance exacte, sauvegarde/replay V6 et compatibilité pré-M8 validés le 2026-08-29."
+        },
+        {
+          "id": "EVD-M8-T02-002",
+          "kind": "independent-review",
+          "command": "audit Sol high M8-T02",
+          "result": "passed",
+          "scope": "Séquence des checkpoints, géométrie 40 mm et 3/5 pouces, OC, provenance, replay et compatibilité V6",
+          "recordedAt": "2026-08-29T17:25:14.269Z",
+          "notes": "PASS final sans finding P0-P3 après probes de suppression phase-end et turn-end.",
+          "reviewer": "/root/m8_t02_audit (gpt-5.6-sol high)"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Implémentation complexe coordonnée localement; revue indépendante Sol high en contexte ciblé, corrections auditées puis gate complète.",
+        "recordedAt": "2026-08-29T17:25:22.826Z"
+      },
+      "updatedAt": "2026-08-29T17:25:29.323Z",
+      "scopeUpdatedAt": "2026-08-29T16:59:13.264Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-official-app-supplemental-rules-fr-2026-08"
+      ],
+      "adrIds": [
+        "ADR-014",
+        "ADR-017"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M8-T02-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker et données; 53 fichiers et 480 tests Vitest; 3 tests Playwright; build PWA",
+          "recordedAt": "2026-08-29T17:25:08.126Z"
+        },
+        {
+          "id": "RUN-M8-T02-002",
+          "command": "audit Sol high M8-T02",
+          "result": "passed",
+          "scope": "Séquence des checkpoints, géométrie 40 mm et 3/5 pouces, OC, provenance, replay et compatibilité V6",
+          "recordedAt": "2026-08-29T17:25:14.269Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M8-T02-S01",
+          "title": "Implémenter objectifs et contrôle",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M8-T03",
+      "milestoneId": "M8",
+      "title": "Implémenter les stratagèmes obligatoires du pilote",
+      "status": "done",
+      "dependencies": [
+        "SIM-M8-T01"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Chaque stratagème obligatoire du pilote a coût, fenêtre, cible, effet, source, refus et replay explicites.",
+          "evidenceIds": [
+            "EVD-M8-T03-003"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M8-T03-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Gate complete avant corrections documentaires finales: 53 fichiers, 483 tests Vitest, 3/3 Playwright, build PWA et validateurs.",
+          "recordedAt": "2026-08-29T21:50:39.861Z",
+          "notes": "Les deux corrections P3 posteriores ne touchent que le graphe, l'ADR et leurs validateurs; elles ont ete revalidees separement."
+        },
+        {
+          "id": "EVD-M8-T03-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate; vitest cible; tsc; project check; git diff --check; miroir SHA-256",
+          "result": "passed",
+          "scope": "Etat final apres correction: donnees valides, 4 suites/106 tests, TypeScript, tracker, whitespace et miroir public identique.",
+          "recordedAt": "2026-08-29T21:50:39.936Z"
+        },
+        {
+          "id": "EVD-M8-T03-003",
+          "kind": "independent-review",
+          "command": "audit independant m8_t03_stratagem_audit Sol high puis contre-verification P3",
+          "result": "passed",
+          "scope": "Courage Insense 15.04, Contre-offensive 15.12, restrictions 15.01, PRNG, anti-forgery, V6 et couverture 0.7.0.",
+          "recordedAt": "2026-08-29T21:50:40.015Z",
+          "notes": "PASS sans P0-P2; deux P3 documentaires corriges puis confirmes CLOSED, AC-01 PASS.",
+          "reviewer": "m8_t03_stratagem_audit:gpt-5.6-sol-high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Formalisation source-backed et integration deterministe de deux stratagemes de base bornes, avec audit Sol high independant.",
+        "recordedAt": "2026-08-29T21:50:40.093Z"
+      },
+      "updatedAt": "2026-08-29T21:50:40.235Z",
+      "scopeUpdatedAt": "2026-08-29T21:36:17.385Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Fournir ou confirmer les captures officielles des stratagèmes exactement retenus."
+      },
+      "sourceIds": [
+        "warforge-core-rules-fr-2026-07",
+        "warforge-universal-rules-updates-en-2026-07",
+        "warforge-official-app-supplemental-rules-fr-2026-08",
+        "warforge-official-app-faq-fr-2026-07"
+      ],
+      "adrIds": [
+        "ADR-014",
+        "ADR-018"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "public/data/simulator/full-game-coverage.json",
+        "docs/simulator/**",
+        "tests/browser/**",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M8-T03-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Gate complete avant corrections documentaires finales: 53 fichiers, 483 tests Vitest, 3/3 Playwright, build PWA et validateurs.",
+          "recordedAt": "2026-08-29T21:50:39.861Z"
+        },
+        {
+          "id": "RUN-M8-T03-002",
+          "command": "pnpm simulator:validate; vitest cible; tsc; project check; git diff --check; miroir SHA-256",
+          "result": "passed",
+          "scope": "Etat final apres correction: donnees valides, 4 suites/106 tests, TypeScript, tracker, whitespace et miroir public identique.",
+          "recordedAt": "2026-08-29T21:50:39.936Z"
+        },
+        {
+          "id": "RUN-M8-T03-003",
+          "command": "audit independant m8_t03_stratagem_audit Sol high puis contre-verification P3",
+          "result": "passed",
+          "scope": "Courage Insense 15.04, Contre-offensive 15.12, restrictions 15.01, PRNG, anti-forgery, V6 et couverture 0.7.0.",
+          "recordedAt": "2026-08-29T21:50:40.015Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M8-T03-S01",
+          "title": "Implémenter les stratagèmes obligatoires du pilote",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "public/data/simulator/full-game-coverage.json",
+            "docs/simulator/**",
+            "tests/browser/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M8-T04",
       "milestoneId": "M8",
-      "title": "Auditer Commandement et objectifs",
-      "status": "planned",
+      "title": "Auditer ressources, objectifs et fenêtres",
+      "status": "done",
       "dependencies": [
         "SIM-M8-T02",
         "SIM-M8-T03"
@@ -1904,19 +5261,112 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Les ressources, statuts et objectifs survivent exactement à l'export, la reprise et le replay.",
-          "evidenceIds": []
+          "description": "Ressources, statuts, contrôle et décisions survivent à l’export, la reprise et le replay sans divergence.",
+          "evidenceIds": [
+            "EVD-M8-T04-001",
+            "EVD-M8-T04-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M8-T04-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données, 53 fichiers et 487 tests Vitest, 3 parcours Playwright et build PWA après corrections de l'audit M8.",
+          "recordedAt": "2026-08-30T05:16:21.302Z",
+          "notes": "Gate final exact réussi. Une tentative précédente avait rencontré un verrou Windows transitoire sur unit-images.json après les tests; le build isolé puis ce gate complet ont réussi sans changement fonctionnel."
+        },
+        {
+          "id": "EVD-M8-T04-002",
+          "kind": "independent-review",
+          "command": "Audit indépendant Sol high SIM-M8-T04 et contre-revue post-corrections",
+          "result": "passed",
+          "scope": "Ressources, effets temporisés, contrôle d'objectifs, fenêtres Courage insensé et Contre-offensive, registres multi-tour, tir V6, export/import/autosave et replay fail-closed.",
+          "recordedAt": "2026-08-30T05:16:30.923Z",
+          "notes": "PASS final sans P0-P3. Deux P1 initiaux (effet arbitraire, tolérance legacy), deux P1 de reprise (registres de tir, décision inconnue), la preuve persistante des stratagèmes et les P3 documentaires ont tous été fermés.",
+          "reviewer": "/root/m8_milestone_audit gpt-5.6-sol high"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Audit de jalon en contexte ciblé; corrections minimales coordonnées localement, tests de persistance V6 et deux lectures indépendantes Sol high.",
+        "recordedAt": "2026-08-30T05:16:34.902Z"
+      },
+      "updatedAt": "2026-08-30T05:16:39.093Z",
+      "scopeUpdatedAt": "2026-08-30T05:01:01.795Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**",
+        "public/data/simulator/full-game-coverage.json"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M8-T04-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données, 53 fichiers et 487 tests Vitest, 3 parcours Playwright et build PWA après corrections de l'audit M8.",
+          "recordedAt": "2026-08-30T05:16:21.302Z"
+        },
+        {
+          "id": "RUN-M8-T04-002",
+          "command": "Audit indépendant Sol high SIM-M8-T04 et contre-revue post-corrections",
+          "result": "passed",
+          "scope": "Ressources, effets temporisés, contrôle d'objectifs, fenêtres Courage insensé et Contre-offensive, registres multi-tour, tir V6, export/import/autosave et replay fail-closed.",
+          "recordedAt": "2026-08-30T05:16:30.923Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M8-T04-S01",
+          "title": "Auditer ressources, objectifs et fenêtres",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**",
+            "public/data/simulator/full-game-coverage.json"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M9-T01",
       "milestoneId": "M9",
-      "title": "Formaliser une mission fermée",
-      "status": "planned",
+      "title": "Activer la mission fermée depuis l'archive GDM approuvée",
+      "status": "in_progress",
       "dependencies": [
         "SIM-M8-T04"
       ],
@@ -1925,18 +5375,190 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Déploiement, objectifs, tours, conditions et score de la mission sont sourcés et versionnés.",
-          "evidenceIds": []
+          "description": "Disruption miroir 1, Outmanoeuvre, Assassination et Engage on All Fronts sont reliés à l'archive GDM approuvée, contrôlés par hash et formalisés sans la présenter comme officielle GW.",
+          "evidenceIds": [
+            "EVD-M9-T01-002",
+            "EVD-M9-T01-003",
+            "EVD-M9-T01-004",
+            "EVD-M9-T01-005"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "evidence": [
+        {
+          "id": "EVD-M9-T01-001",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plan 3.1.0, tâche active, dépendances et STATUS synchronisés",
+          "recordedAt": "2026-08-30T06:52:40.944Z"
+        },
+        {
+          "id": "EVD-M9-T01-002",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.7.0, archive GDM, hashes des cinq ressources, mission M9 et couverture 0.8.0",
+          "recordedAt": "2026-08-30T06:52:41.022Z"
+        },
+        {
+          "id": "EVD-M9-T01-003",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 495 tests, dont contrats de données et compilateur de couverture M9",
+          "recordedAt": "2026-08-30T06:52:41.098Z"
+        },
+        {
+          "id": "EVD-M9-T01-004",
+          "kind": "validation",
+          "command": "pnpm missions:validate",
+          "result": "passed",
+          "scope": "Deux packs mission valides; GDM 2026 trusted-web actif",
+          "recordedAt": "2026-08-30T06:52:41.179Z"
+        },
+        {
+          "id": "EVD-M9-T01-005",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Synchronisation des données, TypeScript et build PWA avec la nouvelle ressource mission",
+          "recordedAt": "2026-08-30T06:52:41.258Z"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordination locale; archive GDM 2026, cartes visuellement vérifiées, données et tracker M9.",
+        "recordedAt": "2026-08-30T06:41:08.209Z"
+      },
+      "updatedAt": "2026-08-30T06:52:05.532Z",
+      "scopeUpdatedAt": "2026-08-30T06:52:05.532Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Déjà réalisée par décision propriétaire : accepter l'archive GDM complète à la place de captures officielles supplémentaires."
+      },
+      "sourceIds": [
+        "approved-gdm-2026-11th-archive",
+        "warforge-event-companion-fr-2026-07"
+      ],
+      "adrIds": [
+        "ADR-014",
+        "ADR-019"
+      ],
+      "allowedPaths": [
+        "data/simulator/manifest.json",
+        "data/simulator/full-game-coverage.json",
+        "data/simulator/closed-complete-game-mission.json",
+        "data/simulator/coverage.json",
+        "data/simulator/m4-real-roster-facts.json",
+        "data/simulator/physical-profiles.json",
+        "data/simulator/rulepacks.json",
+        "data/simulator/scenarios.json",
+        "public/data/simulator/manifest.json",
+        "public/data/simulator/full-game-coverage.json",
+        "public/data/simulator/closed-complete-game-mission.json",
+        "public/data/simulator/coverage.json",
+        "public/data/simulator/physical-profiles.json",
+        "public/data/simulator/rulepacks.json",
+        "public/data/simulator/scenarios.json",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs",
+        "src/simulator/domain/full-game-compiler.ts",
+        "src/simulator/domain/full-game-compiler.test.ts",
+        "docs/simulator/PLAN.md",
+        "docs/simulator/project-state.json",
+        "docs/simulator/STATUS.md",
+        "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M9-T01-001",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plan 3.1.0, tâche active, dépendances et STATUS synchronisés",
+          "recordedAt": "2026-08-30T06:52:40.944Z"
+        },
+        {
+          "id": "RUN-M9-T01-002",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.7.0, archive GDM, hashes des cinq ressources, mission M9 et couverture 0.8.0",
+          "recordedAt": "2026-08-30T06:52:41.022Z"
+        },
+        {
+          "id": "RUN-M9-T01-003",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 495 tests, dont contrats de données et compilateur de couverture M9",
+          "recordedAt": "2026-08-30T06:52:41.098Z"
+        },
+        {
+          "id": "RUN-M9-T01-004",
+          "command": "pnpm missions:validate",
+          "result": "passed",
+          "scope": "Deux packs mission valides; GDM 2026 trusted-web actif",
+          "recordedAt": "2026-08-30T06:52:41.179Z"
+        },
+        {
+          "id": "RUN-M9-T01-005",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Synchronisation des données, TypeScript et build PWA avec la nouvelle ressource mission",
+          "recordedAt": "2026-08-30T06:52:41.258Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M9-T01-S01",
+          "title": "Activer la mission fermée depuis l'archive GDM approuvée",
+          "status": "in_progress",
+          "allowedPaths": [
+            "data/simulator/manifest.json",
+            "data/simulator/full-game-coverage.json",
+            "data/simulator/closed-complete-game-mission.json",
+            "data/simulator/coverage.json",
+            "data/simulator/m4-real-roster-facts.json",
+            "data/simulator/physical-profiles.json",
+            "data/simulator/rulepacks.json",
+            "data/simulator/scenarios.json",
+            "public/data/simulator/manifest.json",
+            "public/data/simulator/full-game-coverage.json",
+            "public/data/simulator/closed-complete-game-mission.json",
+            "public/data/simulator/coverage.json",
+            "public/data/simulator/physical-profiles.json",
+            "public/data/simulator/rulepacks.json",
+            "public/data/simulator/scenarios.json",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "src/simulator/domain/full-game-compiler.ts",
+            "src/simulator/domain/full-game-compiler.test.ts",
+            "docs/simulator/PLAN.md",
+            "docs/simulator/project-state.json",
+            "docs/simulator/STATUS.md",
+            "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-30T06:41:08.129Z",
+          "note": "Contrôler l'archive et activer la source approuvée."
+        }
+      ]
     },
     {
       "id": "SIM-M9-T02",
       "milestoneId": "M9",
-      "title": "Implémenter tours et score de mission",
+      "title": "Implémenter score et fin de partie sur cinq rounds",
       "status": "planned",
       "dependencies": [
         "SIM-M9-T01"
@@ -1946,18 +5568,60 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Le statechart conduit la mission et dérive chaque point d'un événement explicable.",
+          "description": "Chaque point et la fin de partie proviennent d’un ScoreEvent sourcé, explicable et rejouable.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-27T09:50:00.000Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M9-T02-S01",
+          "title": "Implémenter score et fin de partie sur cinq rounds",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M9-T03",
       "milestoneId": "M9",
-      "title": "Livrer l'interface de partie complète fermée",
+      "title": "Livrer l’interface de partie complète",
       "status": "planned",
       "dependencies": [
         "SIM-M9-T02"
@@ -1967,18 +5631,60 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "L'interface rend phase, round, score, décisions et journal lisibles sur toute la mission.",
+          "description": "Phase, round, joueur actif, score, décisions, journal, sauvegarde, reprise et replay sont utilisables hors ligne.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-27T09:50:00.000Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/ui/**",
+        "src/simulator/orchestration/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M9-T03-S01",
+          "title": "Livrer l’interface de partie complète",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/ui/**",
+            "src/simulator/orchestration/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M9-T04",
       "milestoneId": "M9",
-      "title": "Auditer la mission complète",
+      "title": "Playtester et accepter la partie complète",
       "status": "planned",
       "dependencies": [
         "SIM-M9-T03"
@@ -1988,13 +5694,61 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Une mission de bout en bout passe golden score, Playwright, export, reprise et replay exact.",
+          "description": "Une partie guidée complète passe Playwright, export/reprise/replay et validation humaine sans règle obligatoire ignorée.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-27T09:50:00.000Z",
+      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Jouer la partie guidée sur l’appareil cible et consigner chaque divergence ; cette contribution est indispensable."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M9-T04-S01",
+          "title": "Playtester et accepter la partie complète",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-27T09:50:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M10-T01",
@@ -2015,7 +5769,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T01-S01",
+          "title": "Formaliser zones et transitions hors plateau",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M10-T02",
@@ -2036,7 +5833,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T02-S01",
+          "title": "Implémenter réserves et arrivées",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M10-T03",
@@ -2058,7 +5898,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T03-S01",
+          "title": "Implémenter transports et débarquements",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M10-T04",
@@ -2080,7 +5963,56 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T04-S01",
+          "title": "Auditer les déploiements spéciaux",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M11-T01",
@@ -2102,7 +6034,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M11-T01-S01",
+          "title": "Industrialiser les packs de couverture",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M11-T02",
@@ -2123,7 +6098,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M11-T02-S01",
+          "title": "Ajouter les factions par lots audités",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M11-T03",
@@ -2144,7 +6162,50 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "M",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M11-T03-S01",
+          "title": "Mesurer la couverture du catalogue actif",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "SIM-M11-T04",
@@ -2165,7 +6226,56 @@
       ],
       "evidence": [],
       "actualExecution": null,
-      "updatedAt": "2026-08-13T13:00:00.000Z"
+      "updatedAt": "2026-08-13T13:00:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "docs/simulator/**",
+        "tests/browser/simulator.spec.ts",
+        "scripts/simulator-project.mjs"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build",
+        "pnpm verify"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M11-T04-S01",
+          "title": "Auditer la promesse de couverture",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "docs/simulator/**",
+            "tests/browser/simulator.spec.ts",
+            "scripts/simulator-project.mjs"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build",
+            "pnpm verify"
+          ],
+          "updatedAt": "2026-08-13T13:00:00.000Z"
+        }
+      ]
     }
   ],
   "blockers": [
@@ -2212,19 +6322,233 @@
   ],
   "openQuestions": [],
   "resumeContext": {
-    "taskId": "SIM-M5-T04",
-    "lastCompleted": "ADR-012 ouvre SimulationSaveV4 ; la revue indépendante de formalisation confirme les sources de T04, l’implémentation fixture-only est en cours.",
-    "nextAction": "Revalider SIM-M5-T04 avant toute clôture.",
+    "taskId": "SIM-M9-T01",
+    "lastCompleted": "Source GDM approuvée; ressource formalisée, validateurs, versioning, couverture et miroirs synchronisés.",
+    "nextAction": "Revalider SIM-M9-T01 avant toute clôture.",
     "files": [
-      "docs/simulator/decisions/ADR-012-extended-damage-and-save-v4.md",
+      "data/simulator/manifest.json",
+      "data/simulator/full-game-coverage.json",
+      "data/simulator/closed-complete-game-mission.json",
+      "data/simulator/coverage.json",
+      "data/simulator/m4-real-roster-facts.json",
+      "data/simulator/physical-profiles.json",
+      "data/simulator/rulepacks.json",
+      "data/simulator/scenarios.json",
+      "public/data/simulator/manifest.json",
+      "public/data/simulator/full-game-coverage.json",
+      "public/data/simulator/closed-complete-game-mission.json",
+      "public/data/simulator/coverage.json",
+      "public/data/simulator/physical-profiles.json",
+      "public/data/simulator/rulepacks.json",
+      "public/data/simulator/scenarios.json",
+      "scripts/validate-simulator-data.mjs",
+      "scripts/validate-simulator-data.test.mjs",
+      "src/simulator/domain/full-game-compiler.ts",
+      "src/simulator/domain/full-game-compiler.test.ts",
+      "docs/simulator/PLAN.md",
+      "docs/simulator/project-state.json",
+      "docs/simulator/STATUS.md",
+      "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+    ],
+    "updatedAt": "2026-08-30T06:52:05.532Z"
+  },
+  "productCapabilities": [
+    {
+      "id": "spatial-laboratory",
+      "title": "Laboratoire spatial",
+      "status": "available",
+      "description": "Géométrie M2 déterministe et verdicts explicables."
+    },
+    {
+      "id": "synthetic-shooting-duel",
+      "title": "Duel synthétique de tir",
+      "status": "available",
+      "description": "M3 jouable, sauvegardable et rejouable."
+    },
+    {
+      "id": "real-roster-move-shoot",
+      "title": "Duel réel mouvement/tir",
+      "status": "available",
+      "description": "M4 fermé : Salamanders–Blood Angels, 4 unités et 14 figurines."
+    },
+    {
+      "id": "advanced-shooting-fixtures",
+      "title": "Primitives de tir avancées",
+      "status": "available",
+      "description": "M5 sur fixtures sourcées ; profils alternatifs réels différés."
+    },
+    {
+      "id": "complete-five-round-game",
+      "title": "Partie complète cinq rounds",
+      "status": "planned",
+      "description": "Cible M9 ; Charge, Combat, commandement, objectifs, mission et score restent à livrer."
+    },
+    {
+      "id": "active-catalog",
+      "title": "Toute liste du catalogue",
+      "status": "planned",
+      "description": "Cible M11 uniquement après couverture exhaustive."
+    }
+  ],
+  "workspaceHealth": {
+    "status": "healthy",
+    "checkedAt": "2026-08-30T05:17:27.857Z",
+    "taskId": "SIM-M9-T01",
+    "baselinePaths": [
+      "../.agents/skills/warforge-data-operations/SKILL.md",
+      "../.agents/skills/warforge-simulator-development/SKILL.md",
+      "../AGENTS.md",
+      "AGENTS.md",
+      "data/rules/README.md",
+      "data/simulator/coverage.json",
+      "data/simulator/m4-real-roster-facts.json",
+      "data/simulator/manifest.json",
+      "data/simulator/physical-profiles.json",
+      "data/simulator/rulepacks.json",
+      "data/simulator/scenarios.json",
+      "docs/simulator/PLAN.md",
+      "docs/simulator/STATUS.md",
       "docs/simulator/m5-shooting-capability-matrix.md",
-      "src/simulator/domain/types.ts",
+      "docs/simulator/model-routing.json",
+      "docs/simulator/project-state.json",
+      "package.json",
+      "public/data/simulator/coverage.json",
+      "public/data/simulator/manifest.json",
+      "public/data/simulator/physical-profiles.json",
+      "public/data/simulator/rulepacks.json",
+      "public/data/simulator/scenarios.json",
+      "scripts/simulator-project.mjs",
+      "scripts/simulator-project.test.mjs",
+      "scripts/validate-simulator-data.mjs",
+      "scripts/validate-simulator-data.test.mjs",
+      "src/simulator/AGENTS.md",
+      "src/simulator/domain/commands.ts",
+      "src/simulator/domain/index.ts",
       "src/simulator/domain/reducer.ts",
       "src/simulator/domain/serialization.ts",
-      "src/simulator/rules/shooting.ts",
+      "src/simulator/domain/session-fingerprint.ts",
+      "src/simulator/domain/state.ts",
+      "src/simulator/domain/types.ts",
+      "src/simulator/orchestration/index.ts",
+      "src/simulator/orchestration/machine.ts",
+      "src/simulator/orchestration/shooting.test.ts",
       "src/simulator/orchestration/shooting.ts",
-      "src/simulator/persistence/autosave.ts"
+      "src/simulator/persistence/autosave.ts",
+      "src/simulator/rules/index.ts",
+      "src/simulator/rules/m5-source-references.ts",
+      "src/simulator/rules/weapon-keywords.ts",
+      "src/simulator/runtime/m4-real-roster-session.ts",
+      "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
+      "../references/warhammer-40k/rules/missions/fre_22-07_warhammer40k_event_companion_v1.1.pdf",
+      "data/rules/official-app-supplemental-rules-fr-2026-08.json",
+      "data/simulator/full-game-coverage.json",
+      "docs/simulator/decisions/ADR-013-advanced-shooting-declarations-save-v5.md",
+      "docs/simulator/decisions/ADR-014-plan-3-full-game-and-economic-execution.md",
+      "docs/simulator/decisions/ADR-015-complete-game-contracts-and-save-v6.md",
+      "docs/simulator/rule-arbitrations.md",
+      "public/data/simulator/full-game-coverage.json",
+      "src/simulator/domain/battle-sequence.ts",
+      "src/simulator/domain/battle-state.ts",
+      "src/simulator/domain/desperate-escape.ts",
+      "src/simulator/domain/full-game-compiler.test.ts",
+      "src/simulator/domain/full-game-compiler.ts",
+      "src/simulator/domain/full-game-contracts.test.ts",
+      "src/simulator/domain/split-fire.ts",
+      "src/simulator/orchestration/battle-charge.test.ts",
+      "src/simulator/orchestration/battle-charge.ts",
+      "src/simulator/orchestration/battle-loop.test.ts",
+      "src/simulator/orchestration/battle-movement.ts",
+      "src/simulator/orchestration/deployment.test.ts",
+      "src/simulator/orchestration/deployment.ts",
+      "src/simulator/persistence/full-game-persistence.test.ts",
+      "src/simulator/rules/coherency.ts",
+      "src/simulator/rules/m7-source-references.ts",
+      "src/simulator/testing/closed-complete-game-fixture.ts",
+      "src/simulator/testing/complete-game-deployment-fixture.ts"
     ],
-    "updatedAt": "2026-08-24T12:34:33.210Z"
+    "changedPaths": [
+      "../.agents/skills/warforge-data-operations/SKILL.md",
+      "../.agents/skills/warforge-simulator-development/SKILL.md",
+      "../AGENTS.md",
+      "AGENTS.md",
+      "data/rules/README.md",
+      "data/simulator/coverage.json",
+      "data/simulator/m4-real-roster-facts.json",
+      "data/simulator/manifest.json",
+      "data/simulator/physical-profiles.json",
+      "data/simulator/rulepacks.json",
+      "data/simulator/scenarios.json",
+      "docs/simulator/PLAN.md",
+      "docs/simulator/STATUS.md",
+      "docs/simulator/m5-shooting-capability-matrix.md",
+      "docs/simulator/model-routing.json",
+      "docs/simulator/project-state.json",
+      "package.json",
+      "public/data/simulator/coverage.json",
+      "public/data/simulator/manifest.json",
+      "public/data/simulator/physical-profiles.json",
+      "public/data/simulator/rulepacks.json",
+      "public/data/simulator/scenarios.json",
+      "scripts/simulator-project.mjs",
+      "scripts/simulator-project.test.mjs",
+      "scripts/validate-simulator-data.mjs",
+      "scripts/validate-simulator-data.test.mjs",
+      "src/simulator/AGENTS.md",
+      "src/simulator/domain/commands.ts",
+      "src/simulator/domain/index.ts",
+      "src/simulator/domain/reducer.ts",
+      "src/simulator/domain/serialization.ts",
+      "src/simulator/domain/session-fingerprint.ts",
+      "src/simulator/domain/state.ts",
+      "src/simulator/domain/types.ts",
+      "src/simulator/orchestration/index.ts",
+      "src/simulator/orchestration/machine.ts",
+      "src/simulator/orchestration/shooting.test.ts",
+      "src/simulator/orchestration/shooting.ts",
+      "src/simulator/persistence/autosave.ts",
+      "src/simulator/rules/index.ts",
+      "src/simulator/rules/m5-source-references.ts",
+      "src/simulator/rules/weapon-keywords.ts",
+      "src/simulator/runtime/m4-real-roster-session.ts",
+      "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
+      "../references/warhammer-40k/rules/missions/fre_22-07_warhammer40k_event_companion_v1.1.pdf",
+      "data/rules/official-app-supplemental-rules-fr-2026-08.json",
+      "data/simulator/full-game-coverage.json",
+      "docs/simulator/decisions/ADR-013-advanced-shooting-declarations-save-v5.md",
+      "docs/simulator/decisions/ADR-014-plan-3-full-game-and-economic-execution.md",
+      "docs/simulator/decisions/ADR-015-complete-game-contracts-and-save-v6.md",
+      "docs/simulator/decisions/ADR-016-command-resources-battle-shock-and-persistent-effects.md",
+      "docs/simulator/decisions/ADR-017-objective-markers-control-and-checkpoints.md",
+      "docs/simulator/decisions/ADR-018-covered-core-stratagem-windows.md",
+      "docs/simulator/rule-arbitrations.md",
+      "public/data/simulator/full-game-coverage.json",
+      "src/simulator/domain/battle-resources.test.ts",
+      "src/simulator/domain/battle-resources.ts",
+      "src/simulator/domain/battle-sequence.ts",
+      "src/simulator/domain/battle-state.ts",
+      "src/simulator/domain/desperate-escape.ts",
+      "src/simulator/domain/full-game-compiler.test.ts",
+      "src/simulator/domain/full-game-compiler.ts",
+      "src/simulator/domain/full-game-contracts.test.ts",
+      "src/simulator/domain/split-fire.ts",
+      "src/simulator/orchestration/battle-charge.test.ts",
+      "src/simulator/orchestration/battle-charge.ts",
+      "src/simulator/orchestration/battle-fight.test.ts",
+      "src/simulator/orchestration/battle-fight.ts",
+      "src/simulator/orchestration/battle-loop.test.ts",
+      "src/simulator/orchestration/battle-movement.ts",
+      "src/simulator/orchestration/deployment.test.ts",
+      "src/simulator/orchestration/deployment.ts",
+      "src/simulator/orchestration/objective-control.test.ts",
+      "src/simulator/orchestration/objective-control.ts",
+      "src/simulator/persistence/full-game-persistence.test.ts",
+      "src/simulator/rules/coherency.ts",
+      "src/simulator/rules/m7-source-references.ts",
+      "src/simulator/rules/m8-source-references.ts",
+      "src/simulator/testing/closed-complete-game-fixture.ts",
+      "src/simulator/testing/complete-game-deployment-fixture.ts"
+    ],
+    "unexpectedPaths": [],
+    "note": "Périmètre comparé à SIM-M9-T01."
   }
 }

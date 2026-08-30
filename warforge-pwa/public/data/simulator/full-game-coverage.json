@@ -1,0 +1,398 @@
+{
+  "schemaVersion": "warforge-simulator-full-game-coverage/v1",
+  "version": "0.8.0",
+  "manifestVersion": "0.7.0",
+  "scope": "closed-complete-game-pilot-v1",
+  "status": "draft-blocked",
+  "activationPolicy": "Une session V6 reste incompatible tant qu'un nœud reachable n'est pas covered ou qu'un gap bloquant reste ouvert.",
+  "canonicalSourceIds": [
+    "warforge-core-rules-fr-2026-07",
+    "warforge-universal-rules-updates-en-2026-07",
+    "warforge-event-companion-fr-2026-07",
+    "warforge-faction-pack-space-marines-fr-2026-07",
+    "warforge-faction-pack-blood-angels-fr-2026-07",
+    "warforge-official-app-faq-fr-2026-07",
+    "warforge-official-app-references-fr-2026-07",
+    "warforge-official-app-errata-fr-2026-07",
+    "warforge-official-app-supplemental-rules-fr-2026-08",
+    "approved-gdm-2026-11th-archive",
+    "warforge-catalog-1.2.13.0"
+  ],
+  "rosterCandidates": [
+    {
+      "id": "closed-complete-game-salamanders-v1",
+      "side": "salamanders",
+      "status": "human-review-required",
+      "expectedPoints": 235,
+      "units": [
+        { "instanceId": "salamanders-assault-intercessors-1", "unitId": "book-space-marines:unit:18", "modelCount": 5, "points": 75, "origin": "m4-approved" },
+        { "instanceId": "salamanders-bladeguard-1", "unitId": "book-space-marines:unit:28", "modelCount": 3, "points": 80, "origin": "m4-approved" },
+        { "instanceId": "salamanders-captain-1", "unitId": "book-space-marines:unit:3", "modelCount": 1, "points": 80, "origin": "plan-3-candidate" }
+      ],
+      "attachmentPolicy": "all-characters-unattached",
+      "blockingGapIds": ["GAP-M6-ROSTER-001", "GAP-M6-PHYSICAL-001"]
+    },
+    {
+      "id": "closed-complete-game-blood-angels-v1",
+      "side": "blood-angels",
+      "status": "human-review-required",
+      "expectedPoints": 240,
+      "units": [
+        { "instanceId": "blood-angels-captain-1", "unitId": "book-blood-angels:unit:12", "modelCount": 1, "points": 80, "origin": "m4-approved" },
+        { "instanceId": "blood-angels-assault-intercessors-1", "unitId": "book-blood-angels:unit:33", "modelCount": 5, "points": 80, "origin": "m4-approved" },
+        { "instanceId": "blood-angels-assault-intercessors-2", "unitId": "book-blood-angels:unit:33", "modelCount": 5, "points": 80, "origin": "plan-3-candidate" }
+      ],
+      "attachmentPolicy": "all-characters-unattached",
+      "blockingGapIds": ["GAP-M6-ROSTER-002", "GAP-M6-PHYSICAL-001"]
+    }
+  ],
+  "missionCandidate": {
+    "id": "closed-complete-game-disruption-v1",
+    "status": "covered",
+    "primaryMission": "Disruption",
+    "deploymentLayout": "mirror-layout-1",
+    "missionRuleBySide": { "salamanders": "Outmanoeuvre", "blood-angels": "Outmanoeuvre" },
+    "fixedSecondaryIds": ["Assassination", "Engage on All Fronts"],
+    "blockingGapIds": [],
+    "authorityNote": "Archive GDM 2026 approuvée par le propriétaire le 2026-08-30 pour le contenu M9, avec provenance non officielle explicite (ADR-019)."
+  },
+  "nodes": [
+    {
+      "id": "coverage.core-foundations",
+      "kind": "rule-set",
+      "title": "Concepts, mouvement et séquence d'attaque",
+      "status": "partial",
+      "ownerMilestones": ["M5", "M7"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["01", "03", "04", "05", "06"], "printedPages": [6, 25] },
+        { "sourceId": "warforge-official-app-references-fr-2026-07", "references": ["01.05.02", "02.02.01", "02.02.03", "04.03.01", "04.03.03", "05.03.02"] },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["01.02", "01.03", "01.04", "01.05", "02.02", "02.05", "03.01", "03.02.02", "04.01.03", "04.03.03", "05.04.02", "05.04.04"] }
+      ],
+      "dependsOn": [],
+      "blockingGapIds": [],
+      "note": "M2–M5 couvrent la géométrie et le tir ; M7-T02 couvre les quatre choix de mouvement du pilote. Les règles transversales de statut et les variantes hors pilote restent progressives."
+    },
+    {
+      "id": "coverage.battle-round",
+      "kind": "phase-sequence",
+      "title": "Rounds, tours et phases",
+      "status": "covered",
+      "ownerMilestones": ["M7"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["07"], "printedPages": [26, 29] },
+        { "sourceId": "warforge-event-companion-fr-2026-07", "references": ["event-mission-sequence.8", "event-mission-sequence.10", "event-mission-sequence.12", "event-mission-sequence.13"], "printedPages": [2] }
+      ],
+      "dependsOn": ["coverage.core-foundations"],
+      "blockingGapIds": [],
+      "note": "M7-T01/T02 compile le déploiement, le premier joueur, cinq rounds, dix tours et toutes les phases dans BattleStateV1 et le statechart V6."
+    },
+    {
+      "id": "coverage.command-phase",
+      "kind": "phase",
+      "title": "Commandement, CP et Battle-shock",
+      "status": "covered",
+      "ownerMilestones": ["M8"],
+      "sourceRefs": [
+        {
+          "sourceId": "warforge-core-rules-fr-2026-07",
+          "references": ["01.06", "01.07", "08.01", "08.02", "08.03", "08.04", "08.05", "09.07"],
+          "printedPages": [9, 30, 31, 33]
+        },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["01.02.01", "01.02.02", "08.03", "08.03.01"] }
+      ],
+      "dependsOn": ["coverage.battle-round"],
+      "blockingGapIds": [],
+      "note": "M8-T01 couvre les cinq étapes, le gain de PC, les tests d'Ébranlement, les statuts et les effets persistants. Les interactions d'aptitudes de roster restent reliées aux gaps de faction."
+    },
+    {
+      "id": "coverage.movement-phase",
+      "kind": "phase",
+      "title": "Mouvement complet",
+      "status": "partial",
+      "ownerMilestones": ["M7"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["09"], "printedPages": [32, 33] },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["03.01.01", "03.01.03", "03.02.02"] }
+      ],
+      "dependsOn": ["coverage.core-foundations", "coverage.battle-round"],
+      "blockingGapIds": [],
+      "note": "M7-T02 couvre Remain Stationary, Normal Move, Advance et les deux modes de Fall Back du pilote fermé, avec trajectoires, choix d’allocation des blessures mortelles, conséquences journalisées et replay. Mouvement aléatoire, caractéristiques de M disparates, grandes figurines, variante MONSTRE/VÉHICULE de Fuite Désespérée et résolution du jet d’ébranlement attendent M8."
+    },
+    {
+      "id": "coverage.shooting-phase",
+      "kind": "phase",
+      "title": "Tir avancé",
+      "status": "partial",
+      "ownerMilestones": ["M5", "M8"],
+      "sourceRefs": [{ "sourceId": "warforge-core-rules-fr-2026-07", "references": ["10", "24"], "printedPages": [34, 35, 76, 85] }],
+      "dependsOn": ["coverage.core-foundations", "coverage.movement-phase"],
+      "blockingGapIds": ["GAP-M6-ROSTER-001", "GAP-M6-ROSTER-002"],
+      "note": "Les primitives M5 sont covered sur fixtures ; les loadouts et aptitudes exacts du pilote restent à compiler."
+    },
+    {
+      "id": "coverage.charge-phase",
+      "kind": "phase",
+      "title": "Charge et réactions",
+      "status": "partial",
+      "ownerMilestones": ["M7"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["11.02", "11.04"], "printedPages": [36, 37] },
+        { "sourceId": "warforge-official-app-faq-fr-2026-07", "references": ["faq.charge-outside-charge-phase"] },
+        { "sourceId": "warforge-official-app-references-fr-2026-07", "references": ["02.02.01"] },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["04.03.03"] }
+      ],
+      "dependsOn": ["coverage.movement-phase"],
+      "blockingGapIds": [],
+      "note": "M7-T03 couvre, pour les empreintes circulaires du pilote fermé, l’éligibilité, le jet 2D6, le choix humain après le jet, les cibles, le mouvement balayé, les priorités de fin à 1″/engagement, la cohérence, Frappe en premier et le replay. Une exception de priorité qui nécessiterait un détour sans témoin direct cohérent est refusée explicitement en fail-closed. Modificateurs, socles non circulaires, règles hors phase et réactions par stratagème restent différés à M8/M11."
+    },
+    {
+      "id": "coverage.fight-phase",
+      "kind": "phase",
+      "title": "Combat et mouvements de mêlée",
+      "status": "partial",
+      "ownerMilestones": ["M7"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["04", "05", "12.02", "12.03", "12.04", "12.05", "12.07", "12.08"], "printedPages": [16, 19, 38, 43] },
+        { "sourceId": "warforge-official-app-faq-fr-2026-07", "references": ["faq.pile-in-consolidate-target-range", "faq.pile-in-consolidate-bonus-timing", "faq.select-unit-without-weapons", "faq.pile-in-consolidate-maximum-replacement"] }
+      ],
+      "dependsOn": ["coverage.charge-phase", "coverage.core-foundations"],
+      "blockingGapIds": ["GAP-M6-ROSTER-001", "GAP-M6-ROSTER-002"],
+      "note": "M7-T04 couvre le pilote fermé à empreintes circulaires : fenêtres d’insertion et de consolidation continue optionnelles par camp, séquences Combattent en Premier/restantes, combat normal mono-cible avec un profil de mêlée fixe par figurine engagée et unités sans arme. Les sauvegardes 05.03 sont journalisées puis traitées du résultat le plus bas au plus élevé ; pour chacune, le défenseur choisit la figurine conformément à 05.04 avant vérification du résultat et dégâts. Pertes, continuation interrompue, sauvegarde V6 et replay sont autoritaires. Les possibilités de fin qui exigeraient un détour sont refusées de façon conservative. Restent différés : groupes d’allocation hétérogènes, combat de débordement, consolidations d’engagement et sur objectif, profils/cibles multiples, aptitudes et stratagèmes, distances bonus, socles non circulaires et loadouts réels des rosters."
+    },
+    {
+      "id": "coverage.terrain-objectives",
+      "kind": "spatial-rules",
+      "title": "Terrain, objectifs et contrôle",
+      "status": "partial",
+      "ownerMilestones": ["M2", "M8"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["13", "14", "14.01", "14.02"], "printedPages": [44, 52, 53] },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["14.01", "14.01.01"] },
+        { "sourceId": "approved-gdm-2026-11th-archive", "references": ["/11th/layouts/disruption/disruption#layout-1"] }
+      ],
+      "dependsOn": ["coverage.core-foundations"],
+      "blockingGapIds": [],
+      "note": "Terrain/LoS M4 et contrôle M8 sont couverts. Le diagramme mesuré Disruption Mirror 1 est archivé et approuvé ; sa transcription en coordonnées d'objectifs, zones de déploiement et polygones déterministes reste une implémentation M9-T03, sans gap de source."
+    },
+    {
+      "id": "coverage.stratagems",
+      "kind": "decision-rules",
+      "title": "Stratagèmes de base, armée et détachement",
+      "status": "partial",
+      "ownerMilestones": ["M8"],
+      "sourceRefs": [
+        { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["15.01", "15.04", "15.12"], "printedPages": [54, 56, 57] },
+        { "sourceId": "warforge-universal-rules-updates-en-2026-07", "references": ["stratagem-updates"] },
+        { "sourceId": "warforge-official-app-supplemental-rules-fr-2026-08", "references": ["15.01", "15.01.01"] }
+      ],
+      "dependsOn": ["coverage.command-phase", "coverage.fight-phase"],
+      "blockingGapIds": ["GAP-M6-DETACHMENT-001", "GAP-M6-NONCORE-001"],
+      "note": "M8-T03 couvre uniquement Courage Insensé (15.04) et Contre-offensive (15.12), avec coût en PC, fenêtre, cible, restrictions communes, effet déterministe et replay. Les huit autres stratagèmes de base, tous les stratagèmes de faction et tous les stratagèmes de détachement restent explicitement non exécutables."
+    },
+    {
+      "id": "coverage.rosters",
+      "kind": "roster",
+      "title": "Deux forces pilotes de trois unités",
+      "status": "human-review-required",
+      "ownerMilestones": ["M6"],
+      "sourceRefs": [
+        { "sourceId": "warforge-catalog-1.2.13.0", "references": ["book-space-marines:unit:3", "book-space-marines:unit:18", "book-space-marines:unit:28", "book-blood-angels:unit:12", "book-blood-angels:unit:33"] },
+        { "sourceId": "warforge-faction-pack-space-marines-fr-2026-07", "references": ["pilot-units-and-rules"] },
+        { "sourceId": "warforge-faction-pack-blood-angels-fr-2026-07", "references": ["pilot-units-and-rules"] }
+      ],
+      "dependsOn": ["coverage.shooting-phase", "coverage.fight-phase"],
+      "blockingGapIds": ["GAP-M6-ROSTER-001", "GAP-M6-ROSTER-002", "GAP-M6-PHYSICAL-001", "GAP-M6-DETACHMENT-001", "GAP-M6-NONCORE-001"],
+      "note": "Les Captains restent non attachés dans le pilote."
+    },
+    {
+      "id": "coverage.mission",
+      "kind": "mission",
+      "title": "Mission fermée, secondaires et score",
+      "status": "partial",
+      "ownerMilestones": ["M9"],
+      "sourceRefs": [
+        {
+          "sourceId": "approved-gdm-2026-11th-archive",
+          "references": [
+            "/11th/force-disposition/disruption",
+            "/11th/layouts/disruption/disruption#layout-1",
+            "/11th/primary-missions/disruption/outmanoeuvre",
+            "/11th/secondary-missions/assassination-defender#fixed",
+            "/11th/secondary-missions/engage-on-all-fronts-defender#fixed"
+          ]
+        },
+        {
+          "sourceId": "warforge-event-companion-fr-2026-07",
+          "references": ["event-mission-sequence.2", "event-mission-sequence.3", "event-mission-sequence.4", "event-mission-sequence.5", "event-mission-sequence.6", "event-mission-sequence.7", "event-mission-sequence.9", "event-mission-sequence.16", "event-mission-sequence.17", "card-terminology.cumulative-or"],
+          "printedPages": [2, 3]
+        }
+      ],
+      "dependsOn": ["coverage.terrain-objectives", "coverage.battle-round"],
+      "blockingGapIds": [],
+      "note": "Les cinq ressources du pilote sont source-covered via l'archive GDM approuvée et le Compagnon officiel. Le moteur de score reste à implémenter dans M9-T02 avant que ce nœud puisse devenir covered."
+    },
+    {
+      "id": "coverage.persistence-v6",
+      "kind": "persistence",
+      "title": "SimulationSaveV6 et replay de partie complète",
+      "status": "covered",
+      "ownerMilestones": ["M6", "M7", "M8"],
+      "sourceRefs": [],
+      "dependsOn": ["coverage.battle-round"],
+      "blockingGapIds": [],
+      "note": "SimulationSaveV6 couvre l'export, l'import, l'autosave et le replay vérifié des événements M7/M8 actuellement autorisés, notamment tir, mouvement, charge, combat, objectifs, Commandement, Ébranlement, Courage insensé et Contre-offensive. Chaque nouveau type d'événement devra apporter sa propre preuve de persistance et de replay."
+    },
+    {
+      "id": "coverage.complete-game",
+      "kind": "scenario",
+      "title": "Partie complète fermée cinq rounds",
+      "status": "planned",
+      "ownerMilestones": ["M9"],
+      "sourceRefs": [],
+      "dependsOn": [
+        "coverage.battle-round",
+        "coverage.command-phase",
+        "coverage.movement-phase",
+        "coverage.shooting-phase",
+        "coverage.charge-phase",
+        "coverage.fight-phase",
+        "coverage.terrain-objectives",
+        "coverage.stratagems",
+        "coverage.rosters",
+        "coverage.mission",
+        "coverage.persistence-v6"
+      ],
+      "blockingGapIds": [
+        "GAP-M6-ROSTER-001",
+        "GAP-M6-ROSTER-002",
+        "GAP-M6-PHYSICAL-001",
+        "GAP-M6-DETACHMENT-001",
+        "GAP-M6-NONCORE-001"
+      ],
+      "note": "Ce nœud ne peut devenir covered qu'après M9-T04."
+    },
+    {
+      "id": "coverage.out-of-scope-zones",
+      "kind": "explicit-exclusion",
+      "title": "Réserves, transports et unités attachées",
+      "status": "deferred",
+      "ownerMilestones": ["M10"],
+      "sourceRefs": [{ "sourceId": "warforge-core-rules-fr-2026-07", "references": ["18", "19", "20"], "printedPages": [64, 69] }],
+      "dependsOn": [],
+      "blockingGapIds": [],
+      "note": "Non reachable : aucun transport, aucune réserve et Captains non attachés dans le pilote."
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-M6-ROSTER-001",
+      "category": "roster-and-loadout",
+      "status": "open-human-review",
+      "title": "Salamanders : Captain, équipements et profils de mêlée exacts",
+      "blocksNodeIds": ["coverage.shooting-phase", "coverage.fight-phase", "coverage.rosters", "coverage.complete-game"],
+      "requiredAction": "Vérifier le loadout candidat du Captain et compiler tous les profils et aptitudes reachable depuis le pack Space Marines.",
+      "manualOwnerAction": "Approuver le loadout final et toute convention physique nouvelle."
+    },
+    {
+      "id": "GAP-M6-ROSTER-002",
+      "category": "roster-and-loadout",
+      "status": "open-human-review",
+      "title": "Blood Angels : seconde unité et profils de mêlée exacts",
+      "blocksNodeIds": ["coverage.shooting-phase", "coverage.fight-phase", "coverage.rosters", "coverage.complete-game"],
+      "requiredAction": "Compiler les deux instances d'Assault Intercessors et toutes les aptitudes reachable sans les confondre avec une couverture de faction.",
+      "manualOwnerAction": "Confirmer les options d'équipement finales si elles diffèrent de la proposition du plan 3."
+    },
+    {
+      "id": "GAP-M6-PHYSICAL-001",
+      "category": "physical-convention",
+      "status": "open-human-review",
+      "title": "Étendre les conventions physiques M4 au pilote complet",
+      "blocksNodeIds": ["coverage.rosters", "coverage.complete-game"],
+      "requiredAction": "Versionner le périmètre closed-complete-game-pilot-v1 pour les profils 32 mm/40 mm et tout profil additionnel.",
+      "manualOwnerAction": "Approuver explicitement l'extension de périmètre après présentation des profils exacts."
+    },
+    {
+      "id": "GAP-M6-DETACHMENT-001",
+      "category": "army-and-detachment",
+      "status": "open-human-review",
+      "title": "Figer les détachements et leurs règles obligatoires",
+      "blocksNodeIds": ["coverage.stratagems", "coverage.rosters", "coverage.complete-game"],
+      "requiredAction": "Choisir un détachement exact par camp puis inventorier règle, améliorations et stratagèmes reachable.",
+      "manualOwnerAction": "Approuver les deux détachements fermés."
+    },
+    {
+      "id": "GAP-M6-NONCORE-001",
+      "category": "official-app-rules",
+      "status": "open-source-request",
+      "title": "Règles officielles hors PDF de base nécessaires aux interactions du pilote",
+      "blocksNodeIds": ["coverage.stratagems", "coverage.rosters", "coverage.complete-game"],
+      "requiredAction": "Comparer le futur lot complet de captures officielles au graphe et créer un gap atomique par règle réellement reachable.",
+      "manualOwnerAction": "Fournir le lot annoncé des règles présentes dans l'application mais absentes du PDF de base."
+    },
+    {
+      "id": "GAP-M6-MISSION-001",
+      "category": "official-mission-card",
+      "status": "resolved",
+      "title": "Carte officielle Disruption",
+      "blocksNodeIds": [],
+      "requiredAction": "Résolu par l'archive GDM approuvée, sa carte Disruption et son hash.",
+      "manualOwnerAction": "Aucune action supplémentaire ; décision propriétaire enregistrée dans ADR-019."
+    },
+    {
+      "id": "GAP-M6-MISSION-002",
+      "category": "official-deployment-layout",
+      "status": "resolved",
+      "title": "Disposition miroir 1 et positions d'objectifs",
+      "blocksNodeIds": [],
+      "requiredAction": "Résolu par le diagramme mesuré Disruption Mirror 1 archivé et contrôlé par hash.",
+      "manualOwnerAction": "Aucune collecte supplémentaire ; la transcription géométrique relève de M9-T03."
+    },
+    {
+      "id": "GAP-M6-MISSION-003",
+      "category": "official-mission-rule",
+      "status": "resolved",
+      "title": "Règle de mission Outmanoeuvre",
+      "blocksNodeIds": [],
+      "requiredAction": "Résolu par la carte Outmanoeuvre structurée, son image et son hash dans l'archive approuvée.",
+      "manualOwnerAction": "Aucune action supplémentaire ; signaler seulement une divergence future."
+    },
+    {
+      "id": "GAP-M6-MISSION-004",
+      "category": "official-secondary-card",
+      "status": "resolved",
+      "title": "Secondaire fixe Assassination",
+      "blocksNodeIds": [],
+      "requiredAction": "Résolu par la branche Fixed d'Assassination, son image et son hash dans l'archive approuvée.",
+      "manualOwnerAction": "Aucune action supplémentaire ; signaler seulement une divergence future."
+    },
+    {
+      "id": "GAP-M6-MISSION-005",
+      "category": "official-secondary-card",
+      "status": "resolved",
+      "title": "Secondaire fixe Engage on All Fronts",
+      "blocksNodeIds": [],
+      "requiredAction": "Résolu par la branche Fixed d'Engage on All Fronts, son image et son hash dans l'archive approuvée.",
+      "manualOwnerAction": "Aucune action supplémentaire ; signaler seulement une divergence future."
+    }
+  ],
+  "arbitrationIds": [],
+  "readiness": {
+    "compatible": false,
+    "blockingNodeIds": [
+      "coverage.core-foundations",
+      "coverage.movement-phase",
+      "coverage.shooting-phase",
+      "coverage.charge-phase",
+      "coverage.fight-phase",
+      "coverage.terrain-objectives",
+      "coverage.stratagems",
+      "coverage.rosters",
+      "coverage.mission",
+      "coverage.complete-game"
+    ],
+    "nextOwnerActions": [
+      "Implémenter le score M9-T02 puis transcrire le layout déterministe M9-T03 depuis l'archive approuvée.",
+      "Approuver détachements, loadouts et extension des conventions physiques après compilation M6."
+    ]
+  }
+}

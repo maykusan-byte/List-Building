@@ -2,6 +2,8 @@
 
 - Lire `../../docs/simulator/STATUS.md` et reprendre la tâche suivie avant de
   modifier ce module.
+- Générer le brief et vérifier que les fichiers modifiés appartiennent aux
+  `allowedPaths` de la tranche active ; exécuter ses `expectedGates`.
 - Garder `domain/` et `geometry/` en TypeScript pur, sans React, PixiJS, DOM,
   IndexedDB ni stockage navigateur.
 - Toute mutation de partie passe par `GameCommand -> GameEvent -> GameState`.
@@ -13,3 +15,5 @@
   géométrique modifiée.
 - Mettre à jour les preuves et le statut via le script du projet, jamais en
   éditant `STATUS.md` manuellement.
+- Ne pas ajouter de durcissement anti-triche hors demande : les utilisateurs
+  suivent le parcours normal, tandis que schémas et invariants restent stricts.

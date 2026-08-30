@@ -21,10 +21,72 @@ async function expectInvalidMutation(filename, mutate, message) {
 }
 
 describe('simulator data contract', () => {
-  it('validates ready synthetic fixtures without claiming scenario or rule coverage', async () => {
+  it('validates the closed duel and keeps the complete-game pilot blocked', async () => {
     const { manifest } = await validateSimulatorData();
     expect(manifest.schemaVersion).toBe('warforge-simulator-manifest/v1');
-    expect(manifest.version).toBe('0.3.0');
+    expect(manifest.version).toBe('0.7.0');
+    expect(manifest.sources).toContainEqual(expect.objectContaining({
+      id: 'warforge-event-companion-fr-2026-07',
+      version: '1.1',
+      effectiveDate: '2026-07-22',
+      sha256: 'e32e6f6565e8ff608e347e904c4d730a71cd761a2970d03f1721d4418994b893'
+    }));
+    expect(manifest.sources).toContainEqual(expect.objectContaining({
+      id: 'warforge-official-app-supplemental-rules-fr-2026-08',
+      kind: 'official-app-owner-transcription',
+      driveFileId: '1A_1ZqTzi6WF9FJnGuvVaHH1Ud2pBDFQH',
+      sha256: '7e446091d5b6d8e4d1584307c3002f628a786d9e9445cdd4ab120e0dbe8b7bdc'
+    }));
+    expect(manifest.sources).toContainEqual(expect.objectContaining({
+      id: 'approved-gdm-2026-11th-archive',
+      kind: 'trusted-mission-archive',
+      status: 'project-approved',
+      reviewedBy: 'project-owner',
+      officialGwPublication: false,
+      sha256: 'a8320287a3fbdde6fb126dee241374110a086383fd2b1cd5012e5a09bb3ccc71'
+    }));
+  });
+
+  it.each([
+    ['orphan source', (document) => { document.nodes[0].sourceRefs[0].sourceId = 'missing-source'; }, /source non canonique/],
+    ['orphan official-app reference', (document) => { document.nodes.find((node) => node.id === 'coverage.charge-phase').sourceRefs[1].references = ['faq.missing']; }, /référence orpheline/],
+    ['orphan dependency', (document) => { document.nodes[1].dependsOn = ['coverage.missing']; }, /dépendance orpheline/],
+    ['missing inverse gap relation', (document) => { document.gaps[0].blocksNodeIds.pop(); }, /relation inverse absente/],
+    ['covered node with blocker', (document) => { document.nodes.find((node) => node.id === 'coverage.rosters').status = 'covered'; }, /covered ne peut conserver de gap/],
+    ['premature compatibility', (document) => { document.readiness.compatible = true; }, /ne doit pas être compatible/],
+    ['incomplete readiness blockers', (document) => { document.readiness.blockingNodeIds.shift(); }, /tous les nœuds reachable non couverts/],
+    ['missing required capability', (document) => { document.nodes = document.nodes.filter((node) => node.id !== 'coverage.out-of-scope-zones'); }, /nœud obligatoire absent/],
+    ['incomplete complete-game blockers', (document) => { document.nodes.find((node) => node.id === 'coverage.complete-game').blockingGapIds.pop(); }, /relation inverse absente|tous les gaps ouverts/],
+    ['roster points drift', (document) => { document.rosterCandidates[0].units[0].points += 5; }, /total de points incohérent/],
+    ['missing command-phase source', (document) => { document.nodes.find((node) => node.id === 'coverage.command-phase').sourceRefs.pop(); }, /provenance exacte de coverage.command-phase/],
+    ['missing persistent-effects reference', (document) => {
+      document.nodes.find((node) => node.id === 'coverage.command-phase').sourceRefs
+        .find((source) => source.sourceId === 'warforge-official-app-supplemental-rules-fr-2026-08').references
+        .splice(1, 1);
+    }, /provenance exacte de coverage.command-phase/],
+    ['missing objective-control reference', (document) => {
+      document.nodes.find((node) => node.id === 'coverage.terrain-objectives').sourceRefs[0].references.pop();
+    }, /provenance exacte de coverage.terrain-objectives/],
+    ['missing approved mission source', (document) => {
+      document.nodes.find((node) => node.id === 'coverage.mission').sourceRefs.shift();
+    }, /provenance exacte de coverage.mission/],
+    ['missing covered stratagem reference', (document) => {
+      document.nodes.find((node) => node.id === 'coverage.stratagems').sourceRefs[0].references.pop();
+    }, /provenance exacte de coverage.stratagems/],
+    ['missing stratagem fight dependency', (document) => {
+      document.nodes.find((node) => node.id === 'coverage.stratagems').dependsOn.pop();
+    }, /dépendances exactes de coverage.stratagems/]
+  ])('rejects full-game coverage drift: %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('full-game-coverage.json', mutate, message);
+  });
+
+  it.each([
+    ['a changed Outmanoeuvre score', (document) => { document.primaryMission.scoringWindows[0].award.vp = 9; }, /primaryMission.scoringWindows/],
+    ['a forged layout asset hash', (document) => { document.layout.measuredAsset.sha256 = '0'.repeat(64); }, /ressource ou hash incohérent/],
+    ['an official-GW claim for GDM', (document) => { document.approval.officialGwPublication = true; }, /approval/],
+    ['premature mission playability', (document) => { document.executionReadiness.playable = true; }, /executionReadiness/]
+  ])('rejects closed M9 mission drift: %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('closed-complete-game-mission.json', mutate, message);
   });
 
   it.each([
@@ -137,6 +199,22 @@ describe('simulator data contract', () => {
     ['missing app archive', (source) => { source.path = '../references/warhammer-40k/rules/commentary/missing/archive.json'; }, /archive locale introuvable/]
   ])('rejects the official app FAQ source with %s', async (_label, mutate, message) => {
     await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'warforge-official-app-faq-fr-2026-07')), message);
+  });
+
+  it.each([
+    ['forged transcription hash', (source) => { source.sha256 = '0'.repeat(64); }, /sha256 ne correspond pas à la transcription locale/],
+    ['missing owner review', (source) => { delete source.reviewedBy; }, /approbation propriétaire/],
+    ['missing local transcription', (source) => { source.path = '../references/warhammer-40k/rules/app-transcriptions/missing.txt'; }, /transcription locale introuvable/]
+  ])('rejects the official app owner transcription with %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'warforge-official-app-supplemental-rules-fr-2026-08')), message);
+  });
+
+  it.each([
+    ['forged archive hash', (source) => { source.sha256 = '0'.repeat(64); }, /URL ou empreinte déclarée incohérente|sha256/],
+    ['missing owner approval', (source) => { delete source.reviewedBy; }, /approbation propriétaire/],
+    ['false official claim', (source) => { source.officialGwPublication = true; }, /officielle GW/]
+  ])('rejects the approved GDM source with %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'approved-gdm-2026-11th-archive')), message);
   });
 
   it.each([

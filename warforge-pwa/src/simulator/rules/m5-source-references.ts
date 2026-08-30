@@ -43,6 +43,41 @@ export const OFFICIAL_APP_REROLLS_SOURCE: SourceReferenceV1 = {
   reference: '01.05.02'
 };
 
+/** Official-app reference 04.03.03: a target can cease to be eligible while attacks are resolved. */
+export const OFFICIAL_APP_TARGET_NO_LONGER_ELIGIBLE_SOURCE: SourceReferenceV1 = {
+  sourceId: OFFICIAL_APP_SOURCE_ID,
+  version: OFFICIAL_APP_SOURCE_VERSION,
+  effectiveFrom: OFFICIAL_APP_SNAPSHOT_CAPTURED_AT,
+  reference: '04.03.03'
+};
+
+/** Engagement, rule 03.04 on printed page 14. */
+export const CORE_ENGAGEMENT_RANGE_SOURCE: SourceReferenceV1 = {
+  sourceId: 'warforge-core-rules-fr-2026-07',
+  version: 'archive-2026-07-28',
+  effectiveFrom: '2026-07-28',
+  reference: '03.04',
+  page: 14
+};
+
+/** Normal shooting, rule 10.04 on printed page 34. */
+export const CORE_NORMAL_SHOOTING_SOURCE: SourceReferenceV1 = {
+  sourceId: 'warforge-core-rules-fr-2026-07',
+  version: 'archive-2026-07-28',
+  effectiveFrom: '2026-07-28',
+  reference: '10.04',
+  page: 34
+};
+
+/** Repeated abilities, rule 24.02 on printed page 78. */
+export const CORE_DUPLICATE_ABILITY_SOURCE: SourceReferenceV1 = {
+  sourceId: 'warforge-core-rules-fr-2026-07',
+  version: 'archive-2026-07-28',
+  effectiveFrom: '2026-07-28',
+  reference: '24.02',
+  page: 78
+};
+
 /** Core rule 05.01, printed page 18: unmodified 1 fails, unmodified 6 is a critical hit. */
 export const CORE_CRITICAL_HIT_SOURCE: SourceReferenceV1 = {
   sourceId: 'warforge-core-rules-fr-2026-07',
