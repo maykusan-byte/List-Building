@@ -1,14 +1,14 @@
 # État du programme — Simulateur tactique Warforge
 
-Plan : 3.4.0 · Dernière mise à jour : 2026-08-31T16:00:32.871Z
+Plan : 3.5.0 · Dernière mise à jour : 2026-08-31T20:47:31.567Z
 
 ## Avancement global
 
-- Jalons acceptés : 9/12
-- Tâches terminées : 43/53
-- Critères satisfaits : 49/58
-- Validations : 136 réussie(s), 4 échouée(s), 19 périmée(s)
-- Santé du workspace : healthy (2026-08-31T15:09:25.217Z)
+- Jalons acceptés : 10/13
+- Tâches terminées : 46/60
+- Critères satisfaits : 51/65
+- Validations : 143 réussie(s), 4 échouée(s), 19 périmée(s)
+- Santé du workspace : healthy (2026-08-31T20:47:31.567Z)
 
 ## Jalons
 
@@ -23,9 +23,10 @@ Plan : 3.4.0 · Dernière mise à jour : 2026-08-31T16:00:32.871Z
 | M6 | Fondations de partie complète | accepted | 4/4 |
 | M7 | Boucle de bataille | accepted | 5/5 |
 | M8 | Ressources et objectifs | accepted | 4/4 |
-| M9 | POC technique cinq rounds et interface | in_progress | 3/4 |
-| M10 | Fidélité commune, réserves, transports et déploiements spéciaux | planned | 0/5 |
-| M11 | Relance codex et déploiement progressif du catalogue | planned | 0/4 |
+| M9 | POC technique cinq rounds et interface | accepted | 4/4 |
+| M10 | POC interactif fixture-only | in_progress | 2/7 |
+| M11 | Fidélité commune, réserves, transports et déploiements spéciaux | planned | 0/5 |
+| M12 | Relance codex et déploiement progressif du catalogue | planned | 0/4 |
 
 ## Capacités produit
 
@@ -40,13 +41,13 @@ Plan : 3.4.0 · Dernière mise à jour : 2026-08-31T16:00:32.871Z
 
 ## Reprise
 
-- Tâche courante : SIM-M9-T04 — Playtester et accepter le POC technique (in_progress)
-- Profil d'exécution : milestone-audit
+- Tâche courante : SIM-M10-T03 — Rendre les mouvements tactiques interactifs (in_progress)
+- Profil d'exécution : implementation-complex
 - Coût estimé : L
-- Tranche atomique : SIM-M9-T04-S01
-- Dernier travail : Les gates finales de SIM-M9-T04 sont vertes : pnpm verify, 539 tests, 4 parcours Chromium et build PWA. Le serveur local de playtest est prêt sur le POC technique.
-- Prochaine action : Le propriétaire exécute le playtest guidé à http://127.0.0.1:4173/#simulator et signale toute divergence, ou confirme que le parcours, les quatre limites, la sauvegarde, la reprise et le replay sont conformes.
-- Fichiers concernés : src/simulator/ui/CorePocTechnicalPage.tsx, tests/browser/simulator.spec.ts, docs/simulator/project-state.json
+- Tranche atomique : SIM-M10-T03-S01
+- Dernier travail : Implémenter type de mouvement, trajectoires par figurine, prévisualisation et confirmation autoritaires.
+- Prochaine action : Poursuivre SIM-M10-T03 : Rendre les mouvements tactiques interactifs.
+- Fichiers concernés : aucun
 
 ## Blocages et questions
 

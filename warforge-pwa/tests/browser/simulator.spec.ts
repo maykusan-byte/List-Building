@@ -7,6 +7,78 @@ async function dismissProjectStatus(page: Page): Promise<void> {
   if (await dialog.isVisible()) await dialog.getByRole('button').click();
 }
 
+test('interactive M10 board previews, rejects and confirms an authoritative deployment', async ({ page }) => {
+  await page.goto('/#simulator');
+  await dismissProjectStatus(page);
+  await expect(page.getByRole('heading', { name: 'Déploiement tactique fixture-only' })).toBeVisible();
+  await expect(page.getByTestId('interactive-poc-board').locator('canvas')).toBeVisible();
+  await expect(page.getByTestId('interactive-deployed-count')).toHaveText('0/6');
+  await expect(page.getByTestId('interactive-limitations')).toContainText('core-stratagem.overwatch');
+
+  await page.getByLabel('Objectif').selectOption('objective-centre-1');
+  await expect(page.getByTestId('interactive-selection')).toContainText('objective-centre-1');
+  await page.getByLabel('Terrain').selectOption('terrain-centre-large');
+  await expect(page.getByTestId('interactive-selection')).toContainText('terrain-centre-large');
+
+  const firstDeployment = page.locator('[data-testid^="interactive-deploy-"]').first();
+  const deployedBefore = await page.getByTestId('interactive-deployed-count').innerText();
+  await firstDeployment.click();
+  await expect(page.getByTestId('interactive-preview')).toContainText('autorisée');
+  await page.getByTestId('interactive-preview-outside').click();
+  await expect(page.getByTestId('interactive-preview')).toContainText(/deployment-outside-(board|zone)/);
+  await page.getByTestId('interactive-confirm-deployment').click();
+  await expect(page.getByTestId('interactive-notice')).toContainText('Refus explicite');
+  await expect(page.getByTestId('interactive-deployed-count')).toHaveText(deployedBefore);
+
+  await firstDeployment.click();
+  await expect(page.getByTestId('interactive-preview')).toContainText('autorisée');
+  await page.getByTestId('interactive-confirm-deployment').click();
+  await expect(page.getByTestId('interactive-notice')).toContainText('unit-deployed');
+  await expect(page.getByTestId('interactive-deployed-count')).toHaveText('1/6');
+});
+
+test('interactive M10 reaches Movement normally then previews and confirms a replayable unit movement', async ({ page }) => {
+  await page.goto('/#simulator');
+  await dismissProjectStatus(page);
+
+  for (let index = 0; index < 6; index += 1) {
+    await page.locator('[data-testid^="interactive-deploy-"]').first().click();
+    await expect(page.getByTestId('interactive-preview')).toContainText('autorisée');
+    await page.getByTestId('interactive-confirm-deployment').click();
+    await expect(page.getByTestId('interactive-notice')).toContainText('unit-deployed');
+  }
+  await expect(page.getByTestId('interactive-deployed-count')).toHaveText('6/6');
+  await page.getByTestId('interactive-determine-first-player').click();
+  await page.getByTestId('interactive-start-battle').click();
+  await expect(page.getByTestId('interactive-phase')).toContainText('command');
+  for (let index = 0; index < 6; index += 1) {
+    const commandStage = page.getByTestId('interactive-resolve-command-stage');
+    if (await commandStage.count() === 0) break;
+    await commandStage.click();
+  }
+  await page.getByTestId('interactive-resolve-mission-scoring').click();
+  await page.getByTestId('interactive-advance-battle-phase').click();
+  await expect(page.getByTestId('interactive-phase')).toContainText('movement');
+
+  const eventsBeforeReject = await page.getByTestId('interactive-event-count').innerText();
+  const movement = page.locator('[data-testid^="interactive-move-"]').first();
+  const selectedMovementTestId = await movement.getAttribute('data-testid');
+  await movement.click();
+  await expect(page.getByTestId('interactive-movement-type')).toHaveValue('normal');
+  await page.getByTestId('interactive-preview-outside').click();
+  await expect(page.getByTestId('interactive-preview')).toContainText('movement-too-far');
+  await page.getByTestId('interactive-confirm-deployment').click();
+  await expect(page.getByTestId('interactive-notice')).toContainText('movement-too-far');
+  await expect(page.getByTestId('interactive-event-count')).toHaveText(eventsBeforeReject);
+
+  await movement.click();
+  await page.getByRole('button', { name: '→ 1″' }).click();
+  await expect(page.getByTestId('interactive-preview')).toContainText('maximum');
+  await page.getByTestId('interactive-confirm-deployment').click();
+  await expect(page.getByTestId('interactive-notice')).toContainText('unit-movement-resolved');
+  await expect(page.getByTestId(selectedMovementTestId!)).toHaveCount(0);
+});
+
 test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and resumes', async ({ page }) => {
   await page.goto('/#simulator');
   await dismissProjectStatus(page);
@@ -62,6 +134,7 @@ test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and re
 test('economic M9 technical POC completes five rounds and restores its V6 journal', async ({ page }) => {
   await page.goto('/#simulator');
   await dismissProjectStatus(page);
+  await page.getByRole('button', { name: 'POC technique M9' }).click();
   await expect(page.getByRole('heading', { name: 'POC technique — cinq rounds' })).toBeVisible();
   await expect(page.getByTestId('poc-compatibility')).toContainText('fixture-only');
   await expect(page.getByTestId('poc-limitations')).toContainText('core-stratagem.command-reroll');

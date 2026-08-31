@@ -45,8 +45,8 @@ describe('simulator project tracker', () => {
     expect(validateProjectState(project.state, project.routing, project.plan, project.decisions)).toEqual([]);
     expect(committedStatus).toBe(renderStatus(project.state));
     expect(projectProgress(project.state)).toMatchObject({
-      milestones: { total: 12 },
-      tasks: { total: 53 }
+      milestones: { total: 13 },
+      tasks: { total: 60 }
     });
     expect(project.state.schemaVersion).toBe('warforge-simulator-project/v2');
     expect(project.routing.schemaVersion).toBe('warforge-simulator-model-routing/v2');

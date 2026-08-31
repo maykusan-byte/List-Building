@@ -1,5 +1,6 @@
 export * from './compatibility';
 export * from './core-poc-controller';
+export * from './interactive-poc-controller';
 export * from './deployment';
 export * from './battle-movement';
 export * from './battle-charge';

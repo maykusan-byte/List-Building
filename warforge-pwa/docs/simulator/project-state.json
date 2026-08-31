@@ -1,14 +1,14 @@
 {
   "schemaVersion": "warforge-simulator-project/v2",
-  "planVersion": "3.4.0",
+  "planVersion": "3.5.0",
   "planChange": {
-    "version": "3.4.0",
-    "adrId": "ADR-025",
-    "recordedAt": "2026-08-31T15:05:00.000Z"
+    "version": "3.5.0",
+    "adrId": "ADR-026",
+    "recordedAt": "2026-08-31T19:35:00.000Z"
   },
-  "updatedAt": "2026-08-31T16:00:32.871Z",
-  "currentMilestoneId": "M9",
-  "currentTaskId": "SIM-M9-T04",
+  "updatedAt": "2026-08-31T20:47:31.567Z",
+  "currentMilestoneId": "M10",
+  "currentTaskId": "SIM-M10-T03",
   "milestones": [
     {
       "id": "M0",
@@ -233,7 +233,7 @@
     {
       "id": "M9",
       "title": "POC technique cinq rounds et interface",
-      "status": "in_progress",
+      "status": "accepted",
       "taskIds": [
         "SIM-M9-T01",
         "SIM-M9-T02",
@@ -242,32 +242,59 @@
       ],
       "acceptanceCriteria": [
         "Le POC technique calcule son score et exécute hors ligne cinq rounds avec profils figés, sauvegarde, reprise et replay ; ses quatre stratagèmes communs différés et l'absence de contenu de codex restent visibles."
-      ]
+      ],
+      "acceptedAt": "2026-08-31T19:29:24.983Z",
+      "acceptanceEvidence": {
+        "kind": "independent-review",
+        "command": "Fresh-context independent milestone review after pnpm verify and owner-approved guided playtest",
+        "result": "passed",
+        "scope": "M9 T01-T04, GDM layout, score five rounds, fixture-only compatibility, UI, V6 save/resume/replay and exact ADR-025 limitations",
+        "reviewer": "gpt-5.6-sol / high — fresh-context independent milestone review",
+        "recordedAt": "2026-08-31T19:29:24.983Z",
+        "notes": "Accepté exclusivement comme POC technique non tactique; aucune promesse de partie V11 fidèle, catalogue ou codex."
+      }
     },
     {
       "id": "M10",
-      "title": "Fidélité commune, réserves, transports et déploiements spéciaux",
-      "status": "planned",
+      "title": "POC interactif fixture-only",
+      "status": "in_progress",
       "taskIds": [
-        "SIM-M10-T00",
         "SIM-M10-T01",
         "SIM-M10-T02",
         "SIM-M10-T03",
-        "SIM-M10-T04"
+        "SIM-M10-T04",
+        "SIM-M10-T05",
+        "SIM-M10-T06",
+        "SIM-M10-T07"
+      ],
+      "acceptanceCriteria": [
+        "Deux joueurs manipulent les figurines et prennent les décisions couvertes du déploiement au score final ; la partie reste sauvegardable et rejouable avec ses limites explicites."
+      ]
+    },
+    {
+      "id": "M11",
+      "title": "Fidélité commune, réserves, transports et déploiements spéciaux",
+      "status": "planned",
+      "taskIds": [
+        "SIM-M11-T01",
+        "SIM-M11-T02",
+        "SIM-M11-T03",
+        "SIM-M11-T04",
+        "SIM-M11-T05"
       ],
       "acceptanceCriteria": [
         "Les quatre stratagèmes communs différés sont couverts, puis les changements de zone, réserves et transports sont déterministes et couverts spatialement."
       ]
     },
     {
-      "id": "M11",
+      "id": "M12",
       "title": "Relance codex et déploiement progressif du catalogue",
       "status": "planned",
       "taskIds": [
-        "SIM-M11-T01",
-        "SIM-M11-T02",
-        "SIM-M11-T03",
-        "SIM-M11-T04"
+        "SIM-M12-T01",
+        "SIM-M12-T02",
+        "SIM-M12-T03",
+        "SIM-M12-T04"
       ],
       "acceptanceCriteria": [
         "La base de fin août, le nouveau Codex Orks puis le nouveau Codex Space Marines précèdent des lots d'armée sourcés et audités ; toute promesse correspond exactement au catalogue actif."
@@ -6367,7 +6394,7 @@
       "id": "SIM-M9-T04",
       "milestoneId": "M9",
       "title": "Playtester et accepter le POC technique",
-      "status": "in_progress",
+      "status": "done",
       "dependencies": [
         "SIM-M9-T03"
       ],
@@ -6378,7 +6405,8 @@
           "id": "AC-01",
           "description": "Le parcours technique cinq rounds passe Playwright, export/reprise/replay et validation humaine avec les quatre limitations communes visibles et sans promesse de couverture V11 complète ou de codex.",
           "evidenceIds": [
-            "EVD-M9-T04-002"
+            "EVD-M9-T04-002",
+            "EVD-M9-T04-003"
           ]
         }
       ],
@@ -6400,6 +6428,16 @@
           "scope": "Parcours technique cinq rounds, quatre limitations visibles, export V6, réinitialisation, reprise IndexedDB et replay exact, sans promesse de couverture V11 complète ni de codex",
           "recordedAt": "2026-08-31T16:00:32.871Z",
           "notes": "Validation explicite du propriétaire : J’approuve le playtest M9."
+        },
+        {
+          "id": "EVD-M9-T04-003",
+          "kind": "independent-review",
+          "command": "Fresh-context independent milestone review of SIM-M9-T04 and M9 evidence",
+          "result": "passed",
+          "scope": "TaskBrief, workspace health, tracker evidence, ADR-025, coverage matrix, UI claims and Playwright assertions; M9 acceptable exclusively as fixture-only technical POC",
+          "recordedAt": "2026-08-31T19:29:23.971Z",
+          "notes": "PASS; aucun finding bloquant ou matériel. Dette ADR-025 et caractère non tactique explicitement conservés.",
+          "reviewer": "gpt-5.6-sol / high — fresh-context independent milestone review"
         }
       ],
       "actualExecution": {
@@ -6408,7 +6446,7 @@
         "context": "Coordinateur local; gates finales automatiques et préparation du playtest humain indispensable du POC technique M9.",
         "recordedAt": "2026-08-31T15:53:18.097Z"
       },
-      "updatedAt": "2026-08-31T15:53:18.097Z",
+      "updatedAt": "2026-08-31T19:29:24.461Z",
       "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
       "costClass": "L",
       "manualAlternative": {
@@ -6450,13 +6488,20 @@
           "result": "passed",
           "scope": "Parcours technique cinq rounds, quatre limitations visibles, export V6, réinitialisation, reprise IndexedDB et replay exact, sans promesse de couverture V11 complète ni de codex",
           "recordedAt": "2026-08-31T16:00:32.871Z"
+        },
+        {
+          "id": "RUN-M9-T04-003",
+          "command": "Fresh-context independent milestone review of SIM-M9-T04 and M9 evidence",
+          "result": "passed",
+          "scope": "TaskBrief, workspace health, tracker evidence, ADR-025, coverage matrix, UI claims and Playwright assertions; M9 acceptable exclusively as fixture-only technical POC",
+          "recordedAt": "2026-08-31T19:29:23.971Z"
         }
       ],
       "workSlices": [
         {
           "id": "SIM-M9-T04-S01",
           "title": "Playtester et accepter le POC technique",
-          "status": "in_progress",
+          "status": "done",
           "allowedPaths": [
             "src/simulator/**",
             "data/simulator/**",
@@ -6476,12 +6521,608 @@
       ]
     },
     {
-      "id": "SIM-M10-T00",
+      "id": "SIM-M10-T01",
       "milestoneId": "M10",
+      "title": "Définir le contrat d'orchestration interactive",
+      "status": "done",
+      "dependencies": [
+        "SIM-M9-T04"
+      ],
+      "executionProfile": "architecture-critical",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Un contrôleur pur expose l'état présentable, les actions couvertes et les commandes autoritaires sans dupliquer les règles dans React ou Pixi.",
+          "evidenceIds": [
+            "EVD-M10-T01-001",
+            "EVD-M10-T01-002",
+            "EVD-M10-T01-003"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M10-T01-001",
+          "kind": "validation",
+          "command": "pnpm exec vitest interactive/core POC + tsc; pnpm test; pnpm test:browser; pnpm build",
+          "result": "passed",
+          "scope": "Contrôleur interactif pur, vue stable, opportunités non autoritaires, dispatcher trusted; 59 fichiers/544 tests, 4 Playwright Chromium, TypeScript et build PWA",
+          "recordedAt": "2026-08-31T19:53:14.467Z",
+          "notes": "Les 107 tests du validateur ont été relancés isolément puis la suite complète à chaud après deux timeouts initiaux sans assertion; 107/107 puis 544/544 réussis. Aucun Math.random, React ou Pixi dans l'orchestration."
+        },
+        {
+          "id": "EVD-M10-T01-002",
+          "kind": "validation",
+          "command": "pnpm exec vitest run src/simulator/orchestration/interactive-poc-controller.test.ts; pnpm exec tsc --noEmit; pnpm test; pnpm test:browser; pnpm build; pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Contrôleur interactif pur corrigé après audit : progression optionnelle Tir/Charge, Mouvement obligatoire, priorités et dispatch des décisions, garde runtime; 59 fichiers/548 tests, 4 Playwright, TypeScript, build et tracker",
+          "recordedAt": "2026-08-31T20:04:35.538Z",
+          "notes": "Les tests ciblés couvrent explicitement les deux défauts de revue et les états prioritaires; aucune consommation PRNG par la dérivation de vue."
+        },
+        {
+          "id": "EVD-M10-T01-003",
+          "kind": "independent-review",
+          "command": "Fresh-context independent review after audit fixes",
+          "result": "passed",
+          "scope": "Contrôleur, tests et export; progression Tir/Charge optionnelle, Mouvement obligatoire, priorités, décisions, mismatch runtime et frontières React/Pixi",
+          "recordedAt": "2026-08-31T20:06:38.777Z",
+          "notes": "PASS sans finding P0-P2; risques résiduels non bloquants documentés dans le retour d'audit.",
+          "reviewer": "gpt-5.6-sol / high — fresh-context independent review"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordinateur local; architecture du contrôleur interactif M10 fixture-only approuvée par ADR-026, sans délégation.",
+        "recordedAt": "2026-08-31T19:38:49.424Z"
+      },
+      "updatedAt": "2026-08-31T20:06:38.872Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Le contrat doit être dérivé des moteurs et invariants existants ; aucun remplacement manuel fiable."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/domain/**",
+        "src/simulator/orchestration/**",
+        "src/simulator/runtime/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M10-T01-001",
+          "command": "pnpm exec vitest interactive/core POC + tsc; pnpm test; pnpm test:browser; pnpm build",
+          "result": "passed",
+          "scope": "Contrôleur interactif pur, vue stable, opportunités non autoritaires, dispatcher trusted; 59 fichiers/544 tests, 4 Playwright Chromium, TypeScript et build PWA",
+          "recordedAt": "2026-08-31T19:53:14.467Z"
+        },
+        {
+          "id": "RUN-M10-T01-002",
+          "command": "pnpm exec vitest run src/simulator/orchestration/interactive-poc-controller.test.ts; pnpm exec tsc --noEmit; pnpm test; pnpm test:browser; pnpm build; pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Contrôleur interactif pur corrigé après audit : progression optionnelle Tir/Charge, Mouvement obligatoire, priorités et dispatch des décisions, garde runtime; 59 fichiers/548 tests, 4 Playwright, TypeScript, build et tracker",
+          "recordedAt": "2026-08-31T20:04:35.538Z"
+        },
+        {
+          "id": "RUN-M10-T01-003",
+          "command": "Fresh-context independent review after audit fixes",
+          "result": "passed",
+          "scope": "Contrôleur, tests et export; progression Tir/Charge optionnelle, Mouvement obligatoire, priorités, décisions, mismatch runtime et frontières React/Pixi",
+          "recordedAt": "2026-08-31T20:06:38.777Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T01-S01",
+          "title": "Définir le contrat d'orchestration interactive",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/domain/**",
+            "src/simulator/orchestration/**",
+            "src/simulator/runtime/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T02",
+      "milestoneId": "M10",
+      "title": "Rendre le plateau et le déploiement interactifs",
+      "status": "done",
+      "dependencies": [
+        "SIM-M10-T01"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le layout M9, les objectifs, terrains et figurines sont sélectionnables ; chaque pose de déploiement est prévisualisée puis confirmée par commande et expliquée en cas de refus.",
+          "evidenceIds": [
+            "EVD-M10-T02-001",
+            "EVD-M10-T02-002",
+            "EVD-M10-T02-003"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EVD-M10-T02-001",
+          "kind": "validation",
+          "command": "pnpm exec tsc --noEmit; pnpm test; pnpm test:browser; pnpm build; pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plateau Pixi M10, layout M9 statique, sélection terrains/objectifs/figurines, prévisualisation autoritaire, refus hors plateau sans événement et confirmation unit-deployed; 59 fichiers/548 tests, 5 Playwright, build et tracker",
+          "recordedAt": "2026-08-31T20:21:15.102Z",
+          "notes": "Le test Chromium couvre une pose refusée puis valide; le rendu statique n'est recalculé qu'à l'initialisation ou au redimensionnement."
+        },
+        {
+          "id": "EVD-M10-T02-002",
+          "kind": "independent-review",
+          "command": "Fresh-context independent review of M10 interactive deployment slice",
+          "result": "passed",
+          "scope": "UI/Pixi, draft React, authoritative preview/confirmation, selection, render-on-demand, cleanup and fixture-only limitations",
+          "recordedAt": "2026-08-31T20:25:38.752Z",
+          "notes": "PASS sans finding P0-P2; sélection canvas gestuelle compensée par contrôles latéraux clavier.",
+          "reviewer": "gpt-5.6-sol / high — fresh-context independent review"
+        },
+        {
+          "id": "EVD-M10-T02-003",
+          "kind": "validation",
+          "command": "Owner manual playtest of M10 interactive deployment",
+          "result": "passed",
+          "scope": "Default M10 mode, board selection, deployment preview/refusal/confirmation on target device",
+          "recordedAt": "2026-08-31T20:47:30.561Z",
+          "notes": "Validation explicite du propriétaire : Ok, test fait, poursuis."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordinateur local; tranche UI/interaction M10-T02 approuvée dans le jalon XL, approche POC économique avec playtest manuel.",
+        "recordedAt": "2026-08-31T20:07:04.182Z"
+      },
+      "updatedAt": "2026-08-31T20:25:38.839Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Valider sur l'appareil cible la lisibilité, la sélection et le placement de quelques figurines évite des itérations IA de design peu fiables."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [
+        {
+          "id": "RUN-M10-T02-001",
+          "command": "pnpm exec tsc --noEmit; pnpm test; pnpm test:browser; pnpm build; pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plateau Pixi M10, layout M9 statique, sélection terrains/objectifs/figurines, prévisualisation autoritaire, refus hors plateau sans événement et confirmation unit-deployed; 59 fichiers/548 tests, 5 Playwright, build et tracker",
+          "recordedAt": "2026-08-31T20:21:15.102Z"
+        },
+        {
+          "id": "RUN-M10-T02-002",
+          "command": "Fresh-context independent review of M10 interactive deployment slice",
+          "result": "passed",
+          "scope": "UI/Pixi, draft React, authoritative preview/confirmation, selection, render-on-demand, cleanup and fixture-only limitations",
+          "recordedAt": "2026-08-31T20:25:38.752Z"
+        },
+        {
+          "id": "RUN-M10-T02-003",
+          "command": "Owner manual playtest of M10 interactive deployment",
+          "result": "passed",
+          "scope": "Default M10 mode, board selection, deployment preview/refusal/confirmation on target device",
+          "recordedAt": "2026-08-31T20:47:30.561Z"
+        }
+      ],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T02-S01",
+          "title": "Rendre le plateau et le déploiement interactifs",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T03",
+      "milestoneId": "M10",
+      "title": "Rendre les mouvements tactiques interactifs",
+      "status": "in_progress",
+      "dependencies": [
+        "SIM-M10-T02"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les joueurs choisissent unité et type de mouvement, tracent les trajectoires par figurine, voient distance, collisions et cohérence, puis confirment une commande rejouable.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "context": "Implémentation bornée déléguée selon implementation-complex; coordinateur Sol conserve tracker, revue et intégration.",
+        "recordedAt": "2026-08-31T20:47:30.845Z"
+      },
+      "updatedAt": "2026-08-31T20:47:30.845Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Un playtest court des gestes de déplacement et des refus de cohérence remplace avantageusement une longue optimisation spéculative."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T03-S01",
+          "title": "Rendre les mouvements tactiques interactifs",
+          "status": "in_progress",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T04",
+      "milestoneId": "M10",
+      "title": "Rendre le tir et ses décisions interactifs",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T03"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le joueur choisit tireur, armes et cibles ; l'orchestration calcule portée, LoS et couvert, puis l'UI résout les choix couverts, jets, allocations et pertes sans booléen autoritaire fourni par la vue.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-31T19:35:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Tester manuellement une cible valide, une hors portée et une masquée réduit fortement le coût d'analyse des interactions."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T04-S01",
+          "title": "Rendre le tir et ses décisions interactifs",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T05",
+      "milestoneId": "M10",
+      "title": "Rendre charge et combat interactifs",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T04"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Les joueurs déclarent les charges, déplacent selon le jet, sélectionnent les combats et résolvent pile-in, attaques, allocations et consolidation dans les fenêtres couvertes.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-31T19:35:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Un duel guidé de charge puis combat permet de relever immédiatement les gestes ambigus et vaut mieux qu'une simulation IA exhaustive de l'UX."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T05-S01",
+          "title": "Rendre charge et combat interactifs",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T06",
+      "milestoneId": "M10",
+      "title": "Assembler la partie interactive, le score et la persistance",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T05"
+      ],
+      "executionProfile": "implementation-complex",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Deux joueurs terminent cinq rounds en choisissant les actions couvertes, voient CP, objectifs, score et journal, puis retrouvent exactement la session par sauvegarde, reprise et replay V6.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-31T19:35:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Jouer une partie courte sur l'appareil cible et consigner chaque divergence est indispensable avant l'audit final."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T06-S01",
+          "title": "Assembler la partie interactive, le score et la persistance",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M10-T07",
+      "milestoneId": "M10",
+      "title": "Playtester et accepter le POC interactif",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M10-T06"
+      ],
+      "executionProfile": "milestone-audit",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Le parcours déploiement, mouvement, tir, charge, combat, score, sauvegarde et replay passe les gates et un playtest humain, avec toutes les limites de couverture visibles.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-31T19:35:00.000Z",
+      "costClass": "L",
+      "manualAlternative": {
+        "available": true,
+        "worthIt": true,
+        "description": "Le propriétaire joue le parcours sur l'appareil cible ; cette validation ne doit pas être remplacée par une consommation IA."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-014",
+        "ADR-021",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025",
+        "ADR-026"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T07-S01",
+          "title": "Playtester et accepter le POC interactif",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T19:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "SIM-M11-T01",
+      "milestoneId": "M11",
       "title": "Fermer les quatre stratagèmes communs différés du POC technique",
       "status": "planned",
       "dependencies": [
-        "SIM-M9-T04"
+        "SIM-M10-T07"
       ],
       "executionProfile": "rules-formalization",
       "critical": true,
@@ -6523,7 +7164,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M10-T00-S01",
+          "id": "SIM-M11-T01-S01",
           "title": "Formaliser et implémenter les quatre stratagèmes communs différés",
           "status": "planned",
           "allowedPaths": [
@@ -6545,12 +7186,12 @@
       ]
     },
     {
-      "id": "SIM-M10-T01",
-      "milestoneId": "M10",
+      "id": "SIM-M11-T02",
+      "milestoneId": "M11",
       "title": "Formaliser zones et transitions hors plateau",
       "status": "planned",
       "dependencies": [
-        "SIM-M10-T00"
+        "SIM-M11-T01"
       ],
       "executionProfile": "architecture-critical",
       "critical": true,
@@ -6589,7 +7230,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M10-T01-S01",
+          "id": "SIM-M11-T02-S01",
           "title": "Formaliser zones et transitions hors plateau",
           "status": "planned",
           "allowedPaths": [
@@ -6609,12 +7250,12 @@
       ]
     },
     {
-      "id": "SIM-M10-T02",
-      "milestoneId": "M10",
+      "id": "SIM-M11-T03",
+      "milestoneId": "M11",
       "title": "Implémenter réserves et arrivées",
       "status": "planned",
       "dependencies": [
-        "SIM-M10-T01"
+        "SIM-M11-T02"
       ],
       "executionProfile": "implementation-complex",
       "critical": true,
@@ -6653,7 +7294,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M10-T02-S01",
+          "id": "SIM-M11-T03-S01",
           "title": "Implémenter réserves et arrivées",
           "status": "planned",
           "allowedPaths": [
@@ -6673,12 +7314,12 @@
       ]
     },
     {
-      "id": "SIM-M10-T03",
-      "milestoneId": "M10",
+      "id": "SIM-M11-T04",
+      "milestoneId": "M11",
       "title": "Implémenter transports et débarquements",
       "status": "planned",
       "dependencies": [
-        "SIM-M10-T01",
+        "SIM-M11-T02",
         "SIM-M2-T02"
       ],
       "executionProfile": "implementation-complex",
@@ -6718,7 +7359,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M10-T03-S01",
+          "id": "SIM-M11-T04-S01",
           "title": "Implémenter transports et débarquements",
           "status": "planned",
           "allowedPaths": [
@@ -6738,13 +7379,13 @@
       ]
     },
     {
-      "id": "SIM-M10-T04",
-      "milestoneId": "M10",
+      "id": "SIM-M11-T05",
+      "milestoneId": "M11",
       "title": "Auditer les déploiements spéciaux",
       "status": "planned",
       "dependencies": [
-        "SIM-M10-T02",
-        "SIM-M10-T03"
+        "SIM-M11-T03",
+        "SIM-M11-T04"
       ],
       "executionProfile": "milestone-audit",
       "critical": true,
@@ -6786,7 +7427,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M10-T04-S01",
+          "id": "SIM-M11-T05-S01",
           "title": "Auditer les déploiements spéciaux",
           "status": "planned",
           "allowedPaths": [
@@ -6809,12 +7450,12 @@
       ]
     },
     {
-      "id": "SIM-M11-T01",
-      "milestoneId": "M11",
+      "id": "SIM-M12-T01",
+      "milestoneId": "M12",
       "title": "Figer la base de mises à jour de fin août",
       "status": "planned",
       "dependencies": [
-        "SIM-M10-T04",
+        "SIM-M11-T05",
         "SIM-M6-T04"
       ],
       "executionProfile": "source-transcription",
@@ -6855,7 +7496,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M11-T01-S01",
+          "id": "SIM-M12-T01-S01",
           "title": "Figer la base de mises à jour de fin août",
           "status": "planned",
           "allowedPaths": [
@@ -6875,12 +7516,12 @@
       ]
     },
     {
-      "id": "SIM-M11-T02",
-      "milestoneId": "M11",
+      "id": "SIM-M12-T02",
+      "milestoneId": "M12",
       "title": "Intégrer le nouveau Codex Orks",
       "status": "planned",
       "dependencies": [
-        "SIM-M11-T01"
+        "SIM-M12-T01"
       ],
       "executionProfile": "rules-formalization",
       "critical": true,
@@ -6920,7 +7561,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M11-T02-S01",
+          "id": "SIM-M12-T02-S01",
           "title": "Intégrer le nouveau Codex Orks",
           "status": "planned",
           "allowedPaths": [
@@ -6940,12 +7581,12 @@
       ]
     },
     {
-      "id": "SIM-M11-T03",
-      "milestoneId": "M11",
+      "id": "SIM-M12-T03",
+      "milestoneId": "M12",
       "title": "Intégrer le nouveau Codex Space Marines",
       "status": "planned",
       "dependencies": [
-        "SIM-M11-T02"
+        "SIM-M12-T02"
       ],
       "executionProfile": "rules-formalization",
       "critical": true,
@@ -6985,7 +7626,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M11-T03-S01",
+          "id": "SIM-M12-T03-S01",
           "title": "Intégrer le nouveau Codex Space Marines",
           "status": "planned",
           "allowedPaths": [
@@ -7005,12 +7646,12 @@
       ]
     },
     {
-      "id": "SIM-M11-T04",
-      "milestoneId": "M11",
+      "id": "SIM-M12-T04",
+      "milestoneId": "M12",
       "title": "Industrialiser le déploiement armée par armée",
       "status": "planned",
       "dependencies": [
-        "SIM-M11-T03"
+        "SIM-M12-T03"
       ],
       "executionProfile": "milestone-audit",
       "critical": true,
@@ -7053,7 +7694,7 @@
       "actualRuns": [],
       "workSlices": [
         {
-          "id": "SIM-M11-T04-S01",
+          "id": "SIM-M12-T04-S01",
           "title": "Industrialiser le déploiement armée par armée",
           "status": "planned",
           "allowedPaths": [
@@ -7120,15 +7761,11 @@
   ],
   "openQuestions": [],
   "resumeContext": {
-    "taskId": "SIM-M9-T04",
-    "lastCompleted": "Les gates finales de SIM-M9-T04 sont vertes : pnpm verify, 539 tests, 4 parcours Chromium et build PWA. Le serveur local de playtest est prêt sur le POC technique.",
-    "nextAction": "Le propriétaire exécute le playtest guidé à http://127.0.0.1:4173/#simulator et signale toute divergence, ou confirme que le parcours, les quatre limites, la sauvegarde, la reprise et le replay sont conformes.",
-    "files": [
-      "src/simulator/ui/CorePocTechnicalPage.tsx",
-      "tests/browser/simulator.spec.ts",
-      "docs/simulator/project-state.json"
-    ],
-    "updatedAt": "2026-08-31T15:51:10.656Z"
+    "taskId": "SIM-M10-T03",
+    "lastCompleted": "Implémenter type de mouvement, trajectoires par figurine, prévisualisation et confirmation autoritaires.",
+    "nextAction": "Poursuivre SIM-M10-T03 : Rendre les mouvements tactiques interactifs.",
+    "files": [],
+    "updatedAt": "2026-08-31T20:47:30.753Z"
   },
   "productCapabilities": [
     {
@@ -7170,171 +7807,37 @@
   ],
   "workspaceHealth": {
     "status": "healthy",
-    "checkedAt": "2026-08-31T15:09:25.217Z",
-    "taskId": "SIM-M9-T03",
+    "checkedAt": "2026-08-31T20:47:31.567Z",
+    "taskId": "SIM-M10-T03",
     "baselinePaths": [
-      "../AGENTS.md",
-      "data/simulator/closed-complete-game-mission.json",
-      "data/simulator/coverage.json",
-      "data/simulator/full-game-coverage.json",
-      "data/simulator/m4-real-roster-facts.json",
-      "data/simulator/manifest.json",
-      "data/simulator/physical-profiles.json",
-      "data/simulator/rulepacks.json",
-      "data/simulator/scenarios.json",
       "docs/simulator/PLAN.md",
       "docs/simulator/STATUS.md",
       "docs/simulator/project-state.json",
-      "public/data/simulator/closed-complete-game-mission.json",
-      "public/data/simulator/coverage.json",
-      "public/data/simulator/full-game-coverage.json",
-      "public/data/simulator/manifest.json",
-      "public/data/simulator/physical-profiles.json",
-      "public/data/simulator/rulepacks.json",
-      "public/data/simulator/scenarios.json",
       "scripts/simulator-project.test.mjs",
-      "scripts/validate-simulator-data.mjs",
-      "scripts/validate-simulator-data.test.mjs",
-      "src/simulator/domain/battle-state.ts",
-      "src/simulator/domain/commands.ts",
-      "src/simulator/domain/full-game-compiler.test.ts",
-      "src/simulator/domain/full-game-contracts.test.ts",
-      "src/simulator/domain/index.ts",
-      "src/simulator/domain/reducer.ts",
-      "src/simulator/domain/serialization.ts",
-      "src/simulator/domain/types.ts",
-      "src/simulator/geometry/geometry.test.ts",
-      "src/simulator/geometry/movement.ts",
-      "src/simulator/orchestration/deployment.test.ts",
-      "src/simulator/orchestration/deployment.ts",
       "src/simulator/orchestration/index.ts",
-      "src/simulator/orchestration/objective-control.ts",
-      "src/simulator/orchestration/shooting.ts",
-      "src/simulator/rules/index.ts",
-      "src/simulator/runtime/index.ts",
-      "src/simulator/testing/closed-complete-game-fixture.ts",
-      "src/simulator/testing/complete-game-deployment-fixture.ts",
       "src/simulator/ui/SimulatorPage.tsx",
-      "../.agents/skills/warforge-layout-measurement-extraction/SKILL.md",
-      "../.agents/skills/warforge-layout-measurement-extraction/agents/openai.yaml",
-      "../.agents/skills/warforge-layout-measurement-extraction/references/layout-measurement-schema.md",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-measurements.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-ocr.ps1",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/finalize-layout-measurements.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-board-review.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-review.py",
-      "data/missions/gdmissions-11th/layout-measurements/extraction-candidates.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-decisions.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-queue.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-queue.pre-review.json",
-      "data/missions/gdmissions-11th/layout-measurements/source-inventory.json",
-      "data/simulator/core-poc-coverage.json",
-      "data/simulator/core-poc-fixtures.json",
-      "data/simulator/core-poc-layout.json",
-      "data/simulator/gdm-2026-layout-measurements.json",
-      "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
-      "docs/simulator/decisions/ADR-021-score-events-and-v6-mission-checkpoints.md",
-      "docs/simulator/decisions/ADR-022-core-rules-poc-and-codex-refresh.md",
-      "docs/simulator/decisions/ADR-023-core-poc-spatial-layout.md",
-      "docs/simulator/decisions/ADR-024-lightweight-layout-runtime.md",
-      "docs/simulator/decisions/ADR-025-economic-technical-core-poc.md",
-      "public/data/simulator/core-poc-coverage.json",
-      "public/data/simulator/core-poc-fixtures.json",
-      "public/data/simulator/core-poc-layout.json",
-      "public/data/simulator/gdm-2026-layout-measurements.json",
-      "src/simulator/domain/core-poc-coverage.test.ts",
-      "src/simulator/domain/core-poc-coverage.ts",
-      "src/simulator/domain/core-poc-layout.test.ts",
-      "src/simulator/domain/core-poc-layout.ts",
-      "src/simulator/domain/mission-scoring.ts",
-      "src/simulator/orchestration/mission-scoring.test.ts",
-      "src/simulator/orchestration/mission-scoring.ts",
-      "src/simulator/rules/m9-source-references.ts",
-      "src/simulator/runtime/core-poc.test.ts",
-      "src/simulator/runtime/core-poc.ts"
+      "src/simulator/ui/simulator.css",
+      "tests/browser/simulator.spec.ts",
+      "docs/simulator/decisions/ADR-026-interactive-fixture-poc-before-fidelity.md",
+      "src/simulator/orchestration/interactive-poc-controller.test.ts",
+      "src/simulator/orchestration/interactive-poc-controller.ts",
+      "src/simulator/ui/InteractivePocPage.tsx"
     ],
     "changedPaths": [
-      "../AGENTS.md",
-      "data/simulator/closed-complete-game-mission.json",
-      "data/simulator/coverage.json",
-      "data/simulator/full-game-coverage.json",
-      "data/simulator/m4-real-roster-facts.json",
-      "data/simulator/manifest.json",
-      "data/simulator/physical-profiles.json",
-      "data/simulator/rulepacks.json",
-      "data/simulator/scenarios.json",
       "docs/simulator/PLAN.md",
       "docs/simulator/STATUS.md",
       "docs/simulator/project-state.json",
-      "public/data/simulator/closed-complete-game-mission.json",
-      "public/data/simulator/coverage.json",
-      "public/data/simulator/full-game-coverage.json",
-      "public/data/simulator/manifest.json",
-      "public/data/simulator/physical-profiles.json",
-      "public/data/simulator/rulepacks.json",
-      "public/data/simulator/scenarios.json",
       "scripts/simulator-project.test.mjs",
-      "scripts/validate-simulator-data.mjs",
-      "scripts/validate-simulator-data.test.mjs",
-      "src/simulator/domain/battle-state.ts",
-      "src/simulator/domain/commands.ts",
-      "src/simulator/domain/full-game-compiler.test.ts",
-      "src/simulator/domain/full-game-contracts.test.ts",
-      "src/simulator/domain/index.ts",
-      "src/simulator/domain/reducer.ts",
-      "src/simulator/domain/serialization.ts",
-      "src/simulator/domain/types.ts",
-      "src/simulator/geometry/geometry.test.ts",
-      "src/simulator/geometry/movement.ts",
-      "src/simulator/orchestration/deployment.test.ts",
-      "src/simulator/orchestration/deployment.ts",
       "src/simulator/orchestration/index.ts",
-      "src/simulator/orchestration/objective-control.ts",
-      "src/simulator/orchestration/shooting.ts",
-      "src/simulator/rules/index.ts",
-      "src/simulator/runtime/index.ts",
-      "src/simulator/testing/closed-complete-game-fixture.ts",
-      "src/simulator/testing/complete-game-deployment-fixture.ts",
       "src/simulator/ui/SimulatorPage.tsx",
-      "../.agents/skills/warforge-layout-measurement-extraction/SKILL.md",
-      "../.agents/skills/warforge-layout-measurement-extraction/agents/openai.yaml",
-      "../.agents/skills/warforge-layout-measurement-extraction/references/layout-measurement-schema.md",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-measurements.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-ocr.ps1",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/finalize-layout-measurements.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-board-review.py",
-      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-review.py",
-      "data/missions/gdmissions-11th/layout-measurements/extraction-candidates.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-decisions.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-queue.json",
-      "data/missions/gdmissions-11th/layout-measurements/review-queue.pre-review.json",
-      "data/missions/gdmissions-11th/layout-measurements/source-inventory.json",
-      "data/simulator/core-poc-coverage.json",
-      "data/simulator/core-poc-fixtures.json",
-      "data/simulator/core-poc-layout.json",
-      "data/simulator/gdm-2026-layout-measurements.json",
-      "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
-      "docs/simulator/decisions/ADR-021-score-events-and-v6-mission-checkpoints.md",
-      "docs/simulator/decisions/ADR-022-core-rules-poc-and-codex-refresh.md",
-      "docs/simulator/decisions/ADR-023-core-poc-spatial-layout.md",
-      "docs/simulator/decisions/ADR-024-lightweight-layout-runtime.md",
-      "docs/simulator/decisions/ADR-025-economic-technical-core-poc.md",
-      "public/data/simulator/core-poc-coverage.json",
-      "public/data/simulator/core-poc-fixtures.json",
-      "public/data/simulator/core-poc-layout.json",
-      "public/data/simulator/gdm-2026-layout-measurements.json",
-      "src/simulator/domain/core-poc-coverage.test.ts",
-      "src/simulator/domain/core-poc-coverage.ts",
-      "src/simulator/domain/core-poc-layout.test.ts",
-      "src/simulator/domain/core-poc-layout.ts",
-      "src/simulator/domain/mission-scoring.ts",
-      "src/simulator/orchestration/mission-scoring.test.ts",
-      "src/simulator/orchestration/mission-scoring.ts",
-      "src/simulator/rules/m9-source-references.ts",
-      "src/simulator/runtime/core-poc.test.ts",
-      "src/simulator/runtime/core-poc.ts"
+      "src/simulator/ui/simulator.css",
+      "tests/browser/simulator.spec.ts",
+      "docs/simulator/decisions/ADR-026-interactive-fixture-poc-before-fidelity.md",
+      "src/simulator/orchestration/interactive-poc-controller.test.ts",
+      "src/simulator/orchestration/interactive-poc-controller.ts",
+      "src/simulator/ui/InteractivePocPage.tsx"
     ],
     "unexpectedPaths": [],
-    "note": "Périmètre comparé à SIM-M9-T03."
+    "note": "Périmètre comparé à SIM-M10-T03."
   }
 }

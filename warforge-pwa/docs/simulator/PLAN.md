@@ -1,6 +1,6 @@
 # Simulateur tactique Warforge
 
-`planVersion: 3.4.0`
+`planVersion: 3.5.0`
 
 ## Résultat visé
 
@@ -10,13 +10,14 @@ les décisions ; le moteur vérifie la légalité, résout les règles couvertes
 journalise chaque effet et rejoue exactement la partie. Aucun backend,
 adversaire IA ou mécanisme anti-triche hostile n'est prévu.
 
-Le premier incrément est un POC technique fermé de cinq rounds, avec quelques
-profils de fixture figés. Il valide l'assemblage du moteur, du terrain, du
-score, de l'interface et du replay, mais ne constitue pas encore une partie
-V11 fidèle : quatre stratagèmes communs atteignables sont différés par
-ADR-025. Il ne couvre aucun codex, détachement, règle d'armée ou aptitude de
-datasheet. « Partie complète V11 » et « toute liste » restent interdits avant
-fermeture de leurs couvertures respectives.
+M9 a livré un POC technique fermé de cinq rounds avec quelques profils de
+fixture figés. M10 assemble maintenant ces moteurs dans un POC interactif où
+deux joueurs manipulent les figurines et choisissent déploiement, mouvement,
+tir, charge et combat. Ce parcours reste fixture-only et ne constitue pas
+encore une partie V11 fidèle : quatre stratagèmes communs atteignables sont
+différés par ADR-025. Il ne couvre aucun codex, détachement, règle d'armée ou
+aptitude de datasheet. « Partie complète V11 » et « toute liste » restent
+interdits avant fermeture de leurs couvertures respectives.
 
 ## État produit au début du plan 3
 
@@ -146,8 +147,9 @@ générales et plafonds restent reliés au Compagnon de Rencontre officiel.
 | M7 — Boucle de bataille | Déploiement, premier joueur, cinq rounds, tours, mouvements, Charge et Combat sont jouables et rejouables. |
 | M8 — Ressources et objectifs | CP, Battle-shock, statuts, contrôle d'objectifs et stratagèmes obligatoires du pilote sont exécutables. |
 | M9 — POC technique cinq rounds et UI | Mission fermée, profils POC, score, interface, sauvegarde/reprise et playtest humain de bout en bout sont acceptés avec quatre limites communes visibles. |
-| M10 — Fidélité commune et zones spéciales | Les quatre stratagèmes différés, réserves, transports et déploiements spéciaux sont ajoutés sans approximation ni état spatial impossible. |
-| M11 — Relance codex et catalogue | La base de fin août, Orks puis Space Marines sont intégrés avant l'ajout des autres armées par lots sourcés et audités. |
+| M10 — POC interactif fixture-only | Deux joueurs manipulent les figurines et choisissent les actions couvertes du déploiement au score final, avec sauvegarde et replay. |
+| M11 — Fidélité commune et zones spéciales | Les quatre stratagèmes différés, réserves, transports et déploiements spéciaux sont ajoutés sans approximation ni état spatial impossible. |
+| M12 — Relance codex et catalogue | La base de fin août, Orks puis Space Marines sont intégrés avant l'ajout des autres armées par lots sourcés et audités. |
 
 ### M5 — clôture
 
@@ -199,25 +201,42 @@ restent différés jusqu'à une source et un loadout approuvé.
    automatique est identifié comme outil technique et ne transforme jamais
    une règle non couverte en règle ignorée.
 
-### M10 — dette commune puis zones spéciales
+### M10 — POC interactif fixture-only
+
+1. Exposer un contrôleur pur qui dérive l'état présentable, les actions
+   couvertes et les commandes possibles sans dupliquer les règles dans l'UI.
+2. Afficher le layout M9 et permettre sélection puis déploiement des
+   figurines, avec prévisualisation et refus explicables.
+3. Permettre le choix du type de mouvement et le tracé des trajectoires par
+   figurine, avec distance, collision et cohérence visibles avant confirmation.
+4. Permettre de choisir tireur, armes et cibles ; l'orchestration reste seule
+   autorité pour portée, LoS, couvert, jets, allocations et pertes.
+5. Permettre de déclarer une charge, déplacer selon le jet, choisir les
+   combats et résoudre pile-in, attaques et consolidation.
+6. Assembler cinq rounds avec décisions couvertes, CP, objectifs, score,
+   journal, sauvegarde, reprise et replay V6.
+7. Exécuter les playtests humains intermédiaires puis l'audit indépendant du
+   parcours complet. Les quatre limitations ADR-025 restent visibles.
+
+### M11 — dette commune puis zones spéciales
 
 1. Implémenter et auditer Relance de Commandement, Défi Épique, Tir en État
    d'Alerte/Tir Réflexe et Intervention Héroïque avant toute promesse de partie
    V11 complète.
 2. Formaliser ensuite les zones et transitions hors plateau.
 3. Ajouter réserves, arrivées, transports et débarquements.
-4. Auditer la fidélité commune et les états spatiaux spéciaux avant M11.
+4. Auditer la fidélité commune et les états spatiaux spéciaux avant M12.
 
-### Après le POC technique — fidélité commune puis codex
+### Après le POC interactif — fidélité commune puis codex
 
-Après l'acceptation technique de M9, M10 ferme d'abord les quatre stratagèmes
-communs différés et les zones spéciales. Le contenu d'armée ne reprend qu'après
-cette fidélité commune. La base de mises à jour de fin août est alors figée
-depuis GDM 2026, puis le nouveau Codex Orks est intégré depuis le fichier texte
-préparé par le propriétaire. Le nouveau Codex Space Marines est intégré à sa
-sortie ; les anciennes règles de détachement ne sont donc pas implémentées
-entre-temps. Les autres armées suivent ensuite une par une, avec sources,
-couverture exacte, tests et audit par pack.
+Après l'acceptation interactive de M10, M11 ferme d'abord les quatre
+stratagèmes communs différés et les zones spéciales. Le contenu d'armée ne
+reprend qu'après cette fidélité commune. La base de mises à jour de fin août
+est alors figée depuis GDM 2026, puis le nouveau Codex Orks est intégré depuis
+le fichier texte préparé par le propriétaire. Le nouveau Codex Space Marines
+est intégré à sa sortie ; les anciennes règles de détachement ne sont donc pas
+implémentées entre-temps. Les autres armées suivent ensuite une par une, avec
+sources, couverture exacte, tests et audit par pack.
 
 ## Gates
 

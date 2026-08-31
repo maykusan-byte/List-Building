@@ -15,6 +15,7 @@ import type { LaboratoryAnalysis, LaboratoryModel, LaboratoryMove } from './labo
 import './simulator.css';
 import ClosedDuelPage from './ClosedDuelPage';
 import CorePocTechnicalPage from './CorePocTechnicalPage';
+import InteractivePocPage from './InteractivePocPage';
 import M4RealRosterDuelPage from './M4RealRosterDuelPage';
 
 export interface SimulatorPageProps {
@@ -520,14 +521,15 @@ function LaboratoryPage({ locale }: SimulatorPageProps): React.JSX.Element {
 
 /** M2 stays a laboratory and M3 an isolated fixture beside the real-roster pilot. */
 export default function SimulatorPage({ locale }: SimulatorPageProps): React.JSX.Element {
-  const [mode, setMode] = useState<'poc' | 'm4' | 'duel' | 'laboratory'>('poc');
+  const [mode, setMode] = useState<'interactive' | 'poc' | 'm4' | 'duel' | 'laboratory'>('interactive');
   return <>
     <nav className="simulator-mode-tabs" aria-label="Modes du simulateur">
+      <button type="button" className={mode === 'interactive' ? 'active' : ''} aria-pressed={mode === 'interactive'} onClick={() => setMode('interactive')}>POC interactif M10</button>
       <button type="button" className={mode === 'poc' ? 'active' : ''} aria-pressed={mode === 'poc'} onClick={() => setMode('poc')}>POC technique M9</button>
       <button type="button" className={mode === 'm4' ? 'active' : ''} aria-pressed={mode === 'm4'} onClick={() => setMode('m4')}>Duel réel M4</button>
       <button type="button" className={mode === 'duel' ? 'active' : ''} aria-pressed={mode === 'duel'} onClick={() => setMode('duel')}>Duel fermé M3</button>
       <button type="button" className={mode === 'laboratory' ? 'active' : ''} aria-pressed={mode === 'laboratory'} onClick={() => setMode('laboratory')}>Laboratoire M2</button>
     </nav>
-    {mode === 'poc' ? <CorePocTechnicalPage /> : mode === 'm4' ? <M4RealRosterDuelPage /> : mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
+    {mode === 'interactive' ? <InteractivePocPage /> : mode === 'poc' ? <CorePocTechnicalPage /> : mode === 'm4' ? <M4RealRosterDuelPage /> : mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
   </>;
 }
