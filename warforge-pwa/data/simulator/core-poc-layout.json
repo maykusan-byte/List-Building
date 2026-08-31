@@ -1,0 +1,217 @@
+{
+  "schemaVersion": "warforge-simulator-core-poc-layout/v1",
+  "version": "1.0.0",
+  "manifestVersion": "0.8.0",
+  "scope": "closed-complete-game-core-poc-v1",
+  "id": "disruption-mirror-1-core-poc-v1",
+  "status": "covered",
+  "source": {
+    "sourceId": "approved-gdm-2026-layout-images",
+    "measurementArtifact": "gdm-2026-layout-measurements.json",
+    "measurementLayoutId": "disruption-mirror-1",
+    "measuredImageSha256": "bae1b718156e48ec4ac3a44f4718111a0a4325911a41161bd50cff9e47786486",
+    "plainImageSha256": "781c716568414b7ee358a41f00d5fc2fd619648c6fba359e557910c67d171678",
+    "boardRectPx": { "left": 269, "right": 1384, "top": 757, "bottom": 2277 },
+    "transcription": {
+      "baseplates": "Polygones de jeu simplifiés par lecture visuelle directe ; leurs extrêmes cotés sont contraints par les 32 mesures vérifiées.",
+      "features": "Contours des aplats vert et orange segmentés sur l'image sans mesures, simplifiés à 3 px puis relus visuellement.",
+      "objectives": "Centres des six pictogrammes détectés sur l'image sans mesures puis projetés sur le repère du plateau au dixième de pouce.",
+      "deployment": "Triangles rouge et bleu lus sur le diagramme ; leurs diagonales restent soumises à la revue humaine du layout compilé."
+    }
+  },
+  "board": {
+    "widthTenthsInch": 440,
+    "heightTenthsInch": 600,
+    "origin": "top-left",
+    "worldUnitsPerInch": 254
+  },
+  "deploymentZones": [
+    {
+      "id": "attacker-deployment-zone",
+      "role": "attacker",
+      "polygonTenthsInch": [
+        { "x": 0, "y": 0 },
+        { "x": 440, "y": 0 },
+        { "x": 0, "y": 240 }
+      ]
+    },
+    {
+      "id": "defender-deployment-zone",
+      "role": "defender",
+      "polygonTenthsInch": [
+        { "x": 0, "y": 600 },
+        { "x": 440, "y": 600 },
+        { "x": 440, "y": 360 }
+      ]
+    }
+  ],
+  "objectives": [
+    { "id": "objective-attacker-home", "role": "attacker-home", "centerTenthsInch": { "x": 118, "y": 101 }, "sourceCenterPx": { "x": 568.2, "y": 1012.2 } },
+    { "id": "objective-defender-home", "role": "defender-home", "centerTenthsInch": { "x": 322, "y": 499 }, "sourceCenterPx": { "x": 1085.4, "y": 2021.4 } },
+    { "id": "objective-no-mans-land-1", "role": "no-mans-land-1", "centerTenthsInch": { "x": 332, "y": 131 }, "sourceCenterPx": { "x": 1110.6, "y": 1089.0 } },
+    { "id": "objective-no-mans-land-2", "role": "no-mans-land-2", "centerTenthsInch": { "x": 108, "y": 469 }, "sourceCenterPx": { "x": 541.8, "y": 1944.6 } },
+    { "id": "objective-centre-1", "role": "centre-1", "centerTenthsInch": { "x": 232, "y": 280 }, "sourceCenterPx": { "x": 857.4, "y": 1465.8 } },
+    { "id": "objective-centre-2", "role": "centre-2", "centerTenthsInch": { "x": 212, "y": 325 }, "sourceCenterPx": { "x": 807.0, "y": 1579.8 } }
+  ],
+  "terrain": [
+    {
+      "id": "terrain-upper-left-large",
+      "baseplateTenthsInch": [{ "x": 50, "y": 98 }, { "x": 144, "y": 41 }, { "x": 181, "y": 105 }, { "x": 164, "y": 126 }, { "x": 157, "y": 125 }, { "x": 146, "y": 138 }, { "x": 87, "y": 165 }],
+      "features": [
+        { "id": "terrain-upper-left-large-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 63, "y": 116 }, { "x": 87, "y": 156 }, { "x": 140, "y": 124 }, { "x": 138, "y": 120 }, { "x": 88, "y": 150 }, { "x": 67, "y": 114 }] },
+        { "id": "terrain-upper-left-large-obstacle", "kind": "obstacle", "polygonTenthsInch": [{ "x": 172, "y": 85 }, { "x": 168, "y": 88 }, { "x": 174, "y": 98 }, { "x": 155, "y": 110 }, { "x": 157, "y": 113 }, { "x": 180, "y": 100 }] }
+      ]
+    },
+    {
+      "id": "terrain-upper-centre-small",
+      "baseplateTenthsInch": [{ "x": 148, "y": 105 }, { "x": 230, "y": 95 }, { "x": 266, "y": 104 }, { "x": 266, "y": 120 }, { "x": 247, "y": 124 }, { "x": 222, "y": 129 }, { "x": 163, "y": 132 }],
+      "features": [
+        { "id": "terrain-upper-centre-small-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 258, "y": 114 }, { "x": 249, "y": 115 }, { "x": 248, "y": 105 }, { "x": 221, "y": 107 }, { "x": 221, "y": 109 }, { "x": 219, "y": 109 }, { "x": 219, "y": 117 }, { "x": 210, "y": 118 }, { "x": 210, "y": 132 }, { "x": 260, "y": 128 }] }
+      ]
+    },
+    {
+      "id": "terrain-upper-right-large",
+      "baseplateTenthsInch": [{ "x": 266, "y": 132 }, { "x": 330, "y": 75 }, { "x": 347, "y": 70 }, { "x": 400, "y": 142 }, { "x": 400, "y": 160 }, { "x": 331, "y": 226 }, { "x": 294, "y": 181 }, { "x": 267, "y": 144 }],
+      "features": [
+        { "id": "terrain-upper-right-large-wall-north", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 333, "y": 92 }, { "x": 336, "y": 96 }, { "x": 358, "y": 80 }, { "x": 391, "y": 127 }, { "x": 395, "y": 124 }, { "x": 359, "y": 74 }] },
+        { "id": "terrain-upper-right-large-wall-south", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 357, "y": 154 }, { "x": 355, "y": 150 }, { "x": 308, "y": 183 }, { "x": 295, "y": 165 }, { "x": 291, "y": 167 }, { "x": 307, "y": 189 }] }
+      ]
+    },
+    {
+      "id": "terrain-left-cross",
+      "baseplateTenthsInch": [{ "x": 40, "y": 218 }, { "x": 78, "y": 218 }, { "x": 78, "y": 194 }, { "x": 104, "y": 194 }, { "x": 104, "y": 218 }, { "x": 137, "y": 218 }, { "x": 137, "y": 250 }, { "x": 105, "y": 250 }, { "x": 105, "y": 230 }, { "x": 80, "y": 230 }, { "x": 80, "y": 252 }, { "x": 40, "y": 252 }],
+      "features": [
+        { "id": "terrain-left-cross-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 78, "y": 198 }, { "x": 78, "y": 225 }, { "x": 80, "y": 225 }, { "x": 80, "y": 227 }, { "x": 102, "y": 227 }, { "x": 102, "y": 198 }] },
+        { "id": "terrain-left-cross-obstacle-west", "kind": "obstacle", "polygonTenthsInch": [{ "x": 40, "y": 213 }, { "x": 40, "y": 217 }, { "x": 76, "y": 217 }, { "x": 76, "y": 213 }] },
+        { "id": "terrain-left-cross-obstacle-east", "kind": "obstacle", "polygonTenthsInch": [{ "x": 103, "y": 213 }, { "x": 103, "y": 217 }, { "x": 139, "y": 217 }, { "x": 139, "y": 213 }] },
+        { "id": "terrain-left-cross-obstacle-north", "kind": "obstacle", "polygonTenthsInch": [{ "x": 145, "y": 173 }, { "x": 145, "y": 217 }, { "x": 150, "y": 217 }, { "x": 150, "y": 173 }] }
+      ]
+    },
+    {
+      "id": "terrain-centre-large",
+      "baseplateTenthsInch": [{ "x": 214, "y": 227 }, { "x": 295, "y": 337 }, { "x": 253, "y": 359 }, { "x": 230, "y": 369 }, { "x": 211, "y": 378 }, { "x": 190, "y": 350 }, { "x": 150, "y": 285 }, { "x": 168, "y": 270 }, { "x": 185, "y": 257 }],
+      "features": [
+        { "id": "terrain-centre-large-wall-west", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 193, "y": 256 }, { "x": 154, "y": 281 }, { "x": 174, "y": 314 }, { "x": 178, "y": 312 }, { "x": 160, "y": 282 }, { "x": 195, "y": 260 }] },
+        { "id": "terrain-centre-large-wall-east", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 270, "y": 291 }, { "x": 266, "y": 293 }, { "x": 285, "y": 322 }, { "x": 249, "y": 345 }, { "x": 251, "y": 349 }, { "x": 291, "y": 324 }] },
+        { "id": "terrain-centre-large-obstacle-north", "kind": "obstacle", "polygonTenthsInch": [{ "x": 219, "y": 240 }, { "x": 221, "y": 244 }, { "x": 232, "y": 238 }, { "x": 238, "y": 248 }, { "x": 242, "y": 246 }, { "x": 233, "y": 231 }] },
+        { "id": "terrain-centre-large-obstacle-south", "kind": "obstacle", "polygonTenthsInch": [{ "x": 203, "y": 359 }, { "x": 212, "y": 373 }, { "x": 226, "y": 365 }, { "x": 223, "y": 361 }, { "x": 213, "y": 368 }, { "x": 206, "y": 357 }] }
+      ]
+    },
+    {
+      "id": "terrain-right-bar",
+      "baseplateTenthsInch": [{ "x": 328, "y": 229 }, { "x": 390, "y": 229 }, { "x": 390, "y": 272 }, { "x": 358, "y": 273 }, { "x": 328, "y": 270 }],
+      "anchors": [
+        { "id": "measured-left-end", "pointTenthsInch": { "x": 330, "y": 250 } }
+      ],
+      "features": [
+        { "id": "terrain-right-bar-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 328, "y": 233 }, { "x": 328, "y": 244 }, { "x": 330, "y": 245 }, { "x": 330, "y": 247 }, { "x": 392, "y": 247 }, { "x": 392, "y": 233 }] }
+      ]
+    },
+    {
+      "id": "terrain-right-square",
+      "baseplateTenthsInch": [{ "x": 305, "y": 270 }, { "x": 313, "y": 257 }, { "x": 350, "y": 257 }, { "x": 350, "y": 320 }, { "x": 326, "y": 320 }, { "x": 305, "y": 306 }],
+      "features": [
+        { "id": "terrain-right-square-obstacle-north", "kind": "obstacle", "polygonTenthsInch": [{ "x": 320, "y": 253 }, { "x": 320, "y": 257 }, { "x": 342, "y": 257 }, { "x": 343, "y": 270 }, { "x": 347, "y": 270 }, { "x": 347, "y": 253 }] },
+        { "id": "terrain-right-square-obstacle-south", "kind": "obstacle", "polygonTenthsInch": [{ "x": 313, "y": 291 }, { "x": 313, "y": 307 }, { "x": 340, "y": 307 }, { "x": 340, "y": 303 }, { "x": 317, "y": 303 }, { "x": 317, "y": 291 }] }
+      ]
+    },
+    {
+      "id": "terrain-left-square",
+      "baseplateTenthsInch": [{ "x": 90, "y": 275 }, { "x": 128, "y": 275 }, { "x": 128, "y": 350 }, { "x": 105, "y": 350 }, { "x": 90, "y": 335 }],
+      "features": [
+        { "id": "terrain-left-square-obstacle-north", "kind": "obstacle", "polygonTenthsInch": [{ "x": 100, "y": 293 }, { "x": 100, "y": 297 }, { "x": 122, "y": 297 }, { "x": 123, "y": 309 }, { "x": 127, "y": 309 }, { "x": 127, "y": 293 }] },
+        { "id": "terrain-left-square-obstacle-south", "kind": "obstacle", "polygonTenthsInch": [{ "x": 93, "y": 330 }, { "x": 93, "y": 347 }, { "x": 120, "y": 347 }, { "x": 120, "y": 343 }, { "x": 97, "y": 343 }, { "x": 97, "y": 330 }] }
+      ]
+    },
+    {
+      "id": "terrain-lower-left-bar",
+      "baseplateTenthsInch": [{ "x": 50, "y": 349 }, { "x": 112, "y": 349 }, { "x": 121, "y": 359 }, { "x": 112, "y": 374 }, { "x": 50, "y": 374 }],
+      "features": [
+        { "id": "terrain-lower-left-bar-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 48, "y": 353 }, { "x": 48, "y": 367 }, { "x": 112, "y": 367 }, { "x": 112, "y": 355 }, { "x": 110, "y": 355 }, { "x": 110, "y": 353 }] }
+      ]
+    },
+    {
+      "id": "terrain-lower-right-cross",
+      "baseplateTenthsInch": [{ "x": 280, "y": 383 }, { "x": 336, "y": 383 }, { "x": 336, "y": 373 }, { "x": 365, "y": 373 }, { "x": 365, "y": 383 }, { "x": 400, "y": 383 }, { "x": 400, "y": 406 }, { "x": 365, "y": 406 }, { "x": 365, "y": 435 }, { "x": 280, "y": 435 }],
+      "anchors": [
+        { "id": "measured-vertical-arm", "pointTenthsInch": { "x": 303, "y": 406 } }
+      ],
+      "features": [
+        { "id": "terrain-lower-right-cross-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 338, "y": 373 }, { "x": 338, "y": 402 }, { "x": 362, "y": 402 }, { "x": 362, "y": 375 }, { "x": 360, "y": 375 }, { "x": 359, "y": 373 }] },
+        { "id": "terrain-lower-right-cross-obstacle-west", "kind": "obstacle", "polygonTenthsInch": [{ "x": 300, "y": 383 }, { "x": 300, "y": 387 }, { "x": 336, "y": 387 }, { "x": 336, "y": 383 }] },
+        { "id": "terrain-lower-right-cross-obstacle-east", "kind": "obstacle", "polygonTenthsInch": [{ "x": 363, "y": 383 }, { "x": 363, "y": 387 }, { "x": 399, "y": 387 }, { "x": 399, "y": 383 }] },
+        { "id": "terrain-lower-right-cross-obstacle-south", "kind": "obstacle", "polygonTenthsInch": [{ "x": 290, "y": 383 }, { "x": 290, "y": 427 }, { "x": 294, "y": 427 }, { "x": 294, "y": 383 }] }
+      ],
+      "subregions": [
+        { "id": "horizontal-arm", "boundsTenthsInch": { "minX": 303, "minY": 373, "maxX": 400, "maxY": 406 } }
+      ]
+    },
+    {
+      "id": "terrain-lower-left-large",
+      "baseplateTenthsInch": [{ "x": 40, "y": 470 }, { "x": 81, "y": 423 }, { "x": 174, "y": 463 }, { "x": 174, "y": 480 }, { "x": 132, "y": 518 }, { "x": 80, "y": 530 }],
+      "features": [
+        { "id": "terrain-lower-left-large-wall-north", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 149, "y": 433 }, { "x": 133, "y": 411 }, { "x": 82, "y": 446 }, { "x": 85, "y": 450 }, { "x": 132, "y": 417 }, { "x": 145, "y": 435 }] },
+        { "id": "terrain-lower-left-large-wall-south", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 45, "y": 475 }, { "x": 81, "y": 526 }, { "x": 107, "y": 508 }, { "x": 104, "y": 504 }, { "x": 82, "y": 520 }, { "x": 49, "y": 473 }] }
+      ]
+    },
+    {
+      "id": "terrain-lower-centre-small",
+      "baseplateTenthsInch": [{ "x": 174, "y": 465 }, { "x": 230, "y": 465 }, { "x": 230, "y": 493 }, { "x": 221, "y": 493 }, { "x": 221, "y": 505 }, { "x": 190, "y": 505 }, { "x": 180, "y": 495 }, { "x": 174, "y": 480 }],
+      "features": [
+        { "id": "terrain-lower-centre-small-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 229, "y": 468 }, { "x": 181, "y": 471 }, { "x": 181, "y": 486 }, { "x": 191, "y": 485 }, { "x": 192, "y": 495 }, { "x": 219, "y": 493 }, { "x": 218, "y": 491 }, { "x": 221, "y": 491 }, { "x": 221, "y": 483 }, { "x": 230, "y": 482 }] }
+      ]
+    },
+    {
+      "id": "terrain-lower-right-large",
+      "baseplateTenthsInch": [{ "x": 251, "y": 500 }, { "x": 328, "y": 443 }, { "x": 390, "y": 508 }, { "x": 390, "y": 530 }, { "x": 292, "y": 559 }],
+      "features": [
+        { "id": "terrain-lower-right-large-wall", "kind": "ruin-wall", "polygonTenthsInch": [{ "x": 377, "y": 484 }, { "x": 353, "y": 444 }, { "x": 300, "y": 476 }, { "x": 302, "y": 480 }, { "x": 351, "y": 450 }, { "x": 373, "y": 486 }] },
+        { "id": "terrain-lower-right-large-obstacle", "kind": "obstacle", "polygonTenthsInch": [{ "x": 282, "y": 486 }, { "x": 259, "y": 500 }, { "x": 268, "y": 515 }, { "x": 271, "y": 512 }, { "x": 265, "y": 502 }, { "x": 284, "y": 491 }] }
+      ]
+    }
+  ],
+  "measurementBindings": [
+    { "measurementId": "m001", "subjectId": "terrain-upper-left-large", "target": "baseplate.minY" },
+    { "measurementId": "m002", "subjectId": "terrain-upper-right-large", "target": "baseplate.minY" },
+    { "measurementId": "m003", "subjectId": "terrain-upper-centre-small", "target": "baseplate.minY" },
+    { "measurementId": "m004", "subjectId": "terrain-upper-left-large", "target": "baseplate.minX" },
+    { "measurementId": "m005", "subjectId": "terrain-upper-right-large", "target": "baseplate.maxX" },
+    { "measurementId": "m006", "subjectId": "terrain-upper-centre-small", "target": "baseplate.maxX" },
+    { "measurementId": "m007", "subjectId": "terrain-upper-left-large", "target": "baseplate.maxY" },
+    { "measurementId": "m008", "subjectId": "terrain-left-cross", "target": "baseplate.minY" },
+    { "measurementId": "m009", "subjectId": "terrain-left-cross", "target": "baseplate.maxX" },
+    { "measurementId": "m010", "subjectId": "terrain-upper-right-large", "target": "baseplate.maxY" },
+    { "measurementId": "m011", "subjectId": "terrain-centre-large", "target": "baseplate.minY" },
+    { "measurementId": "m012", "subjectId": "terrain-left-cross", "target": "baseplate.minX" },
+    { "measurementId": "m013", "subjectId": "terrain-right-bar", "target": "anchor:measured-left-end.y" },
+    { "measurementId": "m014", "subjectId": "terrain-right-bar", "target": "baseplate.maxX" },
+    { "measurementId": "m015", "subjectId": "terrain-centre-large", "target": "baseplate.minX" },
+    { "measurementId": "m016", "subjectId": "terrain-right-square", "target": "baseplate.maxX" },
+    { "measurementId": "m017", "subjectId": "terrain-left-square", "target": "baseplate.minX" },
+    { "measurementId": "m018", "subjectId": "terrain-centre-large", "target": "baseplate.maxX" },
+    { "measurementId": "m019", "subjectId": "terrain-left-square", "target": "baseplate.maxY" },
+    { "measurementId": "m020", "subjectId": "terrain-lower-left-bar", "target": "baseplate.minX" },
+    { "measurementId": "m021", "subjectId": "terrain-centre-large", "target": "baseplate.maxY" },
+    { "measurementId": "m022", "subjectId": "terrain-lower-right-cross", "target": "baseplate.maxX" },
+    { "measurementId": "m023", "subjectId": "terrain-lower-left-bar", "target": "baseplate.maxY" },
+    { "measurementId": "m024", "subjectId": "terrain-lower-right-cross", "target": "anchor:measured-vertical-arm.x" },
+    { "measurementId": "m025", "subjectId": "terrain-lower-right-cross", "target": "subregion:horizontal-arm.maxY" },
+    { "measurementId": "m026", "subjectId": "terrain-lower-left-large", "target": "baseplate.maxX" },
+    { "measurementId": "m027", "subjectId": "terrain-lower-right-cross", "target": "baseplate.maxY" },
+    { "measurementId": "m028", "subjectId": "terrain-lower-left-large", "target": "baseplate.minX" },
+    { "measurementId": "m029", "subjectId": "terrain-lower-right-large", "target": "baseplate.maxX" },
+    { "measurementId": "m030", "subjectId": "terrain-lower-centre-small", "target": "baseplate.maxY" },
+    { "measurementId": "m031", "subjectId": "terrain-lower-left-large", "target": "baseplate.maxY" },
+    { "measurementId": "m032", "subjectId": "terrain-lower-right-large", "target": "baseplate.maxY" }
+  ],
+  "physicalConvention": {
+    "status": "human-reviewed",
+    "baseplateRuleIds": ["core.benefit-of-cover"],
+    "featureSemantics": "executable",
+    "ruinWallHeightWorldUnits": 1270,
+    "obstacleHeightWorldUnits": 508,
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-31",
+    "reviewRequest": []
+  }
+}

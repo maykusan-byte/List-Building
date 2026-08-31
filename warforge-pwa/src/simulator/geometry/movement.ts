@@ -5,7 +5,9 @@ import {
   footprintBounds,
   footprintCoreVertices,
   footprintRadius,
+  polygonSignedArea,
   validateAabb,
+  validateConvexPolygon,
   validateFootprint,
   validateOrientation,
   validatePoint
@@ -54,6 +56,52 @@ export interface MovementVerdict {
 export interface MovementOptions {
   /** A board is a closed AABB: touching its edge is legal, crossing it is not. */
   readonly board?: Aabb;
+}
+
+export interface ConvexPolygonContainmentEvidence {
+  readonly classification: 'inside' | 'touching-boundary' | 'outside';
+  readonly minimumClearance: number;
+  readonly boundaryEdgeIndex: number;
+}
+
+/**
+ * Exact convex-zone containment for every supported footprint. Circles and
+ * capsules compare their radius to every inward edge distance; polygons use
+ * their world vertices as a zero-radius core.
+ */
+export function classifyFootprintInConvexPolygon(
+  footprint: Footprint,
+  polygon: readonly Point2[]
+): ConvexPolygonContainmentEvidence {
+  validateFootprint(footprint);
+  const zone = { kind: 'convex-polygon' as const, vertices: polygon };
+  validateConvexPolygon(zone);
+  const orientation = polygonSignedArea(zone) > 0 ? 1 : -1;
+  const radius = footprintRadius(footprint);
+  let minimumClearance = Number.POSITIVE_INFINITY;
+  let boundaryEdgeIndex = 0;
+  for (const corePoint of footprintCoreVertices(footprint)) {
+    for (let index = 0; index < polygon.length; index += 1) {
+      const start = polygon[index]!;
+      const end = polygon[(index + 1) % polygon.length]!;
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const edgeLength = Math.hypot(dx, dy);
+      const inwardDistance = orientation * (dx * (corePoint.y - start.y) - dy * (corePoint.x - start.x)) / edgeLength;
+      const clearance = inwardDistance - radius;
+      if (clearance < minimumClearance) {
+        minimumClearance = clearance;
+        boundaryEdgeIndex = index;
+      }
+    }
+  }
+  return {
+    classification: minimumClearance < -GEOMETRY_EPSILON
+      ? 'outside'
+      : minimumClearance <= GEOMETRY_EPSILON ? 'touching-boundary' : 'inside',
+    minimumClearance: Math.abs(minimumClearance) <= GEOMETRY_EPSILON ? 0 : minimumClearance,
+    boundaryEdgeIndex
+  };
 }
 
 /** Returns the length of a polyline in world units. */

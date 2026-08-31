@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warforge Layout Measurements"
+  short_description: "Extract and verify terrain layout measures"
+  default_prompt: "Use $warforge-layout-measurement-extraction to extract source-backed terrain layout measurements and isolate only genuine ambiguities for review."

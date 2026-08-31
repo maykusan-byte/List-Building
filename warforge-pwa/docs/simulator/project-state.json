@@ -1,14 +1,14 @@
 {
   "schemaVersion": "warforge-simulator-project/v2",
-  "planVersion": "3.1.0",
+  "planVersion": "3.4.0",
   "planChange": {
-    "version": "3.1.0",
-    "adrId": "ADR-019",
-    "recordedAt": "2026-08-30T06:41:53.869Z"
+    "version": "3.4.0",
+    "adrId": "ADR-025",
+    "recordedAt": "2026-08-31T15:05:00.000Z"
   },
-  "updatedAt": "2026-08-30T06:52:41.258Z",
+  "updatedAt": "2026-08-31T16:00:32.871Z",
   "currentMilestoneId": "M9",
-  "currentTaskId": "SIM-M9-T01",
+  "currentTaskId": "SIM-M9-T04",
   "milestones": [
     {
       "id": "M0",
@@ -232,7 +232,7 @@
     },
     {
       "id": "M9",
-      "title": "Mission complète et interface",
+      "title": "POC technique cinq rounds et interface",
       "status": "in_progress",
       "taskIds": [
         "SIM-M9-T01",
@@ -241,26 +241,27 @@
         "SIM-M9-T04"
       ],
       "acceptanceCriteria": [
-        "La mission fermée calcule son score et se joue hors ligne de bout en bout avec sauvegarde, reprise et replay."
+        "Le POC technique calcule son score et exécute hors ligne cinq rounds avec profils figés, sauvegarde, reprise et replay ; ses quatre stratagèmes communs différés et l'absence de contenu de codex restent visibles."
       ]
     },
     {
       "id": "M10",
-      "title": "Réserves, transports et déploiements spéciaux",
+      "title": "Fidélité commune, réserves, transports et déploiements spéciaux",
       "status": "planned",
       "taskIds": [
+        "SIM-M10-T00",
         "SIM-M10-T01",
         "SIM-M10-T02",
         "SIM-M10-T03",
         "SIM-M10-T04"
       ],
       "acceptanceCriteria": [
-        "Les changements de zone, réserves et transports sont déterministes et couverts spatialement."
+        "Les quatre stratagèmes communs différés sont couverts, puis les changements de zone, réserves et transports sont déterministes et couverts spatialement."
       ]
     },
     {
       "id": "M11",
-      "title": "Déploiement progressif du catalogue",
+      "title": "Relance codex et déploiement progressif du catalogue",
       "status": "planned",
       "taskIds": [
         "SIM-M11-T01",
@@ -269,7 +270,7 @@
         "SIM-M11-T04"
       ],
       "acceptanceCriteria": [
-        "Chaque lot de faction est sourcé et audité ; toute promesse de couverture correspond exactement au catalogue actif."
+        "La base de fin août, le nouveau Codex Orks puis le nouveau Codex Space Marines précèdent des lots d'armée sourcés et audités ; toute promesse correspond exactement au catalogue actif."
       ]
     }
   ],
@@ -5365,8 +5366,8 @@
     {
       "id": "SIM-M9-T01",
       "milestoneId": "M9",
-      "title": "Activer la mission fermée depuis l'archive GDM approuvée",
-      "status": "in_progress",
+      "title": "Activer la mission et extraire les 45 layouts GDM approuvés",
+      "status": "done",
       "dependencies": [
         "SIM-M8-T04"
       ],
@@ -5381,6 +5382,22 @@
             "EVD-M9-T01-003",
             "EVD-M9-T01-004",
             "EVD-M9-T01-005"
+          ]
+        },
+        {
+          "id": "AC-02",
+          "description": "Les 45 cartes mesurées sont inventoriées, liées à leur provenance Drive, extraites dans un schéma stable et aucune mesure nécessaire au pilote n'est promue depuis le seul OCR.",
+          "evidenceIds": [
+            "EVD-M9-T01-006",
+            "EVD-M9-T01-007",
+            "EVD-M9-T01-008",
+            "EVD-M9-T01-009",
+            "EVD-M9-T01-010",
+            "EVD-M9-T01-011",
+            "EVD-M9-T01-012",
+            "EVD-M9-T01-013",
+            "EVD-M9-T01-014",
+            "EVD-M9-T01-015"
           ]
         }
       ],
@@ -5424,6 +5441,87 @@
           "result": "passed",
           "scope": "Synchronisation des données, TypeScript et build PWA avec la nouvelle ressource mission",
           "recordedAt": "2026-08-30T06:52:41.258Z"
+        },
+        {
+          "id": "EVD-M9-T01-006",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.8.0; 45 layouts, 1 440 mesures vérifiées, hashes source/image, conversions et miroir public valides",
+          "recordedAt": "2026-08-30T15:37:02.741Z"
+        },
+        {
+          "id": "EVD-M9-T01-007",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 502 tests, dont 95 tests du contrat simulateur et mutations des mesures GDM",
+          "recordedAt": "2026-08-30T15:37:02.811Z"
+        },
+        {
+          "id": "EVD-M9-T01-008",
+          "kind": "validation",
+          "command": "pnpm missions:validate",
+          "result": "passed",
+          "scope": "Deux packs valides; GDM 2026 actif",
+          "recordedAt": "2026-08-30T15:37:02.900Z"
+        },
+        {
+          "id": "EVD-M9-T01-009",
+          "kind": "validation",
+          "command": "skill quick_validate.py",
+          "result": "passed",
+          "scope": "Skill warforge-layout-measurement-extraction valide",
+          "recordedAt": "2026-08-30T15:37:02.977Z"
+        },
+        {
+          "id": "EVD-M9-T01-010",
+          "kind": "validation",
+          "command": "finalize-layout-measurements.py --manifest-version 0.8.0",
+          "result": "passed",
+          "scope": "Régénération déterministe: SHA-256 identique 8e7c3c591378491ec9de5b09f14be0f3eacbb5d2b0ddf03331aa0fab61fc79e0; file de revue vide",
+          "recordedAt": "2026-08-30T15:37:03.056Z"
+        },
+        {
+          "id": "EVD-M9-T01-011",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Synchronisation des données, TypeScript, Vite et PWA avec l'artefact de mesures",
+          "recordedAt": "2026-08-30T15:37:03.136Z"
+        },
+        {
+          "id": "EVD-M9-T01-012",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plan 3.2.0, périmètre M9-T01, preuves AC-01/AC-02 et STATUS synchronisés",
+          "recordedAt": "2026-08-30T15:38:46.658Z"
+        },
+        {
+          "id": "EVD-M9-T01-013",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Contrat corrigé post-audit: hashes candidats, file pré-revue, décisions et corpus canonique; 45 x 32 mesures valides",
+          "recordedAt": "2026-08-30T15:52:48.644Z"
+        },
+        {
+          "id": "EVD-M9-T01-014",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 504 tests après fermeture des constats; validation cohérente des mutations comprise",
+          "recordedAt": "2026-08-30T15:52:48.711Z"
+        },
+        {
+          "id": "EVD-M9-T01-015",
+          "kind": "independent-review",
+          "command": "independent audit SIM-M9-T01",
+          "result": "passed",
+          "scope": "Contre-revue: anciens P1/P2/P3 fermés; aucun constat P1-P3; AC-02 acceptable",
+          "recordedAt": "2026-08-30T15:52:48.798Z",
+          "reviewer": "m9_t01_source_audit/gpt-5.6-sol-high"
         }
       ],
       "actualExecution": {
@@ -5432,21 +5530,23 @@
         "context": "Coordination locale; archive GDM 2026, cartes visuellement vérifiées, données et tracker M9.",
         "recordedAt": "2026-08-30T06:41:08.209Z"
       },
-      "updatedAt": "2026-08-30T06:52:05.532Z",
+      "updatedAt": "2026-08-30T15:52:48.951Z",
       "scopeUpdatedAt": "2026-08-30T06:52:05.532Z",
-      "costClass": "L",
+      "costClass": "XL",
       "manualAlternative": {
         "available": true,
         "worthIt": true,
-        "description": "Déjà réalisée par décision propriétaire : accepter l'archive GDM complète à la place de captures officielles supplémentaires."
+        "description": "Le propriétaire peut vérifier uniquement les recadrages ambigus ; recopier manuellement les 45 cartes entières serait plus coûteux et moins contrôlable."
       },
       "sourceIds": [
         "approved-gdm-2026-11th-archive",
-        "warforge-event-companion-fr-2026-07"
+        "warforge-event-companion-fr-2026-07",
+        "approved-gdm-2026-layout-images"
       ],
       "adrIds": [
         "ADR-014",
-        "ADR-019"
+        "ADR-019",
+        "ADR-020"
       ],
       "allowedPaths": [
         "data/simulator/manifest.json",
@@ -5471,12 +5571,20 @@
         "docs/simulator/PLAN.md",
         "docs/simulator/project-state.json",
         "docs/simulator/STATUS.md",
-        "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+        "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md",
+        "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
+        "data/missions/gdmissions-11th/layout-measurements/**",
+        "data/simulator/gdm-2026-layout-measurements.json",
+        "public/data/simulator/gdm-2026-layout-measurements.json",
+        "../.agents/skills/warforge-layout-measurement-extraction/**",
+        "../AGENTS.md"
       ],
       "expectedGates": [
         "pnpm simulator:project:check",
         "pnpm simulator:validate",
-        "pnpm test"
+        "pnpm test",
+        "pnpm missions:validate",
+        "skill quick_validate.py"
       ],
       "actualRuns": [
         {
@@ -5513,13 +5621,83 @@
           "result": "passed",
           "scope": "Synchronisation des données, TypeScript et build PWA avec la nouvelle ressource mission",
           "recordedAt": "2026-08-30T06:52:41.258Z"
+        },
+        {
+          "id": "RUN-M9-T01-006",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Manifest 0.8.0; 45 layouts, 1 440 mesures vérifiées, hashes source/image, conversions et miroir public valides",
+          "recordedAt": "2026-08-30T15:37:02.741Z"
+        },
+        {
+          "id": "RUN-M9-T01-007",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 502 tests, dont 95 tests du contrat simulateur et mutations des mesures GDM",
+          "recordedAt": "2026-08-30T15:37:02.811Z"
+        },
+        {
+          "id": "RUN-M9-T01-008",
+          "command": "pnpm missions:validate",
+          "result": "passed",
+          "scope": "Deux packs valides; GDM 2026 actif",
+          "recordedAt": "2026-08-30T15:37:02.900Z"
+        },
+        {
+          "id": "RUN-M9-T01-009",
+          "command": "skill quick_validate.py",
+          "result": "passed",
+          "scope": "Skill warforge-layout-measurement-extraction valide",
+          "recordedAt": "2026-08-30T15:37:02.977Z"
+        },
+        {
+          "id": "RUN-M9-T01-010",
+          "command": "finalize-layout-measurements.py --manifest-version 0.8.0",
+          "result": "passed",
+          "scope": "Régénération déterministe: SHA-256 identique 8e7c3c591378491ec9de5b09f14be0f3eacbb5d2b0ddf03331aa0fab61fc79e0; file de revue vide",
+          "recordedAt": "2026-08-30T15:37:03.056Z"
+        },
+        {
+          "id": "RUN-M9-T01-011",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Synchronisation des données, TypeScript, Vite et PWA avec l'artefact de mesures",
+          "recordedAt": "2026-08-30T15:37:03.136Z"
+        },
+        {
+          "id": "RUN-M9-T01-012",
+          "command": "pnpm simulator:project:check",
+          "result": "passed",
+          "scope": "Plan 3.2.0, périmètre M9-T01, preuves AC-01/AC-02 et STATUS synchronisés",
+          "recordedAt": "2026-08-30T15:38:46.658Z"
+        },
+        {
+          "id": "RUN-M9-T01-013",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Contrat corrigé post-audit: hashes candidats, file pré-revue, décisions et corpus canonique; 45 x 32 mesures valides",
+          "recordedAt": "2026-08-30T15:52:48.644Z"
+        },
+        {
+          "id": "RUN-M9-T01-014",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "53 fichiers et 504 tests après fermeture des constats; validation cohérente des mutations comprise",
+          "recordedAt": "2026-08-30T15:52:48.711Z"
+        },
+        {
+          "id": "RUN-M9-T01-015",
+          "command": "independent audit SIM-M9-T01",
+          "result": "passed",
+          "scope": "Contre-revue: anciens P1/P2/P3 fermés; aucun constat P1-P3; AC-02 acceptable",
+          "recordedAt": "2026-08-30T15:52:48.798Z"
         }
       ],
       "workSlices": [
         {
           "id": "SIM-M9-T01-S01",
-          "title": "Activer la mission fermée depuis l'archive GDM approuvée",
-          "status": "in_progress",
+          "title": "Activer la mission et extraire les 45 layouts GDM approuvés",
+          "status": "done",
           "allowedPaths": [
             "data/simulator/manifest.json",
             "data/simulator/full-game-coverage.json",
@@ -5543,15 +5721,23 @@
             "docs/simulator/PLAN.md",
             "docs/simulator/project-state.json",
             "docs/simulator/STATUS.md",
-            "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+            "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md",
+            "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
+            "data/missions/gdmissions-11th/layout-measurements/**",
+            "data/simulator/gdm-2026-layout-measurements.json",
+            "public/data/simulator/gdm-2026-layout-measurements.json",
+            "../.agents/skills/warforge-layout-measurement-extraction/**",
+            "../AGENTS.md"
           ],
           "expectedGates": [
             "pnpm simulator:project:check",
             "pnpm simulator:validate",
-            "pnpm test"
+            "pnpm test",
+            "pnpm missions:validate",
+            "skill quick_validate.py"
           ],
           "updatedAt": "2026-08-30T06:41:08.129Z",
-          "note": "Contrôler l'archive et activer la source approuvée."
+          "note": "Contrôler l'archive, activer la source approuvée et extraire les 45 cartes mesurées selon ADR-020."
         }
       ]
     },
@@ -5559,7 +5745,7 @@
       "id": "SIM-M9-T02",
       "milestoneId": "M9",
       "title": "Implémenter score et fin de partie sur cinq rounds",
-      "status": "planned",
+      "status": "done",
       "dependencies": [
         "SIM-M9-T01"
       ],
@@ -5569,27 +5755,71 @@
         {
           "id": "AC-01",
           "description": "Chaque point et la fin de partie proviennent d’un ScoreEvent sourcé, explicable et rejouable.",
-          "evidenceIds": []
+          "evidenceIds": [
+            "EVD-M9-T02-001",
+            "EVD-M9-T02-002",
+            "EVD-M9-T02-003"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-27T09:50:00.000Z",
-      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "evidence": [
+        {
+          "id": "EVD-M9-T02-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données simulateur, 54 fichiers et 512 tests Vitest, 3 tests Playwright, synchronisation et build PWA",
+          "recordedAt": "2026-08-31T03:15:32.785Z",
+          "notes": "Gate finale complète du 2026-08-31; avertissement de taille de chunks Vite non bloquant."
+        },
+        {
+          "id": "EVD-M9-T02-002",
+          "kind": "validation",
+          "command": "pnpm exec vitest run src/simulator/domain/full-game-contracts.test.ts src/simulator/orchestration/mission-scoring.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Contrat de session, ScoreEvent, replay V6, géométrie Engage et provenance",
+          "recordedAt": "2026-08-31T03:15:32.851Z",
+          "notes": "114 tests ciblés réussis avant la gate finale."
+        },
+        {
+          "id": "EVD-M9-T02-003",
+          "kind": "independent-review",
+          "command": "Independent Sol high remediation audit",
+          "result": "passed",
+          "scope": "SIM-M9-T02 AC-01, rôle des objectifs, sources étape 14 page 2 et géométrie Engage",
+          "recordedAt": "2026-08-31T03:15:32.923Z",
+          "notes": "PASS safe-to-mark-done; aucun finding P0-P3; probe V6 aux rôles permutés refusé; 17 tests ciblés et 512 tests complets confirmés.",
+          "reviewer": "gpt-5.6-sol-high:m9_t02_independent_audit"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Fallback coordinateur après indisponibilité Terra xhigh; implémentation locale du moteur ScoreEvent M9.",
+        "recordedAt": "2026-08-30T20:15:40.212Z"
+      },
+      "updatedAt": "2026-08-31T03:15:47.183Z",
+      "scopeUpdatedAt": "2026-08-30T20:48:12.508Z",
       "costClass": "L",
       "manualAlternative": {
         "available": false,
         "worthIt": false,
         "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
       },
-      "sourceIds": [],
+      "sourceIds": [
+        "approved-gdm-2026-11th-archive",
+        "warforge-event-companion-fr-2026-07",
+        "warforge-core-rules-fr-2026-07"
+      ],
       "adrIds": [
         "ADR-014"
       ],
       "allowedPaths": [
         "src/simulator/**",
         "data/simulator/**",
+        "public/data/simulator/**",
         "docs/simulator/**",
+        "scripts/validate-simulator-data.mjs",
         "tests/browser/**"
       ],
       "expectedGates": [
@@ -5597,16 +5827,40 @@
         "pnpm simulator:validate",
         "pnpm test"
       ],
-      "actualRuns": [],
+      "actualRuns": [
+        {
+          "id": "RUN-M9-T02-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données simulateur, 54 fichiers et 512 tests Vitest, 3 tests Playwright, synchronisation et build PWA",
+          "recordedAt": "2026-08-31T03:15:32.785Z"
+        },
+        {
+          "id": "RUN-M9-T02-002",
+          "command": "pnpm exec vitest run src/simulator/domain/full-game-contracts.test.ts src/simulator/orchestration/mission-scoring.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Contrat de session, ScoreEvent, replay V6, géométrie Engage et provenance",
+          "recordedAt": "2026-08-31T03:15:32.851Z"
+        },
+        {
+          "id": "RUN-M9-T02-003",
+          "command": "Independent Sol high remediation audit",
+          "result": "passed",
+          "scope": "SIM-M9-T02 AC-01, rôle des objectifs, sources étape 14 page 2 et géométrie Engage",
+          "recordedAt": "2026-08-31T03:15:32.923Z"
+        }
+      ],
       "workSlices": [
         {
           "id": "SIM-M9-T02-S01",
           "title": "Implémenter score et fin de partie sur cinq rounds",
-          "status": "planned",
+          "status": "done",
           "allowedPaths": [
             "src/simulator/**",
             "data/simulator/**",
+            "public/data/simulator/**",
             "docs/simulator/**",
+            "scripts/validate-simulator-data.mjs",
             "tests/browser/**"
           ],
           "expectedGates": [
@@ -5621,8 +5875,8 @@
     {
       "id": "SIM-M9-T03",
       "milestoneId": "M9",
-      "title": "Livrer l’interface de partie complète",
-      "status": "planned",
+      "title": "Livrer le POC technique économique sur le socle couvert",
+      "status": "done",
       "dependencies": [
         "SIM-M9-T02"
       ],
@@ -5631,44 +5885,444 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Phase, round, joueur actif, score, décisions, journal, sauvegarde, reprise et replay sont utilisables hors ligne.",
-          "evidenceIds": []
+          "description": "Une matrice POC distincte compile uniquement des profils fixture-unit, les règles couvertes et les quatre limites communes exactes d'ADR-025, sans identifiant ni règle de codex.",
+          "evidenceIds": [
+            "EVD-M9-T03-001",
+            "EVD-M9-T03-002",
+            "EVD-M9-T03-003",
+            "EVD-M9-T03-004",
+            "EVD-M9-T03-005",
+            "EVD-M9-T03-016",
+            "EVD-M9-T03-020"
+          ]
+        },
+        {
+          "id": "AC-02",
+          "description": "Le layout Disruption Mirror 1, les objectifs, zones et terrains POC sont déterministes, explicables et liés aux mesures vérifiées.",
+          "evidenceIds": [
+            "EVD-M9-T03-006",
+            "EVD-M9-T03-007",
+            "EVD-M9-T03-008",
+            "EVD-M9-T03-009",
+            "EVD-M9-T03-010",
+            "EVD-M9-T03-011",
+            "EVD-M9-T03-012",
+            "EVD-M9-T03-013",
+            "EVD-M9-T03-014",
+            "EVD-M9-T03-015"
+          ]
+        },
+        {
+          "id": "AC-03",
+          "description": "La boucle technique de cinq rounds, le score, le journal, la sauvegarde, la reprise et le replay sont utilisables hors ligne avec les limites POC visibles.",
+          "evidenceIds": [
+            "EVD-M9-T03-016",
+            "EVD-M9-T03-017",
+            "EVD-M9-T03-018",
+            "EVD-M9-T03-019",
+            "EVD-M9-T03-020"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-27T09:50:00.000Z",
-      "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
+      "evidence": [
+        {
+          "id": "EVD-M9-T03-001",
+          "kind": "validation",
+          "command": "pnpm simulator:validate && pnpm vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Matrice core-poc-coverage v1, compilateur sans catalogue et 105 tests ciblés",
+          "recordedAt": "2026-08-31T06:18:26.315Z",
+          "notes": "Le rapport reste incompatible avec zéro supportedUnitId; toute source codex/faction et tout claim catalogue sont refusés."
+        },
+        {
+          "id": "EVD-M9-T03-002",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Tracker 3.3.0, matrice core-poc-coverage v1, compilateur sans catalogue et 105 tests ciblés après extension du scope au miroir public généré",
+          "recordedAt": "2026-08-31T06:20:19.871Z",
+          "notes": "Zéro supportedUnitId; les sources codex/faction et les claims catalogue sont refusés; public synchronisé depuis data/simulator."
+        },
+        {
+          "id": "EVD-M9-T03-003",
+          "kind": "validation",
+          "command": "pnpm simulator:project:render && pnpm simulator:project:check && pnpm test",
+          "result": "passed",
+          "scope": "Plan/tracker 3.3.0 et suite complète : 55 fichiers, 520 tests",
+          "recordedAt": "2026-08-31T06:24:05.180Z",
+          "notes": "La capacité POC est partial et la matrice distincte ne couvre aucun codex."
+        },
+        {
+          "id": "EVD-M9-T03-004",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Huit artefacts simulateur dont core-poc-coverage/v1 et miroir public généré",
+          "recordedAt": "2026-08-31T06:24:05.260Z",
+          "notes": "Données simulateur 0.8.0 valides; artefact POC version 1.0.0."
+        },
+        {
+          "id": "EVD-M9-T03-005",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm test",
+          "result": "passed",
+          "scope": "Périmètre consolidé M9-T03 : tracker, huit artefacts simulateur, 55 fichiers et 520 tests",
+          "recordedAt": "2026-08-31T06:26:01.646Z",
+          "notes": "Matrice POC distincte validée; six fixture-unit, zéro supportedUnitId et aucune source codex/faction."
+        },
+        {
+          "id": "EVD-M9-T03-006",
+          "kind": "validation",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm test",
+          "result": "passed",
+          "scope": "Layout Disruption Mirror 1 : 32 mesures liées, 6 objectifs, zones triangulaires, 13 zones de terrain, 28 surfaces ; 57 fichiers et 533 tests",
+          "recordedAt": "2026-08-31T08:41:59.452Z",
+          "notes": "Compilation déterministe validée ; les surfaces restent non exécutables tant que leur convention physique n'est pas approuvée."
+        },
+        {
+          "id": "EVD-M9-T03-007",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Compilation de production après intégration du layout, des fixtures synthétiques et des zones de déploiement polygonales",
+          "recordedAt": "2026-08-31T08:42:15.269Z",
+          "notes": "Build Vite réussi ; seul l'avertissement existant de taille de chunk subsiste."
+        },
+        {
+          "id": "EVD-M9-T03-008",
+          "kind": "validation",
+          "command": "pnpm exec vitest run --config vite.config.ts src/simulator/domain/core-poc-layout.test.ts src/simulator/runtime/core-poc.test.ts src/simulator/ui/laboratory.test.ts",
+          "result": "passed",
+          "scope": "Matérialisation compacte, cache spatial de module et laboratoire Pixi : 3 fichiers, 14 tests",
+          "recordedAt": "2026-08-31T09:08:41.155Z",
+          "notes": "Le runtime n'importe plus l'archive des 45 layouts et réutilise une seule géométrie statique."
+        },
+        {
+          "id": "EVD-M9-T03-009",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète après optimisation du layout : 57 fichiers, 535 tests",
+          "recordedAt": "2026-08-31T09:08:50.645Z",
+          "notes": "Aucune régression du moteur, de la géométrie, de la persistance ou des règles communes."
+        },
+        {
+          "id": "EVD-M9-T03-010",
+          "kind": "validation",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "Trois parcours Chromium M4, M3 et laboratoire M2 avec Pixi en rendu à la demande",
+          "recordedAt": "2026-08-31T09:09:01.275Z",
+          "notes": "Le rendu WebGL, la caméra et le glisser-déposer restent fonctionnels sans ticker continu."
+        },
+        {
+          "id": "EVD-M9-T03-011",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA après séparation archive de mesures/runtime compact",
+          "recordedAt": "2026-08-31T09:09:10.076Z",
+          "notes": "Pixi utilise autoStart false ; l'avertissement existant de taille de chunk reste non bloquant."
+        },
+        {
+          "id": "EVD-M9-T03-012",
+          "kind": "validation",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Layout POC approuvé, extension physique ADR-023, miroir public et 28 volumes statiques",
+          "recordedAt": "2026-08-31T09:35:33.581Z",
+          "notes": "Données simulateur 0.8.0 valides après synchronisation."
+        },
+        {
+          "id": "EVD-M9-T03-013",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète après activation des volumes physiques : 57 fichiers, 537 tests",
+          "recordedAt": "2026-08-31T09:35:34.652Z",
+          "notes": "Aucune régression moteur, géométrie, règles ou persistance."
+        },
+        {
+          "id": "EVD-M9-T03-014",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA après activation légère du layout 2.5D",
+          "recordedAt": "2026-08-31T09:35:35.753Z",
+          "notes": "Build réussi ; avertissement de taille de chunk existant non bloquant."
+        },
+        {
+          "id": "EVD-M9-T03-015",
+          "kind": "validation",
+          "command": "pnpm exec playwright test tests/browser/simulator.spec.ts",
+          "result": "passed",
+          "scope": "Trois parcours Chromium M4, M3 et laboratoire M2",
+          "recordedAt": "2026-08-31T09:35:36.878Z",
+          "notes": "Rendu Pixi à la demande et parcours existants fonctionnels."
+        },
+        {
+          "id": "EVD-M9-T03-016",
+          "kind": "validation",
+          "command": "pnpm simulator:validate && pnpm exec vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts src/simulator/runtime/core-poc.test.ts src/simulator/orchestration/core-poc-controller.test.ts",
+          "result": "passed",
+          "scope": "Rapport V6 fixture-only, quatre limites ADR-025, runtime statique et parcours technique cinq rounds",
+          "recordedAt": "2026-08-31T15:35:02.176Z",
+          "notes": "Données 0.8.0 valides; session technique compatible dans son périmètre 1.1.0; zéro identité catalogue; export/import/replay V6 exact."
+        },
+        {
+          "id": "EVD-M9-T03-017",
+          "kind": "validation",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète : 58 fichiers et 539 tests",
+          "recordedAt": "2026-08-31T15:35:02.659Z",
+          "notes": "Moteur, géométrie, score, persistance, règles et tracker sans régression."
+        },
+        {
+          "id": "EVD-M9-T03-018",
+          "kind": "validation",
+          "command": "pnpm exec playwright test tests/browser/simulator.spec.ts",
+          "result": "passed",
+          "scope": "Quatre parcours Chromium : POC M9, duel M4, duel M3 et laboratoire M2",
+          "recordedAt": "2026-08-31T15:35:03.129Z",
+          "notes": "Le POC termine cinq rounds, exporte V6, reprend IndexedDB et rejoue le journal; les quatre limites sont visibles."
+        },
+        {
+          "id": "EVD-M9-T03-019",
+          "kind": "validation",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA hors ligne avec page POC technique M9",
+          "recordedAt": "2026-08-31T15:35:03.648Z",
+          "notes": "Build et service worker réussis; seul l'avertissement existant de taille de chunk subsiste."
+        },
+        {
+          "id": "EVD-M9-T03-020",
+          "kind": "independent-review",
+          "command": "Fresh-context independent audit of ADR-025, fixture-only V6 runtime, controller, persistence, UI and validators",
+          "result": "passed",
+          "scope": "Independent review: exact four ADR-025 limitations, no catalog/codex identity, deterministic GameCommand-GameEvent-GameState loop, V6 save/replay, static layout and honest UI claims; targeted 62 tests plus 107 validator tests passed",
+          "recordedAt": "2026-08-31T15:50:38.416Z",
+          "notes": "PASS; aucun finding bloquant ou matériel. Risques mineurs non bloquants: fallback UX IndexedDB et formulation historique de provenance du layout.",
+          "reviewer": "gpt-5.6-sol / high — fresh-context independent review"
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordinateur local; périmètre réduit par ADR-022 à un POC sur règles communes et profils figés, sans délégation ni contenu de codex.",
+        "recordedAt": "2026-08-31T03:16:44.107Z"
+      },
+      "updatedAt": "2026-08-31T15:50:38.894Z",
+      "scopeUpdatedAt": "2026-08-31T06:25:02.767Z",
       "costClass": "L",
       "manualAlternative": {
-        "available": false,
-        "worthIt": false,
-        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+        "available": true,
+        "worthIt": true,
+        "description": "Une validation visuelle courte des conventions physiques et du terrain POC évite une recherche IA coûteuse ; l'implémentation reste logicielle."
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-019",
+        "ADR-020",
+        "ADR-021",
+        "ADR-022",
+        "ADR-023",
+        "ADR-024",
+        "ADR-025"
       ],
       "allowedPaths": [
-        "src/simulator/ui/**",
-        "src/simulator/orchestration/**",
+        "src/simulator/**",
+        "data/simulator/**",
+        "public/data/simulator/**",
+        "scripts/validate-simulator-data.mjs",
+        "scripts/validate-simulator-data.test.mjs",
+        "scripts/simulator-project.test.mjs",
         "tests/browser/**",
         "docs/simulator/**"
       ],
       "expectedGates": [
         "pnpm simulator:project:check",
         "pnpm simulator:validate",
-        "pnpm test"
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
       ],
-      "actualRuns": [],
+      "actualRuns": [
+        {
+          "id": "RUN-M9-T03-001",
+          "command": "pnpm simulator:validate && pnpm vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Matrice core-poc-coverage v1, compilateur sans catalogue et 105 tests ciblés",
+          "recordedAt": "2026-08-31T06:18:26.315Z"
+        },
+        {
+          "id": "RUN-M9-T03-002",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts scripts/validate-simulator-data.test.mjs",
+          "result": "passed",
+          "scope": "Tracker 3.3.0, matrice core-poc-coverage v1, compilateur sans catalogue et 105 tests ciblés après extension du scope au miroir public généré",
+          "recordedAt": "2026-08-31T06:20:19.871Z"
+        },
+        {
+          "id": "RUN-M9-T03-003",
+          "command": "pnpm simulator:project:render && pnpm simulator:project:check && pnpm test",
+          "result": "passed",
+          "scope": "Plan/tracker 3.3.0 et suite complète : 55 fichiers, 520 tests",
+          "recordedAt": "2026-08-31T06:24:05.180Z"
+        },
+        {
+          "id": "RUN-M9-T03-004",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Huit artefacts simulateur dont core-poc-coverage/v1 et miroir public généré",
+          "recordedAt": "2026-08-31T06:24:05.260Z"
+        },
+        {
+          "id": "RUN-M9-T03-005",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm test",
+          "result": "passed",
+          "scope": "Périmètre consolidé M9-T03 : tracker, huit artefacts simulateur, 55 fichiers et 520 tests",
+          "recordedAt": "2026-08-31T06:26:01.646Z"
+        },
+        {
+          "id": "RUN-M9-T03-006",
+          "command": "pnpm simulator:project:check && pnpm simulator:validate && pnpm test",
+          "result": "passed",
+          "scope": "Layout Disruption Mirror 1 : 32 mesures liées, 6 objectifs, zones triangulaires, 13 zones de terrain, 28 surfaces ; 57 fichiers et 533 tests",
+          "recordedAt": "2026-08-31T08:41:59.452Z"
+        },
+        {
+          "id": "RUN-M9-T03-007",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "Compilation de production après intégration du layout, des fixtures synthétiques et des zones de déploiement polygonales",
+          "recordedAt": "2026-08-31T08:42:15.269Z"
+        },
+        {
+          "id": "RUN-M9-T03-008",
+          "command": "pnpm exec vitest run --config vite.config.ts src/simulator/domain/core-poc-layout.test.ts src/simulator/runtime/core-poc.test.ts src/simulator/ui/laboratory.test.ts",
+          "result": "passed",
+          "scope": "Matérialisation compacte, cache spatial de module et laboratoire Pixi : 3 fichiers, 14 tests",
+          "recordedAt": "2026-08-31T09:08:41.155Z"
+        },
+        {
+          "id": "RUN-M9-T03-009",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète après optimisation du layout : 57 fichiers, 535 tests",
+          "recordedAt": "2026-08-31T09:08:50.645Z"
+        },
+        {
+          "id": "RUN-M9-T03-010",
+          "command": "pnpm test:browser",
+          "result": "passed",
+          "scope": "Trois parcours Chromium M4, M3 et laboratoire M2 avec Pixi en rendu à la demande",
+          "recordedAt": "2026-08-31T09:09:01.275Z"
+        },
+        {
+          "id": "RUN-M9-T03-011",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA après séparation archive de mesures/runtime compact",
+          "recordedAt": "2026-08-31T09:09:10.076Z"
+        },
+        {
+          "id": "RUN-M9-T03-012",
+          "command": "pnpm simulator:validate",
+          "result": "passed",
+          "scope": "Layout POC approuvé, extension physique ADR-023, miroir public et 28 volumes statiques",
+          "recordedAt": "2026-08-31T09:35:33.581Z"
+        },
+        {
+          "id": "RUN-M9-T03-013",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète après activation des volumes physiques : 57 fichiers, 537 tests",
+          "recordedAt": "2026-08-31T09:35:34.652Z"
+        },
+        {
+          "id": "RUN-M9-T03-014",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA après activation légère du layout 2.5D",
+          "recordedAt": "2026-08-31T09:35:35.753Z"
+        },
+        {
+          "id": "RUN-M9-T03-015",
+          "command": "pnpm exec playwright test tests/browser/simulator.spec.ts",
+          "result": "passed",
+          "scope": "Trois parcours Chromium M4, M3 et laboratoire M2",
+          "recordedAt": "2026-08-31T09:35:36.878Z"
+        },
+        {
+          "id": "RUN-M9-T03-016",
+          "command": "pnpm simulator:validate && pnpm exec vitest run --config vite.config.ts src/simulator/domain/core-poc-coverage.test.ts src/simulator/runtime/core-poc.test.ts src/simulator/orchestration/core-poc-controller.test.ts",
+          "result": "passed",
+          "scope": "Rapport V6 fixture-only, quatre limites ADR-025, runtime statique et parcours technique cinq rounds",
+          "recordedAt": "2026-08-31T15:35:02.176Z"
+        },
+        {
+          "id": "RUN-M9-T03-017",
+          "command": "pnpm test",
+          "result": "passed",
+          "scope": "Suite complète : 58 fichiers et 539 tests",
+          "recordedAt": "2026-08-31T15:35:02.659Z"
+        },
+        {
+          "id": "RUN-M9-T03-018",
+          "command": "pnpm exec playwright test tests/browser/simulator.spec.ts",
+          "result": "passed",
+          "scope": "Quatre parcours Chromium : POC M9, duel M4, duel M3 et laboratoire M2",
+          "recordedAt": "2026-08-31T15:35:03.129Z"
+        },
+        {
+          "id": "RUN-M9-T03-019",
+          "command": "pnpm build",
+          "result": "passed",
+          "scope": "TypeScript, Vite et PWA hors ligne avec page POC technique M9",
+          "recordedAt": "2026-08-31T15:35:03.648Z"
+        },
+        {
+          "id": "RUN-M9-T03-020",
+          "command": "Fresh-context independent audit of ADR-025, fixture-only V6 runtime, controller, persistence, UI and validators",
+          "result": "passed",
+          "scope": "Independent review: exact four ADR-025 limitations, no catalog/codex identity, deterministic GameCommand-GameEvent-GameState loop, V6 save/replay, static layout and honest UI claims; targeted 62 tests plus 107 validator tests passed",
+          "recordedAt": "2026-08-31T15:50:38.416Z"
+        }
+      ],
       "workSlices": [
         {
           "id": "SIM-M9-T03-S01",
-          "title": "Livrer l’interface de partie complète",
-          "status": "planned",
+          "title": "Compiler les contrats et la couverture du POC",
+          "status": "done",
           "allowedPaths": [
-            "src/simulator/ui/**",
-            "src/simulator/orchestration/**",
+            "src/simulator/domain/**",
+            "src/simulator/rules/**",
+            "data/simulator/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test"
+          ],
+          "updatedAt": "2026-08-31T06:19:00.000Z",
+          "note": "Contrat core-poc-coverage/v1, compilateur pur et validations livrés ; six fixtures, zéro supportedUnitId et exclusions codex explicites."
+        },
+        {
+          "id": "SIM-M9-T03-S02",
+          "title": "Compiler le layout et le runtime spatial du POC",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "scripts/simulator-project.test.mjs",
             "tests/browser/**",
             "docs/simulator/**"
           ],
@@ -5677,15 +6331,43 @@
             "pnpm simulator:validate",
             "pnpm test"
           ],
-          "updatedAt": "2026-08-27T09:50:00.000Z"
+          "updatedAt": "2026-08-31T09:37:41.488Z",
+          "note": "ADR-023 approuvé : 13 zones de terrain, 28 volumes physiques précompilés (murs 1270, obstacles 508), profil 32 mm x 40 mm étendu au POC, LoS cylindrique échantillonnée ; données, 537 tests, build et 3 parcours Chromium validés."
+        },
+        {
+          "id": "SIM-M9-T03-S03",
+          "title": "Brancher l'interface, la persistance et le replay du POC",
+          "status": "done",
+          "allowedPaths": [
+            "src/simulator/domain/**",
+            "src/simulator/runtime/**",
+            "src/simulator/ui/**",
+            "src/simulator/orchestration/**",
+            "src/simulator/persistence/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "scripts/validate-simulator-data.mjs",
+            "scripts/validate-simulator-data.test.mjs",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T15:36:35.644Z",
+          "note": "Implémentation complète et gates vertes; clôture suspendue uniquement à la revue indépendante exigée pour cette tâche critique. Prochaine action : audit frais du diff ADR-025/runtime/contrôleur/UI, puis transition S03 et T03 vers done."
         }
       ]
     },
     {
       "id": "SIM-M9-T04",
       "milestoneId": "M9",
-      "title": "Playtester et accepter la partie complète",
-      "status": "planned",
+      "title": "Playtester et accepter le POC technique",
+      "status": "in_progress",
       "dependencies": [
         "SIM-M9-T03"
       ],
@@ -5694,13 +6376,39 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Une partie guidée complète passe Playwright, export/reprise/replay et validation humaine sans règle obligatoire ignorée.",
-          "evidenceIds": []
+          "description": "Le parcours technique cinq rounds passe Playwright, export/reprise/replay et validation humaine avec les quatre limitations communes visibles et sans promesse de couverture V11 complète ou de codex.",
+          "evidenceIds": [
+            "EVD-M9-T04-002"
+          ]
         }
       ],
-      "evidence": [],
-      "actualExecution": null,
-      "updatedAt": "2026-08-27T09:50:00.000Z",
+      "evidence": [
+        {
+          "id": "EVD-M9-T04-001",
+          "kind": "validation",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données simulateur/factions/missions/images/règles, synchronisation, 58 fichiers et 539 tests, 4 parcours Playwright Chromium, TypeScript, build Vite et service worker",
+          "recordedAt": "2026-08-31T15:53:18.589Z",
+          "notes": "Toutes les gates automatiques M9 sont vertes; avertissement connu de taille de chunks non bloquant. Le critère reste volontairement non satisfait jusqu'au playtest du propriétaire."
+        },
+        {
+          "id": "EVD-M9-T04-002",
+          "kind": "validation",
+          "command": "Playtest humain guidé approuvé dans Codex le 2026-08-31",
+          "result": "passed",
+          "scope": "Parcours technique cinq rounds, quatre limitations visibles, export V6, réinitialisation, reprise IndexedDB et replay exact, sans promesse de couverture V11 complète ni de codex",
+          "recordedAt": "2026-08-31T16:00:32.871Z",
+          "notes": "Validation explicite du propriétaire : J’approuve le playtest M9."
+        }
+      ],
+      "actualExecution": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "context": "Coordinateur local; gates finales automatiques et préparation du playtest humain indispensable du POC technique M9.",
+        "recordedAt": "2026-08-31T15:53:18.097Z"
+      },
+      "updatedAt": "2026-08-31T15:53:18.097Z",
       "scopeUpdatedAt": "2026-08-27T09:50:00.000Z",
       "costClass": "L",
       "manualAlternative": {
@@ -5710,7 +6418,9 @@
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-022",
+        "ADR-025"
       ],
       "allowedPaths": [
         "src/simulator/**",
@@ -5726,12 +6436,27 @@
         "pnpm build",
         "pnpm verify"
       ],
-      "actualRuns": [],
+      "actualRuns": [
+        {
+          "id": "RUN-M9-T04-001",
+          "command": "pnpm verify",
+          "result": "passed",
+          "scope": "Tracker, données simulateur/factions/missions/images/règles, synchronisation, 58 fichiers et 539 tests, 4 parcours Playwright Chromium, TypeScript, build Vite et service worker",
+          "recordedAt": "2026-08-31T15:53:18.589Z"
+        },
+        {
+          "id": "RUN-M9-T04-002",
+          "command": "Playtest humain guidé approuvé dans Codex le 2026-08-31",
+          "result": "passed",
+          "scope": "Parcours technique cinq rounds, quatre limitations visibles, export V6, réinitialisation, reprise IndexedDB et replay exact, sans promesse de couverture V11 complète ni de codex",
+          "recordedAt": "2026-08-31T16:00:32.871Z"
+        }
+      ],
       "workSlices": [
         {
           "id": "SIM-M9-T04-S01",
-          "title": "Playtester et accepter la partie complète",
-          "status": "planned",
+          "title": "Playtester et accepter le POC technique",
+          "status": "in_progress",
           "allowedPaths": [
             "src/simulator/**",
             "data/simulator/**",
@@ -5751,12 +6476,81 @@
       ]
     },
     {
+      "id": "SIM-M10-T00",
+      "milestoneId": "M10",
+      "title": "Fermer les quatre stratagèmes communs différés du POC technique",
+      "status": "planned",
+      "dependencies": [
+        "SIM-M9-T04"
+      ],
+      "executionProfile": "rules-formalization",
+      "critical": true,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-01",
+          "description": "Relance de Commandement, Défi Épique, Tir en État d'Alerte/Tir Réflexe et Intervention Héroïque sont sourcés, exécutables, sauvegardables et rejouables sans approximation.",
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "actualExecution": null,
+      "updatedAt": "2026-08-31T15:05:00.000Z",
+      "costClass": "XL",
+      "manualAlternative": {
+        "available": false,
+        "worthIt": false,
+        "description": "Les sources sont disponibles ; la dette porte sur l'architecture et l'implémentation multi-couches."
+      },
+      "sourceIds": [],
+      "adrIds": [
+        "ADR-018",
+        "ADR-025"
+      ],
+      "allowedPaths": [
+        "src/simulator/**",
+        "data/simulator/**",
+        "public/data/simulator/**",
+        "tests/browser/**",
+        "docs/simulator/**"
+      ],
+      "expectedGates": [
+        "pnpm simulator:project:check",
+        "pnpm simulator:validate",
+        "pnpm test",
+        "pnpm test:browser",
+        "pnpm build"
+      ],
+      "actualRuns": [],
+      "workSlices": [
+        {
+          "id": "SIM-M10-T00-S01",
+          "title": "Formaliser et implémenter les quatre stratagèmes communs différés",
+          "status": "planned",
+          "allowedPaths": [
+            "src/simulator/**",
+            "data/simulator/**",
+            "public/data/simulator/**",
+            "tests/browser/**",
+            "docs/simulator/**"
+          ],
+          "expectedGates": [
+            "pnpm simulator:project:check",
+            "pnpm simulator:validate",
+            "pnpm test",
+            "pnpm test:browser",
+            "pnpm build"
+          ],
+          "updatedAt": "2026-08-31T15:05:00.000Z"
+        }
+      ]
+    },
+    {
       "id": "SIM-M10-T01",
       "milestoneId": "M10",
       "title": "Formaliser zones et transitions hors plateau",
       "status": "planned",
       "dependencies": [
-        "SIM-M9-T04"
+        "SIM-M10-T00"
       ],
       "executionProfile": "architecture-critical",
       "critical": true,
@@ -6017,18 +6811,18 @@
     {
       "id": "SIM-M11-T01",
       "milestoneId": "M11",
-      "title": "Industrialiser les packs de couverture",
+      "title": "Figer la base de mises à jour de fin août",
       "status": "planned",
       "dependencies": [
         "SIM-M10-T04",
         "SIM-M6-T04"
       ],
-      "executionProfile": "architecture-critical",
+      "executionProfile": "source-transcription",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Un pack de faction déclare sources, unités, options, règles, scénarios, limites et non-régressions de façon machine-lisible.",
+          "description": "Les mises à jour de règles et faction packs de fin août sont archivées depuis GDM 2026, versionnées et comparables avant toute intégration de codex.",
           "evidenceIds": []
         }
       ],
@@ -6043,7 +6837,8 @@
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-022"
       ],
       "allowedPaths": [
         "src/simulator/**",
@@ -6061,7 +6856,7 @@
       "workSlices": [
         {
           "id": "SIM-M11-T01-S01",
-          "title": "Industrialiser les packs de couverture",
+          "title": "Figer la base de mises à jour de fin août",
           "status": "planned",
           "allowedPaths": [
             "src/simulator/**",
@@ -6082,7 +6877,7 @@
     {
       "id": "SIM-M11-T02",
       "milestoneId": "M11",
-      "title": "Ajouter les factions par lots audités",
+      "title": "Intégrer le nouveau Codex Orks",
       "status": "planned",
       "dependencies": [
         "SIM-M11-T01"
@@ -6092,22 +6887,23 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Chaque lot ajouté est sourcé, borné et refusé hors de sa couverture exacte.",
+          "description": "Le nouveau Codex Orks fourni en texte par le propriétaire produit un premier pack d'armée sourcé, borné, testé et refusé hors de sa couverture exacte.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
       "updatedAt": "2026-08-13T13:00:00.000Z",
-      "costClass": "L",
+      "costClass": "XL",
       "manualAlternative": {
-        "available": false,
-        "worthIt": false,
-        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+        "available": true,
+        "worthIt": true,
+        "description": "Le fichier texte complet préparé par le propriétaire évite OCR et recherche ; signaler les tableaux ou passages ambigus avant toute interprétation coûteuse."
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-022"
       ],
       "allowedPaths": [
         "src/simulator/**",
@@ -6125,7 +6921,7 @@
       "workSlices": [
         {
           "id": "SIM-M11-T02-S01",
-          "title": "Ajouter les factions par lots audités",
+          "title": "Intégrer le nouveau Codex Orks",
           "status": "planned",
           "allowedPaths": [
             "src/simulator/**",
@@ -6146,32 +6942,33 @@
     {
       "id": "SIM-M11-T03",
       "milestoneId": "M11",
-      "title": "Mesurer la couverture du catalogue actif",
+      "title": "Intégrer le nouveau Codex Space Marines",
       "status": "planned",
       "dependencies": [
         "SIM-M11-T02"
       ],
-      "executionProfile": "implementation-routine",
+      "executionProfile": "rules-formalization",
       "critical": true,
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Le rapport calcule la couverture depuis les identifiants actifs et n'utilise aucun pourcentage subjectif.",
+          "description": "Le nouveau Codex Space Marines remplace les données destinées à périmer ; son pack déclare exactement unités, options, règles, détachements et limites couvertes.",
           "evidenceIds": []
         }
       ],
       "evidence": [],
       "actualExecution": null,
       "updatedAt": "2026-08-13T13:00:00.000Z",
-      "costClass": "M",
+      "costClass": "XL",
       "manualAlternative": {
-        "available": false,
-        "worthIt": false,
-        "description": "Aucune alternative manuelle plus fiable ou plus économique pour cette tranche."
+        "available": true,
+        "worthIt": true,
+        "description": "Fournir le codex en texte structuré à sa sortie évite OCR et recherche ; une approbation distincte sera demandée avant cette tranche XL."
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-022"
       ],
       "allowedPaths": [
         "src/simulator/**",
@@ -6189,7 +6986,7 @@
       "workSlices": [
         {
           "id": "SIM-M11-T03-S01",
-          "title": "Mesurer la couverture du catalogue actif",
+          "title": "Intégrer le nouveau Codex Space Marines",
           "status": "planned",
           "allowedPaths": [
             "src/simulator/**",
@@ -6210,7 +7007,7 @@
     {
       "id": "SIM-M11-T04",
       "milestoneId": "M11",
-      "title": "Auditer la promesse de couverture",
+      "title": "Industrialiser le déploiement armée par armée",
       "status": "planned",
       "dependencies": [
         "SIM-M11-T03"
@@ -6220,7 +7017,7 @@
       "acceptanceCriteria": [
         {
           "id": "AC-01",
-          "description": "Toute annonce de support est prouvée par couverture exhaustive, sources à jour et non-régressions de catalogue.",
+          "description": "Les autres armées sont ajoutées par packs ; toute annonce de support est prouvée par couverture exhaustive, sources à jour et non-régressions du catalogue actif.",
           "evidenceIds": []
         }
       ],
@@ -6235,7 +7032,8 @@
       },
       "sourceIds": [],
       "adrIds": [
-        "ADR-014"
+        "ADR-014",
+        "ADR-022"
       ],
       "allowedPaths": [
         "src/simulator/**",
@@ -6256,7 +7054,7 @@
       "workSlices": [
         {
           "id": "SIM-M11-T04-S01",
-          "title": "Auditer la promesse de couverture",
+          "title": "Industrialiser le déploiement armée par armée",
           "status": "planned",
           "allowedPaths": [
             "src/simulator/**",
@@ -6322,35 +7120,15 @@
   ],
   "openQuestions": [],
   "resumeContext": {
-    "taskId": "SIM-M9-T01",
-    "lastCompleted": "Source GDM approuvée; ressource formalisée, validateurs, versioning, couverture et miroirs synchronisés.",
-    "nextAction": "Revalider SIM-M9-T01 avant toute clôture.",
+    "taskId": "SIM-M9-T04",
+    "lastCompleted": "Les gates finales de SIM-M9-T04 sont vertes : pnpm verify, 539 tests, 4 parcours Chromium et build PWA. Le serveur local de playtest est prêt sur le POC technique.",
+    "nextAction": "Le propriétaire exécute le playtest guidé à http://127.0.0.1:4173/#simulator et signale toute divergence, ou confirme que le parcours, les quatre limites, la sauvegarde, la reprise et le replay sont conformes.",
     "files": [
-      "data/simulator/manifest.json",
-      "data/simulator/full-game-coverage.json",
-      "data/simulator/closed-complete-game-mission.json",
-      "data/simulator/coverage.json",
-      "data/simulator/m4-real-roster-facts.json",
-      "data/simulator/physical-profiles.json",
-      "data/simulator/rulepacks.json",
-      "data/simulator/scenarios.json",
-      "public/data/simulator/manifest.json",
-      "public/data/simulator/full-game-coverage.json",
-      "public/data/simulator/closed-complete-game-mission.json",
-      "public/data/simulator/coverage.json",
-      "public/data/simulator/physical-profiles.json",
-      "public/data/simulator/rulepacks.json",
-      "public/data/simulator/scenarios.json",
-      "scripts/validate-simulator-data.mjs",
-      "scripts/validate-simulator-data.test.mjs",
-      "src/simulator/domain/full-game-compiler.ts",
-      "src/simulator/domain/full-game-compiler.test.ts",
-      "docs/simulator/PLAN.md",
-      "docs/simulator/project-state.json",
-      "docs/simulator/STATUS.md",
-      "docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md"
+      "src/simulator/ui/CorePocTechnicalPage.tsx",
+      "tests/browser/simulator.spec.ts",
+      "docs/simulator/project-state.json"
     ],
-    "updatedAt": "2026-08-30T06:52:05.532Z"
+    "updatedAt": "2026-08-31T15:51:10.656Z"
   },
   "productCapabilities": [
     {
@@ -6379,28 +7157,26 @@
     },
     {
       "id": "complete-five-round-game",
-      "title": "Partie complète cinq rounds",
-      "status": "planned",
-      "description": "Cible M9 ; Charge, Combat, commandement, objectifs, mission et score restent à livrer."
+      "title": "POC technique cinq rounds",
+      "status": "partial",
+      "description": "Cible M9 fixture-only : boucle, ressources, objectifs, mission et score couverts ; quatre stratagèmes communs restent explicitement différés avant toute promesse de partie V11 complète."
     },
     {
       "id": "active-catalog",
       "title": "Toute liste du catalogue",
       "status": "planned",
-      "description": "Cible M11 uniquement après couverture exhaustive."
+      "description": "Après le POC : base GDM fin août, nouveau Codex Orks, nouveau Codex Space Marines puis armées par lots audités."
     }
   ],
   "workspaceHealth": {
     "status": "healthy",
-    "checkedAt": "2026-08-30T05:17:27.857Z",
-    "taskId": "SIM-M9-T01",
+    "checkedAt": "2026-08-31T15:09:25.217Z",
+    "taskId": "SIM-M9-T03",
     "baselinePaths": [
-      "../.agents/skills/warforge-data-operations/SKILL.md",
-      "../.agents/skills/warforge-simulator-development/SKILL.md",
       "../AGENTS.md",
-      "AGENTS.md",
-      "data/rules/README.md",
+      "data/simulator/closed-complete-game-mission.json",
       "data/simulator/coverage.json",
+      "data/simulator/full-game-coverage.json",
       "data/simulator/m4-real-roster-facts.json",
       "data/simulator/manifest.json",
       "data/simulator/physical-profiles.json",
@@ -6408,71 +7184,80 @@
       "data/simulator/scenarios.json",
       "docs/simulator/PLAN.md",
       "docs/simulator/STATUS.md",
-      "docs/simulator/m5-shooting-capability-matrix.md",
-      "docs/simulator/model-routing.json",
       "docs/simulator/project-state.json",
-      "package.json",
+      "public/data/simulator/closed-complete-game-mission.json",
       "public/data/simulator/coverage.json",
+      "public/data/simulator/full-game-coverage.json",
       "public/data/simulator/manifest.json",
       "public/data/simulator/physical-profiles.json",
       "public/data/simulator/rulepacks.json",
       "public/data/simulator/scenarios.json",
-      "scripts/simulator-project.mjs",
       "scripts/simulator-project.test.mjs",
       "scripts/validate-simulator-data.mjs",
       "scripts/validate-simulator-data.test.mjs",
-      "src/simulator/AGENTS.md",
+      "src/simulator/domain/battle-state.ts",
       "src/simulator/domain/commands.ts",
+      "src/simulator/domain/full-game-compiler.test.ts",
+      "src/simulator/domain/full-game-contracts.test.ts",
       "src/simulator/domain/index.ts",
       "src/simulator/domain/reducer.ts",
       "src/simulator/domain/serialization.ts",
-      "src/simulator/domain/session-fingerprint.ts",
-      "src/simulator/domain/state.ts",
       "src/simulator/domain/types.ts",
-      "src/simulator/orchestration/index.ts",
-      "src/simulator/orchestration/machine.ts",
-      "src/simulator/orchestration/shooting.test.ts",
-      "src/simulator/orchestration/shooting.ts",
-      "src/simulator/persistence/autosave.ts",
-      "src/simulator/rules/index.ts",
-      "src/simulator/rules/m5-source-references.ts",
-      "src/simulator/rules/weapon-keywords.ts",
-      "src/simulator/runtime/m4-real-roster-session.ts",
-      "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
-      "../references/warhammer-40k/rules/missions/fre_22-07_warhammer40k_event_companion_v1.1.pdf",
-      "data/rules/official-app-supplemental-rules-fr-2026-08.json",
-      "data/simulator/full-game-coverage.json",
-      "docs/simulator/decisions/ADR-013-advanced-shooting-declarations-save-v5.md",
-      "docs/simulator/decisions/ADR-014-plan-3-full-game-and-economic-execution.md",
-      "docs/simulator/decisions/ADR-015-complete-game-contracts-and-save-v6.md",
-      "docs/simulator/rule-arbitrations.md",
-      "public/data/simulator/full-game-coverage.json",
-      "src/simulator/domain/battle-sequence.ts",
-      "src/simulator/domain/battle-state.ts",
-      "src/simulator/domain/desperate-escape.ts",
-      "src/simulator/domain/full-game-compiler.test.ts",
-      "src/simulator/domain/full-game-compiler.ts",
-      "src/simulator/domain/full-game-contracts.test.ts",
-      "src/simulator/domain/split-fire.ts",
-      "src/simulator/orchestration/battle-charge.test.ts",
-      "src/simulator/orchestration/battle-charge.ts",
-      "src/simulator/orchestration/battle-loop.test.ts",
-      "src/simulator/orchestration/battle-movement.ts",
+      "src/simulator/geometry/geometry.test.ts",
+      "src/simulator/geometry/movement.ts",
       "src/simulator/orchestration/deployment.test.ts",
       "src/simulator/orchestration/deployment.ts",
-      "src/simulator/persistence/full-game-persistence.test.ts",
-      "src/simulator/rules/coherency.ts",
-      "src/simulator/rules/m7-source-references.ts",
+      "src/simulator/orchestration/index.ts",
+      "src/simulator/orchestration/objective-control.ts",
+      "src/simulator/orchestration/shooting.ts",
+      "src/simulator/rules/index.ts",
+      "src/simulator/runtime/index.ts",
       "src/simulator/testing/closed-complete-game-fixture.ts",
-      "src/simulator/testing/complete-game-deployment-fixture.ts"
+      "src/simulator/testing/complete-game-deployment-fixture.ts",
+      "src/simulator/ui/SimulatorPage.tsx",
+      "../.agents/skills/warforge-layout-measurement-extraction/SKILL.md",
+      "../.agents/skills/warforge-layout-measurement-extraction/agents/openai.yaml",
+      "../.agents/skills/warforge-layout-measurement-extraction/references/layout-measurement-schema.md",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-measurements.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-ocr.ps1",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/finalize-layout-measurements.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-board-review.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-review.py",
+      "data/missions/gdmissions-11th/layout-measurements/extraction-candidates.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-decisions.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-queue.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-queue.pre-review.json",
+      "data/missions/gdmissions-11th/layout-measurements/source-inventory.json",
+      "data/simulator/core-poc-coverage.json",
+      "data/simulator/core-poc-fixtures.json",
+      "data/simulator/core-poc-layout.json",
+      "data/simulator/gdm-2026-layout-measurements.json",
+      "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
+      "docs/simulator/decisions/ADR-021-score-events-and-v6-mission-checkpoints.md",
+      "docs/simulator/decisions/ADR-022-core-rules-poc-and-codex-refresh.md",
+      "docs/simulator/decisions/ADR-023-core-poc-spatial-layout.md",
+      "docs/simulator/decisions/ADR-024-lightweight-layout-runtime.md",
+      "docs/simulator/decisions/ADR-025-economic-technical-core-poc.md",
+      "public/data/simulator/core-poc-coverage.json",
+      "public/data/simulator/core-poc-fixtures.json",
+      "public/data/simulator/core-poc-layout.json",
+      "public/data/simulator/gdm-2026-layout-measurements.json",
+      "src/simulator/domain/core-poc-coverage.test.ts",
+      "src/simulator/domain/core-poc-coverage.ts",
+      "src/simulator/domain/core-poc-layout.test.ts",
+      "src/simulator/domain/core-poc-layout.ts",
+      "src/simulator/domain/mission-scoring.ts",
+      "src/simulator/orchestration/mission-scoring.test.ts",
+      "src/simulator/orchestration/mission-scoring.ts",
+      "src/simulator/rules/m9-source-references.ts",
+      "src/simulator/runtime/core-poc.test.ts",
+      "src/simulator/runtime/core-poc.ts"
     ],
     "changedPaths": [
-      "../.agents/skills/warforge-data-operations/SKILL.md",
-      "../.agents/skills/warforge-simulator-development/SKILL.md",
       "../AGENTS.md",
-      "AGENTS.md",
-      "data/rules/README.md",
+      "data/simulator/closed-complete-game-mission.json",
       "data/simulator/coverage.json",
+      "data/simulator/full-game-coverage.json",
       "data/simulator/m4-real-roster-facts.json",
       "data/simulator/manifest.json",
       "data/simulator/physical-profiles.json",
@@ -6480,75 +7265,76 @@
       "data/simulator/scenarios.json",
       "docs/simulator/PLAN.md",
       "docs/simulator/STATUS.md",
-      "docs/simulator/m5-shooting-capability-matrix.md",
-      "docs/simulator/model-routing.json",
       "docs/simulator/project-state.json",
-      "package.json",
+      "public/data/simulator/closed-complete-game-mission.json",
       "public/data/simulator/coverage.json",
+      "public/data/simulator/full-game-coverage.json",
       "public/data/simulator/manifest.json",
       "public/data/simulator/physical-profiles.json",
       "public/data/simulator/rulepacks.json",
       "public/data/simulator/scenarios.json",
-      "scripts/simulator-project.mjs",
       "scripts/simulator-project.test.mjs",
       "scripts/validate-simulator-data.mjs",
       "scripts/validate-simulator-data.test.mjs",
-      "src/simulator/AGENTS.md",
+      "src/simulator/domain/battle-state.ts",
       "src/simulator/domain/commands.ts",
+      "src/simulator/domain/full-game-compiler.test.ts",
+      "src/simulator/domain/full-game-contracts.test.ts",
       "src/simulator/domain/index.ts",
       "src/simulator/domain/reducer.ts",
       "src/simulator/domain/serialization.ts",
-      "src/simulator/domain/session-fingerprint.ts",
-      "src/simulator/domain/state.ts",
       "src/simulator/domain/types.ts",
-      "src/simulator/orchestration/index.ts",
-      "src/simulator/orchestration/machine.ts",
-      "src/simulator/orchestration/shooting.test.ts",
-      "src/simulator/orchestration/shooting.ts",
-      "src/simulator/persistence/autosave.ts",
-      "src/simulator/rules/index.ts",
-      "src/simulator/rules/m5-source-references.ts",
-      "src/simulator/rules/weapon-keywords.ts",
-      "src/simulator/runtime/m4-real-roster-session.ts",
-      "../references/warhammer-40k/rules/app-transcriptions/official-app-2026-08-28/app_only_rules.txt",
-      "../references/warhammer-40k/rules/missions/fre_22-07_warhammer40k_event_companion_v1.1.pdf",
-      "data/rules/official-app-supplemental-rules-fr-2026-08.json",
-      "data/simulator/full-game-coverage.json",
-      "docs/simulator/decisions/ADR-013-advanced-shooting-declarations-save-v5.md",
-      "docs/simulator/decisions/ADR-014-plan-3-full-game-and-economic-execution.md",
-      "docs/simulator/decisions/ADR-015-complete-game-contracts-and-save-v6.md",
-      "docs/simulator/decisions/ADR-016-command-resources-battle-shock-and-persistent-effects.md",
-      "docs/simulator/decisions/ADR-017-objective-markers-control-and-checkpoints.md",
-      "docs/simulator/decisions/ADR-018-covered-core-stratagem-windows.md",
-      "docs/simulator/rule-arbitrations.md",
-      "public/data/simulator/full-game-coverage.json",
-      "src/simulator/domain/battle-resources.test.ts",
-      "src/simulator/domain/battle-resources.ts",
-      "src/simulator/domain/battle-sequence.ts",
-      "src/simulator/domain/battle-state.ts",
-      "src/simulator/domain/desperate-escape.ts",
-      "src/simulator/domain/full-game-compiler.test.ts",
-      "src/simulator/domain/full-game-compiler.ts",
-      "src/simulator/domain/full-game-contracts.test.ts",
-      "src/simulator/domain/split-fire.ts",
-      "src/simulator/orchestration/battle-charge.test.ts",
-      "src/simulator/orchestration/battle-charge.ts",
-      "src/simulator/orchestration/battle-fight.test.ts",
-      "src/simulator/orchestration/battle-fight.ts",
-      "src/simulator/orchestration/battle-loop.test.ts",
-      "src/simulator/orchestration/battle-movement.ts",
+      "src/simulator/geometry/geometry.test.ts",
+      "src/simulator/geometry/movement.ts",
       "src/simulator/orchestration/deployment.test.ts",
       "src/simulator/orchestration/deployment.ts",
-      "src/simulator/orchestration/objective-control.test.ts",
+      "src/simulator/orchestration/index.ts",
       "src/simulator/orchestration/objective-control.ts",
-      "src/simulator/persistence/full-game-persistence.test.ts",
-      "src/simulator/rules/coherency.ts",
-      "src/simulator/rules/m7-source-references.ts",
-      "src/simulator/rules/m8-source-references.ts",
+      "src/simulator/orchestration/shooting.ts",
+      "src/simulator/rules/index.ts",
+      "src/simulator/runtime/index.ts",
       "src/simulator/testing/closed-complete-game-fixture.ts",
-      "src/simulator/testing/complete-game-deployment-fixture.ts"
+      "src/simulator/testing/complete-game-deployment-fixture.ts",
+      "src/simulator/ui/SimulatorPage.tsx",
+      "../.agents/skills/warforge-layout-measurement-extraction/SKILL.md",
+      "../.agents/skills/warforge-layout-measurement-extraction/agents/openai.yaml",
+      "../.agents/skills/warforge-layout-measurement-extraction/references/layout-measurement-schema.md",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-measurements.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/extract-layout-ocr.ps1",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/finalize-layout-measurements.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-board-review.py",
+      "../.agents/skills/warforge-layout-measurement-extraction/scripts/render-layout-review.py",
+      "data/missions/gdmissions-11th/layout-measurements/extraction-candidates.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-decisions.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-queue.json",
+      "data/missions/gdmissions-11th/layout-measurements/review-queue.pre-review.json",
+      "data/missions/gdmissions-11th/layout-measurements/source-inventory.json",
+      "data/simulator/core-poc-coverage.json",
+      "data/simulator/core-poc-fixtures.json",
+      "data/simulator/core-poc-layout.json",
+      "data/simulator/gdm-2026-layout-measurements.json",
+      "docs/simulator/decisions/ADR-020-gdm-layout-measurement-extraction.md",
+      "docs/simulator/decisions/ADR-021-score-events-and-v6-mission-checkpoints.md",
+      "docs/simulator/decisions/ADR-022-core-rules-poc-and-codex-refresh.md",
+      "docs/simulator/decisions/ADR-023-core-poc-spatial-layout.md",
+      "docs/simulator/decisions/ADR-024-lightweight-layout-runtime.md",
+      "docs/simulator/decisions/ADR-025-economic-technical-core-poc.md",
+      "public/data/simulator/core-poc-coverage.json",
+      "public/data/simulator/core-poc-fixtures.json",
+      "public/data/simulator/core-poc-layout.json",
+      "public/data/simulator/gdm-2026-layout-measurements.json",
+      "src/simulator/domain/core-poc-coverage.test.ts",
+      "src/simulator/domain/core-poc-coverage.ts",
+      "src/simulator/domain/core-poc-layout.test.ts",
+      "src/simulator/domain/core-poc-layout.ts",
+      "src/simulator/domain/mission-scoring.ts",
+      "src/simulator/orchestration/mission-scoring.test.ts",
+      "src/simulator/orchestration/mission-scoring.ts",
+      "src/simulator/rules/m9-source-references.ts",
+      "src/simulator/runtime/core-poc.test.ts",
+      "src/simulator/runtime/core-poc.ts"
     ],
     "unexpectedPaths": [],
-    "note": "Périmètre comparé à SIM-M9-T01."
+    "note": "Périmètre comparé à SIM-M9-T03."
   }
 }

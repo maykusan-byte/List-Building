@@ -10,6 +10,7 @@ import { assertCompleteGameSessionSetupV1, createBattleStateV1, createMissionSta
 import { nextBattleStepV1, nextDeploymentPlayerIdV1, resolveFirstPlayerRollOffV1 } from './battle-sequence';
 import { applyTimedEffectExpirationsV1, commandPhaseBattleShockUnitIdsV1, createBattleResourcesV1, createCommandPhaseStateV1, dueTimedEffectIdsV1, expireTimedEffectsV1, resolveBattleShockTestV1, timedEffectExpirationsForPhaseTransitionV1 } from './battle-resources';
 import { resolveDesperateEscapeRiskV1 } from './desperate-escape';
+import { calculateMissionScoringV1, missionScoringCheckpointIdV1, missionScoringSourceRefsV1 } from './mission-scoring';
 import { CORE_BATTLE_ROUND_SOURCE, CORE_CHARGE_MOVE_SOURCE, CORE_CHARGE_SEQUENCE_SOURCE, CORE_CONSOLIDATION_SEQUENCE_SOURCE, CORE_CONSOLIDATION_SOURCE, CORE_FIGHT_SEQUENCE_SOURCE, CORE_MELEE_ATTACK_SOURCE, CORE_NORMAL_FIGHT_SOURCE, CORE_PILE_IN_SEQUENCE_SOURCE, CORE_PILE_IN_SOURCE, CORE_UNIT_COHERENCY_SOURCE, EVENT_COMPANION_FIRST_TURN_SOURCE, EVENT_COMPANION_FIVE_ROUNDS_SOURCE, OFFICIAL_APP_SELECT_UNIT_WITHOUT_WEAPONS_SOURCE } from '../rules/m7-source-references';
 import { CORE_BASE_COMMAND_POINTS_SOURCE, CORE_BATTLE_SHOCK_SOURCE, CORE_COMMAND_ABILITIES_SOURCE, CORE_COMMAND_PHASE_BATTLE_SHOCK_SOURCE, CORE_COMMAND_PHASE_END_SOURCE, CORE_COMMAND_PHASE_START_SOURCE, CORE_COMMAND_ROLL_SOURCE, CORE_COUNTER_OFFENSIVE_SOURCE, CORE_DESPERATE_ESCAPE_SOURCE, CORE_INSANE_BRAVERY_SOURCE, CORE_OBJECTIVE_CONTROL_SOURCE, CORE_TERRAIN_OBJECTIVE_SOURCE, CORE_USE_STRATAGEMS_SOURCE, OFFICIAL_APP_BATTLE_SHOCK_STEP_SOURCE, OFFICIAL_APP_INITIAL_STRENGTH_SOURCE, OFFICIAL_APP_MODIFY_CP_COST_SOURCE, OFFICIAL_APP_MULTIPLE_BATTLE_SHOCK_SOURCE, OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE, OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE, OFFICIAL_APP_USE_STRATAGEMS_SOURCE, UNIVERSAL_STRATAGEM_UPDATES_SOURCE } from '../rules/m8-source-references';
 import { FIGHT_PHASE_V1_SCHEMA_VERSION, PENDING_CHARGE_V1_SCHEMA_VERSION } from './types';
@@ -505,7 +506,8 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
       && event.checkpoint.boundary === 'turn-end'
       && previousSameCommand?.type === 'objective-control-resolved'
       && previousSameCommand.checkpoint.boundary === 'phase-end')
-    || (event.type === 'battle-phase-advanced' && previousSameCommand?.type === 'objective-control-resolved');
+    || (event.type === 'battle-phase-advanced' && previousSameCommand?.type === 'objective-control-resolved')
+    || (event.type === 'mission-scoring-resolved' && previousSameCommand?.type === 'objective-control-resolved');
   const repeatedCommandIsShootingContinuation = (event.type === 'decision-requested' && (event.decision.kind === 'lethal-hits-choice' || event.decision.kind === 'generic-reroll-choice' || event.decision.kind === 'extended-allocation-group' || event.decision.kind === 'extended-allocation-model' || event.decision.kind === 'extended-hazardous-allocation' || event.decision.kind === 'split-fire-retarget' || event.decision.kind === 'duplicate-weapon-ability' || event.decision.kind === 'basic-melee-allocation'))
     || event.type === 'basic-melee-allocation-resolved'
     || event.type === 'basic-melee-resolved'
@@ -529,7 +531,7 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
   if (state.phase === 'completed') throw new Error(`Event ${event.id} cannot be applied after game completion.`);
   if (state.battle !== null && state.battle !== undefined
     && ![
-      'unit-deployed', 'first-player-determined', 'battle-started', 'objective-control-resolved', 'battle-phase-advanced',
+      'unit-deployed', 'first-player-determined', 'battle-started', 'objective-control-resolved', 'mission-scoring-resolved', 'battle-phase-advanced',
       'command-stage-resolved', 'battle-shock-test-resolved', 'insane-bravery-used', 'counter-offensive-used',
       'unit-movement-resolved', 'charge-declared', 'charge-resolved', 'fight-window-passed', 'fight-movement-resolved',
       'basic-melee-stage-resolved', 'basic-melee-allocation-resolved', 'basic-melee-resolved', 'empty-fight-resolved',
@@ -746,13 +748,51 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
       };
       break;
     }
+    case 'mission-scoring-resolved': {
+      const battle = state.battle;
+      const mission = state.mission;
+      if (!battle || battle.lifecycle !== 'in-progress' || battle.activePlayerId === null
+        || !mission || mission.scoringProfileId === undefined
+        || event.environmentFingerprint !== state.shootingEnvironmentFingerprint
+        || event.battleRound !== battle.battleRound || event.turnNumber !== battle.turnNumber
+        || event.activePlayerId !== battle.activePlayerId
+        || !prngStatesEqual(event.prngBefore, state.prng) || !prngStatesEqual(event.prngAfter, state.prng)
+        || !sameJson(event.sourceRefs, missionScoringSourceRefsV1())) {
+        throw new Error(`Mission-scoring event ${event.id} is outside its deterministic checkpoint.`);
+      }
+      const calculation = calculateMissionScoringV1(state, event.evidence);
+      if (event.checkpointId !== calculation.checkpointId || event.checkpoint !== calculation.checkpoint
+        || !sameJson(event.scoreEvents, calculation.scoreEvents)
+        || !sameJson(event.finalResult, calculation.finalResult)) {
+        throw new Error(`Mission-scoring event ${event.id} contains forged score totals or evidence.`);
+      }
+      next = {
+        ...state,
+        mission: {
+          ...mission,
+          scoresByPlayerId: calculation.scoresByPlayerId,
+          scoreEventIds: [...mission.scoreEventIds, ...event.scoreEvents.map((scoreEvent) => scoreEvent.id)],
+          scoreBreakdownByPlayerId: calculation.scoreBreakdownByPlayerId,
+          scoredCheckpointIds: [...(mission.scoredCheckpointIds ?? []), calculation.checkpointId],
+          scoredAssassinationModelIds: calculation.scoredAssassinationModelIds,
+          finalResult: calculation.finalResult
+        }
+      };
+      break;
+    }
     case 'battle-phase-advanced': {
       const battle = state.battle;
       if (battle === null) throw new Error(`Battle phase event ${event.id} has no battle state.`);
       if (state.pendingCharge !== null) throw new Error(`Battle phase event ${event.id} bypasses a pending charge.`);
       const objectiveMarkersAreActive = (state.mission?.objectiveMarkers.length ?? 0) > 0;
       const expectedObjectiveBoundary = event.from === 'fight' ? 'turn-end' : 'phase-end';
+      const objectiveCheckpointAlreadyResolved = state.mission?.objectiveMarkerIds.every((objectiveId) => {
+        const checkpoint = state.mission?.latestObjectiveControlById[objectiveId]?.checkpoint;
+        return checkpoint?.battleRound === battle.battleRound && checkpoint.turnNumber === battle.turnNumber
+          && checkpoint.phase === event.from && checkpoint.boundary === expectedObjectiveBoundary;
+      }) === true;
       if (objectiveMarkersAreActive
+        && !objectiveCheckpointAlreadyResolved
         && (previousSameCommand?.type !== 'objective-control-resolved' || previousSameCommand.checkpoint.boundary !== expectedObjectiveBoundary)) {
         throw new Error(`Battle phase event ${event.id} bypasses its mandatory objective-control checkpoint.`);
       }
@@ -763,6 +803,12 @@ export function unsafeReduceGameEvent(state: GameState, event: GameEvent): GameS
       const isLegacyPreM8PhaseEvent = event.timedEffectExpirations === undefined && !journalContainsM8Event(state);
       if (event.from === 'command' && state.commandPhase?.stage !== 'complete' && !isLegacyPreM8PhaseEvent) throw new Error(`Battle phase event ${event.id} bypasses an incomplete command phase.`);
       if (event.from === 'fight' && state.fightPhase?.stage !== 'complete') throw new Error(`Battle phase event ${event.id} bypasses an incomplete fight phase.`);
+      if (state.mission?.scoringProfileId !== undefined && (event.from === 'command' || event.from === 'fight')) {
+        const scoringCheckpoint = event.from === 'command' ? 'end-of-own-command-phase' : 'end-of-own-turn';
+        const checkpointId = missionScoringCheckpointIdV1(battle.battleRound, battle.turnNumber, scoringCheckpoint);
+        if (!state.mission.scoredCheckpointIds?.includes(checkpointId)) throw new Error(`Battle phase event ${event.id} bypasses mission scoring ${checkpointId}.`);
+        if (event.battleCompleted && state.mission.finalResult === null) throw new Error(`Battle phase event ${event.id} bypasses the final mission result.`);
+      }
       const expected = nextBattleStepV1(battle);
       const resources = state.battleResources;
       if (resources === null) throw new Error(`Battle phase event ${event.id} has no battle resources.`);

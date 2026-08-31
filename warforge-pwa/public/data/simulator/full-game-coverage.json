@@ -1,7 +1,7 @@
 {
   "schemaVersion": "warforge-simulator-full-game-coverage/v1",
   "version": "0.8.0",
-  "manifestVersion": "0.7.0",
+  "manifestVersion": "0.8.0",
   "scope": "closed-complete-game-pilot-v1",
   "status": "draft-blocked",
   "activationPolicy": "Une session V6 reste incompatible tant qu'un nœud reachable n'est pas covered ou qu'un gap bloquant reste ouvert.",
@@ -61,7 +61,7 @@
       "id": "coverage.core-foundations",
       "kind": "rule-set",
       "title": "Concepts, mouvement et séquence d'attaque",
-      "status": "partial",
+      "status": "covered",
       "ownerMilestones": ["M5", "M7"],
       "sourceRefs": [
         { "sourceId": "warforge-core-rules-fr-2026-07", "references": ["01", "03", "04", "05", "06"], "printedPages": [6, 25] },
@@ -172,7 +172,7 @@
       ],
       "dependsOn": ["coverage.core-foundations"],
       "blockingGapIds": [],
-      "note": "Terrain/LoS M4 et contrôle M8 sont couverts. Le diagramme mesuré Disruption Mirror 1 est archivé et approuvé ; sa transcription en coordonnées d'objectifs, zones de déploiement et polygones déterministes reste une implémentation M9-T03, sans gap de source."
+      "note": "Terrain/LoS M4 et contrôle M8 sont couverts. Les 32 repères du diagramme Disruption Mirror 1 sont extraits et vérifiés ; leur association aux objectifs, zones de déploiement et polygones déterministes reste une implémentation M9-T03, sans gap de source."
     },
     {
       "id": "coverage.stratagems",
@@ -208,7 +208,7 @@
       "id": "coverage.mission",
       "kind": "mission",
       "title": "Mission fermée, secondaires et score",
-      "status": "partial",
+      "status": "covered",
       "ownerMilestones": ["M9"],
       "sourceRefs": [
         {
@@ -223,24 +223,24 @@
         },
         {
           "sourceId": "warforge-event-companion-fr-2026-07",
-          "references": ["event-mission-sequence.2", "event-mission-sequence.3", "event-mission-sequence.4", "event-mission-sequence.5", "event-mission-sequence.6", "event-mission-sequence.7", "event-mission-sequence.9", "event-mission-sequence.16", "event-mission-sequence.17", "card-terminology.cumulative-or"],
+          "references": ["event-mission-sequence.2", "event-mission-sequence.3", "event-mission-sequence.4", "event-mission-sequence.5", "event-mission-sequence.6", "event-mission-sequence.7", "event-mission-sequence.9", "event-mission-sequence.13", "event-mission-sequence.14", "card-terminology.cumulative-or"],
           "printedPages": [2, 3]
         }
       ],
       "dependsOn": ["coverage.terrain-objectives", "coverage.battle-round"],
       "blockingGapIds": [],
-      "note": "Les cinq ressources du pilote sont source-covered via l'archive GDM approuvée et le Compagnon officiel. Le moteur de score reste à implémenter dans M9-T02 avant que ce nœud puisse devenir covered."
+      "note": "Les cinq ressources du pilote et le moteur ScoreEvent M9-T02 couvrent Outmanoeuvre, Assassination, Engage, les plafonds, Battle Ready et le résultat final rejouable. La géométrie du layout reste isolée dans coverage.terrain-objectives et M9-T03."
     },
     {
       "id": "coverage.persistence-v6",
       "kind": "persistence",
       "title": "SimulationSaveV6 et replay de partie complète",
       "status": "covered",
-      "ownerMilestones": ["M6", "M7", "M8"],
+      "ownerMilestones": ["M6", "M7", "M8", "M9"],
       "sourceRefs": [],
       "dependsOn": ["coverage.battle-round"],
       "blockingGapIds": [],
-      "note": "SimulationSaveV6 couvre l'export, l'import, l'autosave et le replay vérifié des événements M7/M8 actuellement autorisés, notamment tir, mouvement, charge, combat, objectifs, Commandement, Ébranlement, Courage insensé et Contre-offensive. Chaque nouveau type d'événement devra apporter sa propre preuve de persistance et de replay."
+      "note": "SimulationSaveV6 couvre l'export, l'import, l'autosave et le replay vérifié des événements M7/M8/M9 actuellement autorisés, notamment tir, mouvement, charge, combat, objectifs, ressources, stratagèmes et ScoreEvent. Chaque nouveau type d'événement devra apporter sa propre preuve de persistance et de replay."
     },
     {
       "id": "coverage.complete-game",
@@ -344,7 +344,7 @@
       "status": "resolved",
       "title": "Disposition miroir 1 et positions d'objectifs",
       "blocksNodeIds": [],
-      "requiredAction": "Résolu par le diagramme mesuré Disruption Mirror 1 archivé et contrôlé par hash.",
+      "requiredAction": "Résolu par les 32 repères vérifiés du diagramme Disruption Mirror 1, reliés à une image archivée et contrôlée par hash.",
       "manualOwnerAction": "Aucune collecte supplémentaire ; la transcription géométrique relève de M9-T03."
     },
     {
@@ -379,7 +379,6 @@
   "readiness": {
     "compatible": false,
     "blockingNodeIds": [
-      "coverage.core-foundations",
       "coverage.movement-phase",
       "coverage.shooting-phase",
       "coverage.charge-phase",
@@ -387,11 +386,10 @@
       "coverage.terrain-objectives",
       "coverage.stratagems",
       "coverage.rosters",
-      "coverage.mission",
       "coverage.complete-game"
     ],
     "nextOwnerActions": [
-      "Implémenter le score M9-T02 puis transcrire le layout déterministe M9-T03 depuis l'archive approuvée.",
+      "Transcrire le layout déterministe M9-T03 depuis les 32 repères vérifiés de l'archive approuvée.",
       "Approuver détachements, loadouts et extension des conventions physiques après compilation M6."
     ]
   }

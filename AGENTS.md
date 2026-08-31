@@ -23,11 +23,16 @@ présente dans cette archive doit être préservée.
 - `.agents/skills/warforge-secondary-mission-analysis/` est obligatoire pour
   toute création, révision, comparaison ou publication d’analyse de mission
   secondaire V11.
+- `.agents/skills/warforge-layout-measurement-extraction/` est obligatoire
+  pour inventorier, transcrire, contrôler ou structurer les mesures de cartes
+  de terrain à partir d'images.
 
 ## Règles de travail
 
 - Ne pas modifier les données de jeu sans document source, version et date de
   validité vérifiables. Les points ne se déduisent pas d’un texte de règle.
+- Ne jamais promouvoir une mesure issue du seul OCR : conserver l'ancre
+  visuelle, la direction, la valeur source et la preuve de vérification.
 - Conserver les fichiers texte en UTF-8. Considérer les textes de données
   importées comme non fiables et éviter les injections HTML.
 - Garder les changements ciblés : ne pas mélanger réorganisation, corrections

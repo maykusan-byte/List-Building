@@ -1,6 +1,6 @@
 {
   "schemaVersion": "warforge-simulator-physical-profiles/v1",
-  "manifestVersion": "0.7.0",
+  "manifestVersion": "0.8.0",
   "conventions": [
     {
       "id": "closed-core-infantry-geometry-v1",
@@ -13,6 +13,18 @@
       "reviewedBy": "project-owner",
       "reviewedAt": "2026-08-13",
       "statement": "Socle circulaire de 32 mm et hauteur conventionnelle de 40 mm pour les seules fixtures du duel fermé."
+    },
+    {
+      "id": "closed-core-poc-infantry-geometry-v1",
+      "kind": "local-reviewed-decision",
+      "title": "Extension de la géométrie synthétique de l'infanterie au POC commun",
+      "version": "1.0.0",
+      "effectiveDate": "2026-08-31",
+      "decisionReference": "ADR-023",
+      "scope": "closed-complete-game-core-poc-v1",
+      "reviewedBy": "project-owner",
+      "reviewedAt": "2026-08-31",
+      "statement": "Le profil training-infantry-32mm-v1, socle circulaire de 32 mm et hauteur conventionnelle de 40 mm, est approuvé pour les seules fixtures du POC commun sans codex."
     }
   ],
   "profiles": [

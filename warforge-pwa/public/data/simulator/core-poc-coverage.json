@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "warforge-simulator-core-poc-coverage/v1",
+  "version": "1.1.0",
+  "manifestVersion": "0.8.0",
+  "scope": "closed-complete-game-core-poc-v1",
+  "status": "covered",
+  "decisionReference": "ADR-022",
+  "technicalDecisionReference": "ADR-025",
+  "catalogPolicy": {
+    "coverageClaim": "none",
+    "supportedUnitIds": [],
+    "supportedFactionIds": [],
+    "unitSubjectType": "fixture-unit",
+    "allowsRosterDraftImport": false,
+    "statement": "Les profils figés du POC ne couvrent aucune datasheet, faction, liste ou valeur en points du catalogue."
+  },
+  "canonicalSourceIds": [
+    "warforge-core-rules-fr-2026-07",
+    "warforge-universal-rules-updates-en-2026-07",
+    "warforge-event-companion-fr-2026-07",
+    "warforge-official-app-faq-fr-2026-07",
+    "warforge-official-app-references-fr-2026-07",
+    "warforge-official-app-errata-fr-2026-07",
+    "warforge-official-app-supplemental-rules-fr-2026-08",
+    "approved-gdm-2026-11th-archive",
+    "approved-gdm-2026-layout-images",
+    "warforge-core-poc-fixtures-v1"
+  ],
+  "excludedContent": [
+    { "id": "army-codex-data", "status": "excluded-from-poc", "reason": "Les données de codex seront intégrées après le POC, armée par armée." },
+    { "id": "army-rules", "status": "excluded-from-poc", "reason": "Aucune règle d'armée n'est exécutée par le POC." },
+    { "id": "datasheet-abilities", "status": "excluded-from-poc", "reason": "Les aptitudes de datasheet sont remplacées par l'absence explicite d'aptitude sur les fixtures." },
+    { "id": "detachment-rules", "status": "excluded-from-poc", "reason": "Aucun détachement n'est choisi ou simulé." },
+    { "id": "enhancements", "status": "excluded-from-poc", "reason": "Aucune amélioration de faction ou de détachement n'est disponible." },
+    { "id": "faction-stratagems", "status": "excluded-from-poc", "reason": "Seuls les stratagèmes communs atteignables peuvent entrer dans le POC." },
+    { "id": "catalog-points-and-legality", "status": "excluded-from-poc", "reason": "Les forces POC ne sont pas des listes réglementaires et ne déclarent aucun coût en points." }
+  ],
+  "technicalLimitations": [
+    { "id": "core-stratagem.command-reroll", "status": "unsupported-in-technical-poc", "ruleReferences": ["15.02"], "reason": "Relance de Commandement exige de rouvrir et remplacer plusieurs résultats de jets ; elle est différée à SIM-M10-T00." },
+    { "id": "core-stratagem.epic-challenge", "status": "unsupported-in-technical-poc", "ruleReferences": ["15.03"], "reason": "Défi Épique exige le ciblage et l'allocation Précision ; il est différé à SIM-M10-T00." },
+    { "id": "core-stratagem.overwatch", "status": "unsupported-in-technical-poc", "ruleReferences": ["15.08", "15.09"], "reason": "Tir en État d'Alerte et Tir Réflexe exigent une fenêtre adverse et une résolution de tir spéciale ; ils sont différés à SIM-M10-T00." },
+    { "id": "core-stratagem.heroic-intervention", "status": "unsupported-in-technical-poc", "ruleReferences": ["15.11"], "reason": "Intervention Héroïque exige une réaction de fin de charge et un mode de charge dédié ; elle est différée à SIM-M10-T00." }
+  ],
+  "physicalConvention": {
+    "status": "human-reviewed",
+    "requestedScope": "closed-complete-game-core-poc-v1",
+    "profileIds": ["training-infantry-32mm-v1"],
+    "basis": "Extension proposée de la convention 32 mm × 40 mm déjà approuvée pour le duel synthétique M3.",
+    "reviewedBy": "project-owner",
+    "reviewedAt": "2026-08-31"
+  },
+  "forces": [
+    {
+      "id": "core-poc-force-a-v1",
+      "playerId": "poc-a",
+      "displayName": "Force POC A",
+      "units": [
+        { "id": "core-poc-a-line-1-v1", "subjectType": "fixture-unit", "role": "line", "modelCount": 5, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" },
+        { "id": "core-poc-a-line-2-v1", "subjectType": "fixture-unit", "role": "line", "modelCount": 5, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" },
+        { "id": "core-poc-a-character-v1", "subjectType": "fixture-unit", "role": "character", "modelCount": 1, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" }
+      ]
+    },
+    {
+      "id": "core-poc-force-b-v1",
+      "playerId": "poc-b",
+      "displayName": "Force POC B",
+      "units": [
+        { "id": "core-poc-b-line-1-v1", "subjectType": "fixture-unit", "role": "line", "modelCount": 5, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" },
+        { "id": "core-poc-b-line-2-v1", "subjectType": "fixture-unit", "role": "line", "modelCount": 5, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" },
+        { "id": "core-poc-b-character-v1", "subjectType": "fixture-unit", "role": "character", "modelCount": 1, "physicalProfileId": "training-infantry-32mm-v1", "runtimeStatus": "ready" }
+      ]
+    }
+  ],
+  "requirements": [
+    { "id": "poc.battle-sequence", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-event-companion-fr-2026-07"], "note": "M7 couvre déploiement, cinq rounds, dix tours et phases." },
+    { "id": "poc.command-and-resources", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-supplemental-rules-fr-2026-08"], "note": "M8 couvre PC, Commandement, Ébranlement et durées." },
+    { "id": "poc.movement", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-supplemental-rules-fr-2026-08", "warforge-core-poc-fixtures-v1"], "note": "Le moteur de mouvement et les valeurs M 6 pouces des six fixtures sont compilés." },
+    { "id": "poc.shooting", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-references-fr-2026-07", "warforge-official-app-faq-fr-2026-07", "warforge-core-poc-fixtures-v1"], "note": "Les primitives M3–M5 et les fusils synthétiques POC sont compilés dans un environnement de tir lié." },
+    { "id": "poc.charge", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-faq-fr-2026-07", "warforge-core-poc-fixtures-v1"], "note": "Le moteur M7 et les six unités à empreintes circulaires sont compilés." },
+    { "id": "poc.fight", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-faq-fr-2026-07", "warforge-core-poc-fixtures-v1"], "note": "Le moteur M7 et les profils de mêlée synthétiques POC sont compilés." },
+    { "id": "poc.objectives", "kind": "core-rule", "required": true, "status": "covered", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-official-app-supplemental-rules-fr-2026-08"], "note": "M8 couvre présence, OC et contrôle depuis la géométrie." },
+    { "id": "poc.common-stratagems", "kind": "core-stratagem", "required": false, "status": "partial", "sourceIds": ["warforge-core-rules-fr-2026-07", "warforge-universal-rules-updates-en-2026-07", "warforge-official-app-supplemental-rules-fr-2026-08"], "note": "Courage Insensé et Contre-offensive sont couverts ; 15.02, 15.03, 15.08–15.09 et 15.11 sont les quatre limites non exécutables exactes du POC technique ADR-025." },
+    { "id": "poc.mission-and-score", "kind": "mission-rule", "required": true, "status": "covered", "sourceIds": ["approved-gdm-2026-11th-archive", "warforge-event-companion-fr-2026-07"], "note": "M9-T01/T02 couvrent Disruption, les secondaires fixes et ScoreEvent." },
+    { "id": "poc.layout-and-terrain", "kind": "project-physical-convention", "required": true, "status": "covered", "sourceIds": ["approved-gdm-2026-11th-archive", "approved-gdm-2026-layout-images", "warforge-core-rules-fr-2026-07"], "note": "Les 32 mesures, treize baseplates, six objectifs, deux zones et vingt-huit volumes physiques sont compilés selon la convention propriétaire ADR-023." },
+    { "id": "poc.fixture-runtime", "kind": "runtime", "required": true, "status": "covered", "sourceIds": ["warforge-core-poc-fixtures-v1"], "note": "Deux forces, six unités, vingt-deux figurines et trois armes synthétiques sont compilées sans dépendance au catalogue." },
+    { "id": "poc.persistence-and-replay", "kind": "persistence", "required": true, "status": "covered", "sourceIds": [], "note": "SimulationSaveV6 couvre les événements actuellement exécutables et le ScoreEvent." },
+    { "id": "poc.offline-ui", "kind": "ui", "required": true, "status": "covered", "sourceIds": [], "note": "L'interface technique cinq rounds, son export V6, la reprise IndexedDB, le replay et les quatre limites ADR-025 sont exposés par M9-T03-S03." }
+  ],
+  "readiness": {
+    "compatible": true,
+    "blockingRequirementIds": [],
+    "pendingOwnerActions": []
+  }
+}

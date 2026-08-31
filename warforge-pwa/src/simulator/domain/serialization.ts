@@ -42,7 +42,7 @@ function isCompatibleVersion(version: unknown): version is string {
 function isGameEvent(value: unknown): value is GameEvent {
   return isRecord(value) && typeof value.id === 'string' && typeof value.commandId === 'string'
     && typeof value.type === 'string'
-    && ['session-setup', 'unit-deployed', 'first-player-determined', 'battle-started', 'objective-control-resolved', 'battle-phase-advanced', 'command-stage-resolved', 'battle-shock-test-resolved', 'insane-bravery-used', 'counter-offensive-used', 'unit-movement-resolved', 'charge-declared', 'charge-resolved', 'fight-window-passed', 'fight-movement-resolved', 'basic-melee-stage-resolved', 'basic-melee-allocation-resolved', 'basic-melee-resolved', 'empty-fight-resolved', 'phase-transitioned', 'model-moved', 'dice-rolled', 'basic-shooting-resolved', 'split-fire-resolved', 'split-fire-stage-resolved', 'split-fire-retarget-choice-resolved', 'split-fire-completed', 'duplicate-weapon-ability-selection-requested', 'duplicate-weapon-ability-choice-resolved', 'basic-shooting-hit-stage-resolved', 'basic-shooting-lethal-choice-resolved', 'basic-shooting-completed', 'basic-shooting-reroll-stage-resolved', 'basic-shooting-reroll-choice-resolved', 'basic-shooting-reroll-completed', 'extended-shooting-one-shot-selected', 'extended-shooting-stage-resolved', 'extended-shooting-save-stage-resolved', 'extended-shooting-save-resolved', 'extended-shooting-allocation-choice-resolved', 'extended-shooting-packet-resolved', 'extended-shooting-packet-lost', 'extended-shooting-hazardous-resolved', 'extended-shooting-hazardous-packet-resolved', 'extended-shooting-hazardous-wounds-lost', 'extended-shooting-completed', 'oath-of-moment-selected', 'decision-requested', 'decision-resolved'].includes(value.type);
+    && ['session-setup', 'unit-deployed', 'first-player-determined', 'battle-started', 'objective-control-resolved', 'mission-scoring-resolved', 'battle-phase-advanced', 'command-stage-resolved', 'battle-shock-test-resolved', 'insane-bravery-used', 'counter-offensive-used', 'unit-movement-resolved', 'charge-declared', 'charge-resolved', 'fight-window-passed', 'fight-movement-resolved', 'basic-melee-stage-resolved', 'basic-melee-allocation-resolved', 'basic-melee-resolved', 'empty-fight-resolved', 'phase-transitioned', 'model-moved', 'dice-rolled', 'basic-shooting-resolved', 'split-fire-resolved', 'split-fire-stage-resolved', 'split-fire-retarget-choice-resolved', 'split-fire-completed', 'duplicate-weapon-ability-selection-requested', 'duplicate-weapon-ability-choice-resolved', 'basic-shooting-hit-stage-resolved', 'basic-shooting-lethal-choice-resolved', 'basic-shooting-completed', 'basic-shooting-reroll-stage-resolved', 'basic-shooting-reroll-choice-resolved', 'basic-shooting-reroll-completed', 'extended-shooting-one-shot-selected', 'extended-shooting-stage-resolved', 'extended-shooting-save-stage-resolved', 'extended-shooting-save-resolved', 'extended-shooting-allocation-choice-resolved', 'extended-shooting-packet-resolved', 'extended-shooting-packet-lost', 'extended-shooting-hazardous-resolved', 'extended-shooting-hazardous-packet-resolved', 'extended-shooting-hazardous-wounds-lost', 'extended-shooting-completed', 'oath-of-moment-selected', 'decision-requested', 'decision-resolved'].includes(value.type);
 }
 
 function isInitialState(value: unknown): value is GameState {
@@ -133,7 +133,8 @@ function hasM8ResourceEvents(events: readonly GameEvent[]): boolean {
     || event.type === 'battle-shock-test-resolved'
     || event.type === 'insane-bravery-used'
     || event.type === 'counter-offensive-used'
-    || event.type === 'objective-control-resolved');
+    || event.type === 'objective-control-resolved'
+    || event.type === 'mission-scoring-resolved');
 }
 
 function assertNoCompleteGameSession(events: readonly GameEvent[], saveVersion: 'V1' | 'V2' | 'V3' | 'V4' | 'V5'): void {
@@ -366,6 +367,7 @@ export function unsafeValidateSimulationSaveWithVerifier(value: unknown, replayV
 function verifyReplay(initialState: GameState, events: readonly GameEvent[], replayVerifier?: UnsafeSimulationReplayVerifier): GameState {
   if (events.some((event) => event.type === 'unit-deployed'
     || event.type === 'objective-control-resolved'
+    || event.type === 'mission-scoring-resolved'
     || event.type === 'unit-movement-resolved'
     || event.type === 'charge-declared'
     || event.type === 'charge-resolved'

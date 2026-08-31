@@ -19,6 +19,9 @@
 .m4-status-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; max-width: 1200px; margin: .8rem auto; }
 .m4-status-grid div, .m4-targets { padding: .75rem .9rem; border: 1px solid rgba(189,219,218,.3); border-radius: .65rem; background: rgba(7,15,24,.55); }
 .m4-status-grid span, .m4-unit-selector span { display: block; color: #a7bbc4; font-size: .78rem; }.m4-status-grid strong { color: #fff7e6; }
+.poc-limitations, .poc-score-grid article { margin: .8rem auto; padding: .9rem 1rem; border: 1px solid rgba(255, 200, 110, .45); border-radius: .7rem; background: rgba(41, 24, 18, .72); }
+.poc-limitations { max-width: 1200px; }.poc-limitations h2 { margin-top: 0; color: #ffdc78; }.poc-limitations li { margin: .35rem 0; }
+.poc-score-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; max-width: 1200px; margin: 0 auto; }.poc-score-grid article { margin: 0; }.poc-score-grid h2 { margin-top: 0; }.poc-score-grid > article > strong { color: #ffdc78; font-size: 1.35rem; }
 .m4-unit-selector, .m4-model, .m4-targets button { display: grid; width: 100%; gap: .15rem; margin: .35rem 0; padding: .52rem .65rem; border: 1px solid #456b7d; border-radius: .45rem; color: #e9f5f5; text-align: left; background: rgba(12,31,45,.7); }
 .m4-unit-selector.active, .m4-model.active, .m4-targets button.active { border-color: #ffdc78; color: #1b1609; background: #ffdc78; }.m4-model.moved { border-color: #69d2c6; }.m4-model { display: inline-block; width: auto; margin-right: .35rem; font-size: .73rem; }.m4-targets { max-width: 1200px; margin: .8rem auto; }.m4-targets h2 { margin: 0 0 .4rem; font-size: 1rem; }.m4-targets button { display: inline-block; width: auto; margin-right: .45rem; }
 

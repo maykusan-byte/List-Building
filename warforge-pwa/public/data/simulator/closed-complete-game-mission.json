@@ -1,7 +1,7 @@
 {
   "schemaVersion": "warforge-simulator-closed-mission/v1",
   "version": "1.0.0",
-  "manifestVersion": "0.7.0",
+  "manifestVersion": "0.8.0",
   "id": "closed-complete-game-disruption-v1",
   "status": "source-covered",
   "approval": {
@@ -35,8 +35,8 @@
         "event-mission-sequence.6",
         "event-mission-sequence.7",
         "event-mission-sequence.9",
-        "event-mission-sequence.16",
-        "event-mission-sequence.17",
+        "event-mission-sequence.13",
+        "event-mission-sequence.14",
         "card-terminology.cumulative-or"
       ],
       "printedPages": [2, 3]
@@ -77,9 +77,13 @@
       "sha256": "bae1b718156e48ec4ac3a44f4718111a0a4325911a41161bd50cff9e47786486"
     },
     "deterministicGeometry": {
-      "status": "pending-transcription",
+      "status": "compiled-human-reviewed",
+      "measurementArtifact": "gdm-2026-layout-measurements.json",
+      "measurementLayoutId": "disruption-mirror-1",
+      "geometryArtifact": "core-poc-layout.json",
+      "geometryLayoutId": "disruption-mirror-1-core-poc-v1",
       "requiredFor": "SIM-M9-T03",
-      "note": "Le diagramme mesuré est archivé et lisible ; les coordonnées d'objectifs, zones de déploiement et polygones de terrain doivent encore être transcrits puis testés avant la partie UI."
+      "note": "Les 32 repères sont liés aux treize baseplates ; objectifs, zones et 28 volumes physiques sont compilés selon la convention propriétaire ADR-023."
     }
   },
   "primaryMission": {
@@ -209,8 +213,8 @@
   },
   "executionReadiness": {
     "sourceDataCovered": true,
-    "scoringEngine": "pending-SIM-M9-T02",
-    "deterministicSpatialLayout": "pending-SIM-M9-T03",
+    "scoringEngine": "implemented-SIM-M9-T02",
+    "deterministicSpatialLayout": "compiled-human-reviewed",
     "playable": false
   }
 }

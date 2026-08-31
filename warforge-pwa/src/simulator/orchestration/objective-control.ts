@@ -22,6 +22,8 @@ import {
 } from '../rules/m8-source-references';
 import type { ShootingEnvironment } from './shooting';
 
+export type ObjectiveControlEnvironment = Pick<ShootingEnvironment, 'fingerprint' | 'physicalProfiles'>;
+
 export const OBJECTIVE_CONTROL_SOURCE_REFS = [
   CORE_TERRAIN_OBJECTIVE_SOURCE,
   CORE_OBJECTIVE_CONTROL_SOURCE,
@@ -82,7 +84,7 @@ export function evaluateObjectiveControlV1(
   state: GameState,
   marker: ObjectiveMarkerV1,
   checkpoint: ObjectiveControlResolutionV1['checkpoint'],
-  environment: ShootingEnvironment
+  environment: ObjectiveControlEnvironment
 ): ObjectiveControlResolutionV1 {
   const battle = state.battle;
   if (!battle || battle.lifecycle !== 'in-progress' || !state.mission?.objectiveMarkerIds.includes(marker.id)) {
@@ -174,7 +176,22 @@ export function executeObjectiveAwareAdvanceBattlePhaseCommand(
     phase: battle.phase,
     boundary: 'turn-end'
   });
-  const objectiveEvents: Extract<GameEvent, { readonly type: 'objective-control-resolved' }>[] = checkpointBases.map((checkpoint) => ({
+  // Mission scoring may already have emitted both fight phase-end and
+  // turn-end checkpoints. Do not recreate phase-end afterwards: that would
+  // replace the latest terminal proof just before the phase event.
+  const terminalCheckpoint = checkpointBases.at(-1)!;
+  const terminalCheckpointAlreadyResolved = markers.every((marker) => {
+    const latest = state.mission?.latestObjectiveControlById[marker.id]?.checkpoint;
+    return latest?.battleRound === terminalCheckpoint.battleRound && latest.turnNumber === terminalCheckpoint.turnNumber
+      && latest.phase === terminalCheckpoint.phase && latest.boundary === terminalCheckpoint.boundary;
+  });
+  const objectiveEvents: Extract<GameEvent, { readonly type: 'objective-control-resolved' }>[] = (terminalCheckpointAlreadyResolved ? [] : checkpointBases)
+    .filter((checkpoint) => !markers.every((marker) => {
+      const latest = state.mission?.latestObjectiveControlById[marker.id]?.checkpoint;
+      return latest?.battleRound === checkpoint.battleRound && latest.turnNumber === checkpoint.turnNumber
+        && latest.phase === checkpoint.phase && latest.boundary === checkpoint.boundary;
+    }))
+    .map((checkpoint) => ({
     id: `${command.id}:objective:${checkpoint.boundary}`,
     commandId: command.id,
     type: 'objective-control-resolved',
@@ -184,7 +201,7 @@ export function executeObjectiveAwareAdvanceBattlePhaseCommand(
       .map((marker) => evaluateObjectiveControlV1(state, marker, checkpoint, environment)),
     environmentFingerprint: environment.fingerprint,
     sourceRefs: OBJECTIVE_CONTROL_SOURCE_REFS
-  }));
+    }));
   const events: readonly GameEvent[] = [...objectiveEvents, phaseAdvance.event];
   return { accepted: true, state: events.reduce(unsafeReduceGameEvent, state), events };
 }

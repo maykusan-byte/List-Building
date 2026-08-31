@@ -7,6 +7,7 @@ import {
   RESOLUTION_QUEUE_V1_SCHEMA_VERSION,
   type BattleStateV1,
   type CompleteGameSessionSetupV1,
+  type MissionObjectiveRoleV1,
   type MissionStateV1,
   type ResolutionQueueEntryV1,
   type ResolutionQueueV1,
@@ -22,6 +23,10 @@ const OBJECTIVE_MARKER_SOURCE_REFS = [
   OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE,
   OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE
 ] as const;
+
+const CLOSED_MISSION_OBJECTIVE_ROLES: readonly MissionObjectiveRoleV1[] = [
+  'attacker-home', 'defender-home', 'no-mans-land-1', 'no-mans-land-2', 'centre-1', 'centre-2'
+];
 
 function assertUniqueNonEmpty(values: readonly string[], label: string): void {
   if (values.length === 0 || values.some((value) => !value.trim()) || new Set(values).size !== values.length) {
@@ -147,6 +152,19 @@ export function assertCompleteGameSessionSetupV1(setup: CompleteGameSessionSetup
     || new Set(setup.battle.deploymentZones.map((zone) => zone.playerId)).size !== setup.battle.playerIds.length
     || setup.battle.deploymentZones.some((zone) => {
       assertWorldBounds(zone.bounds, `Complete-game deployment zone ${zone.id}`);
+      const polygon = zone.polygon;
+      if (polygon !== undefined) {
+        if (polygon.length < 3 || polygon.some((point) => !Number.isSafeInteger(point.x) || !Number.isSafeInteger(point.y)
+          || point.x < zone.bounds.minX || point.x > zone.bounds.maxX
+          || point.y < zone.bounds.minY || point.y > zone.bounds.maxY)) return true;
+        const polygonBounds = {
+          minX: Math.min(...polygon.map((point) => point.x)),
+          minY: Math.min(...polygon.map((point) => point.y)),
+          maxX: Math.max(...polygon.map((point) => point.x)),
+          maxY: Math.max(...polygon.map((point) => point.y))
+        };
+        if (canonicalJson(polygonBounds) !== canonicalJson(zone.bounds)) return true;
+      }
       return !setup.battle.playerIds.includes(zone.playerId)
         || zone.bounds.minX < setup.battle.boardBounds.minX
         || zone.bounds.minY < setup.battle.boardBounds.minY
@@ -176,6 +194,23 @@ export function assertCompleteGameSessionSetupV1(setup: CompleteGameSessionSetup
   if (!setup.mission.id.trim() || !setup.mission.definitionFingerprint.trim()) {
     throw new RangeError('Complete-game mission setup is malformed.');
   }
+  if (setup.mission.scoringProfileId !== undefined
+    && (setup.mission.scoringProfileId !== 'closed-complete-game-disruption-v1'
+      || setup.mission.id !== 'closed-complete-game-disruption-v1')) {
+    throw new RangeError('Complete-game mission scoring profile is malformed.');
+  }
+  if (setup.mission.scoringProfileId !== undefined) {
+    const roleById = setup.mission.objectiveRoleById;
+    const declaredIds = [...setup.mission.objectiveMarkerIds].sort((left, right) => left.localeCompare(right));
+    const roleIds = roleById === undefined ? [] : Object.keys(roleById).sort((left, right) => left.localeCompare(right));
+    const roles = roleById === undefined ? [] : Object.values(roleById).sort((left, right) => left.localeCompare(right));
+    if (canonicalJson(roleIds) !== canonicalJson(declaredIds)
+      || canonicalJson(roles) !== canonicalJson([...CLOSED_MISSION_OBJECTIVE_ROLES].sort((left, right) => left.localeCompare(right)))) {
+      throw new RangeError('Complete-game mission objective roles are malformed.');
+    }
+  } else if (setup.mission.objectiveRoleById !== undefined) {
+    throw new RangeError('Complete-game mission objective roles require an executable scoring profile.');
+  }
   if (manifest.scenarioId !== setup.mission.id
     || report.missionCandidate.id !== setup.mission.id
     || manifest.scenarioFingerprint !== setup.mission.definitionFingerprint
@@ -195,6 +230,7 @@ export function assertCompleteGameSessionSetupV1(setup: CompleteGameSessionSetup
   }
 
   const units = session.units ?? [];
+  const expectedCoverageSubjectType = report.coverageScope === 'closed-complete-game-core-poc-v1' ? 'fixture-unit' : 'unit';
   const unitsById = new Map(units.map((unit) => [unit.id, unit]));
   const expectedUnitIds = report.rosterCandidates.flatMap((roster) => roster.units.map((unit) => unit.instanceId));
   if (unitsById.size !== units.length || units.length !== expectedUnitIds.length
@@ -207,7 +243,7 @@ export function assertCompleteGameSessionSetupV1(setup: CompleteGameSessionSetup
       const unit = unitsById.get(expectedUnit.instanceId);
       if (!unit
         || unit.playerId !== player.id
-        || unit.coverageSubject?.subjectType !== 'unit'
+        || unit.coverageSubject?.subjectType !== expectedCoverageSubjectType
         || unit.coverageSubject.subjectId !== expectedUnit.unitId
         || unit.modelIds.length !== expectedUnit.modelCount
         || !Number.isInteger(unit.movement) || unit.movement! <= 0
@@ -237,7 +273,11 @@ export function createBattleStateV1(setup: CompleteGameSessionSetupV1): BattleSt
     boardBounds: { ...setup.battle.boardBounds },
     attackerPlayerId: setup.battle.attackerPlayerId,
     defenderPlayerId: setup.battle.defenderPlayerId,
-    deploymentZones: setup.battle.deploymentZones.map((zone) => ({ ...zone, bounds: { ...zone.bounds } })),
+    deploymentZones: setup.battle.deploymentZones.map((zone) => ({
+      ...zone,
+      bounds: { ...zone.bounds },
+      ...(zone.polygon === undefined ? {} : { polygon: zone.polygon.map((point) => ({ ...point })) })
+    })),
     nextDeploymentPlayerId: setup.battle.defenderPlayerId,
     deployedUnitIds: [],
     deploymentOrder: [],
@@ -249,6 +289,15 @@ export function createBattleStateV1(setup: CompleteGameSessionSetupV1): BattleSt
 
 export function createMissionStateV1(setup: CompleteGameSessionSetupV1): MissionStateV1 {
   const objectiveMarkers = (setup.mission.objectiveMarkers ?? []).map((marker) => structuredClone(marker));
+  const emptyBreakdown = () => ({
+    primaryVp: 0,
+    secondaryVp: 0,
+    battleReadyVp: 0,
+    fixedSecondaryVpById: { assassination: 0, 'engage-on-all-fronts': 0 },
+    primaryVpByBattleRound: {},
+    secondaryVpByBattleRound: {},
+    totalVp: 0
+  });
   return {
     schemaVersion: MISSION_STATE_V1_SCHEMA_VERSION,
     missionId: setup.mission.id,
@@ -260,7 +309,15 @@ export function createMissionStateV1(setup: CompleteGameSessionSetupV1): Mission
     latestObjectiveControlById: Object.fromEntries(setup.mission.objectiveMarkerIds.map((objectiveId) => [objectiveId, null])),
     objectiveControlEventIds: [],
     scoresByPlayerId: Object.fromEntries(setup.battle.playerIds.map((playerId) => [playerId, 0])),
-    scoreEventIds: []
+    scoreEventIds: [],
+    ...(setup.mission.scoringProfileId === undefined ? {} : {
+      scoringProfileId: setup.mission.scoringProfileId,
+      objectiveRoleById: structuredClone(setup.mission.objectiveRoleById!),
+      scoreBreakdownByPlayerId: Object.fromEntries(setup.battle.playerIds.map((playerId) => [playerId, emptyBreakdown()])),
+      scoredCheckpointIds: [],
+      scoredAssassinationModelIds: [],
+      finalResult: null
+    })
   };
 }
 
@@ -352,7 +409,11 @@ export function completeGameSessionFingerprint(setup: CompleteGameSessionSetupV1
       id: setup.mission.id,
       definitionFingerprint: setup.mission.definitionFingerprint,
       objectiveMarkerIds: [...setup.mission.objectiveMarkerIds],
-      ...(setup.mission.objectiveMarkers === undefined ? {} : { objectiveMarkers: structuredClone(setup.mission.objectiveMarkers) })
+      ...(setup.mission.objectiveMarkers === undefined ? {} : { objectiveMarkers: structuredClone(setup.mission.objectiveMarkers) }),
+      ...(setup.mission.scoringProfileId === undefined ? {} : {
+        scoringProfileId: setup.mission.scoringProfileId,
+        objectiveRoleById: structuredClone(setup.mission.objectiveRoleById!)
+      })
     }
   });
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "warforge-simulator-manifest/v1",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "engineVersion": "0.1.0",
   "catalog": {
     "dataVersion": "1.2.13.0",
@@ -126,6 +126,40 @@
       "officialGwPublication": false
     },
     {
+      "id": "approved-gdm-2026-layout-images",
+      "kind": "trusted-layout-image-archive",
+      "authority": "project-owner-approved",
+      "title": "GDM 2026 — 45 layouts de terrain avec mesures affichées",
+      "version": "drive-snapshot-2026-08-30",
+      "effectiveDate": null,
+      "retrievedAt": "2026-08-30",
+      "status": "project-approved",
+      "path": "data/missions/gdmissions-11th/layout-measurements/source-inventory.json",
+      "url": "https://drive.google.com/drive/folders/1clE0hvtnbtTN2xGdcR9scyrLcKQiMI0Z",
+      "sha256": "eb14ab96304ee6db152995f8704f5f1c80e73e432e2aa0e7989aacf4eb859c45",
+      "extractionCandidatesSha256": "de466f2776d12e86e4ed5403d929a83cb2a90b04f52ddf62374e518de8a7bf22",
+      "reviewQueueSha256": "7d73597fec69bce974034e9c63b4c82431b7e0eb6decd51394e18774bd916849",
+      "reviewDecisionsSha256": "b33ffe81302d1356008d1f6e0a58f850ce050761b2e8617bf2fb3b7345121cd3",
+      "measurementArtifactSha256": "4a84d1e7ff40cbb2c40b9184e53af239df1d96bdaa845c8f0ed1a024ef1f15cf",
+      "reviewedBy": "project-owner",
+      "reviewedAt": "2026-08-30",
+      "decisionReference": "ADR-020",
+      "officialGwPublication": false,
+      "expectedImageCount": 45
+    },
+    {
+      "id": "warforge-core-poc-fixtures-v1",
+      "kind": "project-fixture-convention",
+      "title": "Profils synthétiques du POC de règles communes",
+      "version": "1.0.0",
+      "effectiveDate": null,
+      "retrievedAt": "2026-08-31",
+      "status": "reference-only",
+      "path": "data/simulator/core-poc-fixtures.json",
+      "decisionReference": "ADR-022",
+      "coverageClaim": "none"
+    },
+    {
       "id": "warforge-catalog-1.2.13.0",
       "kind": "versioned-catalog",
       "title": "Catalogue Warforge 40k 11th",
@@ -141,6 +175,10 @@
     "scenarios": "scenarios.json",
     "rulepacks": "rulepacks.json",
     "fullGameCoverage": "full-game-coverage.json",
-    "closedCompleteGameMission": "closed-complete-game-mission.json"
+    "closedCompleteGameMission": "closed-complete-game-mission.json",
+    "gdmLayoutMeasurements": "gdm-2026-layout-measurements.json",
+    "corePocCoverage": "core-poc-coverage.json",
+    "corePocLayout": "core-poc-layout.json",
+    "corePocFixtures": "core-poc-fixtures.json"
   }
 }

@@ -6,6 +6,7 @@ import {
   COMPLETE_GAME_TEST_SOURCE,
   COMPLETE_GAME_TEST_MELEE_WEAPON,
   COMPLETE_GAME_TEST_WEAPON,
+  createCompleteGameScoringSessionForTests,
   createCompleteGameSessionForTests
 } from './closed-complete-game-fixture';
 
@@ -42,6 +43,15 @@ export function createCompleteGameTestEnvironment(): ShootingEnvironment {
 export function createCompleteGameDeploymentFixture(gameId = 'complete-game-deployment', seed = 0x57465247) {
   const environment = createCompleteGameTestEnvironment();
   const session = createCompleteGameSessionForTests(environment.fingerprint);
+  const initial = createInitialGameState(gameId, seed);
+  const setup = executeGameCommand(initial, { id: 'setup', actorId: session.players[0]!.id, type: 'setup-session', session });
+  if (!setup.accepted) throw new Error(setup.rejection.message);
+  return { environment, session, initial, state: setup.state };
+}
+
+export function createCompleteGameScoringDeploymentFixture(gameId = 'complete-game-scoring', seed = 0x57465247) {
+  const environment = createCompleteGameTestEnvironment();
+  const session = createCompleteGameScoringSessionForTests(environment.fingerprint);
   const initial = createInitialGameState(gameId, seed);
   const setup = executeGameCommand(initial, { id: 'setup', actorId: session.players[0]!.id, type: 'setup-session', session });
   if (!setup.accepted) throw new Error(setup.rejection.message);

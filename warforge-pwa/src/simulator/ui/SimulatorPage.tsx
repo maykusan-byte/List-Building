@@ -14,6 +14,7 @@ import {
 import type { LaboratoryAnalysis, LaboratoryModel, LaboratoryMove } from './laboratory';
 import './simulator.css';
 import ClosedDuelPage from './ClosedDuelPage';
+import CorePocTechnicalPage from './CorePocTechnicalPage';
 import M4RealRosterDuelPage from './M4RealRosterDuelPage';
 
 export interface SimulatorPageProps {
@@ -182,6 +183,8 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
   const cameraRef = useRef(camera);
   const drawRef = useRef<() => void>(() => undefined);
   const dragRef = useRef<DragState | null>(null);
+  const pendingMoveRef = useRef<LaboratoryMove | null>(null);
+  const moveFrameRef = useRef<number | null>(null);
   const panRef = useRef<{ readonly pointerX: number; readonly pointerY: number; readonly panX: number; readonly panY: number } | null>(null);
 
   useEffect(() => { cameraRef.current = camera; }, [camera]);
@@ -280,6 +283,7 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
     const previous = app.stage.removeChildren();
     for (const child of previous) child.destroy();
     app.stage.addChild(graphics);
+    app.render();
   }, [analysis, models, rulerTargetId, selectedModelId]);
 
   drawRef.current = draw;
@@ -298,6 +302,7 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
       const app = new PixiApplication();
       await app.init({
         resizeTo: host,
+        autoStart: false,
         backgroundAlpha: 0,
         antialias: true,
         autoDensity: true,
@@ -318,6 +323,9 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
     return () => {
       disposed = true;
       resizeObserver.disconnect();
+      if (moveFrameRef.current !== null) cancelAnimationFrame(moveFrameRef.current);
+      moveFrameRef.current = null;
+      pendingMoveRef.current = null;
       const runtime = runtimeRef.current;
       runtimeRef.current = null;
       runtime?.app.destroy(true);
@@ -358,7 +366,15 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
     const drag = dragRef.current;
     if (drag) {
       const worldPoint = screenToWorld(screenPoint, cameraRef.current);
-      onMoveModel({ modelId: drag.modelId, from: drag.from, to: worldPoint });
+      pendingMoveRef.current = { modelId: drag.modelId, from: drag.from, to: worldPoint };
+      if (moveFrameRef.current === null) {
+        moveFrameRef.current = requestAnimationFrame(() => {
+          moveFrameRef.current = null;
+          const pendingMove = pendingMoveRef.current;
+          pendingMoveRef.current = null;
+          if (pendingMove) onMoveModel(pendingMove);
+        });
+      }
       return;
     }
     const pan = panRef.current;
@@ -368,6 +384,17 @@ function PixiBoard({ models, selectedModelId, rulerTargetId, rulerMode, analysis
   };
 
   const handlePointerEnd = (event: ReactPointerEvent<HTMLDivElement>): void => {
+    const drag = dragRef.current;
+    if (moveFrameRef.current !== null) cancelAnimationFrame(moveFrameRef.current);
+    moveFrameRef.current = null;
+    pendingMoveRef.current = null;
+    if (drag && event.type !== 'pointercancel') {
+      onMoveModel({
+        modelId: drag.modelId,
+        from: drag.from,
+        to: screenToWorld(eventPoint(event), cameraRef.current)
+      });
+    }
     dragRef.current = null;
     panRef.current = null;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
@@ -493,13 +520,14 @@ function LaboratoryPage({ locale }: SimulatorPageProps): React.JSX.Element {
 
 /** M2 stays a laboratory and M3 an isolated fixture beside the real-roster pilot. */
 export default function SimulatorPage({ locale }: SimulatorPageProps): React.JSX.Element {
-  const [mode, setMode] = useState<'m4' | 'duel' | 'laboratory'>('m4');
+  const [mode, setMode] = useState<'poc' | 'm4' | 'duel' | 'laboratory'>('poc');
   return <>
     <nav className="simulator-mode-tabs" aria-label="Modes du simulateur">
+      <button type="button" className={mode === 'poc' ? 'active' : ''} aria-pressed={mode === 'poc'} onClick={() => setMode('poc')}>POC technique M9</button>
       <button type="button" className={mode === 'm4' ? 'active' : ''} aria-pressed={mode === 'm4'} onClick={() => setMode('m4')}>Duel réel M4</button>
       <button type="button" className={mode === 'duel' ? 'active' : ''} aria-pressed={mode === 'duel'} onClick={() => setMode('duel')}>Duel fermé M3</button>
       <button type="button" className={mode === 'laboratory' ? 'active' : ''} aria-pressed={mode === 'laboratory'} onClick={() => setMode('laboratory')}>Laboratoire M2</button>
     </nav>
-    {mode === 'm4' ? <M4RealRosterDuelPage /> : mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
+    {mode === 'poc' ? <CorePocTechnicalPage /> : mode === 'm4' ? <M4RealRosterDuelPage /> : mode === 'duel' ? <ClosedDuelPage /> : <LaboratoryPage locale={locale} />}
   </>;
 }

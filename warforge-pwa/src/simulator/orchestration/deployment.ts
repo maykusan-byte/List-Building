@@ -13,6 +13,7 @@ import type {
 } from '../domain/types';
 import {
   classifyBoardContainment,
+  classifyFootprintInConvexPolygon,
   classifyFootprintContact,
   type Footprint,
   type IdentifiedFootprint
@@ -106,12 +107,20 @@ export function executeDeploymentCommand(
   const containment: Extract<GameEvent, { readonly type: 'unit-deployed' }>['evidence']['containment'][number][] = [];
   for (const candidate of candidateFootprints) {
     const board = classifyBoardContainment(candidate.footprint, battle.boardBounds);
-    const deploymentZone = classifyBoardContainment(candidate.footprint, zone.bounds);
+    const deploymentZone = zone.polygon === undefined
+      ? classifyBoardContainment(candidate.footprint, zone.bounds)
+      : classifyFootprintInConvexPolygon(candidate.footprint, zone.polygon);
     if (board.classification === 'outside') {
       return reject(state, command, 'deployment-outside-board', 'La hitbox d’une figurine franchit le bord du champ de bataille.', [GEOMETRY_RULE_ID], { modelId: candidate.id, crossedEdges: board.crossedEdges.join(',') });
     }
     if (deploymentZone.classification === 'outside') {
-      return reject(state, command, 'deployment-outside-zone', 'Chaque hitbox doit être entièrement dans la zone de déploiement de son joueur.', [DEPLOYMENT_RULE_ID, GEOMETRY_RULE_ID], { modelId: candidate.id, zoneId: zone.id, crossedEdges: deploymentZone.crossedEdges.join(',') });
+      return reject(state, command, 'deployment-outside-zone', 'Chaque hitbox doit être entièrement dans la zone de déploiement de son joueur.', [DEPLOYMENT_RULE_ID, GEOMETRY_RULE_ID], {
+        modelId: candidate.id,
+        zoneId: zone.id,
+        ...(zone.polygon === undefined
+          ? { crossedEdges: (deploymentZone as ReturnType<typeof classifyBoardContainment>).crossedEdges.join(',') }
+          : { boundaryEdgeIndex: (deploymentZone as ReturnType<typeof classifyFootprintInConvexPolygon>).boundaryEdgeIndex })
+      });
     }
     containment.push({ modelId: candidate.id, board: board.classification, zone: deploymentZone.classification });
   }

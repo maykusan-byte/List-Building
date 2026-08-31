@@ -34,6 +34,7 @@ import {
   type SessionSetup
 } from './index';
 import {
+  createCompleteGameScoringSessionForTests,
   createCompleteGameSessionForTests,
   createCoveredClosedPilotReportForTests,
   createCurrentClosedPilotReportForTests
@@ -57,6 +58,22 @@ function setUp(sessionSetup: SessionSetup, gameId = 'complete-game-contract'): {
 }
 
 describe('complete-game V6 contracts', () => {
+  it('binds every scoring objective role into the executable session contract', () => {
+    const valid = createCompleteGameScoringSessionForTests('shooting-environment-a');
+    expect(valid.completeGame!.mission.objectiveRoleById).toBeDefined();
+    const missingRoles = structuredClone(valid);
+    delete (missingRoles.completeGame!.mission as { objectiveRoleById?: unknown }).objectiveRoleById;
+    expect(() => assertCompleteGameSessionSetupV1(missingRoles.completeGame!, missingRoles))
+      .toThrow('objective roles are malformed');
+
+    const duplicateRole = structuredClone(valid);
+    const roleIds = Object.keys(duplicateRole.completeGame!.mission.objectiveRoleById!);
+    const mutableRoles = duplicateRole.completeGame!.mission.objectiveRoleById as unknown as Record<string, string>;
+    mutableRoles[roleIds[0]!] = mutableRoles[roleIds[1]!]!;
+    expect(() => assertCompleteGameSessionSetupV1(duplicateRole.completeGame!, duplicateRole))
+      .toThrow('objective roles are malformed');
+  });
+
   it('requires the Event Companion five-round duration as an executable invariant', () => {
     const valid = structuredClone(session({ complete: true }));
     const oneRound: SessionSetup = {

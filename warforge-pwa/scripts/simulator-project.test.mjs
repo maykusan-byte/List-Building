@@ -46,11 +46,11 @@ describe('simulator project tracker', () => {
     expect(committedStatus).toBe(renderStatus(project.state));
     expect(projectProgress(project.state)).toMatchObject({
       milestones: { total: 12 },
-      tasks: { total: 52 }
+      tasks: { total: 53 }
     });
     expect(project.state.schemaVersion).toBe('warforge-simulator-project/v2');
     expect(project.routing.schemaVersion).toBe('warforge-simulator-model-routing/v2');
-    expect(project.state.productCapabilities.some((entry) => entry.id === 'complete-five-round-game' && entry.status === 'planned')).toBe(true);
+    expect(project.state.productCapabilities.some((entry) => entry.id === 'complete-five-round-game' && entry.status === 'partial')).toBe(true);
   });
 
   it('refuses to ready a task before its dependencies are complete', async () => {

@@ -4,6 +4,7 @@ import {
   SpatialHash,
   checkUnitCoherency,
   classifyBoardContainment,
+  classifyFootprintInConvexPolygon,
   classifyFootprintContact,
   circleIntersectsCircle,
   circleIntersectsConvexPolygon,
@@ -51,6 +52,16 @@ describe('simulator geometry primitives', () => {
     expect(circleIntersectsConvexPolygon(circle(-1, 5, 1), square(0, 0, 10, 10))).toBe(true);
     expect(circleIntersectsConvexPolygon(circle(-2, 5, 1), square(0, 0, 10, 10))).toBe(false);
     expect(pointInConvexPolygon({ x: 0, y: 5 }, square(0, 0, 10, 10))).toBe(true);
+  });
+
+  it('classifies whole footprints against a convex deployment polygon', () => {
+    const triangle = [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 0, y: 100 }];
+    expect(classifyFootprintInConvexPolygon({ kind: 'circle', center: { x: 20, y: 20 }, radius: 10 }, triangle).classification).toBe('inside');
+    expect(classifyFootprintInConvexPolygon({ kind: 'circle', center: { x: 50, y: 50 }, radius: 0 }, triangle).classification).toBe('touching-boundary');
+    expect(classifyFootprintInConvexPolygon({ kind: 'circle', center: { x: 50, y: 50 }, radius: 1 }, triangle).classification).toBe('outside');
+    expect(classifyFootprintInConvexPolygon({
+      kind: 'capsule', center: { x: 30, y: 30 }, radius: 5, length: 20, orientationDegrees: 0
+    }, [...triangle].reverse()).classification).toBe('inside');
   });
 
   it('uses SAT and footprint edge distance for every supported footprint pairing', () => {

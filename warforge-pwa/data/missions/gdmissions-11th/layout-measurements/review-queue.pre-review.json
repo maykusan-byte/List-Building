@@ -1,0 +1,3667 @@
+{
+  "schemaVersion": "warforge-layout-measurement-review/v1",
+  "sourceId": "approved-gdm-2026-layout-images",
+  "items": [
+    {
+      "layoutId": "disruption-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 40,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 621.259,
+        "y": 822.353
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 590,
+          "y": 794,
+          "width": 58,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 621.259,
+          "y": 822.353
+        },
+        "changedColorAreaPx": 2130,
+        "regionId": "r001"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 12.3
+    },
+    {
+      "layoutId": "disruption-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r027",
+      "candidateIds": [
+        "c027"
+      ],
+      "tenthsOfInch": 165,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 977.34,
+        "y": 1904.155
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 935,
+          "y": 1877,
+          "width": 82,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 977.34,
+          "y": 1904.155
+        },
+        "changedColorAreaPx": 2781,
+        "regionId": "r027"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "disruption-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r031",
+      "candidateIds": [
+        "c031"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 449.474,
+        "y": 2059.223
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 434,
+          "y": 2034,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 449.474,
+          "y": 2059.223
+        },
+        "changedColorAreaPx": 1146,
+        "regionId": "r031"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.3
+    },
+    {
+      "layoutId": "disruption-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 147,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 445.401,
+        "y": 1092.364
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 445.401,
+          "y": 1092.364
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c007"
+        ],
+        "regionId": "r007"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.0
+    },
+    {
+      "layoutId": "disruption-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 445.894,
+        "y": 1149.835
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 445.894,
+          "y": 1149.835
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c008"
+        ],
+        "regionId": "r008"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 8.4
+    },
+    {
+      "layoutId": "disruption-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r018",
+      "candidateIds": [
+        "c018"
+      ],
+      "tenthsOfInch": 60,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1133.834,
+        "y": 1529.861
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1117,
+          "y": 1502,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1133.834,
+          "y": 1529.861
+        },
+        "changedColorAreaPx": 1097,
+        "regionId": "r018"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 1.1021
+    },
+    {
+      "layoutId": "disruption-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r025",
+      "candidateIds": [
+        "c025"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1202.149,
+        "y": 1808.479
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 1202.149,
+          "y": 1808.479
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c025"
+        ],
+        "regionId": "r025"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 14.8
+    },
+    {
+      "layoutId": "disruption-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r026",
+      "candidateIds": [
+        "c026"
+      ],
+      "tenthsOfInch": 147,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1153.537,
+        "y": 1865.943
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 1153.537,
+          "y": 1865.943
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c026"
+        ],
+        "regionId": "r026"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 13.5
+    },
+    {
+      "layoutId": "disruption-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 950.599,
+        "y": 850.544
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 935,
+          "y": 824,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 950.599,
+          "y": 850.544
+        },
+        "changedColorAreaPx": 1237,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -4.0367
+    },
+    {
+      "layoutId": "disruption-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r005",
+      "candidateIds": [
+        "c005"
+      ],
+      "tenthsOfInch": 120,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 749.765,
+        "y": 1002.002
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 724,
+          "y": 974,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 749.765,
+          "y": 1002.002
+        },
+        "changedColorAreaPx": 1769,
+        "regionId": "r005"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.00215
+    },
+    {
+      "layoutId": "disruption-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c009"
+      ],
+      "tenthsOfInch": 165,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 545.889,
+        "y": 1143.269
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 504,
+          "y": 1116,
+          "width": 81,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 545.889,
+          "y": 1143.269
+        },
+        "changedColorAreaPx": 2782,
+        "regionId": "r009"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.982175
+    },
+    {
+      "layoutId": "disruption-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 184,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1078.447,
+        "y": 1233.34
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1036,
+          "y": 1205,
+          "width": 84,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1078.447,
+          "y": 1233.34
+        },
+        "changedColorAreaPx": 2693,
+        "regionId": "r010"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 4.04215
+    },
+    {
+      "layoutId": "disruption-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c030"
+      ],
+      "tenthsOfInch": 75,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 314.5,
+        "y": 2100.243
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 284,
+          "y": 2073,
+          "width": 61,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 314.5,
+          "y": 2100.243
+        },
+        "changedColorAreaPx": 2286,
+        "regionId": "r030"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 8.0
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "missing-region-value",
+      "regionId": "r031",
+      "labelCenterPx": {
+        "x": 588.522,
+        "y": 2120.63
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 572,
+          "y": 2094,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 588.522,
+          "y": 2120.63
+        },
+        "changedColorAreaPx": 1223,
+        "regionId": "r031"
+      }
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r002",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1020.513,
+        "y": 850.786
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1004,
+          "y": 824,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1020.513,
+          "y": 850.786
+        },
+        "changedColorAreaPx": 1229,
+        "regionId": "r002"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.937025
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r004",
+      "candidateIds": [
+        "c004"
+      ],
+      "tenthsOfInch": 89,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 853.209,
+        "y": 993.239
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 820,
+          "y": 964,
+          "width": 66,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 853.209,
+          "y": 993.239
+        },
+        "changedColorAreaPx": 2123,
+        "regionId": "r004"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -1.321625
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 130,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 749.471,
+        "y": 1054.337
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 725,
+          "y": 1027,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 749.471,
+          "y": 1054.337
+        },
+        "changedColorAreaPx": 1735,
+        "regionId": "r008"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -0.12015
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r012",
+      "candidateIds": [
+        "c012"
+      ],
+      "tenthsOfInch": 250,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 1032.395,
+        "y": 1331.832
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1006,
+          "y": 1304,
+          "width": 54,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1032.395,
+          "y": 1331.832
+        },
+        "changedColorAreaPx": 1913,
+        "regionId": "r012"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.8401
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r029",
+      "candidateIds": [
+        "c029"
+      ],
+      "tenthsOfInch": 100,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 327.172,
+        "y": 2036.37
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 303,
+          "y": 2009,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 327.172,
+          "y": 2036.37
+        },
+        "changedColorAreaPx": 1539,
+        "regionId": "r029"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-2",
+      "kind": "missing-region-value",
+      "regionId": "r031",
+      "labelCenterPx": {
+        "x": 1108.166,
+        "y": 2059.025
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1092,
+          "y": 2034,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1108.166,
+          "y": 2059.025
+        },
+        "changedColorAreaPx": 1138,
+        "regionId": "r031"
+      }
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-2",
+      "kind": "missing-region-value",
+      "regionId": "r032",
+      "labelCenterPx": {
+        "x": 943.335,
+        "y": 2059.239
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 927,
+          "y": 2034,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 943.335,
+          "y": 2059.239
+        },
+        "changedColorAreaPx": 1155,
+        "regionId": "r032"
+      }
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-2",
+      "kind": "label-region-review",
+      "regionId": "r002",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 664.587,
+        "y": 894.182
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 649,
+          "y": 869,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 664.587,
+          "y": 894.182
+        },
+        "changedColorAreaPx": 1127,
+        "regionId": "r002"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-3",
+      "kind": "label-region-review",
+      "regionId": "r024",
+      "candidateIds": [
+        "c026"
+      ],
+      "tenthsOfInch": 178,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 967.779,
+        "y": 1788.973
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 967.779,
+          "y": 1788.973
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c026"
+        ],
+        "regionId": "r024"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.7
+    },
+    {
+      "layoutId": "disruption-vs-priority-assets-3",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c032"
+      ],
+      "tenthsOfInch": 10,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 493.541,
+        "y": 2059.517
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 478,
+          "y": 2034,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 493.541,
+          "y": 2059.517
+        },
+        "changedColorAreaPx": 1154,
+        "regionId": "r030"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": -3.25135
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-1",
+      "kind": "missing-region-value",
+      "regionId": "r017",
+      "labelCenterPx": {
+        "x": 474.738,
+        "y": 1479.754
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 458,
+          "y": 1452,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 474.738,
+          "y": 1479.754
+        },
+        "changedColorAreaPx": 1096,
+        "regionId": "r017"
+      }
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-2",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 40,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 774.5,
+        "y": 1174.0
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 774.5,
+          "y": 1174.0
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c010"
+        ],
+        "regionId": "r010"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": -8.48855
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-2",
+      "kind": "label-region-review",
+      "regionId": "r015",
+      "candidateIds": [
+        "c016"
+      ],
+      "tenthsOfInch": 90,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 474.82,
+        "y": 1402.752
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 458,
+          "y": 1375,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 474.82,
+          "y": 1402.752
+        },
+        "changedColorAreaPx": 1103,
+        "regionId": "r015"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": -0.3
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-2",
+      "kind": "label-region-review",
+      "regionId": "r018",
+      "candidateIds": [
+        "c021"
+      ],
+      "tenthsOfInch": 90,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1133.888,
+        "y": 1554.771
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1117,
+          "y": 1527,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1133.888,
+          "y": 1554.771
+        },
+        "changedColorAreaPx": 1097,
+        "regionId": "r018"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r014",
+      "candidateIds": [
+        "c015"
+      ],
+      "tenthsOfInch": 250,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 1049.801,
+        "y": 1401.753
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1024,
+          "y": 1373,
+          "width": 53,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 1049.801,
+          "y": 1401.753
+        },
+        "changedColorAreaPx": 1889,
+        "regionId": "r014"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 4.2636
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r027",
+      "candidateIds": [
+        "c028"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1236.259,
+        "y": 1974.793
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1220,
+          "y": 1948,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1236.259,
+          "y": 1974.793
+        },
+        "changedColorAreaPx": 1213,
+        "regionId": "r027"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "disruption-vs-purge-the-foe-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r028",
+      "candidateIds": [
+        "c029"
+      ],
+      "tenthsOfInch": 121,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 545.728,
+        "y": 1997.21
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 507,
+          "y": 1969,
+          "width": 75,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 545.728,
+          "y": 1997.21
+        },
+        "changedColorAreaPx": 2749,
+        "regionId": "r028"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 6.2
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-1",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c034"
+      ],
+      "tenthsOfInch": 100,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 496.142,
+        "y": 2024.031
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 471,
+          "y": 1997,
+          "width": 51,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 496.142,
+          "y": 2024.031
+        },
+        "changedColorAreaPx": 1504,
+        "regionId": "r030"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "missing-region-value",
+      "regionId": "r030",
+      "labelCenterPx": {
+        "x": 414.808,
+        "y": 2068.227
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 399,
+          "y": 2043,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 414.808,
+          "y": 2068.227
+        },
+        "changedColorAreaPx": 1143,
+        "regionId": "r030"
+      }
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 31,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 845.301,
+        "y": 802.064
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 816,
+          "y": 774,
+          "width": 58,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 845.301,
+          "y": 802.064
+        },
+        "changedColorAreaPx": 2236,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -4.49225
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 120,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 359.792,
+        "y": 1071.005
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 334,
+          "y": 1043,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 359.792,
+          "y": 1071.005
+        },
+        "changedColorAreaPx": 1738,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -0.1402
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 140,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1144.302,
+        "y": 1080.384
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1119,
+          "y": 1053,
+          "width": 51,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1144.302,
+          "y": 1080.384
+        },
+        "changedColorAreaPx": 1714,
+        "regionId": "r008"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.9314
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c009"
+      ],
+      "tenthsOfInch": 160,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 715.145,
+        "y": 1131.112
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 690,
+          "y": 1103,
+          "width": 51,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 715.145,
+          "y": 1131.112
+        },
+        "changedColorAreaPx": 1626,
+        "regionId": "r009"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 53,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1227.734,
+        "y": 1209.505
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1196,
+          "y": 1182,
+          "width": 66,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1227.734,
+          "y": 1209.505
+        },
+        "changedColorAreaPx": 2456,
+        "regionId": "r010"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 3.9
+    },
+    {
+      "layoutId": "disruption-vs-reconnaissance-3",
+      "kind": "label-region-review",
+      "regionId": "r011",
+      "candidateIds": [
+        "c013"
+      ],
+      "tenthsOfInch": 200,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 891.799,
+        "y": 1226.133
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 866,
+          "y": 1197,
+          "width": 55,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 891.799,
+          "y": 1226.133
+        },
+        "changedColorAreaPx": 1765,
+        "regionId": "r011"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "priority-assets-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 40,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 996.836,
+        "y": 826.328
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 978,
+          "y": 798,
+          "width": 36,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 996.836,
+          "y": 826.328
+        },
+        "changedColorAreaPx": 1089,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.88405
+    },
+    {
+      "layoutId": "priority-assets-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 95,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 810.48,
+        "y": 1008.839
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 777,
+          "y": 981,
+          "width": 66,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 810.48,
+          "y": 1008.839
+        },
+        "changedColorAreaPx": 2367,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -0.78695
+    },
+    {
+      "layoutId": "priority-assets-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c009"
+      ],
+      "tenthsOfInch": 153,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 762.212,
+        "y": 1113.536
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 720,
+          "y": 1085,
+          "width": 83,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 762.212,
+          "y": 1113.536
+        },
+        "changedColorAreaPx": 2906,
+        "regionId": "r009"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 4.60135
+    },
+    {
+      "layoutId": "priority-assets-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 190,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1054.096,
+        "y": 1206.691
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1029,
+          "y": 1179,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1054.096,
+          "y": 1206.691
+        },
+        "changedColorAreaPx": 1588,
+        "regionId": "r010"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 0.23125
+    },
+    {
+      "layoutId": "priority-assets-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r003",
+      "candidateIds": [
+        "c003"
+      ],
+      "tenthsOfInch": 83,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1184.389,
+        "y": 928.94
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1151,
+          "y": 901,
+          "width": 66,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1184.389,
+          "y": 928.94
+        },
+        "changedColorAreaPx": 2252,
+        "regionId": "r003"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.8
+    },
+    {
+      "layoutId": "priority-assets-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 60,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 546.844,
+        "y": 1240.809
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 519,
+          "y": 1214,
+          "width": 71,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 546.844,
+          "y": 1240.809
+        },
+        "changedColorAreaPx": 1588,
+        "regionId": "r008"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 0.6443
+    },
+    {
+      "layoutId": "priority-assets-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r006",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 159,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 960.669,
+        "y": 1121.924
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 960.669,
+          "y": 1121.924
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c007"
+        ],
+        "regionId": "r006"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.7
+    },
+    {
+      "layoutId": "priority-assets-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 150,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 794.593,
+        "y": 1140.954
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 769,
+          "y": 1114,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 794.593,
+          "y": 1140.954
+        },
+        "changedColorAreaPx": 1664,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "priority-assets-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 150,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 981.459,
+        "y": 1175.676
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 981.459,
+          "y": 1175.676
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c010"
+        ],
+        "regionId": "r009"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 17.5
+    },
+    {
+      "layoutId": "priority-assets-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r024",
+      "candidateIds": [
+        "c025"
+      ],
+      "tenthsOfInch": 150,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 645.72,
+        "y": 1785.88
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 645.72,
+          "y": 1785.88
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c025"
+        ],
+        "regionId": "r024"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.0
+    },
+    {
+      "layoutId": "priority-assets-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r025",
+      "candidateIds": [
+        "c026"
+      ],
+      "tenthsOfInch": 159,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 655.681,
+        "y": 1837.613
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 655.681,
+          "y": 1837.613
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c026"
+        ],
+        "regionId": "r025"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.7
+    },
+    {
+      "layoutId": "priority-assets-vs-reconnaissance-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 40,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1047.695,
+        "y": 826.302
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1029,
+          "y": 798,
+          "width": 36,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1047.695,
+          "y": 826.302
+        },
+        "changedColorAreaPx": 1081,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -3.581675
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c009"
+      ],
+      "tenthsOfInch": 175,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 911.032,
+        "y": 1162.538
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 872,
+          "y": 1135,
+          "width": 77,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 911.032,
+          "y": 1162.538
+        },
+        "changedColorAreaPx": 2827,
+        "regionId": "r009"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 6.2
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r024",
+      "candidateIds": [
+        "c025"
+      ],
+      "tenthsOfInch": 190,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 543.44,
+        "y": 1799.683
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 543.44,
+          "y": 1799.683
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c025"
+        ],
+        "regionId": "r024"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.7
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r027",
+      "candidateIds": [
+        "c028"
+      ],
+      "tenthsOfInch": 162,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 946.558,
+        "y": 1883.006
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 904,
+          "y": 1855,
+          "width": 82,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 946.558,
+          "y": 1883.006
+        },
+        "changedColorAreaPx": 2823,
+        "regionId": "r027"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 8.0
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c005",
+        "c008",
+        "c009"
+      ],
+      "tenthsOfInch": 130,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 1090.623,
+        "y": 1059.544
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1049,
+          "y": 1032,
+          "width": 82,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1090.623,
+          "y": 1059.544
+        },
+        "changedColorAreaPx": 2922,
+        "regionId": "r007"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 5.1
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r032",
+      "candidateIds": [
+        "c034"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 386.117,
+        "y": 2084.439
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 357,
+          "y": 2058,
+          "width": 61,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 386.117,
+          "y": 2084.439
+        },
+        "changedColorAreaPx": 2217,
+        "regionId": "r032"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.1
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 43,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1007.94,
+        "y": 805.144
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 974,
+          "y": 777,
+          "width": 67,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1007.94,
+          "y": 805.144
+        },
+        "changedColorAreaPx": 2286,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.148725
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r006",
+      "candidateIds": [
+        "c006"
+      ],
+      "tenthsOfInch": 58,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 815.929,
+        "y": 912.446
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 785,
+          "y": 884,
+          "width": 66,
+          "height": 58
+        },
+        "centerPx": {
+          "x": 815.929,
+          "y": 912.446
+        },
+        "changedColorAreaPx": 2333,
+        "regionId": "r006"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -0.54225
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r012",
+      "candidateIds": [
+        "c012"
+      ],
+      "tenthsOfInch": 196,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 575.93,
+        "y": 1262.941
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 534,
+          "y": 1235,
+          "width": 83,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 575.93,
+          "y": 1262.941
+        },
+        "changedColorAreaPx": 2676,
+        "regionId": "r012"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.796125
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r015",
+      "candidateIds": [
+        "c015"
+      ],
+      "tenthsOfInch": 250,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1112.431,
+        "y": 1401.797
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1086,
+          "y": 1373,
+          "width": 54,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 1112.431,
+          "y": 1401.797
+        },
+        "changedColorAreaPx": 1913,
+        "regionId": "r015"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.6274
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r016",
+      "candidateIds": [
+        "c016"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1309.657,
+        "y": 1441.727
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1280,
+          "y": 1414,
+          "width": 58,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1309.657,
+          "y": 1441.727
+        },
+        "changedColorAreaPx": 2283,
+        "regionId": "r016"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 1.4
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r019",
+      "candidateIds": [
+        "c019"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 494.835,
+        "y": 1655.823
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 469,
+          "y": 1627,
+          "width": 53,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 494.835,
+          "y": 1655.823
+        },
+        "changedColorAreaPx": 1927,
+        "regionId": "r019"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.172675
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r023",
+      "candidateIds": [
+        "c023"
+      ],
+      "tenthsOfInch": 196,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1023.469,
+        "y": 1793.923
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 982,
+          "y": 1766,
+          "width": 83,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1023.469,
+          "y": 1793.923
+        },
+        "changedColorAreaPx": 2665,
+        "regionId": "r023"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "purge-the-foe-mirror-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r028",
+      "candidateIds": [
+        "c029"
+      ],
+      "tenthsOfInch": 10,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 402.09,
+        "y": 2069.649
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 375,
+          "y": 2042,
+          "width": 54,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 402.09,
+          "y": 2069.649
+        },
+        "changedColorAreaPx": 2079,
+        "regionId": "r028"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.269075
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r003",
+      "candidateIds": [
+        "c003"
+      ],
+      "tenthsOfInch": 61,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 641.144,
+        "y": 878.892
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 611,
+          "y": 850,
+          "width": 58,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 641.144,
+          "y": 878.892
+        },
+        "changedColorAreaPx": 2112,
+        "regionId": "r003"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.273275
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 10,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 441.775,
+        "y": 1003.66
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 420,
+          "y": 976,
+          "width": 42,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 441.775,
+          "y": 1003.66
+        },
+        "changedColorAreaPx": 1544,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.295025
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 117,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 711.121,
+        "y": 1020.911
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 674,
+          "y": 994,
+          "width": 75,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 711.121,
+          "y": 1020.911
+        },
+        "changedColorAreaPx": 2662,
+        "regionId": "r008"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 6.2678
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r031",
+      "candidateIds": [
+        "c032"
+      ],
+      "tenthsOfInch": 60,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 430.266,
+        "y": 2096.084
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 413,
+          "y": 2068,
+          "width": 35,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 430.266,
+          "y": 2096.084
+        },
+        "changedColorAreaPx": 1130,
+        "regionId": "r031"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.4
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-3",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c030",
+        "c031"
+      ],
+      "tenthsOfInch": 250,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1356.165,
+        "y": 2003.976
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1325,
+          "y": 1976,
+          "width": 64,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1356.165,
+          "y": 2003.976
+        },
+        "changedColorAreaPx": 2419,
+        "regionId": "r030"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -0.8697
+    },
+    {
+      "layoutId": "purge-the-foe-vs-priority-assets-3",
+      "kind": "label-region-review",
+      "regionId": "r032",
+      "candidateIds": [
+        "c033"
+      ],
+      "tenthsOfInch": 60,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1148.885,
+        "y": 2053.644
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1132,
+          "y": 2026,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1148.885,
+          "y": 2053.644
+        },
+        "changedColorAreaPx": 1066,
+        "regionId": "r032"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.3
+    },
+    {
+      "layoutId": "purge-the-foe-vs-reconnaissance-1",
+      "kind": "missing-region-value",
+      "regionId": "r032",
+      "labelCenterPx": {
+        "x": 1159.027,
+        "y": 2059.109
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1143,
+          "y": 2034,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1159.027,
+          "y": 2059.109
+        },
+        "changedColorAreaPx": 1131,
+        "regionId": "r032"
+      }
+    },
+    {
+      "layoutId": "purge-the-foe-vs-reconnaissance-1",
+      "kind": "label-region-review",
+      "regionId": "r029",
+      "candidateIds": [
+        "c029"
+      ],
+      "tenthsOfInch": 97,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 478.526,
+        "y": 1992.852
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 446,
+          "y": 1966,
+          "width": 66,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 478.526,
+          "y": 1992.852
+        },
+        "changedColorAreaPx": 2257,
+        "regionId": "r029"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": -0.3
+    },
+    {
+      "layoutId": "purge-the-foe-vs-reconnaissance-3",
+      "kind": "label-region-review",
+      "regionId": "r002",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 423.817,
+        "y": 932.13
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 408,
+          "y": 907,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 423.817,
+          "y": 932.13
+        },
+        "changedColorAreaPx": 1128,
+        "regionId": "r002"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 1.4
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 950.599,
+        "y": 850.544
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 935,
+          "y": 824,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 950.599,
+          "y": 850.544
+        },
+        "changedColorAreaPx": 1237,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -4.038775
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r005",
+      "candidateIds": [
+        "c005"
+      ],
+      "tenthsOfInch": 120,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 749.765,
+        "y": 1002.002
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 724,
+          "y": 974,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 749.765,
+          "y": 1002.002
+        },
+        "changedColorAreaPx": 1769,
+        "regionId": "r005"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.005725
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r009",
+      "candidateIds": [
+        "c009"
+      ],
+      "tenthsOfInch": 165,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 545.889,
+        "y": 1143.269
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 504,
+          "y": 1116,
+          "width": 81,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 545.889,
+          "y": 1143.269
+        },
+        "changedColorAreaPx": 2782,
+        "regionId": "r009"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.98075
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c010"
+      ],
+      "tenthsOfInch": 183,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1077.611,
+        "y": 1229.788
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1035,
+          "y": 1202,
+          "width": 83,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1077.611,
+          "y": 1229.788
+        },
+        "changedColorAreaPx": 2772,
+        "regionId": "r010"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 6.6847
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r011",
+      "candidateIds": [
+        "c011"
+      ],
+      "tenthsOfInch": 90,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1273.529,
+        "y": 1261.215
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1257,
+          "y": 1234,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1273.529,
+          "y": 1261.215
+        },
+        "changedColorAreaPx": 1090,
+        "regionId": "r011"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.600775
+    },
+    {
+      "layoutId": "reconnaissance-mirror-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c030"
+      ],
+      "tenthsOfInch": 75,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 314.5,
+        "y": 2100.243
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 284,
+          "y": 2073,
+          "width": 61,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 314.5,
+          "y": 2100.243
+        },
+        "changedColorAreaPx": 2286,
+        "regionId": "r030"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 8.0
+    },
+    {
+      "layoutId": "reconnaissance-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r027",
+      "candidateIds": [
+        "c027"
+      ],
+      "tenthsOfInch": 165,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 977.34,
+        "y": 1904.155
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 935,
+          "y": 1877,
+          "width": 82,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 977.34,
+          "y": 1904.155
+        },
+        "changedColorAreaPx": 2781,
+        "regionId": "r027"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "reconnaissance-mirror-2",
+      "kind": "label-region-review",
+      "regionId": "r031",
+      "candidateIds": [
+        "c031"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 449.474,
+        "y": 2059.223
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 434,
+          "y": 2034,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 449.474,
+          "y": 2059.223
+        },
+        "changedColorAreaPx": 1146,
+        "regionId": "r031"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.3
+    },
+    {
+      "layoutId": "reconnaissance-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c008",
+        "c009"
+      ],
+      "tenthsOfInch": 148,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 449.041,
+        "y": 1092.668
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 449.041,
+          "y": 1092.668
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c008"
+        ],
+        "regionId": "r007"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 15.0
+    },
+    {
+      "layoutId": "reconnaissance-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r010",
+      "candidateIds": [
+        "c012"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 588.307,
+        "y": 1337.25
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 588.307,
+          "y": 1337.25
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c012"
+        ],
+        "regionId": "r010"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": -1.96645
+    },
+    {
+      "layoutId": "reconnaissance-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r025",
+      "candidateIds": [
+        "c027"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1202.479,
+        "y": 1808.592
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 1202.479,
+          "y": 1808.592
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c027"
+        ],
+        "regionId": "r025"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 14.8
+    },
+    {
+      "layoutId": "reconnaissance-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r026",
+      "candidateIds": [
+        "c028"
+      ],
+      "tenthsOfInch": 148,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1153.481,
+        "y": 1865.02
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 1153.481,
+          "y": 1865.02
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c028"
+        ],
+        "regionId": "r026"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 12.8
+    },
+    {
+      "layoutId": "take-and-hold-mirror-1",
+      "kind": "label-region-review",
+      "regionId": "r020",
+      "candidateIds": [
+        "c020"
+      ],
+      "tenthsOfInch": 80,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1159.391,
+        "y": 1605.39
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1143,
+          "y": 1578,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1159.391,
+          "y": 1605.39
+        },
+        "changedColorAreaPx": 1038,
+        "regionId": "r020"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "take-and-hold-mirror-2-portrait",
+      "kind": "missing-region-value",
+      "regionId": "r001",
+      "labelCenterPx": {
+        "x": 401.363,
+        "y": 822.701
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 386,
+          "y": 796,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 401.363,
+          "y": 822.701
+        },
+        "changedColorAreaPx": 1197,
+        "regionId": "r001"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-mirror-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r032",
+      "candidateIds": [
+        "c032"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1207.363,
+        "y": 2204.701
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1192,
+          "y": 2178,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1207.363,
+          "y": 2204.701
+        },
+        "changedColorAreaPx": 1197,
+        "regionId": "r032"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.9
+    },
+    {
+      "layoutId": "take-and-hold-mirror-3",
+      "kind": "label-region-review",
+      "regionId": "r011",
+      "candidateIds": [
+        "c011",
+        "c012"
+      ],
+      "tenthsOfInch": 220,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 567.001,
+        "y": 1335.657
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 526,
+          "y": 1308,
+          "width": 85,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 567.001,
+          "y": 1335.657
+        },
+        "changedColorAreaPx": 3109,
+        "regionId": "r011"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "missing-region-value",
+      "regionId": "r023",
+      "labelCenterPx": {
+        "x": 348.322,
+        "y": 1843.574
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 330,
+          "y": 1815,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 348.322,
+          "y": 1843.574
+        },
+        "changedColorAreaPx": 1052,
+        "regionId": "r023"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r002",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1020.513,
+        "y": 850.786
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1004,
+          "y": 824,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1020.513,
+          "y": 850.786
+        },
+        "changedColorAreaPx": 1229,
+        "regionId": "r002"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.788
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r003",
+      "candidateIds": [
+        "c003"
+      ],
+      "tenthsOfInch": 66,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 822.975,
+        "y": 934.63
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 790,
+          "y": 906,
+          "width": 67,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 822.975,
+          "y": 934.63
+        },
+        "changedColorAreaPx": 2208,
+        "regionId": "r003"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -1.285225
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r005",
+      "candidateIds": [
+        "c005"
+      ],
+      "tenthsOfInch": 106,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 726.465,
+        "y": 993.773
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 684,
+          "y": 965,
+          "width": 84,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 726.465,
+          "y": 993.773
+        },
+        "changedColorAreaPx": 2654,
+        "regionId": "r005"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.452225
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r011",
+      "candidateIds": [
+        "c011"
+      ],
+      "tenthsOfInch": 207,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 548.833,
+        "y": 1292.533
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 507,
+          "y": 1265,
+          "width": 86,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 548.833,
+          "y": 1292.533
+        },
+        "changedColorAreaPx": 2899,
+        "regionId": "r011"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.152275
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r015",
+      "candidateIds": [
+        "c015"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1297.363,
+        "y": 1413.701
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1282,
+          "y": 1387,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1297.363,
+          "y": 1413.701
+        },
+        "changedColorAreaPx": 1197,
+        "regionId": "r015"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r022",
+      "candidateIds": [
+        "c022"
+      ],
+      "tenthsOfInch": 207,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1055.767,
+        "y": 1764.506
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1014,
+          "y": 1737,
+          "width": 86,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1055.767,
+          "y": 1764.506
+        },
+        "changedColorAreaPx": 2908,
+        "regionId": "r022"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 5.5
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r031",
+      "candidateIds": [
+        "c032"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 588.522,
+        "y": 2120.63
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 572,
+          "y": 2094,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 588.522,
+          "y": 2120.63
+        },
+        "changedColorAreaPx": 1223,
+        "regionId": "r031"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-2",
+      "kind": "missing-region-value",
+      "regionId": "r014",
+      "labelCenterPx": {
+        "x": 1296.101,
+        "y": 1392.635
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1280,
+          "y": 1366,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1296.101,
+          "y": 1392.635
+        },
+        "changedColorAreaPx": 1190,
+        "regionId": "r014"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-2",
+      "kind": "label-region-review",
+      "regionId": "r030",
+      "candidateIds": [
+        "c030"
+      ],
+      "tenthsOfInch": 60,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 460.796,
+        "y": 2085.903
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 433,
+          "y": 2060,
+          "width": 71,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 460.796,
+          "y": 2085.903
+        },
+        "changedColorAreaPx": 1591,
+        "regionId": "r030"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 5.1
+    },
+    {
+      "layoutId": "take-and-hold-vs-disruption-3",
+      "kind": "label-region-review",
+      "regionId": "r013",
+      "candidateIds": [
+        "c014"
+      ],
+      "tenthsOfInch": 239,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 809.495,
+        "y": 1325.378
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 768,
+          "y": 1297,
+          "width": 86,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 809.495,
+          "y": 1325.378
+        },
+        "changedColorAreaPx": 2988,
+        "regionId": "r013"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 6.2
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-1",
+      "kind": "missing-region-value",
+      "regionId": "r032",
+      "labelCenterPx": {
+        "x": 677.467,
+        "y": 2143.148
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 662,
+          "y": 2118,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 677.467,
+          "y": 2143.148
+        },
+        "changedColorAreaPx": 1132,
+        "regionId": "r032"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-2",
+      "kind": "label-region-review",
+      "regionId": "r019",
+      "candidateIds": [
+        "c019"
+      ],
+      "tenthsOfInch": 40,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1279.896,
+        "y": 1630.734
+      },
+      "labelRegion": {
+        "kind": "ocr-label-complement",
+        "boundsPx": null,
+        "centerPx": {
+          "x": 1279.896,
+          "y": 1630.734
+        },
+        "changedColorAreaPx": null,
+        "sourceCandidateIds": [
+          "c019"
+        ],
+        "regionId": "r019"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "review_required",
+      "qualityScore": 16.1
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-2",
+      "kind": "label-region-review",
+      "regionId": "r021",
+      "candidateIds": [
+        "c021"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1161.854,
+        "y": 1700.563
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1133,
+          "y": 1674,
+          "width": 61,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1161.854,
+          "y": 1700.563
+        },
+        "changedColorAreaPx": 2230,
+        "regionId": "r021"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 2.2
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r005",
+      "candidateIds": [
+        "c005"
+      ],
+      "tenthsOfInch": 61,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 721.506,
+        "y": 919.854
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 691,
+          "y": 892,
+          "width": 58,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 721.506,
+          "y": 919.854
+        },
+        "changedColorAreaPx": 2144,
+        "regionId": "r005"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.619125
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 112,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 651.8,
+        "y": 1009.236
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 613,
+          "y": 981,
+          "width": 76,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 651.8,
+          "y": 1009.236
+        },
+        "changedColorAreaPx": 2779,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 3.667175
+    },
+    {
+      "layoutId": "take-and-hold-vs-priority-assets-3-portrait",
+      "kind": "label-region-review",
+      "regionId": "r008",
+      "candidateIds": [
+        "c008"
+      ],
+      "tenthsOfInch": 120,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1181.764,
+        "y": 1028.93
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1156,
+          "y": 1001,
+          "width": 50,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1181.764,
+          "y": 1028.93
+        },
+        "changedColorAreaPx": 1776,
+        "regionId": "r008"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 4.424425
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait",
+      "kind": "missing-region-value",
+      "regionId": "r032",
+      "labelCenterPx": {
+        "x": 588.522,
+        "y": 2120.63
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 572,
+          "y": 2094,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 588.522,
+          "y": 2120.63
+        },
+        "changedColorAreaPx": 1223,
+        "regionId": "r032"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 1020.513,
+        "y": 850.786
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1004,
+          "y": 824,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1020.513,
+          "y": 850.786
+        },
+        "changedColorAreaPx": 1229,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -2.728025
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r004",
+      "candidateIds": [
+        "c004"
+      ],
+      "tenthsOfInch": 87,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 845.27,
+        "y": 984.844
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 813,
+          "y": 957,
+          "width": 65,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 845.27,
+          "y": 984.844
+        },
+        "changedColorAreaPx": 2213,
+        "regionId": "r004"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 0.0274
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait",
+      "kind": "label-region-review",
+      "regionId": "r007",
+      "candidateIds": [
+        "c007"
+      ],
+      "tenthsOfInch": 130,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 761.341,
+        "y": 1053.239
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 736,
+          "y": 1025,
+          "width": 50,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 761.341,
+          "y": 1053.239
+        },
+        "changedColorAreaPx": 1689,
+        "regionId": "r007"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 0.87365
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-2",
+      "kind": "missing-region-value",
+      "regionId": "r030",
+      "labelCenterPx": {
+        "x": 778.548,
+        "y": 2011.6
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 762,
+          "y": 1983,
+          "width": 34,
+          "height": 57
+        },
+        "centerPx": {
+          "x": 778.548,
+          "y": 2011.6
+        },
+        "changedColorAreaPx": 1096,
+        "regionId": "r030"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-3",
+      "kind": "missing-region-value",
+      "regionId": "r005",
+      "labelCenterPx": {
+        "x": 1296.712,
+        "y": 987.659
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1281,
+          "y": 961,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1296.712,
+          "y": 987.659
+        },
+        "changedColorAreaPx": 1199,
+        "regionId": "r005"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-purge-the-foe-3",
+      "kind": "label-region-review",
+      "regionId": "r031",
+      "candidateIds": [
+        "c030"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "bottom",
+      "labelCenterPx": {
+        "x": 1089.118,
+        "y": 2059.16
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1073,
+          "y": 2034,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1089.118,
+          "y": 2059.16
+        },
+        "changedColorAreaPx": 1158,
+        "regionId": "r031"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": 1.4
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-1",
+      "kind": "label-region-review",
+      "regionId": "r002",
+      "candidateIds": [
+        "c002"
+      ],
+      "tenthsOfInch": 70,
+      "resolvedEdge": "top",
+      "labelCenterPx": {
+        "x": 423.805,
+        "y": 932.15
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 408,
+          "y": 907,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 423.805,
+          "y": 932.15
+        },
+        "changedColorAreaPx": 1129,
+        "regionId": "r002"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": 2.8
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r001",
+      "candidateIds": [
+        "c001"
+      ],
+      "tenthsOfInch": 50,
+      "resolvedEdge": "right",
+      "labelCenterPx": {
+        "x": 943.877,
+        "y": 850.598
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 928,
+          "y": 824,
+          "width": 33,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 943.877,
+          "y": 850.598
+        },
+        "changedColorAreaPx": 1231,
+        "regionId": "r001"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -3.243475
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-2-portrait",
+      "kind": "label-region-review",
+      "regionId": "r003",
+      "candidateIds": [
+        "c003"
+      ],
+      "tenthsOfInch": 80,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 712.454,
+        "y": 927.354
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 696,
+          "y": 900,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 712.454,
+          "y": 927.354
+        },
+        "changedColorAreaPx": 1050,
+        "regionId": "r003"
+      },
+      "valueStatus": "verified",
+      "edgeStatus": "review_required",
+      "qualityScore": -3.323
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-3",
+      "kind": "missing-region-value",
+      "regionId": "r015",
+      "labelCenterPx": {
+        "x": 1133.739,
+        "y": 1402.815
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1117,
+          "y": 1375,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1133.739,
+          "y": 1402.815
+        },
+        "changedColorAreaPx": 1113,
+        "regionId": "r015"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-3",
+      "kind": "missing-region-value",
+      "regionId": "r031",
+      "labelCenterPx": {
+        "x": 1146.209,
+        "y": 2059.241
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 1130,
+          "y": 2034,
+          "width": 35,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 1146.209,
+          "y": 2059.241
+        },
+        "changedColorAreaPx": 1166,
+        "regionId": "r031"
+      }
+    },
+    {
+      "layoutId": "take-and-hold-vs-reconnaissance-3",
+      "kind": "label-region-review",
+      "regionId": "r018",
+      "candidateIds": [
+        "c018"
+      ],
+      "tenthsOfInch": 90,
+      "resolvedEdge": "left",
+      "labelCenterPx": {
+        "x": 474.767,
+        "y": 1554.835
+      },
+      "labelRegion": {
+        "kind": "difference-label",
+        "boundsPx": {
+          "x": 458,
+          "y": 1527,
+          "width": 34,
+          "height": 56
+        },
+        "centerPx": {
+          "x": 474.767,
+          "y": 1554.835
+        },
+        "changedColorAreaPx": 1111,
+        "regionId": "r018"
+      },
+      "valueStatus": "review_required",
+      "edgeStatus": "verified",
+      "qualityScore": -0.3
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "warforge-simulator-core-poc-fixtures/v1",
+  "version": "1.0.0",
+  "manifestVersion": "0.8.0",
+  "scope": "closed-complete-game-core-poc-v1",
+  "status": "ready",
+  "sourceId": "warforge-core-poc-fixtures-v1",
+  "coverageClaim": "none",
+  "statement": "Profils volontairement synthétiques pour exercer les règles communes ; ils ne représentent aucune datasheet, faction, valeur en points ou codex.",
+  "templates": [
+    {
+      "id": "core-poc-line-template-v1",
+      "role": "line",
+      "physicalProfileId": "training-infantry-32mm-v1",
+      "keywords": ["INFANTRY"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 2,
+        "leadership": 6,
+        "objectiveControl": 2
+      },
+      "weapons": [
+        {
+          "id": "core-poc-training-rifle-v1",
+          "name": "Fusil d'entraînement POC",
+          "weaponType": "ranged",
+          "range": 6096,
+          "attacks": 2,
+          "skill": 3,
+          "strength": 4,
+          "armourPenetration": -1,
+          "damage": 1
+        },
+        {
+          "id": "core-poc-training-blade-v1",
+          "name": "Lame d'entraînement POC",
+          "weaponType": "melee",
+          "range": 0,
+          "attacks": 3,
+          "skill": 3,
+          "strength": 4,
+          "armourPenetration": -1,
+          "damage": 1
+        }
+      ]
+    },
+    {
+      "id": "core-poc-character-template-v1",
+      "role": "character",
+      "physicalProfileId": "training-infantry-32mm-v1",
+      "keywords": ["CHARACTER", "INFANTRY"],
+      "characteristics": {
+        "movement": 1524,
+        "toughness": 4,
+        "save": 3,
+        "wounds": 5,
+        "leadership": 6,
+        "objectiveControl": 1
+      },
+      "weapons": [
+        {
+          "id": "core-poc-training-rifle-v1",
+          "name": "Fusil d'entraînement POC",
+          "weaponType": "ranged",
+          "range": 6096,
+          "attacks": 2,
+          "skill": 3,
+          "strength": 4,
+          "armourPenetration": -1,
+          "damage": 1
+        },
+        {
+          "id": "core-poc-command-blade-v1",
+          "name": "Lame de commandement POC",
+          "weaponType": "melee",
+          "range": 0,
+          "attacks": 4,
+          "skill": 3,
+          "strength": 5,
+          "armourPenetration": -1,
+          "damage": 2
+        }
+      ]
+    }
+  ],
+  "unitTemplateByFixtureId": {
+    "core-poc-a-character-v1": "core-poc-character-template-v1",
+    "core-poc-a-line-1-v1": "core-poc-line-template-v1",
+    "core-poc-a-line-2-v1": "core-poc-line-template-v1",
+    "core-poc-b-character-v1": "core-poc-character-template-v1",
+    "core-poc-b-line-1-v1": "core-poc-line-template-v1",
+    "core-poc-b-line-2-v1": "core-poc-line-template-v1"
+  }
+}

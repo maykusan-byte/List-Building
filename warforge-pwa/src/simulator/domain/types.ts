@@ -24,6 +24,7 @@ export const COMMAND_PHASE_V1_SCHEMA_VERSION = 'warforge-command-phase/v1' as co
 export const BATTLE_RESOURCES_V1_SCHEMA_VERSION = 'warforge-battle-resources/v1' as const;
 export const TIMED_EFFECT_V1_SCHEMA_VERSION = 'warforge-timed-effect/v1' as const;
 export const OBJECTIVE_MARKER_V1_SCHEMA_VERSION = 'warforge-objective-marker/v1' as const;
+export const MISSION_SCORING_V1_SCHEMA_VERSION = 'warforge-mission-scoring/v1' as const;
 export const COMPLETE_GAME_SESSION_V1_SCHEMA_VERSION = 'warforge-complete-game-session/v1' as const;
 export const GAME_EVENT_STREAM_V1_SCHEMA_VERSION = 'warforge-game-event-stream/v1' as const;
 export const SIMULATOR_VERSION = '0.1.0' as const;
@@ -240,8 +241,10 @@ export interface WorldBoundsV1 {
 export interface DeploymentZoneV1 {
   readonly id: string;
   readonly playerId: string;
-  /** M7 pilot zones are axis-aligned; exact mission polygons remain a mission compiler concern. */
+  /** Broad phase and legacy sessions use the bounds. */
   readonly bounds: WorldBoundsV1;
+  /** Exact convex mission polygon. Omitted only by legacy rectangular sessions. */
+  readonly polygon?: readonly WorldPoint[];
 }
 
 export interface DeploymentModelPoseV1 {
@@ -422,6 +425,79 @@ export interface MissionStateV1 {
   readonly objectiveControlEventIds: readonly string[];
   readonly scoresByPlayerId: Readonly<Record<string, number>>;
   readonly scoreEventIds: readonly string[];
+  /** Absent on journals created before M9 and explicit on executable scoring sessions. */
+  readonly scoringProfileId?: 'closed-complete-game-disruption-v1';
+  /** Canonical objective roles compiled into the session, never supplied by a score event. */
+  readonly objectiveRoleById?: Readonly<Record<string, MissionObjectiveRoleV1>>;
+  readonly scoreBreakdownByPlayerId?: Readonly<Record<string, MissionScoreBreakdownV1>>;
+  readonly scoredCheckpointIds?: readonly string[];
+  readonly scoredAssassinationModelIds?: readonly string[];
+  readonly finalResult?: MissionFinalResultV1 | null;
+}
+
+export type MissionScoringCheckpointV1 = 'end-of-own-command-phase' | 'end-of-own-turn';
+export type MissionObjectiveRoleV1 = 'attacker-home' | 'defender-home' | 'no-mans-land-1' | 'no-mans-land-2' | 'centre-1' | 'centre-2';
+export type MissionTableQuarterV1 = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+export type MissionScoreCategoryV1 = 'primary' | 'secondary' | 'battle-ready';
+
+export interface MissionScoreBreakdownV1 {
+  readonly primaryVp: number;
+  readonly secondaryVp: number;
+  readonly battleReadyVp: number;
+  readonly fixedSecondaryVpById: Readonly<Record<'assassination' | 'engage-on-all-fronts', number>>;
+  readonly primaryVpByBattleRound: Readonly<Record<string, number>>;
+  readonly secondaryVpByBattleRound: Readonly<Record<string, number>>;
+  readonly totalVp: number;
+}
+
+export interface MissionScoreEventV1 {
+  readonly id: string;
+  readonly playerId: string;
+  readonly battleRound: number;
+  readonly turnNumber: number;
+  readonly checkpoint: MissionScoringCheckpointV1;
+  readonly category: MissionScoreCategoryV1;
+  readonly cardId: 'outmanoeuvre' | 'assassination' | 'engage-on-all-fronts' | 'battle-ready-army';
+  readonly scoringWindowId: string;
+  readonly rawVp: number;
+  readonly appliedVp: number;
+  readonly caps: {
+    readonly categoryRemainingBefore: number;
+    readonly battleRoundRemainingBefore: number | null;
+    readonly fixedSecondaryRemainingBefore: number | null;
+  };
+  readonly evidence: {
+    readonly controlledObjectiveIds?: readonly string[];
+    readonly destroyedCharacterModelIds?: readonly string[];
+    readonly eligibleUnitIdsByQuarter?: Readonly<Partial<Record<MissionTableQuarterV1, readonly string[]>>>;
+    readonly battleReady?: boolean;
+  };
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+/** Public generic name used by the event-sourced scoring contract. */
+export type ScoreEventV1 = MissionScoreEventV1;
+
+export interface MissionFinalResultV1 {
+  readonly battleRound: 5;
+  readonly scoresByPlayerId: Readonly<Record<string, number>>;
+  readonly outcome: 'winner' | 'draw';
+  readonly winnerPlayerId: string | null;
+  readonly sourceRefs: readonly SourceReferenceV1[];
+}
+
+export interface MissionScoringEvidenceV1 {
+  readonly schemaVersion: typeof MISSION_SCORING_V1_SCHEMA_VERSION;
+  readonly objectiveRoleById: Readonly<Record<string, MissionObjectiveRoleV1>>;
+  readonly engageQuarterByUnitId: Readonly<Record<string, MissionTableQuarterV1>>;
+  readonly battleReadyByPlayerId: Readonly<Record<string, boolean>> | null;
+}
+
+/** Trusted app-owned inputs; no VP or scoring verdict can be supplied by the UI. */
+export interface MissionScoringEnvironmentV1 {
+  readonly fingerprint: string;
+  readonly physicalProfiles: Readonly<Record<string, PhysicalModelProfileV1>>;
+  readonly battleReadyByPlayerId?: Readonly<Record<string, boolean>>;
 }
 
 export type ResolutionWindowKindV1 = 'phase-start' | 'phase-end' | 'reaction' | 'decision' | 'attack' | 'damage' | 'score';
@@ -472,6 +548,10 @@ export interface CompleteGameSessionSetupV1 {
     readonly objectiveMarkerIds: readonly string[];
     /** Additive M8 geometry; old V6 sessions may omit it. */
     readonly objectiveMarkers?: readonly ObjectiveMarkerV1[];
+    /** Additive M9 opt-in; omission preserves pre-M9 V6 replay semantics. */
+    readonly scoringProfileId?: 'closed-complete-game-disruption-v1';
+    /** Required with scoringProfileId and bound into both executable fingerprints. */
+    readonly objectiveRoleById?: Readonly<Record<string, MissionObjectiveRoleV1>>;
   };
 }
 
@@ -762,6 +842,7 @@ export type GameCommand =
   | (CommandBase & { readonly type: 'determine-first-player' })
   | (CommandBase & { readonly type: 'start-battle' })
   | (CommandBase & { readonly type: 'advance-battle-phase' })
+  | (CommandBase & { readonly type: 'resolve-mission-scoring' })
   | (CommandBase & { readonly type: 'resolve-command-stage' })
   | (CommandBase & { readonly type: 'resolve-battle-shock-test'; readonly unitId: string })
   | (CommandBase & { readonly type: 'use-insane-bravery'; readonly unitId: string })
@@ -1396,6 +1477,21 @@ export type GameEvent =
     readonly checkpoint: ObjectiveControlResolutionV1['checkpoint'];
     readonly resolutions: readonly ObjectiveControlResolutionV1[];
     readonly environmentFingerprint: string;
+    readonly sourceRefs: readonly SourceReferenceV1[];
+  })
+  | (EventBase & {
+    readonly type: 'mission-scoring-resolved';
+    readonly checkpointId: string;
+    readonly checkpoint: MissionScoringCheckpointV1;
+    readonly battleRound: number;
+    readonly turnNumber: number;
+    readonly activePlayerId: string;
+    readonly evidence: MissionScoringEvidenceV1;
+    readonly scoreEvents: readonly MissionScoreEventV1[];
+    readonly finalResult: MissionFinalResultV1 | null;
+    readonly environmentFingerprint: string;
+    readonly prngBefore: PrngStateV1;
+    readonly prngAfter: PrngStateV1;
     readonly sourceRefs: readonly SourceReferenceV1[];
   })
   | (EventBase & {

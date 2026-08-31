@@ -55,6 +55,7 @@ import { CORE_ATTACK_SEQUENCE_STEP_SOURCES, CORE_BASIC_RANGED_ATTACK_SOURCE, COR
 import { resolveCharacteristicModifierPlan, resolveDieRollModifierPlan } from '../rules/modifiers';
 import { resolveRandomCharacteristic } from '../rules/random-characteristics';
 import { executeObjectiveAwareAdvanceBattlePhaseCommand } from './objective-control';
+import { executeMissionScoringCommand } from './mission-scoring';
 
 export interface ShootingTerrainZone {
   readonly id: string;
@@ -2487,6 +2488,25 @@ export function replayGameEventsWithShootingEnvironment(initialState: GameState,
       throw new Error('Session setup does not match the trusted shooting environment fingerprint.');
     }
     if (event.type === 'objective-control-resolved') {
+      const scoringEvent = events.slice(index).find((candidate) => candidate.commandId === event.commandId && candidate.type === 'mission-scoring-resolved');
+      if (scoringEvent?.type === 'mission-scoring-resolved') {
+        const command: Extract<GameCommand, { readonly type: 'resolve-mission-scoring' }> = {
+          id: event.commandId,
+          actorId: state.battle?.activePlayerId ?? '',
+          type: 'resolve-mission-scoring'
+        };
+        const verified = executeMissionScoringCommand(state, command, {
+          fingerprint: environment.fingerprint,
+          physicalProfiles: environment.physicalProfiles,
+          ...(scoringEvent.evidence.battleReadyByPlayerId === null ? {} : { battleReadyByPlayerId: scoringEvent.evidence.battleReadyByPlayerId })
+        });
+        if (!verified.accepted || !sameJson(verified.events, events.slice(index, index + verified.events.length))) {
+          throw new Error(`Mission-scoring event ${scoringEvent.id} failed trusted geometry verification.`);
+        }
+        state = verified.state;
+        index += verified.events.length - 1;
+        continue;
+      }
       const command: Extract<GameCommand, { readonly type: 'advance-battle-phase' }> = {
         id: event.commandId,
         actorId: state.battle?.activePlayerId ?? '',
@@ -2499,6 +2519,9 @@ export function replayGameEventsWithShootingEnvironment(initialState: GameState,
       state = verified.state;
       index += verified.events.length - 1;
       continue;
+    }
+    if (event.type === 'mission-scoring-resolved') {
+      throw new Error(`Mission-scoring event ${event.id} is not preceded by its trusted objective checkpoint.`);
     }
     if (event.type === 'unit-deployed') {
       const command: Extract<GameCommand, { readonly type: 'deploy-unit' }> = {

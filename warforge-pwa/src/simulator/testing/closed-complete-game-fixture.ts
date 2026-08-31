@@ -7,7 +7,7 @@ import {
   type CompatibilityReportV2,
   type FullGameCoverageGraphV1
 } from '../domain/full-game-compiler';
-import type { SessionSetup, SourceReferenceV1, WeaponProfileV1 } from '../domain/types';
+import type { MissionObjectiveRoleV1, ObjectiveMarkerV1, SessionSetup, SourceReferenceV1, WeaponProfileV1 } from '../domain/types';
 import { CORE_OBJECTIVE_CONTROL_SOURCE, CORE_TERRAIN_OBJECTIVE_SOURCE, OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE, OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE } from '../rules/m8-source-references';
 
 export const COMPLETE_GAME_TEST_SOURCE: SourceReferenceV1 = {
@@ -43,6 +43,14 @@ export const COMPLETE_GAME_TEST_MELEE_WEAPON: WeaponProfileV1 = {
 };
 
 const characterInstanceIds = ['blood-angels-captain-1', 'salamanders-captain-1'] as const;
+export const COMPLETE_GAME_SCORING_OBJECTIVE_ROLE_BY_ID: Readonly<Record<string, MissionObjectiveRoleV1>> = {
+  'objective-attacker-home': 'attacker-home',
+  'objective-defender-home': 'defender-home',
+  'objective-no-mans-land-1': 'no-mans-land-1',
+  'objective-no-mans-land-2': 'no-mans-land-2',
+  'objective-centre-1': 'centre-1',
+  'objective-centre-2': 'centre-2'
+};
 const graph = fullGameCoverageRaw as unknown as FullGameCoverageGraphV1;
 const compilationEnvironment = {
   manifestVersion: simulatorManifestRaw.version,
@@ -90,11 +98,31 @@ export function createCoveredClosedPilotReportForTests(
 }
 
 function createCompleteGameExecutionFactsForTests(
-  base: Omit<SessionSetup, 'completeGame'>
+  base: Omit<SessionSetup, 'completeGame'>,
+  scoring = false
 ): Pick<NonNullable<SessionSetup['completeGame']>, 'battle' | 'mission'> {
   const playerIds = base.players.map((player) => player.id);
   const defenderPlayerId = playerIds[0]!;
   const attackerPlayerId = playerIds[1]!;
+  const objectiveMarkers: readonly ObjectiveMarkerV1[] = scoring
+    ? [
+      ['objective-attacker-home', 5_588, 14_000],
+      ['objective-defender-home', 5_588, 1_240],
+      ['objective-no-mans-land-1', 2_000, 5_000],
+      ['objective-no-mans-land-2', 9_176, 10_240],
+      ['objective-centre-1', 3_000, 7_620],
+      ['objective-centre-2', 8_176, 7_620]
+    ].map(([id, x, y]) => ({
+      schemaVersion: 'warforge-objective-marker/v1', id: id as string, kind: 'objective-marker',
+      center: { x: x as number, y: y as number }, elevation: 0, diameter: 400,
+      horizontalRange: 762, verticalRange: 1_270,
+      sourceRefs: [CORE_TERRAIN_OBJECTIVE_SOURCE, CORE_OBJECTIVE_CONTROL_SOURCE, OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE, OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE]
+    }))
+    : [{
+      schemaVersion: 'warforge-objective-marker/v1', id: 'objective-centre', kind: 'objective-marker',
+      center: { x: 5_588, y: 7_620 }, elevation: 0, diameter: 400, horizontalRange: 762, verticalRange: 1_270,
+      sourceRefs: [CORE_TERRAIN_OBJECTIVE_SOURCE, CORE_OBJECTIVE_CONTROL_SOURCE, OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE, OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE]
+    }];
   return {
     battle: {
       maxBattleRounds: 5,
@@ -110,18 +138,12 @@ function createCompleteGameExecutionFactsForTests(
     mission: {
       id: 'closed-complete-game-disruption-v1',
       definitionFingerprint: base.manifest.scenarioFingerprint,
-      objectiveMarkerIds: ['objective-centre'],
-      objectiveMarkers: [{
-        schemaVersion: 'warforge-objective-marker/v1',
-        id: 'objective-centre',
-        kind: 'objective-marker',
-        center: { x: 5_588, y: 7_620 },
-        elevation: 0,
-        diameter: 400,
-        horizontalRange: 762,
-        verticalRange: 1_270,
-        sourceRefs: [CORE_TERRAIN_OBJECTIVE_SOURCE, CORE_OBJECTIVE_CONTROL_SOURCE, OFFICIAL_APP_TERRAIN_OBJECTIVE_SOURCE, OFFICIAL_APP_OBJECTIVE_MARKER_SOURCE]
-      }]
+      objectiveMarkerIds: objectiveMarkers.map((marker) => marker.id),
+      objectiveMarkers,
+      ...(scoring ? {
+        scoringProfileId: 'closed-complete-game-disruption-v1' as const,
+        objectiveRoleById: COMPLETE_GAME_SCORING_OBJECTIVE_ROLE_BY_ID
+      } : {})
     }
   };
 }
@@ -145,7 +167,7 @@ function createCompleteGameSessionBaseForTests(shootingEnvironmentFingerprint = 
       playerId,
       movement: 1_524,
       modelIds,
-      keywords: ['INFANTRY'],
+      keywords: characterInstanceIds.includes(candidate.instanceId as typeof characterInstanceIds[number]) ? ['INFANTRY', 'CHARACTER'] : ['INFANTRY'],
       toughness: 4,
       save: 3,
       woundsPerModel: 2,
@@ -191,6 +213,14 @@ function createCompleteGameSessionBaseForTests(shootingEnvironmentFingerprint = 
 export function createCompleteGameSessionForTests(shootingEnvironmentFingerprint = 'complete-game-test-environment'): SessionSetup {
   const base = createCompleteGameSessionBaseForTests(shootingEnvironmentFingerprint);
   const executionFacts = createCompleteGameExecutionFactsForTests(base);
+  const report = createCoveredClosedPilotReportForTests(completeGameExecutableSessionFingerprintV1(base, executionFacts));
+  const completeGame = createCompleteGameSessionSetupV1(report, executionFacts);
+  return { ...base, completeGame };
+}
+
+export function createCompleteGameScoringSessionForTests(shootingEnvironmentFingerprint = 'complete-game-test-environment'): SessionSetup {
+  const base = createCompleteGameSessionBaseForTests(shootingEnvironmentFingerprint);
+  const executionFacts = createCompleteGameExecutionFactsForTests(base, true);
   const report = createCoveredClosedPilotReportForTests(completeGameExecutableSessionFingerprintV1(base, executionFacts));
   const completeGame = createCompleteGameSessionSetupV1(report, executionFacts);
   return { ...base, completeGame };

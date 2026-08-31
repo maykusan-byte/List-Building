@@ -10,6 +10,7 @@ async function dismissProjectStatus(page: Page): Promise<void> {
 test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and resumes', async ({ page }) => {
   await page.goto('/#simulator');
   await dismissProjectStatus(page);
+  await page.getByRole('button', { name: 'Duel réel M4' }).click();
   await expect(page.getByRole('heading', { name: /Duel réel Salamanders/ })).toBeVisible();
   await expect(page.getByTestId('m4-compatibility')).toContainText('Session compatible');
   await expect(page.getByTestId('m4-phase')).toHaveText('command');
@@ -56,6 +57,41 @@ test('real M4 pilot binds the authoritative runtime, moves, shoots, saves and re
   await expect(page.getByTestId('m4-prng')).toHaveText(expectedPrng);
   await page.getByRole('button', { name: 'Rejouer le journal' }).click();
   await expect(page.getByTestId('m4-notice')).toContainText('Replay exact');
+});
+
+test('economic M9 technical POC completes five rounds and restores its V6 journal', async ({ page }) => {
+  await page.goto('/#simulator');
+  await dismissProjectStatus(page);
+  await expect(page.getByRole('heading', { name: 'POC technique — cinq rounds' })).toBeVisible();
+  await expect(page.getByTestId('poc-compatibility')).toContainText('fixture-only');
+  await expect(page.getByTestId('poc-limitations')).toContainText('core-stratagem.command-reroll');
+  await expect(page.getByTestId('poc-limitations')).toContainText('core-stratagem.heroic-intervention');
+  await expect(page.getByTestId('poc-phase')).toContainText('Déploiement');
+
+  const initialEvents = await page.getByTestId('poc-event-count').innerText();
+  await page.getByTestId('poc-step').click();
+  await expect(page.getByTestId('poc-event-count')).not.toHaveText(initialEvents);
+  await expect(page.getByTestId('poc-notice')).toContainText('unit-deployed');
+
+  await page.getByTestId('poc-finish').click();
+  await expect(page.getByTestId('poc-phase')).toHaveText('Terminée');
+  await expect(page.getByTestId('poc-final-result')).toBeVisible();
+  const expectedEvents = await page.getByTestId('poc-event-count').innerText();
+  const expectedPrng = await page.getByTestId('poc-prng').innerText();
+
+  await page.getByRole('button', { name: 'Sauvegarder / exporter V6' }).click();
+  await expect(page.getByTestId('poc-notice')).toContainText('Sauvegarde V6');
+  const exported = JSON.parse(await page.getByTestId('poc-export-json').inputValue());
+  expect(exported.schemaVersion).toBe('warforge-simulation-save/v6');
+  expect(exported.environment.scenarioId).toBe('closed-complete-game-disruption-v1');
+
+  await page.getByRole('button', { name: 'Réinitialiser' }).click();
+  await page.getByRole('button', { name: 'Reprendre IndexedDB' }).click();
+  await expect(page.getByTestId('poc-notice')).toContainText('Reprise IndexedDB exacte');
+  await expect(page.getByTestId('poc-event-count')).toHaveText(expectedEvents);
+  await expect(page.getByTestId('poc-prng')).toHaveText(expectedPrng);
+  await page.getByRole('button', { name: 'Rejouer le journal V6' }).click();
+  await expect(page.getByTestId('poc-notice')).toContainText('Replay exact');
 });
 
 test('closed M3 duel rejects, shoots, exports, imports, replays and resumes IndexedDB exactly', async ({ page }) => {

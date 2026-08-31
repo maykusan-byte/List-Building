@@ -7,3 +7,4 @@ export * from './modifiers';
 export * from './extended-defence';
 export * from './coherency';
 export * from './m8-source-references';
+export * from './m9-source-references';

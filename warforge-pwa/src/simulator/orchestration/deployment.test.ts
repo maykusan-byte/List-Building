@@ -156,6 +156,37 @@ describe('M7 deterministic deployment and first-player roll-off', () => {
     expect(() => replayGameEventsWithShootingEnvironment(fixture.initial, forged as unknown as GameEvent[], fixture.environment)).toThrow('trusted geometry verification');
   });
 
+  it('rejects a hitbox inside the zone bounds but outside its exact triangular polygon', () => {
+    const fixture = createCompleteGameDeploymentFixture('deployment-triangle');
+    const unit = nextUnit(fixture.state);
+    const zone = fixture.state.battle!.deploymentZones.find((candidate) => candidate.playerId === unit.playerId)!;
+    const state = {
+      ...fixture.state,
+      battle: {
+        ...fixture.state.battle!,
+        deploymentZones: fixture.state.battle!.deploymentZones.map((candidate) => candidate.id === zone.id ? {
+          ...candidate,
+          polygon: [
+            { x: candidate.bounds.minX, y: candidate.bounds.minY },
+            { x: candidate.bounds.maxX, y: candidate.bounds.minY },
+            { x: candidate.bounds.minX, y: candidate.bounds.maxY }
+          ]
+        } : candidate)
+      }
+    };
+    const poses = deploymentPosesForUnit(state, unit.id);
+    const outsidePolygon = executeDeploymentCommand(state, {
+      id: 'outside-triangle', actorId: unit.playerId, type: 'deploy-unit', unitId: unit.id,
+      modelPoses: [{ ...poses[0]!, position: { x: zone.bounds.maxX - 500, y: zone.bounds.maxY - 500 } }, ...poses.slice(1)]
+    }, fixture.environment);
+
+    expect(outsidePolygon).toMatchObject({
+      accepted: false,
+      state,
+      rejection: { code: 'deployment-outside-zone', details: { modelId: poses[0]!.modelId, zoneId: zone.id, boundaryEdgeIndex: 1 } }
+    });
+  });
+
   it('journals tied roll-offs and refuses an UI-supplied outcome', () => {
     let tieSeed = 0;
     while (resolveFirstPlayerRollOffV1({ algorithm: 'mulberry32', version: 1, seed: tieSeed, value: tieSeed, draws: 0 }, ['a', 'b']).rollOffs.length === 1) tieSeed += 1;

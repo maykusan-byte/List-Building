@@ -7,6 +7,7 @@ import { resolveCharacteristicModifierPlan, resolveDieRollModifierPlan } from '.
 import { assertCompleteGameSessionSetupV1 } from './battle-state';
 import { nextBattleStepV1, resolveFirstPlayerRollOffV1 } from './battle-sequence';
 import { commandPhaseBattleShockUnitIdsV1, dueTimedEffectIdsV1, resolveBattleShockTestV1, timedEffectExpirationsForPhaseTransitionV1 } from './battle-resources';
+import { missionScoringCheckpointIdV1, missionScoringCheckpointV1 } from './mission-scoring';
 import { CORE_BATTLE_ROUND_SOURCE, EVENT_COMPANION_FIRST_TURN_SOURCE, EVENT_COMPANION_FIVE_ROUNDS_SOURCE } from '../rules/m7-source-references';
 import { CORE_BASE_COMMAND_POINTS_SOURCE, CORE_BATTLE_SHOCK_SOURCE, CORE_COMMAND_ABILITIES_SOURCE, CORE_COMMAND_PHASE_BATTLE_SHOCK_SOURCE, CORE_COMMAND_PHASE_END_SOURCE, CORE_COMMAND_PHASE_START_SOURCE, CORE_COMMAND_ROLL_SOURCE, CORE_COUNTER_OFFENSIVE_SOURCE, CORE_DESPERATE_ESCAPE_SOURCE, CORE_INSANE_BRAVERY_SOURCE, CORE_USE_STRATAGEMS_SOURCE, OFFICIAL_APP_BATTLE_SHOCK_STEP_SOURCE, OFFICIAL_APP_INITIAL_STRENGTH_SOURCE, OFFICIAL_APP_MODIFY_CP_COST_SOURCE, OFFICIAL_APP_MULTIPLE_BATTLE_SHOCK_SOURCE, OFFICIAL_APP_USE_STRATAGEMS_SOURCE, UNIVERSAL_STRATAGEM_UPDATES_SOURCE } from '../rules/m8-source-references';
 import type { CommandExecution, GameCommand, GameEvent, GameState, RuleRejection, SessionSetup, UnitSetup, WeaponProfileV1, WorldPoint } from './types';
@@ -270,7 +271,7 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
     return reject(command, 'battle-shock-test-pending', 'Le prochain jet d’ébranlement de la phase de Commandement doit être résolu.', ['01.07', '08.03'], { unitId: queuedBattleShockUnitId });
   }
   if (state.battle !== null && state.battle !== undefined
-    && !['deploy-unit', 'determine-first-player', 'start-battle', 'advance-battle-phase', 'resolve-command-stage', 'resolve-battle-shock-test', 'use-insane-bravery', 'use-counter-offensive', 'move-unit', 'declare-charge', 'resolve-charge', 'pass-fight-window', 'resolve-fight-movement', 'resolve-basic-melee', 'resolve-empty-fight', 'resolve-basic-shooting', 'resolve-split-fire', 'select-oath-of-moment-target', 'resolve-decision'].includes(command.type)) {
+    && !['deploy-unit', 'determine-first-player', 'start-battle', 'advance-battle-phase', 'resolve-mission-scoring', 'resolve-command-stage', 'resolve-battle-shock-test', 'use-insane-bravery', 'use-counter-offensive', 'move-unit', 'declare-charge', 'resolve-charge', 'pass-fight-window', 'resolve-fight-movement', 'resolve-basic-melee', 'resolve-empty-fight', 'resolve-basic-shooting', 'resolve-split-fire', 'select-oath-of-moment-target', 'resolve-decision'].includes(command.type)) {
     return reject(command, 'complete-game-loop-not-covered', 'Cette commande n’appartient pas à la boucle de partie complète couverte.', [SETUP_RULE_ID]);
   }
   switch (command.type) {
@@ -347,8 +348,34 @@ export function validateGameCommand(state: GameState, command: GameCommand): Rul
       if (battle.phase === 'fight' && state.fightPhase?.stage !== 'complete') {
         return reject(command, 'fight-phase-incomplete', 'Les fenêtres d’insertion, de combat et de consolidation doivent être résolues avant de terminer la phase.', ['12'], { stage: state.fightPhase?.stage ?? 'missing' });
       }
+      if (state.mission?.scoringProfileId !== undefined && (battle.phase === 'command' || battle.phase === 'fight')) {
+        const checkpoint = battle.phase === 'command' ? 'end-of-own-command-phase' : 'end-of-own-turn';
+        const checkpointId = missionScoringCheckpointIdV1(battle.battleRound, battle.turnNumber, checkpoint);
+        if (!state.mission.scoredCheckpointIds?.includes(checkpointId)) {
+          return reject(command, 'mission-scoring-checkpoint-pending', 'Le score de mission doit être résolu avant de quitter cette fenêtre.', ['simulator.mission.closed-score-v1'], { checkpointId });
+        }
+      }
       try { nextBattleStepV1(battle); }
       catch { return reject(command, 'unsupported-battle-step', 'Cette étape de bataille n’est pas encore couverte.', [BATTLE_ROUND_RULE_ID]); }
+      return null;
+    }
+    case 'resolve-mission-scoring': {
+      if (Object.keys(command).some((key) => !['id', 'actorId', 'type'].includes(key))) {
+        return reject(command, 'non-authoritative-mission-scoring-input', 'La commande de score ne reçoit ni VP, ni contrôle, ni quart de table.', ['simulator.mission.closed-score-v1']);
+      }
+      const battle = state.battle;
+      if (!battle || battle.activePlayerId !== command.actorId) {
+        return reject(command, 'not-active-player', 'Seul le joueur actif peut déclencher le checkpoint de score.', ['simulator.mission.closed-score-v1']);
+      }
+      try {
+        const checkpoint = missionScoringCheckpointV1(state);
+        const checkpointId = missionScoringCheckpointIdV1(battle.battleRound, battle.turnNumber, checkpoint);
+        if (state.mission?.scoredCheckpointIds?.includes(checkpointId)) {
+          return reject(command, 'mission-scoring-checkpoint-already-resolved', 'Ce checkpoint de score a déjà été résolu.', ['simulator.mission.closed-score-v1'], { checkpointId });
+        }
+      } catch {
+        return reject(command, 'wrong-mission-scoring-window', 'Aucun checkpoint de score couvert n’est disponible.', ['simulator.mission.closed-score-v1']);
+      }
       return null;
     }
     case 'resolve-command-stage': {
@@ -706,6 +733,13 @@ export function executeGameCommand(state: GameState, command: GameCommand): Comm
       rejection: reject(command, 'trusted-objective-environment-required', 'Le changement de phase doit d’abord résoudre le contrôle des objectifs avec l’environnement physique autoritaire.', ['14.01', '14.02', '14.01.01'])
     };
   }
+  if (command.type === 'resolve-mission-scoring') {
+    return {
+      accepted: false,
+      state,
+      rejection: reject(command, 'trusted-mission-scoring-environment-required', 'Le score doit être dérivé par l’orchestration de mission autoritaire.', ['simulator.mission.closed-score-v1'])
+    };
+  }
   if (command.type === 'resolve-basic-shooting' || command.type === 'resolve-split-fire' || command.type === 'select-oath-of-moment-target') {
     return {
       accepted: false,
@@ -824,6 +858,8 @@ function createEventsForCommand(state: GameState, command: GameCommand): readonl
       );
       return [{ id, commandId: command.id, type: 'battle-phase-advanced', ...step, timedEffectExpirations, sourceRefs: [CORE_BATTLE_ROUND_SOURCE, EVENT_COMPANION_FIVE_ROUNDS_SOURCE] }];
     }
+    case 'resolve-mission-scoring':
+      throw new Error('Mission scoring requires a trusted physical environment.');
     case 'resolve-command-stage': {
       const phase = state.commandPhase!;
       const resources = state.battleResources!;

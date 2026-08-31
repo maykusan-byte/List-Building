@@ -1,14 +1,14 @@
 # État du programme — Simulateur tactique Warforge
 
-Plan : 3.1.0 · Dernière mise à jour : 2026-08-30T06:52:41.258Z
+Plan : 3.4.0 · Dernière mise à jour : 2026-08-31T16:00:32.871Z
 
 ## Avancement global
 
 - Jalons acceptés : 9/12
-- Tâches terminées : 40/52
-- Critères satisfaits : 43/54
-- Validations : 105 réussie(s), 4 échouée(s), 15 périmée(s)
-- Santé du workspace : healthy (2026-08-30T05:17:27.857Z)
+- Tâches terminées : 43/53
+- Critères satisfaits : 49/58
+- Validations : 136 réussie(s), 4 échouée(s), 19 périmée(s)
+- Santé du workspace : healthy (2026-08-31T15:09:25.217Z)
 
 ## Jalons
 
@@ -23,9 +23,9 @@ Plan : 3.1.0 · Dernière mise à jour : 2026-08-30T06:52:41.258Z
 | M6 | Fondations de partie complète | accepted | 4/4 |
 | M7 | Boucle de bataille | accepted | 5/5 |
 | M8 | Ressources et objectifs | accepted | 4/4 |
-| M9 | Mission complète et interface | in_progress | 0/4 |
-| M10 | Réserves, transports et déploiements spéciaux | planned | 0/4 |
-| M11 | Déploiement progressif du catalogue | planned | 0/4 |
+| M9 | POC technique cinq rounds et interface | in_progress | 3/4 |
+| M10 | Fidélité commune, réserves, transports et déploiements spéciaux | planned | 0/5 |
+| M11 | Relance codex et déploiement progressif du catalogue | planned | 0/4 |
 
 ## Capacités produit
 
@@ -35,18 +35,18 @@ Plan : 3.1.0 · Dernière mise à jour : 2026-08-30T06:52:41.258Z
 | Duel synthétique de tir | available | M3 jouable, sauvegardable et rejouable. |
 | Duel réel mouvement/tir | available | M4 fermé : Salamanders–Blood Angels, 4 unités et 14 figurines. |
 | Primitives de tir avancées | available | M5 sur fixtures sourcées ; profils alternatifs réels différés. |
-| Partie complète cinq rounds | planned | Cible M9 ; Charge, Combat, commandement, objectifs, mission et score restent à livrer. |
-| Toute liste du catalogue | planned | Cible M11 uniquement après couverture exhaustive. |
+| POC technique cinq rounds | partial | Cible M9 fixture-only : boucle, ressources, objectifs, mission et score couverts ; quatre stratagèmes communs restent explicitement différés avant toute promesse de partie V11 complète. |
+| Toute liste du catalogue | planned | Après le POC : base GDM fin août, nouveau Codex Orks, nouveau Codex Space Marines puis armées par lots audités. |
 
 ## Reprise
 
-- Tâche courante : SIM-M9-T01 — Activer la mission fermée depuis l'archive GDM approuvée (in_progress)
-- Profil d'exécution : rules-formalization
+- Tâche courante : SIM-M9-T04 — Playtester et accepter le POC technique (in_progress)
+- Profil d'exécution : milestone-audit
 - Coût estimé : L
-- Tranche atomique : SIM-M9-T01-S01
-- Dernier travail : Source GDM approuvée; ressource formalisée, validateurs, versioning, couverture et miroirs synchronisés.
-- Prochaine action : Revalider SIM-M9-T01 avant toute clôture.
-- Fichiers concernés : data/simulator/manifest.json, data/simulator/full-game-coverage.json, data/simulator/closed-complete-game-mission.json, data/simulator/coverage.json, data/simulator/m4-real-roster-facts.json, data/simulator/physical-profiles.json, data/simulator/rulepacks.json, data/simulator/scenarios.json, public/data/simulator/manifest.json, public/data/simulator/full-game-coverage.json, public/data/simulator/closed-complete-game-mission.json, public/data/simulator/coverage.json, public/data/simulator/physical-profiles.json, public/data/simulator/rulepacks.json, public/data/simulator/scenarios.json, scripts/validate-simulator-data.mjs, scripts/validate-simulator-data.test.mjs, src/simulator/domain/full-game-compiler.ts, src/simulator/domain/full-game-compiler.test.ts, docs/simulator/PLAN.md, docs/simulator/project-state.json, docs/simulator/STATUS.md, docs/simulator/decisions/ADR-019-approved-gdm-mission-authority.md
+- Tranche atomique : SIM-M9-T04-S01
+- Dernier travail : Les gates finales de SIM-M9-T04 sont vertes : pnpm verify, 539 tests, 4 parcours Chromium et build PWA. Le serveur local de playtest est prêt sur le POC technique.
+- Prochaine action : Le propriétaire exécute le playtest guidé à http://127.0.0.1:4173/#simulator et signale toute divergence, ou confirme que le parcours, les quatre limites, la sauvegarde, la reprise et le replay sont conformes.
+- Fichiers concernés : src/simulator/ui/CorePocTechnicalPage.tsx, tests/browser/simulator.spec.ts, docs/simulator/project-state.json
 
 ## Blocages et questions
 

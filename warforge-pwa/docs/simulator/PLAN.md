@@ -1,6 +1,6 @@
 # Simulateur tactique Warforge
 
-`planVersion: 3.1.0`
+`planVersion: 3.4.0`
 
 ## Résultat visé
 
@@ -10,10 +10,13 @@ les décisions ; le moteur vérifie la légalité, résout les règles couvertes
 journalise chaque effet et rejoue exactement la partie. Aucun backend,
 adversaire IA ou mécanisme anti-triche hostile n'est prévu.
 
-La première promesse « partie complète » est un pilote fermé de cinq rounds.
-Elle précède l'élargissement du catalogue : un petit scénario entièrement
-couvert vaut mieux qu'une grande liste dont des règles seraient ignorées.
-« Toute liste » reste interdit avant couverture exhaustive du catalogue actif.
+Le premier incrément est un POC technique fermé de cinq rounds, avec quelques
+profils de fixture figés. Il valide l'assemblage du moteur, du terrain, du
+score, de l'interface et du replay, mais ne constitue pas encore une partie
+V11 fidèle : quatre stratagèmes communs atteignables sont différés par
+ADR-025. Il ne couvre aucun codex, détachement, règle d'armée ou aptitude de
+datasheet. « Partie complète V11 » et « toute liste » restent interdits avant
+fermeture de leurs couvertures respectives.
 
 ## État produit au début du plan 3
 
@@ -107,16 +110,22 @@ cette convention restent visibles. Aucun durcissement contre la modification
 volontaire de mémoire ou de sauvegarde n'est planifié ; seules la correction
 normale, les schémas, versions, empreintes et invariants sont vérifiés.
 
-## Pilote fermé de partie complète
+## POC fermé de partie complète
 
-Le pilote cible trois unités par camp, sans prétendre couvrir une faction :
+Le POC `closed-complete-game-core-poc-v1` cible quelques unités choisies par
+camp au moyen de profils figés. Ces profils sont des `fixture-unit` propres au
+POC : aucun identifiant du catalogue, coût en points, loadout de codex ou
+support de faction ne peut être déduit de leur présence. L'interface doit
+afficher cette limite.
 
-- Salamanders : les unités M4 plus `book-space-marines:unit:3` Captain, pour
-  un total prévu de 235 points ; Captain non attaché ; équipement candidat
-  *heavy bolt pistol* et *master-crafted power weapon*.
-- Blood Angels : les unités M4 plus une seconde
-  `book-blood-angels:unit:33` Assault Intercessor Squad, pour un total prévu
-  de 240 points.
+Sont explicitement hors périmètre de M9 : règles d'armée, détachements,
+améliorations, stratagèmes de faction et aptitudes de datasheets. Le POC
+technique exécute Courage Insensé (15.04) et Contre-offensive (15.12), seuls
+stratagèmes déjà couverts par ADR-018. Relance de Commandement (15.02), Défi
+Épique (15.03), Tir en État d'Alerte/Tir Réflexe (15.08–15.09) et Intervention
+Héroïque (15.11) sont des limitations explicites d'ADR-025 : elles ne sont ni
+proposées ni approximées. Leur fermeture reste obligatoire avant toute
+promesse de partie V11 complète.
 
 La mission candidate utilise Disruption, disposition miroir 1, Outmanoeuvre
 pour les deux joueurs, puis Assassination et Engage on All Fronts comme
@@ -136,9 +145,9 @@ générales et plafonds restent reliés au Compagnon de Rencontre officiel.
 | M6 — Fondations de partie complète | Corpus/gaps, arbitrages, enveloppe V6, état de bataille/mission et rosters fermés sont prêts sans règle manquante cachée. |
 | M7 — Boucle de bataille | Déploiement, premier joueur, cinq rounds, tours, mouvements, Charge et Combat sont jouables et rejouables. |
 | M8 — Ressources et objectifs | CP, Battle-shock, statuts, contrôle d'objectifs et stratagèmes obligatoires du pilote sont exécutables. |
-| M9 — Mission complète et UI | Mission fermée, score, interface, sauvegarde/reprise et playtest humain de bout en bout sont acceptés. |
-| M10 — Zones spéciales | Réserves, transports et déploiements spéciaux sont ajoutés sans état spatial impossible. |
-| M11 — Catalogue | Factions et listes sont ajoutées par lots sourcés et audités. |
+| M9 — POC technique cinq rounds et UI | Mission fermée, profils POC, score, interface, sauvegarde/reprise et playtest humain de bout en bout sont acceptés avec quatre limites communes visibles. |
+| M10 — Fidélité commune et zones spéciales | Les quatre stratagèmes différés, réserves, transports et déploiements spéciaux sont ajoutés sans approximation ni état spatial impossible. |
+| M11 — Relance codex et catalogue | La base de fin août, Orks puis Space Marines sont intégrés avant l'ajout des autres armées par lots sourcés et audités. |
 
 ### M5 — clôture
 
@@ -152,8 +161,8 @@ restent différés jusqu'à une source et un loadout approuvé.
 1. Construire le graphe de couverture et la file exacte des sources/arbitrages.
 2. Définir `BattleStateV1`, `MissionStateV1`, les files de résolution et
    `SimulationSaveV6` avec lecteurs V1–V5.
-3. Compiler les deux rosters fermés, profils physiques et scénario draft ;
-   toute lacune bloque la compatibilité, pas le chantier architectural.
+3. Conserver les deux rosters réels comme graphe préparatoire différé ; le POC
+   M9 utilise un graphe de fixtures distinct sans promesse de catalogue.
 4. Auditer l'architecture, les migrations et les refus de session incomplète.
 
 ### M7 — boucle de bataille
@@ -169,18 +178,46 @@ restent différés jusqu'à une source et un loadout approuvé.
 
 1. Ressources, CP, Battle-shock, durées et expirations.
 2. Objectifs, présence, contrôle et contestation depuis la géométrie.
-3. Stratagèmes et aptitudes obligatoires du seul pilote fermé.
+3. Courage Insensé et Contre-offensive sont exécutables ; les quatre autres
+   stratagèmes communs atteignables sont inventoriés puis différés par
+   ADR-025, sans stratagème, aptitude ou effet de détachement/faction.
 4. Audit des fenêtres, effets et reprises.
 
 ### M9 — mission et interface complète
 
 1. Activer les données de mission après validation de l'archive GDM 2026
-   approuvée et conserver sa provenance non officielle explicite.
+   approuvée, inventorier les 45 cartes mesurées et en extraire les mesures
+   suivant ADR-020 sans promouvoir un résultat OCR non vérifié.
 2. Produire chaque point via un `ScoreEvent` explicable sur cinq rounds.
-3. Livrer l'interface complète : phase, round, score, décisions, journal,
-   sauvegarde, reprise et replay.
-4. Exécuter Playwright puis un playtest humain guidé hors ligne ; aucun bouton
-   « ignorer la phase » ne peut masquer une règle obligatoire.
+3. Construire les terrains du POC depuis les layouts structurés et refuser
+   tout layout dont une mesure requise reste en revue.
+4. Compiler les profils `fixture-unit` et la matrice de couverture propre au
+   POC, sans identifiant de catalogue ni règle de codex.
+5. Livrer l'interface technique : phase, round, score, journal,
+   sauvegarde, reprise et replay, avec les limites POC visibles.
+6. Exécuter Playwright puis un playtest humain guidé hors ligne ; le parcours
+   automatique est identifié comme outil technique et ne transforme jamais
+   une règle non couverte en règle ignorée.
+
+### M10 — dette commune puis zones spéciales
+
+1. Implémenter et auditer Relance de Commandement, Défi Épique, Tir en État
+   d'Alerte/Tir Réflexe et Intervention Héroïque avant toute promesse de partie
+   V11 complète.
+2. Formaliser ensuite les zones et transitions hors plateau.
+3. Ajouter réserves, arrivées, transports et débarquements.
+4. Auditer la fidélité commune et les états spatiaux spéciaux avant M11.
+
+### Après le POC technique — fidélité commune puis codex
+
+Après l'acceptation technique de M9, M10 ferme d'abord les quatre stratagèmes
+communs différés et les zones spéciales. Le contenu d'armée ne reprend qu'après
+cette fidélité commune. La base de mises à jour de fin août est alors figée
+depuis GDM 2026, puis le nouveau Codex Orks est intégré depuis le fichier texte
+préparé par le propriétaire. Le nouveau Codex Space Marines est intégré à sa
+sortie ; les anciennes règles de détachement ne sont donc pas implémentées
+entre-temps. Les autres armées suivent ensuite une par une, avec sources,
+couverture exacte, tests et audit par pack.
 
 ## Gates
 
@@ -193,8 +230,10 @@ Chaque tranche exécute ses `expectedGates`. Les gates de jalon comprennent :
 - `pnpm build` puis `pnpm verify` à l'acceptation ;
 - revue Sol `high` indépendante avant tout jalon critique.
 
-Une session jouable exige une compatibilité exhaustive de ses rosters,
-profils physiques, armes, règles obligatoires et scénario. Une source absente
-produit un gap explicite. Une règle officielle incomplète produit un
+Une session fidèle exige une compatibilité exhaustive de ses rosters, profils
+physiques, armes, règles obligatoires et scénario. Une session technique peut
+être exécutable seulement si ses limitations exactes sont versionnées,
+validées et visibles conformément à ADR-025. Une source absente produit un
+gap explicite. Une règle officielle incomplète produit un
 `RuleArbitrationV1` approuvé humainement ; elle n'est jamais complétée en
 silence par le moteur.

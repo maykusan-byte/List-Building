@@ -37,12 +37,33 @@ const M4_DRAFT_SCHEMA = 'warforge-simulator-m4-real-roster-facts/v2';
 const M4_SCENARIO_ID = 'real-roster-shooting-duel-v1';
 const FULL_GAME_COVERAGE_SCHEMA = 'warforge-simulator-full-game-coverage/v1';
 const FULL_GAME_SCOPE = 'closed-complete-game-pilot-v1';
+const CORE_POC_COVERAGE_SCHEMA = 'warforge-simulator-core-poc-coverage/v1';
+const CORE_POC_SCOPE = 'closed-complete-game-core-poc-v1';
+const CORE_POC_LAYOUT_SCHEMA = 'warforge-simulator-core-poc-layout/v1';
+const CORE_POC_LAYOUT_ID = 'disruption-mirror-1-core-poc-v1';
+const CORE_POC_FIXTURES_SCHEMA = 'warforge-simulator-core-poc-fixtures/v1';
+const CORE_POC_FIXTURE_SOURCE_ID = 'warforge-core-poc-fixtures-v1';
+const CORE_POC_PHYSICAL_CONVENTION_ID = 'closed-core-poc-infantry-geometry-v1';
 const CLOSED_MISSION_FILENAME = 'closed-complete-game-mission.json';
 const CLOSED_MISSION_SCHEMA = 'warforge-simulator-closed-mission/v1';
 const CLOSED_MISSION_ID = 'closed-complete-game-disruption-v1';
 const APPROVED_GDM_SOURCE_ID = 'approved-gdm-2026-11th-archive';
 const APPROVED_GDM_ARCHIVE_SCHEMA = 'warforge-gdmissions-11th/v1';
 const APPROVED_GDM_ARCHIVE_SHA256 = 'a8320287a3fbdde6fb126dee241374110a086383fd2b1cd5012e5a09bb3ccc71';
+const APPROVED_GDM_LAYOUT_SOURCE_ID = 'approved-gdm-2026-layout-images';
+const APPROVED_GDM_LAYOUT_INVENTORY_SCHEMA = 'warforge-layout-source-inventory/v1';
+const APPROVED_GDM_LAYOUT_MEASUREMENTS_SCHEMA = 'warforge-layout-measurements/v1';
+const APPROVED_GDM_LAYOUT_SOURCE_SHA256 = 'eb14ab96304ee6db152995f8704f5f1c80e73e432e2aa0e7989aacf4eb859c45';
+const APPROVED_GDM_LAYOUT_CANDIDATES_SHA256 = 'de466f2776d12e86e4ed5403d929a83cb2a90b04f52ddf62374e518de8a7bf22';
+const APPROVED_GDM_LAYOUT_REVIEW_QUEUE_SHA256 = '7d73597fec69bce974034e9c63b4c82431b7e0eb6decd51394e18774bd916849';
+const APPROVED_GDM_LAYOUT_REVIEW_DECISIONS_SHA256 = 'b33ffe81302d1356008d1f6e0a58f850ce050761b2e8617bf2fb3b7345121cd3';
+const APPROVED_GDM_LAYOUT_MEASUREMENTS_SHA256 = '4a84d1e7ff40cbb2c40b9184e53af239df1d96bdaa845c8f0ed1a024ef1f15cf';
+const GDM_LAYOUT_CANDIDATES_PATH = resolve(appDirectory, 'data/missions/gdmissions-11th/layout-measurements/extraction-candidates.json');
+const GDM_LAYOUT_PRE_REVIEW_QUEUE_PATH = resolve(appDirectory, 'data/missions/gdmissions-11th/layout-measurements/review-queue.pre-review.json');
+const GDM_LAYOUT_REVIEW_QUEUE_PATH = resolve(appDirectory, 'data/missions/gdmissions-11th/layout-measurements/review-queue.json');
+const GDM_LAYOUT_REVIEW_DECISIONS_PATH = resolve(appDirectory, 'data/missions/gdmissions-11th/layout-measurements/review-decisions.json');
+const GDM_LAYOUT_COUNT = 45;
+const GDM_LAYOUT_CALLOUT_COUNT = 32;
 const COMMAND_PHASE_COVERAGE_SOURCE_REFS = [
   {
     sourceId: 'warforge-core-rules-fr-2026-07',
@@ -82,7 +103,7 @@ const MISSION_COVERAGE_SOURCE_REFS = [
   },
   {
     sourceId: 'warforge-event-companion-fr-2026-07',
-    references: ['event-mission-sequence.2', 'event-mission-sequence.3', 'event-mission-sequence.4', 'event-mission-sequence.5', 'event-mission-sequence.6', 'event-mission-sequence.7', 'event-mission-sequence.9', 'event-mission-sequence.16', 'event-mission-sequence.17', 'card-terminology.cumulative-or'],
+    references: ['event-mission-sequence.2', 'event-mission-sequence.3', 'event-mission-sequence.4', 'event-mission-sequence.5', 'event-mission-sequence.6', 'event-mission-sequence.7', 'event-mission-sequence.9', 'event-mission-sequence.13', 'event-mission-sequence.14', 'card-terminology.cumulative-or'],
     printedPages: [2, 3]
   }
 ];
@@ -330,6 +351,217 @@ async function assertApprovedGdmMissionArchiveSource(source) {
   return { archive, archiveDirectory: resolve(archivePath, '..') };
 }
 
+async function assertApprovedGdmLayoutImageSource(source) {
+  assertExactKeys(source, [
+    'id', 'kind', 'authority', 'title', 'version', 'effectiveDate', 'retrievedAt',
+    'status', 'path', 'url', 'sha256', 'extractionCandidatesSha256',
+    'reviewQueueSha256', 'reviewDecisionsSha256', 'measurementArtifactSha256',
+    'reviewedBy', 'reviewedAt',
+    'decisionReference', 'officialGwPublication', 'expectedImageCount'
+  ], `source ${APPROVED_GDM_LAYOUT_SOURCE_ID}`);
+  assert(source.id === APPROVED_GDM_LAYOUT_SOURCE_ID && source.kind === 'trusted-layout-image-archive', 'manifest.json: archive d’images de layouts GDM approuvée requise');
+  assert(source.authority === 'project-owner-approved' && source.status === 'project-approved', `source ${source.id}: autorité propriétaire requise`);
+  assert(source.version === 'drive-snapshot-2026-08-30' && source.effectiveDate === null && source.retrievedAt === '2026-08-30', `source ${source.id}: version ou date de snapshot incohérente`);
+  assert(source.reviewedBy === 'project-owner' && source.reviewedAt === '2026-08-30' && source.decisionReference === 'ADR-020', `source ${source.id}: approbation propriétaire incomplète`);
+  assert(source.officialGwPublication === false, `source ${source.id}: les images GDM ne doivent pas être présentées comme une publication officielle GW`);
+  assert(source.url === 'https://drive.google.com/drive/folders/1clE0hvtnbtTN2xGdcR9scyrLcKQiMI0Z'
+    && source.sha256 === APPROVED_GDM_LAYOUT_SOURCE_SHA256
+    && source.extractionCandidatesSha256 === APPROVED_GDM_LAYOUT_CANDIDATES_SHA256
+    && source.reviewQueueSha256 === APPROVED_GDM_LAYOUT_REVIEW_QUEUE_SHA256
+    && source.reviewDecisionsSha256 === APPROVED_GDM_LAYOUT_REVIEW_DECISIONS_SHA256
+    && source.measurementArtifactSha256 === APPROVED_GDM_LAYOUT_MEASUREMENTS_SHA256
+    && source.expectedImageCount === GDM_LAYOUT_COUNT,
+  `source ${source.id}: URL, empreinte ou cardinalité incohérente`);
+  assert(!isAbsolute(source.path ?? ''), `source ${source.id}: chemin d’inventaire relatif requis`);
+
+  const missionsDirectory = await realpath(resolve(appDirectory, 'data/missions'));
+  const inventoryPath = await realpath(resolve(appDirectory, source.path ?? '')).catch(() => null);
+  assert(inventoryPath && inventoryPath.toLowerCase().startsWith(`${missionsDirectory.toLowerCase()}${sep}`), `source ${source.id}: inventaire local introuvable ou hors data/missions`);
+  const raw = await readFile(inventoryPath);
+  assert(createHash('sha256').update(raw).digest('hex') === source.sha256, `source ${source.id}: sha256 ne correspond pas à l’inventaire local`);
+  const inventory = JSON.parse(raw.toString('utf8'));
+  assert(inventory.schemaVersion === APPROVED_GDM_LAYOUT_INVENTORY_SCHEMA, `source ${source.id}: schéma d’inventaire incompatible`);
+  assertSameJson(inventory.source, {
+    sourceId: APPROVED_GDM_LAYOUT_SOURCE_ID,
+    title: 'GDM 2026 — 45 terrain layouts with displayed measurements',
+    authority: 'project-approved',
+    approvedBy: 'project-owner',
+    approvedAt: '2026-08-30',
+    folderId: '1clE0hvtnbtTN2xGdcR9scyrLcKQiMI0Z',
+    folderUrl: source.url
+  }, `source ${source.id}: provenance d’inventaire`);
+  assert(inventory.expectedFileCount === GDM_LAYOUT_COUNT && Array.isArray(inventory.files) && inventory.files.length === GDM_LAYOUT_COUNT, `source ${source.id}: 45 images inventoriées requises`);
+  uniqueStrings(inventory.files.map((entry) => entry.fileName), `${source.id}.files.fileName`);
+  uniqueStrings(inventory.files.map((entry) => entry.driveFileId), `${source.id}.files.driveFileId`);
+  assertSameJson(inventory.files.map((entry) => entry.fileName), [...inventory.files.map((entry) => entry.fileName)].sort(), `source ${source.id}: ordre stable des fichiers`);
+
+  const inventoryByFileName = new Map();
+  for (const entry of inventory.files) {
+    assertExactKeys(entry, [
+      'fileName', 'driveFileId', 'driveUrl', 'mimeType', 'upstreamSizeBytes',
+      'upstreamSha256', 'widthPx', 'heightPx', 'localMeasuredPath',
+      'localMeasuredSha256', 'localPlainPath', 'localPlainSha256'
+    ], `${source.id}.${entry.fileName}`);
+    assert(entry.fileName.endsWith('.png') && entry.mimeType === 'image/png', `${source.id}.${entry.fileName}: image PNG requise`);
+    assert(entry.driveUrl === `https://drive.google.com/file/d/${entry.driveFileId}/view?usp=drivesdk`, `${source.id}.${entry.fileName}: URL Drive incohérente`);
+    assert(Number.isInteger(entry.upstreamSizeBytes) && entry.upstreamSizeBytes > 0
+      && Number.isInteger(entry.widthPx) && entry.widthPx > 0
+      && Number.isInteger(entry.heightPx) && entry.heightPx > 0,
+    `${source.id}.${entry.fileName}: métadonnées d’image invalides`);
+    for (const [pathKey, hashKey] of [
+      ['localMeasuredPath', 'localMeasuredSha256'],
+      ['localPlainPath', 'localPlainSha256']
+    ]) {
+      assert(!isAbsolute(entry[pathKey]) && /^[a-f0-9]{64}$/.test(entry[hashKey] ?? ''), `${source.id}.${entry.fileName}: chemin ou sha256 local invalide`);
+      const imagePath = await realpath(resolve(appDirectory, entry[pathKey])).catch(() => null);
+      assert(imagePath && imagePath.toLowerCase().startsWith(`${missionsDirectory.toLowerCase()}${sep}`), `${source.id}.${entry.fileName}: image locale introuvable ou hors data/missions`);
+      const image = await readFile(imagePath);
+      assert(createHash('sha256').update(image).digest('hex') === entry[hashKey], `${source.id}.${entry.fileName}: sha256 local incohérent`);
+    }
+    inventoryByFileName.set(entry.fileName, entry);
+  }
+  return { inventory, inventoryByFileName, source };
+}
+
+async function validateGdmLayoutMeasurements(document, manifest, sourceContext, dataDirectory) {
+  const measurementArtifactBytes = await readFile(resolve(dataDirectory, manifest.artifacts.gdmLayoutMeasurements));
+  assertExactKeys(document, [
+    'schemaVersion', 'manifestVersion', 'version', 'source', 'board',
+    'expectedLayoutCount', 'expectedCalloutsPerLayout', 'layouts', 'quality'
+  ], 'gdm-2026-layout-measurements.json');
+  assert(document.schemaVersion === APPROVED_GDM_LAYOUT_MEASUREMENTS_SCHEMA
+    && document.manifestVersion === manifest.version && document.version === '1.0.0',
+  'gdm-2026-layout-measurements.json: schéma ou version incompatible');
+  assertSameJson(document.source, sourceContext.inventory.source, 'gdm-2026-layout-measurements.json.source');
+  assertSameJson(document.board, {
+    widthTenthsInch: 440,
+    heightTenthsInch: 600,
+    origin: 'top-left',
+    xDirection: 'right',
+    yDirection: 'down'
+  }, 'gdm-2026-layout-measurements.json.board');
+  assert(document.expectedLayoutCount === GDM_LAYOUT_COUNT
+    && document.expectedCalloutsPerLayout === GDM_LAYOUT_CALLOUT_COUNT
+    && Array.isArray(document.layouts) && document.layouts.length === GDM_LAYOUT_COUNT,
+  'gdm-2026-layout-measurements.json: 45 layouts et 32 mesures par layout requis');
+  uniqueStrings(document.layouts.map((layout) => layout.layoutId), 'gdm-2026-layout-measurements.json.layouts');
+  assertSameJson(document.layouts.map((layout) => layout.layoutId), [...document.layouts.map((layout) => layout.layoutId)].sort(), 'gdm-2026-layout-measurements.json: ordre stable des layouts');
+  assertSameJson(document.layouts.map((layout) => `${layout.layoutId}.png`), sourceContext.inventory.files.map((entry) => entry.fileName), 'gdm-2026-layout-measurements.json: couverture exacte de l’inventaire');
+
+  for (const layout of document.layouts) {
+    assertExactKeys(layout, [
+      'layoutId', 'sourceImage', 'boardRectPx', 'expectedCalloutCount',
+      'measurementCount', 'status', 'extractionDiagnostics', 'measurements'
+    ], `layout ${layout.layoutId}`);
+    const inventoryEntry = sourceContext.inventoryByFileName.get(`${layout.layoutId}.png`);
+    assertSameJson(layout.sourceImage, inventoryEntry, `layout ${layout.layoutId}.sourceImage`);
+    assertExactKeys(layout.boardRectPx, ['left', 'right', 'top', 'bottom'], `layout ${layout.layoutId}.boardRectPx`);
+    const { left, right, top, bottom } = layout.boardRectPx;
+    assert([left, right, top, bottom].every(Number.isInteger)
+      && left >= 0 && top >= 0 && left < right && top < bottom
+      && right <= layout.sourceImage.widthPx && bottom <= layout.sourceImage.heightPx,
+    `layout ${layout.layoutId}: rectangle de plateau invalide`);
+    assert(layout.expectedCalloutCount === GDM_LAYOUT_CALLOUT_COUNT
+      && layout.measurementCount === GDM_LAYOUT_CALLOUT_COUNT
+      && layout.status === 'verified'
+      && Array.isArray(layout.measurements) && layout.measurements.length === GDM_LAYOUT_CALLOUT_COUNT,
+    `layout ${layout.layoutId}: 32 mesures vérifiées requises`);
+    assertExactKeys(layout.extractionDiagnostics, ['regionDiagnostics', 'unassignedCandidateIds'], `layout ${layout.layoutId}.extractionDiagnostics`);
+    assert(Array.isArray(layout.extractionDiagnostics.regionDiagnostics), `layout ${layout.layoutId}: diagnostics de régions requis`);
+    uniqueStrings(layout.extractionDiagnostics.unassignedCandidateIds, `layout ${layout.layoutId}.unassignedCandidateIds`);
+    assertSameJson(layout.measurements.map((measurement) => measurement.measurementId),
+      Array.from({ length: GDM_LAYOUT_CALLOUT_COUNT }, (_, index) => `m${String(index + 1).padStart(3, '0')}`),
+      `layout ${layout.layoutId}: identifiants de mesures stables`);
+
+    for (const item of layout.measurements) {
+      assertExactKeys(item, [
+        'measurementId', 'sourceCandidateIds', 'printedTenthsOfInch', 'fromEdge',
+        'axis', 'coordinateTenthsOfInch', 'worldCoordinate', 'labelCenterPx',
+        'valueStatus', 'edgeStatus', 'status', 'evidence'
+      ], `layout ${layout.layoutId}.${item.measurementId}`);
+      uniqueStrings(item.sourceCandidateIds, `layout ${layout.layoutId}.${item.measurementId}.sourceCandidateIds`);
+      assert(Number.isInteger(item.printedTenthsOfInch) && item.printedTenthsOfInch > 0, `layout ${layout.layoutId}.${item.measurementId}: mesure imprimée invalide`);
+      assert(['left', 'right', 'top', 'bottom'].includes(item.fromEdge), `layout ${layout.layoutId}.${item.measurementId}: bord invalide`);
+      const expectedAxis = item.fromEdge === 'left' || item.fromEdge === 'right' ? 'x' : 'y';
+      const axisLength = expectedAxis === 'x' ? document.board.widthTenthsInch : document.board.heightTenthsInch;
+      const expectedCoordinate = item.fromEdge === 'left' || item.fromEdge === 'top'
+        ? item.printedTenthsOfInch
+        : axisLength - item.printedTenthsOfInch;
+      assert(item.axis === expectedAxis && item.printedTenthsOfInch <= axisLength
+        && item.coordinateTenthsOfInch === expectedCoordinate,
+      `layout ${layout.layoutId}.${item.measurementId}: conversion bord/axe incohérente`);
+      assertSameJson(item.worldCoordinate, {
+        numerator: expectedCoordinate * 254,
+        denominator: 10,
+        roundedWorldUnits: Math.round(expectedCoordinate * 254 / 10)
+      }, `layout ${layout.layoutId}.${item.measurementId}.worldCoordinate`);
+      assert(Number.isFinite(item.labelCenterPx?.x) && Number.isFinite(item.labelCenterPx?.y)
+        && item.labelCenterPx.x >= 0 && item.labelCenterPx.x <= layout.sourceImage.widthPx
+        && item.labelCenterPx.y >= 0 && item.labelCenterPx.y <= layout.sourceImage.heightPx,
+      `layout ${layout.layoutId}.${item.measurementId}: centre de libellé invalide`);
+      assert(item.valueStatus === 'verified' && item.edgeStatus === 'verified' && item.status === 'verified', `layout ${layout.layoutId}.${item.measurementId}: revue incomplète`);
+      assertExactKeys(item.evidence, [
+        'passIds', 'engineFamilies', 'printedTextCandidates', 'edgeSource',
+        'templateArrow', 'geometry', 'qualityScore', 'labelRegion', 'reviewDecision'
+      ], `layout ${layout.layoutId}.${item.measurementId}.evidence`);
+      assert(typeof item.evidence.labelRegion?.regionId === 'string' && item.evidence.labelRegion.regionId.length > 0,
+        `layout ${layout.layoutId}.${item.measurementId}: région de preuve absente`);
+      if (item.sourceCandidateIds.length === 0 || item.evidence.labelRegion.kind === 'direct-visual-review') {
+        assert(item.evidence.edgeSource === 'direct-visual-review'
+          && ['confirm', 'replace'].includes(item.evidence.reviewDecision?.action),
+        `layout ${layout.layoutId}.${item.measurementId}: lecture visuelle non tracée`);
+      } else {
+        assert(item.sourceCandidateIds.length > 0 && item.evidence.passIds.length > 0,
+          `layout ${layout.layoutId}.${item.measurementId}: preuve machine ou visuelle requise`);
+      }
+    }
+  }
+  assertSameJson(document.quality, {
+    verifiedLayoutCount: GDM_LAYOUT_COUNT,
+    reviewRequiredLayoutCount: 0,
+    reviewItemCount: 0
+  }, 'gdm-2026-layout-measurements.json.quality');
+
+  const [candidatesBytes, preReviewQueueBytes, reviewQueue, reviewDecisionsBytes] = await Promise.all([
+    readFile(GDM_LAYOUT_CANDIDATES_PATH),
+    readFile(GDM_LAYOUT_PRE_REVIEW_QUEUE_PATH),
+    readFile(GDM_LAYOUT_REVIEW_QUEUE_PATH, 'utf8').then(JSON.parse),
+    readFile(GDM_LAYOUT_REVIEW_DECISIONS_PATH)
+  ]);
+  assert(createHash('sha256').update(candidatesBytes).digest('hex') === sourceContext.source.extractionCandidatesSha256,
+    'candidats d’extraction des layouts GDM: empreinte incompatible');
+  assert(createHash('sha256').update(preReviewQueueBytes).digest('hex') === sourceContext.source.reviewQueueSha256,
+    'file de pré-revue des layouts GDM: empreinte incompatible');
+  assert(createHash('sha256').update(reviewDecisionsBytes).digest('hex') === sourceContext.source.reviewDecisionsSha256,
+    'décisions de revue des layouts GDM: empreinte incompatible');
+  const preReviewQueue = JSON.parse(preReviewQueueBytes.toString('utf8'));
+  const reviewDecisions = JSON.parse(reviewDecisionsBytes.toString('utf8'));
+  assertSameJson(reviewQueue, {
+    schemaVersion: 'warforge-layout-measurement-review/v1',
+    sourceId: APPROVED_GDM_LAYOUT_SOURCE_ID,
+    items: []
+  }, 'file de revue des layouts GDM');
+  assert(reviewDecisions.schemaVersion === 'warforge-layout-measurement-decisions/v1'
+    && reviewDecisions.sourceId === APPROVED_GDM_LAYOUT_SOURCE_ID
+    && reviewDecisions.review?.reviewedAt === '2026-08-31'
+    && reviewDecisions.review?.reviewer === 'gpt-5.6-sol/direct-visual-review'
+    && reviewDecisions.review?.reviewedItemCount === 119
+    && reviewDecisions.review?.reviewedQueueSha256 === sourceContext.source.reviewQueueSha256
+    && reviewDecisions.defaultAction === 'confirm-current-reading'
+    && Array.isArray(reviewDecisions.decisions) && reviewDecisions.decisions.length > 0,
+  'décisions de revue visuelle des layouts GDM incomplètes');
+  assert(preReviewQueue.schemaVersion === 'warforge-layout-measurement-review/v1'
+    && preReviewQueue.sourceId === APPROVED_GDM_LAYOUT_SOURCE_ID
+    && Array.isArray(preReviewQueue.items) && preReviewQueue.items.length === reviewDecisions.review.reviewedItemCount,
+  'file de pré-revue des layouts GDM incohérente avec les décisions');
+  const reviewedKeys = new Set(preReviewQueue.items.map((item) => `${item.layoutId}/${item.regionId}`));
+  assert(reviewedKeys.size === preReviewQueue.items.length
+    && reviewDecisions.decisions.every((decision) => reviewedKeys.has(`${decision.layoutId}/${decision.regionId}`)),
+  'décisions de revue visuelle orphelines de la file liée');
+  assert(createHash('sha256').update(measurementArtifactBytes).digest('hex') === sourceContext.source.measurementArtifactSha256,
+    'gdm-2026-layout-measurements.json: empreinte canonique incompatible');
+}
+
 async function assertApprovedGdmAsset(context, assetRef, sourcePath, label) {
   assertExactKeys(assetRef, ['relativePath', 'sha256'], label);
   const archivedAsset = context.archive.assets.find((asset) => asset.sourcePath === sourcePath);
@@ -377,9 +609,13 @@ async function validateClosedCompleteGameMission(dataDirectory, manifest, gdmCon
     && mission.layout.attackerEdge === 'top' && mission.layout.defenderEdge === 'bottom', `${CLOSED_MISSION_FILENAME}: contrat du layout incorrect`);
   assertSameJson(mission.layout.objectiveRoles, ['attacker-home', 'defender-home', 'no-mans-land-1', 'no-mans-land-2', 'centre-1', 'centre-2'], `${CLOSED_MISSION_FILENAME}.layout.objectiveRoles`);
   assertSameJson(mission.layout.deterministicGeometry, {
-    status: 'pending-transcription',
+    status: 'compiled-human-reviewed',
+    measurementArtifact: 'gdm-2026-layout-measurements.json',
+    measurementLayoutId: 'disruption-mirror-1',
+    geometryArtifact: 'core-poc-layout.json',
+    geometryLayoutId: CORE_POC_LAYOUT_ID,
     requiredFor: 'SIM-M9-T03',
-    note: "Le diagramme mesuré est archivé et lisible ; les coordonnées d'objectifs, zones de déploiement et polygones de terrain doivent encore être transcrits puis testés avant la partie UI."
+    note: 'Les 32 repères sont liés aux treize baseplates ; objectifs, zones et 28 volumes physiques sont compilés selon la convention propriétaire ADR-023.'
   }, `${CLOSED_MISSION_FILENAME}.layout.deterministicGeometry`);
   await assertApprovedGdmAsset(gdmContext, mission.layout.measuredAsset, layout.measurementsImage, `${CLOSED_MISSION_FILENAME}.layout.measuredAsset`);
 
@@ -436,8 +672,8 @@ async function validateClosedCompleteGameMission(dataDirectory, manifest, gdmCon
   }, `${CLOSED_MISSION_FILENAME}.globalScoringLimits`);
   assertSameJson(mission.executionReadiness, {
     sourceDataCovered: true,
-    scoringEngine: 'pending-SIM-M9-T02',
-    deterministicSpatialLayout: 'pending-SIM-M9-T03',
+    scoringEngine: 'implemented-SIM-M9-T02',
+    deterministicSpatialLayout: 'compiled-human-reviewed',
     playable: false
   }, `${CLOSED_MISSION_FILENAME}.executionReadiness`);
   return mission;
@@ -612,7 +848,7 @@ function validateFullGameCoverage(fullGameCoverage, manifest, knownSourceReferen
     'full-game-coverage: provenance exacte de coverage.terrain-objectives'
   );
   const missionNode = nodesById.get('coverage.mission');
-  assert(missionNode.status === 'partial' && missionNode.blockingGapIds.length === 0, 'full-game-coverage: coverage.mission doit rester partial sans gap de source avant M9-T02');
+  assert(missionNode.status === 'covered' && missionNode.blockingGapIds.length === 0, 'full-game-coverage: coverage.mission doit être covered après le moteur ScoreEvent M9-T02');
   assertSameJson(missionNode.sourceRefs, MISSION_COVERAGE_SOURCE_REFS, 'full-game-coverage: provenance exacte de coverage.mission');
   const stratagemNode = nodesById.get('coverage.stratagems');
   assert(stratagemNode.status === 'partial', 'full-game-coverage: coverage.stratagems doit rester partial après les deux verticales M8-T03');
@@ -670,6 +906,351 @@ function validateFullGameCoverage(fullGameCoverage, manifest, knownSourceReferen
   assert(completeGameNode && completeGameNode.status !== 'covered', 'full-game-coverage: la partie complète ne doit pas être annoncée couverte');
   const openGapIds = gapIds.filter((gapId) => gapsById.get(gapId).status !== 'resolved');
   assertSameJson([...completeGameNode.blockingGapIds].sort(), [...openGapIds].sort(), 'full-game-coverage: tous les gaps ouverts doivent bloquer la partie complète');
+}
+
+function validateCorePocCoverage(document, manifest) {
+  assertExactKeys(document, [
+    'schemaVersion', 'version', 'manifestVersion', 'scope', 'status', 'decisionReference', 'technicalDecisionReference',
+    'catalogPolicy', 'canonicalSourceIds', 'excludedContent', 'technicalLimitations', 'physicalConvention',
+    'forces', 'requirements', 'readiness'
+  ], 'core-poc-coverage.json');
+  assert(document.schemaVersion === CORE_POC_COVERAGE_SCHEMA, 'core-poc-coverage.json: schemaVersion incompatible');
+  assert(document.version === '1.1.0' && document.manifestVersion === manifest.version, 'core-poc-coverage.json: version incompatible');
+  assert(document.scope === CORE_POC_SCOPE && document.status === 'covered'
+    && document.decisionReference === 'ADR-022' && document.technicalDecisionReference === 'ADR-025',
+  'core-poc-coverage.json: identité POC technique invalide');
+
+  assertExactKeys(document.catalogPolicy, [
+    'coverageClaim', 'supportedUnitIds', 'supportedFactionIds', 'unitSubjectType',
+    'allowsRosterDraftImport', 'statement'
+  ], 'core-poc-coverage.catalogPolicy');
+  assert(document.catalogPolicy.coverageClaim === 'none'
+    && document.catalogPolicy.unitSubjectType === 'fixture-unit'
+    && document.catalogPolicy.allowsRosterDraftImport === false
+    && document.catalogPolicy.supportedUnitIds.length === 0
+    && document.catalogPolicy.supportedFactionIds.length === 0,
+  'core-poc-coverage: aucune couverture de catalogue, faction ou RosterDraft n’est autorisée');
+  assert(typeof document.catalogPolicy.statement === 'string' && document.catalogPolicy.statement.length > 0, 'core-poc-coverage: déclaration de limite catalogue requise');
+
+  const manifestSourceIds = manifest.sources.map((source) => source.id);
+  uniqueStrings(document.canonicalSourceIds, 'core-poc-coverage.canonicalSourceIds');
+  assert(document.canonicalSourceIds.every((sourceId) => manifestSourceIds.includes(sourceId)), 'core-poc-coverage: source orpheline');
+  assert(document.canonicalSourceIds.every((sourceId) => !/(?:faction-pack|catalog|codex)/i.test(sourceId)), 'core-poc-coverage: source de codex, faction ou catalogue interdite');
+
+  const requiredExclusionIds = [
+    'army-codex-data', 'army-rules', 'catalog-points-and-legality', 'datasheet-abilities',
+    'detachment-rules', 'enhancements', 'faction-stratagems'
+  ];
+  assert(Array.isArray(document.excludedContent), 'core-poc-coverage.excludedContent: tableau requis');
+  uniqueStrings(document.excludedContent.map((entry) => entry.id), 'core-poc-coverage.excludedContent');
+  assertSameJson(document.excludedContent.map((entry) => entry.id).sort(), requiredExclusionIds, 'core-poc-coverage: exclusions de codex exactes requises');
+  for (const exclusion of document.excludedContent) {
+    assertExactKeys(exclusion, ['id', 'status', 'reason'], `core-poc-coverage.excludedContent.${exclusion.id}`);
+    assert(exclusion.status === 'excluded-from-poc' && typeof exclusion.reason === 'string' && exclusion.reason.length > 0, `core-poc-coverage: exclusion invalide ${exclusion.id}`);
+  }
+
+  const requiredTechnicalLimitations = [
+    ['core-stratagem.command-reroll', ['15.02']],
+    ['core-stratagem.epic-challenge', ['15.03']],
+    ['core-stratagem.overwatch', ['15.08', '15.09']],
+    ['core-stratagem.heroic-intervention', ['15.11']]
+  ];
+  assert(Array.isArray(document.technicalLimitations), 'core-poc-coverage.technicalLimitations: tableau requis');
+  uniqueStrings(document.technicalLimitations.map((entry) => entry.id), 'core-poc-coverage.technicalLimitations');
+  assertSameJson(document.technicalLimitations.map((entry) => entry.id).sort(), requiredTechnicalLimitations.map(([id]) => id).sort(),
+    'core-poc-coverage: quatre limites techniques exactes requises');
+  for (const [limitationId, references] of requiredTechnicalLimitations) {
+    const limitation = document.technicalLimitations.find((entry) => entry.id === limitationId);
+    assertExactKeys(limitation, ['id', 'status', 'ruleReferences', 'reason'], `core-poc-coverage.technicalLimitations.${limitationId}`);
+    assert(limitation.status === 'unsupported-in-technical-poc' && typeof limitation.reason === 'string' && limitation.reason.length > 0,
+      `core-poc-coverage: limite technique invalide ${limitationId}`);
+    assertSameJson(limitation.ruleReferences, references, `core-poc-coverage: références invalides pour ${limitationId}`);
+  }
+
+  assertExactKeys(document.physicalConvention, [
+    'status', 'requestedScope', 'profileIds', 'basis', 'reviewedBy', 'reviewedAt'
+  ], 'core-poc-coverage.physicalConvention');
+  assert(document.physicalConvention.status === 'human-reviewed'
+    && document.physicalConvention.requestedScope === CORE_POC_SCOPE
+    && document.physicalConvention.reviewedBy === 'project-owner'
+    && document.physicalConvention.reviewedAt === '2026-08-31',
+  'core-poc-coverage: la convention physique approuvée doit rester liée à ADR-023');
+  uniqueStrings(document.physicalConvention.profileIds, 'core-poc-coverage.physicalConvention.profileIds');
+  assertSameJson(document.physicalConvention.profileIds, [APPROVED_PROFILE_ID], 'core-poc-coverage: proposition physique bornée requise');
+
+  assert(Array.isArray(document.forces) && document.forces.length === 2, 'core-poc-coverage: exactement deux forces requises');
+  uniqueStrings(document.forces.map((force) => force.id), 'core-poc-coverage.forces');
+  uniqueStrings(document.forces.map((force) => force.playerId), 'core-poc-coverage.players');
+  const fixtureUnits = document.forces.flatMap((force) => force.units);
+  uniqueStrings(fixtureUnits.map((unit) => unit.id), 'core-poc-coverage.fixtureUnits');
+  assert(document.forces.every((force) => force.units.length === 3
+    && force.units.filter((unit) => unit.role === 'character').length === 1),
+  'core-poc-coverage: trois fixtures et un personnage par force requis');
+  for (const unit of fixtureUnits) {
+    assertExactKeys(unit, ['id', 'subjectType', 'role', 'modelCount', 'physicalProfileId', 'runtimeStatus'], `core-poc-coverage.fixture.${unit.id}`);
+    assert(unit.subjectType === 'fixture-unit'
+      && (unit.role === 'line' || unit.role === 'character')
+      && Number.isInteger(unit.modelCount) && unit.modelCount > 0
+      && unit.physicalProfileId === APPROVED_PROFILE_ID
+      && unit.runtimeStatus === 'ready', `core-poc-coverage: fixture invalide ${unit.id}`);
+  }
+
+  assert(Array.isArray(document.requirements) && document.requirements.length > 0, 'core-poc-coverage.requirements: tableau requis');
+  uniqueStrings(document.requirements.map((requirement) => requirement.id), 'core-poc-coverage.requirements');
+  const allowedKinds = new Set(['core-rule', 'core-stratagem', 'mission-rule', 'project-physical-convention', 'runtime', 'persistence', 'ui']);
+  const allowedStatuses = new Set(['covered', 'partial', 'planned']);
+  for (const requirement of document.requirements) {
+    assertExactKeys(requirement, ['id', 'kind', 'required', 'status', 'sourceIds', 'note'], `core-poc-coverage.requirement.${requirement.id}`);
+    assert(allowedKinds.has(requirement.kind) && typeof requirement.required === 'boolean' && allowedStatuses.has(requirement.status), `core-poc-coverage: exigence invalide ${requirement.id}`);
+    assert(requirement.required === true || (requirement.id === 'poc.common-stratagems' && requirement.status === 'partial'),
+      `core-poc-coverage: seule la limite ADR-025 peut être non bloquante (${requirement.id})`);
+    uniqueStrings(requirement.sourceIds, `core-poc-coverage.requirement.${requirement.id}.sourceIds`);
+    assert(requirement.sourceIds.every((sourceId) => document.canonicalSourceIds.includes(sourceId)), `core-poc-coverage: source d’exigence orpheline ${requirement.id}`);
+    assert(typeof requirement.note === 'string' && requirement.note.length > 0, `core-poc-coverage: note absente ${requirement.id}`);
+  }
+  const expectedBlockingIds = document.requirements.filter((requirement) => requirement.required && requirement.status !== 'covered').map((requirement) => requirement.id);
+  assertExactKeys(document.readiness, ['compatible', 'blockingRequirementIds', 'pendingOwnerActions'], 'core-poc-coverage.readiness');
+  assert(document.readiness.compatible === true, 'core-poc-coverage: le POC technique validé doit être compatible dans son périmètre ADR-025');
+  assertSameJson(document.readiness.blockingRequirementIds, expectedBlockingIds, 'core-poc-coverage: blockers incomplets');
+  assert(Array.isArray(document.readiness.pendingOwnerActions) && document.readiness.pendingOwnerActions.length === 0,
+    'core-poc-coverage: aucune action propriétaire physique ne doit rester après ADR-023');
+}
+
+function validateCorePocLayout(document, measurements, manifest) {
+  assertExactKeys(document, [
+    'schemaVersion', 'version', 'manifestVersion', 'scope', 'id', 'status', 'source',
+    'board', 'deploymentZones', 'objectives', 'terrain', 'measurementBindings', 'physicalConvention'
+  ], 'core-poc-layout.json');
+  assert(document.schemaVersion === CORE_POC_LAYOUT_SCHEMA
+    && document.version === '1.0.0'
+    && document.manifestVersion === manifest.version
+    && document.scope === CORE_POC_SCOPE
+    && document.id === CORE_POC_LAYOUT_ID
+    && document.status === 'covered', 'core-poc-layout.json: identité ou statut incompatible');
+  assertSameJson(document.board, {
+    widthTenthsInch: 440,
+    heightTenthsInch: 600,
+    origin: 'top-left',
+    worldUnitsPerInch: 254
+  }, 'core-poc-layout.json.board');
+
+  const measuredLayout = measurements.layouts.find((layout) => layout.layoutId === 'disruption-mirror-1');
+  assert(measuredLayout?.status === 'verified' && measuredLayout.measurementCount === 32,
+    'core-poc-layout.json: layout mesuré vérifié requis');
+  assertExactKeys(document.source, [
+    'sourceId', 'measurementArtifact', 'measurementLayoutId', 'measuredImageSha256',
+    'plainImageSha256', 'boardRectPx', 'transcription'
+  ], 'core-poc-layout.json.source');
+  assert(document.source.sourceId === APPROVED_GDM_LAYOUT_SOURCE_ID
+    && document.source.measurementArtifact === manifest.artifacts.gdmLayoutMeasurements
+    && document.source.measurementLayoutId === measuredLayout.layoutId
+    && document.source.measuredImageSha256 === measuredLayout.sourceImage.localMeasuredSha256
+    && document.source.plainImageSha256 === measuredLayout.sourceImage.localPlainSha256,
+  'core-poc-layout.json: provenance image ou mesures incohérente');
+  assertSameJson(document.source.boardRectPx, measuredLayout.boardRectPx, 'core-poc-layout.json.source.boardRectPx');
+  assertExactKeys(document.source.transcription, ['baseplates', 'features', 'objectives', 'deployment'], 'core-poc-layout.json.source.transcription');
+  assert(Object.values(document.source.transcription).every((value) => typeof value === 'string' && value.length > 0),
+    'core-poc-layout.json: méthode de transcription requise');
+
+  const pointInsideBoard = (point) => Number.isInteger(point?.x) && Number.isInteger(point?.y)
+    && point.x >= 0 && point.x <= 440 && point.y >= 0 && point.y <= 600;
+  const validatePolygon = (polygon, label) => {
+    assert(Array.isArray(polygon) && polygon.length >= 3 && polygon.every(pointInsideBoard), `${label}: polygone entier dans le plateau requis`);
+  };
+  const boundsFor = (polygon) => ({
+    minX: Math.min(...polygon.map((point) => point.x)),
+    minY: Math.min(...polygon.map((point) => point.y)),
+    maxX: Math.max(...polygon.map((point) => point.x)),
+    maxY: Math.max(...polygon.map((point) => point.y))
+  });
+
+  assert(Array.isArray(document.deploymentZones) && document.deploymentZones.length === 2,
+    'core-poc-layout.json: deux zones de déploiement requises');
+  uniqueStrings(document.deploymentZones.map((zone) => zone.id), 'core-poc-layout.deploymentZones');
+  assertSameJson(document.deploymentZones.map((zone) => zone.role).sort(), ['attacker', 'defender'],
+    'core-poc-layout.json: rôles de déploiement exacts requis');
+  document.deploymentZones.forEach((zone) => validatePolygon(zone.polygonTenthsInch, `core-poc-layout.zone.${zone.id}`));
+
+  const objectiveRoles = ['attacker-home', 'defender-home', 'no-mans-land-1', 'no-mans-land-2', 'centre-1', 'centre-2'];
+  assert(Array.isArray(document.objectives) && document.objectives.length === 6,
+    'core-poc-layout.json: six objectifs requis');
+  uniqueStrings(document.objectives.map((objective) => objective.id), 'core-poc-layout.objectives');
+  assertSameJson(document.objectives.map((objective) => objective.role).sort(), objectiveRoles.sort(),
+    'core-poc-layout.json: rôles objectifs exacts requis');
+  const rect = document.source.boardRectPx;
+  for (const objective of document.objectives) {
+    assert(pointInsideBoard(objective.centerTenthsInch)
+      && Number.isFinite(objective.sourceCenterPx?.x) && Number.isFinite(objective.sourceCenterPx?.y),
+    `core-poc-layout.objective.${objective.id}: centre invalide`);
+    assertSameJson(objective.centerTenthsInch, {
+      x: Math.round((objective.sourceCenterPx.x - rect.left) * 440 / (rect.right - rect.left)),
+      y: Math.round((objective.sourceCenterPx.y - rect.top) * 600 / (rect.bottom - rect.top))
+    }, `core-poc-layout.objective.${objective.id}: projection pixel/plateau`);
+  }
+
+  assert(Array.isArray(document.terrain) && document.terrain.length === 13,
+    'core-poc-layout.json: treize baseplates requises');
+  uniqueStrings(document.terrain.map((terrain) => terrain.id), 'core-poc-layout.terrain');
+  const featureIds = document.terrain.flatMap((terrain) => terrain.features.map((feature) => feature.id));
+  uniqueStrings(featureIds, 'core-poc-layout.features');
+  assert(featureIds.length === 28, 'core-poc-layout.json: vingt-huit aplats de caractéristiques requis');
+  const terrainById = new Map();
+  for (const terrain of document.terrain) {
+    validatePolygon(terrain.baseplateTenthsInch, `core-poc-layout.terrain.${terrain.id}`);
+    uniqueStrings((terrain.anchors ?? []).map((anchor) => anchor.id), `core-poc-layout.terrain.${terrain.id}.anchors`);
+    uniqueStrings((terrain.subregions ?? []).map((subregion) => subregion.id), `core-poc-layout.terrain.${terrain.id}.subregions`);
+    assert((terrain.anchors ?? []).every((anchor) => pointInsideBoard(anchor.pointTenthsInch)),
+      `core-poc-layout.terrain.${terrain.id}: ancre hors plateau`);
+    for (const feature of terrain.features) {
+      assert(feature.kind === 'ruin-wall' || feature.kind === 'obstacle', `core-poc-layout.feature.${feature.id}: type invalide`);
+      validatePolygon(feature.polygonTenthsInch, `core-poc-layout.feature.${feature.id}`);
+    }
+    terrainById.set(terrain.id, terrain);
+  }
+
+  const measurementById = new Map(measuredLayout.measurements.map((measurement) => [measurement.measurementId, measurement]));
+  assert(Array.isArray(document.measurementBindings) && document.measurementBindings.length === 32,
+    'core-poc-layout.json: 32 liaisons de mesures requises');
+  uniqueStrings(document.measurementBindings.map((binding) => binding.measurementId), 'core-poc-layout.measurementBindings');
+  assertSameJson(document.measurementBindings.map((binding) => binding.measurementId),
+    Array.from({ length: 32 }, (_, index) => `m${String(index + 1).padStart(3, '0')}`),
+    'core-poc-layout.json: ordre complet des liaisons de mesures');
+  for (const binding of document.measurementBindings) {
+    const measurement = measurementById.get(binding.measurementId);
+    const terrain = terrainById.get(binding.subjectId);
+    assert(measurement?.status === 'verified' && terrain, `core-poc-layout.binding.${binding.measurementId}: liaison orpheline`);
+    const [subject, property] = binding.target.split('.');
+    let value;
+    if (subject === 'baseplate') {
+      const bounds = boundsFor(terrain.baseplateTenthsInch);
+      value = bounds[property];
+    } else if (subject?.startsWith('anchor:')) {
+      const anchor = (terrain.anchors ?? []).find((candidate) => candidate.id === subject.slice('anchor:'.length));
+      value = anchor?.pointTenthsInch?.[property];
+    } else if (subject?.startsWith('subregion:')) {
+      const subregion = (terrain.subregions ?? []).find((candidate) => candidate.id === subject.slice('subregion:'.length));
+      value = subregion?.boundsTenthsInch?.[property];
+    }
+    const expectedAxis = property?.endsWith('X') || property === 'x' ? 'x' : 'y';
+    assert(Number.isInteger(value) && expectedAxis === measurement.axis && value === measurement.coordinateTenthsOfInch,
+      `core-poc-layout.binding.${binding.measurementId}: cible incompatible avec la mesure vérifiée`);
+  }
+
+  assertExactKeys(document.physicalConvention, [
+    'status', 'baseplateRuleIds', 'featureSemantics', 'ruinWallHeightWorldUnits',
+    'obstacleHeightWorldUnits', 'reviewedBy', 'reviewedAt', 'reviewRequest'
+  ], 'core-poc-layout.physicalConvention');
+  assert(document.physicalConvention.status === 'human-reviewed'
+    && document.physicalConvention.featureSemantics === 'executable'
+    && document.physicalConvention.ruinWallHeightWorldUnits === 1_270
+    && document.physicalConvention.obstacleHeightWorldUnits === 508
+    && document.physicalConvention.reviewedBy === 'project-owner'
+    && document.physicalConvention.reviewedAt === '2026-08-31'
+    && Array.isArray(document.physicalConvention.reviewRequest)
+    && document.physicalConvention.reviewRequest.length === 0,
+  'core-poc-layout.json: propriétés physiques approuvées par ADR-023 requises');
+  assertSameJson(document.physicalConvention.baseplateRuleIds, [COVER_RULE_ID],
+    'core-poc-layout.json: règle de baseplate attendue');
+}
+
+function validateCorePocFixtures(document, coverage, physicalProfiles, manifest) {
+  assertExactKeys(document, [
+    'schemaVersion', 'version', 'manifestVersion', 'scope', 'status', 'sourceId',
+    'coverageClaim', 'statement', 'templates', 'unitTemplateByFixtureId'
+  ], 'core-poc-fixtures.json');
+  assert(document.schemaVersion === CORE_POC_FIXTURES_SCHEMA
+    && document.version === '1.0.0'
+    && document.manifestVersion === manifest.version
+    && document.scope === CORE_POC_SCOPE
+    && document.status === 'ready'
+    && document.sourceId === CORE_POC_FIXTURE_SOURCE_ID
+    && document.coverageClaim === 'none', 'core-poc-fixtures.json: identité ou statut incompatible');
+  const source = manifest.sources.find((candidate) => candidate.id === document.sourceId);
+  assert(source?.kind === 'project-fixture-convention'
+    && source.version === document.version
+    && source.status === 'reference-only'
+    && source.decisionReference === 'ADR-022'
+    && source.coverageClaim === 'none', 'core-poc-fixtures.json: source de convention locale invalide');
+  assert(typeof document.statement === 'string' && document.statement.includes('synthétiques')
+    && document.statement.includes('aucune datasheet') && document.statement.includes('aucune') && document.statement.includes('codex'),
+  'core-poc-fixtures.json: limite synthétique explicite requise');
+
+  const pocPhysicalConvention = physicalProfiles.conventions.find((candidate) => candidate.id === CORE_POC_PHYSICAL_CONVENTION_ID);
+  assertExactKeys(pocPhysicalConvention, [
+    'id', 'kind', 'title', 'version', 'effectiveDate', 'decisionReference', 'scope',
+    'reviewedBy', 'reviewedAt', 'statement'
+  ], `physical-profiles.conventions.${CORE_POC_PHYSICAL_CONVENTION_ID}`);
+  assert(pocPhysicalConvention.kind === 'local-reviewed-decision'
+    && pocPhysicalConvention.version === '1.0.0'
+    && pocPhysicalConvention.effectiveDate === '2026-08-31'
+    && pocPhysicalConvention.decisionReference === 'ADR-023'
+    && pocPhysicalConvention.scope === CORE_POC_SCOPE
+    && pocPhysicalConvention.reviewedBy === 'project-owner'
+    && pocPhysicalConvention.reviewedAt === '2026-08-31'
+    && pocPhysicalConvention.statement.includes(APPROVED_PROFILE_ID)
+    && pocPhysicalConvention.statement.includes('sans codex'),
+  `physical-profiles.conventions.${CORE_POC_PHYSICAL_CONVENTION_ID}: extension POC approuvée requise`);
+
+  assert(Array.isArray(document.templates) && document.templates.length === 2,
+    'core-poc-fixtures.json: deux templates requis');
+  uniqueStrings(document.templates.map((template) => template.id), 'core-poc-fixtures.templates');
+  assertSameJson(document.templates.map((template) => template.role).sort(), ['character', 'line'],
+    'core-poc-fixtures.json: rôles line/character requis');
+  const profileIds = new Set(physicalProfiles.profiles.map((profile) => profile.id));
+  const sharedWeapons = new Map();
+  for (const template of document.templates) {
+    assertExactKeys(template, ['id', 'role', 'physicalProfileId', 'keywords', 'characteristics', 'weapons'],
+      `core-poc-fixtures.template.${template.id}`);
+    assert(profileIds.has(template.physicalProfileId) && template.physicalProfileId === APPROVED_PROFILE_ID,
+      `core-poc-fixtures.template.${template.id}: profil physique invalide`);
+    uniqueStrings(template.keywords, `core-poc-fixtures.template.${template.id}.keywords`);
+    assert(template.keywords.includes('INFANTRY')
+      && (template.role !== 'character' || template.keywords.includes('CHARACTER')),
+    `core-poc-fixtures.template.${template.id}: mots-clés incompatibles`);
+    assertExactKeys(template.characteristics, [
+      'movement', 'toughness', 'save', 'wounds', 'leadership', 'objectiveControl'
+    ], `core-poc-fixtures.template.${template.id}.characteristics`);
+    assert(Object.values(template.characteristics).every((value) => Number.isInteger(value) && value > 0)
+      && template.characteristics.save <= 6 && template.characteristics.leadership <= 12,
+    `core-poc-fixtures.template.${template.id}: caractéristiques invalides`);
+    assert(Array.isArray(template.weapons) && template.weapons.length === 2
+      && template.weapons.some((weapon) => weapon.weaponType === 'ranged')
+      && template.weapons.some((weapon) => weapon.weaponType === 'melee'),
+    `core-poc-fixtures.template.${template.id}: une arme de tir et une arme de mêlée requises`);
+    for (const weapon of template.weapons) {
+      assertExactKeys(weapon, [
+        'id', 'name', 'weaponType', 'range', 'attacks', 'skill', 'strength', 'armourPenetration', 'damage'
+      ], `core-poc-fixtures.weapon.${weapon.id}`);
+      assert(typeof weapon.id === 'string' && weapon.id.startsWith('core-poc-')
+        && typeof weapon.name === 'string' && weapon.name.length > 0
+        && (weapon.weaponType === 'ranged' || weapon.weaponType === 'melee')
+        && Number.isInteger(weapon.range) && weapon.range >= 0
+        && (weapon.weaponType === 'melee' ? weapon.range === 0 : weapon.range > 0)
+        && Number.isInteger(weapon.attacks) && weapon.attacks > 0
+        && Number.isInteger(weapon.skill) && weapon.skill >= 2 && weapon.skill <= 6
+        && Number.isInteger(weapon.strength) && weapon.strength > 0
+        && Number.isInteger(weapon.armourPenetration)
+        && Number.isInteger(weapon.damage) && weapon.damage > 0,
+      `core-poc-fixtures.weapon.${weapon.id}: profil numérique invalide`);
+      const existing = sharedWeapons.get(weapon.id);
+      assert(existing === undefined || JSON.stringify(existing) === JSON.stringify(weapon),
+        `core-poc-fixtures.weapon.${weapon.id}: copies partagées incohérentes`);
+      sharedWeapons.set(weapon.id, weapon);
+    }
+  }
+  assertSameJson([...sharedWeapons.keys()].sort(), [
+    'core-poc-command-blade-v1', 'core-poc-training-blade-v1', 'core-poc-training-rifle-v1'
+  ], 'core-poc-fixtures.json: inventaire d’armes exact requis');
+
+  const fixtureUnits = coverage.forces.flatMap((force) => force.units);
+  const fixtureIds = fixtureUnits.map((unit) => unit.id).sort();
+  assertSameJson(Object.keys(document.unitTemplateByFixtureId).sort(), fixtureIds,
+    'core-poc-fixtures.json: association exhaustive aux six fixtures requise');
+  const templateById = new Map(document.templates.map((template) => [template.id, template]));
+  for (const fixture of fixtureUnits) {
+    const template = templateById.get(document.unitTemplateByFixtureId[fixture.id]);
+    assert(template?.role === fixture.role, `core-poc-fixtures.json: rôle de template incohérent pour ${fixture.id}`);
+  }
 }
 
 function assertNoLegacyPointFields(value, label) {
@@ -1163,10 +1744,15 @@ export async function validateSimulatorData(options = {}) {
 
   const approvedGdmSource = manifest.sources.find((source) => source.id === APPROVED_GDM_SOURCE_ID);
   const approvedGdmContext = await assertApprovedGdmMissionArchiveSource(approvedGdmSource ?? {});
+  const approvedGdmLayoutSource = manifest.sources.find((source) => source.id === APPROVED_GDM_LAYOUT_SOURCE_ID);
+  const approvedGdmLayoutContext = await assertApprovedGdmLayoutImageSource(approvedGdmLayoutSource ?? {});
 
   const artifactEntries = Object.entries(manifest.artifacts ?? {});
-  assertExactKeys(manifest.artifacts, ['coverage', 'physicalProfiles', 'scenarios', 'rulepacks', 'fullGameCoverage', 'closedCompleteGameMission'], 'manifest.json.artifacts');
-  assert(artifactEntries.length === 6, 'manifest.json: six artefacts contractuels requis');
+  assertExactKeys(manifest.artifacts, [
+    'coverage', 'physicalProfiles', 'scenarios', 'rulepacks', 'fullGameCoverage',
+    'closedCompleteGameMission', 'gdmLayoutMeasurements', 'corePocCoverage', 'corePocLayout', 'corePocFixtures'
+  ], 'manifest.json.artifacts');
+  assert(artifactEntries.length === 10, 'manifest.json: dix artefacts contractuels requis');
   const loaded = new Map();
   for (const [, filename] of artifactEntries) {
     assert(typeof filename === 'string' && !filename.includes('..'), 'manifest.json: chemin d’artefact invalide');
@@ -1192,9 +1778,14 @@ export async function validateSimulatorData(options = {}) {
   const scenarios = loaded.get(manifest.artifacts.scenarios);
   const rulepacks = loaded.get(manifest.artifacts.rulepacks);
   const fullGameCoverage = loaded.get(manifest.artifacts.fullGameCoverage);
+  const corePocCoverage = loaded.get(manifest.artifacts.corePocCoverage);
+  const corePocLayout = loaded.get(manifest.artifacts.corePocLayout);
+  const corePocFixtures = loaded.get(manifest.artifacts.corePocFixtures);
+  const gdmLayoutMeasurements = loaded.get(manifest.artifacts.gdmLayoutMeasurements);
   assert(physicalProfiles.schemaVersion === 'warforge-simulator-physical-profiles/v1' && Array.isArray(physicalProfiles.profiles), 'physical-profiles.json: contrat invalide');
   assert(scenarios.schemaVersion === 'warforge-simulator-scenarios/v1' && Array.isArray(scenarios.scenarios), 'scenarios.json: contrat invalide');
   assert(rulepacks.schemaVersion === 'warforge-simulator-rulepacks/v1' && Array.isArray(rulepacks.rulepacks), 'rulepacks.json: contrat invalide');
+  await validateGdmLayoutMeasurements(gdmLayoutMeasurements, manifest, approvedGdmLayoutContext, dataDirectory);
   const [officialAppFaq, officialAppReferences, officialAppErrata, officialAppSupplementalRules] = await Promise.all([
     readFile(officialAppFaqPath, 'utf8').then(JSON.parse),
     readFile(officialAppReferencesPath, 'utf8').then(JSON.parse),
@@ -1208,11 +1799,20 @@ export async function validateSimulatorData(options = {}) {
     [OFFICIAL_APP_SUPPLEMENTAL_RULES_SOURCE_ID, new Set(officialAppSupplementalRules.sections.map((section) => section.id))]
   ]);
   validateFullGameCoverage(fullGameCoverage, manifest, knownSourceReferencesById);
+  validateCorePocCoverage(corePocCoverage, manifest);
+  validateCorePocLayout(corePocLayout, gdmLayoutMeasurements, manifest);
+  validateCorePocFixtures(corePocFixtures, corePocCoverage, physicalProfiles, manifest);
   assertNoCatalogIdentity(manifest, 'manifest.json');
   assertNoCatalogIdentity(coverage, 'coverage.json', '', new Set(['supportedUnitIds']));
   assertNoCatalogIdentity(physicalProfiles, 'physical-profiles.json');
   assertNoCatalogIdentity(scenarios, 'scenarios.json');
   assertNoCatalogIdentity(rulepacks, 'rulepacks.json');
+  assertNoCatalogIdentity(gdmLayoutMeasurements, 'gdm-2026-layout-measurements.json');
+  assertNoCatalogIdentity(corePocCoverage, 'core-poc-coverage.json', '', new Set([
+    'catalogPolicy.supportedUnitIds'
+  ]));
+  assertNoCatalogIdentity(corePocLayout, 'core-poc-layout.json');
+  assertNoCatalogIdentity(corePocFixtures, 'core-poc-fixtures.json');
 
   const profileIds = physicalProfiles.profiles.map((profile) => profile.id);
   const scenarioIds = scenarios.scenarios.map((scenario) => scenario.id);

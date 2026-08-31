@@ -85,8 +85,8 @@ describe('M6 closed complete-game compatibility compiler', () => {
       })
     ]);
     expect(report.unmetRequirements.map((requirement) => requirement.nodeId)).toEqual([
-      'coverage.charge-phase', 'coverage.complete-game', 'coverage.core-foundations',
-      'coverage.fight-phase', 'coverage.mission', 'coverage.movement-phase', 'coverage.rosters',
+      'coverage.charge-phase', 'coverage.complete-game',
+      'coverage.fight-phase', 'coverage.movement-phase', 'coverage.rosters',
       'coverage.shooting-phase', 'coverage.stratagems', 'coverage.terrain-objectives'
     ]);
     expect(report.blockingGaps.map((gap) => gap.gapId)).toEqual([
@@ -99,7 +99,7 @@ describe('M6 closed complete-game compatibility compiler', () => {
     expect(report.missingSources.map((source) => source.subjectId)).toEqual([
       'GAP-M6-NONCORE-001'
     ]);
-    expect(report.issues).toHaveLength(23);
+    expect(report.issues).toHaveLength(21);
     expect(report.issues).toContainEqual(expect.objectContaining({ code: 'coverage-graph-not-covered', subjectId: 'closed-complete-game-pilot-v1' }));
   });
 

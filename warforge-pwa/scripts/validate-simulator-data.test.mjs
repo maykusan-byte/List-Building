@@ -24,7 +24,7 @@ describe('simulator data contract', () => {
   it('validates the closed duel and keeps the complete-game pilot blocked', async () => {
     const { manifest } = await validateSimulatorData();
     expect(manifest.schemaVersion).toBe('warforge-simulator-manifest/v1');
-    expect(manifest.version).toBe('0.7.0');
+    expect(manifest.version).toBe('0.8.0');
     expect(manifest.sources).toContainEqual(expect.objectContaining({
       id: 'warforge-event-companion-fr-2026-07',
       version: '1.1',
@@ -45,6 +45,43 @@ describe('simulator data contract', () => {
       officialGwPublication: false,
       sha256: 'a8320287a3fbdde6fb126dee241374110a086383fd2b1cd5012e5a09bb3ccc71'
     }));
+    expect(manifest.sources).toContainEqual(expect.objectContaining({
+      id: 'approved-gdm-2026-layout-images',
+      kind: 'trusted-layout-image-archive',
+      status: 'project-approved',
+      reviewedBy: 'project-owner',
+      expectedImageCount: 45,
+      officialGwPublication: false,
+      sha256: 'eb14ab96304ee6db152995f8704f5f1c80e73e432e2aa0e7989aacf4eb859c45',
+      reviewQueueSha256: '7d73597fec69bce974034e9c63b4c82431b7e0eb6decd51394e18774bd916849',
+      measurementArtifactSha256: '4a84d1e7ff40cbb2c40b9184e53af239df1d96bdaa845c8f0ed1a024ef1f15cf'
+    }));
+  });
+
+  it.each([
+    ['a missing layout', (document) => { document.layouts.pop(); }, /45 layouts et 32 mesures/],
+    ['a changed edge coordinate', (document) => { document.layouts[0].measurements[0].coordinateTenthsOfInch += 1; }, /conversion bord\/axe incohérente/],
+    ['an unresolved measurement', (document) => { document.layouts[0].measurements[0].status = 'review_required'; }, /revue incomplète/],
+    ['a forged source-image hash', (document) => { document.layouts[0].sourceImage.localMeasuredSha256 = '0'.repeat(64); }, /sourceImage/],
+    ['a coherently rewritten printed value', (document) => {
+      const item = document.layouts[0].measurements[0];
+      item.printedTenthsOfInch += 1;
+      item.coordinateTenthsOfInch += 1;
+      item.worldCoordinate.numerator = item.coordinateTenthsOfInch * 254;
+      item.worldCoordinate.roundedWorldUnits = Math.round(item.worldCoordinate.numerator / 10);
+    }, /empreinte canonique incompatible/]
+  ])('rejects GDM layout measurement drift: %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('gdm-2026-layout-measurements.json', mutate, message);
+  });
+
+  it.each([
+    ['a measurement binding drift', (document) => { document.terrain[0].baseplateTenthsInch[1].y = 40; }, /cible incompatible avec la mesure vérifiée/],
+    ['an objective projection drift', (document) => { document.objectives[0].centerTenthsInch.x += 1; }, /projection pixel\/plateau/],
+    ['a missing approved wall height', (document) => { document.physicalConvention.ruinWallHeightWorldUnits = null; }, /propriétés physiques approuvées/],
+    ['a reopened owner review', (document) => { document.physicalConvention.reviewRequest.push('Revoir'); }, /propriétés physiques approuvées/],
+    ['a downgraded layout status', (document) => { document.status = 'draft-human-review'; }, /identité ou statut incompatible/]
+  ])('rejects core POC layout drift: %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('core-poc-layout.json', mutate, message);
   });
 
   it.each([
@@ -78,6 +115,16 @@ describe('simulator data contract', () => {
     }, /dépendances exactes de coverage.stratagems/]
   ])('rejects full-game coverage drift: %s', async (_label, mutate, message) => {
     await expectInvalidMutation('full-game-coverage.json', mutate, message);
+  });
+
+  it.each([
+    ['a catalog unit claim', (document) => { document.catalogPolicy.supportedUnitIds.push('book-space-marines:unit:18'); }, /aucune couverture de catalogue/],
+    ['a faction source', (document) => { document.canonicalSourceIds.push('warforge-faction-pack-space-marines-fr-2026-07'); }, /source de codex, faction ou catalogue interdite/],
+    ['a missing detachment exclusion', (document) => { document.excludedContent = document.excludedContent.filter((entry) => entry.id !== 'detachment-rules'); }, /exclusions de codex exactes/],
+    ['a missing technical limitation', (document) => { document.technicalLimitations.pop(); }, /quatre limites techniques exactes/],
+    ['an unsupported requirement made blocking again', (document) => { document.requirements.find((entry) => entry.id === 'poc.common-stratagems').required = true; }, /blockers incomplets/]
+  ])('rejects core POC scope drift: %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('core-poc-coverage.json', mutate, message);
   });
 
   it.each([
@@ -215,6 +262,15 @@ describe('simulator data contract', () => {
     ['false official claim', (source) => { source.officialGwPublication = true; }, /officielle GW/]
   ])('rejects the approved GDM source with %s', async (_label, mutate, message) => {
     await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'approved-gdm-2026-11th-archive')), message);
+  });
+
+  it.each([
+    ['forged inventory hash', (source) => { source.sha256 = '0'.repeat(64); }, /URL, empreinte ou cardinalité incohérente|sha256/],
+    ['forged review-queue hash', (source) => { source.reviewQueueSha256 = '0'.repeat(64); }, /URL, empreinte ou cardinalité incohérente|empreinte/],
+    ['missing owner approval', (source) => { delete source.reviewedBy; }, /clés exactes requises|approbation propriétaire/],
+    ['false official claim', (source) => { source.officialGwPublication = true; }, /publication officielle GW/]
+  ])('rejects the approved GDM layout source with %s', async (_label, mutate, message) => {
+    await expectInvalidMutation('manifest.json', (document) => mutate(document.sources.find((source) => source.id === 'approved-gdm-2026-layout-images')), message);
   });
 
   it.each([

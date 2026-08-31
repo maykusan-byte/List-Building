@@ -212,6 +212,46 @@ export interface CompleteGameSessionSetupRefusalV1 {
 
 const CLOSED_PILOT_SCOPE = 'closed-complete-game-pilot-v1';
 const CLOSED_PILOT_COVERAGE_VERSION = '0.8.0';
+const CORE_POC_TECHNICAL_SCOPE = 'closed-complete-game-core-poc-v1';
+const CORE_POC_TECHNICAL_COVERAGE_VERSION = '1.1.0';
+const CORE_POC_TECHNICAL_SATISFIED_REQUIREMENT_IDS = [
+  'poc.battle-sequence',
+  'poc.command-and-resources',
+  'poc.movement',
+  'poc.shooting',
+  'poc.charge',
+  'poc.fight',
+  'poc.objectives',
+  'poc.mission-and-score',
+  'poc.layout-and-terrain',
+  'poc.fixture-runtime',
+  'poc.persistence-and-replay',
+  'poc.offline-ui'
+] as const;
+const CORE_POC_TECHNICAL_LIMITATION_IDS = [
+  'core-stratagem.command-reroll',
+  'core-stratagem.epic-challenge',
+  'core-stratagem.overwatch',
+  'core-stratagem.heroic-intervention'
+] as const;
+const CORE_POC_TECHNICAL_ROSTERS = [
+  {
+    id: 'core-poc-force-a-v1', side: 'poc-a', characterInstanceIds: ['core-poc-a-character-v1'],
+    units: [
+      { instanceId: 'core-poc-a-line-1-v1', unitId: 'core-poc-a-line-1-v1', modelCount: 5, points: 0, origin: 'core-poc-fixture' },
+      { instanceId: 'core-poc-a-line-2-v1', unitId: 'core-poc-a-line-2-v1', modelCount: 5, points: 0, origin: 'core-poc-fixture' },
+      { instanceId: 'core-poc-a-character-v1', unitId: 'core-poc-a-character-v1', modelCount: 1, points: 0, origin: 'core-poc-fixture' }
+    ]
+  },
+  {
+    id: 'core-poc-force-b-v1', side: 'poc-b', characterInstanceIds: ['core-poc-b-character-v1'],
+    units: [
+      { instanceId: 'core-poc-b-line-1-v1', unitId: 'core-poc-b-line-1-v1', modelCount: 5, points: 0, origin: 'core-poc-fixture' },
+      { instanceId: 'core-poc-b-line-2-v1', unitId: 'core-poc-b-line-2-v1', modelCount: 5, points: 0, origin: 'core-poc-fixture' },
+      { instanceId: 'core-poc-b-character-v1', unitId: 'core-poc-b-character-v1', modelCount: 1, points: 0, origin: 'core-poc-fixture' }
+    ]
+  }
+] as const;
 const CLOSED_PILOT_REQUIRED_REACHABLE_NODE_IDS = [
   'coverage.battle-round',
   'coverage.charge-phase',
@@ -330,6 +370,50 @@ export function compatibilityReportFingerprintV2(report: Omit<CompatibilityRepor
   return canonicalJson(report);
 }
 
+function assertCorePocTechnicalCompatibilityReportV2(report: CompatibilityReportV2): void {
+  if (report.coverageVersion !== CORE_POC_TECHNICAL_COVERAGE_VERSION
+    || report.gapStatuses.length !== 0 || report.gapInventory.length !== 0) {
+    throw new RangeError('Core POC technical compatibility identity is invalid.');
+  }
+  const satisfiedIds = report.satisfiedRequirements.map((requirement) => requirement.nodeId).sort(compareText);
+  if (!sameCanonicalValue(satisfiedIds, [...CORE_POC_TECHNICAL_SATISFIED_REQUIREMENT_IDS].sort(compareText))
+    || report.satisfiedRequirements.some((requirement) => !requirement.satisfied || requirement.status !== 'covered'
+      || hasDuplicates(requirement.sourceIds)
+      || !sameCanonicalValue(requirement.sourceIds, uniqueSorted(requirement.sourceRefs.map((sourceRef) => sourceRef.sourceId)))
+      || requirement.sourceRefs.some((sourceRef) => !report.canonicalSourceIds.includes(sourceRef.sourceId)))) {
+    throw new RangeError('Core POC technical satisfied requirements are incomplete.');
+  }
+  const limitationIds = report.nonReachableRequirements.map((requirement) => requirement.nodeId).sort(compareText);
+  if (!sameCanonicalValue(limitationIds, [...CORE_POC_TECHNICAL_LIMITATION_IDS].sort(compareText))
+    || report.nonReachableRequirements.some((requirement) => requirement.satisfied || requirement.status !== 'deferred'
+      || hasDuplicates(requirement.sourceIds) || requirement.sourceRefs.length === 0
+      || !sameCanonicalValue(requirement.sourceIds, uniqueSorted(requirement.sourceRefs.map((sourceRef) => sourceRef.sourceId)))
+      || requirement.sourceRefs.some((sourceRef) => !report.canonicalSourceIds.includes(sourceRef.sourceId)
+        || sourceRef.references.length === 0))) {
+    throw new RangeError('Core POC technical limitations are incomplete.');
+  }
+
+  const orderedRosters = [...report.rosterCandidates].sort((left, right) => compareText(left.id, right.id));
+  if (orderedRosters.length !== CORE_POC_TECHNICAL_ROSTERS.length) throw new RangeError('Core POC technical roster count is invalid.');
+  for (const expected of CORE_POC_TECHNICAL_ROSTERS) {
+    const roster = orderedRosters.find((candidate) => candidate.id === expected.id);
+    if (!roster || roster.status !== 'covered' || roster.side !== expected.side || roster.expectedPoints !== 0
+      || roster.attachmentPolicy !== 'all-characters-unattached' || roster.blockingGapIds.length !== 0
+      || !sameCanonicalValue([...roster.units].sort((left, right) => compareText(left.instanceId, right.instanceId)), [...expected.units].sort((left, right) => compareText(left.instanceId, right.instanceId)))
+      || !sameCanonicalValue([...roster.characterInstanceIds].sort(compareText), [...expected.characterInstanceIds].sort(compareText))) {
+      throw new RangeError(`Core POC technical roster ${expected.id} is invalid.`);
+    }
+  }
+  const mission = report.missionCandidate;
+  if (mission.id !== 'closed-complete-game-disruption-v1' || mission.status !== 'covered'
+    || mission.primaryMission !== 'Disruption' || mission.deploymentLayout !== 'mirror-layout-1'
+    || mission.blockingGapIds.length !== 0
+    || !sameCanonicalValue(mission.missionRuleBySide, { 'poc-a': 'Outmanoeuvre', 'poc-b': 'Outmanoeuvre' })
+    || !sameCanonicalValue(mission.fixedSecondaryIds, ['Assassination', 'Engage on All Fronts'])) {
+    throw new RangeError('Core POC technical mission is invalid.');
+  }
+}
+
 /**
  * Validates the complete closed-pilot proof, not merely a caller-provided
  * `status: compatible` flag. This is a normal domain boundary and is replay-safe.
@@ -338,8 +422,6 @@ export function assertCompatibleCompatibilityReportV2(report: CompatibilityRepor
   const { canonicalFingerprint, ...reportWithoutFingerprint } = report;
   if (report.schemaVersion !== COMPATIBILITY_REPORT_V2_SCHEMA_VERSION
     || report.reportVersion !== '2.0.0'
-    || report.coverageScope !== CLOSED_PILOT_SCOPE
-    || report.coverageVersion !== CLOSED_PILOT_COVERAGE_VERSION
     || report.coverageStatus !== 'covered'
     || report.compatible !== true
     || typeof report.executableSessionFingerprint !== 'string'
@@ -356,6 +438,14 @@ export function assertCompatibleCompatibilityReportV2(report: CompatibilityRepor
     || report.missingSources.length !== 0
     || report.issues.length !== 0) {
     throw new RangeError('Complete-game compatibility report still contains blockers.');
+  }
+
+  if (report.coverageScope === CORE_POC_TECHNICAL_SCOPE) {
+    assertCorePocTechnicalCompatibilityReportV2(report);
+    return;
+  }
+  if (report.coverageScope !== CLOSED_PILOT_SCOPE || report.coverageVersion !== CLOSED_PILOT_COVERAGE_VERSION) {
+    throw new RangeError('Complete-game compatibility report scope is invalid.');
   }
 
   const satisfiedIds = report.satisfiedRequirements.map((requirement) => requirement.nodeId).sort(compareText);

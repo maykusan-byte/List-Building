@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "warforge-layout-measurement-decisions/v1",
+  "sourceId": "approved-gdm-2026-layout-images",
+  "review": {
+    "reviewedAt": "2026-08-31",
+    "reviewer": "gpt-5.6-sol/direct-visual-review",
+    "method": "Direct inspection of all six bounded review sheets at original detail, followed by direct source-image correction of Disruption Mirror 1 r001; values and arrow directions are read from the source image, not inferred from another layout.",
+    "reviewedQueueSha256": "7d73597fec69bce974034e9c63b4c82431b7e0eb6decd51394e18774bd916849",
+    "reviewedItemCount": 119
+  },
+  "defaultAction": "confirm-current-reading",
+  "decisions": [
+    { "layoutId": "disruption-mirror-1", "regionId": "r001", "action": "confirm", "tenthsOfInch": 41, "fromEdge": "top" },
+    { "layoutId": "disruption-mirror-1", "regionId": "r027", "action": "confirm", "fromEdge": "bottom" },
+    { "layoutId": "disruption-mirror-1", "regionId": "r031", "action": "confirm", "fromEdge": "bottom" },
+
+    { "layoutId": "disruption-mirror-3-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-mirror-3-portrait", "regionId": "r005", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-mirror-3-portrait", "regionId": "r009", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-mirror-3-portrait", "regionId": "r010", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "disruption-vs-priority-assets-1-portrait", "regionId": "r031", "action": "confirm", "tenthsOfInch": 50, "fromEdge": "bottom" },
+    { "layoutId": "disruption-vs-priority-assets-1-portrait", "regionId": "r002", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-priority-assets-1-portrait", "regionId": "r004", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-priority-assets-1-portrait", "regionId": "r008", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-priority-assets-1-portrait", "regionId": "r012", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "disruption-vs-priority-assets-2", "regionId": "r031", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+    { "layoutId": "disruption-vs-priority-assets-2", "regionId": "r032", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+
+    { "layoutId": "disruption-vs-priority-assets-3", "regionId": "r030", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+
+    { "layoutId": "disruption-vs-purge-the-foe-1", "regionId": "r017", "action": "confirm", "tenthsOfInch": 90, "fromEdge": "left" },
+
+    { "layoutId": "disruption-vs-purge-the-foe-2", "regionId": "r010", "action": "replace", "tenthsOfInch": 87, "fromEdge": "left", "labelCenterPx": { "x": 402.246, "y": 1008.499 }, "reason": "The OCR complement was blank terrain; this is the directly visible unrepresented 8.7-inch left-edge cartouche." },
+
+    { "layoutId": "disruption-vs-purge-the-foe-3-portrait", "regionId": "r014", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-purge-the-foe-3-portrait", "regionId": "r028", "action": "confirm", "fromEdge": "left" },
+
+    { "layoutId": "disruption-vs-reconnaissance-1", "regionId": "r030", "action": "confirm", "fromEdge": "left" },
+
+    { "layoutId": "disruption-vs-reconnaissance-2-portrait", "regionId": "r030", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+    { "layoutId": "disruption-vs-reconnaissance-2-portrait", "regionId": "r007", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-reconnaissance-2-portrait", "regionId": "r008", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "disruption-vs-reconnaissance-2-portrait", "regionId": "r009", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "priority-assets-mirror-1-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "priority-assets-mirror-1-portrait", "regionId": "r007", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "priority-assets-mirror-1-portrait", "regionId": "r009", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "priority-assets-mirror-1-portrait", "regionId": "r010", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "priority-assets-mirror-2", "regionId": "r003", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "priority-assets-mirror-2", "regionId": "r008", "action": "confirm", "tenthsOfInch": 90, "fromEdge": "left" },
+
+    { "layoutId": "priority-assets-vs-reconnaissance-3-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "purge-the-foe-mirror-1", "regionId": "r009", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-mirror-1", "regionId": "r027", "action": "confirm", "fromEdge": "right" },
+
+    { "layoutId": "purge-the-foe-mirror-2", "regionId": "r007", "action": "confirm", "tenthsOfInch": 135, "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-mirror-2", "regionId": "r032", "action": "confirm", "tenthsOfInch": 77, "fromEdge": "bottom" },
+
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r012", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r015", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r016", "action": "confirm", "tenthsOfInch": 51 },
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r019", "action": "confirm", "tenthsOfInch": 250, "fromEdge": "bottom" },
+    { "layoutId": "purge-the-foe-mirror-3-portrait", "regionId": "r028", "action": "confirm", "tenthsOfInch": 71, "fromEdge": "bottom" },
+
+    { "layoutId": "purge-the-foe-vs-priority-assets-1-portrait", "regionId": "r003", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-vs-priority-assets-1-portrait", "regionId": "r007", "action": "confirm", "tenthsOfInch": 110, "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-vs-priority-assets-1-portrait", "regionId": "r008", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "purge-the-foe-vs-priority-assets-1-portrait", "regionId": "r031", "action": "confirm", "fromEdge": "bottom" },
+
+    { "layoutId": "purge-the-foe-vs-priority-assets-3", "regionId": "r030", "action": "confirm", "tenthsOfInch": 25, "fromEdge": "right" },
+    { "layoutId": "purge-the-foe-vs-priority-assets-3", "regionId": "r032", "action": "confirm", "tenthsOfInch": 90, "fromEdge": "bottom" },
+
+    { "layoutId": "purge-the-foe-vs-reconnaissance-1", "regionId": "r032", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+    { "layoutId": "purge-the-foe-vs-reconnaissance-1", "regionId": "r029", "action": "confirm", "fromEdge": "bottom" },
+
+    { "layoutId": "purge-the-foe-vs-reconnaissance-3", "regionId": "r002", "action": "confirm", "fromEdge": "left" },
+
+    { "layoutId": "reconnaissance-mirror-1-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "reconnaissance-mirror-1-portrait", "regionId": "r005", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "reconnaissance-mirror-1-portrait", "regionId": "r009", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "reconnaissance-mirror-1-portrait", "regionId": "r010", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "reconnaissance-mirror-2", "regionId": "r027", "action": "confirm", "fromEdge": "bottom" },
+    { "layoutId": "reconnaissance-mirror-2", "regionId": "r031", "action": "confirm", "fromEdge": "bottom" },
+
+    { "layoutId": "reconnaissance-mirror-3", "regionId": "r010", "action": "confirm", "tenthsOfInch": 245, "fromEdge": "top" },
+
+    { "layoutId": "take-and-hold-mirror-2-portrait", "regionId": "r001", "action": "confirm", "tenthsOfInch": 50, "fromEdge": "top" },
+    { "layoutId": "take-and-hold-mirror-3", "regionId": "r011", "action": "confirm", "tenthsOfInch": 227 },
+
+    { "layoutId": "take-and-hold-vs-disruption-1-portrait", "regionId": "r023", "action": "confirm", "tenthsOfInch": 40, "fromEdge": "left" },
+    { "layoutId": "take-and-hold-vs-disruption-1-portrait", "regionId": "r002", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-disruption-1-portrait", "regionId": "r005", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-disruption-1-portrait", "regionId": "r011", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "take-and-hold-vs-disruption-2", "regionId": "r014", "action": "confirm", "tenthsOfInch": 50, "fromEdge": "right" },
+
+    { "layoutId": "take-and-hold-vs-priority-assets-1", "regionId": "r032", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" },
+    { "layoutId": "take-and-hold-vs-priority-assets-2", "regionId": "r021", "action": "confirm", "tenthsOfInch": 77 },
+
+    { "layoutId": "take-and-hold-vs-priority-assets-3-portrait", "regionId": "r005", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-priority-assets-3-portrait", "regionId": "r007", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-priority-assets-3-portrait", "regionId": "r008", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait", "regionId": "r032", "action": "confirm", "tenthsOfInch": 50, "fromEdge": "bottom" },
+    { "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait", "regionId": "r004", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-purge-the-foe-1-portrait", "regionId": "r007", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "take-and-hold-vs-purge-the-foe-2", "regionId": "r030", "action": "confirm", "tenthsOfInch": 90, "fromEdge": "bottom" },
+
+    { "layoutId": "take-and-hold-vs-purge-the-foe-3", "regionId": "r005", "action": "confirm", "tenthsOfInch": 50, "fromEdge": "right" },
+
+    { "layoutId": "take-and-hold-vs-reconnaissance-1", "regionId": "r002", "action": "confirm", "fromEdge": "left" },
+    { "layoutId": "take-and-hold-vs-reconnaissance-2-portrait", "regionId": "r001", "action": "confirm", "fromEdge": "top" },
+    { "layoutId": "take-and-hold-vs-reconnaissance-2-portrait", "regionId": "r003", "action": "confirm", "fromEdge": "top" },
+
+    { "layoutId": "take-and-hold-vs-reconnaissance-3", "regionId": "r015", "action": "confirm", "tenthsOfInch": 90, "fromEdge": "right" },
+    { "layoutId": "take-and-hold-vs-reconnaissance-3", "regionId": "r031", "action": "confirm", "tenthsOfInch": 70, "fromEdge": "bottom" }
+  ]
+}
