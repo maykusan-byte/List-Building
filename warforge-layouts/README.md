@@ -86,6 +86,8 @@ Windows : installeur NSIS x64, par utilisateur, dans `release/`. Le script
 construit un projet temporaire minimal puis lance le programme empaqueté pour
 vérifier les 45 layouts, la galerie, le partage et le rechargement. L’installeur
 n’a pas de certificat Authenticode ; Windows peut afficher « éditeur inconnu ».
+L’archive NSIS utilise une compression complète, sans blocs de mise à jour
+différentielle, puisque cette livraison n’utilise pas de mise à jour automatique.
 
 Android : APK release signé, Android 7.0 minimum (API 24), cible API 36.
 Prérequis de compilation : JDK 21, SDK Android 36 et `ANDROID_HOME` (le chemin

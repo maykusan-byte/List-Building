@@ -40,10 +40,6 @@ try {
       `--config.electronVersion=${devDependencies.electron}`,
       `--config.directories.output=${built}`,
     ],
-    {
-      // BCJ2 compresses the Windows x64 executable without changing its bytes.
-      env: { ...process.env, ELECTRON_BUILDER_7Z_FILTER: "BCJ2" },
-    },
   );
   await smokeDesktop(join(built, "win-unpacked", "Warforge Layouts.exe"));
   const name = (await readdir(built)).find(

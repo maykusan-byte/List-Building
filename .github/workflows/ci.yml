@@ -26,6 +26,8 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Install the browser used by both applications
+        run: pnpm --dir warforge-layouts exec playwright install --with-deps chromium
       - name: Verify generated data, tests and production build
         run: pnpm verify
       - name: Verify GitHub Pages build
@@ -34,7 +36,6 @@ jobs:
         run: |
           pnpm --dir warforge-layouts test
           pnpm --dir warforge-layouts build:pages
-          pnpm --dir warforge-layouts exec playwright install --with-deps chromium
           pnpm --dir warforge-layouts test:browser
           node warforge-layouts/scripts/assemble-pages.mjs
           node warforge-layouts/scripts/check-pages.mjs

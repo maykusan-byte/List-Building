@@ -24,7 +24,7 @@ Lancer `Warforge Layouts Setup 1.0.0.exe` pour installer l’application x64
 dans le compte utilisateur. Le dossier d’installation est personnalisable.
 L’installeur n’a pas de certificat Authenticode (éditeur inconnu).
 
-SHA-256 : `090a81858584d7f0a40633868e9ebf42881f9d220e0d193eb9ea6c929c234a8f`.
+SHA-256 : `b1717c65963094e7fde4e18eea829332ca85c4100abba1db0061eb522d244e50`.
 
 ## Vérification
 
