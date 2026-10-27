@@ -74,3 +74,16 @@
   avec galerie de 45 layouts, lecture des 45 JSON via le protocole local,
   sélection d’un layout, lien public et rechargement. Aucun échec JavaScript.
 - Les binaires sont accompagnés de SHA-256 ; les clés Android restent locales.
+
+## Livraison confirmée
+
+- Commit applicatif `e9a0bf7a3783dde3149c7e68d9934c6391fa26e9`.
+- [Déploiement Pages réussi](https://github.com/maykusan-byte/List-Building/actions/runs/40562745655)
+  et [CI complète réussie](https://github.com/maykusan-byte/List-Building/actions/runs/40562745469).
+- Contrôle sur le site public : réponse HTTP 200, manifeste de 45 layouts,
+  sélection d’un décor, tableau des quatre coins et rechargement de la vue.
+  L’aperçu avec l’ancien cache PWA affiche aussi le visualiseur après sa mise à jour.
+- Les six scénarios navigateur de la PWA passent également sur la copie propre.
+- APK de 17 319 317 octets et installeur Windows de 96 257 459 octets déposés
+  dans le dossier Drive de release ; noms, tailles et dossier parent relus via
+  l’API. Deux fichiers SHA-256 et notes d’installation accompagnent les builds.

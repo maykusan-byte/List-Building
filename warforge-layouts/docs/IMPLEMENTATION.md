@@ -1,6 +1,7 @@
 # Livraison initiale — 27 octobre 2026
 
 Tâche : LAYOUTS-01, application autonome de pose des 45 layouts.
+Statut : terminé et livré le 27 octobre 2026.
 Chemins autorisés : warforge-layouts/, documentation racine, configuration
 workspace/lock, workflows Pages/CI, configuration de navigation du service
 worker PWA. Les autres changements préexistants restent hors livraison.
