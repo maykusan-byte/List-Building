@@ -30,5 +30,13 @@ jobs:
         run: pnpm verify
       - name: Verify GitHub Pages build
         run: pnpm --dir warforge-pwa build:pages
+      - name: Verify layout viewer
+        run: |
+          pnpm --dir warforge-layouts test
+          pnpm --dir warforge-layouts build:pages
+          pnpm --dir warforge-layouts exec playwright install --with-deps chromium
+          pnpm --dir warforge-layouts test:browser
+          node warforge-layouts/scripts/assemble-pages.mjs
+          node warforge-layouts/scripts/check-pages.mjs
       - name: Ensure generated artifacts are committed
         run: git diff --exit-code

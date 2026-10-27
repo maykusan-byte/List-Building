@@ -1,5 +1,6 @@
 packages:
   - warforge-pwa
+  - warforge-layouts
 allowBuilds:
   electron-winstaller: false
   esbuild: true

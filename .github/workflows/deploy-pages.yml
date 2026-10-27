@@ -36,6 +36,12 @@ jobs:
         run: pnpm --dir warforge-pwa faction-packs:validate
       - name: Build the PWA
         run: pnpm --dir warforge-pwa build:pages
+      - name: Validate and build the layout viewer
+        run: |
+          pnpm --dir warforge-layouts test
+          pnpm --dir warforge-layouts build:pages
+      - name: Assemble both public applications
+        run: node warforge-layouts/scripts/assemble-pages.mjs
       - name: Verify generated artifacts
         run: git diff --exit-code
       - name: Configure GitHub Pages

@@ -5,6 +5,11 @@
 Tout nouveau développement cible `warforge-pwa/`. Lire `warforge-pwa/AGENTS.md`
 avant de modifier l’application ou ses données.
 
+Exception publique approuvée le 27 octobre 2026 : `warforge-layouts/` est le
+visualiseur autonome d’aide à la pose des décors. Lire ses propres consignes.
+Il publie uniquement son instantané de layouts sous `/List-Building/layouts/`,
+à côté de la PWA ; cette exception ne publie pas `warforge-lists/`.
+
 `legacy/warorgan/` conserve les deux anciennes pages HTML et leur base
 historique. Ne pas y modifier les fichiers, ni les remettre dans le flux de
 production, sans demande explicite. Une modification locale éventuellement

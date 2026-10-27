@@ -32,6 +32,7 @@ export default defineConfig(({ mode }) => {
           start_url: base
         },
         workbox: {
+          navigateFallbackDenylist: [/^\/(?:List-Building\/)?layouts(?:\/|$)/],
           globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,json,csv}'],
           globIgnores: ['assets/gdm-11th/**/*'],
           maximumFileSizeToCacheInBytes: 45 * 1024 * 1024,

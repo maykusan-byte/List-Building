@@ -1,0 +1,10 @@
+{
+  "appId": "com.warforge.layouts",
+  "appName": "Warforge Layouts",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  }
+}
